@@ -185,8 +185,8 @@
   "text": "What's new, what broke, and which tools climbed the leaderboard — one email a week. Free.",
   "subscribe": "Subscribe",
   "thanks": "Thanks — check your inbox.",
-  "preview": "Preview mode: signup isn't connected yet, nothing was sent.",
-  "rss": "Or follow via <a href=\"/rss.xml\">RSS</a>."
+  "rss": "Or follow via <a href=\"/rss.xml\">RSS</a>.",
+  "email": "Email <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> to join."
  },
  "home": {
   "h1a": "AI tools for",

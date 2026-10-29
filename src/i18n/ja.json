@@ -184,8 +184,8 @@
   "text": "新着、壊れたもの、ランキングを上げたツールを週1回のメールでお届けします。無料。",
   "subscribe": "購読する",
   "thanks": "ありがとうございます。受信トレイをご確認ください。",
-  "preview": "プレビューモード：購読機能はまだ接続されておらず、何も送信されていません。",
-  "rss": "<a href=\"/rss.xml\">RSS</a>でもフォローできます。"
+  "rss": "<a href=\"/rss.xml\">RSS</a>でもフォローできます。",
+  "email": "購読をご希望の方は <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> までメールでご連絡ください。"
  },
  "home": {
   "h1a": "AIツール —",
