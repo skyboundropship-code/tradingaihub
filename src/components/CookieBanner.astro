@@ -1,6 +1,10 @@
 ---
 // Consent bar + consent-gated analytics. No cookies are set by this site; the only optional
 // third-party script is Cloudflare Web Analytics, which loads only after "Accept".
+// Placement: rendered in normal flow directly below the sticky header (Base.astro), so it pushes the
+// page down instead of floating over it: it can never cover the TradingView partner CTA or the
+// accessibility button, at any width or scroll position, and it is early in the Tab order.
+// The inline script runs while the page is still parsing (before <main>), so showing it causes no layout shift.
 import "../styles/cookies.css";
 import { useT } from "../i18n";
 import { useCookieT, CONSENT_VERSION, CONSENT_MAX_AGE_DAYS } from "../i18n/cookies";
@@ -12,7 +16,7 @@ const ck = useCookieT(lang);
 const ANALYTICS_NEEDS_CONSENT = true;
 const CF_BEACON_TOKEN = "cde00777b33549fd85679e7d4c050fc6";
 ---
-<section id="ck-bar" class="ck-bar" role="region" aria-label={ck("b.label")} hidden>
+<section id="ck-bar" class="ck-bar" role="region" aria-label={ck("b.label")} aria-describedby="ck-text" tabindex="-1" hidden>
   <div class="ck-in">
     <p class="ck-text" id="ck-text">{ck("b.text")} <a href={p("/cookies/")}>{ck("b.policy")}</a></p>
     <div class="ck-act">
@@ -28,10 +32,9 @@ const CF_BEACON_TOKEN = "cde00777b33549fd85679e7d4c050fc6";
   function read(){try{var c=JSON.parse(localStorage.getItem(KEY)||"null");if(c&&c.v===VER&&(c.choice==="accept"||c.choice==="reject")&&typeof c.ts==="number"&&Date.now()-c.ts<MAXAGE*864e5)return c}catch(e){}return null}
   function loadAnalytics(){if(window.__cfBeacon||document.querySelector('script[data-cf-beacon]'))return;window.__cfBeacon=1;var s=document.createElement("script");s.defer=true;s.src="https://static.cloudflareinsights.com/beacon.min.js";s.setAttribute("data-cf-beacon",JSON.stringify({token:TOKEN}));document.body.appendChild(s)}
   function say(t){live.textContent="";setTimeout(function(){live.textContent=t},60)}
-  function setH(){de.style.setProperty("--ck-h",bar.hidden?"0px":bar.offsetHeight+"px")}
-  function show(focus){bar.hidden=false;de.classList.add("ck-open");setH();if(focus){var b=bar.querySelector('[data-ck="accept"]');b&&b.focus()}else say(MSG.label)}
+  function setH(){de.style.setProperty("--ck-h","0px")} /* in-flow bar: nothing fixed to offset */
+  function show(focus){bar.hidden=false;de.classList.add("ck-open");setH();if(focus){try{window.scrollTo({top:0,behavior:"auto"})}catch(e){window.scrollTo(0,0)}var b=bar.querySelector('[data-ck="reject"]');b&&b.focus({preventScroll:true})}}
   function hide(){bar.hidden=true;de.classList.remove("ck-open");setH()}
-  window.addEventListener("resize",function(){if(!bar.hidden)setH()});
   bar.addEventListener("click",function(e){var b=e.target.closest("[data-ck]");if(!b)return;var choice=b.getAttribute("data-ck");
     try{localStorage.setItem(KEY,JSON.stringify({v:VER,choice:choice,ts:Date.now()}))}catch(err){}
     var back=window.__ckReturn;hide();say(choice==="accept"?MSG.accepted:MSG.rejected);

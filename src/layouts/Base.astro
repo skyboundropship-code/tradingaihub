@@ -53,6 +53,7 @@ const cur = localeOf(lang);
     <a class="btn" href={p("/submit/")}>{t("nav.submit")}</a>
   </div>
 </div></header>
+<CookieBanner lang={lang} />
 <main><Fragment set:html="<!--email_off-->" /><slot /><Fragment set:html="<!--/email_off-->" /></main>
 <footer class="site"><div class="wrap">
   <div class="cols">
@@ -70,6 +71,5 @@ document.querySelectorAll(".langmenu a").forEach(function(a){a.addEventListener(
 document.querySelectorAll(".themetoggle").forEach(function(b){var d=document.documentElement;b.setAttribute("aria-pressed",d.dataset.theme==="dark"?"true":"false");b.addEventListener("click",function(){var n=d.dataset.theme==="dark"?"light":"dark";d.dataset.theme=n;b.setAttribute("aria-pressed",n==="dark"?"true":"false");try{localStorage.setItem("theme",n)}catch(e){}})});
 document.addEventListener("click",function(e){document.querySelectorAll("details.langs[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});
 </script>
-    <!-- Cloudflare Web Analytics (cookieless) is loaded by CookieBanner only after the visitor clicks Accept. -->
-    <CookieBanner lang={lang} />
+    <!-- Cloudflare Web Analytics (cookieless) is loaded by CookieBanner (below the header) only after the visitor clicks Accept. -->
   </body></html>
