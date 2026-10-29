@@ -67,4 +67,6 @@ document.querySelectorAll(".langmenu a").forEach(function(a){a.addEventListener(
 document.querySelectorAll(".themetoggle").forEach(function(b){b.addEventListener("click",function(){var d=document.documentElement,n=d.dataset.theme==="dark"?"light":"dark";d.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}})});
 document.addEventListener("click",function(e){document.querySelectorAll("details.langs[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});
 </script>
-</body></html>
+    <!-- Cloudflare Web Analytics (cookieless) -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "cde00777b33549fd85679e7d4c050fc6"}'></script>
+  </body></html>

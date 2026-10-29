@@ -21,3 +21,17 @@ Skip (rules forbid or inactive): wong2 (no PRs), appcypher (archived), kyrolabs 
 
 PR body template: "Adds TradingAIHub, a free directory of finance/trading MCP servers, agent skills and APIs. Each entry is re-checked weekly (last commit, archived, official vs community). Disclosure: I maintain it. Happy to adjust section/wording."
 Re-read each CONTRIBUTING right before opening (alphabetical order, trailing period, no badges).
+
+## Status (2026-10-29): opened
+| List | PR |
+|---|---|
+| wilsonfreitas/awesome-quant (Related Lists) | https://github.com/wilsonfreitas/awesome-quant/pull/916 |
+| georgezouq/awesome-ai-in-finance (Others) | https://github.com/georgezouq/awesome-ai-in-finance/pull/337 |
+| thuquant/awesome-quant (其他Quant资源索引) | https://github.com/thuquant/awesome-quant/pull/105 |
+| wangzhe3224/awesome-systematic-trading (Relevant Projects) | https://github.com/wangzhe3224/awesome-systematic-trading/pull/223 |
+| jplock/awesome-fintech (Capital Markets) | https://github.com/jplock/awesome-fintech/pull/189 |
+
+Skipped (rules forbid or don't fit): punkpeye/awesome-mcp-servers, MobinX, AlexMili, TensorBlock (MCP servers only, no directories);
+yzfly (explicitly rejects directories/aggregators); ComposioHQ (SKILL.md skills only); moov-io (needs meaningful adoption);
+LLMQuant/awesome-trading-agents (100-star minimum + bilingual rule); travisvn (no recent merges); paperswithbacktest (no fitting section);
+wong2, appcypher, kyrolabs, VoltAgent, hesreallyhim, e2b-dev, heilcheng (server/skill-only lists). Revisit MCP-server lists once the repo has stars.
