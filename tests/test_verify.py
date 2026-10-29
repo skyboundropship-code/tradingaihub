@@ -8,6 +8,10 @@ spec = importlib.util.spec_from_file_location("verify", os.path.join(ROOT, "scri
 V = importlib.util.module_from_spec(spec); spec.loader.exec_module(V)
 
 
+def _read(path):
+    with open(path) as f: return f.read()
+
+
 class R:
     """Minimal stand-in for a requests.Response."""
     def __init__(self, status, headers=None, json_body=None):
@@ -44,6 +48,16 @@ class Alive(unittest.TestCase):
         self.assertEqual((a["result"], a["status"], a["first_status"], a["retry"]), ("ok", 200, 403, "browser-headers"))
         self.assertEqual(len(calls), 2)
 
+    def test_g1_browser_retry_cloudflare_challenge_gated(self):
+        def fake(url, **kw): return R(200, {"cf-mitigated": "challenge"}) if kw.get("headers") else R(403)
+        with mock.patch.object(V, "get", side_effect=fake):
+            a = V.alive("https://x/")
+        self.assertEqual((a["result"], a["ok"]), ("gated", False))
+
+    def test_first_get_cloudflare_challenge_gated(self):
+        with mock.patch.object(V, "get", return_value=R(200, {"cf-mitigated": "challenge"})):
+            self.assertEqual(V.alive("https://x/")["result"], "gated")
+
     def test_403_still_refused_is_gated_not_pass(self):
         with mock.patch.object(V, "get", return_value=R(403)):
             a = V.alive("https://x/"); self.assertEqual((a["result"], a["ok"]), ("gated", False))
@@ -57,16 +71,65 @@ class Alive(unittest.TestCase):
             a = V.alive("https://x/"); self.assertEqual((a["result"], a["status"]), ("error", "ConnectionError"))
 
 
+JSON = {"Content-Type": "application/json"}
+SSE = {"Content-Type": "text/event-stream"}
+def hdr(md="https://mcp.example.com/.well-known/oauth-protected-resource/v2/mcp"):
+    return f'Bearer realm="x", resource_metadata="{md}", scope="read"'
+
+
 class McpProbe(unittest.TestCase):
     def probe(self, post, get=None, meta=None):
         seq = [post] + ([get] if get else [])
-        with mock.patch.object(V, "_req", side_effect=seq) as rq, mock.patch.object(V, "get", return_value=meta or R(404)):
+        fm = mock.Mock(return_value=meta or R(404))
+        with mock.patch.object(V, "_req", side_effect=seq) as rq, mock.patch.object(V, "fetch_metadata", fm):
             out = V.mcp_probe("https://mcp.example.com/mcp")
         return out, rq
 
     def test_initialize_200_ok(self):
-        a, _ = self.probe((R(200), b'{"jsonrpc":"2.0","result":{}}'))
+        a, _ = self.probe((R(200, JSON), b'{"jsonrpc":"2.0","id":1,"result":{}}'))
         self.assertEqual((a["result"], a["evidence"]), ("ok", "mcp-initialize"))
+
+    def test_initialize_sse_ok(self):
+        a, _ = self.probe((R(200, SSE), b'event: message\ndata: {"jsonrpc":"2.0","id":1,"result":{}}\n\n'))
+        self.assertEqual((a["result"], a["evidence"]), ("ok", "mcp-initialize"))
+
+    def test_jsonrpc_error_response_still_alive(self):
+        a, _ = self.probe((R(200, JSON), b'{"jsonrpc":"2.0","id":1,"error":{"code":-32600,"message":"x"}}'))
+        self.assertEqual(a["result"], "ok")
+
+    # gaming cases (QA G1-G3 and friends)
+    def test_g2_post_200_html_gated(self):
+        a, _ = self.probe((R(200, {"Content-Type": "text/html"}), b'<html>"jsonrpc"</html>'))
+        self.assertEqual(a["result"], "gated"); self.assertIn("JSON-RPC", a["why"])
+
+    def test_post_200_json_without_jsonrpc_gated(self):
+        for body in (b'{"ok":true}', b'{"jsonrpc":"2.0","id":2,"result":{}}', b'{"jsonrpc":"1.0","id":1,"result":{}}', b"not json"):
+            with self.subTest(body=body):
+                a, _ = self.probe((R(200, JSON), body)); self.assertEqual(a["result"], "gated")
+
+    def test_post_200_cloudflare_challenge_gated(self):
+        a, _ = self.probe((R(200, {**JSON, "cf-mitigated": "challenge"}), b'{"jsonrpc":"2.0","id":1,"result":{}}'))
+        self.assertEqual(a["result"], "gated")
+
+    def test_g3_post_405_get_html_gated(self):
+        a, _ = self.probe((R(405), b""), get=(R(200, {"Content-Type": "text/html"}), b"<html>event: data:</html>"))
+        self.assertEqual((a["result"], a["method"]), ("gated", "GET"))
+
+    def test_post_405_get_sse_without_events_gated(self):
+        a, _ = self.probe((R(405), b""), get=(R(200, SSE), b""))
+        self.assertEqual(a["result"], "gated")
+
+    def test_open_stream_timeout_is_gated_not_crash(self):
+        a, _ = self.probe((V.Timeout("no complete answer within 8s"), b": ping\n"))
+        self.assertEqual((a["result"], a["status"]), ("gated", "Timeout"))
+
+    def test_403_with_good_metadata_is_never_verified(self):
+        h = {"WWW-Authenticate": hdr("https://mcp.example.com/.well-known/oauth-protected-resource/mcp")}
+        meta = R(200, json_body={"resource": "https://mcp.example.com/mcp", "authorization_servers": ["https://a"]})
+        a, _ = self.probe((R(403, h), b""), meta=meta)
+        self.assertEqual(a["result"], "gated"); self.assertIn("403", a["why"])
+        a, _ = self.probe((R(401, h), b""), meta=meta)  # same evidence on a 401 passes
+        self.assertEqual(a["result"], "ok")
 
     def test_404_dead_paypal_case(self):
         a, rq = self.probe((R(404), b""))
@@ -75,14 +138,12 @@ class McpProbe(unittest.TestCase):
     def test_401_with_strict_oauth_metadata_ok(self):
         h = {"WWW-Authenticate": 'Bearer resource_metadata="https://mcp.example.com/.well-known/oauth-protected-resource/mcp"'}
         meta = R(200, json_body={"resource": "https://mcp.example.com/mcp", "authorization_servers": ["https://auth.example.com"]})
-        with mock.patch.object(V.S, "get", return_value=meta):
-            a, _ = self.probe((R(401, h), b""))
+        a, _ = self.probe((R(401, h), b""), meta=meta)
         self.assertEqual((a["result"], a["evidence"]), ("ok", "mcp-oauth"))
 
     def test_401_weak_metadata_gated_with_reason(self):
         h = {"WWW-Authenticate": 'Bearer resource_metadata="https://mcp.example.com/.well-known/oauth-protected-resource"'}
-        with mock.patch.object(V.S, "get", return_value=R(200, json_body={"resource": "https://mcp.example.com/mcp"})):
-            a, _ = self.probe((R(401, h), b""))
+        a, _ = self.probe((R(401, h), b""), meta=R(200, json_body={"resource": "https://mcp.example.com/mcp"}))
         self.assertEqual(a["result"], "gated"); self.assertIn("authorization_servers", a["why"])
 
     def test_401_plain_bearer_gated(self):
@@ -90,7 +151,7 @@ class McpProbe(unittest.TestCase):
         self.assertEqual(a["result"], "gated")
 
     def test_post_405_falls_back_to_get(self):
-        a, rq = self.probe((R(405), b""), get=(R(200), b"event: endpoint"))
+        a, rq = self.probe((R(405), b""), get=(R(200, SSE), b"event: endpoint\ndata: /messages\n\n"))
         self.assertEqual((a["result"], a["method"], a["post_status"]), ("ok", "GET", 405)); self.assertEqual(rq.call_count, 2)
 
     def test_post_405_get_405_gated(self):
@@ -108,12 +169,10 @@ class McpProbe(unittest.TestCase):
 
 EP = "https://mcp.example.com/v2/mcp"
 GOOD = {"resource": EP, "authorization_servers": ["https://auth.example.com"]}
-def hdr(md="https://mcp.example.com/.well-known/oauth-protected-resource/v2/mcp"):
-    return f'Bearer realm="x", resource_metadata="{md}", scope="read"'
 
 
 class OauthEvidenceStrict(unittest.TestCase):
-    """QA rule (PR #18): a 401 is verified only if (a) same-registrable-domain/allowlisted metadata URL,
+    """QA rule (PR #18): a 401 is verified only if (a) metadata URL on the EXACT endpoint host (or allowlisted host),
     (b) valid JSON, (c) resource matches endpoint origin + path prefix, (d) >=1 authorization_servers."""
     def ev(self, www=None, body=GOOD, status=200, endpoint=EP, raise_=None):
         def fetch(u):
@@ -124,38 +183,64 @@ class OauthEvidenceStrict(unittest.TestCase):
     def test_all_conditions_pass(self):
         self.assertEqual(self.ev(), (True, "https://mcp.example.com/.well-known/oauth-protected-resource/v2/mcp"))
 
-    def test_unquoted_metadata_and_sibling_subdomain_pass(self):
-        self.assertTrue(self.ev(www="Bearer resource_metadata=https://auth.example.com/.well-known/oauth-protected-resource")[0])
+    def test_unquoted_metadata_and_host_case(self):
+        self.assertTrue(self.ev(www="Bearer resource_metadata=https://MCP.Example.com/.well-known/oauth-protected-resource")[0])
+        self.assertTrue(self.ev(www="bearer resource_metadata=https://mcp.example.com/.well-known/oauth-protected-resource")[0])
 
     # (a)
     def test_a_bare_401_or_no_bearer(self):
         self.assertFalse(self.ev(www="")[0]); self.assertFalse(self.ev(www='Basic realm="x"')[0])
         self.assertFalse(self.ev(www='Bearer error="invalid_token"')[0])
 
-    def test_a_foreign_domain(self):
-        ok, why = self.ev(www=hdr("https://evil.example.net/.well-known/oauth-protected-resource"))
-        self.assertFalse(ok); self.assertIn("allowlisted", why)
+    def test_a_bearer_required_even_with_good_metadata(self):
+        for scheme in ("Basic", "Digest", "DPoP", "Negotiate", ""):
+            with self.subTest(scheme=scheme):
+                www = f'{scheme} resource_metadata="https://mcp.example.com/.well-known/oauth-protected-resource/v2/mcp"'.strip()
+                ok, why = self.ev(www=www); self.assertFalse(ok); self.assertIn("Bearer", why)
 
-    def test_a_lookalike_suffix_domain(self):
-        self.assertFalse(self.ev(www=hdr("https://mcp.example.com.evil.io/.well-known/oauth-protected-resource"))[0])
+    def test_a_sibling_subdomain_rejected(self):
+        for h in ("auth.example.com", "example.com", "www.example.com", "a.mcp.example.com"):
+            with self.subTest(h=h):
+                ok, why = self.ev(www=hdr(f"https://{h}/.well-known/oauth-protected-resource"))
+                self.assertFalse(ok); self.assertIn("endpoint host", why)
+
+    def test_a_shared_hosting_and_cctld_pairs_rejected(self):
+        # QA's PSL list: a last-two-labels rule would merge these tenants. Exact host never does.
+        pairs = [("a.appspot.com", "evil.appspot.com"), ("a.blogspot.com", "evil.blogspot.com"),
+                 ("a.s3.amazonaws.com", "evil.s3.amazonaws.com"), ("a.web.app", "evil.web.app"),
+                 ("a.firebaseapp.com", "evil.firebaseapp.com"), ("a.r2.dev", "evil.r2.dev"), ("a.deno.dev", "evil.deno.dev"),
+                 ("mcp.example.com.ar", "evil.com.ar"), ("mcp.example.co.at", "evil.co.at"),
+                 ("a.example.co.uk", "evil.co.uk"), ("alice.github.io", "bob.github.io")]
+        for ep, md in pairs:
+            with self.subTest(ep=ep, md=md):
+                e = f"https://{ep}/mcp"
+                self.assertFalse(self.ev(endpoint=e, www=hdr(f"https://{md}/.well-known/oauth-protected-resource"),
+                                         body={"resource": e, "authorization_servers": ["https://a"]})[0])
+                self.assertTrue(self.ev(endpoint=e, www=hdr(f"https://{ep}/.well-known/oauth-protected-resource"),
+                                        body={"resource": e, "authorization_servers": ["https://a"]})[0])
+
+    def test_a_foreign_and_lookalike_hosts(self):
+        for md in ("https://evil.example.net/x", "https://mcp.example.com.evil.io/x", "https://mcp.example.com@evil.io/x"):
+            with self.subTest(md=md): self.assertFalse(self.ev(www=hdr(md))[0])
 
     def test_a_http_metadata(self):
         self.assertFalse(self.ev(www=hdr("http://mcp.example.com/.well-known/oauth-protected-resource"))[0])
 
+    def test_a_bad_metadata_url_port(self):
+        ok, why = self.ev(www=hdr("https://mcp.example.com:abc/.well-known/oauth-protected-resource"))
+        self.assertFalse(ok)
+
     def test_a_allowlist(self):
         md = hdr("https://login.vendorauth.com/.well-known/oauth-protected-resource")
         self.assertFalse(self.ev(www=md)[0])
-        with mock.patch.dict(V.VENDOR_AUTH_DOMAINS, {"example.com": frozenset({"vendorauth.com"})}):
+        with mock.patch.dict(V.VENDOR_AUTH_HOSTS, {"mcp.example.com": frozenset({"login.vendorauth.com"})}):
             self.assertTrue(self.ev(www=md)[0])
+            self.assertFalse(self.ev(www=hdr("https://other.vendorauth.com/x"))[0])
 
-    def test_a_allowlist_ships_minimal(self):
-        self.assertLessEqual(len(V.VENDOR_AUTH_DOMAINS), 3)
-
-    def test_registrable_domain(self):
-        self.assertEqual(V.registrable_domain("mcp.api.coingecko.com"), "coingecko.com")
-        self.assertEqual(V.registrable_domain("a.b.example.co.uk"), "example.co.uk")
-        self.assertEqual(V.registrable_domain("foo.github.io"), "foo.github.io")
-        self.assertNotEqual(V.registrable_domain("a.github.io"), V.registrable_domain("b.github.io"))
+    def test_a_allowlist_ships_empty_and_no_psl_logic(self):
+        self.assertEqual(V.VENDOR_AUTH_HOSTS, {})
+        for gone in ("registrable_domain", "MULTI_SUFFIXES", "VENDOR_AUTH_DOMAINS"):
+            self.assertFalse(hasattr(V, gone), gone)
 
     # (b)
     def test_b_non_200(self):
@@ -186,6 +271,14 @@ class OauthEvidenceStrict(unittest.TestCase):
         self.assertTrue(self.ev(body={**GOOD, "resource": "https://MCP.example.com:443/v2/mcp"})[0])
 
     # (d)
+    def test_c_invalid_resource_url_no_crash(self):
+        for res in ("https://mcp.example.com:abc/v2/mcp", "https://mcp.example.com:99999/v2/mcp", "https://[::1/v2/mcp", "not a url", "https:///v2/mcp"):
+            with self.subTest(res=res):
+                ok, why = self.ev(body={**GOOD, "resource": res}); self.assertFalse(ok)
+
+    def test_b_fetch_any_exception_no_crash(self):
+        self.assertFalse(self.ev(raise_=ValueError("x"))[0])
+
     def test_d_authorization_servers(self):
         for au in (None, [], [""], ["  "], "https://auth.example.com", [1]):
             body = {"resource": EP} if au is None else {"resource": EP, "authorization_servers": au}
@@ -239,6 +332,131 @@ class StatusOf(unittest.TestCase):
         self.assertEqual(V.status_of(ver([], archived=True)), "archived")
 
 
+class CrossOrg(unittest.TestCase):
+    """OpenBB-finance/OpenBB -> openbq-org/OpenBB: Needs review, never verified, with the note; link not rewritten."""
+    G = {"reachable": True, "final_url": "https://github.com/openbq-org/OpenBB", "archived": False, "stars": 1,
+         "license": "AGPL-3.0", "last_commit": "2026-10-20T00:00:00Z", "cross_org_redirect": "https://github.com/openbq-org/OpenBB"}
+
+    def run_verify(self, g):
+        t = {"id": "openbb", "type": "api", "repo": "https://github.com/OpenBB-finance/OpenBB"}
+        with mock.patch.object(V, "gh_info", return_value=(dict(g), "openbq-org", "OpenBB")), \
+             mock.patch.object(V, "detect_packages", return_value={}), mock.patch.object(V, "age_days", return_value=8):
+            return V.verify(t)
+
+    def test_cross_org_is_needs_review_with_note(self):
+        v = self.run_verify(self.G)
+        self.assertEqual(v["status"], "unconfirmed")
+        self.assertTrue(any("redirects to another owner" in i and "openbq-org" in i for i in v["issues"]), v["issues"])
+
+    def test_same_owner_stays_verified(self):
+        g = {k: x for k, x in self.G.items() if k != "cross_org_redirect"}; g["final_url"] = "https://github.com/OpenBB-finance/OpenBB"
+        v = self.run_verify(g)
+        self.assertEqual((v["status"], v["issues"]), ("verified", []))
+
+    def test_status_of_cross_org(self):
+        with mock.patch.object(V, "age_days", return_value=5):
+            self.assertEqual(V.status_of(ver([], cross_org_redirect="https://github.com/x/y")), "unconfirmed")
+        with mock.patch.object(V, "age_days", return_value=300):
+            self.assertEqual(V.status_of(ver([], cross_org_redirect="https://github.com/x/y")), "aging")
+
+    def test_main_does_not_rewrite_repo(self):
+        src = _read(os.path.join(ROOT, "scripts/verify.py"))
+        self.assertIn('not g.get("cross_org_redirect"): t["repo"] = g["final_url"]', src)
+
+
+class RunNeverDies(unittest.TestCase):
+    def test_safe_verify_turns_crash_into_needs_review(self):
+        with mock.patch.object(V, "verify", side_effect=ValueError("Port could not be cast to integer value as 'abc'")):
+            v = V.safe_verify({"id": "x"})
+        self.assertEqual(v["status"], "unconfirmed"); self.assertIn("ValueError", v["issues"][0])
+
+    def test_recheck_once_before_demotion(self):
+        todo = [{"id": "a"}, {"id": "b"}, {"id": "c"}]
+        current = {i: {"verification": {"status": s}} for i, s in (("a", "verified"), ("b", "verified"), ("c", "unconfirmed"))}
+        fresh = {"a": {"status": "unconfirmed"}, "b": {"status": "verified"}, "c": {"status": "unconfirmed"}}
+        fn = mock.Mock(return_value={"status": "verified"})
+        again = V.recheck_demotions(todo, fresh, current, fn=fn)
+        self.assertEqual(again, ["a"]); fn.assert_called_once_with({"id": "a"})
+        self.assertEqual(fresh["a"], {"status": "verified", "rechecked": True})
+
+    def test_recheck_keeps_second_result(self):
+        fresh = {"a": {"status": "warning"}}
+        V.recheck_demotions([{"id": "a"}], fresh, {"a": {"verification": {"status": "verified"}}}, fn=lambda t: {"status": "unconfirmed"})
+        self.assertEqual(fresh["a"]["status"], "unconfirmed")
+
+
+import http.server, threading, time
+
+class _H(http.server.BaseHTTPRequestHandler):
+    protocol_version = "HTTP/1.1"
+    def log_message(self, *a): pass
+    def _chunk(self, b): self.wfile.write(b"%x\r\n%s\r\n" % (len(b), b)); self.wfile.flush()
+    def _sse(self, first=None, ping=False):
+        self.send_response(200); self.send_header("Content-Type", "text/event-stream"); self.send_header("Transfer-Encoding", "chunked"); self.end_headers()
+        try:
+            if first: self._chunk(first)
+            for _ in range(40):
+                if ping: self._chunk(b": ping\n")
+                time.sleep(0.1)
+        except OSError: pass
+    def _send(self, code, body=b"", ctype="application/json", **h):
+        self.send_response(code); self.send_header("Content-Type", ctype); self.send_header("Content-Length", str(len(body)))
+        for k, x in h.items(): self.send_header(k, x)
+        self.end_headers(); self.wfile.write(body)
+    def do_POST(self):
+        self.rfile.read(int(self.headers.get("content-length", 0)))
+        if self.path == "/hold": self._sse(b'event: message\ndata: {"jsonrpc":"2.0","id":1,"result":{}}\n\n')
+        elif self.path == "/drip": self._sse(ping=True)
+        elif self.path == "/silent": self._sse()
+        elif self.path == "/html": self._send(200, b"<html>jsonrpc</html>", "text/html")
+        else: self._send(404)
+    def do_GET(self):
+        if self.path == "/md-redirect": self._send(302, b"", Location="/md-good")
+        elif self.path == "/md-good": self._send(200, b'{"resource":"x","authorization_servers":["a"]}')
+        else: self._send(404)
+
+
+class LiveServer(unittest.TestCase):
+    """Real sockets on 127.0.0.1: open SSE streams, the read deadline, and redirect handling of the metadata fetch."""
+    @classmethod
+    def setUpClass(cls):
+        cls.srv = http.server.ThreadingHTTPServer(("127.0.0.1", 0), _H); cls.srv.daemon_threads = True
+        threading.Thread(target=cls.srv.serve_forever, daemon=True).start()
+        cls.base = f"http://127.0.0.1:{cls.srv.server_address[1]}"
+        cls.p = [mock.patch.object(V, "DEADLINE", 1.0), mock.patch.object(V, "TIMEOUT", (1, 1.0))]
+        for p in cls.p: p.start()
+    @classmethod
+    def tearDownClass(cls):
+        for p in cls.p: p.stop()
+        cls.srv.shutdown(); cls.srv.server_close()
+
+    def test_open_sse_stream_with_answer_passes_fast(self):
+        t = time.monotonic(); a = V.mcp_probe(self.base + "/hold")
+        self.assertEqual((a["result"], a["evidence"]), ("ok", "mcp-initialize")); self.assertLess(time.monotonic() - t, 0.9)
+
+    def test_open_sse_stream_keepalive_only_times_out_gated(self):
+        for path in ("/drip", "/silent"):
+            with self.subTest(path=path):
+                t = time.monotonic(); a = V.mcp_probe(self.base + path)
+                self.assertEqual((a["result"], a["status"]), ("gated", "Timeout")); self.assertLess(time.monotonic() - t, 3)
+
+    def test_post_200_html_gated(self):
+        self.assertEqual(V.mcp_probe(self.base + "/html")["result"], "gated")
+
+    def test_req_caps_body(self):
+        r, body = V._req("POST", self.base + "/drip", max_body=20, json={})
+        self.assertNotIsInstance(r, Exception)  # stopped at the byte cap, long before the deadline
+        self.assertLessEqual(len(body), 20)
+
+    def test_metadata_fetch_does_not_follow_redirects(self):
+        self.assertEqual(V.fetch_metadata(self.base + "/md-redirect").status_code, 302)
+        self.assertEqual(V.fetch_metadata(self.base + "/md-good").json()["resource"], "x")
+
+    def test_bad_port_endpoint_is_error_not_crash(self):
+        a = V.mcp_probe("http://127.0.0.1:abc/mcp")
+        self.assertFalse(a["ok"])
+
+
 class Args(unittest.TestCase):
     def test_dry_run_and_only(self):
         self.assertEqual(V.parse_args(["--dry-run", "--only=a"], {"a"}), (["a"], True))
@@ -252,10 +470,10 @@ class SiteKnowsEveryStatus(unittest.TestCase):
     STATUSES = {"verified", "unconfirmed", "aging", "stale", "archived", "warning", "unreachable"}
     def test_registered(self):
         import json, glob, re
-        data_ts = open(os.path.join(ROOT, "src/lib/data.ts")).read()
-        og = open(os.path.join(ROOT, "scripts/og.mjs")).read()
-        aw = open(os.path.join(ROOT, "scripts/awesome.py")).read()
-        cat = open(os.path.join(ROOT, "src/pages/[...lang]/category/[slug].astro")).read()
+        data_ts = _read(os.path.join(ROOT, "src/lib/data.ts"))
+        og = _read(os.path.join(ROOT, "scripts/og.mjs"))
+        aw = _read(os.path.join(ROOT, "scripts/awesome.py"))
+        cat = _read(os.path.join(ROOT, "src/pages/[...lang]/category/[slug].astro"))
         for s in self.STATUSES:
             with self.subTest(status=s):
                 self.assertRegex(data_ts, rf"\b{s}: \{{ label"); self.assertRegex(og, rf"\b{s}: \(")

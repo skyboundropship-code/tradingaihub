@@ -51,89 +51,158 @@ def classify(status):
 def link(url, status, result, **extra):
     return {"url": url, "ok": result == "ok", "status": status, "result": result, **extra}
 
+def _challenge(r):
+    """Cloudflare (or similar) bot challenge served with a 2xx/403: never proof the page is live."""
+    return (r.headers.get("cf-mitigated") or "").lower() == "challenge"
+
 def alive(url):
     """GET a homepage/docs URL. We never trust HEAD (many servers answer HEAD with 403/405), and a bot-blocked
-    403/429 gets one retry with browser headers; if that is still refused the link stays "gated"."""
+    403/429 gets one retry with browser headers; if that is still refused, or the "pass" is a bot-challenge page
+    (cf-mitigated: challenge), the link stays "gated"."""
     if not url: return None
     r = get(url)
     if isinstance(r, Exception): return link(url, type(r).__name__, "error")
+    if _challenge(r): return link(url, r.status_code, "gated", why="bot challenge page (cf-mitigated)")
     res = classify(r.status_code)
     if r.status_code in (403, 429):
         r2 = get(url, headers=BROWSER)
         if not isinstance(r2, Exception) and classify(r2.status_code) == "ok":
+            if _challenge(r2):
+                return link(url, r.status_code, "gated", why="browser-header retry got a bot challenge page (cf-mitigated)")
             return link(url, r2.status_code, "ok", first_status=r.status_code, retry="browser-headers")
     return link(url, r.status_code, res)
 
 MCP_INIT = {"jsonrpc": "2.0", "id": 1, "method": "initialize",
             "params": {"protocolVersion": "2025-06-18", "capabilities": {}, "clientInfo": {"name": "tradingaihub-verify", "version": "0.2"}}}
 
-def _req(method, url, **kw):
+# --- Bounded HTTP for MCP endpoints and their metadata -------------------------------------------------------
+# A server may keep an SSE stream open forever (the spec only says it SHOULD close it). Every MCP-side request has
+# a hard wall-clock DEADLINE for headers + body (a watchdog closes the socket) and reads at most MAX_BODY bytes, so
+# one endpoint can never hang or crash the weekly run: the worst case is that this one tool becomes Needs review.
+DEADLINE = 8.0           # seconds, total per request (connect + headers + body)
+TIMEOUT = (5, DEADLINE)  # requests' connect / per-read timeouts (the watchdog enforces the total)
+MAX_BODY = 64 * 1024
+
+class Timeout(Exception):
+    """The request hit DEADLINE (e.g. an SSE stream that stays open without a JSON-RPC response)."""
+
+def _req(method, url, until=None, deadline=None, max_body=MAX_BODY, **kw):
+    """-> (response | exception, body bytes). Body is read only for 2xx, chunk by chunk, until `until(r, body)` is
+    true, EOF, max_body bytes, or the deadline. Never raises: any network/protocol error comes back as the exception."""
+    import threading, time
+    deadline = DEADLINE if deadline is None else deadline
+    kw.setdefault("allow_redirects", True)
+    box, t0 = {}, time.monotonic()
+    def kill():
+        box["timed_out"] = True
+        r = box.get("r")
+        try: r.close() if r is not None else None
+        except Exception: pass
+    w = threading.Timer(deadline, kill); w.daemon = True; w.start()
+    body = b""
     try:
-        r = S.request(method, url, timeout=20, allow_redirects=True, stream=True, **kw)
-        body = r.raw.read(4096, decode_content=True) if r.status_code < 300 else b""
+        r = S.request(method, url, timeout=TIMEOUT, stream=True, **kw); box["r"] = r
+        if 200 <= r.status_code < 300:
+            rd = (lambda n: r.raw.read1(n, decode_content=True)) if hasattr(r.raw, "read1") else (lambda n: r.raw.read(n, decode_content=True))
+            while len(body) < max_body:
+                if box.get("timed_out") or time.monotonic() - t0 > deadline: raise Timeout(f"no complete answer within {deadline:g}s")
+                chunk = rd(min(4096, max_body - len(body)))
+                if not chunk: break
+                body += chunk
+                if until and until(r, body): break
+            if box.get("timed_out") and not (until and until(r, body)): raise Timeout(f"no complete answer within {deadline:g}s")
         r.close(); return r, body
-    except requests.RequestException as e:
-        return e, b""
+    except Exception as e:  # requests/urllib3 errors, socket closed by the watchdog, decode errors ...
+        if box.get("timed_out") and not isinstance(e, Timeout): e = Timeout(f"no complete answer within {deadline:g}s")
+        try: box["r"].close()
+        except Exception: pass
+        return e, body
+    finally:
+        w.cancel()
+
+def jsonrpc_response(body, ctype=""):
+    """The JSON-RPC 2.0 response to our initialize (id 1), from a JSON body or an SSE `data:` line; else None."""
+    def ok(j): return j if isinstance(j, dict) and j.get("jsonrpc") == "2.0" and j.get("id") == 1 and ("result" in j or "error" in j) else None
+    text = body.decode("utf-8", "replace")
+    if "text/event-stream" in ctype:
+        for line in text.splitlines():
+            if line.startswith("data:"):
+                try: j = ok(json.loads(line[5:].strip()))
+                except ValueError: j = None
+                if j: return j
+        return None
+    if "json" in ctype:
+        try: return ok(json.loads(text))
+        except ValueError: return None
+    return None
 
 # --- MCP OAuth evidence (QA rule for 401s, PR #18) ---------------------------------------------
-# A 401/403 from a remote MCP endpoint counts as verified ONLY if ALL of these hold:
-#  (a) WWW-Authenticate is a Bearer challenge with a resource_metadata URL (https) whose host is on the same
-#      registrable domain as the endpoint, or on a vendor auth domain listed in VENDOR_AUTH_DOMAINS;
+# Only a 401 can count as verified (a 403 is always Needs review), and only if ALL of these hold:
+#  (a) WWW-Authenticate is a Bearer challenge with an https resource_metadata URL whose host is EXACTLY the
+#      endpoint's host (case-insensitive), or a host listed for that endpoint host in VENDOR_AUTH_HOSTS.
+#      No registrable-domain / public-suffix logic: sibling subdomains do not count.
 #  (b) that URL answers 200 (redirects are NOT followed) with a valid JSON object;
-#  (c) its "resource" has the endpoint's origin (scheme, host, port) and its path is a segment prefix of the
-#      endpoint's path (e.g. resource https://x.com or https://x.com/mcp for endpoint https://x.com/mcp);
+#  (c) its "resource" is a valid URL with the endpoint's origin (scheme, host, port) and its path is a segment
+#      prefix of the endpoint's path (e.g. resource https://x.com or https://x.com/mcp for endpoint https://x.com/mcp);
 #  (d) it lists at least one non-empty authorization_servers entry.
-# Anything weaker (bare 401, missing/foreign/unloadable metadata, mismatched resource, no auth servers) -> gated.
+# Anything weaker (bare 401, missing/foreign/unloadable metadata, bad or mismatched resource, no auth servers) -> gated.
+# A metadata fetch that errors or answers 5xx is retried once before it counts against the tool.
 #
-# VENDOR_AUTH_DOMAINS: endpoint registrable domain -> extra registrable domains allowed to host its metadata.
-# Keep it empty or minimal; every entry needs a reason (link to the vendor's docs) next to it.
-VENDOR_AUTH_DOMAINS: dict[str, frozenset] = {}
-# Multi-label public suffixes we may meet (registrable domain = suffix + one label). Not the full Public Suffix
-# List: an unknown multi-label suffix makes the check STRICTER (falls back to the last two labels), never looser.
-MULTI_SUFFIXES = frozenset({"co.uk", "org.uk", "ac.uk", "gov.uk", "com.au", "net.au", "org.au", "co.nz", "co.jp", "ne.jp",
-                            "or.jp", "co.kr", "co.in", "net.in", "org.in", "com.br", "com.cn", "com.hk", "com.sg", "com.tr",
-                            "com.mx", "co.za", "co.il", "com.tw", "github.io", "pages.dev", "workers.dev", "vercel.app",
-                            "netlify.app", "herokuapp.com", "onrender.com", "fly.dev", "azurewebsites.net", "cloudfront.net"})
+# VENDOR_AUTH_HOSTS: exact endpoint host -> exact extra hosts allowed to serve its metadata. Ships EMPTY (all
+# current tools serve metadata on the endpoint host). Every entry needs a comment linking the vendor's docs.
+VENDOR_AUTH_HOSTS: dict[str, frozenset] = {}
 
-def registrable_domain(host):
-    h = (host or "").lower().rstrip(".")
-    if not h or re.fullmatch(r"[\d.]+|\[.*\]", h): return h  # IP literal: exact match only
-    parts = h.split(".")
-    n = 3 if len(parts) >= 3 and ".".join(parts[-2:]) in MULTI_SUFFIXES else 2
-    return ".".join(parts[-n:])
+def _host(u):
+    return (urlsplit(u).hostname or "").lower().rstrip(".")
 
 def _origin(u):
+    """(scheme, host, port); raises ValueError on an invalid URL/port."""
     p = urlsplit(u)
     port = p.port or {"https": 443, "http": 80}.get(p.scheme)
-    return (p.scheme.lower(), (p.hostname or "").lower(), port)
+    if not p.hostname: raise ValueError("no host")
+    return (p.scheme.lower(), p.hostname.lower().rstrip("."), port)
 
 def _path_prefix(resource_path, endpoint_path):
     rp, ep = resource_path.rstrip("/"), endpoint_path.rstrip("/")
     return ep == rp or ep.startswith(rp + "/")
 
+class _Meta:
+    def __init__(self, status, body): self.status_code, self._b = status, body
+    def json(self): return json.loads(self._b.decode("utf-8"))
+
+def fetch_metadata(u):
+    """GET protected-resource metadata: redirects NOT followed, bounded size and time, one retry on error/5xx."""
+    for attempt in (1, 2):
+        r, body = _req("GET", u, allow_redirects=False, headers={"Accept": "application/json"})
+        if not isinstance(r, Exception) and r.status_code < 500: return _Meta(r.status_code, body)
+    if isinstance(r, Exception): raise r if isinstance(r, requests.RequestException) else requests.RequestException(str(r) or type(r).__name__)
+    return _Meta(r.status_code, body)
+
 def oauth_evidence(endpoint, www_auth, fetch=None):
-    """QA's strict 401 rule. Returns (True, metadata_url) or (False, reason)."""
-    fetch = fetch or (lambda u: S.get(u, timeout=20, allow_redirects=False, headers={"Accept": "application/json"}))
+    """QA's strict 401 rule. Returns (True, metadata_url) or (False, reason). Never raises."""
+    fetch = fetch or fetch_metadata
     wa = (www_auth or "").strip()
     if not wa.lower().startswith("bearer"): return False, "no Bearer challenge"
     m = re.search(r'resource_metadata="?([^",\s]+)', wa)
     if not m: return False, "no resource_metadata in WWW-Authenticate"
-    md_url = m.group(1); mp = urlsplit(md_url)
-    if mp.scheme != "https" or not mp.hostname: return False, "resource_metadata is not an https URL"
-    ep_dom = registrable_domain(urlsplit(endpoint).hostname)
-    md_dom = registrable_domain(mp.hostname)
-    if md_dom != ep_dom and md_dom not in VENDOR_AUTH_DOMAINS.get(ep_dom, frozenset()):
-        return False, f"resource_metadata on {md_dom}, not {ep_dom} or an allowlisted vendor auth domain"   # (a)
+    md_url = m.group(1)
+    try: mp = urlsplit(md_url); md_host = (mp.hostname or "").lower().rstrip("."); mp.port
+    except ValueError: return False, "resource_metadata is not a valid URL"
+    if mp.scheme != "https" or not md_host: return False, "resource_metadata is not an https URL"
+    ep_host = _host(endpoint)
+    if md_host != ep_host and md_host not in VENDOR_AUTH_HOSTS.get(ep_host, frozenset()):
+        return False, f"resource_metadata on {md_host}, not the endpoint host {ep_host} or an allowlisted vendor auth host"  # (a)
     try: r = fetch(md_url)
-    except requests.RequestException as e: return False, f"metadata fetch failed ({type(e).__name__})"
+    except Exception as e: return False, f"metadata fetch failed ({type(e).__name__})"
     if r.status_code != 200: return False, f"metadata answered {r.status_code}"                          # (b)
     try: j = r.json()
     except ValueError: return False, "metadata is not valid JSON"                                        # (b)
     if not isinstance(j, dict): return False, "metadata is not a JSON object"                            # (b)
     res = j.get("resource")
     if not isinstance(res, str) or not res: return False, "metadata has no resource"                     # (c)
-    if _origin(res) != _origin(endpoint) or not _path_prefix(urlsplit(res).path, urlsplit(endpoint).path):
-        return False, f"metadata resource {res} does not match endpoint origin/path"                     # (c)
+    try: same = _origin(res) == _origin(endpoint) and _path_prefix(urlsplit(res).path, urlsplit(endpoint).path)
+    except ValueError: return False, f"metadata resource {res[:120]!r} is not a valid URL"                # (c)
+    if not same: return False, f"metadata resource {res[:120]} does not match endpoint origin/path"      # (c)
     au = j.get("authorization_servers")
     if not isinstance(au, list) or not any(isinstance(x, str) and x.strip() for x in au):
         return False, "metadata lists no authorization_servers"                                          # (d)
@@ -141,24 +210,43 @@ def oauth_evidence(endpoint, www_auth, fetch=None):
 
 def mcp_probe(url):
     """Remote MCP endpoint: POST a JSON-RPC `initialize` (what a real client sends), not a bare GET.
-    ok     2xx answer (JSON-RPC result or SSE stream), or a 401/403 that passes oauth_evidence() (QA's strict rule).
-    gated  any other 401/403, including a bare 401.
+    ok     2xx with a real JSON-RPC response to initialize (application/json or an SSE data: event), or a 401 that
+           passes oauth_evidence() (QA's strict rule). A 2xx HTML page / challenge page is NOT ok.
+    gated  any other 401, every 403 (even with good metadata), a 2xx without a JSON-RPC answer, a stream that
+           stays open past DEADLINE, a legacy-SSE GET that does not answer text/event-stream.
     other  POST refused with 405/other 4xx -> retry with GET (legacy SSE transport), then classify() as usual."""
     hdr = {"Accept": "application/json, text/event-stream", "Content-Type": "application/json"}
-    r, body = _req("POST", url, json=MCP_INIT, headers=hdr)
+    def ct(resp): return (resp.headers.get("Content-Type") or "").lower()
+    def done(resp, body): return jsonrpc_response(body, ct(resp)) is not None
+    try:
+        r, body = _req("POST", url, json=MCP_INIT, headers=hdr, until=done)
+    except Exception as e:  # belt and braces: _req never raises
+        r, body = e, b""
+    if isinstance(r, Timeout): return link(url, "Timeout", "gated", method="POST", why=str(r))
     if isinstance(r, Exception): return link(url, type(r).__name__, "error", method="POST")
     if r.status_code < 300:
-        return link(url, r.status_code, "ok", method="POST", evidence="mcp-initialize" if b"jsonrpc" in body else "2xx")
-    if r.status_code in (401, 403):
+        if done(r, body) and not _challenge(r): return link(url, r.status_code, "ok", method="POST", evidence="mcp-initialize")
+        why = "bot challenge page (cf-mitigated)" if _challenge(r) else f"{r.status_code} {ct(r) or 'no content-type'} without a JSON-RPC initialize response"
+        return link(url, r.status_code, "gated", method="POST", why=why)
+    if r.status_code == 401:
         ok, info = oauth_evidence(url, r.headers.get("WWW-Authenticate"))
         if ok: return link(url, r.status_code, "ok", method="POST", evidence="mcp-oauth", resource_metadata=info)
         return link(url, r.status_code, "gated", method="POST", why=info)
-    if r.status_code in DEAD or r.status_code in (401, 403, 429) or r.status_code >= 500:
+    if r.status_code == 403:
+        return link(url, 403, "gated", method="POST", why="403 is never verified (policy: only a 401 with valid OAuth metadata counts)")
+    if r.status_code in DEAD or r.status_code == 429 or r.status_code >= 500:
         return link(url, r.status_code, classify(r.status_code), method="POST")
-    g, _ = _req("GET", url, headers={"Accept": "text/event-stream"})
+    def sse_ok(resp, b): return b"event:" in b or b"data:" in b
+    g, gb = _req("GET", url, headers={"Accept": "text/event-stream"}, until=sse_ok)
+    if isinstance(g, Timeout): return link(url, "Timeout", "gated", method="GET", post_status=r.status_code, why=str(g))
     if isinstance(g, Exception): return link(url, type(g).__name__, "error", method="GET", post_status=r.status_code)
-    return link(url, g.status_code, classify(g.status_code), method="GET", post_status=r.status_code,
-                **({"evidence": "sse-get"} if g.status_code < 300 else {}))
+    if g.status_code < 300:
+        gct = (g.headers.get("Content-Type") or "").lower()
+        if "text/event-stream" in gct and sse_ok(g, gb) and not _challenge(g):
+            return link(url, g.status_code, "ok", method="GET", post_status=r.status_code, evidence="sse-get")
+        return link(url, g.status_code, "gated", method="GET", post_status=r.status_code,
+                    why=f"GET {g.status_code} {gct or 'no content-type'} is not an MCP SSE stream")
+    return link(url, g.status_code, classify(g.status_code), method="GET", post_status=r.status_code)
 
 LABEL = {"homepage alive": "homepage", "docs alive": "docs", "remote MCP endpoint responds": "MCP endpoint"}
 NOTE = {"dead": "{s}: not found (dead link)", "fail": "{s}: client error", "error": "{s}: server/connection error",
@@ -301,23 +389,45 @@ def verify(t):
         if t.get(key) and t.get(key) != t.get("repo"):
             a = alive(t[key]); v[key] = a
             v["checks"].append({"check": f"{key} alive", "ok": a["ok"], "result": a["result"],
-                                "note": NOTE[a["result"]].format(s=a["status"]) if not a["ok"] else None})
+                                "note": _note(a)})
     if t.get("remote_mcp_url"):
         a = mcp_probe(t["remote_mcp_url"]); v["remote_mcp"] = a
         v["checks"].append({"check": "remote MCP endpoint responds", "ok": a["ok"], "result": a["result"],
-                            "note": (NOTE[a["result"]].format(s=a["status"]) + (f" [{a['why']}]" if a.get("why") else "")) if not a["ok"] else None})
+                            "note": _note(a)})
     g = v.get("github")
     if g and g.get("cross_org_redirect"):
         v["issues"].append(f"Repository redirects to another owner ({g['cross_org_redirect']}); stored link not updated")
     v["status"] = status_of(v)
     return v
 
+def recheck_demotions(todo, fresh, current, fn=None):
+    """One retry before a tool drops from verified (e.g. to Needs review): a transient network error must not
+    demote it. The second result is final and is marked `rechecked`."""
+    fn = fn or safe_verify
+    again = [t for t in todo if (current.get(t["id"]) or {}).get("verification", {}).get("status") == "verified"
+             and fresh[t["id"]]["status"] != "verified"]
+    if again:
+        with ThreadPoolExecutor(8) as ex: retry = dict(zip([t["id"] for t in again], ex.map(fn, again)))
+        for i, v in retry.items(): v["rechecked"] = True; fresh[i] = v
+    return [t["id"] for t in again]
+
+def safe_verify(t):
+    """verify() that can never abort the run: an unexpected error makes only this tool Needs review."""
+    try: return verify(t)
+    except Exception as e:
+        return {"checked_at": NOW.strftime("%Y-%m-%d"), "checks": [], "status": "unconfirmed",
+                "issues": [f"Could not confirm: checker error ({type(e).__name__})"]}
+
+def _note(a):
+    return None if a["ok"] else NOTE[a["result"]].format(s=a["status"]) + (f" [{a['why']}]" if a.get("why") else "")
+
 def _why(c):
     return f"{LABEL.get(c['check'], c['check'])} {c.get('note') or 'failed'}"
 
 def status_of(v):
-    """unreachable > archived > warning (a link is dead/failed) > stale/aging > unconfirmed (a link was gated) > verified.
-    Only "verified" counts toward the verified totals; "unconfirmed" replaces it when any link answered 401/403/405/429...."""
+    """unreachable > archived > warning (a link is dead/failed) > stale/aging > unconfirmed > verified.
+    "unconfirmed" (Needs review) replaces "verified" when any link was gated (401/403/405/429, no JSON-RPC answer,
+    timeout ...) or the repo redirects to another owner. Only "verified" counts toward the verified totals."""
     g = v.get("github")
     if g and not g["reachable"]: v["issues"].append("Repository not reachable"); return "unreachable"
     if g and g.get("archived"): v["issues"].append("Repository is archived"); return "archived"
@@ -330,13 +440,12 @@ def status_of(v):
         v["issues"].append("A homepage/docs/endpoint link failed: " + "; ".join(_why(c) for c in failed)); return "warning"
     if gated:
         v["issues"].append("Could not confirm: " + "; ".join(_why(c) for c in gated))
+    cross = bool(g and g.get("cross_org_redirect"))  # moved to another owner: the stored link is unconfirmed
     if days is None: status = "verified" if not g else "warning"
     elif days <= 180: status = "verified"
     elif days <= 365: status = "aging"; v["issues"].append(f"No commits for {days} days")
     else: status = "stale"; v["issues"].append(f"No commits for {days} days")
-    return "unconfirmed" if status == "verified" and gated else status
-    v["status"] = status
-    return v
+    return "unconfirmed" if status == "verified" and (gated or cross) else status
 
 def repo_key(t):
     o, n, _, _ = parse_repo(t["repo"]); return f"{o}/{n}".lower()
@@ -386,7 +495,8 @@ def main():
     current = {x["id"]: x for x in json.load(open(tp))} if os.path.exists(tp) else {}
     prev = current if only else {}
     todo = [t for t in seed if not only or t["id"] in only or t["id"] not in prev]
-    with ThreadPoolExecutor(8) as ex: fresh = dict(zip([t["id"] for t in todo], ex.map(verify, todo)))
+    with ThreadPoolExecutor(8) as ex: fresh = dict(zip([t["id"] for t in todo], ex.map(safe_verify, todo)))
+    recheck_demotions(todo, fresh, current)
     tools = []
     for t in seed:
         if t["id"] not in fresh:
