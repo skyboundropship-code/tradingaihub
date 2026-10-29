@@ -22,6 +22,7 @@
   "makers": "Pour les créateurs",
   "submitFree": "Proposer un outil (gratuit)",
   "getBadge": "Obtenez votre badge vérifié",
+  "getFeatured": "Être mis en avant",
   "awesome": "Liste Awesome",
   "legal": "Mentions légales",
   "nia": "Pas un conseil en investissement",
@@ -200,6 +201,7 @@
   "h1em": "la finance et le trading",
   "h1b": "vérifiés chaque semaine.",
   "lead": "Un annuaire gratuit et ouvert de serveurs MCP, de skills pour agents et d'API qui connectent données de marché, courtiers, crypto et comptabilité à Claude, Cursor, ChatGPT, Grok et Gemini, avec de vrais prix, des offres gratuites et une installation en un clic.",
+  "featThanks": "Merci, votre paiement a bien été reçu. Nous vous écrirons sous 1 jour ouvré pour configurer votre emplacement. Questions : {email}.",
   "search": "Rechercher p. ex. 'options', 'SEC filings', 'Binance', 'QuickBooks'…",
   "searchLabel": "Rechercher des outils",
   "listed": "outils référencés",
@@ -366,6 +368,7 @@
   "title": "Proposer un outil",
   "desc": "Proposez un serveur MCP, une skill d'agent ou une API pour la finance et le trading. Référencement gratuit et vérifié automatiquement.",
   "lead": "<b>Gratuit pour toujours.</b> Pas d'offres payantes, pas de piège. Vous recevez aussi un badge vérifié gratuit, mis à jour automatiquement. Après l'envoi, notre vérificateur contrôle le dépôt ou le site, le dernier commit, le registre de paquets et la documentation. Les outils validés sont en ligne sous une semaine.",
+  "getFeatured": "Envie de plus de visibilité ? Être mis en avant",
   "preview": "L’envoi ouvre une issue GitHub pré-remplie dans un nouvel onglet. Nous vérifions chaque proposition avant de la publier.",
   "noGithub": "Pas de compte GitHub ? Envoyez les mêmes informations par e-mail à {email}.",
   "name": "Nom de l'outil",
@@ -575,5 +578,46 @@
   "ca2": "D'après les étoiles GitHub, les outils vérifiés les plus populaires de cette catégorie sont {list}.",
   "cq3": "Les outils de « {name} » sont-ils officiels ?",
   "ca3": "Outils officiels, publiés par l'éditeur lui-même : {o} sur {n}. Projets communautaires : {c}. Les outils officiels portent le badge « {badge} »."
+ },
+ "feat": {
+  "title": "Être mis en avant",
+  "desc": "Emplacements payants sur {site} : Category Featured (29 $/mois) et Homepage Feature (99 $/mois). Toujours signalés « Sponsorisé » ; la vérification ne s'achète pas.",
+  "lead": "Référencer votre outil sur {site} est gratuit et le restera. Pour plus de visibilité, vous pouvez acheter l'un de ces deux emplacements mensuels.",
+  "editorial": "Les emplacements payants sont toujours signalés « Sponsorisé ». Le statut « Vérifié » est éditorial et ne s'achète pas : payer n'a aucun effet sur la vérification, les avis ni le contrôle hebdomadaire.",
+  "perMonth": "par mois, abonnement récurrent",
+  "buy": "Acheter {name}",
+  "contact": "Écrivez-nous à propos de {name}",
+  "priceNote": "Prix en dollars américains. Les taxes sont ajoutées au paiement le cas échéant.",
+  "termsH": "Conditions",
+  "free": "Vous voulez simplement être référencé ? Proposez votre outil gratuitement.",
+  "products": {
+   "category": {
+    "name": "Category Featured",
+    "what": "Une place épinglée dans le top 3 d'une catégorie de votre choix.",
+    "bullets": [
+     "Épinglé dans le top 3 de la catégorie de votre choix",
+     "Badge « Featured » sur votre fiche",
+     "Lien direct vers votre site, marqué rel=\"sponsored\"",
+     "{n} maximum par catégorie"
+    ]
+   },
+   "homepage": {
+    "name": "Homepage Feature",
+    "what": "Une place dans le bandeau « Outils en vedette » de la page d'accueil et dans la barre latérale de toutes les pages de catégorie.",
+    "bullets": [
+     "Place dans le bandeau « Outils en vedette » de la page d'accueil",
+     "Affiché dans la barre latérale de toutes les pages de catégorie",
+     "{n} maximum en même temps"
+    ]
+   }
+  },
+  "terms": {
+   "polar": "Les paiements sont traités par Polar, notre marchand officiel (merchant of record), qui émet les factures et gère la TVA et les taxes de vente.",
+   "label": "Les emplacements payants sont toujours signalés « Sponsorisé ».",
+   "verified": "Le statut « Vérifié » est éditorial et ne s'achète pas. Payer n'a aucun effet sur la vérification, les avis ni le contrôle hebdomadaire.",
+   "decline": "Nous n'acceptons ni offres de CFD ou de courtiers, ni conseil financier sans licence, ni promesses de rendement garanti, et nous pouvons refuser tout sponsor.",
+   "cancel": "Résiliable à tout moment. Un emplacement mensuel reste actif jusqu'à la fin de la période payée.",
+   "contact": "Questions : {email}."
+  }
  }
 }
