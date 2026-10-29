@@ -15,7 +15,7 @@
 | Weekly | Changelog post on X + newsletter + /weekly page | X | ✅ once for a standing routine |
 
 ## Drafts
-**Show HN** — Title: `Show HN: TradeSkills – a directory of finance/trading MCP servers and skills, re-verified weekly`
+**Show HN** — Title: `Show HN: TradingAIHub – a directory of finance/trading MCP servers and skills, re-verified weekly`
 > I kept hitting dead finance MCP servers (abandoned repos, packages that never got published, pricing pages that don't match). So I built a free directory that checks every entry with a script every week: is the repo alive, when was the last commit, is the npm/PyPI package real and linked back to the repo, does the remote MCP endpoint respond, and what do the free tier and paid plan actually cost (with the source linked). It has 75 tools now: 56 pass, 14 are stale and 1 is archived, all shown openly. Each page has copy-paste config for Claude, Cursor, Gemini CLI, ChatGPT and Grok. The data is also published as JSON, RSS and a CC0 awesome list. It's not investment advice; I'd really like to know which tools are missing.
 
 **Reddit r/mcp / r/ClaudeAI** — Title: `I checked 75 finance & trading MCP servers / skills — 19 are stale or archived. Free verified list + install configs`
@@ -33,16 +33,16 @@
 6. Link, plus "makers: grab your free verified badge."
 Tag the makers' official handles where they exist.
 
-**Product Hunt** — Name TradeSkills; tagline "Verified AI tools for finance & trading — free"; 4 gallery images from screenshots/; maker comment = Show HN text.
+**Product Hunt** — Name TradingAIHub; tagline "Verified AI tools for finance & trading — free"; 4 gallery images from screenshots/; maker comment = Show HN text.
 
-**Maker badge outreach** (GitHub issue, title "Your MCP server is verified on TradeSkills (free badge)")
-> Hi! We list <name> on TradeSkills, a free directory of finance AI tools that we re-check every week. It currently passes (last commit <date>, package <pkg>). If you'd like, here is a badge that updates itself: `[![TradeSkills](https://tradeskills.ai/badge/<id>.svg)](https://tradeskills.ai/tools/<id>/)`. If any of the info is wrong, reply here or use /submit. No cost, ever. Feel free to close this issue.
+**Maker badge outreach** (GitHub issue, title "Your MCP server is verified on TradingAIHub (free badge)")
+> Hi! We list <name> on TradingAIHub, a free directory of finance AI tools that we re-check every week. It currently passes (last commit <date>, package <pkg>). If you'd like, here is a badge that updates itself: `[![TradingAIHub](https://tradingaihub.com/badge/<id>.svg)](https://tradingaihub.com/tools/<id>/)`. If any of the info is wrong, reply here or use /submit. No cost, ever. Feel free to close this issue.
 Send it only to repos that welcome issues; cap it at 10 a day so it doesn't look like spam.
 
 ## Awesome lists & registries (PRs/submissions — approval needed)
 - PRs: BlockRunAI/awesome-finance-mcp (our seed source, CC0 — add "verified status" link), punkpeye/awesome-mcp-servers (Resources/Directories section), wong2/awesome-mcp-servers, appcypher/awesome-mcp-servers, awesome-claude-skills lists, awesome-quant (wilsonfreitas/awesome-quant), awesome-fintech lists. Check each repo's CONTRIBUTING rules first.
 - Directory/registry listings of the *site* itself: TAAFT, Futurepedia, Glama, mcp.so, PulseMCP, mcpservers.org, Smithery (as resource), skills.sh. (The official MCP Registry is for servers, not directories — skip unless we ship an MCP server.)
-- Growth idea (optional, phase 2): ship a tiny `tradeskills-mcp` server ("find a verified finance MCP for X") → then it's listable in the official MCP Registry, Smithery, Glama. Strong distribution loop.
+- Growth idea (optional, phase 2): ship a tiny `tradingaihub-mcp` server ("find a verified finance MCP for X") → then it's listable in the official MCP Registry, Smithery, Glama. Strong distribution loop.
 
 ## Built-in loops (already in the site)
 Embeddable badges (/badge/<id>.svg + /badges), copy buttons on every snippet, share buttons + per-page OG images (93), /weekly changelog + leaderboard, /rss.xml, /tools.json, awesome/README.md mirror, free /submit, newsletter capture (inactive until a provider is approved).

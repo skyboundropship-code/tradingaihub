@@ -19,7 +19,7 @@ const org = { "@context": "https://schema.org", "@type": "WebSite", name: SITE.n
 {jsonld.map((j) => <script type="application/ld+json" set:html={JSON.stringify(j)} />)}
 </head><body>
 <header class="site"><div class="wrap">
-  <a class="logo" href="/">{SITE.name.slice(0, 5)}<span>{SITE.name.slice(5)}</span></a>
+  <a class="logo" href="/">{SITE.name.split("AI")[0]}<span>AI</span>{SITE.name.split("AI").slice(1).join("AI")}</a>
   <nav class="main"><a href="/tools/">All tools</a><a href="/categories/">Categories</a><a href="/compare/">Compare</a><a href="/weekly/">Weekly leaderboard</a><a href="/badges/">Badges</a><a href="/about/">How we verify</a></nav>
   <a class="btn" href="/submit/">Submit a tool — free</a>
 </div></header>

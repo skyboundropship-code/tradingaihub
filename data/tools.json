@@ -1679,7 +1679,7 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/atilaahmettaner/tradingview-mcp",
-        "stars": 5162,
+        "stars": 5163,
         "archived": false,
         "last_commit": "2026-10-28T08:29:19Z",
         "license": "MIT"
@@ -2186,7 +2186,7 @@
       ],
       "issues": [
         "npm name 'bitcoin-mcp' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 453 days"
+        "No commits for 454 days"
       ],
       "github": {
         "reachable": true,
@@ -2196,7 +2196,7 @@
         "last_commit": "2025-08-01T09:38:50Z",
         "license": "MIT"
       },
-      "last_commit_days": 453,
+      "last_commit_days": 454,
       "status": "stale"
     },
     "license": "MIT"
@@ -2546,7 +2546,7 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/ComposioHQ/awesome-claude-skills",
-        "stars": 78234,
+        "stars": 78235,
         "archived": false,
         "last_commit": "2026-07-24T07:48:01Z",
         "license": null
@@ -2613,7 +2613,7 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/stripe/ai",
-        "stars": 1991,
+        "stars": 1993,
         "archived": false,
         "last_commit": "2026-10-29T00:35:52Z",
         "license": "MIT"
@@ -3028,7 +3028,7 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/openbq-org/OpenBB",
-        "stars": 74849,
+        "stars": 74851,
         "archived": false,
         "last_commit": "2026-10-24T07:01:56Z",
         "license": "NOASSERTION"
@@ -3676,7 +3676,7 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/tradermonty/claude-trading-skills",
-        "stars": 3414,
+        "stars": 3417,
         "archived": false,
         "last_commit": "2026-10-26T18:34:48Z",
         "license": "MIT"

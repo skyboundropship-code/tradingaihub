@@ -194,7 +194,7 @@
  "tradingview-mcp": {
   "name": "TradingView MCP (community)",
   "status": "verified",
-  "stars": 5162,
+  "stars": 5163,
   "version": "0.8.1"
  },
  "binance-mcp": {
@@ -296,13 +296,13 @@
  "invoice-organizer-skill": {
   "name": "Invoice Organizer skill",
   "status": "verified",
-  "stars": 78234,
+  "stars": 78235,
   "version": null
  },
  "stripe-ai": {
   "name": "Stripe Agent Toolkit & MCP",
   "status": "verified",
-  "stars": 1991,
+  "stars": 1993,
   "version": null
  },
  "qonto-mcp": {
@@ -350,7 +350,7 @@
  "openbb": {
   "name": "OpenBB Platform (MCP)",
   "status": "verified",
-  "stars": 74849,
+  "stars": 74851,
   "version": null
  },
  "equibles": {
@@ -428,7 +428,7 @@
  "claude-trading-skills": {
   "name": "Claude Trading Skills",
   "status": "verified",
-  "stars": 3414,
+  "stars": 3417,
   "version": null
  },
  "superior-skills": {

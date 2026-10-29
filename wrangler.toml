@@ -1,5 +1,5 @@
 # Cloudflare Pages config (static). Deploy ONLY after Liran approves:
-#   npm run build && npx wrangler pages deploy dist --project-name=tradeskills
-name = "tradeskills"
+#   npm run build && npx wrangler pages deploy dist --project-name=tradingaihub
+name = "tradingaihub"
 pages_build_output_dir = "./dist"
 compatibility_date = "2026-10-01"

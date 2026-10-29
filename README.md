@@ -1,4 +1,4 @@
-# TradeSkills (placeholder brand) — verified AI tools for finance & trading
+# TradingAIHub (placeholder brand) — verified AI tools for finance & trading
 Static Astro site + weekly verifier. Brand/domain in `src/config.ts`.
 - `npm run verify` – verify 75 tools (data/seed.json → data/tools.json, reports, history, changelog)
 - `npm run weekly` – verify → awesome list → OG images → build

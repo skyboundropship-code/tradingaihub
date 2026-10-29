@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-29T09:26:55.466598+00:00",
+  "checked_at": "2026-10-29T09:50:42.789101+00:00",
   "total": 75,
   "by_status": {
     "verified": 56,
@@ -95,7 +95,7 @@
       "status": "stale",
       "issues": [
         "npm name 'bitcoin-mcp' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 453 days"
+        "No commits for 454 days"
       ]
     },
     {

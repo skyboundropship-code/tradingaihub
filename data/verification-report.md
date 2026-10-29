@@ -1,4 +1,4 @@
-# Verification report — 2026-10-29 09:26 UTC
+# Verification report — 2026-10-29 09:50 UTC
 
 Total entries: 75
 
@@ -43,7 +43,7 @@ Entries with a published npm/PyPI package: 25
 | dexpaprika-mcp | verified | 118 | 2026-10-21 | MIT | dexpaprika-mcp@2.9.2 |  |
 | ccxt-mcp | stale | 82 | 2025-02-17 | MIT |  | pypi name 'mcp-server-ccxt' exists on the registry but does not link to this repo (not counted); No commits for 618 days |
 | crypto-indicators-mcp | aging | 131 | 2025-12-06 | MIT | crypto-indicators-mcp@1.0.1 | No commits for 327 days |
-| tradingview-mcp | verified | 5162 | 2026-10-28 | MIT | tradingview-mcp-server@0.8.1 |  |
+| tradingview-mcp | verified | 5163 | 2026-10-28 | MIT | tradingview-mcp-server@0.8.1 |  |
 | binance-mcp | stale | 97 | 2025-04-16 | unknown |  | npm name 'binance-mcp' exists on the registry but does not link to this repo (not counted); No commits for 561 days |
 | coinbase-agentkit | verified | 1345 | 2026-10-14 | NOASSERTION |  |  |
 | bankless-onchain-mcp | verified | 78 | 2026-05-05 | unknown | @bankless/onchain-mcp@1.0.6 |  |
@@ -53,15 +53,15 @@ Entries with a published npm/PyPI package: 25
 | dexscreener-trending-mcp | aging | 1 | 2026-01-12 | MIT |  | No commits for 289 days |
 | base-mcp | archived | 351 | 2026-05-13 | MIT |  | npm name 'base-mcp' exists on the registry but does not link to this repo (not counted); Repository is archived |
 | solana-agent-kit | verified | 1728 | 2026-05-14 | Apache-2.0 |  |  |
-| bitcoin-mcp | stale | 77 | 2025-08-01 | MIT |  | npm name 'bitcoin-mcp' exists on the registry but does not link to this repo (not counted); No commits for 453 days |
+| bitcoin-mcp | stale | 77 | 2025-08-01 | MIT |  | npm name 'bitcoin-mcp' exists on the registry but does not link to this repo (not counted); No commits for 454 days |
 | x402 | verified | 176 | 2026-10-15 | Apache-2.0 |  |  |
 | quickbooks-mcp | verified | 436 | 2026-09-15 | Apache-2.0 |  |  |
 | xero-mcp | verified | 385 | 2026-10-26 | MIT | @xeroapi/xero-mcp-server@0.0.17 |  |
 | norman-finance-mcp | verified | 62 | 2026-10-28 | MIT | norman-mcp-server@0.1.7 |  |
 | ledgerskills | verified | 2 | 2026-06-12 | MIT |  |  |
 | anthropic-financial-services | verified | 40898 | 2026-10-28 | Apache-2.0 |  |  |
-| invoice-organizer-skill | verified | 78234 | 2026-07-24 | unknown |  |  |
-| stripe-ai | verified | 1991 | 2026-10-29 | MIT |  |  |
+| invoice-organizer-skill | verified | 78235 | 2026-07-24 | unknown |  |  |
+| stripe-ai | verified | 1993 | 2026-10-29 | MIT |  |  |
 | qonto-mcp | verified | 42 | 2026-06-22 | MIT |  |  |
 | ramp-mcp | stale | 34 | 2025-03-20 | MIT |  | pypi name 'ramp-mcp' exists on the registry but does not link to this repo (not counted); No commits for 587 days |
 | lunchmoney-mcp | verified | 112 | 2026-08-03 | MIT | @akutishevsky/lunchmoney-mcp@3.0.0 |  |
@@ -69,7 +69,7 @@ Entries with a published npm/PyPI package: 25
 | actual-budget-mcp | aging | 2 | 2026-03-23 | unknown |  | npm name 'actual-budget-mcp' exists on the registry but does not link to this repo (not counted); No commits for 220 days |
 | optionsahoy-mcp | verified | 6 | 2026-10-28 | MIT | optionsahoy-mcp@1.11.0 |  |
 | sec-edgar-mcp | verified | 380 | 2026-10-03 | AGPL-3.0 | sec-edgar-mcp@1.1.0 |  |
-| openbb | verified | 74849 | 2026-10-24 | NOASSERTION |  |  |
+| openbb | verified | 74851 | 2026-10-24 | NOASSERTION |  |  |
 | equibles | verified | 7 | 2026-10-19 | MIT |  |  |
 | alphasmo | verified | 2 | 2026-08-12 | MIT | alphasmo@0.2.1 |  |
 | edgrapi-skills | verified | 1 | 2026-10-16 | MIT-0 |  |  |
@@ -82,7 +82,7 @@ Entries with a published npm/PyPI package: 25
 | varrd | verified | 24 | 2026-08-31 | MIT | varrd@0.4.3 |  |
 | chart-library-mcp | verified | 22 | 2026-09-10 | MIT | chartlibrary-mcp@6.3.3 |  |
 | finlab-ai | verified | 420 | 2026-10-29 | unknown |  |  |
-| claude-trading-skills | verified | 3414 | 2026-10-26 | MIT |  |  |
+| claude-trading-skills | verified | 3417 | 2026-10-26 | MIT |  |  |
 | superior-skills | verified | 216 | 2026-09-10 | MIT |  |  |
 | claude-code-trading-terminal | stale | 21 | 2025-08-29 | unknown | @degentic/cc-trading-terminal@2.1.5 | No commits for 425 days |
 | pineify-mcp | verified | 1 | 2026-08-07 | unknown |  |  |

@@ -6,18 +6,18 @@ Token `CLOUDFLARE_API_TOKEN` is on the box (checked read-only with `wrangler who
 cd /workspace/finance-skills-directory
 npm run weekly            # verify → awesome list → OG images → astro build (dist/, 105 pages)
 export CLOUDFLARE_ACCOUNT_ID=<from `npx wrangler whoami`>
-npx wrangler pages project create tradeskills --production-branch=main   # once
-npx wrangler pages deploy dist --project-name=tradeskills --branch=main
+npx wrangler pages project create tradingaihub --production-branch=main   # once
+npx wrangler pages deploy dist --project-name=tradingaihub --branch=main
 ```
-→ live at https://tradeskills.pages.dev. Custom domain: buy at Cloudflare Registrar (approval), then
-Pages → tradeskills → Custom domains → add `tradeskills.ai` (DNS gets set up automatically on the same account).
+→ live at https://tradingaihub.pages.dev. Custom domain: buy at Cloudflare Registrar (approval), then
+Pages → tradingaihub → Custom domains → add `tradingaihub.com` (DNS gets set up automatically on the same account).
 If the brand changes, update `src/config.ts` + `wrangler.toml` first.
 Cloudflare Pages free plan: static requests/bandwidth are free; 500 builds/mo; 20k files/deploy (we use ~300).
 
 ## Weekly automation
 `.github/workflows/weekly.yml` (Mondays 05:00 UTC = 07:00 Israel time) runs verify → awesome → og → build → deploy and commits `data/` + `awesome/`.
 It does nothing until a GitHub repo is created and the secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` are added (needs approval).
-Alternative with no GitHub: a weekly box routine running `npm run weekly && npx wrangler pages deploy dist --project-name=tradeskills`.
+Alternative with no GitHub: a weekly box routine running `npm run weekly && npx wrangler pages deploy dist --project-name=tradingaihub`.
 
 ## Accounts needed
 | Account | When | Status |

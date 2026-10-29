@@ -1,8 +1,8 @@
 // ===== Single place to swap the brand. Change these and rebuild. =====
 export const SITE = {
-  name: "TradeSkills",                 // placeholder brand (candidate domain: tradeskills.ai)
-  domain: "tradeskills.ai",            // NOT purchased yet
-  url: "https://tradeskills.ai",       // used for canonical URLs + sitemap
+  name: "TradingAIHub",                 // brand — domain purchased by Liran at Cloudflare Registrar 2026-10-29
+  domain: "tradingaihub.com",            // owned (Cloudflare Registrar)
+  url: "https://tradingaihub.com",       // used for canonical URLs + sitemap
   tagline: "Verified AI tools for finance & trading",
   description:
     "A weekly-verified directory of MCP servers, agent skills and APIs for market data, trading, crypto, accounting and financial research — with pricing, free tiers and copy-paste install snippets for Claude, Cursor, ChatGPT, Grok and Gemini.",
