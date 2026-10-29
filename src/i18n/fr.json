@@ -357,17 +357,18 @@
   "title": "Proposer un outil",
   "desc": "Proposez un serveur MCP, une skill d'agent ou une API pour la finance et le trading. Référencement gratuit et vérifié automatiquement.",
   "lead": "<b>Gratuit pour toujours.</b> Pas d'offres payantes, pas de piège. Vous recevez aussi un badge vérifié gratuit, mis à jour automatiquement. Après l'envoi, notre vérificateur contrôle le dépôt ou le site, le dernier commit, le registre de paquets et la documentation. Les outils validés sont en ligne sous une semaine.",
-  "preview": "⚠️ Aperçu uniquement : ce formulaire n'a pas encore de backend et n'envoie rien.",
+  "preview": "L’envoi ouvre une issue GitHub pré-remplie dans un nouvel onglet. Nous vérifions chaque proposition avant de la publier.",
+  "noGithub": "Pas de compte GitHub ? Envoyez les mêmes informations par e-mail à {email}.",
   "name": "Nom de l'outil",
   "url": "URL du dépôt ou du site",
   "type": "Type",
   "category": "Catégorie",
   "oneLine": "Description en une ligne",
   "pricingUrl": "URL de la page tarifaire (si payant)",
-  "email": "Votre e-mail (pour les questions de vérification)",
+  "email": "Contact (facultatif — affiché publiquement dans l’issue GitHub)",
   "confirm": "Je confirme que cet outil ne promet aucun rendement et n'est pas un service de conseil en investissement.",
   "button": "Envoyer pour examen",
-  "thanks": "Merci ! (Mode aperçu : rien n'a été envoyé.)"
+  "thanks": "Presque fini : relisez l’issue GitHub pré-remplie dans le nouvel onglet puis cliquez sur « Create ». Rien ne s’est ouvert ? Autorisez les fenêtres pop-up et réessayez."
  },
  "badges": {
   "title": "Badges vérifiés gratuits pour les créateurs",

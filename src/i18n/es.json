@@ -357,17 +357,18 @@
   "title": "Enviar una herramienta",
   "desc": "Envía un servidor MCP, una skill de agente o una API para finanzas y trading. Listado gratuito y verificado automáticamente.",
   "lead": "<b>Gratis para siempre.</b> Sin planes de pago y sin trampas. También recibes una insignia verificada gratuita que se actualiza sola. Tras el envío, nuestro verificador revisa el repositorio o la web, el último commit, el registro de paquetes y la documentación. Las herramientas que lo superan se publican en menos de una semana.",
-  "preview": "⚠️ Solo vista previa: este formulario aún no tiene backend y no envía nada.",
+  "preview": "Al enviar se abre un issue de GitHub prellenado en una pestaña nueva. Revisamos cada propuesta antes de publicarla.",
+  "noGithub": "¿No tienes cuenta de GitHub? Envía los mismos datos por email a {email}.",
   "name": "Nombre de la herramienta",
   "url": "URL del repositorio o de la web",
   "type": "Tipo",
   "category": "Categoría",
   "oneLine": "Descripción en una línea",
   "pricingUrl": "URL de la página de precios (si es de pago)",
-  "email": "Tu email (para dudas de verificación)",
+  "email": "Contacto (opcional — se muestra públicamente en el issue de GitHub)",
   "confirm": "Confirmo que esta herramienta no promete rentabilidades y no es un servicio de asesoramiento de inversión.",
   "button": "Enviar para revisión",
-  "thanks": "¡Gracias! (Modo de vista previa: no se envió nada.)"
+  "thanks": "Casi listo: revisa el issue de GitHub prellenado en la pestaña nueva y pulsa «Create». ¿No se abrió nada? Permite las ventanas emergentes e inténtalo de nuevo."
  },
  "badges": {
   "title": "Insignias verificadas gratuitas para creadores",

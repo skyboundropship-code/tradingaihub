@@ -358,17 +358,18 @@
   "title": "Submit a tool",
   "desc": "Submit an MCP server, agent skill or API for finance and trading. Free listing, automatically verified.",
   "lead": "<b>Free forever.</b> No paid tiers, no catch. You also get a free auto-updating verified badge. After submission our verifier checks the repo/homepage, last commit, package registry and docs. Tools that pass are published within a week.",
-  "preview": "⚠️ Preview only: this form has no backend yet and does not send anything.",
+  "preview": "Submitting opens a pre-filled GitHub issue in a new tab. We vet every submission before it is listed.",
+  "noGithub": "No GitHub account? Email the same details to {email}.",
   "name": "Tool name",
   "url": "Repository or homepage URL",
   "type": "Type",
   "category": "Category",
   "oneLine": "One-line description",
   "pricingUrl": "Pricing page URL (if paid)",
-  "email": "Your email (for verification questions)",
+  "email": "Contact (optional — shown publicly on the GitHub issue)",
   "confirm": "I confirm this tool does not promise returns and is not an investment-advice service.",
   "button": "Submit for review",
-  "thanks": "Thanks! (Preview mode — nothing was sent.)"
+  "thanks": "Almost done: review the pre-filled GitHub issue in the new tab and click “Create”. Nothing opened? Allow pop-ups and try again."
  },
  "badges": {
   "title": "Free verified badges for tool makers",
