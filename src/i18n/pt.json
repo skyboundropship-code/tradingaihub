@@ -376,7 +376,8 @@
   "email": "Contato (opcional — aparece publicamente na issue do GitHub)",
   "confirm": "Confirmo que esta ferramenta não promete retornos e não é um serviço de consultoria de investimentos.",
   "button": "Enviar para análise",
-  "thanks": "Quase lá: revise a issue pré-preenchida do GitHub na nova aba e clique em “Create”. Nada abriu? Permita pop-ups e tente novamente."
+  "thanks": "Quase lá: revise a issue pré-preenchida do GitHub na nova aba e clique em “Create”. Nada abriu? Permita pop-ups e tente novamente.",
+  "blank": "Preencha este campo (apenas espaços não contam)."
  },
  "badges": {
   "title": "Selos verificados gratuitos para criadores",

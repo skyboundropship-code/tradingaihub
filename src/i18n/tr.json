@@ -376,7 +376,8 @@
   "email": "İletişim (isteğe bağlı — GitHub issue'da herkese açık görünür)",
   "confirm": "Bu aracın getiri vaat etmediğini ve bir yatırım danışmanlığı hizmeti olmadığını onaylıyorum.",
   "button": "İncelemeye gönder",
-  "thanks": "Neredeyse bitti: Yeni sekmedeki önceden doldurulmuş GitHub issue'yu kontrol edip “Create”e tıklayın. Hiçbir şey açılmadı mı? Açılır pencerelere izin verip tekrar deneyin."
+  "thanks": "Neredeyse bitti: Yeni sekmedeki önceden doldurulmuş GitHub issue'yu kontrol edip “Create”e tıklayın. Hiçbir şey açılmadı mı? Açılır pencerelere izin verip tekrar deneyin.",
+  "blank": "Lütfen bu alanı doldurun (yalnızca boşluk geçerli değildir)."
  },
  "badges": {
   "title": "Geliştiriciler için ücretsiz doğrulama rozetleri",

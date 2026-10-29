@@ -376,7 +376,8 @@
   "email": "Contact (facultatif — affiché publiquement dans l’issue GitHub)",
   "confirm": "Je confirme que cet outil ne promet aucun rendement et n'est pas un service de conseil en investissement.",
   "button": "Envoyer pour examen",
-  "thanks": "Presque fini : relisez l’issue GitHub pré-remplie dans le nouvel onglet puis cliquez sur « Create ». Rien ne s’est ouvert ? Autorisez les fenêtres pop-up et réessayez."
+  "thanks": "Presque fini : relisez l’issue GitHub pré-remplie dans le nouvel onglet puis cliquez sur « Create ». Rien ne s’est ouvert ? Autorisez les fenêtres pop-up et réessayez.",
+  "blank": "Veuillez remplir ce champ (des espaces seuls ne suffisent pas)."
  },
  "badges": {
   "title": "Badges vérifiés gratuits pour les créateurs",

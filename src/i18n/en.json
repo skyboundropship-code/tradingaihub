@@ -377,7 +377,8 @@
   "email": "Contact (optional — shown publicly on the GitHub issue)",
   "confirm": "I confirm this tool does not promise returns and is not an investment-advice service.",
   "button": "Submit for review",
-  "thanks": "Almost done: review the pre-filled GitHub issue in the new tab and click “Create”. Nothing opened? Allow pop-ups and try again."
+  "thanks": "Almost done: review the pre-filled GitHub issue in the new tab and click “Create”. Nothing opened? Allow pop-ups and try again.",
+  "blank": "Please fill in this field (spaces alone don't count)."
  },
  "badges": {
   "title": "Free verified badges for tool makers",

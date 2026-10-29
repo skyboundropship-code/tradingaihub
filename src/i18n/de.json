@@ -211,7 +211,7 @@
   "leaderboard": "Ranking dieser Woche →",
   "seeAll": "alle ansehen",
   "boardNote": "Geprüfte Tools mit den meisten Sternen, geprüft am {date}.",
-  "grabBadge": "Entwickler: Holt euch euer kostenloses Badge",
+  "grabBadge": "Entwickler: Holen Sie sich Ihr kostenloses Badge",
   "recent": "Kürzlich aktualisiert",
   "h1sep": ","
  },
@@ -322,7 +322,7 @@
   "manualSkill": "Kopieren Sie den Skill-Ordner (mit seiner SKILL.md) nach ~/.claude/skills/ oder in das Skills-Verzeichnis Ihres Agenten.",
   "viaMcp": "Aus einem KI-Client nutzen über: {list}.",
   "rest": "REST-API: aus Ihrem Code oder den Tools Ihres Agenten aufrufen. Siehe offizielle Dokumentation.",
-  "accountUrl": "Die URL dieses Servers wird für dein eigenes Konto erzeugt. Erstelle sie gemäß der Herstellerdokumentation und füge sie dann als Remote-MCP-Server in deinem Client hinzu."
+  "accountUrl": "Die URL dieses Servers wird für Ihr eigenes Konto erzeugt. Erstellen Sie sie gemäß der Herstellerdokumentation und fügen Sie sie dann als Remote-MCP-Server in Ihrem Client hinzu."
  },
  "about": {
   "title": "Über uns und wie wir prüfen",
@@ -376,7 +376,8 @@
   "email": "Kontakt (optional — wird im GitHub-Issue öffentlich angezeigt)",
   "confirm": "Ich bestätige, dass dieses Tool keine Renditen verspricht und kein Anlageberatungsdienst ist.",
   "button": "Zur Prüfung einreichen",
-  "thanks": "Fast geschafft: Prüfen Sie das vorausgefüllte GitHub-Issue im neuen Tab und klicken Sie auf „Create“. Nichts geöffnet? Pop-ups erlauben und erneut versuchen."
+  "thanks": "Fast geschafft: Prüfen Sie das vorausgefüllte GitHub-Issue im neuen Tab und klicken Sie auf „Create“. Nichts geöffnet? Pop-ups erlauben und erneut versuchen.",
+  "blank": "Bitte füllen Sie dieses Feld aus (nur Leerzeichen zählen nicht)."
  },
  "badges": {
   "title": "Kostenlose Prüf-Badges für Entwickler",
@@ -399,7 +400,7 @@
   "shipped": "Zuletzt veröffentlicht",
   "lastCommit": "letzter Commit {date}",
   "love": "Brauchen Aufmerksamkeit der Maintainer ({n})",
-  "loveNote": "Veraltet = seit 12+ Monaten kein Commit. Maintainer: Veröffentlicht ein Update und euer Badge wird nächste Woche grün.",
+  "loveNote": "Veraltet = seit 12+ Monaten kein Commit. Maintainer: Veröffentlichen Sie ein Update, und Ihr Badge wird nächste Woche grün.",
   "archive": "Archiv",
   "changes": "{n} Änderungen",
   "changesNote": "Änderungseinträge werden automatisch auf Englisch erzeugt."
@@ -524,7 +525,7 @@
   "claude-code-trading-terminal": "Agenten-natives Trading-Terminal mit Subagenten für Trades, Positionen und Risiko.",
   "pineify-mcp": "Validierung von Trading-Code (Pine Script) und Marktinformationen.",
   "tradingview-official-mcp": "TradingViews eigener gehosteter MCP-Server (öffentliche Beta): OHLCV, Screener, technische Analyse, Fundamentaldaten, News, Watchlists und Preisalarme.",
-  "robinhood-trading-mcp": "Robinhoods gehostetes MCP für externe Agenten: liest deine Konten und handelt Aktien, Optionen und Krypto in einem eigenen Agentenkonto.",
+  "robinhood-trading-mcp": "Robinhoods gehostetes MCP für externe Agenten: liest Ihre Konten und handelt Aktien, Optionen und Krypto in einem eigenen Agentenkonto.",
   "fmp-mcp": "Offizieller gehosteter MCP-Server von FMP: Kurse, Finanzberichte, technische Indikatoren, News und Filings als 27 Datensatz-Tools.",
   "eodhd-mcp": "Offizieller MCP-Server von EODHD: über 70 schreibgeschützte Tools für Kurse, Fundamentaldaten, News, technische Analyse, Optionen und Makro; API-Schlüssel oder OAuth.",
   "finnhub-mcp": "Gehosteter MCP-Server von Finnhub: rund 70 Tools für Kurse, Finanzdaten, Schätzungen, Filings, Fonds, Devisen, Krypto und Wirtschaftsdaten; OAuth-Anmeldung.",
@@ -534,7 +535,7 @@
   "razorpay-mcp": "Offizieller MCP-Server von Razorpay für Zahlungen, Bestellungen, Erstattungen, Zahlungslinks, QR-Codes, Abrechnungen und Auszahlungen; gehostet oder lokal.",
   "paddle-mcp": "Offizieller MCP-Server für Paddle Billing: Produkte, Preise, Kunden, Abos, Transaktionen und Berichte; Sandbox wird unterstützt.",
   "mercury-mcp": "Gehosteter MCP-Server von Mercury (Beta): Salden, Transaktionen, Karten und Empfänger; Zahlungs- und Überweisungsanfragen müssen in Mercury freigegeben werden.",
-  "netsuite-ai-connector": "MCP-Dienst von Oracle NetSuite plus SuiteApp MCP Standard Tools: Datensätze, Berichte, gespeicherte Suchen und SuiteQL im Rahmen deiner Rollenrechte.",
+  "netsuite-ai-connector": "MCP-Dienst von Oracle NetSuite plus SuiteApp MCP Standard Tools: Datensätze, Berichte, gespeicherte Suchen und SuiteQL im Rahmen Ihrer Rollenrechte.",
   "zoho-books-mcp": "Offizielles Zoho-Books-MCP über Zoho MCP: Rechnungen, Ausgaben, Bankabgleich, Kontakte und Berichte aus jedem MCP-Client.",
   "avalara-avatax-mcp": "Offizieller AvaTax-MCP-Server von Avalara: Umsatzsteuerberechnung, Transaktionen, Nexus, Steuercodes und Adressvalidierung per OAuth.",
   "ynab-api": "Offizielle REST-API von YNAB für Budgets, Konten, Kategorien, Zahlungsempfänger und Transaktionen; persönliches Zugriffstoken oder OAuth.",
