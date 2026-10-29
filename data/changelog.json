@@ -2,10 +2,12 @@
   {
     "date": "2026-10-29",
     "counts": {
-      "verified": 84,
+      "verified": 82,
       "stale": 13,
       "aging": 4,
-      "archived": 3
+      "archived": 3,
+      "warning": 1,
+      "unconfirmed": 1
     },
     "changes": [
       {

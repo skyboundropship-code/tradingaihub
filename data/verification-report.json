@@ -1,11 +1,13 @@
 {
-  "checked_at": "2026-10-29T12:34:40.645476+00:00",
+  "checked_at": "2026-10-29T16:55:26.340627+00:00",
   "total": 104,
   "by_status": {
-    "verified": 84,
+    "verified": 82,
     "stale": 13,
     "aging": 4,
-    "archived": 3
+    "archived": 3,
+    "warning": 1,
+    "unconfirmed": 1
   },
   "with_package": 28,
   "issues": [
@@ -164,10 +166,24 @@
       ]
     },
     {
+      "id": "paypal-mcp",
+      "status": "warning",
+      "issues": [
+        "A homepage/docs/endpoint link failed: MCP endpoint 404: not found (dead link)"
+      ]
+    },
+    {
       "id": "square-mcp",
       "status": "verified",
       "issues": [
         "npm name 'square-mcp-server' exists on the registry but does not link to this repo (not counted)"
+      ]
+    },
+    {
+      "id": "mercury-mcp",
+      "status": "unconfirmed",
+      "issues": [
+        "Could not confirm: MCP endpoint 401: answered but refused our checker (sign-in required, bot block or rate limit)"
       ]
     },
     {

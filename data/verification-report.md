@@ -1,11 +1,13 @@
-# Verification report — 2026-10-29 12:34 UTC
+# Verification report — 2026-10-29 16:55 UTC
 
 Total entries: 104
 
-- verified: 84
+- verified: 82
 - stale: 13
 - aging: 4
 - archived: 3
+- warning: 1
+- unconfirmed: 1
 
 Entries with a published npm/PyPI package: 28
 
@@ -91,12 +93,12 @@ Entries with a published npm/PyPI package: 28
 | fmp-mcp | verified |  |  | Proprietary / ToS |  |  |
 | eodhd-mcp | verified | 23 | 2026-10-22 | MIT |  |  |
 | finnhub-mcp | verified |  |  | Proprietary / ToS |  |  |
-| paypal-mcp | verified | 197 | 2026-09-01 | Apache-2.0 |  |  |
+| paypal-mcp | warning | 197 | 2026-09-01 | Apache-2.0 |  | A homepage/docs/endpoint link failed: MCP endpoint 404: not found (dead link) |
 | square-mcp | verified | 109 | 2026-10-14 | Apache-2.0 |  | npm name 'square-mcp-server' exists on the registry but does not link to this repo (not counted) |
 | adyen-mcp | verified | 27 | 2026-10-29 | MIT |  |  |
 | razorpay-mcp | verified | 231 | 2026-10-28 | MIT |  |  |
 | paddle-mcp | verified | 49 | 2026-09-27 | Apache-2.0 | @paddle/paddle-mcp@0.1.6 |  |
-| mercury-mcp | verified |  |  | Proprietary / ToS |  |  |
+| mercury-mcp | unconfirmed |  |  | Proprietary / ToS |  | Could not confirm: MCP endpoint 401: answered but refused our checker (sign-in required, bot block or rate limit) |
 | netsuite-ai-connector | verified |  |  | Proprietary / ToS |  |  |
 | zoho-books-mcp | verified |  |  | Proprietary / ToS |  |  |
 | avalara-avatax-mcp | verified |  |  | Proprietary / ToS |  |  |

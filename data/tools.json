@@ -4166,18 +4166,26 @@
         },
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "remote MCP endpoint responds",
-          "ok": true
+          "ok": false,
+          "result": "dead",
+          "note": "404: not found (dead link)"
         }
       ],
-      "issues": [],
+      "issues": [
+        "A homepage/docs/endpoint link failed: MCP endpoint 404: not found (dead link)"
+      ],
       "github": {
         "reachable": true,
         "final_url": "https://github.com/paypal/agent-toolkit",
@@ -4189,20 +4197,24 @@
       "homepage": {
         "url": "https://developer.paypal.com/tools/mcp-server/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://developer.paypal.com/tools/mcp-server/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "remote_mcp": {
         "url": "https://mcp.paypal.com/http",
-        "ok": true,
-        "status": 404
+        "ok": false,
+        "status": 404,
+        "result": "dead",
+        "method": "POST"
       },
       "last_commit_days": 58,
-      "status": "verified"
+      "status": "warning"
     },
     "license": "Apache-2.0"
   },
@@ -4491,35 +4503,47 @@
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "remote MCP endpoint responds",
-          "ok": true
+          "ok": false,
+          "result": "gated",
+          "note": "401: answered but refused our checker (sign-in required, bot block or rate limit)"
         }
       ],
-      "issues": [],
+      "issues": [
+        "Could not confirm: MCP endpoint 401: answered but refused our checker (sign-in required, bot block or rate limit)"
+      ],
       "homepage": {
         "url": "https://docs.mercury.com/docs/what-is-mercury-mcp",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://docs.mercury.com/docs/what-is-mercury-mcp",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "remote_mcp": {
         "url": "https://mcp.mercury.com/mcp",
-        "ok": true,
-        "status": 401
+        "ok": false,
+        "status": 401,
+        "result": "gated",
+        "method": "POST"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "unconfirmed"
     },
     "license": "Proprietary / ToS"
   },

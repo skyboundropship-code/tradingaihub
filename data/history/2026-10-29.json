@@ -481,7 +481,7 @@
  },
  "paypal-mcp": {
   "name": "PayPal MCP Server",
-  "status": "verified",
+  "status": "warning",
   "stars": 197,
   "version": null
  },
@@ -511,7 +511,7 @@
  },
  "mercury-mcp": {
   "name": "Mercury MCP (official)",
-  "status": "verified",
+  "status": "unconfirmed",
   "stars": null,
   "version": null
  },
