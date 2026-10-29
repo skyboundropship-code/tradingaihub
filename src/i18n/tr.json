@@ -29,7 +29,7 @@
   "terms": "Koşullar",
   "about": "Hakkında",
   "advertise": "Reklam ver",
-  "disclaimer": "<b>Yatırım tavsiyesi değildir.</b> {site}, yazılım araçlarına ilişkin bilgilendirme amaçlı bir dizindir. Bu sitedeki hiçbir içerik yatırım, trading, vergi veya hukuki tavsiye ya da herhangi bir menkul kıymet veya varlığı alma veya satma önerisi değildir ve biz lisanslı yatırım danışmanı veya portföy yöneticisi değiliz. Trading kayıp riski içerir. <b>Ortaklık bildirimi:</b> Bazı bağlantılar (şu anda TradingView) ortaklık bağlantılarıdır. Bunlar üzerinden kaydolursanız, size ek maliyet olmadan komisyon kazanabiliriz. Bu bağlantılar işaretlidir ve listelemeleri, sıralamaları veya doğrulama durumunu asla etkilemez.",
+  "disclaimer": "<b>Yatırım tavsiyesi değildir.</b> {site}, yazılım araçlarına ilişkin bilgilendirme amaçlı bir dizindir. Bu sitedeki hiçbir içerik yatırım, trading, vergi veya hukuki tavsiye ya da herhangi bir menkul kıymet veya varlığı alma veya satma önerisi değildir ve biz lisanslı yatırım danışmanı veya portföy yöneticisi değiliz. Trading kayıp riski içerir. <b>Ortaklık bildirimi:</b> Bazı bağlantılar (şu anda TradingView ve EODHD) ortaklık bağlantılarıdır. Bunlar üzerinden kaydolursanız, size ek maliyet olmadan komisyon kazanabiliriz. Bu bağlantılar işaretlidir ve listelemeleri, sıralamaları veya doğrulama durumunu asla etkilemez.",
   "fullDisclaimer": "Tam sorumluluk reddi",
   "short": "Yatırım tavsiyesi değildir. Bazı bağlantılar iş ortağı bağlantılarıdır ve bize komisyon kazandırabilir."
  },
@@ -347,7 +347,7 @@
   "h1": "Sorumluluk reddi: yatırım tavsiyesi değildir",
   "intro": "{site} bir yazılım araçları dizinidir. Tüm içerik yazılımlar, yetenekleri ve yayımlanmış fiyatları hakkında genel bilgidir.",
   "items": [
-   "<b>Ortaklık bildirimi.</b> Bazı dış bağlantılar (şu anda TradingView'e yönelik olanlar) ortaklık bağlantılarıdır; “Ortaklık bağlantısı” olarak işaretlenir ve rel=\"sponsored\" ile sunulur. Bunlar üzerinden abonelik satın alırsanız, size ek maliyet olmadan komisyon kazanabiliriz. Hiçbir ödeme hangi araçları listelediğimizi, sıralamalarını veya doğrulama durumlarını etkilemez; bağlantılar onay veya trading tavsiyesi değildir.",
+   "<b>Ortaklık bildirimi.</b> Bazı dış bağlantılar (şu anda TradingView ve EODHD'ye yönelik olanlar) ortaklık bağlantılarıdır; “Ortaklık bağlantısı” olarak işaretlenir ve rel=\"sponsored\" ile sunulur. Bunlar üzerinden abonelik satın alırsanız, size ek maliyet olmadan komisyon kazanabiliriz. Hiçbir ödeme hangi araçları listelediğimizi, sıralamalarını veya doğrulama durumlarını etkilemez; bağlantılar onay veya trading tavsiyesi değildir.",
    "<b>Tavsiye değildir.</b> Bu sitedeki hiçbir şey yatırım tavsiyesi, yatırım pazarlaması, portföy yönetimi, trading sinyali ya da vergi, muhasebe veya hukuki tavsiye değildir ve kişisel durumunuzu dikkate almaz. Hiçbir yargı bölgesinde (İsrail'in Yatırım Danışmanlığı, Yatırım Pazarlaması ve Portföy Yönetiminin Düzenlenmesi Kanunu, 5755-1995 dahil) lisanslı yatırım danışmanı, yatırım pazarlamacısı veya portföy yöneticisi değiliz.",
    "<b>Öneri değildir.</b> Bir listeleme, sıralama, “Doğrulandı” rozeti veya sponsorlu alan, herhangi bir aracı, aracı kurumu, borsayı veya varlığı kullanma önerisi değildir.",
    "<b>Risk.</b> Trading ve yatırım — özellikle otomasyon veya yapay zekâ ajanları, kaldıraç, opsiyonlar ya da kripto ile — sermayenizin bir kısmını veya tamamını kaybetmenize yol açabilir. Her trading aracını önce paper modunda test edin ve bir ajana asla kaybetmeyi göze alabileceğinizden fazla yetki vermeyin.",

@@ -17,4 +17,5 @@ export const SITE = {
 // Affiliate programs. Links are always labelled and use rel="sponsored noopener".
 export const AFFILIATES = {
   tradingview: { id: "1173592", param: "aff_id", hosts: ["tradingview.com"], home: "https://www.tradingview.com/" },
+  eodhd: { id: "tradingaihub", param: "via", hosts: ["eodhd.com"], home: "https://eodhd.com/" },
 };

@@ -2,6 +2,7 @@
 //  - any TradingView link in dist/ lacks the affiliate ID or rel="sponsored noopener";
 //  - a required partner CTA is missing (home page of every locale, every category page, tool pages in charting/market-data/crypto/quant categories);
 //  - a partner CTA is not labelled or its TradingView link is not sponsored/affiliate-tagged.
+//  - any EODHD link (eodhd.com or a subdomain) in dist/ lacks via=tradingaihub or rel="sponsored noopener".
 import fs from "node:fs"; import path from "node:path";
 const ID = "1173592"; let bad = 0, ok = 0, ctas = 0;
 const CODES = ["en", "he", "es", "pt", "de", "fr", "ja", "ko", "zh", "hi", "tr", "ar", "ru"];
@@ -28,4 +29,14 @@ for (const c of CODES) {
   for (const d of fs.readdirSync(`${pre}/category`)) need(`${pre}/category/${d}/index.html`, "tool");
   for (const t of tools.filter((t) => PARTNER_CATS.includes(t.category))) need(`${pre}/tools/${t.id}/index.html`, "tool");
 }
-console.log(`TradingView links: ${ok} ok, ${bad} bad; partner CTAs verified: ${ctas}`); process.exit(bad ? 1 : 0);
+// EODHD affiliate (via=tradingaihub): every outbound eodhd.com link must be tagged and sponsored.
+const EODHD_VIA = "tradingaihub"; let eok = 0, ebad = 0;
+for (const f of walk("dist").filter((f) => f.endsWith(".html"))) {
+  const html = fs.readFileSync(f, "utf8");
+  for (const m of html.matchAll(/<a\b[^>]*href="(https?:\/\/(?:[\w-]+\.)*eodhd\.com(?=[\/:?#"])[^"]*)"[^>]*>/gi)) {
+    let via = null; try { via = new URL(m[1].replace(/&amp;/g, "&")).searchParams.get("via"); } catch {}
+    if (via === EODHD_VIA && /rel="sponsored noopener"/.test(m[0])) eok++; else { ebad++; console.error("BAD EODHD link", f, m[0]); }
+  }
+}
+console.log(`EODHD links: ${eok} ok, ${ebad} bad`);
+console.log(`TradingView links: ${ok} ok, ${bad} bad; partner CTAs verified: ${ctas}`); process.exit(bad || ebad ? 1 : 0);
