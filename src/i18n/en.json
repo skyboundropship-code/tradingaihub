@@ -184,9 +184,14 @@
   "title": "📬 The weekly “State of finance AI tools”",
   "text": "What's new, what broke, and which tools climbed the leaderboard — one email a week. Free.",
   "subscribe": "Subscribe",
-  "thanks": "Thanks — check your inbox.",
+  "thanks": "You're subscribed — thanks! The first issue arrives with the next weekly report.",
   "rss": "Or follow via <a href=\"/rss.xml\">RSS</a>.",
-  "email": "Email <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> to join."
+  "email": "Email <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> to join.",
+  "sending": "Sending…",
+  "errInvalid": "Please enter a valid email address.",
+  "errRate": "Too many attempts. Please try again in an hour.",
+  "errServer": "Something went wrong. Please try again, or email {email} to join.",
+  "consent": "By subscribing you agree to our <a href=\"{privacy}\">privacy policy</a>. Unsubscribe anytime by emailing {email}."
  },
  "home": {
   "h1a": "AI tools for",
@@ -414,7 +419,8 @@
   "aff": "Affiliate links",
   "affP": "When you click an affiliate link, the destination site may set its own cookies under its own policy.",
   "rights": "Your rights",
-  "rightsP": "Ask us to access or delete your data at {email}."
+  "rightsP": "Ask us to access or delete your data at {email}.",
+  "c3": "Newsletter: if you subscribe, we store only your email address, language and signup time, solely to send the newsletter. Unsubscribe anytime by emailing {email}."
  },
  "terms": {
   "title": "Terms of use",

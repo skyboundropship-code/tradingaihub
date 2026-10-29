@@ -183,9 +183,14 @@
   "title": "📬 每周报告《金融 AI 工具现状》",
   "text": "新上线了什么、什么坏了、哪些工具排名上升——每周一封邮件，免费。",
   "subscribe": "订阅",
-  "thanks": "谢谢，请查收您的邮箱。",
+  "thanks": "订阅成功，谢谢！第一期将随下一份周报送达。",
   "rss": "也可以通过 <a href=\"/rss.xml\">RSS</a> 关注。",
-  "email": "如需订阅，请发送邮件至 <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a>。"
+  "email": "如需订阅，请发送邮件至 <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a>。",
+  "sending": "正在提交…",
+  "errInvalid": "请输入有效的邮箱地址。",
+  "errRate": "尝试次数过多，请一小时后再试。",
+  "errServer": "出错了。请重试，或发送邮件至 {email} 订阅。",
+  "consent": "订阅即表示您同意我们的<a href=\"{privacy}\">隐私政策</a>。随时发送邮件至 {email} 即可退订。"
  },
  "home": {
   "h1a": "面向",
@@ -413,7 +418,8 @@
   "aff": "联盟链接",
   "affP": "当您点击联盟链接时，目标网站可能根据其自身政策设置 Cookie。",
   "rights": "您的权利",
-  "rightsP": "如需访问或删除您的数据，请联系 {email}。"
+  "rightsP": "如需访问或删除您的数据，请联系 {email}。",
+  "c3": "电子报：如果您订阅，我们只保存您的邮箱地址、语言和订阅时间，仅用于发送电子报。随时发送邮件至 {email} 即可退订。"
  },
  "terms": {
   "title": "使用条款",

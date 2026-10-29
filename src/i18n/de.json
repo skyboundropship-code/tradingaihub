@@ -183,9 +183,14 @@
   "title": "📬 Der wöchentliche Bericht „State of AI Finance Tools“",
   "text": "Was neu ist, was kaputtging und welche Tools im Ranking gestiegen sind – eine E-Mail pro Woche. Kostenlos.",
   "subscribe": "Abonnieren",
-  "thanks": "Danke – bitte prüfen Sie Ihr Postfach.",
+  "thanks": "Sie sind angemeldet – danke! Die erste Ausgabe kommt mit dem nächsten Wochenbericht.",
   "rss": "Oder per <a href=\"/rss.xml\">RSS</a> folgen.",
-  "email": "Schreiben Sie an <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a>, um sich anzumelden."
+  "email": "Schreiben Sie an <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a>, um sich anzumelden.",
+  "sending": "Wird gesendet…",
+  "errInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+  "errRate": "Zu viele Versuche. Bitte versuchen Sie es in einer Stunde erneut.",
+  "errServer": "Etwas ist schiefgelaufen. Bitte erneut versuchen oder an {email} schreiben, um sich anzumelden.",
+  "consent": "Mit der Anmeldung stimmen Sie unserer <a href=\"{privacy}\">Datenschutzerklärung</a> zu. Abmeldung jederzeit per E-Mail an {email}."
  },
  "home": {
   "h1a": "KI-Tools für",
@@ -413,7 +418,8 @@
   "aff": "Affiliate-Links",
   "affP": "Wenn Sie auf einen Affiliate-Link klicken, kann die Zielseite nach ihrer eigenen Richtlinie eigene Cookies setzen.",
   "rights": "Ihre Rechte",
-  "rightsP": "Auskunft oder Löschung Ihrer Daten erhalten Sie über {email}."
+  "rightsP": "Auskunft oder Löschung Ihrer Daten erhalten Sie über {email}.",
+  "c3": "Newsletter: Wenn Sie sich anmelden, speichern wir nur Ihre E-Mail-Adresse, Sprache und den Anmeldezeitpunkt – ausschließlich für den Versand des Newsletters. Abmeldung jederzeit per E-Mail an {email}."
  },
  "terms": {
   "title": "Nutzungsbedingungen",

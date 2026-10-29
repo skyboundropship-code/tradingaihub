@@ -183,9 +183,14 @@
   "title": "📬 O boletim semanal «Estado das ferramentas de IA para finanças»",
   "text": "O que é novo, o que quebrou e quais ferramentas subiram no ranking: um e-mail por semana. Grátis.",
   "subscribe": "Assinar",
-  "thanks": "Obrigado! Confira sua caixa de entrada.",
+  "thanks": "Inscrição feita, obrigado! A primeira edição chega com o próximo relatório semanal.",
   "rss": "Ou acompanhe por <a href=\"/rss.xml\">RSS</a>.",
-  "email": "Envie um e-mail para <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> para assinar."
+  "email": "Envie um e-mail para <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> para assinar.",
+  "sending": "Enviando…",
+  "errInvalid": "Digite um e-mail válido.",
+  "errRate": "Muitas tentativas. Tente novamente em uma hora.",
+  "errServer": "Algo deu errado. Tente de novo ou envie um e-mail para {email} para assinar.",
+  "consent": "Ao assinar, você concorda com nossa <a href=\"{privacy}\">política de privacidade</a>. Cancele quando quiser enviando um e-mail para {email}."
  },
  "home": {
   "h1a": "Ferramentas de IA para",
@@ -413,7 +418,8 @@
   "aff": "Links de afiliado",
   "affP": "Quando você clica em um link de afiliado, o site de destino pode definir seus próprios cookies conforme sua própria política.",
   "rights": "Seus direitos",
-  "rightsP": "Peça acesso ou exclusão dos seus dados em {email}."
+  "rightsP": "Peça acesso ou exclusão dos seus dados em {email}.",
+  "c3": "Newsletter: se você assinar, guardamos apenas seu e-mail, idioma e data de inscrição, só para enviar a newsletter. Cancele quando quiser enviando um e-mail para {email}."
  },
  "terms": {
   "title": "Termos de uso",

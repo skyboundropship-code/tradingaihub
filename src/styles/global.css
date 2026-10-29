@@ -45,7 +45,7 @@ form.f label{display:block;font-size:14px;margin:12px 0 4px;color:var(--muted)}f
 .chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:12px 0}.chip{padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:13px;color:var(--text);background:var(--panel)}
 pre{position:relative}button.copy{position:absolute;top:8px;inset-inline-end:8px;background:var(--brand);color:var(--btntext);border:0;border-radius:7px;padding:4px 10px;font-weight:700;font-size:12px;cursor:pointer}
 .share{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.share a{font-size:13px;padding:6px 12px;border:1px solid var(--line);border-radius:999px;color:var(--text);background:var(--panel)}
-.newsletter{display:flex;gap:8px;max-width:520px}.newsletter input{flex:1;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--text)}
+.newsletter{display:flex;flex-wrap:wrap;gap:8px;max-width:520px}.newsletter input{flex:1 1 180px;min-width:0;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--text)}.newsletter .btn{flex:0 0 auto;max-width:100%;white-space:normal}.newsletter{position:relative}.newsletter .hp{position:absolute;top:0;inset-inline-start:0;width:1px;height:1px;padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);opacity:0;pointer-events:none}
 
 body{transition:background-color .2s,color .2s}
 .hdr-tools{display:flex;align-items:center;gap:10px;margin-inline-start:auto}

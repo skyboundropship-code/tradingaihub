@@ -183,9 +183,14 @@
   "title": "📬 El informe semanal «Estado de las herramientas de IA financieras»",
   "text": "Qué hay de nuevo, qué se rompió y qué herramientas subieron en el ranking: un email a la semana. Gratis.",
   "subscribe": "Suscribirse",
-  "thanks": "Gracias, revisa tu bandeja de entrada.",
+  "thanks": "¡Ya estás suscrito, gracias! El primer número llegará con el próximo informe semanal.",
   "rss": "O síguenos por <a href=\"/rss.xml\">RSS</a>.",
-  "email": "Escribe a <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> para suscribirte."
+  "email": "Escribe a <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> para suscribirte.",
+  "sending": "Enviando…",
+  "errInvalid": "Introduce un email válido.",
+  "errRate": "Demasiados intentos. Vuelve a intentarlo en una hora.",
+  "errServer": "Algo salió mal. Inténtalo de nuevo o escribe a {email} para suscribirte.",
+  "consent": "Al suscribirte aceptas nuestra <a href=\"{privacy}\">política de privacidad</a>. Date de baja cuando quieras escribiendo a {email}."
  },
  "home": {
   "h1a": "Herramientas de IA para",
@@ -413,7 +418,8 @@
   "aff": "Enlaces de afiliado",
   "affP": "Cuando haces clic en un enlace de afiliado, el sitio de destino puede instalar sus propias cookies según su propia política.",
   "rights": "Tus derechos",
-  "rightsP": "Solicítanos el acceso a tus datos o su eliminación en {email}."
+  "rightsP": "Solicítanos el acceso a tus datos o su eliminación en {email}.",
+  "c3": "Boletín: si te suscribes, solo guardamos tu email, idioma y fecha de alta, únicamente para enviarte el boletín. Date de baja cuando quieras escribiendo a {email}."
  },
  "terms": {
   "title": "Términos de uso",

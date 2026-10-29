@@ -3,3 +3,11 @@
 name = "tradingaihub"
 pages_build_output_dir = "./dist"
 compatibility_date = "2026-10-01"
+
+# Newsletter signups (functions/api/subscribe.js) need a Workers KV namespace bound as NEWSLETTER.
+# Create it once:  npx wrangler kv namespace create tradingaihub-newsletter  (token needs Account > Workers KV Storage > Edit)
+# then uncomment and paste the returned id. Without this binding /api/subscribe returns 503 "not_configured"
+# and the form shows the translated "email hello@tradingaihub.com" fallback.
+# [[kv_namespaces]]
+# binding = "NEWSLETTER"
+# id = "<tradingaihub-newsletter namespace id>"
