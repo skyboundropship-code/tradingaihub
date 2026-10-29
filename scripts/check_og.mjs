@@ -1,5 +1,5 @@
 // Build gate: every tool in data/tools.json must have public/og/tool-<id>.png (used for og:image / twitter:image).
-// If this fails, run `node scripts/og.mjs` and commit the new images.
+// scripts/og.mjs runs as the first step of `npm run build`; if this still fails, check its output.
 import fs from "node:fs";
 const tools = JSON.parse(fs.readFileSync("data/tools.json", "utf8"));
 const missing = tools.filter((t) => !fs.existsSync(`public/og/tool-${t.id}.png`) || fs.statSync(`public/og/tool-${t.id}.png`).size === 0).map((t) => t.id);
