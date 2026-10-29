@@ -7,7 +7,7 @@ import StatCards from "../../components/StatCards.astro";
 import Faq from "../../components/Faq.astro";
 import { homeFaq, faqLd } from "../../lib/faq";
 import { SITE } from "../../config";
-import { tools, CATEGORIES, COMPARISONS, verificationReport as r } from "../../lib/data";
+import { tools, CATEGORIES, COMPARISONS, STATUS, verificationReport as r } from "../../lib/data";
 import { langParams, useT } from "../../i18n";
 export function getStaticPaths() { return langParams().map((params) => ({ params })); }
 const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
@@ -18,28 +18,54 @@ const recent = [...tools].filter((x)=>x.verification.github?.last_commit).sort((
 const ld = [{ "@context": "https://schema.org", "@type": "ItemList", name: t("home.picks"), itemListElement: picks.map((x, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE.url}${p(`/tools/${x.id}/`)}`, name: x.name })) }];
 const faq = homeFaq(lang); ld.push(faqLd(faq, lang) as any);
 const cat = (slug: string) => t(`cat.${slug}`);
+// The week's check, drawn: one cell per listed tool, ordered by this week's result (tone from STATUS).
+const toneOf = (st: string) => (STATUS[st]?.tone ?? "warn");
+const order = { good: 0, warn: 1, bad: 2 } as Record<string, number>;
+const cells = tools.map((x) => toneOf(x.verification.status)).sort((a, b) => order[a] - order[b]);
+const nWarn = cells.filter((c) => c === "warn").length, nBad = cells.filter((c) => c === "bad").length;
+const stl = (k: string) => t(`status.${k}`)[0];
+const countIn = (slug: string) => tools.filter((x) => x.category === slug).length;
 ---
 <Base title={SITE.name} jsonld={ld} lang={lang}>
 <section class="hero wrap">
-  <h1>{t("home.h1a")} <em>{t("home.h1em")}</em>{t("home.h1sep")}<br/>{t("home.h1b")}</h1>
-  <p>{t("home.lead")}</p>
-  <form class="search" action={p("/tools/")}><input name="q" placeholder={t("home.search")} aria-label={t("home.searchLabel")} /></form>
-  <div class="chips">{CATEGORIES.map((c) => <a class="chip" href={p(`/category/${c.slug}/`)}>{c.icon} {cat(c.slug)[1]}</a>)}</div>
-  <StatCards lang={lang} tools={tools.length} verified={verified} categories={CATEGORIES.length} checkedAt={r.checked_at} />
+  <div class="hero-copy">
+    <h1>{t("home.h1a")} {t("home.h1em")}{t("home.h1sep")}<br/>{t("home.h1b")}</h1>
+    <p>{t("home.lead")}</p>
+    <form class="search" action={p("/tools/")}><input name="q" placeholder={t("home.search")} aria-label={t("home.searchLabel")} /></form>
+    <div class="chips">{CATEGORIES.map((c) => <a class="chip" href={p(`/category/${c.slug}/`)}>{cat(c.slug)[1]}</a>)}</div>
+  </div>
+  <div class="check">
+    <p class="check-h"><span>{t("home.passed")}</span><b><bdi>{verified}/{tools.length}</bdi></b></p>
+    <div class="cells" aria-hidden="true">{cells.map((c) => <i class={c === "good" ? "" : `c-${c}`}></i>)}</div>
+    <p class="check-key"><span><i></i>{stl("verified")} <b>{verified}</b></span><span><i class="c-warn"></i>{stl("aging")}, {stl("unconfirmed")} <b>{nWarn}</b></span><span><i class="c-bad"></i>{stl("stale")}, {stl("archived")} <b>{nBad}</b></span></p>
+    <StatCards lang={lang} tools={tools.length} verified={verified} categories={CATEGORIES.length} checkedAt={r.checked_at} />
+  </div>
 </section>
 <div class="wrap">
   <PartnerCTA variant="hero" lang={lang} path="/" />
-  <h2 class="sec">{t("home.picks")}</h2>
-  <div class="grid">{picks.map((x) => <ToolCard t={x} lang={lang} />)}</div>
-  <h2 class="sec">{t("home.browse")}</h2>
-  <div class="grid">{CATEGORIES.map((c) => <a class="card" href={p(`/category/${c.slug}/`)}><h3>{c.icon} {cat(c.slug)[0]}</h3><p>{cat(c.slug)[2]}</p><div class="meta">{tools.filter((x) => x.category === c.slug).length} {t("common.tools")}</div></a>)}</div>
-  <h2 class="sec">{t("home.popular")}</h2>
-  <div class="grid">{COMPARISONS.slice(0,6).map((c) => <a class="card" href={p(`/compare/${c.slug}/`)}><h3>{t(`cmp.${c.slug}`)[0]}</h3><p>{t(`cmp.${c.slug}`)[1]}</p></a>)}</div>
-  <h2 class="sec">{t("home.leaderboard")} <a href={p("/weekly/")} style="font-size:1rem">{t("home.seeAll")}</a></h2>
-  <p class="note">{t("home.boardNote", { date: r.checked_at.slice(0,10) })} <a href={p("/badges/")}>{t("home.grabBadge")}</a>.</p>
+  <section class="home-sec">
+    <div class="sec-head"><h2 class="sec">{t("home.picks")}</h2></div>
+    <div class="grid picks">{picks.map((x) => <ToolCard t={x} lang={lang} />)}</div>
+  </section>
+  <section class="home-sec">
+    <div class="sec-head"><h2 class="sec">{t("home.browse")}</h2></div>
+    <ul class="ledger">{CATEGORIES.map((c) => <li><a href={p(`/category/${c.slug}/`)}><span class="l-name">{cat(c.slug)[0]}</span><span class="l-desc">{cat(c.slug)[2]}</span><span class="l-n">{countIn(c.slug)} {t("common.tools")}</span></a></li>)}</ul>
+  </section>
+  <section class="home-sec">
+    <div class="sec-head"><h2 class="sec">{t("home.popular")}</h2></div>
+    <ul class="ledger two">{COMPARISONS.slice(0,6).map((c) => <li><a href={p(`/compare/${c.slug}/`)}><span class="l-name">{t(`cmp.${c.slug}`)[0]}</span><span class="l-desc">{t(`cmp.${c.slug}`)[1]}</span></a></li>)}</ul>
+  </section>
+  <section class="home-sec board">
+    <div>
+      <div class="sec-head"><h2 class="sec">{t("home.leaderboard")}</h2><a href={p("/weekly/")}>{t("home.seeAll")}</a></div>
+      <p class="note">{t("home.boardNote", { date: r.checked_at.slice(0,10) })} <a href={p("/badges/")}>{t("home.grabBadge")}</a>.</p>
+    </div>
+  </section>
   <Newsletter lang={lang} />
-  <h2 class="sec">{t("home.recent")}</h2>
-  <div class="grid">{recent.map((x) => <ToolCard t={x} lang={lang} />)}</div>
-  <Faq items={faq} lang={lang} />
+  <section class="home-sec">
+    <div class="sec-head"><h2 class="sec">{t("home.recent")}</h2></div>
+    <div class="grid">{recent.map((x) => <ToolCard t={x} lang={lang} />)}</div>
+  </section>
+  <div class="home-sec"><Faq items={faq} lang={lang} /></div>
 </div>
 </Base>

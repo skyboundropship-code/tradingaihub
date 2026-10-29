@@ -67,15 +67,13 @@ const items = [
 <style>
 /* the hero is .wrap but .hero's shorthand padding drops the side gutter; restore it so the cards don't touch the screen edge */
 :global(.hero.wrap){padding-left:20px;padding-right:20px}
-.statcards{list-style:none;margin:22px auto 0;padding:0;max-width:880px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;text-align:start}
-.statcard{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 1px 2px rgba(15,23,42,.06),0 4px 14px rgba(15,23,42,.06);padding:16px 16px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
-:global([data-theme=dark]) .statcard{box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 6px 18px rgba(0,0,0,.35)}
-.sc-icon{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;margin-bottom:6px;color:var(--brand);background:var(--g-bg);border:1px solid var(--g-bd)}
-.sc-verified .sc-icon{color:var(--t-fg);background:var(--t-bg);border-color:var(--t-bd)}
-.sc-cats .sc-icon{color:var(--o-fg);background:var(--o-bg);border-color:var(--o-bd)}
-.sc-date .sc-icon{color:var(--w-fg);background:var(--w-bg);border-color:var(--w-bd)}
-.sc-num{font-size:2rem;line-height:1.1;font-weight:800;letter-spacing:-.02em;color:var(--text);font-variant-numeric:tabular-nums;display:inline-block}
-.sc-datev{font-size:1.25rem;line-height:1.25;letter-spacing:0;overflow-wrap:anywhere}
-.sc-label{font-size:.875rem;color:var(--muted);line-height:1.35}
-@media(max-width:700px){.statcards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.statcard{padding:14px 12px 12px}.sc-num{font-size:1.75rem}.sc-datev{font-size:1.0625rem}}
+/* Hallmark: the four cards sit on the graphite check panel, ruled cells instead of floating shadows */
+.statcards{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--color-graphite-glyph-2);border:1px solid var(--color-graphite-glyph-2);border-radius:4px;overflow:hidden;text-align:start}
+.statcard{background:var(--color-graphite-2);padding:var(--space-md);display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:var(--space-sm);align-items:center;min-width:0}
+.sc-icon{grid-row:span 2;display:inline-flex;color:var(--color-accent-2)}
+.sc-icon svg{width:20px;height:20px}
+.sc-num{font-family:var(--font-display);font-size:1.75rem;line-height:1.1;font-weight:600;letter-spacing:var(--tracking-display);color:var(--color-graphite-ink);font-variant-numeric:tabular-nums;display:inline-block}
+.sc-datev{font-size:1.125rem;line-height:1.25;letter-spacing:0;overflow-wrap:anywhere}
+.sc-label{grid-column:2;font-size:.875rem;color:var(--color-graphite-muted);line-height:1.35}
+@media(max-width:380px){.statcard{padding:var(--space-sm)}.sc-num{font-size:1.5rem}.sc-datev{font-size:1rem}}
 </style>

@@ -14,7 +14,7 @@ const site = SITE.name;
   <h2 id="how-we-verify">{t("about.how")}</h2>
   <ul>{["c1","c2","c3","c4","c5"].map((k) => <li set:html={t(`about.${k}`)} />)}</ul>
   <h2>{t("about.badges")}</h2>
-  <ul>{Object.keys(STATUS).map((k) => <li><b>{t(`status.${k}`)[0]}</b> — {t(`status.${k}`)[1]}</li>)}</ul>
+  <ul>{Object.keys(STATUS).map((k) => <li><b>{t(`status.${k}`)[0]}</b>: {t(`status.${k}`)[1]}</li>)}</ul>
   <p>{t("about.latest", { date: r.checked_at.slice(0, 16).replace("T", " ") })} <a href={p("/verification/")}>{t("about.fullReport")}</a>.</p>
   <h2>{t("about.money")}</h2>
   <p>{t("about.moneyP")}</p>
