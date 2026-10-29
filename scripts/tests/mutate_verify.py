@@ -60,6 +60,11 @@ M = {
     "safe_verify_uncapped": ('done, v = _bounded(lambda: verify(t), TOOL_DEADLINE)', 'done, v = _bounded(lambda: verify(t), 10**6)'),
     "no_recheck": ('if again:\n        with', 'if False:\n        with'),
     "jsonrpc_id_ignored": ('j.get("id") == 1 and', ''),
+    # --- QA #18 nits (follow-up PR)
+    "tls_timeout_is_error": ('    if isinstance(r, requests.exceptions.Timeout): return Timeout(', '    if False: return Timeout('),
+    "deadline_unrounded": ('return f"{round(max(x, 0), 1):g}s"', 'return f"{x}s"'),
+    "whitespace_check_after_at": ('    if any(ord(c) <= 0x20 or ord(c) == 0x7f for c in u): return "URL contains whitespace or control characters"\n    if "\\\\" in u or "@" in u or re.search(r"%(5c|40)", u, re.I): return "URL contains a backslash or \'@\' (userinfo is not allowed)"\n',
+                                  '    if "\\\\" in u or "@" in u or re.search(r"%(5c|40)", u, re.I): return "URL contains a backslash or \'@\' (userinfo is not allowed)"\n    if any(ord(c) <= 0x20 or ord(c) == 0x7f for c in u): return "URL contains whitespace or control characters"\n'),
 }
 # Mutations no test can kill because another guard already enforces the same behaviour (documented, not counted).
 EQUIVALENT = {
