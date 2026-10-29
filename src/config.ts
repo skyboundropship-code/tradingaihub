@@ -21,4 +21,6 @@ export const AFFILIATES = {
   // paths: only pages proven (curl) to load cdn.promotekit.com/promotekit.js are tagged; PromoteKit can't attribute
   // anywhere else (e.g. the /financial-apis/ docs), so those links stay plain. Exact pathname match; read by check_aff.mjs.
   eodhd: { id: "tradingaihub", param: "via", hosts: ["eodhd.com", "www.eodhd.com"], exact: true, paths: ["/", "/pricing", "/lp/eodhd-mcp-server"], home: "https://eodhd.com/" },
+  // TrendSpider (FirstPromoter, ?_go=). exact: only trendspider.com / www.trendspider.com are tagged, every path (deep links kept).
+  trendspider: { id: "liran-13d76f", param: "_go", hosts: ["trendspider.com", "www.trendspider.com"], exact: true, home: "https://trendspider.com/" },
 };

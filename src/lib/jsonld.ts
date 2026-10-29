@@ -12,8 +12,8 @@ export const appId = (id: string) => `${SITE.url}/tools/${id}/#app`; // stable a
 const FREE_MODELS = new Set(["free", "freemium", "open-source"]);
 const SPDX = new Set(["MIT", "MIT-0", "Apache-2.0", "AGPL-3.0", "GPL-3.0", "LGPL-3.0", "BSD-2-Clause", "BSD-3-Clause", "MPL-2.0", "ISC", "Unlicense"]);
 const known = (s: any) => typeof s === "string" && s.trim() !== "" && !/^(unknown|none|n\/a)$/i.test(s.trim());
-// Defensive: strip EODHD's ?via= (raw data has none) and drop anything still carrying an affiliate param.
-const clean = (u: any) => { if (typeof u !== "string") return null; const x = untagUrl(u, "eodhd") ?? u; return /^https?:\/\//.test(x) && !/aff_id=|[?&]via=/i.test(x) ? x : null; };
+// Defensive: strip EODHD's ?via= and TrendSpider's ?_go= (raw data has none) and drop anything still carrying an affiliate param.
+const clean = (u: any) => { if (typeof u !== "string") return null; const x = untagUrl(untagUrl(u, "eodhd") ?? u, "trendspider") ?? u; return /^https?:\/\//.test(x) && !/aff_id=|[?&](?:via|_go)=/i.test(x) ? x : null; };
 
 export function softwareLd(id: string, page: { name: string; description: string; url: string; lang: string }) {
   const t = rawById[id]; if (!t) throw new Error(`softwareLd: unknown tool ${id}`);
