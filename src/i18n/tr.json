@@ -1,35 +1,442 @@
 {
- "meta": {"tagline": "Finans ve trading için doğrulanmış yapay zekâ araçları", "description": "Piyasa verisi, trading, kripto, muhasebe ve finansal araştırma için her hafta doğrulanan MCP sunucuları, ajan becerileri ve API'ler dizini — fiyatlar, ücretsiz katmanlar ve Claude, Cursor, ChatGPT, Grok ile Gemini için kopyala-yapıştır kurulum kodlarıyla."},
- "nav": {"tools": "Tüm araçlar", "categories": "Kategoriler", "compare": "Karşılaştır", "weekly": "Haftalık rapor", "badges": "Rozetler", "verify": "Nasıl doğruluyoruz", "submit": "Ücretsiz araç ekle", "language": "Dil", "theme": "Açık/koyu temayı değiştir"},
- "footer": {"rechecked": "Her hafta yeniden kontrol edilir.", "directory": "Dizin", "comparisons": "Karşılaştırmalar", "latestRun": "Son doğrulama", "makers": "Geliştiriciler için", "submitFree": "Araç ekle (ücretsiz)", "getBadge": "Doğrulama rozeti al", "awesome": "Awesome listesi", "legal": "Yasal", "nia": "Yatırım tavsiyesi değildir", "privacy": "Gizlilik", "terms": "Koşullar", "about": "Hakkında", "advertise": "Reklam ver",
-  "disclaimer": "<b>Yatırım tavsiyesi değildir.</b> {site}, yazılım araçlarına ilişkin bilgilendirme amaçlı bir dizindir. Bu sitedeki hiçbir içerik yatırım, trading, vergi veya hukuki tavsiye ya da herhangi bir menkul kıymet veya varlığı alma veya satma önerisi değildir ve biz lisanslı yatırım danışmanı veya portföy yöneticisi değiliz. Trading kayıp riski içerir. <b>Ortaklık bildirimi:</b> Bazı bağlantılar (şu anda TradingView) ortaklık bağlantılarıdır. Bunlar üzerinden kaydolursanız, size ek maliyet olmadan komisyon kazanabiliriz. Bu bağlantılar işaretlidir ve listelemeleri, sıralamaları veya doğrulama durumunu asla etkilemez.", "fullDisclaimer": "Tam sorumluluk reddi"},
- "common": {"copy": "Kopyala", "copied": "Kopyalandı ✓", "official": "Resmî", "officialVendor": "Resmî (sağlayıcı)", "pricingUnknown": "Fiyat: bilinmiyor", "tools": "araç", "home": "Ana sayfa", "share": "Paylaş:", "copyLink": "Bağlantıyı kopyala", "linkCopied": "Bağlantı kopyalandı ✓", "affLink": "Ortaklık bağlantısı", "affTitle": "Abone olursanız komisyon kazanabiliriz. Bu, sıralamaları etkilemez.", "openTV": "TradingView'i aç ↗", "notFound": "Sayfa bulunamadı", "browseAll": "Tüm araçlara göz at"},
- "type": {"mcp": "MCP sunucusu", "skill": "Ajan becerisi", "api": "API", "mcpPlural": "MCP sunucuları", "skillPlural": "Beceriler", "apiPlural": "API'ler"},
- "status": {"verified": ["Doğrulandı", "Erişilebilir, bağlantılar çalışıyor ve (depolar için) son 180 gün içinde commit var."], "aging": ["Yavaşladı", "Erişilebilir, ancak 180–365 gündür commit yok."], "stale": ["Bakımsız", "Erişilebilir, ancak bir yıldan uzun süredir commit yok. Kullanmadan önce test edin."], "archived": ["Arşivlendi", "Depo, sahibi tarafından arşivlendi."], "warning": ["Bağlantı kontrol edilmeli", "Son kontrolde web sitesi, doküman veya uç nokta bağlantısı başarısız oldu."], "unreachable": ["Erişilemiyor", "Depoya veya web sitesine ulaşılamadı."]},
- "cat": {"market-data": ["Piyasa verisi API'leri ve MCP", "Piyasa verisi", "Hisse, ETF, forex ve daha fazlası için gerçek zamanlı ve geçmiş fiyatlar, temel veriler ve göstergeler."], "trading-brokers": ["Trading ve aracı kurum MCP'leri", "Trading ve aracı kurumlar", "Yapay zekâ ajanlarının canlı veya sanal (paper) hesaplar üzerinden pozisyonları görmesini ve emir vermesini sağlayın."], "crypto": ["Kripto ve DeFi", "Kripto", "Kripto ajanları için fiyatlar, DEX analitiği, borsa işlemleri ve zincir üstü işlemler."], "accounting": ["Muhasebe ve defter tutma", "Muhasebe", "Ajanları QuickBooks, Xero ve dönem kapanışı/mutabakat iş akışlarına bağlayın."], "payments-banking": ["Ödemeler ve kurumsal bankacılık", "Ödemeler", "Stripe, kurumsal banka hesapları, harcama yönetimi ve ajan ödemeleri."], "personal-finance": ["Kişisel finans ve bütçe", "Kişisel finans", "Bütçe uygulamaları, net varlık takibi ve hisse bazlı ücret asistanları."], "research-filings": ["Araştırma ve SEC bildirimleri", "Araştırma", "SEC EDGAR, 13F, içeriden öğrenen işlemleri, derin araştırma ve hisse raporları."], "quant-backtesting": ["Kantitatif ve backtest", "Kantitatif", "Strateji araştırması, backtest, grafik formasyonları ve trading becerileri."], "macro": ["Makro ve ekonomi", "Makro", "FRED serileri, ekonomik takvimler, döviz kurları ve makro göstergeler."]},
- "cmp": {"market-data-api-pricing": ["Yapay zekâ ajanları için piyasa verisi API'leri: ücretsiz katman ve fiyat karşılaştırması", "Başlıca piyasa verisi API'lerinin yayımlanmış ücretsiz katman limitleri ve başlangıç fiyatları, her sağlayıcının fiyat sayfasına bağlantılarla."], "best-stock-market-mcp-servers": ["Borsa MCP sunucuları karşılaştırması", "Claude, Cursor ve diğer yapay zekâ istemcilerine hisse verisi ve temel veriler sağlayan MCP sunucuları; bakım, yıldız, lisans ve kurulum yöntemine göre karşılaştırma."], "broker-trading-mcp-servers": ["Aracı kurum ve trading MCP sunucuları karşılaştırması", "Pozisyonları okuyabilen veya emir verebilen MCP sunucuları. Her zaman paper trading ile başlayın."], "crypto-mcp-servers": ["Kripto MCP sunucuları karşılaştırması", "Kripto piyasa verisi, DEX analitiği, borsalar ve zincir üstü araçlar."], "accounting-mcp-servers": ["Muhasebe, ödeme ve bankacılık MCP'leri karşılaştırması", "QuickBooks, Xero, Stripe, Ramp, Qonto ve diğerleri için resmî ve topluluk sunucuları."], "sec-filings-research-tools": ["Yapay zekâ ajanları için SEC bildirimleri ve araştırma araçları", "EDGAR, 13F, içeriden öğrenen işlemleri ve araştırma ajanlarının karşılaştırması."], "trading-skills-for-claude": ["Finans ve trading ajan becerileri karşılaştırması", "Finans ve trading için SKILL.md tabanlı beceriler ve Claude Code eklentileri."]},
- "tv": {"charts": ["Bu verilerin grafiğini mi çizeceksiniz?", "Birçok trader bu API'lerle birlikte hisse, ETF, forex ve endeks grafikleri için TradingView kullanır. Ücretsiz Basic planı vardır."], "crypto": ["Kripto grafikleri mi?", "TradingView birçok borsadaki binlerce kripto paritesinin grafiğini çizer ve Basic planı ücretsizdir."], "backtest": ["Stratejileri görsel olarak test edin", "TradingView'in Pine Script düzenleyicisi ve Strategy Tester'ı, bir fikri ajana bağlamadan önce hızlıca doğrulamanızı sağlar. Basic planı ücretsizdir."], "integration": ["TradingView verileriyle çalışır", "Bu araç TradingView ile çalışır. Hesabınız yoksa Basic planı ücretsizdir."]},
- "nl": {"title": "📬 Haftalık “Finans Yapay Zekâ Araçlarının Durumu”", "text": "Neler çıktı, neler bozuldu, hangi araçlar yükseldi — haftada bir e-posta, ücretsiz.", "subscribe": "Abone ol", "thanks": "Teşekkürler — gelen kutunuzu kontrol edin.", "preview": "Önizleme: abonelik henüz bağlı değil; hiçbir şey gönderilmedi.", "rss": "Ya da <a href=\"/rss.xml\">RSS</a> ile takip edin."},
- "home": {"h1a": "Yapay zekâ araçları:", "h1em": "finans ve trading için", "h1sep": ",", "h1b": "her hafta doğrulanır.", "lead": "Piyasa verisini, aracı kurumları, kriptoyu ve muhasebeyi Claude, Cursor, ChatGPT, Grok ve Gemini'ye bağlayan MCP sunucuları, ajan becerileri ve API'lerden oluşan ücretsiz, açık bir dizin — gerçek fiyatlar, ücretsiz katmanlar ve tek tıkla kurulum kodlarıyla.", "search": "Arayın, ör. 'options', 'SEC filings', 'Binance', 'QuickBooks'…", "searchLabel": "Araç ara", "listed": "listelenen araç", "passed": "bu hafta doğrulamayı geçti", "categories": "kategori", "lastVerified": "son doğrulama", "picks": "Editörün seçimleri", "browse": "Kategoriye göre göz at", "popular": "Popüler karşılaştırmalar", "leaderboard": "Haftalık sıralama →", "seeAll": "Tümünü gör", "boardNote": "En çok yıldızlı doğrulanmış araçlar, {date} tarihinde doğrulandı.", "grabBadge": "Geliştiriciler: ücretsiz rozetinizi alın", "recent": "Son güncellenenler"},
- "tools": {"title": "Tüm finans ve trading yapay zekâ araçları", "desc": "Dizindeki tüm MCP sunucuları, beceriler ve API'ler — haftalık doğrulama durumu, fiyatlar ve kurulum kodlarıyla.", "h1": "Tüm araçlar", "filter": "Filtrele…", "allCats": "Tüm kategoriler", "allTypes": "Tüm türler"},
- "cats": {"title": "Kategoriler", "desc": "Finans ve trading yapay zekâ araçlarına kategoriye göre göz atın: piyasa verisi, aracı kurumlar, kripto, muhasebe, kişisel finans, araştırma ve kantitatif.", "h1": "Kategoriler"},
- "category": {"title": "{name}: Yapay zekâ araçları, MCP sunucuları ve beceriler ({year})", "desc": "Yapay zekâ ajanları için {n} doğrulanmış {name} aracı.", "sorted": "Önce doğrulama durumuna, sonra GitHub yıldızlarına göre sıralandı.", "compare": "Karşılaştır:"},
- "compare": {"title": "Karşılaştırmalar", "desc": "Finans ve trading MCP sunucuları, becerileri ve veri API'lerinin yan yana karşılaştırmaları.", "dataNote": "Veriler {date} tarihli otomatik kontrolümüzden; fiyatlar sağlayıcıların yayımladığı şekilde.", "order": "Sıralama GitHub yıldızlarına göredir, öneri değildir. Yatırım tavsiyesi değildir.", "pricingPage": "fiyat sayfası", "hosted": "barındırılan URL", "skillRepo": "beceri deposu", "fromSource": "kaynaktan kurulum"},
- "th": {"tool": "Araç", "api": "API", "type": "Tür", "status": "Durum", "stars": "Yıldız", "lastCommit": "Son commit", "license": "Lisans", "install": "Kurulum", "pricing": "Fiyat", "freeTier": "Ücretsiz katman", "paidFrom": "Ücretli, başlangıç", "plans": "Planlar (yayımlanan)", "source": "Kaynak", "issues": "Sorunlar", "category": "Kategori"},
- "tool": {"titleFor": "{cat} için {type}", "descSuffix": "Doğrulama durumu, fiyat, ücretsiz katman ve Claude, Cursor, ChatGPT, Grok ile Gemini için kurulum kodları.", "lastChecked": "Son kontrol: {date}", "shareVerified": "bu hafta doğrulandı", "shareStatus": "durum", "on": "—", "install": "Kurulum", "pricing": "Fiyat", "model": "Model", "details": "Ayrıntılar", "notVerifiedPrice": "Sağlayıcı sayfasından henüz doğrulanmadı", "checked": "{date} tarihinde kontrol edildi", "pricesChange": "Fiyatlar değişir — satın almadan önce her zaman sağlayıcının sayfasından teyit edin.", "verification": "Doğrulama", "autoCheck": "{date} tarihli otomatik kontrol.", "repository": "Depo", "homepage": "Ana sayfa", "docs": "Dokümanlar", "remote": "Uzak MCP", "package": "Paket", "noPackage": "tespit edilmedi", "listedVia": "Listeleme kaynağı", "source": "kaynak", "maintain": "Bu aracın bakımını siz mi yapıyorsunuz?", "badgeNote": "README dosyanıza otomatik güncellenen ücretsiz doğrulama rozeti ekleyin:", "wrongInfo": "Bilgi hatalı mı?", "sendCorrection": "Düzeltme gönder", "free": "Ücretsiz", "notEndorse": "Listelenmek onay veya yatırım tavsiyesi anlamına gelmez. Her trading aracını önce paper modunda test edin.", "more": "{cat} kategorisinde diğer araçlar", "pricingDataNote": "Fiyat ayrıntıları sağlayıcı sayfasından İngilizce olarak alıntılanmıştır."},
- "checks": {"repo reachable": "depo erişilebilir", "package published": "paket yayımlandı", "homepage alive": "ana sayfa çalışıyor", "docs alive": "dokümanlar çalışıyor", "remote MCP endpoint responds": "uzak MCP uç noktası yanıt veriyor", "no npm/PyPI package detected at repo root": "depo kökünde npm/PyPI paketi tespit edilmedi"},
- "snip": {"allClients": "Tüm istemciler", "anyAgent": "Herhangi bir ajan", "anySkills": "Beceri destekleyen herhangi bir ajan", "manual": "Manuel", "keyNote": "Sunucunun ihtiyaç duyduğu API anahtarlarını \"env\" girdileri olarak ekleyin; tam değişken adları için projenin README dosyasına bakın.", "claudeDesktop": "claude_desktop_config.json dosyasına ekleyin.", "cursor": ".cursor/mcp.json (proje) veya ~/.cursor/mcp.json (genel) dosyasına ekleyin.", "gemini": "~/.gemini/settings.json dosyasına ekleyin.", "claudeConnector": "Claude → Settings → Connectors → Add custom connector, ardından bu URL'yi yapıştırın.", "chatgpt": "ChatGPT → Settings → Apps & Connectors (geliştirici modu) → Create, ardından bu URL'yi yapıştırın.", "grok": "Uzak MCP araçlarını xAI API isteklerinde kullanın; kimlik doğrulama başlıkları için docs.x.ai'ye bakın.", "fromSource": "Denetleyicimiz yayımlanmış bir npm/PyPI paketi veya barındırılan uç nokta tespit etmedi. README'ye göre yerel olarak çalıştırın, ardından başlatma komutunu istemcinize stdio MCP sunucusu olarak kaydedin.", "needsRemote": "Uzak MCP URL'si (HTTPS) gerekir", "stdioOnly": "Bu sunucu stdio üzerinden yerel olarak çalışır. ChatGPT bağlayıcıları ve Grok API, bu projenin sağlamadığı barındırılan bir HTTPS uç noktası gerektirir.", "marketplace": "Ardından eklentilerine/becerilerine göz atıp kurmak için /plugin çalıştırın.", "skillsCli": "Açık skills CLI'ı (skills.sh) kullanın. Claude Code, Cursor, Codex, Gemini CLI ve diğerleriyle çalışır.", "manualSkill": "Beceri klasörünü (SKILL.md ile) ~/.claude/skills/ veya ajanınızın beceri dizinine kopyalayın.", "viaMcp": "Yapay zekâ istemcilerinde şu yolla kullanılabilir: {list}.", "rest": "REST API: kodunuzdan veya ajan araçlarınızdan çağırın. Resmî dokümanlara bakın."},
- "about": {"title": "Hakkında ve doğrulama", "desc": "{site} finans ve trading yapay zekâ araçlarını nasıl listeler ve her hafta nasıl doğrular.", "h1": "{site} hakkında", "p1": "{site}, finans ve trading için bağımsız bir yapay zekâ araçları dizinidir: MCP sunucuları, ajan becerileri ve veri API'leri. Çoğu yapay zekâ aracı listesi asla yeniden kontrol edilmez. Biz her listelemeyi her hafta otomatik olarak kontrol eder ve sonuçları size gösteririz.", "how": "Nasıl doğruluyoruz", "c1": "<b>Depo erişilebilir</b> (ve yeniden adlandırılmış veya arşivlenmiş mi).", "c2": "<b>Bakım</b>: son commit tarihi ve GitHub yıldızları.", "c3": "<b>Paket yayımlandı</b>: depoda belirtilen npm veya PyPI paketi mevcut ve depoya geri işaret ediyor; en son sürümü kaydederiz.", "c4": "<b>Bağlantılar çalışıyor</b>: ana sayfa, dokümanlar ve barındırılan MCP uç noktaları yanıt veriyor.", "c5": "<b>Fiyat</b>: sağlayıcının kendi fiyat sayfasından, URL ve tarihle birlikte. Bilinmeyen değerler “bilinmiyor” olarak gösterilir — asla tahmin etmeyiz.", "badges": "Durum rozetleri", "latest": "Son çalıştırma: {date} UTC —", "fullReport": "tam raporu gör", "money": "Nasıl para kazanıyoruz", "moneyP": "Listeleme ücretsizdir. Gelirimiz açıkça işaretlenmiş sponsorlu alanlardan ve bazı veri sağlayıcılarının ortaklık bağlantılarından gelir. Hiçbiri doğrulama durumunu etkilemez.", "contact": "İletişim"},
- "disc": {"title": "Sorumluluk reddi: yatırım tavsiyesi değildir", "h1": "Sorumluluk reddi: yatırım tavsiyesi değildir", "intro": "{site} bir yazılım araçları dizinidir. Tüm içerik yazılımlar, yetenekleri ve yayımlanmış fiyatları hakkında genel bilgidir.",
-  "items": ["<b>Ortaklık bildirimi.</b> Bazı dış bağlantılar (şu anda TradingView'e yönelik olanlar) ortaklık bağlantılarıdır; “Ortaklık bağlantısı” olarak işaretlenir ve rel=\"sponsored\" ile sunulur. Bunlar üzerinden abonelik satın alırsanız, size ek maliyet olmadan komisyon kazanabiliriz. Hiçbir ödeme hangi araçları listelediğimizi, sıralamalarını veya doğrulama durumlarını etkilemez; bağlantılar onay veya trading tavsiyesi değildir.", "<b>Tavsiye değildir.</b> Bu sitedeki hiçbir şey yatırım tavsiyesi, yatırım pazarlaması, portföy yönetimi, trading sinyali ya da vergi, muhasebe veya hukuki tavsiye değildir ve kişisel durumunuzu dikkate almaz. Hiçbir yargı bölgesinde (İsrail'in Yatırım Danışmanlığı, Yatırım Pazarlaması ve Portföy Yönetiminin Düzenlenmesi Kanunu, 5755-1995 dahil) lisanslı yatırım danışmanı, yatırım pazarlamacısı veya portföy yöneticisi değiliz.", "<b>Öneri değildir.</b> Bir listeleme, sıralama, “Doğrulandı” rozeti veya sponsorlu alan, herhangi bir aracı, aracı kurumu, borsayı veya varlığı kullanma önerisi değildir.", "<b>Risk.</b> Trading ve yatırım — özellikle otomasyon veya yapay zekâ ajanları, kaldıraç, opsiyonlar ya da kripto ile — sermayenizin bir kısmını veya tamamını kaybetmenize yol açabilir. Her trading aracını önce paper modunda test edin ve bir ajana asla kaybetmeyi göze alabileceğinizden fazla yetki vermeyin.", "<b>Üçüncü taraflar.</b> Araçlar üçüncü taraflarca geliştirilir ve işletilir. Bunları, verilerini, güvenliklerini veya erişilebilirliklerini kontrol etmeyiz. Doğrulama otomatiktir ve Hakkında sayfasında açıklanan kontrollerle sınırlıdır.", "<b>Doğruluk.</b> Fiyatlar ve özellikler değişir. Her zaman sağlayıcının sitesinden teyit edin.", "<b>Ortaklık ve sponsorluk bildirimi.</b> Bazı bağlantılar bize komisyon kazandırır ve bazı listelemeler ücretli alanlardır. Bunlar işaretlidir."]},
- "ver": {"title": "Son doğrulama çalıştırması", "desc": "Listelenen her finans ve trading yapay zekâ aracının haftalık otomatik doğrulama sonuçları.", "h1": "Doğrulama — {date}"},
- "submit": {"title": "Araç ekle", "desc": "Finans ve trading için bir MCP sunucusu, ajan becerisi veya API ekleyin. Ücretsiz listeleme, otomatik doğrulama.", "lead": "<b>Her zaman ücretsiz.</b> Ücretli katman yok, gizli şart yok. Ayrıca otomatik güncellenen ücretsiz bir doğrulama rozeti alırsınız. Gönderimden sonra denetleyicimiz depoyu veya siteyi, son commit'leri, paket kayıtlarını ve dokümanları kontrol eder. Geçen araçlar bir hafta içinde yayına girer.", "preview": "⚠️ Yalnızca önizleme: bu formun henüz bir arka ucu yok ve hiçbir şey gönderilmez.", "name": "Araç adı", "url": "Depo veya web sitesi URL'si", "type": "Tür", "category": "Kategori", "oneLine": "Tek satırlık açıklama", "pricingUrl": "Fiyat sayfası URL'si (ücretliyse)", "email": "E-posta adresiniz (doğrulama soruları için)", "confirm": "Bu aracın getiri vaat etmediğini ve bir yatırım danışmanlığı hizmeti olmadığını onaylıyorum.", "button": "İncelemeye gönder", "thanks": "Teşekkürler! (Önizleme: hiçbir şey gönderilmedi.)"},
- "badges": {"title": "Geliştiriciler için ücretsiz doğrulama rozetleri", "desc": "README dosyanıza otomatik güncellenen ücretsiz bir {site} doğrulama rozeti ekleyin.", "h1": "Ücretsiz “Verified by {site}” rozetleri", "p1": "Listelenen her araç, her haftalık doğrulamadan sonra otomatik güncellenen ücretsiz bir rozet alır. Kullanıcılara projenizin aktif ve çalışır durumda olduğunu gösterin.", "p2": "Araç kimliği, araç sayfanızın URL'sindedir; ya da hazır kodu araç sayfasından kopyalayın. Henüz listede değil misiniz?", "submitFree": "Ücretsiz ekleyin", "states": "Rozet durumları", "statesP": "yeşil = bu hafta doğrulandı · sarı = yavaşladı / bağlantı kontrol edilmeli · kırmızı = bakımsız, arşivlendi veya erişilemiyor."},
- "weekly": {"title": "Finans yapay zekâ araçlarının durumu — {date} haftası", "desc": "{n} finans ve trading MCP sunucusu, beceri ve API için haftalık sıralama ve değişiklik günlüğü.", "lead": "Denetleyicimiz her hafta her listelemeyi yeniden kontrol eder. İşte karne. Serbestçe paylaşabilir ve alıntılayabilirsiniz (bağlantı verirseniz seviniriz).", "share": "Finans ve trading yapay zekâ araçlarının durumu — {date}: {v}/{n} doğrulandı", "officialTools": "resmî sağlayıcı araçları", "changed": "Bu hafta ne değişti", "board": "Sıralama: en çok yıldızlı doğrulanmış araçlar", "shipped": "Son yayınlananlar", "lastCommit": "son commit {date}", "love": "Bakımcı ilgisi bekleyenler ({n})", "loveNote": "Bakımsız = 12+ aydır commit yok. Bakımcılar: bir güncelleme yayınlayın, rozet gelecek hafta yeşile döner.", "archive": "Arşiv", "changes": "{n} değişiklik", "changesNote": "Değişiklik kayıtları otomatik olarak İngilizce oluşturulur."},
- "adv": {"title": "Reklam ver", "desc": "{site} üzerinde reklam verin.", "lead": "{site}, her hafta yeniden doğrulanan {n}+ finans ve trading MCP sunucusu, beceri ve API listeler. Tüm listelemeler ücretsizdir; ücretli alanlar yalnızca görünürlük satın alır, asla daha iyi bir doğrulama durumu değil. Ücretli alanlar her zaman “Sponsorlu” olarak işaretlenir.", "free": "Listeleme, rozetler ve gönderimler <b>ücretsizdir</b> ve öyle kalacaktır. Sponsorlu alanlar henüz açık değil. İleride ilgilenir misiniz? {email} adresine e-posta gönderin."},
- "privacy": {"title": "Gizlilik politikası", "draft": "Taslak — lansmandan önce gözden geçirilecek.", "p1": "{site} statik bir web sitesidir. Hesap gerektirmeyiz ve reklam çerezleri kullanmayız. Dil ve tema tercihleriniz yalnızca tarayıcınızda (localStorage) saklanır.", "collect": "Ne topluyoruz", "c1": "Toplu, gizliliğe saygılı, çerezsiz analizler (sayfa görüntülemeleri, yönlendirenler, ülke).", "c2": "Araç eklerken veya alan satın alırken gönderdikleriniz (ad, e-posta, araç ayrıntıları). Ödemeler merchant of record'umuz tarafından işlenir; kart numaralarını asla görmeyiz.", "use": "Nasıl kullanıyoruz", "useP": "Gönderimleri incelemek, sponsorlu alanları yürütmek ve listelemeniz hakkında sizinle iletişim kurmak için. Kişisel verileri satmayız.", "aff": "Ortaklık bağlantıları", "affP": "Bir ortaklık bağlantısına tıkladığınızda, hedef site kendi politikası kapsamında çerez ayarlayabilir.", "rights": "Haklarınız", "rightsP": "Verilerinize erişmek veya silinmesini istemek için {email} ile iletişime geçin."},
- "terms": {"title": "Kullanım koşulları", "items": ["Site “olduğu gibi”, yalnızca bilgilendirme amacıyla sunulur. <a href=\"{disc}\">Sorumluluk reddine</a> bakın — buradaki hiçbir şey yatırım tavsiyesi değildir.", "Araç adları ve ticari markalar ilgili sahiplerine aittir. Listelemeler olgusal açıklamalardır; sahipler düzeltme veya kaldırma talep edebilir.", "Sponsorlu alanlar yalnızca görünürlük satın alır, işaretlenir, reddedilebilir veya kaldırılabilir (orantılı iade ile) ve merchant of record'umuz tarafından faturalandırılır.", "Gönderenler aracı listeleme hakkına sahip olduklarını ve aracın garantili getiri vaat etmediğini onaylar.", "Sorumluluğumuz, son 12 ayda bize ödediğiniz tutarla sınırlıdır.", "Çeviri ile İngilizce sürüm arasında çelişki olması halinde İngilizce sürüm geçerlidir."], "contact": "İletişim:"},
- "partner": {"label": "Ortak", "homeTitle": "Trader'ların çoğunun kullandığı grafikler ve tarayıcılar", "homeText": "Bu dizindeki araçları TradingView ile birlikte kullanın: canlı grafikler, hisse ve kripto tarayıcıları, alarmlar ve Pine Script ile backtest. Basic planı ücretsizdir.", "homeCta": "TradingView'i ücretsiz deneyin", "toolTitle": "TradingView'de grafiğini açın", "toolText": "Hisse, forex ve kripto için grafikler, tarayıcılar ve alarmlar — ücretsiz Basic planıyla.", "toolBtn": "TradingView'i deneyin", "disclosure": "Ortak bağlantısı: size ek maliyet olmadan komisyon kazanabiliriz. Listelemeleri asla etkilemez."},
+ "meta": {
+  "tagline": "Finans ve trading için doğrulanmış yapay zekâ araçları",
+  "description": "Piyasa verisi, trading, kripto, muhasebe ve finansal araştırma için her hafta doğrulanan MCP sunucuları, ajan becerileri ve API'ler dizini — fiyatlar, ücretsiz katmanlar ve Claude, Cursor, ChatGPT, Grok ile Gemini için kopyala-yapıştır kurulum kodlarıyla."
+ },
+ "nav": {
+  "tools": "Tüm araçlar",
+  "categories": "Kategoriler",
+  "compare": "Karşılaştır",
+  "weekly": "Haftalık rapor",
+  "badges": "Rozetler",
+  "verify": "Nasıl doğruluyoruz",
+  "submit": "Ücretsiz araç ekle",
+  "language": "Dil",
+  "theme": "Açık/koyu temayı değiştir"
+ },
+ "footer": {
+  "rechecked": "Her hafta yeniden kontrol edilir.",
+  "directory": "Dizin",
+  "comparisons": "Karşılaştırmalar",
+  "latestRun": "Son doğrulama",
+  "makers": "Geliştiriciler için",
+  "submitFree": "Araç ekle (ücretsiz)",
+  "getBadge": "Doğrulama rozeti al",
+  "awesome": "Awesome listesi",
+  "legal": "Yasal",
+  "nia": "Yatırım tavsiyesi değildir",
+  "privacy": "Gizlilik",
+  "terms": "Koşullar",
+  "about": "Hakkında",
+  "advertise": "Reklam ver",
+  "disclaimer": "<b>Yatırım tavsiyesi değildir.</b> {site}, yazılım araçlarına ilişkin bilgilendirme amaçlı bir dizindir. Bu sitedeki hiçbir içerik yatırım, trading, vergi veya hukuki tavsiye ya da herhangi bir menkul kıymet veya varlığı alma veya satma önerisi değildir ve biz lisanslı yatırım danışmanı veya portföy yöneticisi değiliz. Trading kayıp riski içerir. <b>Ortaklık bildirimi:</b> Bazı bağlantılar (şu anda TradingView) ortaklık bağlantılarıdır. Bunlar üzerinden kaydolursanız, size ek maliyet olmadan komisyon kazanabiliriz. Bu bağlantılar işaretlidir ve listelemeleri, sıralamaları veya doğrulama durumunu asla etkilemez.",
+  "fullDisclaimer": "Tam sorumluluk reddi",
+  "short": "Yatırım tavsiyesi değildir. Bazı bağlantılar iş ortağı bağlantılarıdır ve bize komisyon kazandırabilir."
+ },
+ "common": {
+  "copy": "Kopyala",
+  "copied": "Kopyalandı ✓",
+  "official": "Resmî",
+  "officialVendor": "Resmî (sağlayıcı)",
+  "pricingUnknown": "Fiyat: bilinmiyor",
+  "tools": "araç",
+  "home": "Ana sayfa",
+  "share": "Paylaş:",
+  "copyLink": "Bağlantıyı kopyala",
+  "linkCopied": "Bağlantı kopyalandı ✓",
+  "affLink": "Ortaklık bağlantısı",
+  "affTitle": "Abone olursanız komisyon kazanabiliriz. Bu, sıralamaları etkilemez.",
+  "openTV": "TradingView'i aç ↗",
+  "notFound": "Sayfa bulunamadı",
+  "browseAll": "Tüm araçlara göz at"
+ },
+ "type": {
+  "mcp": "MCP sunucusu",
+  "skill": "Ajan becerisi",
+  "api": "API",
+  "mcpPlural": "MCP sunucuları",
+  "skillPlural": "Beceriler",
+  "apiPlural": "API'ler"
+ },
+ "status": {
+  "verified": [
+   "Doğrulandı",
+   "Erişilebilir, bağlantılar çalışıyor ve (depolar için) son 180 gün içinde commit var."
+  ],
+  "aging": [
+   "Yavaşladı",
+   "Erişilebilir, ancak 180–365 gündür commit yok."
+  ],
+  "stale": [
+   "Bakımsız",
+   "Erişilebilir, ancak bir yıldan uzun süredir commit yok. Kullanmadan önce test edin."
+  ],
+  "archived": [
+   "Arşivlendi",
+   "Depo, sahibi tarafından arşivlendi."
+  ],
+  "warning": [
+   "Bağlantı kontrol edilmeli",
+   "Son kontrolde web sitesi, doküman veya uç nokta bağlantısı başarısız oldu."
+  ],
+  "unreachable": [
+   "Erişilemiyor",
+   "Depoya veya web sitesine ulaşılamadı."
+  ]
+ },
+ "cat": {
+  "market-data": [
+   "Piyasa verisi API'leri ve MCP",
+   "Piyasa verisi",
+   "Hisse, ETF, forex ve daha fazlası için gerçek zamanlı ve geçmiş fiyatlar, temel veriler ve göstergeler."
+  ],
+  "trading-brokers": [
+   "Trading ve aracı kurum MCP'leri",
+   "Trading ve aracı kurumlar",
+   "Yapay zekâ ajanlarının canlı veya sanal (paper) hesaplar üzerinden pozisyonları görmesini ve emir vermesini sağlayın."
+  ],
+  "crypto": [
+   "Kripto ve DeFi",
+   "Kripto",
+   "Kripto ajanları için fiyatlar, DEX analitiği, borsa işlemleri ve zincir üstü işlemler."
+  ],
+  "accounting": [
+   "Muhasebe ve defter tutma",
+   "Muhasebe",
+   "Ajanları QuickBooks, Xero ve dönem kapanışı/mutabakat iş akışlarına bağlayın."
+  ],
+  "payments-banking": [
+   "Ödemeler ve kurumsal bankacılık",
+   "Ödemeler",
+   "Stripe, kurumsal banka hesapları, harcama yönetimi ve ajan ödemeleri."
+  ],
+  "personal-finance": [
+   "Kişisel finans ve bütçe",
+   "Kişisel finans",
+   "Bütçe uygulamaları, net varlık takibi ve hisse bazlı ücret asistanları."
+  ],
+  "research-filings": [
+   "Araştırma ve SEC bildirimleri",
+   "Araştırma",
+   "SEC EDGAR, 13F, içeriden öğrenen işlemleri, derin araştırma ve hisse raporları."
+  ],
+  "quant-backtesting": [
+   "Kantitatif ve backtest",
+   "Kantitatif",
+   "Strateji araştırması, backtest, grafik formasyonları ve trading becerileri."
+  ],
+  "macro": [
+   "Makro ve ekonomi",
+   "Makro",
+   "FRED serileri, ekonomik takvimler, döviz kurları ve makro göstergeler."
+  ]
+ },
+ "cmp": {
+  "market-data-api-pricing": [
+   "Yapay zekâ ajanları için piyasa verisi API'leri: ücretsiz katman ve fiyat karşılaştırması",
+   "Başlıca piyasa verisi API'lerinin yayımlanmış ücretsiz katman limitleri ve başlangıç fiyatları, her sağlayıcının fiyat sayfasına bağlantılarla."
+  ],
+  "best-stock-market-mcp-servers": [
+   "Borsa MCP sunucuları karşılaştırması",
+   "Claude, Cursor ve diğer yapay zekâ istemcilerine hisse verisi ve temel veriler sağlayan MCP sunucuları; bakım, yıldız, lisans ve kurulum yöntemine göre karşılaştırma."
+  ],
+  "broker-trading-mcp-servers": [
+   "Aracı kurum ve trading MCP sunucuları karşılaştırması",
+   "Pozisyonları okuyabilen veya emir verebilen MCP sunucuları. Her zaman paper trading ile başlayın."
+  ],
+  "crypto-mcp-servers": [
+   "Kripto MCP sunucuları karşılaştırması",
+   "Kripto piyasa verisi, DEX analitiği, borsalar ve zincir üstü araçlar."
+  ],
+  "accounting-mcp-servers": [
+   "Muhasebe, ödeme ve bankacılık MCP'leri karşılaştırması",
+   "QuickBooks, Xero, Stripe, Ramp, Qonto ve diğerleri için resmî ve topluluk sunucuları."
+  ],
+  "sec-filings-research-tools": [
+   "Yapay zekâ ajanları için SEC bildirimleri ve araştırma araçları",
+   "EDGAR, 13F, içeriden öğrenen işlemleri ve araştırma ajanlarının karşılaştırması."
+  ],
+  "trading-skills-for-claude": [
+   "Finans ve trading ajan becerileri karşılaştırması",
+   "Finans ve trading için SKILL.md tabanlı beceriler ve Claude Code eklentileri."
+  ]
+ },
+ "tv": {
+  "charts": [
+   "Bu verilerin grafiğini mi çizeceksiniz?",
+   "Birçok trader bu API'lerle birlikte hisse, ETF, forex ve endeks grafikleri için TradingView kullanır. Ücretsiz Basic planı vardır."
+  ],
+  "crypto": [
+   "Kripto grafikleri mi?",
+   "TradingView birçok borsadaki binlerce kripto paritesinin grafiğini çizer ve Basic planı ücretsizdir."
+  ],
+  "backtest": [
+   "Stratejileri görsel olarak test edin",
+   "TradingView'in Pine Script düzenleyicisi ve Strategy Tester'ı, bir fikri ajana bağlamadan önce hızlıca doğrulamanızı sağlar. Basic planı ücretsizdir."
+  ],
+  "integration": [
+   "TradingView verileriyle çalışır",
+   "Bu araç TradingView ile çalışır. Hesabınız yoksa Basic planı ücretsizdir."
+  ]
+ },
+ "nl": {
+  "title": "📬 Haftalık “Finans Yapay Zekâ Araçlarının Durumu”",
+  "text": "Neler çıktı, neler bozuldu, hangi araçlar yükseldi — haftada bir e-posta, ücretsiz.",
+  "subscribe": "Abone ol",
+  "thanks": "Teşekkürler — gelen kutunuzu kontrol edin.",
+  "preview": "Önizleme: abonelik henüz bağlı değil; hiçbir şey gönderilmedi.",
+  "rss": "Ya da <a href=\"/rss.xml\">RSS</a> ile takip edin."
+ },
+ "home": {
+  "h1a": "Yapay zekâ araçları:",
+  "h1em": "finans ve trading için",
+  "h1sep": ",",
+  "h1b": "her hafta doğrulanır.",
+  "lead": "Piyasa verisini, aracı kurumları, kriptoyu ve muhasebeyi Claude, Cursor, ChatGPT, Grok ve Gemini'ye bağlayan MCP sunucuları, ajan becerileri ve API'lerden oluşan ücretsiz, açık bir dizin — gerçek fiyatlar, ücretsiz katmanlar ve tek tıkla kurulum kodlarıyla.",
+  "search": "Arayın, ör. 'options', 'SEC filings', 'Binance', 'QuickBooks'…",
+  "searchLabel": "Araç ara",
+  "listed": "listelenen araç",
+  "passed": "bu hafta doğrulamayı geçti",
+  "categories": "kategori",
+  "lastVerified": "son doğrulama",
+  "picks": "Editörün seçimleri",
+  "browse": "Kategoriye göre göz at",
+  "popular": "Popüler karşılaştırmalar",
+  "leaderboard": "Haftalık sıralama →",
+  "seeAll": "Tümünü gör",
+  "boardNote": "En çok yıldızlı doğrulanmış araçlar, {date} tarihinde doğrulandı.",
+  "grabBadge": "Geliştiriciler: ücretsiz rozetinizi alın",
+  "recent": "Son güncellenenler"
+ },
+ "tools": {
+  "title": "Tüm finans ve trading yapay zekâ araçları",
+  "desc": "Dizindeki tüm MCP sunucuları, beceriler ve API'ler — haftalık doğrulama durumu, fiyatlar ve kurulum kodlarıyla.",
+  "h1": "Tüm araçlar",
+  "filter": "Filtrele…",
+  "allCats": "Tüm kategoriler",
+  "allTypes": "Tüm türler"
+ },
+ "cats": {
+  "title": "Kategoriler",
+  "desc": "Finans ve trading yapay zekâ araçlarına kategoriye göre göz atın: piyasa verisi, aracı kurumlar, kripto, muhasebe, kişisel finans, araştırma ve kantitatif.",
+  "h1": "Kategoriler"
+ },
+ "category": {
+  "title": "{name}: Yapay zekâ araçları, MCP sunucuları ve beceriler ({year})",
+  "desc": "Yapay zekâ ajanları için {n} doğrulanmış {name} aracı.",
+  "sorted": "Önce doğrulama durumuna, sonra GitHub yıldızlarına göre sıralandı.",
+  "compare": "Karşılaştır:"
+ },
+ "compare": {
+  "title": "Karşılaştırmalar",
+  "desc": "Finans ve trading MCP sunucuları, becerileri ve veri API'lerinin yan yana karşılaştırmaları.",
+  "dataNote": "Veriler {date} tarihli otomatik kontrolümüzden; fiyatlar sağlayıcıların yayımladığı şekilde.",
+  "order": "Sıralama GitHub yıldızlarına göredir, öneri değildir. Yatırım tavsiyesi değildir.",
+  "pricingPage": "fiyat sayfası",
+  "hosted": "barındırılan URL",
+  "skillRepo": "beceri deposu",
+  "fromSource": "kaynaktan kurulum"
+ },
+ "th": {
+  "tool": "Araç",
+  "api": "API",
+  "type": "Tür",
+  "status": "Durum",
+  "stars": "Yıldız",
+  "lastCommit": "Son commit",
+  "license": "Lisans",
+  "install": "Kurulum",
+  "pricing": "Fiyat",
+  "freeTier": "Ücretsiz katman",
+  "paidFrom": "Ücretli, başlangıç",
+  "plans": "Planlar (yayımlanan)",
+  "source": "Kaynak",
+  "issues": "Sorunlar",
+  "category": "Kategori"
+ },
+ "tool": {
+  "titleFor": "{cat} için {type}",
+  "descSuffix": "Doğrulama durumu, fiyat, ücretsiz katman ve Claude, Cursor, ChatGPT, Grok ile Gemini için kurulum kodları.",
+  "lastChecked": "Son kontrol: {date}",
+  "shareVerified": "bu hafta doğrulandı",
+  "shareStatus": "durum",
+  "on": "—",
+  "install": "Kurulum",
+  "pricing": "Fiyat",
+  "model": "Model",
+  "details": "Ayrıntılar",
+  "notVerifiedPrice": "Sağlayıcı sayfasından henüz doğrulanmadı",
+  "checked": "{date} tarihinde kontrol edildi",
+  "pricesChange": "Fiyatlar değişir — satın almadan önce her zaman sağlayıcının sayfasından teyit edin.",
+  "verification": "Doğrulama",
+  "autoCheck": "{date} tarihli otomatik kontrol.",
+  "repository": "Depo",
+  "homepage": "Ana sayfa",
+  "docs": "Dokümanlar",
+  "remote": "Uzak MCP",
+  "package": "Paket",
+  "noPackage": "tespit edilmedi",
+  "listedVia": "Listeleme kaynağı",
+  "source": "kaynak",
+  "maintain": "Bu aracın bakımını siz mi yapıyorsunuz?",
+  "badgeNote": "README dosyanıza otomatik güncellenen ücretsiz doğrulama rozeti ekleyin:",
+  "wrongInfo": "Bilgi hatalı mı?",
+  "sendCorrection": "Düzeltme gönder",
+  "free": "Ücretsiz",
+  "notEndorse": "Listelenmek onay veya yatırım tavsiyesi anlamına gelmez. Her trading aracını önce paper modunda test edin.",
+  "more": "{cat} kategorisinde diğer araçlar",
+  "pricingDataNote": "Fiyat ayrıntıları sağlayıcı sayfasından İngilizce olarak alıntılanmıştır."
+ },
+ "checks": {
+  "repo reachable": "depo erişilebilir",
+  "package published": "paket yayımlandı",
+  "homepage alive": "ana sayfa çalışıyor",
+  "docs alive": "dokümanlar çalışıyor",
+  "remote MCP endpoint responds": "uzak MCP uç noktası yanıt veriyor",
+  "no npm/PyPI package detected at repo root": "depo kökünde npm/PyPI paketi tespit edilmedi"
+ },
+ "snip": {
+  "allClients": "Tüm istemciler",
+  "anyAgent": "Herhangi bir ajan",
+  "anySkills": "Beceri destekleyen herhangi bir ajan",
+  "manual": "Manuel",
+  "keyNote": "Sunucunun ihtiyaç duyduğu API anahtarlarını \"env\" girdileri olarak ekleyin; tam değişken adları için projenin README dosyasına bakın.",
+  "claudeDesktop": "claude_desktop_config.json dosyasına ekleyin.",
+  "cursor": ".cursor/mcp.json (proje) veya ~/.cursor/mcp.json (genel) dosyasına ekleyin.",
+  "gemini": "~/.gemini/settings.json dosyasına ekleyin.",
+  "claudeConnector": "Claude → Settings → Connectors → Add custom connector, ardından bu URL'yi yapıştırın.",
+  "chatgpt": "ChatGPT → Settings → Apps & Connectors (geliştirici modu) → Create, ardından bu URL'yi yapıştırın.",
+  "grok": "Uzak MCP araçlarını xAI API isteklerinde kullanın; kimlik doğrulama başlıkları için docs.x.ai'ye bakın.",
+  "fromSource": "Denetleyicimiz yayımlanmış bir npm/PyPI paketi veya barındırılan uç nokta tespit etmedi. README'ye göre yerel olarak çalıştırın, ardından başlatma komutunu istemcinize stdio MCP sunucusu olarak kaydedin.",
+  "needsRemote": "Uzak MCP URL'si (HTTPS) gerekir",
+  "stdioOnly": "Bu sunucu stdio üzerinden yerel olarak çalışır. ChatGPT bağlayıcıları ve Grok API, bu projenin sağlamadığı barındırılan bir HTTPS uç noktası gerektirir.",
+  "marketplace": "Ardından eklentilerine/becerilerine göz atıp kurmak için /plugin çalıştırın.",
+  "skillsCli": "Açık skills CLI'ı (skills.sh) kullanın. Claude Code, Cursor, Codex, Gemini CLI ve diğerleriyle çalışır.",
+  "manualSkill": "Beceri klasörünü (SKILL.md ile) ~/.claude/skills/ veya ajanınızın beceri dizinine kopyalayın.",
+  "viaMcp": "Yapay zekâ istemcilerinde şu yolla kullanılabilir: {list}.",
+  "rest": "REST API: kodunuzdan veya ajan araçlarınızdan çağırın. Resmî dokümanlara bakın."
+ },
+ "about": {
+  "title": "Hakkında ve doğrulama",
+  "desc": "{site} finans ve trading yapay zekâ araçlarını nasıl listeler ve her hafta nasıl doğrular.",
+  "h1": "{site} hakkında",
+  "p1": "{site}, finans ve trading için bağımsız bir yapay zekâ araçları dizinidir: MCP sunucuları, ajan becerileri ve veri API'leri. Çoğu yapay zekâ aracı listesi asla yeniden kontrol edilmez. Biz her listelemeyi her hafta otomatik olarak kontrol eder ve sonuçları size gösteririz.",
+  "how": "Nasıl doğruluyoruz",
+  "c1": "<b>Depo erişilebilir</b> (ve yeniden adlandırılmış veya arşivlenmiş mi).",
+  "c2": "<b>Bakım</b>: son commit tarihi ve GitHub yıldızları.",
+  "c3": "<b>Paket yayımlandı</b>: depoda belirtilen npm veya PyPI paketi mevcut ve depoya geri işaret ediyor; en son sürümü kaydederiz.",
+  "c4": "<b>Bağlantılar çalışıyor</b>: ana sayfa, dokümanlar ve barındırılan MCP uç noktaları yanıt veriyor.",
+  "c5": "<b>Fiyat</b>: sağlayıcının kendi fiyat sayfasından, URL ve tarihle birlikte. Bilinmeyen değerler “bilinmiyor” olarak gösterilir — asla tahmin etmeyiz.",
+  "badges": "Durum rozetleri",
+  "latest": "Son çalıştırma: {date} UTC —",
+  "fullReport": "tam raporu gör",
+  "money": "Nasıl para kazanıyoruz",
+  "moneyP": "Listeleme ücretsizdir. Gelirimiz açıkça işaretlenmiş sponsorlu alanlardan ve bazı veri sağlayıcılarının ortaklık bağlantılarından gelir. Hiçbiri doğrulama durumunu etkilemez.",
+  "contact": "İletişim"
+ },
+ "disc": {
+  "title": "Sorumluluk reddi: yatırım tavsiyesi değildir",
+  "h1": "Sorumluluk reddi: yatırım tavsiyesi değildir",
+  "intro": "{site} bir yazılım araçları dizinidir. Tüm içerik yazılımlar, yetenekleri ve yayımlanmış fiyatları hakkında genel bilgidir.",
+  "items": [
+   "<b>Ortaklık bildirimi.</b> Bazı dış bağlantılar (şu anda TradingView'e yönelik olanlar) ortaklık bağlantılarıdır; “Ortaklık bağlantısı” olarak işaretlenir ve rel=\"sponsored\" ile sunulur. Bunlar üzerinden abonelik satın alırsanız, size ek maliyet olmadan komisyon kazanabiliriz. Hiçbir ödeme hangi araçları listelediğimizi, sıralamalarını veya doğrulama durumlarını etkilemez; bağlantılar onay veya trading tavsiyesi değildir.",
+   "<b>Tavsiye değildir.</b> Bu sitedeki hiçbir şey yatırım tavsiyesi, yatırım pazarlaması, portföy yönetimi, trading sinyali ya da vergi, muhasebe veya hukuki tavsiye değildir ve kişisel durumunuzu dikkate almaz. Hiçbir yargı bölgesinde (İsrail'in Yatırım Danışmanlığı, Yatırım Pazarlaması ve Portföy Yönetiminin Düzenlenmesi Kanunu, 5755-1995 dahil) lisanslı yatırım danışmanı, yatırım pazarlamacısı veya portföy yöneticisi değiliz.",
+   "<b>Öneri değildir.</b> Bir listeleme, sıralama, “Doğrulandı” rozeti veya sponsorlu alan, herhangi bir aracı, aracı kurumu, borsayı veya varlığı kullanma önerisi değildir.",
+   "<b>Risk.</b> Trading ve yatırım — özellikle otomasyon veya yapay zekâ ajanları, kaldıraç, opsiyonlar ya da kripto ile — sermayenizin bir kısmını veya tamamını kaybetmenize yol açabilir. Her trading aracını önce paper modunda test edin ve bir ajana asla kaybetmeyi göze alabileceğinizden fazla yetki vermeyin.",
+   "<b>Üçüncü taraflar.</b> Araçlar üçüncü taraflarca geliştirilir ve işletilir. Bunları, verilerini, güvenliklerini veya erişilebilirliklerini kontrol etmeyiz. Doğrulama otomatiktir ve Hakkında sayfasında açıklanan kontrollerle sınırlıdır.",
+   "<b>Doğruluk.</b> Fiyatlar ve özellikler değişir. Her zaman sağlayıcının sitesinden teyit edin.",
+   "<b>Ortaklık ve sponsorluk bildirimi.</b> Bazı bağlantılar bize komisyon kazandırır ve bazı listelemeler ücretli alanlardır. Bunlar işaretlidir."
+  ]
+ },
+ "ver": {
+  "title": "Son doğrulama çalıştırması",
+  "desc": "Listelenen her finans ve trading yapay zekâ aracının haftalık otomatik doğrulama sonuçları.",
+  "h1": "Doğrulama — {date}"
+ },
+ "submit": {
+  "title": "Araç ekle",
+  "desc": "Finans ve trading için bir MCP sunucusu, ajan becerisi veya API ekleyin. Ücretsiz listeleme, otomatik doğrulama.",
+  "lead": "<b>Her zaman ücretsiz.</b> Ücretli katman yok, gizli şart yok. Ayrıca otomatik güncellenen ücretsiz bir doğrulama rozeti alırsınız. Gönderimden sonra denetleyicimiz depoyu veya siteyi, son commit'leri, paket kayıtlarını ve dokümanları kontrol eder. Geçen araçlar bir hafta içinde yayına girer.",
+  "preview": "⚠️ Yalnızca önizleme: bu formun henüz bir arka ucu yok ve hiçbir şey gönderilmez.",
+  "name": "Araç adı",
+  "url": "Depo veya web sitesi URL'si",
+  "type": "Tür",
+  "category": "Kategori",
+  "oneLine": "Tek satırlık açıklama",
+  "pricingUrl": "Fiyat sayfası URL'si (ücretliyse)",
+  "email": "E-posta adresiniz (doğrulama soruları için)",
+  "confirm": "Bu aracın getiri vaat etmediğini ve bir yatırım danışmanlığı hizmeti olmadığını onaylıyorum.",
+  "button": "İncelemeye gönder",
+  "thanks": "Teşekkürler! (Önizleme: hiçbir şey gönderilmedi.)"
+ },
+ "badges": {
+  "title": "Geliştiriciler için ücretsiz doğrulama rozetleri",
+  "desc": "README dosyanıza otomatik güncellenen ücretsiz bir {site} doğrulama rozeti ekleyin.",
+  "h1": "Ücretsiz “Verified by {site}” rozetleri",
+  "p1": "Listelenen her araç, her haftalık doğrulamadan sonra otomatik güncellenen ücretsiz bir rozet alır. Kullanıcılara projenizin aktif ve çalışır durumda olduğunu gösterin.",
+  "p2": "Araç kimliği, araç sayfanızın URL'sindedir; ya da hazır kodu araç sayfasından kopyalayın. Henüz listede değil misiniz?",
+  "submitFree": "Ücretsiz ekleyin",
+  "states": "Rozet durumları",
+  "statesP": "yeşil = bu hafta doğrulandı · sarı = yavaşladı / bağlantı kontrol edilmeli · kırmızı = bakımsız, arşivlendi veya erişilemiyor."
+ },
+ "weekly": {
+  "title": "Finans yapay zekâ araçlarının durumu — {date} haftası",
+  "desc": "{n} finans ve trading MCP sunucusu, beceri ve API için haftalık sıralama ve değişiklik günlüğü.",
+  "lead": "Denetleyicimiz her hafta her listelemeyi yeniden kontrol eder. İşte karne. Serbestçe paylaşabilir ve alıntılayabilirsiniz (bağlantı verirseniz seviniriz).",
+  "share": "Finans ve trading yapay zekâ araçlarının durumu — {date}: {v}/{n} doğrulandı",
+  "officialTools": "resmî sağlayıcı araçları",
+  "changed": "Bu hafta ne değişti",
+  "board": "Sıralama: en çok yıldızlı doğrulanmış araçlar",
+  "shipped": "Son yayınlananlar",
+  "lastCommit": "son commit {date}",
+  "love": "Bakımcı ilgisi bekleyenler ({n})",
+  "loveNote": "Bakımsız = 12+ aydır commit yok. Bakımcılar: bir güncelleme yayınlayın, rozet gelecek hafta yeşile döner.",
+  "archive": "Arşiv",
+  "changes": "{n} değişiklik",
+  "changesNote": "Değişiklik kayıtları otomatik olarak İngilizce oluşturulur."
+ },
+ "adv": {
+  "title": "Reklam ver",
+  "desc": "{site} üzerinde reklam verin.",
+  "lead": "{site}, her hafta yeniden doğrulanan {n}+ finans ve trading MCP sunucusu, beceri ve API listeler. Tüm listelemeler ücretsizdir; ücretli alanlar yalnızca görünürlük satın alır, asla daha iyi bir doğrulama durumu değil. Ücretli alanlar her zaman “Sponsorlu” olarak işaretlenir.",
+  "free": "Listeleme, rozetler ve gönderimler <b>ücretsizdir</b> ve öyle kalacaktır. Sponsorlu alanlar henüz açık değil. İleride ilgilenir misiniz? {email} adresine e-posta gönderin."
+ },
+ "privacy": {
+  "title": "Gizlilik politikası",
+  "draft": "Taslak — lansmandan önce gözden geçirilecek.",
+  "p1": "{site} statik bir web sitesidir. Hesap gerektirmeyiz ve reklam çerezleri kullanmayız. Dil ve tema tercihleriniz yalnızca tarayıcınızda (localStorage) saklanır.",
+  "collect": "Ne topluyoruz",
+  "c1": "Toplu, gizliliğe saygılı, çerezsiz analizler (sayfa görüntülemeleri, yönlendirenler, ülke).",
+  "c2": "Araç eklerken veya alan satın alırken gönderdikleriniz (ad, e-posta, araç ayrıntıları). Ödemeler merchant of record'umuz tarafından işlenir; kart numaralarını asla görmeyiz.",
+  "use": "Nasıl kullanıyoruz",
+  "useP": "Gönderimleri incelemek, sponsorlu alanları yürütmek ve listelemeniz hakkında sizinle iletişim kurmak için. Kişisel verileri satmayız.",
+  "aff": "Ortaklık bağlantıları",
+  "affP": "Bir ortaklık bağlantısına tıkladığınızda, hedef site kendi politikası kapsamında çerez ayarlayabilir.",
+  "rights": "Haklarınız",
+  "rightsP": "Verilerinize erişmek veya silinmesini istemek için {email} ile iletişime geçin."
+ },
+ "terms": {
+  "title": "Kullanım koşulları",
+  "items": [
+   "Site “olduğu gibi”, yalnızca bilgilendirme amacıyla sunulur. <a href=\"{disc}\">Sorumluluk reddine</a> bakın — buradaki hiçbir şey yatırım tavsiyesi değildir.",
+   "Araç adları ve ticari markalar ilgili sahiplerine aittir. Listelemeler olgusal açıklamalardır; sahipler düzeltme veya kaldırma talep edebilir.",
+   "Sponsorlu alanlar yalnızca görünürlük satın alır, işaretlenir, reddedilebilir veya kaldırılabilir (orantılı iade ile) ve merchant of record'umuz tarafından faturalandırılır.",
+   "Gönderenler aracı listeleme hakkına sahip olduklarını ve aracın garantili getiri vaat etmediğini onaylar.",
+   "Sorumluluğumuz, son 12 ayda bize ödediğiniz tutarla sınırlıdır.",
+   "Çeviri ile İngilizce sürüm arasında çelişki olması halinde İngilizce sürüm geçerlidir."
+  ],
+  "contact": "İletişim:"
+ },
+ "partner": {
+  "label": "Ortak",
+  "homeTitle": "Trader'ların çoğunun kullandığı grafikler ve tarayıcılar",
+  "homeText": "Bu dizindeki araçları TradingView ile birlikte kullanın: canlı grafikler, hisse ve kripto tarayıcıları, alarmlar ve Pine Script ile backtest. Basic planı ücretsizdir.",
+  "homeCta": "TradingView'i ücretsiz deneyin",
+  "toolTitle": "TradingView'de grafiğini açın",
+  "toolText": "Hisse, forex ve kripto için grafikler, tarayıcılar ve alarmlar — ücretsiz Basic planıyla.",
+  "toolBtn": "TradingView'i deneyin",
+  "disclosure": "Ortak bağlantısı: size ek maliyet olmadan komisyon kazanabiliriz. Listelemeleri asla etkilemez."
+ },
  "desc": {
   "alpha-vantage-api": "Basit bir REST API üzerinden hisse, forex, kripto, temel veriler ve 50'den fazla teknik gösterge.",
   "massive-api": "REST, WebSocket ve düz dosyalar üzerinden ABD hisseleri, opsiyonlar, endeksler, forex ve kripto için tick düzeyinde veri.",

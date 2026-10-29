@@ -30,7 +30,8 @@
   "about": "Acerca de",
   "advertise": "Publicidad",
   "disclaimer": "<b>No es asesoramiento de inversión.</b> {site} es un directorio informativo sobre herramientas de software. Nada en este sitio constituye asesoramiento de inversión, trading, fiscal o legal, ni una recomendación de comprar o vender ningún valor o activo, y no somos asesores de inversión ni gestores de carteras autorizados. El trading conlleva riesgo de pérdida. <b>Divulgación de afiliados:</b> algunos enlaces (actualmente TradingView) son enlaces de afiliado. Si te registras a través de ellos podemos recibir una comisión sin coste adicional para ti. Están señalados y nunca afectan a los listados, la clasificación ni el estado de verificación.",
-  "fullDisclaimer": "Aviso legal completo"
+  "fullDisclaimer": "Aviso legal completo",
+  "short": "No es asesoramiento de inversión. Algunos enlaces son de socios y podemos recibir una comisión."
  },
  "common": {
   "copy": "Copiar",

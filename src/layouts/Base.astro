@@ -16,7 +16,7 @@ const org = { "@context": "https://schema.org", "@type": "WebSite", name: SITE.n
   potentialAction: { "@type": "SearchAction", target: `${SITE.url}${p("/tools/")}?q={query}`, "query-input": "required name=query" } };
 const parts = SITE.name.split("AI");
 const cur = localeOf(lang);
-const disclaimerHtml = t("footer.disclaimer", { site: SITE.name });
+
 ---
 <!doctype html><html lang={lang} dir={dir} data-theme="light"><head>
 <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -59,7 +59,7 @@ const disclaimerHtml = t("footer.disclaimer", { site: SITE.name });
     <div><b>{t("footer.makers")}</b><br/><a href={p("/submit/")}>{t("footer.submitFree")}</a><br/><a href={p("/badges/")}>{t("footer.getBadge")}</a><br/><a href={p("/weekly/")}>{t("nav.weekly")}</a><br/><a href="/rss.xml">RSS</a> · <a href={SITE.githubAwesomeRepo}>{t("footer.awesome")}</a></div>
     <div><b>{t("footer.legal")}</b><br/><a href={p("/disclaimer/")}>{t("footer.nia")}</a><br/><a href={p("/privacy/")}>{t("footer.privacy")}</a><br/><a href={p("/terms/")}>{t("footer.terms")}</a><br/><a href={p("/about/")}>{t("footer.about")}</a><br/><a href={p("/advertise/")} style="opacity:.6">{t("footer.advertise")}</a></div>
   </div>
-  <p class="disclaimer"><Fragment set:html={disclaimerHtml} /> <a href={p("/disclaimer/")}>{t("footer.fullDisclaimer")}</a>.</p>
+  <p class="disclaimer">{t("footer.short")} <a href={p("/disclaimer/")}>{t("footer.fullDisclaimer")}</a></p>
 </div></footer>
 <script is:inline define:vars={{ copyTxt: t("common.copy"), copiedTxt: t("common.copied") }}>
 document.querySelectorAll("pre").forEach(function(p){var b=document.createElement("button");b.className="copy";b.type="button";b.textContent=copyTxt;b.onclick=function(){var c=p.cloneNode(true);c.querySelectorAll("button.copy").forEach(function(x){x.remove()});navigator.clipboard.writeText(c.innerText.trim());b.textContent=copiedTxt;setTimeout(function(){b.textContent=copyTxt},1500)};p.appendChild(b)});

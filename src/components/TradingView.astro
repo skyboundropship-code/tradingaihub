@@ -8,5 +8,5 @@ const copy = t(`tv.${context}`);
 ---
 <aside class="panel tv-note" style="margin:18px 0;font-size:14px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap">
   <span><b>{copy[0]}</b> <span style="color:var(--muted)">{copy[1]}</span></span>
-  <span style="white-space:nowrap"><a href={tvUrl(path)} target="_blank" rel="sponsored noopener">{t("common.openTV")}</a> <small style="color:var(--muted);opacity:.8" title={t("common.affTitle")}>· {t("common.affLink")}</small></span>
+  <span style="white-space:nowrap"><a href={tvUrl(path)} target="_blank" rel="sponsored noopener">{t("common.openTV")}</a> <span class="partner-tag">{t("partner.label")}</span></span>
 </aside>

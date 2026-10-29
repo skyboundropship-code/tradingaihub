@@ -30,7 +30,8 @@
   "about": "À propos",
   "advertise": "Publicité",
   "disclaimer": "<b>Pas un conseil en investissement.</b> {site} est un annuaire informatif d'outils logiciels. Rien sur ce site ne constitue un conseil en investissement, en trading, fiscal ou juridique, ni une recommandation d'acheter ou de vendre un titre ou un actif, et nous ne sommes ni conseillers en investissement ni gérants de portefeuille agréés. Le trading comporte un risque de perte. <b>Liens affiliés :</b> certains liens (actuellement TradingView) sont des liens affiliés. Si vous vous inscrivez par leur biais, nous pouvons percevoir une commission sans surcoût pour vous. Ils sont signalés et n'influencent jamais les fiches, le classement ni le statut de vérification.",
-  "fullDisclaimer": "Avertissement complet"
+  "fullDisclaimer": "Avertissement complet",
+  "short": "Ceci n'est pas un conseil en investissement. Certains liens sont des liens partenaires et peuvent nous rapporter une commission."
  },
  "common": {
   "copy": "Copier",

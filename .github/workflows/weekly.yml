@@ -16,10 +16,11 @@ jobs:
       - run: pip install requests && npm ci
       - run: python3 scripts/verify.py && python3 scripts/awesome.py
         env: { GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
-      - run: node scripts/og.mjs && npx astro build
+      - run: node scripts/og.mjs && npm run build
         env: { CHROME_PATH: /usr/bin/google-chrome }  # preinstalled on ubuntu-latest
       - run: npx wrangler pages deploy dist --project-name=tradingaihub
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - run: node scripts/indexnow.mjs   # ping Bing/Yandex/Seznam/Naver via api.indexnow.org (no account needed)
       - run: git config user.name bot && git config user.email bot@users.noreply.github.com && git add data awesome && git commit -m "weekly verification" || true && git push

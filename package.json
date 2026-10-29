@@ -8,7 +8,10 @@
     "build": "astro build && cp dist/sitemap-index.xml dist/sitemap.xml && node scripts/locale_sitemaps.mjs && node scripts/check_aff.mjs",
     "preview": "astro preview --host 0.0.0.0 --port 4321",
     "weekly": "python3 scripts/verify.py && python3 scripts/awesome.py && node scripts/og.mjs && npm run build",
-    "screenshots": "node scripts/screenshots.mjs"
+    "screenshots": "node scripts/screenshots.mjs",
+    "indexnow": "node scripts/indexnow.mjs",
+    "deploy": "wrangler pages deploy dist --project-name=tradingaihub --branch=main --commit-dirty=true",
+    "weekly:publish": "npm run weekly && npm run deploy && npm run indexnow"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
