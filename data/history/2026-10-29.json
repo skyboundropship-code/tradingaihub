@@ -192,9 +192,9 @@
   "version": "1.0.1"
  },
  "tradingview-mcp": {
-  "name": "TradingView MCP (community)",
+  "name": "TradingView MCP (community, unofficial)",
   "status": "verified",
-  "stars": 5162,
+  "stars": 5164,
   "version": "0.8.1"
  },
  "binance-mcp": {
@@ -428,7 +428,7 @@
  "claude-trading-skills": {
   "name": "Claude Trading Skills",
   "status": "verified",
-  "stars": 3420,
+  "stars": 3421,
   "version": null
  },
  "superior-skills": {
@@ -447,6 +447,180 @@
   "name": "Pineify MCP",
   "status": "verified",
   "stars": 1,
+  "version": null
+ },
+ "tradingview-official-mcp": {
+  "name": "TradingView MCP (official)",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "robinhood-trading-mcp": {
+  "name": "Robinhood Trading MCP (official)",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "fmp-mcp": {
+  "name": "Financial Modeling Prep MCP (official)",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "eodhd-mcp": {
+  "name": "EODHD MCP Server (official)",
+  "status": "verified",
+  "stars": 23,
+  "version": null
+ },
+ "finnhub-mcp": {
+  "name": "Finnhub MCP (official)",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "paypal-mcp": {
+  "name": "PayPal MCP Server",
+  "status": "verified",
+  "stars": 197,
+  "version": null
+ },
+ "square-mcp": {
+  "name": "Square MCP Server",
+  "status": "verified",
+  "stars": 109,
+  "version": null
+ },
+ "adyen-mcp": {
+  "name": "Adyen MCP Server",
+  "status": "verified",
+  "stars": 27,
+  "version": null
+ },
+ "razorpay-mcp": {
+  "name": "Razorpay MCP Server",
+  "status": "verified",
+  "stars": 231,
+  "version": null
+ },
+ "paddle-mcp": {
+  "name": "Paddle MCP Server",
+  "status": "verified",
+  "stars": 49,
+  "version": "0.1.6"
+ },
+ "mercury-mcp": {
+  "name": "Mercury MCP (official)",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "netsuite-ai-connector": {
+  "name": "NetSuite AI Connector (MCP)",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "zoho-books-mcp": {
+  "name": "Zoho Books MCP (official)",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "avalara-avatax-mcp": {
+  "name": "Avalara AvaTax MCP",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "ynab-api": {
+  "name": "YNAB API",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "ynab-mcp": {
+  "name": "YNAB MCP Server (community)",
+  "status": "verified",
+  "stars": 160,
+  "version": "0.7.1"
+ },
+ "firefly-iii-api": {
+  "name": "Firefly III API",
+  "status": "verified",
+  "stars": 25026,
+  "version": null
+ },
+ "bls-api": {
+  "name": "BLS Public Data API",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "bea-api": {
+  "name": "BEA API",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "world-bank-api": {
+  "name": "World Bank Indicators API",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "dbnomics-api": {
+  "name": "DBnomics API",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "frankfurter": {
+  "name": "Frankfurter (FX rates API + MCP)",
+  "status": "verified",
+  "stars": 2045,
+  "version": null
+ },
+ "webull-openapi-mcp": {
+  "name": "Webull OpenAPI MCP",
+  "status": "verified",
+  "stars": 30,
+  "version": "1.2.6"
+ },
+ "kraken-cli": {
+  "name": "Kraken CLI (MCP + skills)",
+  "status": "verified",
+  "stars": 783,
+  "version": null
+ },
+ "schwab-mcp": {
+  "name": "Schwab MCP (community)",
+  "status": "verified",
+  "stars": 66,
+  "version": null
+ },
+ "alpaca-skills": {
+  "name": "Alpaca Skills",
+  "status": "verified",
+  "stars": 157,
+  "version": null
+ },
+ "longbridge-skills": {
+  "name": "Longbridge Skills",
+  "status": "verified",
+  "stars": 67,
+  "version": null
+ },
+ "coinbase-agentic-wallet-skills": {
+  "name": "Coinbase Agentic Wallet Skills",
+  "status": "verified",
+  "stars": 127,
+  "version": null
+ },
+ "options-trading-skills": {
+  "name": "Trading Skills for options traders (community)",
+  "status": "verified",
+  "stars": 396,
   "version": null
  }
 }

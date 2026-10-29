@@ -1,13 +1,13 @@
 {
-  "checked_at": "2026-10-29T12:26:51.515980+00:00",
-  "total": 75,
+  "checked_at": "2026-10-29T12:34:40.645476+00:00",
+  "total": 104,
   "by_status": {
-    "verified": 55,
+    "verified": 84,
     "stale": 13,
     "aging": 4,
     "archived": 3
   },
-  "with_package": 25,
+  "with_package": 28,
   "issues": [
     {
       "id": "finnhub-mcp-community",
@@ -161,6 +161,20 @@
       "status": "stale",
       "issues": [
         "No commits for 425 days"
+      ]
+    },
+    {
+      "id": "square-mcp",
+      "status": "verified",
+      "issues": [
+        "npm name 'square-mcp-server' exists on the registry but does not link to this repo (not counted)"
+      ]
+    },
+    {
+      "id": "options-trading-skills",
+      "status": "verified",
+      "issues": [
+        "pypi name 'trading-skills' exists on the registry but does not link to this repo (not counted)"
       ]
     }
   ]

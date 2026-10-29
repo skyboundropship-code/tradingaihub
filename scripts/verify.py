@@ -183,6 +183,32 @@ def verify(t):
 def repo_key(t):
     o, n, _, _ = parse_repo(t["repo"]); return f"{o}/{n}".lower()
 
+def parse_only(args, known_ids):
+    """Parse `--only=a,b` or `--only a,b`. Any other argument, an empty list or an unknown id exits with an error,
+    so a mistyped flag can never silently fall back to a full run."""
+    only, i = None, 0
+    while i < len(args):
+        a = args[i]
+        if a.startswith("--only="):
+            val = a.split("=", 1)[1]
+        elif a == "--only":
+            if i + 1 >= len(args) or args[i + 1].startswith("-"):
+                sys.exit("verify.py: --only needs a comma-separated list of ids, e.g. --only=openbb,fred-api")
+            i += 1
+            val = args[i]
+        else:
+            sys.exit(f"verify.py: unknown argument {a!r} (usage: verify.py [--only=id1,id2])")
+        ids = [x.strip() for x in val.split(",") if x.strip()]
+        if not ids:
+            sys.exit("verify.py: --only needs at least one id")
+        unknown = [x for x in ids if x not in known_ids]
+        if unknown:
+            sys.exit(f"verify.py: unknown id(s) for --only: {', '.join(unknown)}")
+        only = (only or []) + ids
+        i += 1
+    return only
+
+
 def main():
     seed = json.load(open(os.path.join(ROOT, "data/seed.json")))
     # A repo shared by several entries is a collection/monorepo: none of them gets its stars.
@@ -192,7 +218,7 @@ def main():
         if t.get("repo") and (shared[repo_key(t)] > 1 or parse_repo(t["repo"])[1].lower().startswith("awesome-")):
             t["repo_is_collection"] = True
     # --only id1,id2: re-verify just those entries, keep the rest from the current data/tools.json
-    only = next((a.split("=", 1)[1].split(",") for a in sys.argv[1:] if a.startswith("--only=")), None)
+    only = parse_only(sys.argv[1:], {t["id"] for t in seed})
     prev = {x["id"]: x for x in json.load(open(os.path.join(ROOT, "data/tools.json")))} if only else {}
     todo = [t for t in seed if not only or t["id"] in only or t["id"] not in prev]
     with ThreadPoolExecutor(8) as ex: fresh = dict(zip([t["id"] for t in todo], ex.map(verify, todo)))
