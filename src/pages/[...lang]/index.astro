@@ -3,6 +3,7 @@ import Base from "../../layouts/Base.astro";
 import ToolCard from "../../components/ToolCard.astro";
 import Newsletter from "../../components/Newsletter.astro";
 import PartnerCTA from "../../components/PartnerCTA.astro";
+import StatCards from "../../components/StatCards.astro";
 import { SITE } from "../../config";
 import { tools, CATEGORIES, COMPARISONS, verificationReport as r } from "../../lib/data";
 import { langParams, useT } from "../../i18n";
@@ -21,7 +22,7 @@ const cat = (slug: string) => t(`cat.${slug}`);
   <p>{t("home.lead")}</p>
   <form class="search" action={p("/tools/")}><input name="q" placeholder={t("home.search")} aria-label={t("home.searchLabel")} /></form>
   <div class="chips">{CATEGORIES.map((c) => <a class="chip" href={p(`/category/${c.slug}/`)}>{c.icon} {cat(c.slug)[1]}</a>)}</div>
-  <div class="stats"><div><b>{tools.length}</b>{t("home.listed")}</div><div><b>{verified}</b>{t("home.passed")}</div><div><b>{CATEGORIES.length}</b>{t("home.categories")}</div><div><b dir="ltr">{r.checked_at.slice(0,10)}</b>{t("home.lastVerified")}</div></div>
+  <StatCards lang={lang} tools={tools.length} verified={verified} categories={CATEGORIES.length} checkedAt={r.checked_at} />
 </section>
 <div class="wrap">
   <PartnerCTA variant="hero" lang={lang} path="/" />

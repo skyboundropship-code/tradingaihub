@@ -41,7 +41,7 @@ const cur = localeOf(lang);
 </script>}
 </head><body>
 <header class="site"><div class="wrap">
-  <a class="logo" href={p("/")} dir="ltr">{parts[0]}<span>AI</span>{parts.slice(1).join("AI")}</a>
+  <a class="logo" href={p("/")} dir="ltr" aria-label={SITE.name}><svg class="logo-mark" viewBox="0 0 32 32" width="44" height="44" aria-hidden="true" focusable="false"><rect x=".5" y=".5" width="31" height="31" rx="8" fill="#0b0f17" stroke="var(--line)"/><path d="M6 22l7-7 5 5 8-10" stroke="#22c55e" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="logo-word" aria-hidden="true">{parts[0]}<span>AI</span>{parts.slice(1).join("AI")}</span></a>
   <nav class="main"><a href={p("/tools/")}>{t("nav.tools")}</a><a href={p("/categories/")}>{t("nav.categories")}</a><a href={p("/compare/")}>{t("nav.compare")}</a><a href={p("/weekly/")}>{t("nav.weekly")}</a><a href={p("/badges/")}>{t("nav.badges")}</a><a href={p("/about/")}>{t("nav.verify")}</a></nav>
   <div class="hdr-tools">
     <details class="langs"><summary aria-label={t("nav.language")} title={t("nav.language")}>🌐 <span>{lang.toUpperCase()}</span></summary>
