@@ -47,8 +47,8 @@ Legend: ✅ verified · 🟡 aging (6–12 months without commits) · 🔴 stale
 
 ## Crypto & DeFi
 
-- ✅ [TradingView MCP (community)](https://github.com/atilaahmettaner/tradingview-mcp) — Community multi-exchange market analysis/screening MCP (not affiliated with TradingView). ⭐ 5,163 · [details](https://tradingaihub.com/tools/tradingview-mcp/)
-- ✅ [Solana Agent Kit](https://github.com/sendaifun/solana-agent-kit) — Toolkit connecting AI agents to Solana protocols, with MCP adapter. ⭐ 1,728 · [details](https://tradingaihub.com/tools/solana-agent-kit/)
+- ✅ [TradingView MCP (community)](https://github.com/atilaahmettaner/tradingview-mcp) — Community multi-exchange market analysis/screening MCP (not affiliated with TradingView). ⭐ 5,162 · [details](https://tradingaihub.com/tools/tradingview-mcp/)
+- ✅ [Solana Agent Kit](https://github.com/sendaifun/solana-agent-kit) — Toolkit connecting AI agents to Solana protocols, with MCP adapter. ⭐ 1,729 · [details](https://tradingaihub.com/tools/solana-agent-kit/)
 - ✅ [Coinbase AgentKit](https://github.com/coinbase/agentkit) *(official)* — Coinbase toolkit for wallet operations and onchain actions by AI agents, with MCP support. ⭐ 1,345 · [details](https://tradingaihub.com/tools/coinbase-agentkit/)
 - 🗄️ [Base MCP](https://github.com/base/base-mcp-legacy) *(official)* — Onchain tools for the Base network. ⭐ 351 · [details](https://tradingaihub.com/tools/base-mcp/)
 - 🟡 [Crypto Indicators MCP](https://github.com/kukapay/crypto-indicators-mcp) — Technical analysis indicators for crypto assets. ⭐ 131 · [details](https://tradingaihub.com/tools/crypto-indicators-mcp/)
@@ -56,7 +56,7 @@ Legend: ✅ verified · 🟡 aging (6–12 months without commits) · 🔴 stale
 - 🔴 [Binance MCP (community)](https://github.com/TermiX-official/binance-mcp) — Portfolio, trading and token conversion on Binance (requires API key). ⭐ 97 · [details](https://tradingaihub.com/tools/binance-mcp/)
 - 🔴 [CoinCap MCP](https://github.com/QuantGeekDev/coincap-mcp) — Crypto market data from the CoinCap API. ⭐ 92 · [details](https://tradingaihub.com/tools/coincap-mcp/)
 - 🔴 [CCXT MCP](https://github.com/Nayshins/mcp-server-ccxt) — Market data from 20+ crypto exchanges via the CCXT library. ⭐ 82 · [details](https://tradingaihub.com/tools/ccxt-mcp/)
-- ✅ [Bankless Onchain MCP](https://github.com/bankless/onchain-mcp) *(official)* — Query onchain data and ERC-20 token information. ⭐ 78 · [details](https://tradingaihub.com/tools/bankless-onchain-mcp/)
+- ✅ [Bankless Onchain MCP](https://github.com/Bankless/onchain-mcp) *(official)* — Query onchain data and ERC-20 token information. ⭐ 78 · [details](https://tradingaihub.com/tools/bankless-onchain-mcp/)
 - 🔴 [Bitcoin & Lightning MCP](https://github.com/AbdelStark/bitcoin-mcp) — Bitcoin and Lightning Network tools for agents. ⭐ 77 · [details](https://tradingaihub.com/tools/bitcoin-mcp/)
 - 🔴 [Crypto Liquidations MCP](https://github.com/kukapay/crypto-liquidations-mcp) — Streams real-time liquidation events. ⭐ 8 · [details](https://tradingaihub.com/tools/crypto-liquidations-mcp/)
 - ✅ [Bitget Agent MCP](https://github.com/Bitget-AI/agent-mcp) *(official)* — Official Bitget spot and futures trading MCP (89 operations per listing). ⭐ 1 · [details](https://tradingaihub.com/tools/bitget-agent-mcp/)
@@ -66,10 +66,10 @@ Legend: ✅ verified · 🟡 aging (6–12 months without commits) · 🔴 stale
 
 ## Accounting & bookkeeping
 
-- ✅ [Invoice Organizer skill](https://github.com/ComposioHQ/awesome-claude-skills) — Claude skill that extracts, renames and sorts invoices and receipts for tax prep. ⭐ 78,235 · [details](https://tradingaihub.com/tools/invoice-organizer-skill/)
-- ✅ [Anthropic Financial Services Plugins](https://github.com/anthropics/financial-services) *(official)* — Anthropic's finance plugins/skills: Excel model auditing, 3-statement models, DCF/LBO, GL reconciliation. ⭐ 40,898 · [details](https://tradingaihub.com/tools/anthropic-financial-services/)
+- ✅ [Invoice Organizer skill](https://github.com/ComposioHQ/awesome-claude-skills) — Claude skill that extracts, renames and sorts invoices and receipts for tax prep. ⭐ 78,238 · [details](https://tradingaihub.com/tools/invoice-organizer-skill/)
+- ✅ [Anthropic Financial Services Plugins](https://github.com/anthropics/financial-services) *(official)* — Anthropic's finance plugins/skills: Excel model auditing, 3-statement models, DCF/LBO, GL reconciliation. ⭐ 40,900 · [details](https://tradingaihub.com/tools/anthropic-financial-services/)
 - ✅ [QuickBooks Online MCP](https://github.com/intuit/quickbooks-online-mcp-server) *(official)* — Official Intuit MCP server exposing QuickBooks Online entities and reports. ⭐ 436 · [details](https://tradingaihub.com/tools/quickbooks-mcp/)
-- ✅ [Xero MCP Server](https://github.com/XeroAPI/xero-mcp-server) *(official)* — Official Xero MCP: contacts, chart of accounts, invoices and more. ⭐ 385 · [details](https://tradingaihub.com/tools/xero-mcp/)
+- ✅ [Xero MCP Server](https://github.com/XeroAPI/xero-mcp-server) *(official)* — Official Xero MCP: contacts, chart of accounts, invoices and more. ⭐ 386 · [details](https://tradingaihub.com/tools/xero-mcp/)
 - ✅ [Norman Finance MCP](https://github.com/norman-finance/norman-mcp-server) *(official)* — Accounting, invoicing and tax filing workflows for Norman Finance users. ⭐ 62 · [details](https://tradingaihub.com/tools/norman-finance-mcp/)
 - ✅ [LedgerSkills](https://github.com/Kimonarrow/ledgerskills) — Claude skills for audit, tax, FP&A and accounting: reconciliation, month-end close, journal-entry testing. ⭐ 2 · [details](https://tradingaihub.com/tools/ledgerskills/)
 
@@ -78,7 +78,7 @@ Legend: ✅ verified · 🟡 aging (6–12 months without commits) · 🔴 stale
 - ✅ [Stripe Agent Toolkit & MCP](https://github.com/stripe/ai) *(official)* — Stripe's official agent toolkit and hosted MCP for payments, customers and billing. ⭐ 1,993 · [details](https://tradingaihub.com/tools/stripe-ai/)
 - ✅ [x402 (Coinbase)](https://github.com/coinbase/x402) *(official)* — Open protocol for HTTP-native stablecoin payments by agents. ⭐ 176 · [details](https://tradingaihub.com/tools/x402/)
 - ✅ [Qonto MCP](https://github.com/qonto/qonto-mcp-server) *(official)* — Official MCP server for Qonto business banking. ⭐ 42 · [details](https://tradingaihub.com/tools/qonto-mcp/)
-- 🔴 [Ramp MCP](https://github.com/ramp-public/ramp_mcp) *(official)* — Official Ramp MCP for spend and expense data. ⭐ 34 · [details](https://tradingaihub.com/tools/ramp-mcp/)
+- 🗄️ [Ramp MCP](https://github.com/ramp-public/ramp_mcp) *(official)* — Official Ramp MCP for spend and expense data. ⭐ 34 · [details](https://tradingaihub.com/tools/ramp-mcp/)
 
 ## Personal finance & budgeting
 
@@ -89,7 +89,7 @@ Legend: ✅ verified · 🟡 aging (6–12 months without commits) · 🔴 stale
 
 ## Research & SEC filings
 
-- ✅ [OpenBB Platform (MCP)](https://github.com/openbq-org/OpenBB) *(official)* — Open-source investment research platform with an MCP server. ⭐ 74,851 · [details](https://tradingaihub.com/tools/openbb/)
+- ✅ [OpenBB Platform (MCP)](https://github.com/openbq-org/OpenBB) *(official)* — Open-source investment research platform with an MCP server. ⭐ 74,855 · [details](https://tradingaihub.com/tools/openbb/)
 - ✅ [Claude Equity Research](https://github.com/quant-sentiment-ai/claude-equity-research) — Claude Code plugin producing equity research reports with fundamental and technical analysis. ⭐ 749 · [details](https://tradingaihub.com/tools/claude-equity-research/)
 - ✅ [SEC EDGAR MCP](https://github.com/stefanoamorelli/sec-edgar-mcp) — Open-source MCP for SEC filings, XBRL financial statements and Form 3/4/5 insider data. ⭐ 380 · [details](https://tradingaihub.com/tools/sec-edgar-mcp/)
 - 🔴 [Claude Investor](https://github.com/martinxu9/claude-investor) — Investment analysis agent using price data, balance sheets, sentiment and analyst ratings. ⭐ 34 · [details](https://tradingaihub.com/tools/claude-investor/)
@@ -102,9 +102,9 @@ Legend: ✅ verified · 🟡 aging (6–12 months without commits) · 🔴 stale
 
 ## Quant & backtesting
 
-- ✅ [Claude Trading Skills](https://github.com/tradermonty/claude-trading-skills) — Claude Code skills for trading analysis, e.g. IBD-style relative strength rating. ⭐ 3,417 · [details](https://tradingaihub.com/tools/claude-trading-skills/)
+- ✅ [Claude Trading Skills](https://github.com/tradermonty/claude-trading-skills) — Claude Code skills for trading analysis, e.g. IBD-style relative strength rating. ⭐ 3,420 · [details](https://tradingaihub.com/tools/claude-trading-skills/)
 - ✅ [FinLab AI](https://github.com/koreal6803/finlab-ai) — Quant strategy generation and Taiwan stock market analysis with FinLab and Claude. ⭐ 420 · [details](https://tradingaihub.com/tools/finlab-ai/)
-- 🔴 [MCP Trader](https://github.com/wshobson/mcp-trader) — Trading MCP server with technical analysis and backtesting support. ⭐ 273 · [details](https://tradingaihub.com/tools/mcp-trader/)
+- 🗄️ [MCP Trader](https://github.com/wshobson/mcp-trader) — Trading MCP server with technical analysis and backtesting support. ⭐ 273 · [details](https://tradingaihub.com/tools/mcp-trader/)
 - ✅ [Superior Trade skills](https://github.com/Superior-Trade/superior-skills) *(official)* — Agent skills for strategy authoring, backtesting and deployment on Superior Trade. ⭐ 216 · [details](https://tradingaihub.com/tools/superior-skills/)
 - ✅ [QuantConnect MCP](https://github.com/QuantConnect/mcp-server) *(official)* — Official QuantConnect MCP for algorithmic trading research, backtests and deployment. ⭐ 79 · [details](https://tradingaihub.com/tools/quantconnect-mcp/)
 - ✅ [VARRD](https://github.com/varrdinc/varrd) — Trading research: event studies, backtesting, multiple-testing correction and OOS validation. ⭐ 24 · [details](https://tradingaihub.com/tools/varrd/)

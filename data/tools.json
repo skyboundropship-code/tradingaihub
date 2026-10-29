@@ -522,8 +522,8 @@
         "final_url": "https://github.com/alphavantage/alpha_vantage_mcp",
         "stars": 223,
         "archived": false,
-        "last_commit": "2026-10-03T00:09:33Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-03T00:09:33Z"
       },
       "remote_mcp": {
         "url": "https://mcp.alphavantage.co/mcp",
@@ -574,8 +574,8 @@
         "final_url": "https://github.com/massive-com/mcp_massive",
         "stars": 398,
         "archived": false,
-        "last_commit": "2026-10-08T14:13:06Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-08T14:13:09Z"
       },
       "last_commit_days": 20,
       "status": "verified"
@@ -621,8 +621,8 @@
         "final_url": "https://github.com/imbenrabi/Financial-Modeling-Prep-MCP-Server",
         "stars": 150,
         "archived": false,
-        "last_commit": "2026-10-14T14:11:50Z",
-        "license": "Apache-2.0"
+        "license": "Apache-2.0",
+        "last_commit": "2026-10-14T14:16:31Z"
       },
       "npm": {
         "name": "financial-modeling-prep-mcp-server",
@@ -677,8 +677,8 @@
         "final_url": "https://github.com/sverze/stock-market-mcp-server",
         "stars": 7,
         "archived": false,
-        "last_commit": "2025-05-01T07:20:43Z",
-        "license": null
+        "license": null,
+        "last_commit": "2025-05-01T07:20:48Z"
       },
       "last_commit_days": 546,
       "status": "stale"
@@ -727,8 +727,8 @@
         "final_url": "https://github.com/financial-datasets/mcp-server",
         "stars": 2315,
         "archived": false,
-        "last_commit": "2025-06-05T19:50:35Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2025-06-05T19:50:38Z"
       },
       "last_commit_days": 510,
       "status": "stale"
@@ -774,8 +774,8 @@
         "final_url": "https://github.com/maxscheijen/mcp-yahoo-finance",
         "stars": 28,
         "archived": false,
-        "last_commit": "2026-10-14T08:00:21Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-26T11:54:49Z"
       },
       "pypi": {
         "name": "mcp-yahoo-finance",
@@ -784,7 +784,7 @@
         "url": "https://pypi.org/project/mcp-yahoo-finance/",
         "links_back": true
       },
-      "last_commit_days": 15,
+      "last_commit_days": 2,
       "status": "verified"
     },
     "license": "MIT"
@@ -885,12 +885,12 @@
         "final_url": "https://github.com/EodHistoricalData/eodhd-claude-skills",
         "stars": 47,
         "archived": false,
-        "last_commit": "2026-10-20T16:29:21Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-22T13:32:34Z"
       },
       "claude_marketplace": true,
       "root_skill_md": false,
-      "last_commit_days": 8,
+      "last_commit_days": 6,
       "status": "verified"
     },
     "license": "MIT"
@@ -934,10 +934,10 @@
         "final_url": "https://github.com/wshobson/maverick-mcp",
         "stars": 714,
         "archived": false,
-        "last_commit": "2026-10-17T23:30:26Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-26T20:35:46Z"
       },
-      "last_commit_days": 11,
+      "last_commit_days": 2,
       "status": "verified"
     },
     "license": "MIT"
@@ -981,8 +981,8 @@
         "final_url": "https://github.com/ferdousbhai/investor-agent",
         "stars": 348,
         "archived": false,
-        "last_commit": "2026-10-09T13:58:25Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-09T13:58:27Z"
       },
       "last_commit_days": 19,
       "status": "verified"
@@ -1028,8 +1028,8 @@
         "final_url": "https://github.com/dragon1086/kospi-kosdaq-stock-server",
         "stars": 74,
         "archived": false,
-        "last_commit": "2026-09-11T06:43:28Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-09-11T06:43:28Z"
       },
       "pypi": {
         "name": "kospi-kosdaq-stock-server",
@@ -1082,8 +1082,8 @@
         "final_url": "https://github.com/hkopenai/hk-finance-mcp-server",
         "stars": 12,
         "archived": false,
-        "last_commit": "2026-10-02T14:08:14Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-02T14:08:14Z"
       },
       "pypi": {
         "name": "hkopenai.hk-finance-mcp-server",
@@ -1136,8 +1136,8 @@
         "final_url": "https://github.com/stefanoamorelli/fred-mcp-server",
         "stars": 128,
         "archived": false,
-        "last_commit": "2026-08-22T18:34:48Z",
-        "license": "AGPL-3.0"
+        "license": "AGPL-3.0",
+        "last_commit": "2026-08-22T18:34:49Z"
       },
       "npm": {
         "name": "fred-mcp-server",
@@ -1190,8 +1190,8 @@
         "final_url": "https://github.com/fxmacrodata/mcp-server-fxmacrodata",
         "stars": 0,
         "archived": false,
-        "last_commit": "2026-10-06T03:03:08Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-06T03:06:34Z"
       },
       "pypi": {
         "name": "mcp-server-fxmacrodata",
@@ -1244,8 +1244,8 @@
         "final_url": "https://github.com/alpacahq/alpaca-mcp-server",
         "stars": 1048,
         "archived": false,
-        "last_commit": "2026-10-26T11:37:33Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-27T09:06:46Z"
       },
       "pypi": {
         "name": "alpaca-mcp-server",
@@ -1355,8 +1355,8 @@
         "final_url": "https://github.com/ferdousbhai/tasty-agent",
         "stars": 88,
         "archived": false,
-        "last_commit": "2026-10-04T12:37:59Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-04T12:38:00Z"
       },
       "npm": {
         "name": "tasty-agent",
@@ -1411,8 +1411,8 @@
         "final_url": "https://github.com/ariadng/metatrader-mcp-server",
         "stars": 843,
         "archived": false,
-        "last_commit": "2026-03-28T18:39:17Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-03-28T18:39:29Z"
       },
       "pypi": {
         "name": "metatrader-mcp-server",
@@ -1467,8 +1467,8 @@
         "final_url": "https://github.com/paperinvest/mcp-server",
         "stars": 24,
         "archived": false,
-        "last_commit": "2025-09-19T01:19:51Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2025-09-19T01:19:55Z"
       },
       "npm": {
         "name": "@paperinvest/mcp-server",
@@ -1521,8 +1521,8 @@
         "final_url": "https://github.com/coinpaprika/dexpaprika-mcp",
         "stars": 118,
         "archived": false,
-        "last_commit": "2026-10-21T14:55:45Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-21T19:58:31Z"
       },
       "npm": {
         "name": "dexpaprika-mcp",
@@ -1578,8 +1578,8 @@
         "final_url": "https://github.com/Nayshins/mcp-server-ccxt",
         "stars": 82,
         "archived": false,
-        "last_commit": "2025-02-17T18:45:05Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2025-02-17T18:45:06Z"
       },
       "last_commit_days": 618,
       "status": "stale"
@@ -1627,8 +1627,8 @@
         "final_url": "https://github.com/kukapay/crypto-indicators-mcp",
         "stars": 131,
         "archived": false,
-        "last_commit": "2025-12-06T01:07:26Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2025-12-06T01:07:31Z"
       },
       "npm": {
         "name": "crypto-indicators-mcp",
@@ -1679,10 +1679,10 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/atilaahmettaner/tradingview-mcp",
-        "stars": 5163,
+        "stars": 5162,
         "archived": false,
-        "last_commit": "2026-10-28T08:29:19Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-28T08:29:21Z"
       },
       "pypi": {
         "name": "tradingview-mcp-server",
@@ -1738,8 +1738,8 @@
         "final_url": "https://github.com/TermiX-official/binance-mcp",
         "stars": 97,
         "archived": false,
-        "last_commit": "2025-04-16T06:57:46Z",
-        "license": null
+        "license": null,
+        "last_commit": "2025-04-16T06:57:55Z"
       },
       "last_commit_days": 561,
       "status": "stale"
@@ -1785,8 +1785,8 @@
         "final_url": "https://github.com/coinbase/agentkit",
         "stars": 1345,
         "archived": false,
-        "last_commit": "2026-10-14T21:49:59Z",
-        "license": "NOASSERTION"
+        "license": "NOASSERTION",
+        "last_commit": "2026-10-14T21:50:54Z"
       },
       "last_commit_days": 14,
       "status": "verified"
@@ -1799,7 +1799,7 @@
     "type": "mcp",
     "category": "crypto",
     "description": "Query onchain data and ERC-20 token information.",
-    "repo": "https://github.com/bankless/onchain-mcp",
+    "repo": "https://github.com/Bankless/onchain-mcp",
     "homepage": null,
     "docs": null,
     "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
@@ -1829,11 +1829,11 @@
       "issues": [],
       "github": {
         "reachable": true,
-        "final_url": "https://github.com/bankless/onchain-mcp",
+        "final_url": "https://github.com/Bankless/onchain-mcp",
         "stars": 78,
         "archived": false,
-        "last_commit": "2026-05-05T11:48:39Z",
-        "license": null
+        "license": null,
+        "last_commit": "2026-05-05T11:48:39Z"
       },
       "npm": {
         "name": "@bankless/onchain-mcp",
@@ -1842,7 +1842,7 @@
         "url": "https://www.npmjs.com/package/@bankless/onchain-mcp",
         "links_back": true
       },
-      "last_commit_days": 176,
+      "last_commit_days": 177,
       "status": "verified"
     },
     "license": "unknown"
@@ -1888,8 +1888,8 @@
         "final_url": "https://github.com/kukapay/crypto-liquidations-mcp",
         "stars": 8,
         "archived": false,
-        "last_commit": "2025-05-06T08:53:13Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2025-05-06T08:53:13Z"
       },
       "last_commit_days": 541,
       "status": "stale"
@@ -1935,8 +1935,8 @@
         "final_url": "https://github.com/Bitget-AI/agent-mcp",
         "stars": 1,
         "archived": false,
-        "last_commit": "2026-09-01T10:12:14Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-09-01T10:12:14Z"
       },
       "npm": {
         "name": "@bitget-ai/bitget-agent-mcp",
@@ -1945,7 +1945,7 @@
         "url": "https://www.npmjs.com/package/@bitget-ai/bitget-agent-mcp",
         "links_back": true
       },
-      "last_commit_days": 57,
+      "last_commit_days": 58,
       "status": "verified"
     },
     "license": "MIT"
@@ -1991,8 +1991,8 @@
         "final_url": "https://github.com/QuantGeekDev/coincap-mcp",
         "stars": 92,
         "archived": false,
-        "last_commit": "2025-01-30T16:30:02Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2025-01-30T16:30:02Z"
       },
       "npm": {
         "name": "coincap-mcp",
@@ -2040,17 +2040,17 @@
         }
       ],
       "issues": [
-        "No commits for 289 days"
+        "No commits for 290 days"
       ],
       "github": {
         "reachable": true,
         "final_url": "https://github.com/kukapay/dexscreener-trending-mcp",
         "stars": 1,
         "archived": false,
-        "last_commit": "2026-01-12T09:56:39Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-01-12T09:58:48Z"
       },
-      "last_commit_days": 289,
+      "last_commit_days": 290,
       "status": "aging"
     },
     "license": "MIT"
@@ -2097,8 +2097,8 @@
         "final_url": "https://github.com/base/base-mcp-legacy",
         "stars": 351,
         "archived": true,
-        "last_commit": "2026-05-13T20:07:49Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-05-13T20:07:50Z"
       },
       "status": "archived"
     },
@@ -2141,10 +2141,10 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/sendaifun/solana-agent-kit",
-        "stars": 1728,
+        "stars": 1729,
         "archived": false,
-        "last_commit": "2026-05-14T18:46:54Z",
-        "license": "Apache-2.0"
+        "license": "Apache-2.0",
+        "last_commit": "2026-05-14T18:46:54Z"
       },
       "last_commit_days": 167,
       "status": "verified"
@@ -2193,8 +2193,8 @@
         "final_url": "https://github.com/AbdelStark/bitcoin-mcp",
         "stars": 77,
         "archived": false,
-        "last_commit": "2025-08-01T09:38:50Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2025-08-01T09:38:50Z"
       },
       "last_commit_days": 454,
       "status": "stale"
@@ -2240,10 +2240,10 @@
         "final_url": "https://github.com/coinbase/x402",
         "stars": 176,
         "archived": false,
-        "last_commit": "2026-10-15T17:26:05Z",
-        "license": "Apache-2.0"
+        "license": "Apache-2.0",
+        "last_commit": "2026-10-27T22:27:13Z"
       },
-      "last_commit_days": 13,
+      "last_commit_days": 1,
       "status": "verified"
     },
     "license": "Apache-2.0"
@@ -2287,8 +2287,8 @@
         "final_url": "https://github.com/intuit/quickbooks-online-mcp-server",
         "stars": 436,
         "archived": false,
-        "last_commit": "2026-09-15T17:56:34Z",
-        "license": "Apache-2.0"
+        "license": "Apache-2.0",
+        "last_commit": "2026-09-15T17:56:34Z"
       },
       "last_commit_days": 43,
       "status": "verified"
@@ -2332,10 +2332,10 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/XeroAPI/xero-mcp-server",
-        "stars": 385,
+        "stars": 386,
         "archived": false,
-        "last_commit": "2026-10-26T07:23:12Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-26T07:23:13Z"
       },
       "npm": {
         "name": "@xeroapi/xero-mcp-server",
@@ -2388,8 +2388,8 @@
         "final_url": "https://github.com/norman-finance/norman-mcp-server",
         "stars": 62,
         "archived": false,
-        "last_commit": "2026-10-28T23:11:10Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-29T11:37:28Z"
       },
       "pypi": {
         "name": "norman-mcp-server",
@@ -2442,8 +2442,8 @@
         "final_url": "https://github.com/Kimonarrow/ledgerskills",
         "stars": 2,
         "archived": false,
-        "last_commit": "2026-06-12T22:17:21Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-06-13T08:52:11Z"
       },
       "claude_marketplace": true,
       "root_skill_md": false,
@@ -2489,10 +2489,10 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/anthropics/financial-services",
-        "stars": 40898,
+        "stars": 40900,
         "archived": false,
-        "last_commit": "2026-10-28T17:23:23Z",
-        "license": "Apache-2.0"
+        "license": "Apache-2.0",
+        "last_commit": "2026-10-28T17:23:24Z"
       },
       "claude_marketplace": true,
       "root_skill_md": false,
@@ -2546,10 +2546,10 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/ComposioHQ/awesome-claude-skills",
-        "stars": 78235,
+        "stars": 78238,
         "archived": false,
-        "last_commit": "2026-07-24T07:48:01Z",
-        "license": null
+        "license": null,
+        "last_commit": "2026-09-18T07:16:11Z"
       },
       "claude_marketplace": false,
       "root_skill_md": false,
@@ -2563,7 +2563,7 @@
         "ok": true,
         "status": 200
       },
-      "last_commit_days": 97,
+      "last_commit_days": 41,
       "status": "verified"
     },
     "license": "unknown"
@@ -2615,8 +2615,8 @@
         "final_url": "https://github.com/stripe/ai",
         "stars": 1993,
         "archived": false,
-        "last_commit": "2026-10-29T00:35:52Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-29T00:36:05Z"
       },
       "docs": {
         "url": "https://docs.stripe.com/mcp",
@@ -2672,8 +2672,8 @@
         "final_url": "https://github.com/qonto/qonto-mcp-server",
         "stars": 42,
         "archived": false,
-        "last_commit": "2026-06-22T15:05:04Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-06-22T17:03:03Z"
       },
       "last_commit_days": 128,
       "status": "verified"
@@ -2715,18 +2715,17 @@
       ],
       "issues": [
         "pypi name 'ramp-mcp' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 587 days"
+        "Repository is archived"
       ],
       "github": {
         "reachable": true,
         "final_url": "https://github.com/ramp-public/ramp_mcp",
         "stars": 34,
-        "archived": false,
-        "last_commit": "2025-03-20T15:30:54Z",
-        "license": "MIT"
+        "archived": true,
+        "license": "MIT",
+        "last_commit": "2025-03-20T15:30:58Z"
       },
-      "last_commit_days": 587,
-      "status": "stale"
+      "status": "archived"
     },
     "license": "MIT"
   },
@@ -2769,8 +2768,8 @@
         "final_url": "https://github.com/akutishevsky/lunchmoney-mcp",
         "stars": 112,
         "archived": false,
-        "last_commit": "2026-08-03T08:07:14Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-08-03T08:08:33Z"
       },
       "npm": {
         "name": "@akutishevsky/lunchmoney-mcp",
@@ -2825,8 +2824,8 @@
         "final_url": "https://github.com/carsol/monarch-mcp-server",
         "stars": 4,
         "archived": false,
-        "last_commit": "2025-06-08T04:23:40Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2025-06-08T04:25:30Z"
       },
       "last_commit_days": 508,
       "status": "stale"
@@ -2875,8 +2874,8 @@
         "final_url": "https://github.com/Jacob-Tate/actual-budget-mcp",
         "stars": 2,
         "archived": false,
-        "last_commit": "2026-03-23T08:00:45Z",
-        "license": null
+        "license": null,
+        "last_commit": "2026-03-23T08:00:46Z"
       },
       "last_commit_days": 220,
       "status": "aging"
@@ -2922,8 +2921,8 @@
         "final_url": "https://github.com/AlvisoOculus/optionsahoy-mcp",
         "stars": 6,
         "archived": false,
-        "last_commit": "2026-10-28T22:33:45Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-28T22:33:48Z"
       },
       "npm": {
         "name": "optionsahoy-mcp",
@@ -2976,8 +2975,8 @@
         "final_url": "https://github.com/stefanoamorelli/sec-edgar-mcp",
         "stars": 380,
         "archived": false,
-        "last_commit": "2026-10-03T09:09:51Z",
-        "license": "AGPL-3.0"
+        "license": "AGPL-3.0",
+        "last_commit": "2026-10-03T09:11:21Z"
       },
       "pypi": {
         "name": "sec-edgar-mcp",
@@ -3028,10 +3027,10 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/openbq-org/OpenBB",
-        "stars": 74851,
+        "stars": 74855,
         "archived": false,
-        "last_commit": "2026-10-24T07:01:56Z",
-        "license": "NOASSERTION"
+        "license": "NOASSERTION",
+        "last_commit": "2026-10-24T09:08:28Z"
       },
       "last_commit_days": 5,
       "status": "verified"
@@ -3077,8 +3076,8 @@
         "final_url": "https://github.com/daniel3303/stock-market-mcp-server",
         "stars": 7,
         "archived": false,
-        "last_commit": "2026-10-19T14:24:59Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-19T14:25:03Z"
       },
       "last_commit_days": 9,
       "status": "verified"
@@ -3124,8 +3123,8 @@
         "final_url": "https://github.com/alphasmo/alphasmo-tools",
         "stars": 2,
         "archived": false,
-        "last_commit": "2026-08-12T14:51:03Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-08-12T15:09:50Z"
       },
       "npm": {
         "name": "alphasmo",
@@ -3178,8 +3177,8 @@
         "final_url": "https://github.com/paperandbeyond23-gif/edgrapi-skills",
         "stars": 1,
         "archived": false,
-        "last_commit": "2026-10-16T16:16:26Z",
-        "license": "MIT-0"
+        "license": "MIT-0",
+        "last_commit": "2026-10-16T16:16:46Z"
       },
       "claude_marketplace": false,
       "root_skill_md": false,
@@ -3222,17 +3221,17 @@
         }
       ],
       "issues": [
-        "No commits for 572 days"
+        "No commits for 573 days"
       ],
       "github": {
         "reachable": true,
         "final_url": "https://github.com/valyuAI/valyu-mcp",
         "stars": 19,
         "archived": false,
-        "last_commit": "2025-04-04T10:30:15Z",
-        "license": null
+        "license": null,
+        "last_commit": "2025-04-04T10:30:18Z"
       },
-      "last_commit_days": 572,
+      "last_commit_days": 573,
       "status": "stale"
     },
     "license": "unknown"
@@ -3278,8 +3277,8 @@
         "final_url": "https://github.com/ahmetsbilgin/finbrain-mcp",
         "stars": 9,
         "archived": false,
-        "last_commit": "2026-09-07T14:29:17Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-09-07T14:29:20Z"
       },
       "last_commit_days": 51,
       "status": "verified"
@@ -3325,8 +3324,8 @@
         "final_url": "https://github.com/quant-sentiment-ai/claude-equity-research",
         "stars": 749,
         "archived": false,
-        "last_commit": "2026-10-28T10:38:01Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-29T10:56:03Z"
       },
       "claude_marketplace": true,
       "root_skill_md": false,
@@ -3376,8 +3375,8 @@
         "final_url": "https://github.com/martinxu9/claude-investor",
         "stars": 34,
         "archived": false,
-        "last_commit": "2024-03-28T01:26:01Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2024-03-28T01:26:10Z"
       },
       "claude_marketplace": false,
       "root_skill_md": false,
@@ -3425,8 +3424,8 @@
         "final_url": "https://github.com/QuantConnect/mcp-server",
         "stars": 79,
         "archived": false,
-        "last_commit": "2026-10-26T19:34:45Z",
-        "license": "Apache-2.0"
+        "license": "Apache-2.0",
+        "last_commit": "2026-10-26T19:34:55Z"
       },
       "last_commit_days": 2,
       "status": "verified"
@@ -3467,18 +3466,17 @@
         }
       ],
       "issues": [
-        "No commits for 430 days"
+        "Repository is archived"
       ],
       "github": {
         "reachable": true,
         "final_url": "https://github.com/wshobson/mcp-trader",
         "stars": 273,
-        "archived": false,
-        "last_commit": "2025-08-24T15:36:19Z",
-        "license": null
+        "archived": true,
+        "license": null,
+        "last_commit": "2025-08-24T15:36:43Z"
       },
-      "last_commit_days": 430,
-      "status": "stale"
+      "status": "archived"
     },
     "license": "unknown"
   },
@@ -3521,8 +3519,8 @@
         "final_url": "https://github.com/varrdinc/varrd",
         "stars": 24,
         "archived": false,
-        "last_commit": "2026-08-31T13:32:00Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-08-31T13:32:02Z"
       },
       "pypi": {
         "name": "varrd",
@@ -3575,8 +3573,8 @@
         "final_url": "https://github.com/grahammccain/chart-library-mcp",
         "stars": 22,
         "archived": false,
-        "last_commit": "2026-09-10T20:37:21Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-09-10T20:43:49Z"
       },
       "pypi": {
         "name": "chartlibrary-mcp",
@@ -3629,8 +3627,8 @@
         "final_url": "https://github.com/koreal6803/finlab-ai",
         "stars": 420,
         "archived": false,
-        "last_commit": "2026-10-29T08:19:26Z",
-        "license": null
+        "license": null,
+        "last_commit": "2026-10-29T08:19:28Z"
       },
       "claude_marketplace": true,
       "root_skill_md": false,
@@ -3676,10 +3674,10 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/tradermonty/claude-trading-skills",
-        "stars": 3417,
+        "stars": 3420,
         "archived": false,
-        "last_commit": "2026-10-26T18:34:48Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-10-26T18:34:48Z"
       },
       "claude_marketplace": false,
       "root_skill_md": false,
@@ -3727,8 +3725,8 @@
         "final_url": "https://github.com/Superior-Trade/superior-skills",
         "stars": 216,
         "archived": false,
-        "last_commit": "2026-09-10T03:54:43Z",
-        "license": "MIT"
+        "license": "MIT",
+        "last_commit": "2026-09-10T03:54:44Z"
       },
       "claude_marketplace": true,
       "root_skill_md": true,
@@ -3778,8 +3776,8 @@
         "final_url": "https://github.com/degentic-tools/claude-code-trading-terminal",
         "stars": 21,
         "archived": false,
-        "last_commit": "2025-08-29T19:44:48Z",
-        "license": null
+        "license": null,
+        "last_commit": "2025-08-29T19:45:21Z"
       },
       "claude_marketplace": false,
       "root_skill_md": false,
@@ -3834,8 +3832,8 @@
         "final_url": "https://github.com/pineifyapp/pineify-mcp",
         "stars": 1,
         "archived": false,
-        "last_commit": "2026-08-07T01:49:29Z",
-        "license": null
+        "license": null,
+        "last_commit": "2026-08-07T01:49:29Z"
       },
       "last_commit_days": 83,
       "status": "verified"

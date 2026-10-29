@@ -194,7 +194,7 @@
  "tradingview-mcp": {
   "name": "TradingView MCP (community)",
   "status": "verified",
-  "stars": 5163,
+  "stars": 5162,
   "version": "0.8.1"
  },
  "binance-mcp": {
@@ -248,7 +248,7 @@
  "solana-agent-kit": {
   "name": "Solana Agent Kit",
   "status": "verified",
-  "stars": 1728,
+  "stars": 1729,
   "version": null
  },
  "bitcoin-mcp": {
@@ -272,7 +272,7 @@
  "xero-mcp": {
   "name": "Xero MCP Server",
   "status": "verified",
-  "stars": 385,
+  "stars": 386,
   "version": "0.0.17"
  },
  "norman-finance-mcp": {
@@ -290,13 +290,13 @@
  "anthropic-financial-services": {
   "name": "Anthropic Financial Services Plugins",
   "status": "verified",
-  "stars": 40898,
+  "stars": 40900,
   "version": null
  },
  "invoice-organizer-skill": {
   "name": "Invoice Organizer skill",
   "status": "verified",
-  "stars": 78235,
+  "stars": 78238,
   "version": null
  },
  "stripe-ai": {
@@ -313,7 +313,7 @@
  },
  "ramp-mcp": {
   "name": "Ramp MCP",
-  "status": "stale",
+  "status": "archived",
   "stars": 34,
   "version": null
  },
@@ -350,7 +350,7 @@
  "openbb": {
   "name": "OpenBB Platform (MCP)",
   "status": "verified",
-  "stars": 74851,
+  "stars": 74855,
   "version": null
  },
  "equibles": {
@@ -403,7 +403,7 @@
  },
  "mcp-trader": {
   "name": "MCP Trader",
-  "status": "stale",
+  "status": "archived",
   "stars": 273,
   "version": null
  },
@@ -428,7 +428,7 @@
  "claude-trading-skills": {
   "name": "Claude Trading Skills",
   "status": "verified",
-  "stars": 3417,
+  "stars": 3420,
   "version": null
  },
  "superior-skills": {

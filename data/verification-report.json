@@ -1,11 +1,11 @@
 {
-  "checked_at": "2026-10-29T09:50:42.789101+00:00",
+  "checked_at": "2026-10-29T11:53:06.677751+00:00",
   "total": 75,
   "by_status": {
     "verified": 56,
-    "stale": 14,
+    "stale": 12,
     "aging": 4,
-    "archived": 1
+    "archived": 3
   },
   "with_package": 25,
   "issues": [
@@ -79,7 +79,7 @@
       "id": "dexscreener-trending-mcp",
       "status": "aging",
       "issues": [
-        "No commits for 289 days"
+        "No commits for 290 days"
       ]
     },
     {
@@ -100,10 +100,10 @@
     },
     {
       "id": "ramp-mcp",
-      "status": "stale",
+      "status": "archived",
       "issues": [
         "pypi name 'ramp-mcp' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 587 days"
+        "Repository is archived"
       ]
     },
     {
@@ -125,7 +125,7 @@
       "id": "valyu-mcp",
       "status": "stale",
       "issues": [
-        "No commits for 572 days"
+        "No commits for 573 days"
       ]
     },
     {
@@ -144,9 +144,9 @@
     },
     {
       "id": "mcp-trader",
-      "status": "stale",
+      "status": "archived",
       "issues": [
-        "No commits for 430 days"
+        "Repository is archived"
       ]
     },
     {
