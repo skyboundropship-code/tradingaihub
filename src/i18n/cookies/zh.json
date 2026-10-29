@@ -1,0 +1,58 @@
+{
+ "b": {
+  "label": "Cookie 提示",
+  "text": "我们不使用广告或跟踪 Cookie。经您同意后，我们才会加载 Cloudflare Web Analytics（不使用 Cookie）来统计访问量。您的主题、语言和无障碍设置只保存在此浏览器中。",
+  "accept": "接受统计分析",
+  "reject": "拒绝",
+  "policy": "Cookie 政策",
+  "settings": "Cookie 设置",
+  "acceptedMsg": "已接受统计分析。您可随时在页脚的“Cookie 设置”中更改。",
+  "rejectedMsg": "已拒绝统计分析。您可随时在页脚的“Cookie 设置”中更改。"
+ },
+ "pg": {
+  "title": "Cookie 政策",
+  "metaDesc": "TradingAIHub 在您的浏览器中存储哪些内容、使用哪种统计分析，以及如何更改您的选择。",
+  "intro": "{site} 不设置任何 Cookie，也不使用广告、跟踪或社交媒体像素。本页列出了本站在您浏览器中存储的全部内容，以及向第三方发出的每一项请求。",
+  "updated": "最后更新：{date}",
+  "sumH": "简要说明",
+  "sum": [
+   "本站不设置 Cookie。",
+   "必要设置（主题、语言、无障碍以及您的同意选择）保存在浏览器的本地存储中，绝不会离开您的设备。",
+   "只有在您点击“接受统计分析”后才会加载 Cloudflare Web Analytics。如果您拒绝或忽略提示，则不会加载。"
+  ],
+  "tableH": "存储内容及原因",
+  "thName": "名称",
+  "thCat": "类别",
+  "thPurpose": "用途",
+  "thKeep": "保留期限",
+  "essential": "必要",
+  "analytics": "统计分析（可选）",
+  "untilCleared": "直到您清除浏览器数据",
+  "months12": "12 个月，之后会再次询问",
+  "cfKeep": "不在您的设备上存储 Cookie 或标识符",
+  "rTheme": "记住浅色或深色模式。",
+  "rLang": "记住您选择的语言。",
+  "rLangAuto": "记录我们已推荐过一次语言，避免再次跳转。",
+  "rA11y": "记住无障碍菜单设置（文字大小、对比度、链接、字体、动画）。",
+  "rConsent": "记住您对本提示的选择，以及日期和政策版本。",
+  "rCf": "统计页面浏览量并测量加载速度（static.cloudflareinsights.com）。",
+  "cfH": "关于 Cloudflare Web Analytics",
+  "cfP": "Cloudflare Web Analytics 以隐私为先：不设置 Cookie，不对访客做指纹识别，也不跨网站跟踪您。启用后，您的浏览器会向 Cloudflare 发送页面地址、来源页面、浏览器类型和性能数据，Cloudflare 会为传送请求而处理您的 IP 地址。我们只能看到汇总数据。",
+  "whyH": "为什么不用 Cookie 也要征求同意",
+  "whyP": "统计分析脚本并非使用本站所必需，而且会将使用数据发送给第三方。因此我们把它视为可选功能，只在您同意后加载，而不是以它不设置 Cookie 为理由。",
+  "otherH": "其他处理",
+  "other": [
+   "新闻通讯：如果您订阅，我们会将您的电子邮件地址和语言保存在 Cloudflare 上，用于发送通讯。为限制请求频率，会短暂使用您 IP 地址的加盐哈希值。不使用 Cookie。",
+   "托管与安全：和所有网站一样，我们的托管服务商 Cloudflare 会处理您的 IP 地址和请求信息，以提供页面并防范滥用。这是网站运行所必需的。",
+   "外部链接：TradingView、GitHub 等我们链接到的网站，会在您访问时依据其自身政策设置 Cookie。我们指向 TradingView 的链接是联盟链接，推荐记录由 TradingView 而非我们保存。"
+  ],
+  "manageH": "更改您的选择",
+  "manageP": "您可以随时通过每个页面页脚的“Cookie 设置”按钮更改或撤回同意，也可以在浏览器中清除本站数据。撤回将从您打开的下一个页面起生效。",
+  "manageBtn": "打开 Cookie 设置",
+  "contactH": "联系我们",
+  "contactP": "关于本政策的问题：{email}"
+ },
+ "privacy": {
+  "p": "本站在您浏览器中存储的内容，以及如何更改统计分析选择，详见我们的"
+ }
+}

@@ -1,0 +1,58 @@
+{
+ "b": {
+  "label": "Çerez bildirimi",
+  "text": "Reklam veya izleme çerezi kullanmıyoruz. Onay verirseniz, ziyaretleri saymak için Cloudflare Web Analytics'i (çerezsiz) yükleriz. Tema, dil ve erişilebilirlik tercihleriniz yalnızca bu tarayıcıda saklanır.",
+  "accept": "Analitiği kabul et",
+  "reject": "Reddet",
+  "policy": "Çerez politikası",
+  "settings": "Çerez ayarları",
+  "acceptedMsg": "Analitik kabul edildi. Bunu istediğiniz zaman alt bilgideki “Çerez ayarları”ndan değiştirebilirsiniz.",
+  "rejectedMsg": "Analitik reddedildi. Bunu istediğiniz zaman alt bilgideki “Çerez ayarları”ndan değiştirebilirsiniz."
+ },
+ "pg": {
+  "title": "Çerez politikası",
+  "metaDesc": "TradingAIHub'ın tarayıcınızda neleri sakladığı, hangi analitiği kullandığımız ve tercihinizi nasıl değiştireceğiniz.",
+  "intro": "{site} hiçbir çerez ayarlamaz; reklam, izleme veya sosyal medya pikseli kullanmaz. Bu sayfada sitenin tarayıcınızda sakladığı her şey ve üçüncü taraflara yaptığı her istek listelenir.",
+  "updated": "Son güncelleme: {date}",
+  "sumH": "Kısaca",
+  "sum": [
+   "Bu site çerez ayarlamaz.",
+   "Zorunlu ayarlar (tema, dil, erişilebilirlik ve onay tercihiniz) tarayıcının yerel depolamasında tutulur ve cihazınızdan çıkmaz.",
+   "Cloudflare Web Analytics yalnızca “Analitiği kabul et”e tıklarsanız yüklenir. Reddederseniz veya bildirimi yok sayarsanız yüklenmez."
+  ],
+  "tableH": "Neler saklanır ve neden",
+  "thName": "Ad",
+  "thCat": "Kategori",
+  "thPurpose": "Amaç",
+  "thKeep": "Saklama süresi",
+  "essential": "Zorunlu",
+  "analytics": "Analitik (isteğe bağlı)",
+  "untilCleared": "Tarayıcı verilerinizi silene kadar",
+  "months12": "12 ay, sonra yeniden sorarız",
+  "cfKeep": "Cihazınızda çerez veya tanımlayıcı saklanmaz",
+  "rTheme": "Açık veya koyu modu hatırlar.",
+  "rLang": "Seçtiğiniz dili hatırlar.",
+  "rLangAuto": "Size bir kez dil önerdiğimizi kaydeder, böylece sizi yeniden yönlendirmeyiz.",
+  "rA11y": "Erişilebilirlik menüsü ayarlarınızı (yazı boyutu, kontrast, bağlantılar, yazı tipi, animasyonlar) hatırlar.",
+  "rConsent": "Bu bildirimdeki tercihinizi tarih ve politika sürümüyle birlikte hatırlar.",
+  "rCf": "Sayfa görüntülemelerini sayar ve yükleme hızını ölçer (static.cloudflareinsights.com).",
+  "cfH": "Cloudflare Web Analytics hakkında",
+  "cfP": "Cloudflare Web Analytics gizlilik odaklıdır: çerez ayarlamaz, ziyaretçilerin parmak izini çıkarmaz ve sizi siteler arasında izlemez. Etkinleştirildiğinde tarayıcınız Cloudflare'e sayfa adresini, yönlendiren sayfayı, tarayıcı türünü ve performans sürelerini gönderir; Cloudflare isteği iletmek için IP adresinizi işler. Biz yalnızca toplu değerleri görürüz.",
+  "whyH": "Çerez olmamasına rağmen neden onay istiyoruz",
+  "whyP": "Analitik betiği siteyi kullanmak için gerekli değildir ve kullanım verilerini üçüncü bir tarafa gönderir. Bu nedenle çerez ayarlamamasına dayanmak yerine onu isteğe bağlı sayar ve yalnızca onayınızdan sonra yükleriz.",
+  "otherH": "Diğer işlemeler",
+  "other": [
+   "Bülten: Abone olursanız bülteni gönderebilmek için e-posta adresinizi ve dilinizi Cloudflare'de saklarız. İstek sınırlaması için IP adresinizin tuzlanmış bir özeti kısa süreliğine kullanılır. Çerez kullanılmaz.",
+   "Barındırma ve güvenlik: Her web sitesinde olduğu gibi barındırma sağlayıcımız Cloudflare, sayfaları sunmak ve kötüye kullanıma karşı korumak için IP adresinizi ve istek ayrıntılarını işler. Bu, sitenin çalışması için gereklidir.",
+   "Dış bağlantılar: TradingView, GitHub ve bağlantı verdiğimiz diğer siteler, ziyaret ettiğinizde kendi politikalarına göre kendi çerezlerini ayarlar. TradingView bağlantılarımız ortaklık bağlantılarıdır; yönlendirmeyi biz değil TradingView kaydeder."
+  ],
+  "manageH": "Tercihinizi değiştirin",
+  "manageP": "Onayınızı istediğiniz zaman her sayfanın alt bilgisindeki “Çerez ayarları” düğmesiyle veya tarayıcınızda bu sitenin verilerini silerek değiştirebilir ya da geri çekebilirsiniz. Geri çekme, açtığınız bir sonraki sayfadan itibaren geçerli olur.",
+  "manageBtn": "Çerez ayarlarını aç",
+  "contactH": "İletişim",
+  "contactP": "Bu politika hakkında sorular: {email}"
+ },
+ "privacy": {
+  "p": "Bu sitenin tarayıcınızda neleri sakladığı ve analitik tercihinizi nasıl değiştireceğiniz şurada açıklanır:"
+ }
+}

@@ -1,0 +1,58 @@
+{
+ "b": {
+  "label": "Cookie notice",
+  "text": "We don't use advertising or tracking cookies. With your consent, we load Cloudflare Web Analytics (cookieless) to count visits. Your theme, language and accessibility choices are stored only in this browser.",
+  "accept": "Accept analytics",
+  "reject": "Reject",
+  "policy": "Cookie policy",
+  "settings": "Cookie settings",
+  "acceptedMsg": "Analytics accepted. You can change this any time under Cookie settings in the footer.",
+  "rejectedMsg": "Analytics rejected. You can change this any time under Cookie settings in the footer."
+ },
+ "pg": {
+  "title": "Cookie policy",
+  "metaDesc": "What TradingAIHub stores in your browser, which analytics we use and how to change your choice.",
+  "intro": "{site} does not set any cookies and does not use advertising, tracking or social media pixels. This page lists everything the site stores in your browser and every third-party request it makes.",
+  "updated": "Last updated: {date}",
+  "sumH": "In short",
+  "sum": [
+   "No cookies are set by this site.",
+   "Essential settings (theme, language, accessibility, your consent choice) are kept in your browser's local storage and never leave your device.",
+   "Cloudflare Web Analytics loads only if you click “Accept analytics”. If you reject or ignore the notice, it is not loaded."
+  ],
+  "tableH": "What is stored and why",
+  "thName": "Name",
+  "thCat": "Category",
+  "thPurpose": "Purpose",
+  "thKeep": "Retention",
+  "essential": "Essential",
+  "analytics": "Analytics (optional)",
+  "untilCleared": "Until you clear your browser data",
+  "months12": "12 months, then we ask again",
+  "cfKeep": "No cookies or identifiers stored on your device",
+  "rTheme": "Remembers light or dark mode.",
+  "rLang": "Remembers the language you picked.",
+  "rLangAuto": "Notes that we already suggested a language once, so we don't redirect you again.",
+  "rA11y": "Remembers your accessibility menu settings (text size, contrast, links, font, animations).",
+  "rConsent": "Remembers your choice on this notice, with the date and policy version.",
+  "rCf": "Counts page views and measures page speed (static.cloudflareinsights.com).",
+  "cfH": "About Cloudflare Web Analytics",
+  "cfP": "Cloudflare Web Analytics is privacy-first: it sets no cookies, does not fingerprint visitors and does not track you across sites. When enabled, your browser sends Cloudflare the page address, referrer, browser type and performance timings, and Cloudflare processes your IP address to deliver the request. We see only aggregated totals.",
+  "whyH": "Why we ask even though it is cookieless",
+  "whyP": "The analytics script is not needed to use the site, and it sends usage data to a third party. We therefore treat it as optional and load it only after you opt in, rather than relying on the fact that it sets no cookies.",
+  "otherH": "Other processing",
+  "other": [
+   "Newsletter: if you subscribe, your email address and language are stored by us on Cloudflare so we can send the newsletter. A salted hash of your IP address is used briefly for rate limiting. No cookies are used.",
+   "Hosting and security: like any website, our host Cloudflare processes your IP address and request details to deliver pages and protect against abuse. This is necessary to run the site.",
+   "Outbound links: TradingView, GitHub and other sites we link to set their own cookies when you visit them, under their own policies. Our TradingView links are affiliate links; the referral is recorded by TradingView, not by us."
+  ],
+  "manageH": "Change your choice",
+  "manageP": "You can change or withdraw your consent at any time with the “Cookie settings” button in the footer of every page, or by clearing this site's data in your browser. Withdrawing takes effect from the next page you open.",
+  "manageBtn": "Open cookie settings",
+  "contactH": "Contact",
+  "contactP": "Questions about this policy: {email}"
+ },
+ "privacy": {
+  "p": "What this site stores in your browser, and how to change your analytics choice, is explained in our"
+ }
+}
