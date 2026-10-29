@@ -22,7 +22,7 @@ nav.main{font-size:0.875rem}
 .stats b{font-size:1.25rem}
 .search input{font-size:1rem}
 h2.sec{font-size:1.5rem}
-.card h3{font-size:1rem}
+.card h3,.card .card-t{font-size:1rem}
 .card p{font-size:0.875rem}
 .meta{font-size:0.75rem}
 .badge{font-size:0.75rem}

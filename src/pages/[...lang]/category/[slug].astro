@@ -23,7 +23,7 @@ const ld = [{ "@context": "https://schema.org", "@type": "CollectionPage", name:
   <h1>{c.icon} {cname}</h1><p style="color:var(--muted)">{cblurb} {t("category.sorted")}</p>
   <PartnerCTA variant="tool" lang={lang} path={TVPATH[c.slug] ?? "/"} />
   {comps.length > 0 && <p class="note">{t("category.compare")} {comps.map((x, i) => <>{i > 0 && " · "}<a href={p(`/compare/${x.slug}/`)}>{t(`cmp.${x.slug}`)[0]}</a></>)}</p>}
-  <div class="grid">{list.map((x) => <ToolCard t={x} lang={lang} />)}</div>
+  <div class="grid">{list.map((x) => <ToolCard t={x} lang={lang} level={2} />)}</div>
   {TV[c.slug] && <TradingView context={TV[c.slug]} lang={lang} />}
 </div>
 </Base>

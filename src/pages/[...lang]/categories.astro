@@ -7,5 +7,5 @@ const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
 ---
 <Base title={t("cats.title")} description={t("cats.desc")} lang={lang}>
 <div class="wrap page"><h1>{t("cats.title")}</h1>
-<div class="grid">{CATEGORIES.map((c) => <a class="card" href={p(`/category/${c.slug}/`)}><h3>{c.icon} {t(`cat.${c.slug}`)[0]}</h3><p>{t(`cat.${c.slug}`)[2]}</p><div class="meta">{tools.filter((x) => x.category === c.slug).length} {t("common.tools")}</div></a>)}</div></div>
+<div class="grid">{CATEGORIES.map((c) => <a class="card" href={p(`/category/${c.slug}/`)}><h2 class="card-t">{c.icon} {t(`cat.${c.slug}`)[0]}</h2><p>{t(`cat.${c.slug}`)[2]}</p><div class="meta">{tools.filter((x) => x.category === c.slug).length} {t("common.tools")}</div></a>)}</div></div>
 </Base>

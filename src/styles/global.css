@@ -21,7 +21,7 @@ h2.sec{font-size:24px;margin:44px 0 16px;letter-spacing:-.01em}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
 .card{box-shadow:var(--shadow);background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:8px;color:var(--text)}
 a.card:hover{border-color:var(--brand2);text-decoration:none;transform:translateY(-1px)}
-.card h3{margin:0;font-size:16px}.card p{margin:0;color:var(--muted);font-size:14px}
+.card h3,.card .card-t{margin:0;font-size:16px}.nl-h{font-size:1.17em;margin-bottom:1em}.card p{margin:0;color:var(--muted);font-size:14px}
 .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted)}
 .badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid var(--line);white-space:nowrap}
 .badge.good{color:var(--g-fg);border-color:var(--g-bd);background:var(--g-bg)}.badge.warn{color:var(--w-fg);border-color:var(--w-bd);background:var(--w-bg)}.badge.bad{color:var(--b-fg);border-color:var(--b-bd);background:var(--b-bg)}
