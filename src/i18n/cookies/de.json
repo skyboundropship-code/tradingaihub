@@ -1,0 +1,58 @@
+{
+ "b": {
+  "label": "Cookie-Hinweis",
+  "text": "Wir verwenden keine Werbe- oder Tracking-Cookies. Mit Ihrer Einwilligung laden wir Cloudflare Web Analytics (ohne Cookies), um Besuche zu zählen. Ihre Einstellungen zu Farbschema, Sprache und Barrierefreiheit werden nur in diesem Browser gespeichert.",
+  "accept": "Analyse akzeptieren",
+  "reject": "Ablehnen",
+  "policy": "Cookie-Richtlinie",
+  "settings": "Cookie-Einstellungen",
+  "acceptedMsg": "Analyse akzeptiert. Sie können das jederzeit unter „Cookie-Einstellungen“ in der Fußzeile ändern.",
+  "rejectedMsg": "Analyse abgelehnt. Sie können das jederzeit unter „Cookie-Einstellungen“ in der Fußzeile ändern."
+ },
+ "pg": {
+  "title": "Cookie-Richtlinie",
+  "metaDesc": "Was TradingAIHub in Ihrem Browser speichert, welche Analyse wir nutzen und wie Sie Ihre Wahl ändern.",
+  "intro": "{site} setzt keine Cookies und verwendet keine Werbe-, Tracking- oder Social-Media-Pixel. Diese Seite listet alles auf, was die Website in Ihrem Browser speichert, und jede Anfrage an Dritte.",
+  "updated": "Zuletzt aktualisiert: {date}",
+  "sumH": "Kurz gesagt",
+  "sum": [
+   "Diese Website setzt keine Cookies.",
+   "Notwendige Einstellungen (Farbschema, Sprache, Barrierefreiheit und Ihre Einwilligungsentscheidung) liegen im lokalen Speicher Ihres Browsers und verlassen Ihr Gerät nicht.",
+   "Cloudflare Web Analytics wird nur geladen, wenn Sie auf „Analyse akzeptieren“ klicken. Lehnen Sie ab oder ignorieren Sie den Hinweis, wird es nicht geladen."
+  ],
+  "tableH": "Was gespeichert wird und warum",
+  "thName": "Name",
+  "thCat": "Kategorie",
+  "thPurpose": "Zweck",
+  "thKeep": "Speicherdauer",
+  "essential": "Notwendig",
+  "analytics": "Analyse (optional)",
+  "untilCleared": "Bis Sie Ihre Browserdaten löschen",
+  "months12": "12 Monate, danach fragen wir erneut",
+  "cfKeep": "Keine Cookies oder Kennungen auf Ihrem Gerät",
+  "rTheme": "Merkt sich den hellen oder dunklen Modus.",
+  "rLang": "Merkt sich die gewählte Sprache.",
+  "rLangAuto": "Vermerkt, dass wir schon einmal eine Sprache vorgeschlagen haben, damit wir Sie nicht erneut umleiten.",
+  "rA11y": "Merkt sich Ihre Einstellungen im Barrierefreiheitsmenü (Textgröße, Kontrast, Links, Schrift, Animationen).",
+  "rConsent": "Merkt sich Ihre Entscheidung zu diesem Hinweis, mit Datum und Version der Richtlinie.",
+  "rCf": "Zählt Seitenaufrufe und misst die Ladegeschwindigkeit (static.cloudflareinsights.com).",
+  "cfH": "Über Cloudflare Web Analytics",
+  "cfP": "Cloudflare Web Analytics ist datenschutzorientiert: Es setzt keine Cookies, erstellt keine Fingerprints und verfolgt Sie nicht über Websites hinweg. Wenn aktiviert, sendet Ihr Browser Cloudflare die Seitenadresse, den Referrer, den Browsertyp und Ladezeiten; Cloudflare verarbeitet Ihre IP-Adresse, um die Anfrage auszuliefern. Wir sehen nur zusammengefasste Werte.",
+  "whyH": "Warum wir trotz fehlender Cookies fragen",
+  "whyP": "Das Analyseskript ist für die Nutzung der Website nicht erforderlich und sendet Nutzungsdaten an einen Dritten. Deshalb behandeln wir es als optional und laden es erst nach Ihrer Einwilligung, statt uns darauf zu berufen, dass es keine Cookies setzt.",
+  "otherH": "Weitere Verarbeitung",
+  "other": [
+   "Newsletter: Wenn Sie sich anmelden, speichern wir Ihre E-Mail-Adresse und Sprache bei Cloudflare, um Ihnen den Newsletter zu senden. Ein gesalzener Hash Ihrer IP-Adresse wird kurzzeitig zur Begrenzung von Anfragen genutzt. Es werden keine Cookies verwendet.",
+   "Hosting und Sicherheit: Wie bei jeder Website verarbeitet unser Hoster Cloudflare Ihre IP-Adresse und Anfragedaten, um Seiten auszuliefern und vor Missbrauch zu schützen. Das ist für den Betrieb erforderlich.",
+   "Externe Links: TradingView, GitHub und andere verlinkte Websites setzen beim Besuch eigene Cookies nach ihren eigenen Richtlinien. Unsere TradingView-Links sind Affiliate-Links; die Vermittlung erfasst TradingView, nicht wir."
+  ],
+  "manageH": "Ihre Wahl ändern",
+  "manageP": "Sie können Ihre Einwilligung jederzeit über die Schaltfläche „Cookie-Einstellungen“ in der Fußzeile jeder Seite ändern oder widerrufen oder die Daten dieser Website in Ihrem Browser löschen. Der Widerruf gilt ab der nächsten aufgerufenen Seite.",
+  "manageBtn": "Cookie-Einstellungen öffnen",
+  "contactH": "Kontakt",
+  "contactP": "Fragen zu dieser Richtlinie: {email}"
+ },
+ "privacy": {
+  "p": "Was diese Website in Ihrem Browser speichert und wie Sie Ihre Analyse-Entscheidung ändern, erklärt unsere"
+ }
+}

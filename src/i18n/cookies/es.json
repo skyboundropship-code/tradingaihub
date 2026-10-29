@@ -1,0 +1,58 @@
+{
+ "b": {
+  "label": "Aviso de cookies",
+  "text": "No usamos cookies publicitarias ni de seguimiento. Con tu consentimiento cargamos Cloudflare Web Analytics (sin cookies) para contar visitas. Tus preferencias de tema, idioma y accesibilidad se guardan solo en este navegador.",
+  "accept": "Aceptar analítica",
+  "reject": "Rechazar",
+  "policy": "Política de cookies",
+  "settings": "Configuración de cookies",
+  "acceptedMsg": "Analítica aceptada. Puedes cambiarlo cuando quieras en «Configuración de cookies», al pie de la página.",
+  "rejectedMsg": "Analítica rechazada. Puedes cambiarlo cuando quieras en «Configuración de cookies», al pie de la página."
+ },
+ "pg": {
+  "title": "Política de cookies",
+  "metaDesc": "Qué guarda TradingAIHub en tu navegador, qué analítica usamos y cómo cambiar tu elección.",
+  "intro": "{site} no instala cookies y no usa píxeles publicitarios, de seguimiento ni de redes sociales. Esta página enumera todo lo que el sitio guarda en tu navegador y cada solicitud que hace a terceros.",
+  "updated": "Última actualización: {date}",
+  "sumH": "En resumen",
+  "sum": [
+   "Este sitio no instala cookies.",
+   "Los ajustes esenciales (tema, idioma, accesibilidad y tu elección de consentimiento) se guardan en el almacenamiento local del navegador y nunca salen de tu dispositivo.",
+   "Cloudflare Web Analytics solo se carga si pulsas «Aceptar analítica». Si rechazas o ignoras el aviso, no se carga."
+  ],
+  "tableH": "Qué se guarda y por qué",
+  "thName": "Nombre",
+  "thCat": "Categoría",
+  "thPurpose": "Finalidad",
+  "thKeep": "Conservación",
+  "essential": "Esencial",
+  "analytics": "Analítica (opcional)",
+  "untilCleared": "Hasta que borres los datos del navegador",
+  "months12": "12 meses; después volvemos a preguntar",
+  "cfKeep": "No guarda cookies ni identificadores en tu dispositivo",
+  "rTheme": "Recuerda el modo claro u oscuro.",
+  "rLang": "Recuerda el idioma que elegiste.",
+  "rLangAuto": "Indica que ya te sugerimos un idioma una vez, para no redirigirte de nuevo.",
+  "rA11y": "Recuerda los ajustes del menú de accesibilidad (tamaño de texto, contraste, enlaces, fuente, animaciones).",
+  "rConsent": "Recuerda tu elección en este aviso, con la fecha y la versión de la política.",
+  "rCf": "Cuenta páginas vistas y mide la velocidad de carga (static.cloudflareinsights.com).",
+  "cfH": "Sobre Cloudflare Web Analytics",
+  "cfP": "Cloudflare Web Analytics prioriza la privacidad: no instala cookies, no crea huellas digitales de los visitantes y no te sigue entre sitios. Si está activado, tu navegador envía a Cloudflare la dirección de la página, la página de referencia, el tipo de navegador y tiempos de rendimiento, y Cloudflare trata tu dirección IP para entregar la solicitud. Nosotros solo vemos totales agregados.",
+  "whyH": "Por qué pedimos permiso aunque no use cookies",
+  "whyP": "El script de analítica no es necesario para usar el sitio y envía datos de uso a un tercero. Por eso lo tratamos como opcional y solo lo cargamos si das tu consentimiento, en lugar de ampararnos en que no instala cookies.",
+  "otherH": "Otros tratamientos",
+  "other": [
+   "Boletín: si te suscribes, guardamos tu correo y tu idioma en Cloudflare para enviarte el boletín. Un hash con sal de tu IP se usa brevemente para limitar el número de solicitudes. No se usan cookies.",
+   "Alojamiento y seguridad: como cualquier web, nuestro proveedor Cloudflare trata tu IP y los datos de la solicitud para servir las páginas y protegerlas contra abusos. Es necesario para que el sitio funcione.",
+   "Enlaces externos: TradingView, GitHub y otros sitios que enlazamos instalan sus propias cookies cuando los visitas, según sus políticas. Nuestros enlaces a TradingView son de afiliado; la referencia la registra TradingView, no nosotros."
+  ],
+  "manageH": "Cambiar tu elección",
+  "manageP": "Puedes cambiar o retirar tu consentimiento en cualquier momento con el botón «Configuración de cookies» del pie de cada página, o borrando los datos de este sitio en tu navegador. La retirada se aplica desde la siguiente página que abras.",
+  "manageBtn": "Abrir configuración de cookies",
+  "contactH": "Contacto",
+  "contactP": "Preguntas sobre esta política: {email}"
+ },
+ "privacy": {
+  "p": "Qué guarda este sitio en tu navegador y cómo cambiar tu elección sobre analítica se explica en nuestra"
+ }
+}

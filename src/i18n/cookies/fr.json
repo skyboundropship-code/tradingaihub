@@ -1,0 +1,58 @@
+{
+ "b": {
+  "label": "Avis sur les cookies",
+  "text": "Nous n'utilisons aucun cookie publicitaire ou de suivi. Avec votre accord, nous chargeons Cloudflare Web Analytics (sans cookies) pour compter les visites. Vos choix de thème, de langue et d'accessibilité sont enregistrés uniquement dans ce navigateur.",
+  "accept": "Accepter la mesure d'audience",
+  "reject": "Refuser",
+  "policy": "Politique de cookies",
+  "settings": "Paramètres des cookies",
+  "acceptedMsg": "Mesure d'audience acceptée. Vous pouvez changer d'avis à tout moment via « Paramètres des cookies » en bas de page.",
+  "rejectedMsg": "Mesure d'audience refusée. Vous pouvez changer d'avis à tout moment via « Paramètres des cookies » en bas de page."
+ },
+ "pg": {
+  "title": "Politique de cookies",
+  "metaDesc": "Ce que TradingAIHub enregistre dans votre navigateur, la mesure d'audience utilisée et comment modifier votre choix.",
+  "intro": "{site} ne dépose aucun cookie et n'utilise aucun pixel publicitaire, de suivi ou de réseau social. Cette page recense tout ce que le site enregistre dans votre navigateur et chaque requête envoyée à un tiers.",
+  "updated": "Dernière mise à jour : {date}",
+  "sumH": "En bref",
+  "sum": [
+   "Ce site ne dépose aucun cookie.",
+   "Les réglages essentiels (thème, langue, accessibilité et votre choix de consentement) sont conservés dans le stockage local du navigateur et ne quittent jamais votre appareil.",
+   "Cloudflare Web Analytics n'est chargé que si vous cliquez sur « Accepter la mesure d'audience ». Si vous refusez ou ignorez l'avis, il n'est pas chargé."
+  ],
+  "tableH": "Ce qui est enregistré et pourquoi",
+  "thName": "Nom",
+  "thCat": "Catégorie",
+  "thPurpose": "Finalité",
+  "thKeep": "Durée de conservation",
+  "essential": "Essentiel",
+  "analytics": "Mesure d'audience (facultatif)",
+  "untilCleared": "Jusqu'à l'effacement des données du navigateur",
+  "months12": "12 mois, puis nous redemandons",
+  "cfKeep": "Aucun cookie ni identifiant enregistré sur votre appareil",
+  "rTheme": "Mémorise le mode clair ou sombre.",
+  "rLang": "Mémorise la langue choisie.",
+  "rLangAuto": "Indique qu'une langue vous a déjà été suggérée, pour ne pas vous rediriger à nouveau.",
+  "rA11y": "Mémorise les réglages du menu d'accessibilité (taille du texte, contraste, liens, police, animations).",
+  "rConsent": "Mémorise votre choix sur cet avis, avec la date et la version de la politique.",
+  "rCf": "Compte les pages vues et mesure la vitesse de chargement (static.cloudflareinsights.com).",
+  "cfH": "À propos de Cloudflare Web Analytics",
+  "cfP": "Cloudflare Web Analytics est conçu pour la vie privée : il ne dépose aucun cookie, ne crée pas d'empreinte des visiteurs et ne vous suit pas d'un site à l'autre. Lorsqu'il est activé, votre navigateur envoie à Cloudflare l'adresse de la page, le référent, le type de navigateur et des mesures de performance, et Cloudflare traite votre adresse IP pour acheminer la requête. Nous ne voyons que des totaux agrégés.",
+  "whyH": "Pourquoi nous demandons votre accord malgré l'absence de cookies",
+  "whyP": "Le script de mesure n'est pas nécessaire pour utiliser le site et il envoie des données d'usage à un tiers. Nous le traitons donc comme facultatif et ne le chargeons qu'après votre accord, plutôt que de nous appuyer sur le fait qu'il ne dépose pas de cookies.",
+  "otherH": "Autres traitements",
+  "other": [
+   "Newsletter : si vous vous abonnez, votre adresse e-mail et votre langue sont conservées chez Cloudflare pour vous envoyer la newsletter. Un hachage salé de votre adresse IP sert brièvement à limiter le nombre de requêtes. Aucun cookie n'est utilisé.",
+   "Hébergement et sécurité : comme tout site, notre hébergeur Cloudflare traite votre adresse IP et les détails de la requête pour servir les pages et les protéger contre les abus. C'est nécessaire au fonctionnement du site.",
+   "Liens externes : TradingView, GitHub et les autres sites vers lesquels nous renvoyons déposent leurs propres cookies lors de votre visite, selon leurs politiques. Nos liens TradingView sont des liens d'affiliation ; le parrainage est enregistré par TradingView, pas par nous."
+  ],
+  "manageH": "Modifier votre choix",
+  "manageP": "Vous pouvez modifier ou retirer votre consentement à tout moment avec le bouton « Paramètres des cookies » en bas de chaque page, ou en effaçant les données de ce site dans votre navigateur. Le retrait s'applique à partir de la page suivante.",
+  "manageBtn": "Ouvrir les paramètres des cookies",
+  "contactH": "Contact",
+  "contactP": "Questions sur cette politique : {email}"
+ },
+ "privacy": {
+  "p": "Ce que ce site enregistre dans votre navigateur, et comment modifier votre choix de mesure d'audience, est expliqué dans notre"
+ }
+}

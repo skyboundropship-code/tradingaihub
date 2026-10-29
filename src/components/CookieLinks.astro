@@ -1,0 +1,9 @@
+---
+import { useT } from "../i18n";
+import { useCookieT } from "../i18n/cookies";
+interface Props { lang: string }
+const { lang } = Astro.props;
+const { p } = useT(lang);
+const ck = useCookieT(lang);
+---
+<p class="ck-links"><a href={p("/cookies/")}>{ck("b.policy")}</a><span aria-hidden="true"> · </span><button type="button" class="ck-linkbtn" data-ck-open aria-controls="ck-bar">{ck("b.settings")}</button></p>

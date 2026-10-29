@@ -2,8 +2,10 @@
 import Base from "../../layouts/Base.astro";
 import { SITE } from "../../config";
 import { langParams, useT } from "../../i18n";
+import { useCookieT } from "../../i18n/cookies";
 export function getStaticPaths() { return langParams().map((params) => ({ params })); }
 const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
+const ck = useCookieT(lang); const ckEnd = lang === "ja" || lang === "zh" ? "。" : lang === "hi" ? "।" : ".";
 ---
 <Base title={t("privacy.title")} lang={lang}>
 <div class="wrap page prose">
@@ -13,5 +15,6 @@ const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
   <h2>{t("privacy.use")}</h2><p>{t("privacy.useP")}</p>
   <h2>{t("privacy.aff")}</h2><p>{t("privacy.affP")}</p>
   <h2>{t("privacy.rights")}</h2><p>{t("privacy.rightsP", { email: SITE.contactEmail })}</p>
+  <p>{ck("privacy.p")} <a href={p("/cookies/")}>{ck("pg.title")}</a>{ckEnd}</p>
 </div>
 </Base>

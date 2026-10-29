@@ -1,0 +1,42 @@
+---
+import Base from "../../layouts/Base.astro";
+import { SITE } from "../../config";
+import { langParams, useT } from "../../i18n";
+import { useCookieT, COOKIE_POLICY_DATE } from "../../i18n/cookies";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en"; const ck = useCookieT(lang);
+const dt = new Date(`${COOKIE_POLICY_DATE}T00:00:00Z`);
+const dateStr = new Intl.DateTimeFormat(lang === "ar" ? "ar-u-nu-latn" : lang, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(dt);
+const [uBefore, uAfter] = String(ck("pg.updated")).split("{date}");
+const email = SITE.contactEmail;
+const [cBefore, cAfter] = String(ck("pg.contactP")).split("{email}");
+const rows = [
+  { name: "theme", cat: "essential", purpose: "rTheme", keep: "untilCleared" },
+  { name: "lang", cat: "essential", purpose: "rLang", keep: "untilCleared" },
+  { name: "langAuto", cat: "essential", purpose: "rLangAuto", keep: "untilCleared" },
+  { name: "a11y", cat: "essential", purpose: "rA11y", keep: "untilCleared" },
+  { name: "consent", cat: "essential", purpose: "rConsent", keep: "months12" },
+];
+---
+<Base title={ck("pg.title")} description={ck("pg.metaDesc")} lang={lang}>
+<div class="wrap page prose">
+  <h1>{ck("pg.title")}</h1>
+  <p class="note">{uBefore}<time datetime={COOKIE_POLICY_DATE}>{dateStr}</time>{uAfter}</p>
+  <p>{ck("pg.intro", { site: SITE.name })}</p>
+  <h2>{ck("pg.sumH")}</h2><ul>{(ck("pg.sum") as string[]).map((x) => <li>{x}</li>)}</ul>
+  <h2>{ck("pg.tableH")}</h2>
+  <div class="tablewrap" tabindex="0" role="region" aria-label={ck("pg.tableH")}><table class="cktable">
+    <thead><tr><th scope="col">{ck("pg.thName")}</th><th scope="col">{ck("pg.thCat")}</th><th scope="col">{ck("pg.thPurpose")}</th><th scope="col">{ck("pg.thKeep")}</th></tr></thead>
+    <tbody>
+      {rows.map((r) => <tr><th scope="row"><code dir="ltr">{r.name}</code><br /><span class="note">localStorage</span></th><td>{ck(`pg.${r.cat}`)}</td><td>{ck(`pg.${r.purpose}`)}</td><td>{ck(`pg.${r.keep}`)}</td></tr>)}
+      <tr><th scope="row" dir="ltr">Cloudflare Web Analytics</th><td>{ck("pg.analytics")}</td><td>{ck("pg.rCf")}</td><td>{ck("pg.cfKeep")}</td></tr>
+    </tbody>
+  </table></div>
+  <h2>{ck("pg.cfH")}</h2><p>{ck("pg.cfP")}</p>
+  <h2>{ck("pg.whyH")}</h2><p>{ck("pg.whyP")}</p>
+  <h2>{ck("pg.otherH")}</h2><ul>{(ck("pg.other") as string[]).map((x) => <li>{x}</li>)}</ul>
+  <h2>{ck("pg.manageH")}</h2><p>{ck("pg.manageP")}</p>
+  <p><button type="button" class="btn" data-ck-open aria-controls="ck-bar">{ck("pg.manageBtn")}</button></p>
+  <h2>{ck("pg.contactH")}</h2><p>{cBefore}<a href={`mailto:${email}?subject=Cookies`} dir="ltr">{email}</a>{cAfter}</p>
+</div>
+</Base>
