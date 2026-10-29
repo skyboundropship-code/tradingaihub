@@ -13,7 +13,7 @@ const via = (u) => new URL(u.startsWith("//") ? "https:" + u : u).searchParams.g
 test("eodhd.com and www.eodhd.com are tagged", () => {
   assert.deepEqual(via(affUrl("https://eodhd.com/")), ["tradingaihub"]);
   assert.deepEqual(via(affUrl("https://www.eodhd.com/pricing")), ["tradingaihub"]);
-  assert.deepEqual(via(affUrl("https://EODHD.com/financial-apis/")), ["tradingaihub"]);
+  assert.deepEqual(via(affUrl("https://EODHD.com/lp/eodhd-mcp-server")), ["tradingaihub"]);
 });
 test("api. and mcp. subdomains are never tagged", () => {
   for (const u of ["https://mcp.eodhd.com/v2/mcp", "https://api.eodhd.com/api/eod/AAPL.US?api_token=demo", "https://eu.api.eodhd.com/x"]) {
@@ -25,7 +25,7 @@ test("trailing-dot host is tagged", () => {
   assert.equal(isAff(affUrl("https://eodhd.com./pricing")), true);
 });
 test("protocol-relative //eodhd.com/ is tagged", () => {
-  const t = affUrl("//eodhd.com/x"); assert.deepEqual(via(t), ["tradingaihub"]); assert.equal(isAff(t), true);
+  const t = affUrl("//eodhd.com/pricing"); assert.deepEqual(via(t), ["tradingaihub"]); assert.equal(isAff(t), true);
 });
 test("double / foreign via collapses to exactly one via=tradingaihub", () => {
   assert.deepEqual(via(affUrl("https://eodhd.com/?via=other&via=tradingaihub")), ["tradingaihub"]);
@@ -48,4 +48,23 @@ test("TradingView subdomains are still tagged and rel is sponsored", () => {
   const u = affUrl("https://www.tradingview.com/pricing/");
   assert.equal(new URL(u).searchParams.get("aff_id"), "1173592"); assert.equal(isAff(u), true);
   assert.equal(relFor(u), "sponsored noopener"); assert.equal(relFor("https://github.com/x/y"), "noopener");
+});
+test("PromoteKit allowlist: only tracked paths are tagged", () => {
+  for (const u of ["https://eodhd.com/", "https://eodhd.com/pricing", "https://www.eodhd.com/lp/eodhd-mcp-server"]) {
+    assert.deepEqual(via(affUrl(u)), ["tradingaihub"]); assert.equal(isAff(u), true); assert.equal(relFor(affUrl(u)), "sponsored noopener");
+  }
+});
+test("untracked EODHD paths stay plain (docs, /financial-apis/)", () => {
+  for (const u of ["https://eodhd.com/financial-apis/", "https://eodhd.com/financial-apis/mcp-server-for-financial-data-by-eodhd", "https://eodhd.com/pricing/extra", "//eodhd.com/financial-apis/"]) {
+    assert.equal(affUrl(u), u); assert.equal(isAff(u), false); assert.equal(relFor(u), "noopener");
+  }
+  // a stray via on an untracked path is stripped, and the result is not an affiliate link
+  const s = affUrl("https://eodhd.com/financial-apis/?via=tradingaihub");
+  assert.equal(s, "https://eodhd.com/financial-apis/"); assert.equal(isAff(s), false);
+  assert.equal(isAff("https://eodhd.com/financial-apis/?via=tradingaihub"), false);
+});
+test("untagUrl handles protocol-relative URLs and keeps the // form", () => {
+  assert.equal(untagUrl("//eodhd.com/pricing?via=tradingaihub", "eodhd"), "//eodhd.com/pricing");
+  assert.equal(untagUrl("//eodhd.com/pricing?a=1&via=tradingaihub", "eodhd"), "//eodhd.com/pricing?a=1");
+  assert.equal(untagUrl("//mcp.eodhd.com/v2/mcp?via=x", "eodhd"), "//mcp.eodhd.com/v2/mcp?via=x");
 });

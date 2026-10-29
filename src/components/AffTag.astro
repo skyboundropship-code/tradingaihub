@@ -6,4 +6,4 @@ import { useT } from "../i18n";
 interface Props { url?: string | null; lang?: string }
 const { url, lang = "en" } = Astro.props; const { t } = useT(lang);
 ---
-{isAff(url) && <Fragment>{" "}<span class="partner-tag" title={t("common.affTitle")}>{t("partner.label")}</span></Fragment>}
+{isAff(url) && <Fragment>{" "}<span class="partner-tag">{t("partner.label")}</span></Fragment>}

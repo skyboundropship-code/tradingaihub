@@ -1,5 +1,5 @@
 ---
-import { isAff, relFor } from "../../../lib/aff";
+import { isAff, relFor, untagUrl } from "../../../lib/aff";
 import TradingView from "../../../components/TradingView.astro";
 import PartnerCTA from "../../../components/PartnerCTA.astro";
 import AffTag from "../../../components/AffTag.astro";
@@ -24,7 +24,7 @@ const mentionsTV = /tradingview/i.test(JSON.stringify(tool));
 const partnerPath = PARTNER_CATS[tool.category] ?? (mentionsTV || /chart|stock|backtest|crypto|trading/i.test(tool.description) ? "/chart/" : null);
 const ld = [
   { "@context": "https://schema.org", "@type": "SoftwareApplication", name: tool.name, description: desc, applicationCategory: "FinanceApplication", operatingSystem: "Cross-platform", inLanguage: lang,
-    url: `${SITE.url}${p(`/tools/${tool.id}/`)}`, sameAs: [tool.repo, tool.homepage].filter(Boolean), license: tool.license,
+    url: `${SITE.url}${p(`/tools/${tool.id}/`)}`, sameAs: [tool.repo, untagUrl(tool.homepage, "eodhd")].filter(Boolean), license: tool.license,
     ...(tool.pricing.model === "open-source" || tool.pricing.model === "free" ? { offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } } : {}), dateModified: v.checked_at },
   { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
     { "@type": "ListItem", position: 1, name: t("common.home"), item: `${SITE.url}${p("/")}` }, { "@type": "ListItem", position: 2, name: cname, item: `${SITE.url}${p(`/category/${cat.slug}/`)}` }, { "@type": "ListItem", position: 3, name: tool.name } ] },
@@ -53,7 +53,7 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
         <dt>{t("th.freeTier")}</dt><dd><bdi>{tool.pricing.free_tier}</bdi></dd>
         <dt>{t("th.paidFrom")}</dt><dd><bdi>{tool.pricing.paid_from ?? "—"}</bdi></dd>
         <dt>{t("tool.details")}</dt><dd lang="en"><bdi>{tool.pricing.details}</bdi></dd>
-        <dt>{t("th.source")}</dt><dd>{tool.pricing.source ? <><a href={tool.pricing.source} rel={isAff(tool.pricing.source) ? "sponsored noopener" : "nofollow noopener"} target="_blank" aria-describedby={isAff(tool.pricing.source) ? "aff-note" : undefined}>{tool.pricing.source}</a><AffTag url={tool.pricing.source} lang={lang} /></> : t("tool.notVerifiedPrice")}{tool.pricing.checked && ` (${t("tool.checked", { date: tool.pricing.checked })})`}</dd>
+        <dt>{t("th.source")}</dt><dd>{tool.pricing.source ? <><a href={tool.pricing.source} rel={isAff(tool.pricing.source) ? "sponsored noopener" : "nofollow noopener"} target="_blank" aria-describedby={isAff(tool.pricing.source) ? "aff-note" : undefined}>{untagUrl(tool.pricing.source, "eodhd")}</a><AffTag url={tool.pricing.source} lang={lang} /></> : t("tool.notVerifiedPrice")}{tool.pricing.checked && ` (${t("tool.checked", { date: tool.pricing.checked })})`}</dd>
       </dl><p class="note">{t("tool.pricesChange")}{lang !== "en" && ` ${t("tool.pricingDataNote")}`}</p></div>
       <h2>{t("tool.verification")}</h2>
       <div class="panel">
