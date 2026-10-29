@@ -57,8 +57,11 @@ export function snippets(t: any, tr: (k: string, v?: any) => string = useT("en")
     out.push({ client: "Grok (xAI API)", lang: "json", code: JSON.stringify({ tools: [{ type: "mcp", server_url: remote, server_label: name }] }, null, 2), note: tr("snip.grok") });
     out.push({ client: "Gemini CLI", lang: "json", code: JSON.stringify({ mcpServers: { [name]: { httpUrl: remote } } }, null, 2) });
   }
-  if (t.type === "mcp" && !pkg && !remote) {
+  if (t.type === "mcp" && !pkg && !remote && t.repo) {
     out.push({ client: tr("snip.allClients"), lang: "text", code: `git clone ${t.repo}`, note: tr("snip.fromSource") });
+  }
+  if (t.type === "mcp" && !pkg && !remote && !t.repo) {
+    out.push({ client: tr("snip.allClients"), lang: "text", code: t.docs || t.homepage, note: tr("snip.accountUrl") });
   }
   if (t.type === "mcp" && pkg && !remote) {
     out.push({ client: "ChatGPT / Grok", lang: "text", code: tr("snip.needsRemote"), note: tr("snip.stdioOnly") });

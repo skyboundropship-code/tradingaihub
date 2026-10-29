@@ -1,12 +1,17 @@
 ---
-import { isAff, relFor } from "../../../lib/aff";
+import { isAff as isAffRaw, relFor as relForRaw } from "../../../lib/aff";
 import TradingView from "../../../components/TradingView.astro";
 import PartnerCTA from "../../../components/PartnerCTA.astro";
 import Base from "../../../layouts/Base.astro";
 import Status from "../../../components/Status.astro";
 import ToolCard from "../../../components/ToolCard.astro";
 import Share from "../../../components/Share.astro";
-import { SITE } from "../../../config";
+import { SITE, AFFILIATES } from "../../../config";
+// Tool URLs arrive already tagged by lib/data.ts (affUrl), so lib/aff's isAff() sees no change and returns false.
+// Treat a URL that already carries an affiliate param as affiliate too, so rel="sponsored noopener" is applied.
+const tagged = (u?: string | null) => { if (!u) return false; try { const q = new URL(u).searchParams; return Object.values(AFFILIATES).some((a: any) => q.get(a.param) === a.id); } catch { return false; } };
+const isAff = (u?: string | null) => isAffRaw(u) || tagged(u);
+const relFor = (u?: string | null) => (tagged(u) ? "sponsored noopener" : relForRaw(u));
 import { tools, catBySlug, snippets, pkgOf, starsOf, lastCommit, fmtStars } from "../../../lib/data";
 import { langParams, useT } from "../../../i18n";
 export function getStaticPaths() { return langParams().flatMap((lp) => tools.map((t) => ({ params: { ...lp, id: t.id }, props: { tool: t } }))); }

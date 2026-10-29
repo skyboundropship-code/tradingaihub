@@ -1,13 +1,13 @@
 {
-  "checked_at": "2026-10-29T11:53:06.677751+00:00",
-  "total": 75,
+  "checked_at": "2026-10-29T12:31:40.522928+00:00",
+  "total": 104,
   "by_status": {
-    "verified": 56,
-    "stale": 12,
-    "aging": 4,
-    "archived": 3
+    "verified": 84,
+    "stale": 14,
+    "aging": 5,
+    "archived": 1
   },
-  "with_package": 25,
+  "with_package": 28,
   "issues": [
     {
       "id": "finnhub-mcp-community",
@@ -100,10 +100,10 @@
     },
     {
       "id": "ramp-mcp",
-      "status": "archived",
+      "status": "stale",
       "issues": [
         "pypi name 'ramp-mcp' exists on the registry but does not link to this repo (not counted)",
-        "Repository is archived"
+        "No commits for 587 days"
       ]
     },
     {
@@ -144,9 +144,9 @@
     },
     {
       "id": "mcp-trader",
-      "status": "archived",
+      "status": "stale",
       "issues": [
-        "Repository is archived"
+        "No commits for 430 days"
       ]
     },
     {
@@ -154,6 +154,27 @@
       "status": "stale",
       "issues": [
         "No commits for 425 days"
+      ]
+    },
+    {
+      "id": "square-mcp",
+      "status": "verified",
+      "issues": [
+        "npm name 'square-mcp-server' exists on the registry but does not link to this repo (not counted)"
+      ]
+    },
+    {
+      "id": "paddle-mcp",
+      "status": "aging",
+      "issues": [
+        "No commits for 197 days"
+      ]
+    },
+    {
+      "id": "options-trading-skills",
+      "status": "verified",
+      "issues": [
+        "pypi name 'trading-skills' exists on the registry but does not link to this repo (not counted)"
       ]
     }
   ]
