@@ -11,11 +11,11 @@ tools = json.load(open(os.path.join(ROOT, "data/tools.json")))
 def stars_of(t):  # None for shared lists/monorepos: their stars belong to the collection, not one entry
     g = t["verification"].get("github") or {}
     return None if (t.get("repo_is_collection") or g.get("collection")) else g.get("stars")
-ok = {"verified": "✅", "aging": "🟡", "warning": "🟡", "stale": "🔴", "archived": "🗄️", "unreachable": "❌"}
+ok = {"verified": "✅", "aging": "🟡", "warning": "🟡", "unconfirmed": "🟡", "stale": "🔴", "archived": "🗄️", "unreachable": "❌"}
 date = tools[0]["verification"]["checked_at"]
 L = [f"# Awesome Finance & Trading AI Tools [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)", "",
      f"> A curated, **automatically re-verified** list of MCP servers, agent skills and APIs for finance and trading. Mirror of [{brand}]({url}) — status checked weekly (last: {date}).", "",
-     "Legend: ✅ verified · 🟡 aging (6–12 months without commits) · 🔴 stale (12+ months) · 🗄️ archived. ⭐ = GitHub stars. Not investment advice.", "", "## Contents", ""]
+     "Legend: ✅ verified · 🟡 aging (6–12 months without commits) · 🔴 stale (12+ months) · 🗄️ archived. 🟡 also marks entries whose link failed or could not be confirmed. ⭐ = GitHub stars. Not investment advice.", "", "## Contents", ""]
 L += [f"- [{n}](#{re.sub(r'[^a-z0-9 -]', '', n.lower()).strip().replace(' ', '-')})" for s, n, i in cats]
 for s, n, i in cats:
     items = sorted([t for t in tools if t["category"] == s], key=lambda t: -(stars_of(t) or 0))

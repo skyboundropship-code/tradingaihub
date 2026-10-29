@@ -26,6 +26,7 @@ export const STATUS: Record<string, { label: string; tone: string; help: string 
   stale: { label: "Stale", tone: "bad", help: "Reachable, but no commits in over a year. Test before relying on it." },
   archived: { label: "Archived", tone: "bad", help: "The repository is archived by its owner." },
   warning: { label: "Check links", tone: "warn", help: "A homepage, docs or endpoint link failed in the last check." },
+  unconfirmed: { label: "Needs review", tone: "warn", help: "Reachable, but a homepage, docs or endpoint link refused our checker (sign-in required, bot block or rate limit), so it could not be fully confirmed. Not counted as verified." },
   unreachable: { label: "Unreachable", tone: "bad", help: "The repository or homepage could not be reached." },
 };
 export const pkgOf = (t: any) => t.verification?.npm || t.verification?.pypi || null;

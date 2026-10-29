@@ -17,6 +17,7 @@ const BADGE = {
   stale: (d) => ({ text: `⚠ Stale · last checked ${d}`, color: "#b45309" }),
   archived: () => ({ text: "Archived by owner", color: "#b91c1c" }),
   warning: (d) => ({ text: `⚠ Check links · last checked ${d}`, color: "#b45309" }),
+  unconfirmed: (d) => ({ text: `Needs review · last checked ${d}`, color: "#b45309" }),
   unreachable: (d) => ({ text: `⚠ Unreachable · last checked ${d}`, color: "#b91c1c" }),
 };
 const toolBadge = (v) => (BADGE[v.status] || ((d) => ({ text: `Last checked ${d}`, color: "#475569" })))(v.checked_at);

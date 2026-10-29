@@ -6,7 +6,9 @@ Checks per entry: repo reachable (+renames/archived), last commit date, stars, l
 package published on npm/PyPI (+latest version), homepage and docs links alive.
 Uses the GitHub REST API when GITHUB_TOKEN is set; otherwise scrapes public HTML/Atom
 (no auth, avoids the 60 req/h anonymous API limit).
-Run:  python3 scripts/verify.py        (weekly via cron / GitHub Actions)"""
+Run:  python3 scripts/verify.py        (weekly via cron / GitHub Actions)
+      python3 scripts/verify.py --dry-run [--only=id1,id2]   (verify, write nothing, print status changes;
+      set VERIFY_DRY_JSON=/path.json to save the would-be tools.json for review)"""
 import json, os, re, sys, shutil, subprocess, datetime as dt, tomllib
 from concurrent.futures import ThreadPoolExecutor
 import requests
@@ -23,12 +25,89 @@ def get(url, **kw):
     except requests.RequestException as e:
         return e
 
+# --- HTTP status classification -------------------------------------------------------------
+# ok     2xx/3xx (redirects followed)                         -> counts as a live link
+# dead   404, 410                                             -> link failure (tool gets "warning")
+# gated  401, 403, 405, 406, 407, 429, 451: the server answered but refused us (auth wall, bot block,
+#        wrong method, rate limit). Neither a pass nor dead: the tool gets "unconfirmed" instead of
+#        "verified" and is NOT counted as verified.
+# fail   any other 4xx                                        -> link failure
+# error  5xx, timeouts, DNS/TLS/connection errors             -> link failure
+DEAD = frozenset({404, 410})
+GATED = frozenset({401, 403, 405, 406, 407, 429, 451})
+FAILURES = ("dead", "fail", "error")
+BROWSER = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36",
+           "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "Accept-Language": "en"}
+
+def classify(status):
+    """HTTP status (int) or exception name (str) -> ok | dead | gated | fail | error."""
+    if not isinstance(status, int): return "error"
+    if status < 400: return "ok"
+    if status in DEAD: return "dead"
+    if status in GATED: return "gated"
+    return "fail" if status < 500 else "error"
+
+def link(url, status, result, **extra):
+    return {"url": url, "ok": result == "ok", "status": status, "result": result, **extra}
+
 def alive(url):
+    """GET a homepage/docs URL. We never trust HEAD (many servers answer HEAD with 403/405), and a bot-blocked
+    403/429 gets one retry with browser headers; if that is still refused the link stays "gated"."""
     if not url: return None
     r = get(url)
-    if isinstance(r, Exception): return {"url": url, "ok": False, "status": type(r).__name__}
-    # 401/403/429 = reachable but gated / bot-blocked: count as reachable
-    return {"url": url, "ok": r.status_code < 400 or r.status_code in (401, 403, 429), "status": r.status_code}
+    if isinstance(r, Exception): return link(url, type(r).__name__, "error")
+    res = classify(r.status_code)
+    if r.status_code in (403, 429):
+        r2 = get(url, headers=BROWSER)
+        if not isinstance(r2, Exception) and classify(r2.status_code) == "ok":
+            return link(url, r2.status_code, "ok", first_status=r.status_code, retry="browser-headers")
+    return link(url, r.status_code, res)
+
+MCP_INIT = {"jsonrpc": "2.0", "id": 1, "method": "initialize",
+            "params": {"protocolVersion": "2025-06-18", "capabilities": {}, "clientInfo": {"name": "tradingaihub-verify", "version": "0.2"}}}
+
+def _req(method, url, **kw):
+    try:
+        r = S.request(method, url, timeout=20, allow_redirects=True, stream=True, **kw)
+        body = r.raw.read(4096, decode_content=True) if r.status_code < 300 else b""
+        r.close(); return r, body
+    except requests.RequestException as e:
+        return e, b""
+
+def oauth_resource_metadata(www_auth):
+    """MCP authorization (RFC 9728): a 401 carries `WWW-Authenticate: Bearer resource_metadata="<url>"` and that URL
+    serves protected-resource metadata JSON with a "resource" field. Returns the metadata URL if it checks out."""
+    m = re.search(r'resource_metadata="?([^",\s]+)', www_auth or "")
+    if not m or not www_auth.lower().lstrip().startswith("bearer"): return None
+    r = get(m.group(1), headers={"Accept": "application/json"})
+    if isinstance(r, Exception) or r.status_code != 200: return None
+    try: j = r.json()
+    except ValueError: return None
+    return m.group(1) if isinstance(j, dict) and j.get("resource") else None
+
+def mcp_probe(url):
+    """Remote MCP endpoint: POST a JSON-RPC `initialize` (what a real client sends), not a bare GET.
+    ok     2xx answer (JSON-RPC result or SSE stream), or a spec-conformant MCP OAuth challenge
+           (401 + Bearer resource_metadata that resolves to RFC 9728 metadata): the endpoint is a live MCP server.
+    other  POST refused with 405/other 4xx -> retry with GET (legacy SSE transport), then classify() as usual."""
+    hdr = {"Accept": "application/json, text/event-stream", "Content-Type": "application/json"}
+    r, body = _req("POST", url, json=MCP_INIT, headers=hdr)
+    if isinstance(r, Exception): return link(url, type(r).__name__, "error", method="POST")
+    if r.status_code < 300:
+        return link(url, r.status_code, "ok", method="POST", evidence="mcp-initialize" if b"jsonrpc" in body else "2xx")
+    if r.status_code in (401, 403):
+        md = oauth_resource_metadata(r.headers.get("WWW-Authenticate"))
+        if md: return link(url, r.status_code, "ok", method="POST", evidence="mcp-oauth", resource_metadata=md)
+    if r.status_code in DEAD or r.status_code in (401, 403, 429) or r.status_code >= 500:
+        return link(url, r.status_code, classify(r.status_code), method="POST")
+    g, _ = _req("GET", url, headers={"Accept": "text/event-stream"})
+    if isinstance(g, Exception): return link(url, type(g).__name__, "error", method="GET", post_status=r.status_code)
+    return link(url, g.status_code, classify(g.status_code), method="GET", post_status=r.status_code,
+                **({"evidence": "sse-get"} if g.status_code < 300 else {}))
+
+LABEL = {"homepage alive": "homepage", "docs alive": "docs", "remote MCP endpoint responds": "MCP endpoint"}
+NOTE = {"dead": "{s}: not found (dead link)", "fail": "{s}: client error", "error": "{s}: server/connection error",
+        "gated": "{s}: answered but refused our checker (sign-in required, bot block or rate limit)"}
 
 LIC = [("Apache-2.0", r"Apache License"), ("MIT", r"\bMIT License|Permission is hereby granted, free of charge"),
        ("AGPL-3.0", r"GNU AFFERO GENERAL PUBLIC"), ("LGPL", r"GNU LESSER GENERAL PUBLIC"), ("GPL-3.0", r"GNU GENERAL PUBLIC LICENSE\s+Version 3"),
@@ -58,6 +137,7 @@ def raw(owner, repo, path):
 
 def gh_info(repo_url, collection=False):
     owner, name, branch, sub = parse_repo(repo_url)
+    orig_owner = owner
     out = {"reachable": False}
     j = api(f"repos/{owner}/{name}")
     if j:
@@ -82,6 +162,11 @@ def gh_info(repo_url, collection=False):
             out["last_commit"] = um.group(1) if um else None
         lm = re.search(r'"spdxId":"([^"]+)"', html)
         out["license"] = lm.group(1) if lm and lm.group(1) not in ("NOASSERTION", "OTHER") else None
+    if out.get("final_url"):
+        fo = re.match(r"https://github.com/([^/]+)/", out["final_url"] + "/").group(1)
+        if fo.lower() != orig_owner.lower():
+            # Repo moved to a different owner/org (e.g. OpenBB-finance -> openbq-org). Never auto-follow into stored links.
+            out["cross_org_redirect"] = out["final_url"]
     if collection or sub:
         # Shared list / monorepo: the repo's stars belong to the whole collection, never to one entry.
         out["collection"] = True; out["collection_stars"] = out.get("stars"); out["stars"] = None
@@ -159,29 +244,52 @@ def verify(t):
                                 "note": "no npm/PyPI package detected at repo root" if not (v.get("npm") or v.get("pypi")) else None})
     for key in ("homepage", "docs"):
         if t.get(key) and t.get(key) != t.get("repo"):
-            a = alive(t[key]); v[key] = a; v["checks"].append({"check": f"{key} alive", "ok": a["ok"]})
+            a = alive(t[key]); v[key] = a
+            v["checks"].append({"check": f"{key} alive", "ok": a["ok"], "result": a["result"],
+                                "note": NOTE[a["result"]].format(s=a["status"]) if not a["ok"] else None})
     if t.get("remote_mcp_url"):
-        a = alive(t["remote_mcp_url"])  # MCP endpoints answer 401/405/406 without auth: any HTTP answer = reachable
-        a["ok"] = not isinstance(a.get("status"), str) and a["status"] < 500
-        v["remote_mcp"] = a; v["checks"].append({"check": "remote MCP endpoint responds", "ok": a["ok"]})
-    # status
+        a = mcp_probe(t["remote_mcp_url"]); v["remote_mcp"] = a
+        v["checks"].append({"check": "remote MCP endpoint responds", "ok": a["ok"], "result": a["result"],
+                            "note": NOTE[a["result"]].format(s=a["status"]) if not a["ok"] else None})
     g = v.get("github")
-    if g and not g["reachable"]: status = "unreachable"; v["issues"].append("Repository not reachable")
-    elif g and g.get("archived"): status = "archived"; v["issues"].append("Repository is archived")
-    else:
-        days = age_days(g.get("last_commit")) if g else None
-        links_ok = all(c["ok"] for c in v["checks"] if c["check"] != "package published")
-        if not links_ok: status = "warning"; v["issues"].append("A homepage/docs/endpoint link failed")
-        elif days is None: status = "verified" if not g else "warning"
-        elif days <= 180: status = "verified"
-        elif days <= 365: status = "aging"; v["issues"].append(f"No commits for {days} days")
-        else: status = "stale"; v["issues"].append(f"No commits for {days} days")
-        v["last_commit_days"] = days
+    if g and g.get("cross_org_redirect"):
+        v["issues"].append(f"Repository redirects to another owner ({g['cross_org_redirect']}); stored link not updated")
+    v["status"] = status_of(v)
+    return v
+
+def _why(c):
+    return f"{LABEL.get(c['check'], c['check'])} {c.get('note') or 'failed'}"
+
+def status_of(v):
+    """unreachable > archived > warning (a link is dead/failed) > stale/aging > unconfirmed (a link was gated) > verified.
+    Only "verified" counts toward the verified totals; "unconfirmed" replaces it when any link answered 401/403/405/429...."""
+    g = v.get("github")
+    if g and not g["reachable"]: v["issues"].append("Repository not reachable"); return "unreachable"
+    if g and g.get("archived"): v["issues"].append("Repository is archived"); return "archived"
+    links = [c for c in v["checks"] if c["check"] not in ("package published", "repo reachable")]
+    days = age_days(g.get("last_commit")) if g else None
+    v["last_commit_days"] = days
+    failed = [c for c in links if c.get("result", "ok" if c["ok"] else "error") in FAILURES]
+    gated = [c for c in links if c.get("result") == "gated"]
+    if failed:
+        v["issues"].append("A homepage/docs/endpoint link failed: " + "; ".join(_why(c) for c in failed)); return "warning"
+    if gated:
+        v["issues"].append("Could not confirm: " + "; ".join(_why(c) for c in gated))
+    if days is None: status = "verified" if not g else "warning"
+    elif days <= 180: status = "verified"
+    elif days <= 365: status = "aging"; v["issues"].append(f"No commits for {days} days")
+    else: status = "stale"; v["issues"].append(f"No commits for {days} days")
+    return "unconfirmed" if status == "verified" and gated else status
     v["status"] = status
     return v
 
 def repo_key(t):
     o, n, _, _ = parse_repo(t["repo"]); return f"{o}/{n}".lower()
+
+def parse_args(args, known_ids):
+    """`--dry-run` plus `--only=...`; returns (only, dry_run)."""
+    dry = "--dry-run" in args
+    return parse_only([a for a in args if a != "--dry-run"], known_ids), dry
 
 def parse_only(args, known_ids):
     """Parse `--only=a,b` or `--only a,b`. Any other argument, an empty list or an unknown id exits with an error,
@@ -197,7 +305,7 @@ def parse_only(args, known_ids):
             i += 1
             val = args[i]
         else:
-            sys.exit(f"verify.py: unknown argument {a!r} (usage: verify.py [--only=id1,id2])")
+            sys.exit(f"verify.py: unknown argument {a!r} (usage: verify.py [--dry-run] [--only=id1,id2])")
         ids = [x.strip() for x in val.split(",") if x.strip()]
         if not ids:
             sys.exit("verify.py: --only needs at least one id")
@@ -218,8 +326,10 @@ def main():
         if t.get("repo") and (shared[repo_key(t)] > 1 or parse_repo(t["repo"])[1].lower().startswith("awesome-")):
             t["repo_is_collection"] = True
     # --only id1,id2: re-verify just those entries, keep the rest from the current data/tools.json
-    only = parse_only(sys.argv[1:], {t["id"] for t in seed})
-    prev = {x["id"]: x for x in json.load(open(os.path.join(ROOT, "data/tools.json")))} if only else {}
+    only, dry = parse_args(sys.argv[1:], {t["id"] for t in seed})
+    tp = os.path.join(ROOT, "data/tools.json")
+    current = {x["id"]: x for x in json.load(open(tp))} if os.path.exists(tp) else {}
+    prev = current if only else {}
     todo = [t for t in seed if not only or t["id"] in only or t["id"] not in prev]
     with ThreadPoolExecutor(8) as ex: fresh = dict(zip([t["id"] for t in todo], ex.map(verify, todo)))
     tools = []
@@ -231,9 +341,11 @@ def main():
         g = v.get("github") or {}
         t["license"] = g.get("license") or ("Proprietary / ToS" if t["type"] == "api" or not t.get("repo") else "unknown")
         # keep subfolder URLs (collections) and pinned slugs; otherwise follow GitHub renames
-        if g.get("final_url") and not g.get("collection") and not t.get("repo_keep"): t["repo"] = g["final_url"]
+        if g.get("final_url") and not g.get("collection") and not t.get("repo_keep") and not g.get("cross_org_redirect"): t["repo"] = g["final_url"]
         tools.append(t)
-    json.dump(tools, open(os.path.join(ROOT, "data/tools.json"), "w"), indent=2)
+    if dry:
+        dry_report(tools, current); return
+    json.dump(tools, open(tp, "w"), indent=2)
     c = Counter(t["verification"]["status"] for t in tools)
     rep = {"checked_at": NOW.isoformat(), "total": len(tools), "by_status": dict(c),
            "with_package": sum(1 for t in tools if t["verification"].get("npm") or t["verification"].get("pypi")),
@@ -248,6 +360,36 @@ def main():
     open(os.path.join(ROOT, "data/verification-report.md"), "w").write("\n".join(lines) + "\n")
     write_history(tools)
     print(json.dumps({k: rep[k] for k in ("total", "by_status", "with_package")}))
+
+LINK_KEYS = (("homepage", "homepage"), ("docs", "docs"), ("remote_mcp", "MCP endpoint"))
+
+def link_ok(l):
+    return l.get("result", "ok" if l.get("ok") else "error")
+
+def diff_rows(tools, current):
+    """Rows for every tool whose status changes vs data/tools.json, with the links behind the change."""
+    rows = []
+    for t in tools:
+        old = (current.get(t["id"]) or {}).get("verification", {})
+        new = t["verification"]
+        if old.get("status") == new["status"]: continue
+        why = [f"{lbl} {new[k]['url']} -> {new[k]['status']} ({link_ok(new[k])})" for k, lbl in LINK_KEYS
+               if new.get(k) and link_ok(new[k]) != "ok"]
+        rows.append({"id": t["id"], "name": t["name"], "old": old.get("status", "(new)"), "new": new["status"], "why": why or new["issues"]})
+    return rows
+
+def dry_report(tools, current):
+    """--dry-run: verify everything, write nothing; print status changes vs the current data/tools.json."""
+    from collections import Counter
+    rows = diff_rows(tools, current)
+    print(f"# verify.py --dry-run ({NOW:%Y-%m-%d %H:%M} UTC): nothing written", file=sys.stderr)
+    print("| tool | old | new | why |\n|---|---|---|---|")
+    for r in rows: print(f"| {r['name']} (`{r['id']}`) | {r['old']} | {r['new']} | {'<br>'.join(r['why'])} |")
+    old_c = Counter(x["verification"]["status"] for x in current.values()); new_c = Counter(t["verification"]["status"] for t in tools)
+    print(json.dumps({"changed": len(rows), "old_by_status": dict(old_c), "new_by_status": dict(new_c),
+                      "verified_old": old_c.get("verified", 0), "verified_new": new_c.get("verified", 0)}), file=sys.stderr)
+    out = os.environ.get("VERIFY_DRY_JSON")
+    if out: json.dump(tools, open(out, "w"), indent=2)
 
 def write_history(tools):
     """Snapshot this run and diff it against the previous snapshot -> data/changelog.json (feeds /weekly and /rss.xml)."""

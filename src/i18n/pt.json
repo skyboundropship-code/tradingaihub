@@ -79,6 +79,7 @@
    "Verificar links",
    "Um link do site, da documentação ou do endpoint falhou na última verificação."
   ],
+  "unconfirmed": ["Requer revisão", "Acessível, mas um link do site, da documentação ou do endpoint recusou nosso verificador (login obrigatório, bloqueio de bots ou limite de requisições), então não foi possível confirmá-lo totalmente. Não conta como verificado."],
   "unreachable": [
    "Inacessível",
    "Não foi possível acessar o repositório ou o site."

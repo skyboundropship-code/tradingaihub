@@ -79,6 +79,7 @@
    "Links prüfen",
    "Ein Website-, Doku- oder Endpoint-Link ist bei der letzten Prüfung fehlgeschlagen."
   ],
+  "unconfirmed": ["Prüfung nötig", "Erreichbar, aber ein Link zu Website, Doku oder Endpunkt hat unseren Prüfer abgewiesen (Anmeldung nötig, Bot-Sperre oder Ratenlimit), daher nicht vollständig bestätigt. Zählt nicht als verifiziert."],
   "unreachable": [
    "Nicht erreichbar",
    "Repository oder Website konnten nicht erreicht werden."

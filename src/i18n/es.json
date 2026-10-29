@@ -79,6 +79,7 @@
    "Revisar enlaces",
    "Un enlace a la web, la documentación o el endpoint falló en la última revisión."
   ],
+  "unconfirmed": ["Requiere revisión", "Accesible, pero un enlace de la web, la documentación o el endpoint rechazó a nuestro verificador (requiere inicio de sesión, bloqueo de bots o límite de solicitudes), así que no se pudo confirmar del todo. No cuenta como verificado."],
   "unreachable": [
    "Inaccesible",
    "No se pudo acceder al repositorio ni a la web."
