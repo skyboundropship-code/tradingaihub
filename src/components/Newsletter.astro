@@ -1,11 +1,11 @@
 ---
 import { SITE } from "../config";
 import { useT } from "../i18n";
-const { lang = "en" } = Astro.props; const { t, p } = useT(lang);
+const { lang = "en", level = 3 } = Astro.props; const H = level === 2 ? "h2" : "h3"; const { t, p } = useT(lang);
 const email = SITE.contactEmail;
 const msgs = { ok: t("nl.thanks"), sending: t("nl.sending"), invalid_email: t("nl.errInvalid"), rate_limited: t("nl.errRate"), server: t("nl.errServer", { email }), error: t("nl.errServer", { email }) };
 ---
-<div class="panel" style="margin:30px 0"><h3 style="margin-top:0">{t("nl.title")}</h3>
+<div class="panel" style="margin:30px 0"><H class:list={[level === 2 && "nl-h"]} style="margin-top:0">{t("nl.title")}</H>
 <p class="note">{t("nl.text")}</p>
 {SITE.newsletterLive ? (
   <>

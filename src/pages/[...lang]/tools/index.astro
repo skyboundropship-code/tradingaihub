@@ -16,7 +16,7 @@ const fs = "padding:10px;border-radius:10px;background:var(--panel);color:var(--
     <select id="cat" aria-label={t("th.category")} style={fs}><option value="">{t("tools.allCats")}</option>{CATEGORIES.map((c) => <option value={c.slug}>{t(`cat.${c.slug}`)[1]}</option>)}</select>
     <select id="type" aria-label={t("th.type")} style={fs}><option value="">{t("tools.allTypes")}</option><option value="mcp">{t("type.mcpPlural")}</option><option value="skill">{t("type.skillPlural")}</option><option value="api">{t("type.apiPlural")}</option></select>
   </div>
-  <div class="grid" id="list">{sorted.map((x) => <ToolCard t={x} lang={lang} />)}</div>
+  <div class="grid" id="list">{sorted.map((x) => <ToolCard t={x} lang={lang} level={2} />)}</div>
 </div>
 <script is:inline>
 const q=document.getElementById('q'),c=document.getElementById('cat'),ty=document.getElementById('type');

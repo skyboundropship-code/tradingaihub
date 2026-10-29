@@ -20,13 +20,13 @@ const mail = `<a href="mailto:${SITE.contactEmail}" dir="ltr">${SITE.contactEmai
   <form class="f" id="submit-form" data-blank-msg={t("submit.blank")} action={issueNew} method="get" target="_blank" rel="noopener noreferrer">
     <input type="hidden" name="template" value="submit-tool.yml" />
     <input type="hidden" name="title" value="[Submit] " />
-    <label for="s-name">{t("submit.name")}</label><input required id="s-name" name="name" maxlength="100" pattern=".*\S.*" aria-describedby="err-name" /><p id="err-name" class="field-err" role="alert" hidden></p>
+    <label for="s-name">{t("submit.name")}</label><input required id="s-name" name="name" maxlength="100" autocomplete="off" pattern=".*\S.*" aria-describedby="err-name" /><p id="err-name" class="field-err" role="alert" hidden></p>
     <label for="s-url">{t("submit.url")}</label><input required type="url" id="s-url" name="url" maxlength="300" pattern=".*\S.*" aria-describedby="err-url" placeholder="https://github.com/owner/repo" dir="ltr" /><p id="err-url" class="field-err" role="alert" hidden></p>
     <label for="s-type">{t("submit.type")}</label><select id="s-type" name="type">{Object.keys(TYPE_LABEL).map((k) => <option value={TYPE_LABEL[k]}>{t(`type.${k}`)}</option>)}</select>
     <label for="s-category">{t("submit.category")}</label><select id="s-category" name="category">{CATEGORIES.map((c) => <option value={c.short}>{t(`cat.${c.slug}`)[0]}</option>)}</select>
     <label for="s-desc">{t("submit.oneLine")}</label><input id="s-desc" name="description" maxlength="160" />
     <label for="s-pricing">{t("submit.pricingUrl")}</label><input type="url" id="s-pricing" name="pricing" maxlength="300" dir="ltr" />
-    <label for="s-contact">{t("submit.email")}</label><input type="email" id="s-contact" name="contact" maxlength="300" dir="ltr" />
+    <label for="s-contact">{t("submit.email")}</label><input type="email" id="s-contact" name="contact" maxlength="300" autocomplete="email" dir="ltr" />
     <label for="s-confirm"><input type="checkbox" id="s-confirm" required style="width:auto" /> {t("submit.confirm")}</label>
     <p><button class="btn" type="submit">{t("submit.button")}</button></p>
     <p id="ok" hidden class="callout" role="status" aria-live="polite">{t("submit.thanks")}</p>

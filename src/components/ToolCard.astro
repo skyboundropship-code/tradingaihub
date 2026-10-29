@@ -2,12 +2,12 @@
 import Status from "./Status.astro";
 import { starsOf, fmtStars } from "../lib/data";
 import { useT } from "../i18n";
-const { t: tool, lang = "en" } = Astro.props; const s = starsOf(tool); const { t, p, desc } = useT(lang);
+const { t: tool, lang = "en", level = 3 } = Astro.props; const H = level === 2 ? "h2" : "h3"; const s = starsOf(tool); const { t, p, desc } = useT(lang);
 const d = desc(tool);
 ---
 <a class="card" href={p(`/tools/${tool.id}/`)} data-search={`${tool.name} ${tool.description} ${d} ${tool.category} ${tool.type}`.toLowerCase()} data-cat={tool.category} data-type={tool.type}>
   <div class="meta"><span class="badge type">{t(`type.${tool.type}`)}</span>{tool.official && <span class="badge off">{t("common.official")}</span>}<Status status={tool.verification.status} lang={lang} /></div>
-  <h3 dir="auto">{tool.name}</h3>
+  <H class:list={[level === 2 && "card-t"]} dir="auto">{tool.name}</H>
   <p>{d}</p>
   <div class="meta"><span>💲 {tool.pricing.free_tier === "unknown" ? t("common.pricingUnknown") : <bdi>{tool.pricing.free_tier}</bdi>}</span>{s != null && <span>★ {fmtStars(s)}</span>}</div>
 </a>

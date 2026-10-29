@@ -6,7 +6,7 @@ const { context = "charts", lang = "en" } = Astro.props; const { t } = useT(lang
 const path = { charts: "/chart/", crypto: "/markets/cryptocurrencies/", backtest: "/pine-script-docs/", integration: "/" }[context];
 const copy = t(`tv.${context}`);
 ---
-<aside class="panel tv-note" style="margin:18px 0;font-size:14px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+<aside class="panel tv-note" style="margin:18px 0;font-size:0.875rem;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap">
   <span><b>{copy[0]}</b> <span style="color:var(--muted)">{copy[1]}</span></span>
   <span style="white-space:nowrap"><a href={tvUrl(path)} target="_blank" rel="sponsored noopener">{t("common.openTV")}</a> <span class="partner-tag">{t("partner.label")}</span></span>
 </aside>
