@@ -1,13 +1,12 @@
 {
-  "checked_at": "2026-10-29T17:00:31.447152+00:00",
+  "checked_at": "2026-10-29T17:26:10.908662+00:00",
   "total": 104,
   "by_status": {
     "verified": 82,
     "stale": 13,
     "aging": 4,
     "archived": 3,
-    "warning": 1,
-    "unconfirmed": 1
+    "unconfirmed": 2
   },
   "with_package": 28,
   "issues": [
@@ -131,6 +130,13 @@
       ]
     },
     {
+      "id": "openbb",
+      "status": "unconfirmed",
+      "issues": [
+        "Repository redirects to another owner (https://github.com/openbq-org/OpenBB); stored link not updated"
+      ]
+    },
+    {
       "id": "valyu-mcp",
       "status": "stale",
       "issues": [
@@ -163,13 +169,6 @@
       "status": "stale",
       "issues": [
         "No commits for 425 days"
-      ]
-    },
-    {
-      "id": "paypal-mcp",
-      "status": "warning",
-      "issues": [
-        "A homepage/docs/endpoint link failed: MCP endpoint 404: not found (dead link)"
       ]
     },
     {

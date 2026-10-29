@@ -349,8 +349,8 @@
  },
  "openbb": {
   "name": "OpenBB Platform (MCP)",
-  "status": "verified",
-  "stars": 74856,
+  "status": "unconfirmed",
+  "stars": 74866,
   "version": null
  },
  "equibles": {
@@ -481,7 +481,7 @@
  },
  "paypal-mcp": {
   "name": "PayPal MCP Server",
-  "status": "warning",
+  "status": "verified",
   "stars": 197,
   "version": null
  },
