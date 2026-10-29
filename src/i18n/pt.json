@@ -22,6 +22,7 @@
   "makers": "Para criadores",
   "submitFree": "Enviar uma ferramenta (grátis)",
   "getBadge": "Obtenha seu selo verificado",
+  "getFeatured": "Destaque sua ferramenta",
   "awesome": "Lista Awesome",
   "legal": "Jurídico",
   "nia": "Não é recomendação de investimento",
@@ -200,6 +201,7 @@
   "h1em": "finanças e trading",
   "h1b": "verificadas toda semana.",
   "lead": "Diretório gratuito e aberto de servidores MCP, skills para agentes e APIs que conectam dados de mercado, corretoras, cripto e contabilidade ao Claude, Cursor, ChatGPT, Grok e Gemini, com preços reais, planos gratuitos e instalação em um clique.",
+  "featThanks": "Obrigado, recebemos seu pagamento. Enviaremos um e-mail em até 1 dia útil para configurar seu espaço. Dúvidas: {email}.",
   "search": "Busque por ex. 'options', 'SEC filings', 'Binance', 'QuickBooks'…",
   "searchLabel": "Buscar ferramentas",
   "listed": "ferramentas listadas",
@@ -366,6 +368,7 @@
   "title": "Enviar uma ferramenta",
   "desc": "Envie um servidor MCP, uma skill de agente ou uma API para finanças e trading. Listagem gratuita e verificada automaticamente.",
   "lead": "<b>Grátis para sempre.</b> Sem planos pagos e sem pegadinhas. Você também ganha um selo verificado gratuito que se atualiza sozinho. Depois do envio, nosso verificador checa o repositório ou site, o último commit, o registro de pacotes e a documentação. Ferramentas aprovadas entram no ar em até uma semana.",
+  "getFeatured": "Quer mais visibilidade? Destaque sua ferramenta",
   "preview": "Ao enviar, abre-se uma issue do GitHub pré-preenchida em uma nova aba. Avaliamos cada envio antes de publicá-lo.",
   "noGithub": "Não tem conta no GitHub? Envie os mesmos dados por e-mail para {email}.",
   "name": "Nome da ferramenta",
@@ -575,5 +578,46 @@
   "ca2": "Por estrelas no GitHub, as ferramentas verificadas mais populares desta categoria são {list}.",
   "cq3": "As ferramentas em “{name}” são oficiais?",
   "ca3": "Ferramentas oficiais, publicadas pelo próprio fornecedor: {o} de {n}. Projetos da comunidade: {c}. As ferramentas oficiais têm o selo “{badge}”."
+ },
+ "feat": {
+  "title": "Destaque sua ferramenta",
+  "desc": "Espaços pagos no {site}: Category Featured (US$ 29/mês) e Homepage Feature (US$ 99/mês). Sempre marcados como «Patrocinado»; a verificação não pode ser comprada.",
+  "lead": "Listar sua ferramenta no {site} é grátis e vai continuar grátis. Se quiser mais visibilidade, você pode comprar um destes dois espaços mensais.",
+  "editorial": "Espaços pagos são sempre marcados como «Patrocinado». O status «Verificado» é editorial e não pode ser comprado: pagar não afeta a verificação, as avaliações nem a checagem semanal.",
+  "perMonth": "por mês, recorrente",
+  "buy": "Comprar {name}",
+  "contact": "Fale conosco sobre {name}",
+  "priceNote": "Preços em dólares americanos. Impostos são adicionados no checkout quando aplicáveis.",
+  "termsH": "Termos",
+  "free": "Só quer ser listado? Envie sua ferramenta grátis.",
+  "products": {
+   "category": {
+    "name": "Category Featured",
+    "what": "Um espaço fixo entre os 3 primeiros de uma categoria à sua escolha.",
+    "bullets": [
+     "Fixado entre os 3 primeiros da categoria que você escolher",
+     "Selo «Featured» na sua listagem",
+     "Link direto para o seu site, marcado com rel=\"sponsored\"",
+     "No máximo {n} por categoria"
+    ]
+   },
+   "homepage": {
+    "name": "Homepage Feature",
+    "what": "Um lugar na faixa «Ferramentas em destaque» da página inicial e na barra lateral de todas as páginas de categoria.",
+    "bullets": [
+     "Lugar na faixa «Ferramentas em destaque» da página inicial",
+     "Exibido na barra lateral de todas as páginas de categoria",
+     "No máximo {n} ao mesmo tempo"
+    ]
+   }
+  },
+  "terms": {
+   "polar": "Os pagamentos são processados pela Polar, nossa merchant of record, que emite as faturas e cuida do IVA e dos impostos sobre vendas.",
+   "label": "Espaços pagos são sempre marcados como «Patrocinado».",
+   "verified": "O status «Verificado» é editorial e não pode ser comprado. Pagar não afeta a verificação, as avaliações nem a checagem semanal.",
+   "decline": "Não aceitamos ofertas de CFD ou de corretoras, consultoria financeira sem licença nem promessas de retorno garantido, e podemos recusar qualquer patrocinador.",
+   "cancel": "Cancele quando quiser. Um espaço mensal fica ativo até o fim do período pago.",
+   "contact": "Dúvidas: {email}."
+  }
  }
 }

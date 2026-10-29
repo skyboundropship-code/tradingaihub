@@ -1,0 +1,45 @@
+---
+import Base from "../../layouts/Base.astro";
+import { SITE } from "../../config";
+import { FEATURED_PRODUCTS, checkoutHref } from "../../lib/featured";
+import { langParams, useT } from "../../i18n";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en"; const { t, p } = useT(lang);
+const mail = `<a href="mailto:${SITE.contactEmail}" dir="ltr">${SITE.contactEmail}</a>`;
+const fmt = (n: number) => new Intl.NumberFormat(lang === "en" ? "en-US" : lang, { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n);
+const products = FEATURED_PRODUCTS.map((x) => {
+  const name = t(`feat.products.${x.id}.name`);
+  const live = !x.pending && !!x.url;
+  return { ...x, name, live, href: checkoutHref(x, SITE.contactEmail, name), what: t(`feat.products.${x.id}.what`), bullets: (t(`feat.products.${x.id}.bullets`) as string[]).map((b) => b.replace("{n}", String(x.slots))) };
+});
+const terms = ["polar", "label", "verified", "decline", "cancel"];
+---
+<Base title={t("feat.title")} description={t("feat.desc", { site: SITE.name })} lang={lang}>
+<div class="wrap page" style="max-width:900px">
+  <h1>{t("feat.title")}</h1>
+  <p style="color:var(--muted);max-width:760px">{t("feat.lead", { site: SITE.name })}</p>
+  <p class="callout">{t("feat.editorial")}</p>
+  <div class="grid feat-grid">
+    {products.map((x) => (
+      <section class="card" aria-labelledby={`feat-${x.id}`}>
+        <h2 id={`feat-${x.id}`} class="card-t" style="margin:0">{x.name}</h2>
+        <p class="feat-price"><b dir="ltr">{fmt(x.price)}</b> <span style="color:var(--muted)">{t("feat.perMonth")}</span></p>
+        <p>{x.what}</p>
+        <ul>{x.bullets.map((b) => <li>{b}</li>)}</ul>
+        <p style="margin-top:auto">{x.live
+          ? <a class="btn" href={x.href} target="_blank" rel="noopener">{t("feat.buy", { name: x.name })}</a>
+          : <a class="btn" href={x.href}>{t("feat.contact", { name: x.name })}</a>}</p>
+      </section>
+    ))}
+  </div>
+  <p class="note">{t("feat.priceNote")}</p>
+  <h2 class="sec">{t("feat.termsH")}</h2>
+  <ul>{terms.map((k) => <li>{t(`feat.terms.${k}`)}</li>)}<li set:html={t("feat.terms.contact", { email: mail })} /></ul>
+  <p><a href={p("/submit/")}>{t("feat.free")}</a></p>
+</div>
+</Base>
+<style>
+.feat-grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin:18px 0}
+.feat-price{font-size:1.25rem;margin:0}
+.card ul{margin:0;padding-inline-start:20px}
+</style>

@@ -22,6 +22,7 @@
   "makers": "Geliştiriciler için",
   "submitFree": "Araç ekle (ücretsiz)",
   "getBadge": "Doğrulama rozeti al",
+  "getFeatured": "Öne çıkın",
   "awesome": "Awesome listesi",
   "legal": "Yasal",
   "nia": "Yatırım tavsiyesi değildir",
@@ -201,6 +202,7 @@
   "h1sep": ",",
   "h1b": "her hafta doğrulanır.",
   "lead": "Piyasa verisini, aracı kurumları, kriptoyu ve muhasebeyi Claude, Cursor, ChatGPT, Grok ve Gemini'ye bağlayan MCP sunucuları, ajan becerileri ve API'lerden oluşan ücretsiz, açık bir dizin — gerçek fiyatlar, ücretsiz katmanlar ve tek tıkla kurulum kodlarıyla.",
+  "featThanks": "Teşekkürler, ödemeniz alındı. Alanınızı ayarlamak için 1 iş günü içinde size e-posta göndereceğiz. Sorular: {email}.",
   "search": "Arayın, ör. 'options', 'SEC filings', 'Binance', 'QuickBooks'…",
   "searchLabel": "Araç ara",
   "listed": "listelenen araç",
@@ -366,6 +368,7 @@
   "title": "Araç ekle",
   "desc": "Finans ve trading için bir MCP sunucusu, ajan becerisi veya API ekleyin. Ücretsiz listeleme, otomatik doğrulama.",
   "lead": "<b>Her zaman ücretsiz.</b> Ücretli katman yok, gizli şart yok. Ayrıca otomatik güncellenen ücretsiz bir doğrulama rozeti alırsınız. Gönderimden sonra denetleyicimiz depoyu veya siteyi, son commit'leri, paket kayıtlarını ve dokümanları kontrol eder. Geçen araçlar bir hafta içinde yayına girer.",
+  "getFeatured": "Daha fazla görünürlük mü istiyorsunuz? Öne çıkın",
   "preview": "Gönderdiğinizde yeni sekmede önceden doldurulmuş bir GitHub issue açılır. Listelemeden önce her başvuruyu inceliyoruz.",
   "noGithub": "GitHub hesabınız yok mu? Aynı bilgileri {email} adresine e-postayla gönderin.",
   "name": "Araç adı",
@@ -575,5 +578,46 @@
   "ca2": "GitHub yıldızlarına göre bu kategorideki en popüler doğrulanmış araçlar: {list}.",
   "cq3": "“{name}” kategorisindeki araçlar resmî mi?",
   "ca3": "Sağlayıcının kendisi tarafından yayımlanan resmî araçlar: {n} araçtan {o} tanesi. Topluluk projeleri: {c}. Resmî araçlarda “{badge}” rozeti bulunur."
+ },
+ "feat": {
+  "title": "Öne çıkın",
+  "desc": "{site} üzerinde ücretli alanlar: Category Featured (aylık 29 $) ve Homepage Feature (aylık 99 $). Her zaman “Sponsorlu” olarak işaretlenir; doğrulama satın alınamaz.",
+  "lead": "Aracınızı {site} üzerinde listelemek ücretsizdir ve ücretsiz kalacak. Daha fazla görünürlük istiyorsanız iki aylık alandan birini satın alabilirsiniz.",
+  "editorial": "Ücretli alanlar her zaman “Sponsorlu” olarak işaretlenir. “Doğrulandı” durumu editoryal bir karardır ve satın alınamaz: ödeme yapmak doğrulamayı, incelemeleri veya haftalık kontrolü etkilemez.",
+  "perMonth": "aylık, yinelenen",
+  "buy": "{name} satın al",
+  "contact": "{name} hakkında bize yazın",
+  "priceNote": "Fiyatlar ABD doları cinsindendir. Geçerli olduğunda vergi ödeme sırasında eklenir.",
+  "termsH": "Koşullar",
+  "free": "Sadece listelenmek mi istiyorsunuz? Aracınızı ücretsiz ekleyin.",
+  "products": {
+   "category": {
+    "name": "Category Featured",
+    "what": "Seçtiğiniz bir kategoride ilk 3'te sabitlenmiş bir yer.",
+    "bullets": [
+     "Seçtiğiniz kategoride ilk 3'te sabitlenir",
+     "Listelemenizde “Featured” rozeti",
+     "Sitenize rel=\"sponsored\" ile işaretlenmiş doğrudan bağlantı",
+     "Kategori başına en fazla {n}"
+    ]
+   },
+   "homepage": {
+    "name": "Homepage Feature",
+    "what": "Ana sayfadaki “Öne çıkan araçlar” şeridinde ve tüm kategori sayfalarının kenar çubuğunda bir yer.",
+    "bullets": [
+     "Ana sayfadaki “Öne çıkan araçlar” şeridinde yer",
+     "Tüm kategori sayfalarının kenar çubuğunda gösterilir",
+     "Aynı anda en fazla {n}"
+    ]
+   }
+  },
+  "terms": {
+   "polar": "Ödemeler, faturaları düzenleyen ve KDV ile satış vergisini yöneten kayıtlı satıcımız (merchant of record) Polar tarafından işlenir.",
+   "label": "Ücretli alanlar her zaman “Sponsorlu” olarak işaretlenir.",
+   "verified": "“Doğrulandı” durumu editoryal bir karardır ve satın alınamaz. Ödeme yapmak doğrulamayı, incelemeleri veya haftalık kontrolü etkilemez.",
+   "decline": "CFD veya aracı kurum tekliflerini, lisanssız finansal tavsiyeyi ya da garantili getiri iddialarını kabul etmeyiz ve herhangi bir sponsoru reddedebiliriz.",
+   "cancel": "İstediğiniz zaman iptal edin. Aylık alan, ödenen dönemin sonuna kadar yayında kalır.",
+   "contact": "Sorular: {email}."
+  }
  }
 }

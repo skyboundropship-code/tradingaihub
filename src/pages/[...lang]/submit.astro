@@ -15,7 +15,7 @@ const mail = `<a href="mailto:${SITE.contactEmail}" dir="ltr">${SITE.contactEmai
 <div class="wrap page" style="max-width:760px">
   <h1>{t("submit.title")}</h1>
   <p style="color:var(--muted)" set:html={t("submit.lead")} />
-  <p><a href={p("/badges/")}>{t("footer.getBadge")}</a></p>
+  <p><a href={p("/badges/")}>{t("footer.getBadge")}</a> · <a href={p("/get-featured/")}>{t("submit.getFeatured")}</a></p>
   <p class="callout">{t("submit.preview")}</p>
   <form class="f" id="submit-form" data-blank-msg={t("submit.blank")} action={issueNew} method="get" target="_blank" rel="noopener noreferrer">
     <input type="hidden" name="template" value="submit-tool.yml" />
