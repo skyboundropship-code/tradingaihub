@@ -11,6 +11,8 @@ compatibility_date = "2026-10-01"
 # The rate-limit IP-hash salt is the secret RL_SALT (never in this file): set with
 #   npx wrangler pages secret put RL_SALT --project-name tradingaihub [--env preview]
 # Without it, /api/subscribe refuses writes with 503 {"ok":false,"error":"server"}.
+# Anonymous outbound-click counters (functions/api/click.js) reuse the same NEWSLETTER namespace under the click: and crl:
+# key prefixes (no personal data; see the privacy page). Read them with `npm run clicks` (needs your wrangler login).
 [[kv_namespaces]]
 binding = "NEWSLETTER"
 id = "a9f8a42d1ec641c8abe07640adb8241e"        # tradingaihub-newsletter
