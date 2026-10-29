@@ -339,7 +339,7 @@
   "latest": "Última verificação: {date} UTC —",
   "fullReport": "ver o relatório completo",
   "money": "Como ganhamos dinheiro",
-  "moneyP": "As listagens são gratuitas. Ganhamos com espaços patrocinados claramente identificados e com alguns links de afiliado para fornecedores de dados. Nenhum deles afeta o status de verificação.",
+  "moneyP": "As listagens são gratuitas. Atualmente ganhamos apenas com links de afiliado (de parceiros) divulgados para alguns fornecedores de dados. Ainda não oferecemos espaços patrocinados; se oferecermos, eles serão identificados como “Patrocinado”. Nenhum deles afeta o status de verificação.",
   "contact": "Contato"
  },
  "disc": {
@@ -353,7 +353,7 @@
    "<b>Risco.</b> Operar e investir — especialmente com agentes automatizados ou de IA, alavancagem, opções ou cripto — pode fazer você perder parte ou todo o seu dinheiro. Teste qualquer ferramenta de trading primeiro em modo de simulação e nunca dê a um agente mais permissões do que você pode perder.",
    "<b>Terceiros.</b> As ferramentas são criadas e operadas por terceiros. Não controlamos elas, seus dados, sua segurança ou sua disponibilidade. A verificação é automática e limitada às checagens descritas na página Sobre.",
    "<b>Precisão.</b> Preços e funcionalidades mudam. Confirme sempre no site do fornecedor.",
-   "<b>Divulgação de afiliados e patrocínios.</b> Alguns links nos rendem comissão e algumas listagens são espaços pagos. Eles são identificados."
+   "<b>Divulgação de afiliados.</b> Alguns links são links de afiliado (de parceiros) e podem nos render comissão. Hoje nenhuma listagem é um espaço pago; se espaços patrocinados forem oferecidos, serão identificados como “Patrocinado”."
   ]
  },
  "ver": {
@@ -561,7 +561,7 @@
   "q2": "Como as ferramentas são verificadas?",
   "a2": "Cada item é verificado de novo automaticamente toda semana: se o repositório está acessível ou arquivado, a data do último commit, se o pacote npm ou PyPI existe e aponta de volta para o repositório, e se o site, a documentação e qualquer endpoint MCP hospedado respondem. Os preços são copiados da página de preços do próprio fornecedor. Última verificação: {date}.",
   "q3": "O {site} é gratuito?",
-  "a3": "Sim. Navegar pelo diretório e listar uma ferramenta são gratuitos. O site pode ganhar uma comissão com links de afiliado claramente identificados, que nunca afetam o status de verificação de uma ferramenta. A página de cada ferramenta mostra os preços e o plano gratuito dela.",
+  "a3": "Sim. Navegar pelo diretório e listar uma ferramenta são gratuitos. O site pode ganhar uma comissão com links de afiliado (de parceiros) divulgados, que nunca afetam o status de verificação de uma ferramenta. A página de cada ferramenta mostra os preços e o plano gratuito dela.",
   "q4": "Como envio uma ferramenta?",
   "a4": "Use a página “{page}”. Ela abre uma issue do GitHub já preenchida; sem conta no GitHub, envie os mesmos dados por e-mail para {email}. Cada envio é avaliado, e as ferramentas aprovadas na verificação são publicadas em até uma semana.",
   "q5": "Em quais idiomas o {site} está disponível?",

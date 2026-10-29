@@ -340,7 +340,7 @@
   "latest": "Latest run: {date} UTC —",
   "fullReport": "see the full report",
   "money": "How we make money",
-  "moneyP": "Listings are free. We earn from clearly-labelled sponsored placements and some affiliate links to data providers. Neither affects verification status.",
+  "moneyP": "Listings are free. We currently earn only from disclosed affiliate (partner) links to some data providers. Sponsored placements aren't offered yet; if they are, they'll be labelled “Sponsored”. Neither affects verification status.",
   "contact": "Contact"
  },
  "disc": {
@@ -354,7 +354,7 @@
    "<b>Risk.</b> Trading and investing — especially with automated or AI agents, leverage, options or crypto — can lose some or all of your money. Test any trading tool in paper mode first and never give an agent more permissions than you can afford to lose.",
    "<b>Third parties.</b> Tools are built and run by third parties. We don't control them, their data, their security or their availability. Verification is automated and limited to the checks described on the About page.",
    "<b>Accuracy.</b> Prices and features change. Always confirm on the vendor's site.",
-   "<b>Affiliate & sponsored disclosure.</b> Some links earn us a commission and some listings are paid placements. They are labelled."
+   "<b>Affiliate disclosure.</b> Some links are affiliate (partner) links and may earn us a commission. No listing is a paid placement today; if sponsored placements are offered, they will be labelled “Sponsored”."
   ]
  },
  "ver": {
@@ -562,7 +562,7 @@
   "q2": "How are the tools verified?",
   "a2": "Every listing is re-checked automatically every week: whether the repository is reachable or archived, the date of its latest commit, whether its npm or PyPI package exists and links back to the repository, and whether the homepage, docs and any hosted MCP endpoint respond. Pricing is copied from the vendor's own pricing page. Latest check: {date}.",
   "q3": "Is {site} free?",
-  "a3": "Yes. Browsing the directory and listing a tool are both free. The site may earn a commission from clearly labelled affiliate links, which never affect a tool's verification status. Each tool page shows that tool's own pricing and free tier.",
+  "a3": "Yes. Browsing the directory and listing a tool are both free. The site may earn a commission from disclosed affiliate (partner) links, which never affect a tool's verification status. Each tool page shows that tool's own pricing and free tier.",
   "q4": "How do I submit a tool?",
   "a4": "Use the “{page}” page. It opens a pre-filled GitHub issue; without a GitHub account, email the same details to {email}. Every submission is vetted, and tools that pass the check are published within a week.",
   "q5": "Which languages is {site} available in?",

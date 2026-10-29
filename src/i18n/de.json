@@ -339,7 +339,7 @@
   "latest": "Letzte Prüfung: {date} UTC —",
   "fullReport": "vollständigen Bericht ansehen",
   "money": "Wie wir Geld verdienen",
-  "moneyP": "Einträge sind kostenlos. Wir verdienen an klar gekennzeichneten Sponsorplätzen und an einigen Affiliate-Links zu Datenanbietern. Keines davon beeinflusst den Prüfstatus.",
+  "moneyP": "Einträge sind kostenlos. Derzeit verdienen wir ausschließlich an offengelegten Affiliate-(Partner-)Links zu einigen Datenanbietern. Gesponserte Platzierungen bieten wir noch nicht an; falls doch, werden sie als „Gesponsert“ gekennzeichnet. Keines davon beeinflusst den Prüfstatus.",
   "contact": "Kontakt"
  },
  "disc": {
@@ -353,7 +353,7 @@
    "<b>Risiko.</b> Trading und Investieren – besonders mit automatisierten oder KI-Agenten, Hebel, Optionen oder Krypto – kann zum teilweisen oder vollständigen Verlust Ihres Geldes führen. Testen Sie jedes Trading-Tool zuerst im Demomodus und geben Sie einem Agenten nie mehr Rechte, als Sie zu verlieren bereit sind.",
    "<b>Dritte.</b> Die Tools werden von Dritten entwickelt und betrieben. Wir kontrollieren weder sie noch ihre Daten, Sicherheit oder Verfügbarkeit. Die Prüfung ist automatisiert und auf die auf der Über-uns-Seite beschriebenen Kontrollen beschränkt.",
    "<b>Genauigkeit.</b> Preise und Funktionen ändern sich. Bestätigen Sie sie immer auf der Website des Anbieters.",
-   "<b>Affiliate- und Sponsoring-Hinweis.</b> Einige Links bringen uns eine Provision, und einige Einträge sind bezahlte Plätze. Sie sind gekennzeichnet."
+   "<b>Affiliate-Hinweis.</b> Einige Links sind Affiliate-(Partner-)Links und können uns eine Provision einbringen. Derzeit ist kein Eintrag eine bezahlte Platzierung; falls gesponserte Platzierungen angeboten werden, sind sie als „Gesponsert“ gekennzeichnet."
   ]
  },
  "ver": {
@@ -561,7 +561,7 @@
   "q2": "Wie werden die Tools geprüft?",
   "a2": "Jeder Eintrag wird jede Woche automatisch neu geprüft: ob das Repository erreichbar oder archiviert ist, das Datum des letzten Commits, ob das npm- oder PyPI-Paket existiert und auf das Repository zurückverweist und ob Website, Doku und ein gehosteter MCP-Endpoint antworten. Preise werden von der Preisseite des Anbieters selbst übernommen. Letzte Prüfung: {date}.",
   "q3": "Ist {site} kostenlos?",
-  "a3": "Ja. Das Verzeichnis zu nutzen und ein Tool einzutragen ist kostenlos. Die Website kann über klar gekennzeichnete Affiliate-Links eine Provision verdienen; diese haben keinen Einfluss auf den Prüfstatus eines Tools. Jede Tool-Seite zeigt die Preise und den Gratis-Tarif des jeweiligen Tools.",
+  "a3": "Ja. Das Verzeichnis zu nutzen und ein Tool einzutragen ist kostenlos. Die Website kann über offengelegte Affiliate-(Partner-)Links eine Provision verdienen; diese haben keinen Einfluss auf den Prüfstatus eines Tools. Jede Tool-Seite zeigt die Preise und den Gratis-Tarif des jeweiligen Tools.",
   "q4": "Wie reiche ich ein Tool ein?",
   "a4": "Über die Seite „{page}“. Sie öffnet ein vorausgefülltes GitHub-Issue; ohne GitHub-Konto senden Sie dieselben Angaben per E-Mail an {email}. Jede Einreichung wird geprüft, und Tools, die die Prüfung bestehen, werden innerhalb einer Woche veröffentlicht.",
   "q5": "In welchen Sprachen gibt es {site}?",

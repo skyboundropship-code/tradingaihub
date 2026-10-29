@@ -339,7 +339,7 @@
   "latest": "Son çalıştırma: {date} UTC —",
   "fullReport": "tam raporu gör",
   "money": "Nasıl para kazanıyoruz",
-  "moneyP": "Listeleme ücretsizdir. Gelirimiz açıkça işaretlenmiş sponsorlu alanlardan ve bazı veri sağlayıcılarının ortaklık bağlantılarından gelir. Hiçbiri doğrulama durumunu etkilemez.",
+  "moneyP": "Listeleme ücretsizdir. Şu anda yalnızca bazı veri sağlayıcılarına verilen, açıklanmış satış ortaklığı (partner) bağlantılarından gelir elde ediyoruz. Sponsorlu alanlar henüz sunulmuyor; sunulursa “Sponsorlu” olarak işaretlenecek. Hiçbiri doğrulama durumunu etkilemez.",
   "contact": "İletişim"
  },
  "disc": {
@@ -353,7 +353,7 @@
    "<b>Risk.</b> Trading ve yatırım — özellikle otomasyon veya yapay zekâ ajanları, kaldıraç, opsiyonlar ya da kripto ile — sermayenizin bir kısmını veya tamamını kaybetmenize yol açabilir. Her trading aracını önce paper modunda test edin ve bir ajana asla kaybetmeyi göze alabileceğinizden fazla yetki vermeyin.",
    "<b>Üçüncü taraflar.</b> Araçlar üçüncü taraflarca geliştirilir ve işletilir. Bunları, verilerini, güvenliklerini veya erişilebilirliklerini kontrol etmeyiz. Doğrulama otomatiktir ve Hakkında sayfasında açıklanan kontrollerle sınırlıdır.",
    "<b>Doğruluk.</b> Fiyatlar ve özellikler değişir. Her zaman sağlayıcının sitesinden teyit edin.",
-   "<b>Ortaklık ve sponsorluk bildirimi.</b> Bazı bağlantılar bize komisyon kazandırır ve bazı listelemeler ücretli alanlardır. Bunlar işaretlidir."
+   "<b>Satış ortaklığı bildirimi.</b> Bazı bağlantılar satış ortaklığı (partner) bağlantılarıdır ve bize komisyon kazandırabilir. Şu anda hiçbir listeleme ücretli alan değildir; sponsorlu alanlar sunulursa “Sponsorlu” olarak işaretlenecek."
   ]
  },
  "ver": {
@@ -561,7 +561,7 @@
   "q2": "Araçlar nasıl doğrulanıyor?",
   "a2": "Her kayıt her hafta otomatik olarak yeniden kontrol edilir: deponun erişilebilir mi yoksa arşivlenmiş mi olduğu, son commit tarihi, npm veya PyPI paketinin var olup olmadığı ve depoya geri bağlantı verip vermediği, ana sayfanın, dokümantasyonun ve barındırılan MCP uç noktalarının yanıt verip vermediği. Fiyatlar sağlayıcının kendi fiyat sayfasından alınır. Son kontrol: {date}.",
   "q3": "{site} ücretsiz mi?",
-  "a3": "Evet. Dizine göz atmak da araç listelemek de ücretsizdir. Site, açıkça etiketlenmiş satış ortaklığı bağlantılarından komisyon kazanabilir; bu bağlantılar bir aracın doğrulama durumunu asla etkilemez. Her aracın sayfasında o aracın kendi fiyatları ve ücretsiz planı gösterilir.",
+  "a3": "Evet. Dizine göz atmak da araç listelemek de ücretsizdir. Site, açıklanmış satış ortaklığı (partner) bağlantılarından komisyon kazanabilir; bu bağlantılar bir aracın doğrulama durumunu asla etkilemez. Her aracın sayfasında o aracın kendi fiyatları ve ücretsiz planı gösterilir.",
   "q4": "Nasıl araç gönderebilirim?",
   "a4": "“{page}” sayfasını kullanın. Önceden doldurulmuş bir GitHub issue açar; GitHub hesabınız yoksa aynı bilgileri {email} adresine e-postayla gönderin. Her gönderim incelenir ve kontrolü geçen araçlar bir hafta içinde yayımlanır.",
   "q5": "{site} hangi dillerde kullanılabilir?",
