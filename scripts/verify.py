@@ -9,6 +9,7 @@ Uses the GitHub REST API when GITHUB_TOKEN is set; otherwise scrapes public HTML
 Run:  python3 scripts/verify.py        (weekly via cron / GitHub Actions)
       python3 scripts/verify.py --dry-run [--only=id1,id2]   (verify, write nothing, print status changes;
       set VERIFY_DRY_JSON=/path.json to save the would-be tools.json for review)"""
+from urllib.parse import urlsplit
 import json, os, re, sys, shutil, subprocess, datetime as dt, tomllib
 from concurrent.futures import ThreadPoolExecutor
 import requests
@@ -74,21 +75,74 @@ def _req(method, url, **kw):
     except requests.RequestException as e:
         return e, b""
 
-def oauth_resource_metadata(www_auth):
-    """MCP authorization (RFC 9728): a 401 carries `WWW-Authenticate: Bearer resource_metadata="<url>"` and that URL
-    serves protected-resource metadata JSON with a "resource" field. Returns the metadata URL if it checks out."""
-    m = re.search(r'resource_metadata="?([^",\s]+)', www_auth or "")
-    if not m or not www_auth.lower().lstrip().startswith("bearer"): return None
-    r = get(m.group(1), headers={"Accept": "application/json"})
-    if isinstance(r, Exception) or r.status_code != 200: return None
+# --- MCP OAuth evidence (QA rule for 401s, PR #18) ---------------------------------------------
+# A 401/403 from a remote MCP endpoint counts as verified ONLY if ALL of these hold:
+#  (a) WWW-Authenticate is a Bearer challenge with a resource_metadata URL (https) whose host is on the same
+#      registrable domain as the endpoint, or on a vendor auth domain listed in VENDOR_AUTH_DOMAINS;
+#  (b) that URL answers 200 (redirects are NOT followed) with a valid JSON object;
+#  (c) its "resource" has the endpoint's origin (scheme, host, port) and its path is a segment prefix of the
+#      endpoint's path (e.g. resource https://x.com or https://x.com/mcp for endpoint https://x.com/mcp);
+#  (d) it lists at least one non-empty authorization_servers entry.
+# Anything weaker (bare 401, missing/foreign/unloadable metadata, mismatched resource, no auth servers) -> gated.
+#
+# VENDOR_AUTH_DOMAINS: endpoint registrable domain -> extra registrable domains allowed to host its metadata.
+# Keep it empty or minimal; every entry needs a reason (link to the vendor's docs) next to it.
+VENDOR_AUTH_DOMAINS: dict[str, frozenset] = {}
+# Multi-label public suffixes we may meet (registrable domain = suffix + one label). Not the full Public Suffix
+# List: an unknown multi-label suffix makes the check STRICTER (falls back to the last two labels), never looser.
+MULTI_SUFFIXES = frozenset({"co.uk", "org.uk", "ac.uk", "gov.uk", "com.au", "net.au", "org.au", "co.nz", "co.jp", "ne.jp",
+                            "or.jp", "co.kr", "co.in", "net.in", "org.in", "com.br", "com.cn", "com.hk", "com.sg", "com.tr",
+                            "com.mx", "co.za", "co.il", "com.tw", "github.io", "pages.dev", "workers.dev", "vercel.app",
+                            "netlify.app", "herokuapp.com", "onrender.com", "fly.dev", "azurewebsites.net", "cloudfront.net"})
+
+def registrable_domain(host):
+    h = (host or "").lower().rstrip(".")
+    if not h or re.fullmatch(r"[\d.]+|\[.*\]", h): return h  # IP literal: exact match only
+    parts = h.split(".")
+    n = 3 if len(parts) >= 3 and ".".join(parts[-2:]) in MULTI_SUFFIXES else 2
+    return ".".join(parts[-n:])
+
+def _origin(u):
+    p = urlsplit(u)
+    port = p.port or {"https": 443, "http": 80}.get(p.scheme)
+    return (p.scheme.lower(), (p.hostname or "").lower(), port)
+
+def _path_prefix(resource_path, endpoint_path):
+    rp, ep = resource_path.rstrip("/"), endpoint_path.rstrip("/")
+    return ep == rp or ep.startswith(rp + "/")
+
+def oauth_evidence(endpoint, www_auth, fetch=None):
+    """QA's strict 401 rule. Returns (True, metadata_url) or (False, reason)."""
+    fetch = fetch or (lambda u: S.get(u, timeout=20, allow_redirects=False, headers={"Accept": "application/json"}))
+    wa = (www_auth or "").strip()
+    if not wa.lower().startswith("bearer"): return False, "no Bearer challenge"
+    m = re.search(r'resource_metadata="?([^",\s]+)', wa)
+    if not m: return False, "no resource_metadata in WWW-Authenticate"
+    md_url = m.group(1); mp = urlsplit(md_url)
+    if mp.scheme != "https" or not mp.hostname: return False, "resource_metadata is not an https URL"
+    ep_dom = registrable_domain(urlsplit(endpoint).hostname)
+    md_dom = registrable_domain(mp.hostname)
+    if md_dom != ep_dom and md_dom not in VENDOR_AUTH_DOMAINS.get(ep_dom, frozenset()):
+        return False, f"resource_metadata on {md_dom}, not {ep_dom} or an allowlisted vendor auth domain"   # (a)
+    try: r = fetch(md_url)
+    except requests.RequestException as e: return False, f"metadata fetch failed ({type(e).__name__})"
+    if r.status_code != 200: return False, f"metadata answered {r.status_code}"                          # (b)
     try: j = r.json()
-    except ValueError: return None
-    return m.group(1) if isinstance(j, dict) and j.get("resource") else None
+    except ValueError: return False, "metadata is not valid JSON"                                        # (b)
+    if not isinstance(j, dict): return False, "metadata is not a JSON object"                            # (b)
+    res = j.get("resource")
+    if not isinstance(res, str) or not res: return False, "metadata has no resource"                     # (c)
+    if _origin(res) != _origin(endpoint) or not _path_prefix(urlsplit(res).path, urlsplit(endpoint).path):
+        return False, f"metadata resource {res} does not match endpoint origin/path"                     # (c)
+    au = j.get("authorization_servers")
+    if not isinstance(au, list) or not any(isinstance(x, str) and x.strip() for x in au):
+        return False, "metadata lists no authorization_servers"                                          # (d)
+    return True, md_url
 
 def mcp_probe(url):
     """Remote MCP endpoint: POST a JSON-RPC `initialize` (what a real client sends), not a bare GET.
-    ok     2xx answer (JSON-RPC result or SSE stream), or a spec-conformant MCP OAuth challenge
-           (401 + Bearer resource_metadata that resolves to RFC 9728 metadata): the endpoint is a live MCP server.
+    ok     2xx answer (JSON-RPC result or SSE stream), or a 401/403 that passes oauth_evidence() (QA's strict rule).
+    gated  any other 401/403, including a bare 401.
     other  POST refused with 405/other 4xx -> retry with GET (legacy SSE transport), then classify() as usual."""
     hdr = {"Accept": "application/json, text/event-stream", "Content-Type": "application/json"}
     r, body = _req("POST", url, json=MCP_INIT, headers=hdr)
@@ -96,8 +150,9 @@ def mcp_probe(url):
     if r.status_code < 300:
         return link(url, r.status_code, "ok", method="POST", evidence="mcp-initialize" if b"jsonrpc" in body else "2xx")
     if r.status_code in (401, 403):
-        md = oauth_resource_metadata(r.headers.get("WWW-Authenticate"))
-        if md: return link(url, r.status_code, "ok", method="POST", evidence="mcp-oauth", resource_metadata=md)
+        ok, info = oauth_evidence(url, r.headers.get("WWW-Authenticate"))
+        if ok: return link(url, r.status_code, "ok", method="POST", evidence="mcp-oauth", resource_metadata=info)
+        return link(url, r.status_code, "gated", method="POST", why=info)
     if r.status_code in DEAD or r.status_code in (401, 403, 429) or r.status_code >= 500:
         return link(url, r.status_code, classify(r.status_code), method="POST")
     g, _ = _req("GET", url, headers={"Accept": "text/event-stream"})
@@ -250,7 +305,7 @@ def verify(t):
     if t.get("remote_mcp_url"):
         a = mcp_probe(t["remote_mcp_url"]); v["remote_mcp"] = a
         v["checks"].append({"check": "remote MCP endpoint responds", "ok": a["ok"], "result": a["result"],
-                            "note": NOTE[a["result"]].format(s=a["status"]) if not a["ok"] else None})
+                            "note": (NOTE[a["result"]].format(s=a["status"]) + (f" [{a['why']}]" if a.get("why") else "")) if not a["ok"] else None})
     g = v.get("github")
     if g and g.get("cross_org_redirect"):
         v["issues"].append(f"Repository redirects to another owner ({g['cross_org_redirect']}); stored link not updated")

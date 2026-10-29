@@ -72,20 +72,18 @@ class McpProbe(unittest.TestCase):
         a, rq = self.probe((R(404), b""))
         self.assertEqual((a["result"], a["status"]), ("dead", 404)); self.assertEqual(rq.call_count, 1)
 
-    def test_401_with_valid_oauth_metadata_ok(self):
-        h = {"WWW-Authenticate": 'Bearer resource_metadata="https://mcp.example.com/.well-known/oauth-protected-resource"'}
-        a, _ = self.probe((R(401, h), b""), meta=R(200, json_body={"resource": "https://mcp.example.com/mcp"}))
+    def test_401_with_strict_oauth_metadata_ok(self):
+        h = {"WWW-Authenticate": 'Bearer resource_metadata="https://mcp.example.com/.well-known/oauth-protected-resource/mcp"'}
+        meta = R(200, json_body={"resource": "https://mcp.example.com/mcp", "authorization_servers": ["https://auth.example.com"]})
+        with mock.patch.object(V.S, "get", return_value=meta):
+            a, _ = self.probe((R(401, h), b""))
         self.assertEqual((a["result"], a["evidence"]), ("ok", "mcp-oauth"))
 
-    def test_401_metadata_unresolvable_gated(self):
+    def test_401_weak_metadata_gated_with_reason(self):
         h = {"WWW-Authenticate": 'Bearer resource_metadata="https://mcp.example.com/.well-known/oauth-protected-resource"'}
-        a, _ = self.probe((R(401, h), b""), meta=R(404))
-        self.assertEqual(a["result"], "gated")
-
-    def test_401_metadata_without_resource_gated(self):
-        h = {"WWW-Authenticate": 'Bearer resource_metadata="https://m/.well-known/oauth-protected-resource"'}
-        a, _ = self.probe((R(401, h), b""), meta=R(200, json_body={"foo": 1}))
-        self.assertEqual(a["result"], "gated")
+        with mock.patch.object(V.S, "get", return_value=R(200, json_body={"resource": "https://mcp.example.com/mcp"})):
+            a, _ = self.probe((R(401, h), b""))
+        self.assertEqual(a["result"], "gated"); self.assertIn("authorization_servers", a["why"])
 
     def test_401_plain_bearer_gated(self):
         a, _ = self.probe((R(401, {"WWW-Authenticate": 'Bearer error="invalid_token"'}), b""))
@@ -106,6 +104,92 @@ class McpProbe(unittest.TestCase):
     def test_5xx_error(self):
         a, _ = self.probe((R(503), b""))
         self.assertEqual(a["result"], "error")
+
+
+EP = "https://mcp.example.com/v2/mcp"
+GOOD = {"resource": EP, "authorization_servers": ["https://auth.example.com"]}
+def hdr(md="https://mcp.example.com/.well-known/oauth-protected-resource/v2/mcp"):
+    return f'Bearer realm="x", resource_metadata="{md}", scope="read"'
+
+
+class OauthEvidenceStrict(unittest.TestCase):
+    """QA rule (PR #18): a 401 is verified only if (a) same-registrable-domain/allowlisted metadata URL,
+    (b) valid JSON, (c) resource matches endpoint origin + path prefix, (d) >=1 authorization_servers."""
+    def ev(self, www=None, body=GOOD, status=200, endpoint=EP, raise_=None):
+        def fetch(u):
+            if raise_: raise raise_
+            return R(status, json_body=body)
+        return V.oauth_evidence(endpoint, hdr() if www is None else www, fetch=fetch)
+
+    def test_all_conditions_pass(self):
+        self.assertEqual(self.ev(), (True, "https://mcp.example.com/.well-known/oauth-protected-resource/v2/mcp"))
+
+    def test_unquoted_metadata_and_sibling_subdomain_pass(self):
+        self.assertTrue(self.ev(www="Bearer resource_metadata=https://auth.example.com/.well-known/oauth-protected-resource")[0])
+
+    # (a)
+    def test_a_bare_401_or_no_bearer(self):
+        self.assertFalse(self.ev(www="")[0]); self.assertFalse(self.ev(www='Basic realm="x"')[0])
+        self.assertFalse(self.ev(www='Bearer error="invalid_token"')[0])
+
+    def test_a_foreign_domain(self):
+        ok, why = self.ev(www=hdr("https://evil.example.net/.well-known/oauth-protected-resource"))
+        self.assertFalse(ok); self.assertIn("allowlisted", why)
+
+    def test_a_lookalike_suffix_domain(self):
+        self.assertFalse(self.ev(www=hdr("https://mcp.example.com.evil.io/.well-known/oauth-protected-resource"))[0])
+
+    def test_a_http_metadata(self):
+        self.assertFalse(self.ev(www=hdr("http://mcp.example.com/.well-known/oauth-protected-resource"))[0])
+
+    def test_a_allowlist(self):
+        md = hdr("https://login.vendorauth.com/.well-known/oauth-protected-resource")
+        self.assertFalse(self.ev(www=md)[0])
+        with mock.patch.dict(V.VENDOR_AUTH_DOMAINS, {"example.com": frozenset({"vendorauth.com"})}):
+            self.assertTrue(self.ev(www=md)[0])
+
+    def test_a_allowlist_ships_minimal(self):
+        self.assertLessEqual(len(V.VENDOR_AUTH_DOMAINS), 3)
+
+    def test_registrable_domain(self):
+        self.assertEqual(V.registrable_domain("mcp.api.coingecko.com"), "coingecko.com")
+        self.assertEqual(V.registrable_domain("a.b.example.co.uk"), "example.co.uk")
+        self.assertEqual(V.registrable_domain("foo.github.io"), "foo.github.io")
+        self.assertNotEqual(V.registrable_domain("a.github.io"), V.registrable_domain("b.github.io"))
+
+    # (b)
+    def test_b_non_200(self):
+        for st in (301, 302, 404, 500):
+            with self.subTest(st=st): self.assertFalse(self.ev(status=st)[0])
+
+    def test_b_invalid_json_or_not_object(self):
+        self.assertFalse(self.ev(body=None)[0]); self.assertFalse(self.ev(body=["x"])[0])
+
+    def test_b_fetch_exception(self):
+        self.assertFalse(self.ev(raise_=V.requests.ConnectTimeout())[0])
+
+    # (c)
+    def test_c_missing_resource(self):
+        self.assertFalse(self.ev(body={"authorization_servers": ["https://a"]})[0])
+
+    def test_c_other_host_scheme_port(self):
+        for res in ("https://other.example.com/v2/mcp", "http://mcp.example.com/v2/mcp", "https://mcp.example.com:8443/v2/mcp"):
+            with self.subTest(res=res): self.assertFalse(self.ev(body={**GOOD, "resource": res})[0])
+
+    def test_c_path_must_be_segment_prefix(self):
+        for res, want in (("https://mcp.example.com", True), ("https://mcp.example.com/", True), ("https://mcp.example.com/v2", True),
+                          ("https://mcp.example.com/v2/mcp/", True), ("https://mcp.example.com/v2/mc", False),
+                          ("https://mcp.example.com/v1/mcp", False), ("https://mcp.example.com/v2/mcp/extra", False)):
+            with self.subTest(res=res): self.assertEqual(self.ev(body={**GOOD, "resource": res})[0], want)
+
+    def test_c_default_port_equivalent(self):
+        self.assertTrue(self.ev(body={**GOOD, "resource": "https://MCP.example.com:443/v2/mcp"})[0])
+
+    # (d)
+    def test_d_authorization_servers(self):
+        for au in (None, [], [""], ["  "], "https://auth.example.com", [1]):
+            body = {"resource": EP} if au is None else {"resource": EP, "authorization_servers": au}
+            with self.subTest(au=au): self.assertFalse(self.ev(body=body)[0])
 
 
 def ver(links, days=10, github=True, **g):
@@ -177,7 +261,7 @@ class SiteKnowsEveryStatus(unittest.TestCase):
                 self.assertRegex(data_ts, rf"\b{s}: \{{ label"); self.assertRegex(og, rf"\b{s}: \(")
                 self.assertIn(f'"{s}":', aw); self.assertRegex(cat, rf"\b{s}: \d")
         for f in glob.glob(os.path.join(ROOT, "src/i18n/*.json")):
-            st = json.load(open(f))["status"]
+            with open(f) as fh: st = json.load(fh)["status"]
             with self.subTest(locale=os.path.basename(f)): self.assertTrue(self.STATUSES <= set(st))
 
 
