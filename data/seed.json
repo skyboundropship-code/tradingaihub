@@ -1700,7 +1700,8 @@
       "source": "https://www.paypal.com/us/business/paypal-business-fees",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": "https://mcp.paypal.com/http"
+    "remote_mcp_url": "https://mcp.paypal.com/mcp",
+    "remote_mcp_url_note": "PayPal's docs list https://mcp.paypal.com/http, which returns 404 (checked 2026-10-29); /mcp is the live endpoint (401 with valid OAuth metadata). /sse also works."
   },
   {
     "id": "square-mcp",
