@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-29T16:55:26.340627+00:00",
+  "checked_at": "2026-10-29T17:00:31.447152+00:00",
   "total": 104,
   "by_status": {
     "verified": 82,
@@ -183,7 +183,7 @@
       "id": "mercury-mcp",
       "status": "unconfirmed",
       "issues": [
-        "Could not confirm: MCP endpoint 401: answered but refused our checker (sign-in required, bot block or rate limit)"
+        "Could not confirm: MCP endpoint 401: answered but refused our checker (sign-in required, bot block or rate limit) [no resource_metadata in WWW-Authenticate]"
       ]
     },
     {

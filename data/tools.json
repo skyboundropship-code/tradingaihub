@@ -513,7 +513,9 @@
         },
         {
           "check": "remote MCP endpoint responds",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
@@ -528,7 +530,11 @@
       "remote_mcp": {
         "url": "https://mcp.alphavantage.co/mcp",
         "ok": true,
-        "status": 401
+        "status": 401,
+        "result": "ok",
+        "method": "POST",
+        "evidence": "mcp-oauth",
+        "resource_metadata": "https://mcp.alphavantage.co/.well-known/oauth-protected-resource/mcp"
       },
       "last_commit_days": 26,
       "status": "verified"
@@ -1284,32 +1290,44 @@
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "remote MCP endpoint responds",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://www.interactivebrokers.com/en/trading/ai-integrations.php",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://www.interactivebrokers.com/en/trading/ai-integrations.php",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "remote_mcp": {
         "url": "https://api.ibkr.com/v1/api/mcp-public",
         "ok": true,
-        "status": 401
+        "status": 401,
+        "result": "ok",
+        "method": "POST",
+        "evidence": "mcp-oauth",
+        "resource_metadata": "https://api.ibkr.com/v1/api/mcp-public/.well-known/oauth-protected-resource"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -2591,18 +2609,22 @@
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "remote MCP endpoint responds",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "github": {
         "reachable": true,
         "final_url": "https://github.com/stripe/ai",
-        "stars": 1993,
+        "stars": 2000,
         "archived": false,
         "license": "MIT",
         "last_commit": "2026-10-29T00:36:05Z"
@@ -2610,12 +2632,17 @@
       "docs": {
         "url": "https://docs.stripe.com/mcp",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "remote_mcp": {
         "url": "https://mcp.stripe.com",
         "ok": true,
-        "status": 401
+        "status": 401,
+        "result": "ok",
+        "method": "POST",
+        "evidence": "mcp-oauth",
+        "resource_metadata": "https://mcp.stripe.com/.well-known/oauth-protected-resource"
       },
       "last_commit_days": 0,
       "status": "verified"
@@ -3855,32 +3882,44 @@
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "remote MCP endpoint responds",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://www.tradingview.com/mcp/docs",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://www.tradingview.com/mcp/docs",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "remote_mcp": {
         "url": "https://mcp.tradingview.com/mcp",
         "ok": true,
-        "status": 401
+        "status": 401,
+        "result": "ok",
+        "method": "POST",
+        "evidence": "mcp-oauth",
+        "resource_metadata": "https://mcp.tradingview.com/.well-known/oauth-protected-resource/mcp"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -3912,32 +3951,44 @@
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "remote MCP endpoint responds",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://robinhood.com/us/en/support/articles/onboarding-an-external-agent/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://robinhood.com/us/en/support/articles/onboarding-an-external-agent/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "remote_mcp": {
         "url": "https://agent.robinhood.com/mcp/trading",
         "ok": true,
-        "status": 405
+        "status": 401,
+        "result": "ok",
+        "method": "POST",
+        "evidence": "mcp-oauth",
+        "resource_metadata": "https://agent.robinhood.com/.well-known/oauth-protected-resource/mcp/trading"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -4035,15 +4086,21 @@
         },
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "remote MCP endpoint responds",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
@@ -4058,19 +4115,25 @@
       "homepage": {
         "url": "https://eodhd.com/lp/eodhd-mcp-server",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://eodhd.com/financial-apis/mcp-server-for-financial-data-by-eodhd",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "remote_mcp": {
         "url": "https://mcp.eodhd.com/v2/mcp",
         "ok": true,
-        "status": 401
+        "status": 401,
+        "result": "ok",
+        "method": "POST",
+        "evidence": "mcp-oauth",
+        "resource_metadata": "https://mcp.eodhd.com/.well-known/oauth-protected-resource/v2/mcp"
       },
-      "last_commit_days": 6,
+      "last_commit_days": 7,
       "status": "verified"
     },
     "license": "MIT"
@@ -4100,32 +4163,44 @@
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "remote MCP endpoint responds",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://finnhub.io/static/finnhub-how-to-connect-mcp-server.html",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://finnhub.io/docs/api/finnhub-mcp-server",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "remote_mcp": {
         "url": "https://mcp.finnhub.io/mcp",
         "ok": true,
-        "status": 401
+        "status": 401,
+        "result": "ok",
+        "method": "POST",
+        "evidence": "mcp-oauth",
+        "resource_metadata": "https://mcp.finnhub.io/.well-known/oauth-protected-resource"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -4252,15 +4327,21 @@
         },
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "remote MCP endpoint responds",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [
@@ -4277,17 +4358,23 @@
       "homepage": {
         "url": "https://developer.squareup.com/docs/mcp",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://developer.squareup.com/docs/mcp",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "remote_mcp": {
         "url": "https://mcp.squareup.com/mcp",
         "ok": true,
-        "status": 401
+        "status": 401,
+        "result": "ok",
+        "method": "POST",
+        "evidence": "mcp-oauth",
+        "resource_metadata": "https://mcp.squareup.com/.well-known/oauth-protected-resource/mcp"
       },
       "last_commit_days": 15,
       "status": "verified"
@@ -4384,11 +4471,15 @@
         },
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "remote MCP endpoint responds",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
@@ -4403,12 +4494,17 @@
       "homepage": {
         "url": "https://razorpay.com/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "remote_mcp": {
         "url": "https://mcp.razorpay.com/mcp",
         "ok": true,
-        "status": 401
+        "status": 401,
+        "result": "ok",
+        "method": "POST",
+        "evidence": "mcp-oauth",
+        "resource_metadata": "https://mcp.razorpay.com/.well-known/oauth-protected-resource"
       },
       "last_commit_days": 1,
       "status": "verified"
@@ -4517,11 +4613,11 @@
           "check": "remote MCP endpoint responds",
           "ok": false,
           "result": "gated",
-          "note": "401: answered but refused our checker (sign-in required, bot block or rate limit)"
+          "note": "401: answered but refused our checker (sign-in required, bot block or rate limit) [no resource_metadata in WWW-Authenticate]"
         }
       ],
       "issues": [
-        "Could not confirm: MCP endpoint 401: answered but refused our checker (sign-in required, bot block or rate limit)"
+        "Could not confirm: MCP endpoint 401: answered but refused our checker (sign-in required, bot block or rate limit) [no resource_metadata in WWW-Authenticate]"
       ],
       "homepage": {
         "url": "https://docs.mercury.com/docs/what-is-mercury-mcp",
@@ -4540,7 +4636,8 @@
         "ok": false,
         "status": 401,
         "result": "gated",
-        "method": "POST"
+        "method": "POST",
+        "why": "no resource_metadata in WWW-Authenticate"
       },
       "last_commit_days": null,
       "status": "unconfirmed"
@@ -4668,32 +4765,44 @@
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "remote MCP endpoint responds",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://developer.avalara.com/mcp-servers/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://developer.avalara.com/products/avatax/mcp/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "remote_mcp": {
         "url": "https://mcp.avalara.com/avatax",
         "ok": true,
-        "status": 401
+        "status": 401,
+        "result": "ok",
+        "method": "POST",
+        "evidence": "mcp-oauth",
+        "resource_metadata": "https://mcp.avalara.com/.well-known/oauth-protected-resource/avatax"
       },
       "last_commit_days": null,
       "status": "verified"

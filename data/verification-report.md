@@ -1,4 +1,4 @@
-# Verification report — 2026-10-29 16:55 UTC
+# Verification report — 2026-10-29 17:00 UTC
 
 Total entries: 104
 
@@ -63,7 +63,7 @@ Entries with a published npm/PyPI package: 28
 | ledgerskills | verified | 2 | 2026-06-13 | MIT |  |  |
 | anthropic-financial-services | verified | 40901 | 2026-10-28 | Apache-2.0 |  |  |
 | invoice-organizer-skill | stale | None | 2025-10-17 | unknown |  | No commits for 377 days |
-| stripe-ai | verified | 1993 | 2026-10-29 | MIT |  |  |
+| stripe-ai | verified | 2000 | 2026-10-29 | MIT |  |  |
 | qonto-mcp | verified | 42 | 2026-06-22 | MIT |  |  |
 | ramp-mcp | archived | 34 | 2025-03-20 | MIT |  | pypi name 'ramp-mcp' exists on the registry but does not link to this repo (not counted); Repository is archived |
 | lunchmoney-mcp | verified | 112 | 2026-08-03 | MIT | @akutishevsky/lunchmoney-mcp@3.0.0 |  |
@@ -98,7 +98,7 @@ Entries with a published npm/PyPI package: 28
 | adyen-mcp | verified | 27 | 2026-10-29 | MIT |  |  |
 | razorpay-mcp | verified | 231 | 2026-10-28 | MIT |  |  |
 | paddle-mcp | verified | 49 | 2026-09-27 | Apache-2.0 | @paddle/paddle-mcp@0.1.6 |  |
-| mercury-mcp | unconfirmed |  |  | Proprietary / ToS |  | Could not confirm: MCP endpoint 401: answered but refused our checker (sign-in required, bot block or rate limit) |
+| mercury-mcp | unconfirmed |  |  | Proprietary / ToS |  | Could not confirm: MCP endpoint 401: answered but refused our checker (sign-in required, bot block or rate limit) [no resource_metadata in WWW-Authenticate] |
 | netsuite-ai-connector | verified |  |  | Proprietary / ToS |  |  |
 | zoho-books-mcp | verified |  |  | Proprietary / ToS |  |  |
 | avalara-avatax-mcp | verified |  |  | Proprietary / ToS |  |  |
