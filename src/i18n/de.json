@@ -184,14 +184,14 @@
   "title": "📬 Der wöchentliche Bericht „State of AI Finance Tools“",
   "text": "Was neu ist, was kaputtging und welche Tools im Ranking gestiegen sind – eine E-Mail pro Woche. Kostenlos.",
   "subscribe": "Abonnieren",
-  "thanks": "Sie sind angemeldet – danke! Die erste Ausgabe kommt mit dem nächsten Wochenbericht.",
+  "thanks": "Fast geschafft: Sieh in deinem Posteingang nach und klicke auf den Link, um dein Abo zu bestätigen.",
   "rss": "Oder per <a href=\"/rss.xml\">RSS</a> folgen.",
   "email": "Schreiben Sie an <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a>, um sich anzumelden.",
   "sending": "Wird gesendet…",
   "errInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
   "errRate": "Zu viele Versuche. Bitte versuchen Sie es in einer Stunde erneut.",
   "errServer": "Etwas ist schiefgelaufen. Bitte erneut versuchen oder an {email} schreiben, um sich anzumelden.",
-  "consent": "Mit der Anmeldung stimmen Sie unserer <a href=\"{privacy}\">Datenschutzerklärung</a> zu. Abmeldung jederzeit per E-Mail an {email}.",
+  "consent": "Mit der Anmeldung stimmst du unserer <a href=\"{privacy}\">Datenschutzerklärung</a> zu. Wir schicken dir zuerst eine E-Mail zur Bestätigung. Jede E-Mail enthält einen Abmeldelink; zum Löschen deiner Daten schreib an {email}.",
   "label": "E-Mail-Adresse"
  },
  "home": {
@@ -424,7 +424,9 @@
   "affP": "Wenn Sie auf einen Affiliate-Link klicken, kann die Zielseite nach ihrer eigenen Richtlinie eigene Cookies setzen.",
   "rights": "Ihre Rechte",
   "rightsP": "Auskunft oder Löschung Ihrer Daten erhalten Sie über {email}.",
-  "c3": "Newsletter: Wenn Sie sich anmelden, speichern wir Ihre E-Mail-Adresse, Sprache, den Anmeldezeitpunkt und einen Vermerk über Ihre Einwilligung – ausschließlich, um den Newsletter zu versenden. Zum Schutz vor Missbrauch erzeugt jeder Anmeldeversuch außerdem einen temporären Schlüssel zur Ratenbegrenzung aus einem nicht umkehrbaren Hash Ihrer IP-Adresse (die IP selbst wird nie gespeichert); er wird nach 1 Stunde automatisch gelöscht. Abmelden oder die Löschung Ihrer Daten verlangen können Sie jederzeit per E-Mail an {email}."
+  "c3": "Newsletter: Wenn du dich anmeldest, speichern wir deine E-Mail-Adresse, Sprache, den Anmeldezeitpunkt und einen Nachweis deiner Einwilligung, ausschließlich für den Betrieb des Newsletters. Dieser Eintrag liegt als Sicherungskopie der Empfängerliste in unserem Cloudflare-Workers-KV-Speicher, bis du uns um Löschung bittest (auch wenn du die Anmeldung nie bestätigst). Um Missbrauch zu begrenzen, erzeugt jeder Anmeldeversuch zusätzlich einen temporären Rate-Limit-Schlüssel aus einem Einweg-Hash deiner IP-Adresse (die IP selbst wird nie gespeichert); er wird nach 1 Stunde automatisch gelöscht.",
+  "c4": "E-Mail-Versand: Der Newsletter wird über MailerLite versendet, unseren E-Mail-Dienstleister, der die Daten in unserem Auftrag verarbeitet. Wir geben an MailerLite nur deine E-Mail-Adresse weiter. Für unser Konto wird der Dienst von MailerLite, Inc. (USA) erbracht; MailerLite speichert die Daten in Google-Rechenzentren in der EU, und deine E-Mail-Adresse wird auf Grundlage des EU-U.S. Data Privacy Framework (einschließlich der Erweiterungen für das Vereinigte Königreich und die Schweiz) und von Standardvertragsklauseln in die USA übermittelt.",
+  "c5": "Double-Opt-in: Nach der Anmeldung schickt dir MailerLite eine Bestätigungs-E-Mail; angemeldet bist du erst, wenn du auf den Link darin klickst. Jede Newsletter-E-Mail enthält einen Abmeldelink. Um deine Daten sowohl bei MailerLite als auch in unserem KV-Speicher löschen zu lassen, schreib an {email}."
  },
  "terms": {
   "title": "Nutzungsbedingungen",

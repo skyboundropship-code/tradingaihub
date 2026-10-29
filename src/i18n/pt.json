@@ -184,14 +184,14 @@
   "title": "📬 O boletim semanal «Estado das ferramentas de IA para finanças»",
   "text": "O que é novo, o que quebrou e quais ferramentas subiram no ranking: um e-mail por semana. Grátis.",
   "subscribe": "Assinar",
-  "thanks": "Inscrição feita, obrigado! A primeira edição chega com o próximo relatório semanal.",
+  "thanks": "Quase lá: confira sua caixa de entrada e clique no link para confirmar sua inscrição.",
   "rss": "Ou acompanhe por <a href=\"/rss.xml\">RSS</a>.",
   "email": "Envie um e-mail para <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a> para assinar.",
   "sending": "Enviando…",
   "errInvalid": "Digite um e-mail válido.",
   "errRate": "Muitas tentativas. Tente novamente em uma hora.",
   "errServer": "Algo deu errado. Tente de novo ou envie um e-mail para {email} para assinar.",
-  "consent": "Ao assinar, você concorda com nossa <a href=\"{privacy}\">política de privacidade</a>. Cancele quando quiser enviando um e-mail para {email}.",
+  "consent": "Ao se inscrever, você concorda com nossa <a href=\"{privacy}\">política de privacidade</a>. Primeiro enviaremos um e-mail para confirmar. Todo e-mail tem um link para cancelar; para excluir seus dados, escreva para {email}.",
   "label": "Endereço de e-mail"
  },
  "home": {
@@ -424,7 +424,9 @@
   "affP": "Quando você clica em um link de afiliado, o site de destino pode definir seus próprios cookies conforme sua própria política.",
   "rights": "Seus direitos",
   "rightsP": "Peça acesso ou exclusão dos seus dados em {email}.",
-  "c3": "Newsletter: se você se inscrever, guardamos seu e-mail, idioma, data da inscrição e um registro do seu consentimento, apenas para enviar a newsletter. Para limitar abusos, cada tentativa de inscrição também cria uma chave temporária de limite de frequência a partir de um hash irreversível do seu endereço IP (o IP em si nunca é guardado); ela é apagada automaticamente após 1 hora. Cancele a inscrição ou peça a exclusão dos seus dados a qualquer momento pelo e-mail {email}."
+  "c3": "Newsletter: se você se inscrever, guardamos seu e-mail, idioma, data de inscrição e um registro do seu consentimento, apenas para operar a newsletter. Esse registro fica em nosso armazenamento Cloudflare Workers KV como cópia de segurança da lista até que você peça a exclusão (inclusive se nunca confirmar). Para limitar abusos, cada tentativa de inscrição também cria uma chave temporária de limite de tentativas a partir de um hash irreversível do seu endereço IP (o IP em si nunca é armazenado); ela é apagada automaticamente após 1 hora.",
+  "c4": "Envio de e-mails: a newsletter é enviada pelo MailerLite, nosso provedor de e-mail, que trata os dados em nosso nome. Compartilhamos com o MailerLite apenas o seu endereço de e-mail. Para a nossa conta, o serviço é prestado pela MailerLite, Inc. (Estados Unidos); o MailerLite armazena os dados em data centers do Google na UE, e seu e-mail é transferido para os Estados Unidos com base no EU-U.S. Data Privacy Framework (incluindo as extensões para o Reino Unido e a Suíça) e em cláusulas contratuais padrão.",
+  "c5": "Confirmação dupla (double opt-in): depois da inscrição, o MailerLite envia um e-mail de confirmação, e você só passa a ser assinante depois de clicar no link. Todo e-mail da newsletter tem um link para cancelar a inscrição. Para excluir seus dados do MailerLite e do nosso armazenamento KV, escreva para {email}."
  },
  "terms": {
   "title": "Termos de uso",
