@@ -1,13 +1,15 @@
 ---
-import { isAff, relFor } from "../../../lib/aff";
+import { isAff, relFor, untagUrl } from "../../../lib/aff";
 import TradingView from "../../../components/TradingView.astro";
 import PartnerCTA from "../../../components/PartnerCTA.astro";
+import AffTag from "../../../components/AffTag.astro";
 import Base from "../../../layouts/Base.astro";
 import Status from "../../../components/Status.astro";
 import ToolCard from "../../../components/ToolCard.astro";
 import Share from "../../../components/Share.astro";
 import { SITE } from "../../../config";
 import { tools, catBySlug, snippets, pkgOf, starsOf, lastCommit, fmtStars } from "../../../lib/data";
+import { softwareLd } from "../../../lib/jsonld";
 import { langParams, useT } from "../../../i18n";
 export function getStaticPaths() { return langParams().flatMap((lp) => tools.map((t) => ({ params: { ...lp, id: t.id }, props: { tool: t } }))); }
 const lang = Astro.params.lang ?? "en"; const { t, p, desc: dsc } = useT(lang);
@@ -15,17 +17,17 @@ const { tool } = Astro.props; const v = tool.verification; const cat = catBySlug
 const [cname, cshort] = t(`cat.${cat.slug}`);
 const pkg = pkgOf(tool); const sn = snippets(tool, t); const stHelp = t(`status.${v.status}`)[1];
 const desc = dsc(tool);
+const hasAff = [tool.homepage, tool.docs, tool.source_url, tool.pricing.source].some((u) => isAff(u));
 const related = tools.filter((x) => x.category === tool.category && x.id !== tool.id).slice(0, 3);
 // Partner CTA on tool pages related to charting, stocks, market data, crypto, quant/backtesting.
 const PARTNER_CATS: Record<string, string> = { "market-data": "/chart/", "trading-brokers": "/chart/", "crypto": "/markets/cryptocurrencies/", "quant-backtesting": "/pine-script-docs/", "research-filings": "/screener/", "macro": "/markets/currencies/" };
 const mentionsTV = /tradingview/i.test(JSON.stringify(tool));
 const partnerPath = PARTNER_CATS[tool.category] ?? (mentionsTV || /chart|stock|backtest|crypto|trading/i.test(tool.description) ? "/chart/" : null);
+const pageUrl = `${SITE.url}${p(`/tools/${tool.id}/`)}`;
 const ld = [
-  { "@context": "https://schema.org", "@type": "SoftwareApplication", name: tool.name, description: desc, applicationCategory: "FinanceApplication", operatingSystem: "Cross-platform", inLanguage: lang,
-    url: `${SITE.url}${p(`/tools/${tool.id}/`)}`, sameAs: [tool.repo, tool.homepage].filter(Boolean), license: tool.license,
-    ...(tool.pricing.model === "open-source" || tool.pricing.model === "free" ? { offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } } : {}), dateModified: v.checked_at },
+  softwareLd(tool.id, { name: tool.name, description: desc, url: pageUrl, lang }),
   { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
-    { "@type": "ListItem", position: 1, name: t("common.home"), item: `${SITE.url}${p("/")}` }, { "@type": "ListItem", position: 2, name: cname, item: `${SITE.url}${p(`/category/${cat.slug}/`)}` }, { "@type": "ListItem", position: 3, name: tool.name } ] },
+    { "@type": "ListItem", position: 1, name: t("common.home"), item: `${SITE.url}${p("/")}` }, { "@type": "ListItem", position: 2, name: cname, item: `${SITE.url}${p(`/category/${cat.slug}/`)}` }, { "@type": "ListItem", position: 3, name: tool.name, item: pageUrl } ] },
 ];
 const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
 ---
@@ -51,7 +53,7 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
         <dt>{t("th.freeTier")}</dt><dd><bdi>{tool.pricing.free_tier}</bdi></dd>
         <dt>{t("th.paidFrom")}</dt><dd><bdi>{tool.pricing.paid_from ?? "—"}</bdi></dd>
         <dt>{t("tool.details")}</dt><dd lang="en"><bdi>{tool.pricing.details}</bdi></dd>
-        <dt>{t("th.source")}</dt><dd>{tool.pricing.source ? <a href={tool.pricing.source} rel={isAff(tool.pricing.source) ? "sponsored noopener" : "nofollow noopener"} target="_blank">{tool.pricing.source}</a> : t("tool.notVerifiedPrice")}{tool.pricing.checked && ` (${t("tool.checked", { date: tool.pricing.checked })})`}</dd>
+        <dt>{t("th.source")}</dt><dd>{tool.pricing.source ? <><a href={tool.pricing.source} rel={isAff(tool.pricing.source) ? "sponsored noopener" : "nofollow noopener"} target="_blank" aria-describedby={isAff(tool.pricing.source) ? "aff-note" : undefined}>{untagUrl(tool.pricing.source, "eodhd")}</a><AffTag url={tool.pricing.source} lang={lang} /></> : t("tool.notVerifiedPrice")}{tool.pricing.checked && ` (${t("tool.checked", { date: tool.pricing.checked })})`}</dd>
       </dl><p class="note">{t("tool.pricesChange")}{lang !== "en" && ` ${t("tool.pricingDataNote")}`}</p></div>
       <h2>{t("tool.verification")}</h2>
       <div class="panel">
@@ -64,16 +66,16 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
     <aside>
       <div class="panel"><dl class="kv">
         {tool.repo && <><dt>{t("tool.repository")}</dt><dd><a href={tool.repo} rel={relFor(tool.repo)} target="_blank">{tool.repo.replace("https://github.com/", "")}</a></dd></>}
-        {tool.homepage && <><dt>{t("tool.homepage")}</dt><dd><a href={tool.homepage} rel={relFor(tool.homepage)} target="_blank">{new URL(tool.homepage).host}</a></dd></>}
-        {tool.docs && tool.docs !== tool.homepage && <><dt>{t("tool.docs")}</dt><dd><a href={tool.docs} rel={relFor(tool.docs)} target="_blank">{new URL(tool.docs).host}</a></dd></>}
+        {tool.homepage && <><dt>{t("tool.homepage")}</dt><dd><a href={tool.homepage} rel={relFor(tool.homepage)} target="_blank" aria-describedby={isAff(tool.homepage) ? "aff-note" : undefined}>{new URL(tool.homepage).host}</a><AffTag url={tool.homepage} lang={lang} /></dd></>}
+        {tool.docs && tool.docs !== tool.homepage && <><dt>{t("tool.docs")}</dt><dd><a href={tool.docs} rel={relFor(tool.docs)} target="_blank" aria-describedby={isAff(tool.docs) ? "aff-note" : undefined}>{new URL(tool.docs).host}</a><AffTag url={tool.docs} lang={lang} /></dd></>}
         {tool.remote_mcp_url && <><dt>{t("tool.remote")}</dt><dd><code>{tool.remote_mcp_url}</code></dd></>}
         <dt>{t("th.stars")}</dt><dd>{fmtStars(starsOf(tool))}</dd>
         <dt>{t("th.lastCommit")}</dt><dd dir="ltr">{lastCommit(tool) ?? "—"}</dd>
         <dt>{t("th.license")}</dt><dd dir="ltr">{tool.license}</dd>
         <dt>{t("tool.package")}</dt><dd>{pkg ? <a href={pkg.url} rel="noopener" target="_blank">{pkg.name}@{pkg.version}</a> : t("tool.noPackage")}</dd>
         <dt>{t("th.category")}</dt><dd><a href={p(`/category/${cat.slug}/`)}>{cshort}</a></dd>
-        <dt>{t("tool.listedVia")}</dt><dd><a href={tool.source_url} rel={relFor(tool.source_url)} target="_blank">{t("tool.source")}</a></dd>
-      </dl></div>
+        <dt>{t("tool.listedVia")}</dt><dd><a href={tool.source_url} rel={relFor(tool.source_url)} target="_blank" aria-describedby={isAff(tool.source_url) ? "aff-note" : undefined}>{t("tool.source")}</a><AffTag url={tool.source_url} lang={lang} /></dd>
+      </dl>{hasAff && <span id="aff-note" hidden>{t("common.affTitle")}</span>}</div>
       <div class="panel" style="margin-top:14px"><b>{t("tool.maintain")}</b><p class="note">{t("tool.badgeNote")}</p>
         <p><img src={`/badge/${tool.id}.svg`} alt={`${SITE.name} status`} /></p>
         <pre><code>{`[![${SITE.name}](${SITE.url}/badge/${tool.id}.svg)](${SITE.url}/tools/${tool.id}/)`}</code></pre>

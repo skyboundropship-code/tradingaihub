@@ -14,3 +14,11 @@ for (const c of CODES) {
   writeFileSync(join(dist, `sitemap-${c}.xml`), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join("\n")}\n</urlset>\n`);
 }
 console.log(`locale sitemaps: ${CODES.length} × ${base.size} URLs`);
+// sitemap-index.xml (and the sitemap.xml copy made in `build`) point at the 13 locale sitemaps, so robots.txt needs one
+// Sitemap line. sitemap-0.xml (@astrojs/sitemap) leaves the index: every URL in it is already in each locale sitemap, so
+// listing both would submit every URL twice. The file stays in dist for anything that fetched it directly.
+const lastmod = new Date().toISOString().slice(0, 10);
+const index = `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${CODES.map((c) => `<sitemap><loc>${SITE}/sitemap-${c}.xml</loc><lastmod>${lastmod}</lastmod></sitemap>`).join("\n")}\n</sitemapindex>\n`;
+writeFileSync(join(dist, "sitemap-index.xml"), index);
+writeFileSync(join(dist, "sitemap.xml"), index);
+console.log(`sitemap-index.xml + sitemap.xml -> ${CODES.length} locale sitemaps`);

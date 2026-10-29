@@ -1,7 +1,7 @@
 import { useT } from "../i18n";
 import raw from "../../data/tools.json";
 import report from "../../data/verification-report.json";
-import { affUrl } from "./aff";
+import { affUrl, untagUrl } from "./aff";
 // Every outbound URL in the data goes through affUrl, so any TradingView link automatically carries the affiliate ID.
 export const tools: any[] = (raw as any[]).map((t) => ({ ...t, homepage: affUrl(t.homepage), docs: affUrl(t.docs), source_url: affUrl(t.source_url), pricing: t.pricing ? { ...t.pricing, source: affUrl(t.pricing.source) } : t.pricing }));
 export const verificationReport: any = report;
@@ -68,7 +68,7 @@ export function snippets(t: any, tr: (k: string, v?: any) => string = useT("en")
     out.push({ client: tr("snip.allClients"), lang: "text", code: cloneOf(t), note: tr("snip.fromSource") });
   }
   if (t.type === "mcp" && !pkg && !remote && !t.repo) {
-    out.push({ client: tr("snip.allClients"), lang: "text", code: t.docs || t.homepage, note: tr("snip.accountUrl") });
+    out.push({ client: tr("snip.allClients"), lang: "text", code: untagUrl(t.docs || t.homepage, "eodhd"), note: tr("snip.accountUrl") });
   }
   if (t.type === "mcp" && pkg && !remote) {
     out.push({ client: "ChatGPT / Grok", lang: "text", code: tr("snip.needsRemote"), note: tr("snip.stdioOnly") });
@@ -81,7 +81,7 @@ export function snippets(t: any, tr: (k: string, v?: any) => string = useT("en")
   }
   if (t.type === "api") {
     const mcp = tools.filter((x) => x.type === "mcp" && x.pricing?.source && x.pricing.source === t.pricing?.source);
-    out.push({ client: tr("snip.anyAgent"), lang: "text", code: t.docs || t.homepage, note: mcp.length ? tr("snip.viaMcp", { list: mcp.map((m) => m.name).join(", ") }) : tr("snip.rest") });
+    out.push({ client: tr("snip.anyAgent"), lang: "text", code: untagUrl(t.docs || t.homepage, "eodhd"), note: mcp.length ? tr("snip.viaMcp", { list: mcp.map((m) => m.name).join(", ") }) : tr("snip.rest") });
   }
   return out;
 }
