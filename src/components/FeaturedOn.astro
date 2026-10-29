@@ -1,0 +1,36 @@
+---
+// "Featured on" strip for the site footer: a self-hosted Fazier badge (official SVGs from
+// fazier.com/api/v1/public/badges/launch_badges.svg?badge_type=featured&theme=light|dark, saved
+// to public/badges/featured/) and a plain-text link to Dang.ai. Static only: no third-party JS,
+// no hotlinked images, no tracking. Both links are followed (no nofollow/sponsored) because the
+// free tiers of both directories require a crawlable backlink. Labels are kept here so this
+// component stays self-contained (and merges cleanly with other footer changes).
+interface Props { lang?: string }
+const { lang = "en" } = Astro.props;
+const LABEL: Record<string, string> = {
+  en: "Featured on", he: "הופענו ב־", es: "Destacado en", pt: "Destaque em", de: "Vorgestellt auf",
+  fr: "Présenté sur", ja: "掲載先", ko: "소개된 곳", zh: "收录于", hi: "यहाँ प्रदर्शित",
+  tr: "Yer aldığımız yerler", ar: "ظهرنا على", ru: "Нас представили на",
+};
+const label = LABEL[lang] ?? LABEL.en;
+---
+<div class="featured-on">
+  <span class="fo-label">{label}</span>
+  <a class="fo-badge" href="https://fazier.com" target="_blank" rel="noopener" dir="ltr">
+    <img class="fo-light" src="/badges/featured/fazier-featured-light.svg" width="119" height="28" alt="Featured on Fazier" loading="lazy" decoding="async" />
+    <img class="fo-dark" src="/badges/featured/fazier-featured-dark.svg" width="119" height="28" alt="Featured on Fazier" loading="lazy" decoding="async" />
+  </a>
+  <a class="fo-link" href="https://dang.ai" target="_blank" rel="noopener" dir="ltr">Dang.ai</a>
+</div>
+<style>
+  .featured-on{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;min-height:28px;margin-top:14px;font-size:12px;line-height:1;color:var(--muted)}
+  .fo-label{opacity:.8}
+  .fo-badge{display:inline-flex;width:119px;height:28px;flex:0 0 auto;opacity:.85;border-radius:7px;transition:opacity .15s}
+  .fo-badge:hover,.fo-badge:focus-visible{opacity:1}
+  .fo-badge img{display:block;width:119px;height:28px}
+  .fo-badge .fo-dark{display:none}
+  :global([data-theme=dark]) .fo-badge .fo-light{display:none}
+  :global([data-theme=dark]) .fo-badge .fo-dark{display:block}
+  .fo-link{color:var(--muted)}
+  @media (prefers-reduced-motion:reduce){.fo-badge{transition:none}}
+</style>

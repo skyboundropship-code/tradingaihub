@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import A11yWidget from "../components/A11yWidget.astro";
 import { useA11yT } from "../i18n/a11y";
+import FeaturedOn from "../components/FeaturedOn.astro";
 import { SITE } from "../config";
 import { LOCALES, CODES, useT, basePath, pathFor, localeOf } from "../i18n";
 interface Props { title: string; description?: string; jsonld?: any[]; noindex?: boolean; og?: string; lang?: string }
@@ -65,6 +66,7 @@ const at = useA11yT(lang);
     <div><b>{t("footer.legal")}</b><br/><a href={p("/disclaimer/")}>{t("footer.nia")}</a><br/><a href={p("/privacy/")}>{t("footer.privacy")}</a><br/><a href={p("/terms/")}>{t("footer.terms")}</a><br/><a href={p("/about/")}>{t("footer.about")}</a><br/><a href={p("/accessibility/")}>{at("w.statement")}</a><br/><a href={p("/advertise/")}>{t("footer.advertise")}</a></div>
   </div>
   <p class="disclaimer">{t("footer.short")} <a href={p("/disclaimer/")}>{t("footer.fullDisclaimer")}</a></p>
+  <FeaturedOn lang={lang} />
 </div></footer>
 <A11yWidget lang={lang} />
 <script is:inline define:vars={{ copyTxt: t("common.copy"), copiedTxt: t("common.copied") }}>
