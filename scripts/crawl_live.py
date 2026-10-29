@@ -2,8 +2,16 @@ import re, sys, os, time, urllib.request, urllib.parse, concurrent.futures as cf
 # CRAWL_BASE overrides the target (e.g. a local preview server for testing); only that host is then crawled.
 BASE=os.environ.get("CRAWL_BASE","https://tradingaihub.com").rstrip("/")
 HOSTS={"tradingaihub.com","www.tradingaihub.com"} if "CRAWL_BASE" not in os.environ else {urllib.parse.urlparse(BASE).netloc}
-RETRY_DELAY=float(os.environ.get("CRAWL_RETRY_DELAY","2"))  # one retry for timeouts/network errors/5xx before counting as broken
-TIMEOUT=float(os.environ.get("CRAWL_TIMEOUT","30"))
+def env_num(name, default):
+    raw=os.environ.get(name, default)
+    try: v=float(raw)
+    except ValueError: v=None
+    if v is None or not (v>=0) or v==float("inf"):  # rejects non-numeric, NaN, negative and inf
+        print(f"FATAL: {name} must be a non-negative number of seconds, got {raw!r}",file=sys.stderr); sys.exit(2)
+    return v
+RETRY_DELAY=env_num("CRAWL_RETRY_DELAY","2")  # one retry for timeouts/network errors/5xx before counting as broken
+TIMEOUT=env_num("CRAWL_TIMEOUT","30")
+if TIMEOUT==0: print("FATAL: CRAWL_TIMEOUT must be greater than 0",file=sys.stderr); sys.exit(2)
 seen=set(); res={}; lock=threading.Lock(); refs={}
 ATTR=re.compile(r'''(?:href|src)\s*=\s*["']([^"']+)["']''',re.I)
 META=re.compile(r'''<meta[^>]+(?:property|name)="(?:og:image|twitter:image|og:url)"[^>]+content="([^"]+)"''',re.I)
