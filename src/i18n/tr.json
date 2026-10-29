@@ -191,7 +191,8 @@
   "errInvalid": "Lütfen geçerli bir e-posta adresi girin.",
   "errRate": "Çok fazla deneme. Lütfen bir saat sonra tekrar deneyin.",
   "errServer": "Bir sorun oluştu. Tekrar deneyin ya da katılmak için {email} adresine yazın.",
-  "consent": "Abone olarak <a href=\"{privacy}\">gizlilik politikamızı</a> kabul etmiş olursunuz. {email} adresine e-posta göndererek istediğiniz zaman ayrılabilirsiniz."
+  "consent": "Abone olarak <a href=\"{privacy}\">gizlilik politikamızı</a> kabul etmiş olursunuz. {email} adresine e-posta göndererek istediğiniz zaman ayrılabilirsiniz.",
+  "label": "E-posta adresi"
  },
  "home": {
   "h1a": "Yapay zekâ araçları:",
@@ -420,7 +421,7 @@
   "affP": "Bir ortaklık bağlantısına tıkladığınızda, hedef site kendi politikası kapsamında çerez ayarlayabilir.",
   "rights": "Haklarınız",
   "rightsP": "Verilerinize erişmek veya silinmesini istemek için {email} ile iletişime geçin.",
-  "c3": "Bülten: Abone olursanız yalnızca e-posta adresinizi, dilinizi ve kayıt zamanınızı, sadece bülteni göndermek için saklarız. {email} adresine e-posta göndererek istediğiniz zaman ayrılabilirsiniz."
+  "c3": "Bülten: Abone olursanız, yalnızca bülteni göndermek amacıyla e-posta adresinizi, dilinizi, kayıt zamanınızı ve onay verdiğinize dair bir kaydı saklarız. Kötüye kullanımı sınırlamak için her kayıt denemesi, IP adresinizin tek yönlü bir özetinden (hash) geçici bir hız sınırı anahtarı da oluşturur (IP adresinin kendisi asla saklanmaz); bu anahtar 1 saat sonra otomatik olarak silinir. Abonelikten çıkmak veya verilerinizin silinmesini istemek için istediğiniz zaman {email} adresine e-posta gönderin."
  },
  "terms": {
   "title": "Kullanım koşulları",

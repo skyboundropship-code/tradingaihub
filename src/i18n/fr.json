@@ -191,7 +191,8 @@
   "errInvalid": "Veuillez saisir une adresse e-mail valide.",
   "errRate": "Trop de tentatives. Réessayez dans une heure.",
   "errServer": "Une erreur est survenue. Réessayez ou écrivez à {email} pour vous inscrire.",
-  "consent": "En vous inscrivant, vous acceptez notre <a href=\"{privacy}\">politique de confidentialité</a>. Désinscription à tout moment en écrivant à {email}."
+  "consent": "En vous inscrivant, vous acceptez notre <a href=\"{privacy}\">politique de confidentialité</a>. Désinscription à tout moment en écrivant à {email}.",
+  "label": "Adresse e-mail"
  },
  "home": {
   "h1a": "Des outils d'IA pour",
@@ -420,7 +421,7 @@
   "affP": "Lorsque vous cliquez sur un lien affilié, le site de destination peut déposer ses propres cookies selon sa propre politique.",
   "rights": "Vos droits",
   "rightsP": "Demandez l'accès à vos données ou leur suppression à {email}.",
-  "c3": "Newsletter : si vous vous inscrivez, nous conservons uniquement votre e-mail, votre langue et la date d'inscription, seulement pour envoyer la newsletter. Désinscription à tout moment en écrivant à {email}."
+  "c3": "Newsletter : si vous vous abonnez, nous conservons votre adresse e-mail, votre langue, la date d’inscription et une trace de votre consentement, uniquement pour envoyer la newsletter. Pour limiter les abus, chaque tentative d’inscription crée aussi une clé temporaire de limitation de débit, issue d’un hachage irréversible de votre adresse IP (l’IP elle-même n’est jamais conservée) ; elle est supprimée automatiquement au bout d’une heure. Vous pouvez vous désabonner ou demander la suppression de vos données à tout moment en écrivant à {email}."
  },
  "terms": {
   "title": "Conditions d'utilisation",

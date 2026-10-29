@@ -8,6 +8,9 @@ compatibility_date = "2026-10-01"
 # The project is Direct Upload: `wrangler pages deploy` reads this file, and this file is the source of truth for bindings.
 # Top-level = production (main branch). [env.preview] = every other branch, with a separate namespace so test signups
 # never mix with the real list. Without the binding, /api/subscribe returns 503 "not_configured".
+# The rate-limit IP-hash salt is the secret RL_SALT (never in this file): set with
+#   npx wrangler pages secret put RL_SALT --project-name tradingaihub [--env preview]
+# Without it, /api/subscribe refuses writes with 503 {"ok":false,"error":"server"}.
 [[kv_namespaces]]
 binding = "NEWSLETTER"
 id = "a9f8a42d1ec641c8abe07640adb8241e"        # tradingaihub-newsletter

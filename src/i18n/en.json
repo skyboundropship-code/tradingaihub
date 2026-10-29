@@ -192,7 +192,8 @@
   "errInvalid": "Please enter a valid email address.",
   "errRate": "Too many attempts. Please try again in an hour.",
   "errServer": "Something went wrong. Please try again, or email {email} to join.",
-  "consent": "By subscribing you agree to our <a href=\"{privacy}\">privacy policy</a>. Unsubscribe anytime by emailing {email}."
+  "consent": "By subscribing you agree to our <a href=\"{privacy}\">privacy policy</a>. Unsubscribe anytime by emailing {email}.",
+  "label": "Email address"
  },
  "home": {
   "h1a": "AI tools for",
@@ -421,7 +422,7 @@
   "affP": "When you click an affiliate link, the destination site may set its own cookies under its own policy.",
   "rights": "Your rights",
   "rightsP": "Ask us to access or delete your data at {email}.",
-  "c3": "Newsletter: if you subscribe, we store only your email address, language and signup time, solely to send the newsletter. Unsubscribe anytime by emailing {email}."
+  "c3": "Newsletter: if you subscribe, we store your email address, language, signup time and a record that you consented, solely to send the newsletter. To limit abuse, each signup attempt also creates a temporary rate-limit key made from a one-way hash of your IP address (the IP itself is never stored); it is deleted automatically after 1 hour. Unsubscribe or request deletion of your data anytime by emailing {email}."
  },
  "terms": {
   "title": "Terms of use",

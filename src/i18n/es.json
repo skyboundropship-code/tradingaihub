@@ -191,7 +191,8 @@
   "errInvalid": "Introduce un email válido.",
   "errRate": "Demasiados intentos. Vuelve a intentarlo en una hora.",
   "errServer": "Algo salió mal. Inténtalo de nuevo o escribe a {email} para suscribirte.",
-  "consent": "Al suscribirte aceptas nuestra <a href=\"{privacy}\">política de privacidad</a>. Date de baja cuando quieras escribiendo a {email}."
+  "consent": "Al suscribirte aceptas nuestra <a href=\"{privacy}\">política de privacidad</a>. Date de baja cuando quieras escribiendo a {email}.",
+  "label": "Correo electrónico"
  },
  "home": {
   "h1a": "Herramientas de IA para",
@@ -420,7 +421,7 @@
   "affP": "Cuando haces clic en un enlace de afiliado, el sitio de destino puede instalar sus propias cookies según su propia política.",
   "rights": "Tus derechos",
   "rightsP": "Solicítanos el acceso a tus datos o su eliminación en {email}.",
-  "c3": "Boletín: si te suscribes, solo guardamos tu email, idioma y fecha de alta, únicamente para enviarte el boletín. Date de baja cuando quieras escribiendo a {email}."
+  "c3": "Boletín: si te suscribes, guardamos tu dirección de correo, tu idioma, la fecha de alta y un registro de tu consentimiento, solo para enviarte el boletín. Para limitar abusos, cada intento de suscripción crea además una clave temporal de límite de frecuencia a partir de un hash irreversible de tu dirección IP (la IP en sí nunca se guarda); se elimina automáticamente tras 1 hora. Puedes darte de baja o pedir que borremos tus datos en cualquier momento escribiendo a {email}."
  },
  "terms": {
   "title": "Términos de uso",

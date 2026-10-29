@@ -191,7 +191,8 @@
   "errInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
   "errRate": "Zu viele Versuche. Bitte versuchen Sie es in einer Stunde erneut.",
   "errServer": "Etwas ist schiefgelaufen. Bitte erneut versuchen oder an {email} schreiben, um sich anzumelden.",
-  "consent": "Mit der Anmeldung stimmen Sie unserer <a href=\"{privacy}\">Datenschutzerklärung</a> zu. Abmeldung jederzeit per E-Mail an {email}."
+  "consent": "Mit der Anmeldung stimmen Sie unserer <a href=\"{privacy}\">Datenschutzerklärung</a> zu. Abmeldung jederzeit per E-Mail an {email}.",
+  "label": "E-Mail-Adresse"
  },
  "home": {
   "h1a": "KI-Tools für",
@@ -420,7 +421,7 @@
   "affP": "Wenn Sie auf einen Affiliate-Link klicken, kann die Zielseite nach ihrer eigenen Richtlinie eigene Cookies setzen.",
   "rights": "Ihre Rechte",
   "rightsP": "Auskunft oder Löschung Ihrer Daten erhalten Sie über {email}.",
-  "c3": "Newsletter: Wenn Sie sich anmelden, speichern wir nur Ihre E-Mail-Adresse, Sprache und den Anmeldezeitpunkt – ausschließlich für den Versand des Newsletters. Abmeldung jederzeit per E-Mail an {email}."
+  "c3": "Newsletter: Wenn du dich anmeldest, speichern wir deine E-Mail-Adresse, Sprache, den Anmeldezeitpunkt und einen Vermerk über deine Einwilligung – ausschließlich, um den Newsletter zu versenden. Zum Schutz vor Missbrauch erzeugt jeder Anmeldeversuch außerdem einen temporären Schlüssel zur Ratenbegrenzung aus einem nicht umkehrbaren Hash deiner IP-Adresse (die IP selbst wird nie gespeichert); er wird nach 1 Stunde automatisch gelöscht. Abmelden oder die Löschung deiner Daten verlangen kannst du jederzeit per E-Mail an {email}."
  },
  "terms": {
   "title": "Nutzungsbedingungen",
