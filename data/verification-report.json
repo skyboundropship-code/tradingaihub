@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-29T11:53:06.677751+00:00",
+  "checked_at": "2026-10-29T12:26:51.515980+00:00",
   "total": 75,
   "by_status": {
-    "verified": 56,
-    "stale": 12,
+    "verified": 55,
+    "stale": 13,
     "aging": 4,
     "archived": 3
   },
@@ -96,6 +96,13 @@
       "issues": [
         "npm name 'bitcoin-mcp' exists on the registry but does not link to this repo (not counted)",
         "No commits for 454 days"
+      ]
+    },
+    {
+      "id": "invoice-organizer-skill",
+      "status": "stale",
+      "issues": [
+        "No commits for 377 days"
       ]
     },
     {

@@ -2489,7 +2489,7 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/anthropics/financial-services",
-        "stars": 40900,
+        "stars": 40901,
         "archived": false,
         "license": "Apache-2.0",
         "last_commit": "2026-10-28T17:23:24Z"
@@ -2507,10 +2507,11 @@
     "type": "skill",
     "category": "accounting",
     "description": "Claude skill that extracts, renames and sorts invoices and receipts for tax prep.",
-    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills/tree/master/invoice-organizer",
+    "repo_is_collection": true,
     "homepage": "https://github.com/ComposioHQ/awesome-claude-skills/tree/master/invoice-organizer",
     "docs": "https://github.com/ComposioHQ/awesome-claude-skills/tree/master/invoice-organizer",
-    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "source_url": "https://github.com/ComposioHQ/awesome-claude-skills/tree/master/invoice-organizer",
     "official": false,
     "pricing": {
       "model": "open-source",
@@ -2532,39 +2533,27 @@
           "check": "package published",
           "ok": false,
           "note": "no npm/PyPI package detected at repo root"
-        },
-        {
-          "check": "homepage alive",
-          "ok": true
-        },
-        {
-          "check": "docs alive",
-          "ok": true
         }
       ],
-      "issues": [],
+      "issues": [
+        "No commits for 377 days"
+      ],
       "github": {
         "reachable": true,
         "final_url": "https://github.com/ComposioHQ/awesome-claude-skills",
-        "stars": 78238,
+        "stars": null,
         "archived": false,
         "license": null,
-        "last_commit": "2026-09-18T07:16:11Z"
+        "last_commit": "2025-10-17T09:09:35Z",
+        "collection": true,
+        "collection_stars": 78240,
+        "subpath": "invoice-organizer",
+        "subpath_exists": true
       },
       "claude_marketplace": false,
-      "root_skill_md": false,
-      "homepage": {
-        "url": "https://github.com/ComposioHQ/awesome-claude-skills/tree/master/invoice-organizer",
-        "ok": true,
-        "status": 200
-      },
-      "docs": {
-        "url": "https://github.com/ComposioHQ/awesome-claude-skills/tree/master/invoice-organizer",
-        "ok": true,
-        "status": 200
-      },
-      "last_commit_days": 41,
-      "status": "verified"
+      "root_skill_md": true,
+      "last_commit_days": 377,
+      "status": "stale"
     },
     "license": "unknown"
   },
@@ -2996,7 +2985,8 @@
     "type": "mcp",
     "category": "research-filings",
     "description": "Open-source investment research platform with an MCP server.",
-    "repo": "https://github.com/openbq-org/OpenBB",
+    "repo": "https://github.com/OpenBB-finance/OpenBB",
+    "repo_keep": true,
     "homepage": null,
     "docs": null,
     "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
@@ -3027,15 +3017,15 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/openbq-org/OpenBB",
-        "stars": 74855,
+        "stars": 74856,
         "archived": false,
-        "license": "NOASSERTION",
+        "license": "Apache-2.0",
         "last_commit": "2026-10-24T09:08:28Z"
       },
       "last_commit_days": 5,
       "status": "verified"
     },
-    "license": "NOASSERTION"
+    "license": "Apache-2.0"
   },
   {
     "id": "equibles",
