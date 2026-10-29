@@ -5,7 +5,7 @@
   "scripts": {
     "verify": "python3 scripts/verify.py",
     "dev": "astro dev",
-    "build": "astro build && cp dist/sitemap-index.xml dist/sitemap.xml && node scripts/locale_sitemaps.mjs && node scripts/check_aff.mjs",
+    "build": "astro build && cp dist/sitemap-index.xml dist/sitemap.xml && node scripts/locale_sitemaps.mjs && node scripts/check_aff.mjs && node scripts/check_og.mjs",
     "preview": "astro preview --host 0.0.0.0 --port 4321",
     "weekly": "python3 scripts/verify.py && python3 scripts/awesome.py && node scripts/og.mjs && npm run build",
     "screenshots": "node scripts/screenshots.mjs",
