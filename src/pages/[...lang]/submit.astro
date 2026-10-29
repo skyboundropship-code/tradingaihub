@@ -21,12 +21,12 @@ const mail = `<a href="mailto:${SITE.contactEmail}" dir="ltr">${SITE.contactEmai
     <input type="hidden" name="template" value="submit-tool.yml" />
     <input type="hidden" name="title" value="[Submit] " />
     <label for="s-name">{t("submit.name")}</label><input required id="s-name" name="name" maxlength="100" />
-    <label for="s-url">{t("submit.url")}</label><input required type="url" id="s-url" name="url" placeholder="https://github.com/owner/repo" dir="ltr" />
+    <label for="s-url">{t("submit.url")}</label><input required type="url" id="s-url" name="url" maxlength="300" placeholder="https://github.com/owner/repo" dir="ltr" />
     <label for="s-type">{t("submit.type")}</label><select id="s-type" name="type">{Object.keys(TYPE_LABEL).map((k) => <option value={TYPE_LABEL[k]}>{t(`type.${k}`)}</option>)}</select>
     <label for="s-category">{t("submit.category")}</label><select id="s-category" name="category">{CATEGORIES.map((c) => <option value={c.short}>{t(`cat.${c.slug}`)[0]}</option>)}</select>
     <label for="s-desc">{t("submit.oneLine")}</label><input id="s-desc" name="description" maxlength="160" />
-    <label for="s-pricing">{t("submit.pricingUrl")}</label><input type="url" id="s-pricing" name="pricing" dir="ltr" />
-    <label for="s-contact">{t("submit.email")}</label><input type="email" id="s-contact" name="contact" dir="ltr" />
+    <label for="s-pricing">{t("submit.pricingUrl")}</label><input type="url" id="s-pricing" name="pricing" maxlength="300" dir="ltr" />
+    <label for="s-contact">{t("submit.email")}</label><input type="email" id="s-contact" name="contact" maxlength="300" dir="ltr" />
     <label for="s-confirm"><input type="checkbox" id="s-confirm" required style="width:auto" /> {t("submit.confirm")}</label>
     <p><button class="btn" type="submit">{t("submit.button")}</button></p>
     <p id="ok" hidden class="callout" role="status" aria-live="polite">{t("submit.thanks")}</p>
@@ -38,6 +38,12 @@ const mail = `<a href="mailto:${SITE.contactEmail}" dir="ltr">${SITE.contactEmai
   var f = document.getElementById("submit-form"); if (!f) return;
   f.addEventListener("submit", function () {
     f.querySelector('[name="title"]').value = "[Submit] " + (f.querySelector('[name="name"]').value || "").trim();
+    var MAX = 7500;
+    var len = function () { return (f.action + "?" + new URLSearchParams(new FormData(f)).toString()).length; };
+    ["description", "contact", "pricing", "url", "name"].forEach(function (n) {
+      var el = f.querySelector('[name="' + n + '"]');
+      while (el && el.value && len() > MAX) el.value = Array.from(el.value).slice(0, -Math.max(1, Math.ceil(Array.from(el.value).length / 10))).join("");
+    });
     document.getElementById("ok").hidden = false;
   });
 })();
