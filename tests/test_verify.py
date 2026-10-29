@@ -209,6 +209,27 @@ class TimeoutNote(unittest.TestCase):
         self.assertIn("refused our checker", V._note(V.link("https://x/mcp", 401, "gated", why="no Bearer challenge")))
 
 
+class TimeoutReasons(unittest.TestCase):
+    def test_deadline_is_rounded(self):  # QA #18 nit 1: no "7.99771s"
+        self.assertEqual(V._secs(7.99771), "8s"); self.assertEqual(V._secs(3.24), "3.2s"); self.assertEqual(V._secs(-1), "0s")
+        r, _ = V._req("POST", "https://mcp.example.com/mcp", deadline=-0.5)
+        self.assertNotRegex(str(r), r"\d\.\d{2,}")
+
+    def test_silent_tls_or_blackhole_is_timeout_not_error(self):  # QA #18 nit 3
+        for exc in (V.requests.exceptions.ConnectTimeout("blackhole"), V.requests.exceptions.ReadTimeout("silent TLS handshake")):
+            with self.subTest(exc=type(exc).__name__), mock.patch.object(V.S, "send", side_effect=exc):
+                r, _ = V._req("POST", "https://mcp.example.com/mcp", deadline=2.98765)
+                self.assertIsInstance(r, V.Timeout); self.assertIn("within 3s", str(r))
+                a = V.mcp_probe("https://mcp.example.com/mcp")
+                self.assertEqual((a["status"], a["result"]), ("Timeout", "gated"))
+                self.assertIn("timed out", V._note(a))
+
+    def test_other_connection_errors_stay_errors(self):
+        with mock.patch.object(V.S, "send", side_effect=V.requests.exceptions.ConnectionError("refused")):
+            a = V.mcp_probe("https://mcp.example.com/mcp")
+        self.assertEqual(a["result"], "error")
+
+
 class MetadataRetry(unittest.TestCase):
     U = "https://mcp.example.com/.well-known/oauth-protected-resource"
     def fm(self, *seq):
@@ -266,6 +287,13 @@ class UrlSafety(unittest.TestCase):
             with self.subTest(bad=u): self.assertIsNotNone(V.url_problem(u))
         for u in self.GOOD:
             with self.subTest(good=u): self.assertIsNone(V.url_problem(u))
+
+    def test_refusal_reason_names_the_real_problem(self):
+        # QA #18 nit 5: a tab/control char inside the userinfo is reported as whitespace, not as '@'
+        for u in ("https://us\ter@mcp.example.com/x", "https://user\x00@mcp.example.com/x", "https://a b@mcp.example.com/"):
+            with self.subTest(u=u): self.assertIn("whitespace or control", V.url_problem(u))
+        self.assertIn("'@'", V.url_problem("https://user@mcp.example.com/x"))
+        self.assertIn("backslash", V.url_problem("https://evil.test\\@mcp.example.com/x"))
 
     def test_parsers_really_disagree_on_backslash(self):
         u = "https://evil.test\\@mcp.example.com/x"

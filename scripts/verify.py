@@ -98,6 +98,10 @@ MCP_INIT = {"jsonrpc": "2.0", "id": 1, "method": "initialize",
 # worst case is that this one tool becomes Needs review (and, if it was verified, one recheck: <= 2 x DEADLINE).
 DEADLINE = 8.0           # seconds, hard total per endpoint (all of its requests together)
 TIMEOUT = (5, DEADLINE)  # requests' connect / per-read timeouts (the worker join enforces the total)
+# NOTE: _req() prepares and sends requests itself (S.prepare_request + S.send) so the exact target can be checked.
+# That bypasses requests' environment merging: HTTPS_PROXY/HTTP_PROXY/NO_PROXY, REQUESTS_CA_BUNDLE/CURL_CA_BUNDLE and
+# .netrc are IGNORED for the MCP endpoint and OAuth-metadata probes (direct connection, certifi CA bundle). Plain GETs
+# via get() (homepage, docs, GitHub) still honour them. Fine on GitHub Actions; behind a proxy, pass it explicitly.
 MAX_BODY = 64 * 1024
 
 class Timeout(Exception):
@@ -122,8 +126,8 @@ def url_problem(u):
     requests/urllib3 from evil.test, so backslashes, '@' (userinfo) and their %-encodings are rejected anywhere,
     and the host/port must be identical in urlsplit, urllib3.parse_url and the URL requests would actually send."""
     if not isinstance(u, str) or not u: return "empty URL"
-    if "\\" in u or "@" in u or re.search(r"%(5c|40)", u, re.I): return "URL contains a backslash or '@' (userinfo is not allowed)"
     if any(ord(c) <= 0x20 or ord(c) == 0x7f for c in u): return "URL contains whitespace or control characters"
+    if "\\" in u or "@" in u or re.search(r"%(5c|40)", u, re.I): return "URL contains a backslash or '@' (userinfo is not allowed)"
     try:
         p = urlsplit(u); port = p.port
     except ValueError: return "not a valid URL"
@@ -149,6 +153,10 @@ def _validated(u):
     p = urlsplit(u); sc = p.scheme.lower()
     return (sc, _norm_host(p.hostname), p.port or _DEFAULT_PORT.get(sc))
 
+def _secs(x):
+    """'8s', '3.2s': a readable deadline for notes (the remaining budget is a float like 7.99771)."""
+    return f"{round(max(x, 0), 1):g}s"
+
 def _req(method, url, until=None, deadline=None, max_body=MAX_BODY, **kw):
     """-> (response | exception, body bytes). Hard wall-clock `deadline` (default DEADLINE) for the whole request.
     The URL must pass url_problem(), and the prepared request (exactly what urllib3 connects to) must target the same
@@ -172,7 +180,7 @@ def _req(method, url, until=None, deadline=None, max_body=MAX_BODY, **kw):
                 rd = (lambda n: r.raw.read1(n, decode_content=True)) if hasattr(r.raw, "read1") else (lambda n: r.raw.read(n, decode_content=True))
                 body = b""
                 while len(body) < max_body:
-                    if stop.is_set() or time.monotonic() - t0 > deadline: raise Timeout(f"no complete answer within {deadline:g}s")
+                    if stop.is_set() or time.monotonic() - t0 > deadline: raise Timeout(f"no complete answer within {_secs(deadline)}")
                     chunk = rd(min(4096, max_body - len(body)))
                     if not chunk: break
                     body += chunk; box["body"] = body
@@ -192,7 +200,10 @@ def _req(method, url, until=None, deadline=None, max_body=MAX_BODY, **kw):
         if box.get("r") is not None: threading.Thread(target=_close, args=(box["r"],), daemon=True).start()
         r = box.get("r")
         if r is not None and until and until(r, body): return r, body
-        return Timeout(f"no complete answer within {deadline:g}s"), body
+        return Timeout(f"no complete answer within {_secs(deadline)}"), body
+    # A silent TLS handshake or a blackholed address ends in requests' ConnectTimeout/ReadTimeout: that is "no answer
+    # in time" (Needs review), not a dead link.
+    if isinstance(r, requests.exceptions.Timeout): return Timeout(f"no complete answer within {_secs(deadline)} ({type(r).__name__})"), body
     return r, body
 
 def jsonrpc_response(body, ctype=""):
