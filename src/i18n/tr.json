@@ -184,8 +184,8 @@
   "text": "Neler çıktı, neler bozuldu, hangi araçlar yükseldi — haftada bir e-posta, ücretsiz.",
   "subscribe": "Abone ol",
   "thanks": "Teşekkürler — gelen kutunuzu kontrol edin.",
-  "preview": "Önizleme: abonelik henüz bağlı değil; hiçbir şey gönderilmedi.",
-  "rss": "Ya da <a href=\"/rss.xml\">RSS</a> ile takip edin."
+  "rss": "Ya da <a href=\"/rss.xml\">RSS</a> ile takip edin.",
+  "email": "Katılmak için <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> adresine e-posta gönderin."
  },
  "home": {
   "h1a": "Yapay zekâ araçları:",

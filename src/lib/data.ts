@@ -29,9 +29,15 @@ export const STATUS: Record<string, { label: string; tone: string; help: string 
   unreachable: { label: "Unreachable", tone: "bad", help: "The repository or homepage could not be reached." },
 };
 export const pkgOf = (t: any) => t.verification?.npm || t.verification?.pypi || null;
-export const starsOf = (t: any) => t.verification?.github?.stars ?? null;
+// Stars of a shared list / monorepo (repo_is_collection) belong to the whole collection, not to one entry,
+// so such entries show no stars and are left out of every star ranking.
+export const isCollection = (t: any) => !!(t.repo_is_collection || t.verification?.github?.collection);
+export const starsOf = (t: any): number | null => (isCollection(t) ? null : t.verification?.github?.stars ?? null);
+export const byStars = (a: any, b: any) => (starsOf(b) ?? -1) - (starsOf(a) ?? -1);
 export const lastCommit = (t: any) => (t.verification?.github?.last_commit || "").slice(0, 10) || null;
-export const ownerRepo = (t: any) => (t.repo || "").replace("https://github.com/", "") || null;
+export const ownerRepo = (t: any) => (t.repo || "").replace("https://github.com/", "").replace(/\/tree\/.*$/, "") || null;
+const subPath = (t: any) => (t.repo || "").match(/\/tree\/[^/]+\/(.+?)\/?$/)?.[1] || null;
+const cloneOf = (t: any) => (subPath(t) ? `git clone https://github.com/${ownerRepo(t)}  # skill folder: ${subPath(t)}/` : `git clone ${t.repo}`);
 export const fmtStars = (n: number | null) => (n == null ? "—" : n >= 1000 ? (n / 1000).toFixed(1) + "k" : String(n));
 export const slugName = (t: any) => t.id.replace(/[^a-z0-9-]/g, "");
 
@@ -58,7 +64,7 @@ export function snippets(t: any, tr: (k: string, v?: any) => string = useT("en")
     out.push({ client: "Gemini CLI", lang: "json", code: JSON.stringify({ mcpServers: { [name]: { httpUrl: remote } } }, null, 2) });
   }
   if (t.type === "mcp" && !pkg && !remote && t.repo) {
-    out.push({ client: tr("snip.allClients"), lang: "text", code: `git clone ${t.repo}`, note: tr("snip.fromSource") });
+    out.push({ client: tr("snip.allClients"), lang: "text", code: cloneOf(t), note: tr("snip.fromSource") });
   }
   if (t.type === "mcp" && !pkg && !remote && !t.repo) {
     out.push({ client: tr("snip.allClients"), lang: "text", code: t.docs || t.homepage, note: tr("snip.accountUrl") });
@@ -69,8 +75,8 @@ export function snippets(t: any, tr: (k: string, v?: any) => string = useT("en")
   if (t.type === "skill") {
     const or = ownerRepo(t);
     if (v.claude_marketplace) out.push({ client: "Claude Code", lang: "bash", code: `/plugin marketplace add ${or}`, note: tr("snip.marketplace") });
-    out.push({ client: tr("snip.anySkills"), lang: "bash", code: `npx skills add ${or}`, note: tr("snip.skillsCli") });
-    out.push({ client: tr("snip.manual"), lang: "bash", code: `git clone ${t.repo}`, note: tr("snip.manualSkill") });
+    out.push({ client: tr("snip.anySkills"), lang: "bash", code: `npx skills add ${subPath(t) ? t.repo : or}`, note: tr("snip.skillsCli") });
+    out.push({ client: tr("snip.manual"), lang: "bash", code: cloneOf(t), note: tr("snip.manualSkill") });
   }
   if (t.type === "api") {
     const mcp = tools.filter((x) => x.type === "mcp" && x.pricing?.source && x.pricing.source === t.pricing?.source);

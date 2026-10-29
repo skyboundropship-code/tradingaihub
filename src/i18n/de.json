@@ -184,8 +184,8 @@
   "text": "Was neu ist, was kaputtging und welche Tools im Ranking gestiegen sind – eine E-Mail pro Woche. Kostenlos.",
   "subscribe": "Abonnieren",
   "thanks": "Danke – bitte prüfen Sie Ihr Postfach.",
-  "preview": "Vorschaumodus: Das Abonnement ist noch nicht angebunden, es wurde nichts gesendet.",
-  "rss": "Oder per <a href=\"/rss.xml\">RSS</a> folgen."
+  "rss": "Oder per <a href=\"/rss.xml\">RSS</a> folgen.",
+  "email": "Schreiben Sie an <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a>, um sich anzumelden."
  },
  "home": {
   "h1a": "KI-Tools für",

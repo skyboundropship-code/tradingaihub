@@ -295,8 +295,8 @@
  },
  "invoice-organizer-skill": {
   "name": "Invoice Organizer skill",
-  "status": "verified",
-  "stars": 78240,
+  "status": "stale",
+  "stars": null,
   "version": null
  },
  "stripe-ai": {
@@ -313,7 +313,7 @@
  },
  "ramp-mcp": {
   "name": "Ramp MCP",
-  "status": "stale",
+  "status": "archived",
   "stars": 34,
   "version": null
  },
@@ -403,7 +403,7 @@
  },
  "mcp-trader": {
   "name": "MCP Trader",
-  "status": "stale",
+  "status": "archived",
   "stars": 273,
   "version": null
  },
@@ -505,7 +505,7 @@
  },
  "paddle-mcp": {
   "name": "Paddle MCP Server",
-  "status": "aging",
+  "status": "verified",
   "stars": 49,
   "version": "0.1.6"
  },

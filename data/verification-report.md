@@ -1,11 +1,11 @@
-# Verification report — 2026-10-29 12:31 UTC
+# Verification report — 2026-10-29 12:34 UTC
 
 Total entries: 104
 
 - verified: 84
-- stale: 14
-- aging: 5
-- archived: 1
+- stale: 13
+- aging: 4
+- archived: 3
 
 Entries with a published npm/PyPI package: 28
 
@@ -26,16 +26,16 @@ Entries with a published npm/PyPI package: 28
 | fmp-mcp-community | verified | 150 | 2026-10-14 | Apache-2.0 | financial-modeling-prep-mcp-server@2.8.0 |  |
 | finnhub-mcp-community | stale | 7 | 2025-05-01 | unknown |  | No commits for 546 days |
 | financial-datasets-mcp | stale | 2315 | 2025-06-05 | MIT |  | pypi name 'mcp-server' exists on the registry but does not link to this repo (not counted); No commits for 510 days |
-| yahoo-finance-mcp | verified | 28 | 2026-10-14 | MIT | mcp-yahoo-finance@0.2.0 |  |
+| yahoo-finance-mcp | verified | 28 | 2026-10-26 | MIT | mcp-yahoo-finance@0.2.0 |  |
 | coingecko-mcp | verified |  |  | Proprietary / ToS |  |  |
-| eodhd-claude-skills | verified | 47 | 2026-10-20 | MIT |  |  |
-| maverick-mcp | verified | 714 | 2026-10-17 | MIT |  |  |
+| eodhd-claude-skills | verified | 47 | 2026-10-22 | MIT |  |  |
+| maverick-mcp | verified | 714 | 2026-10-26 | MIT |  |  |
 | investor-agent | verified | 348 | 2026-10-09 | MIT |  |  |
 | kospi-kosdaq-mcp | verified | 74 | 2026-09-11 | MIT | kospi-kosdaq-stock-server@0.4.2 |  |
 | hk-finance-mcp | verified | 12 | 2026-10-02 | MIT | hkopenai.hk-finance-mcp-server@0.1.7 |  |
 | fred-mcp | verified | 128 | 2026-08-22 | AGPL-3.0 | fred-mcp-server@1.2.0 |  |
 | fxmacrodata-mcp | verified | 0 | 2026-10-06 | MIT | mcp-server-fxmacrodata@0.1.3 |  |
-| alpaca-mcp | verified | 1048 | 2026-10-26 | MIT | alpaca-mcp-server@2.4.0 |  |
+| alpaca-mcp | verified | 1048 | 2026-10-27 | MIT | alpaca-mcp-server@2.4.0 |  |
 | ibkr-mcp | verified |  |  | Proprietary / ToS |  |  |
 | tasty-agent | verified | 88 | 2026-10-04 | MIT | tasty-agent@7.1.0 |  |
 | metatrader-mcp | aging | 843 | 2026-03-28 | MIT | metatrader-mcp-server@0.5.1 | No commits for 214 days |
@@ -45,7 +45,7 @@ Entries with a published npm/PyPI package: 28
 | crypto-indicators-mcp | aging | 131 | 2025-12-06 | MIT | crypto-indicators-mcp@1.0.1 | No commits for 327 days |
 | tradingview-mcp | verified | 5164 | 2026-10-28 | MIT | tradingview-mcp-server@0.8.1 |  |
 | binance-mcp | stale | 97 | 2025-04-16 | unknown |  | npm name 'binance-mcp' exists on the registry but does not link to this repo (not counted); No commits for 561 days |
-| coinbase-agentkit | verified | 1345 | 2026-10-14 | NOASSERTION |  |  |
+| coinbase-agentkit | verified | 1345 | 2026-10-14 | Apache-2.0 |  |  |
 | bankless-onchain-mcp | verified | 78 | 2026-05-05 | unknown | @bankless/onchain-mcp@1.0.6 |  |
 | crypto-liquidations-mcp | stale | 8 | 2025-05-06 | MIT |  | No commits for 541 days |
 | bitget-agent-mcp | verified | 1 | 2026-09-01 | MIT | @bitget-ai/bitget-agent-mcp@3.3.1 |  |
@@ -54,22 +54,22 @@ Entries with a published npm/PyPI package: 28
 | base-mcp | archived | 351 | 2026-05-13 | MIT |  | npm name 'base-mcp' exists on the registry but does not link to this repo (not counted); Repository is archived |
 | solana-agent-kit | verified | 1729 | 2026-05-14 | Apache-2.0 |  |  |
 | bitcoin-mcp | stale | 77 | 2025-08-01 | MIT |  | npm name 'bitcoin-mcp' exists on the registry but does not link to this repo (not counted); No commits for 454 days |
-| x402 | verified | 176 | 2026-10-15 | Apache-2.0 |  |  |
+| x402 | verified | 176 | 2026-10-27 | Apache-2.0 |  |  |
 | quickbooks-mcp | verified | 436 | 2026-09-15 | Apache-2.0 |  |  |
 | xero-mcp | verified | 386 | 2026-10-26 | MIT | @xeroapi/xero-mcp-server@0.0.17 |  |
 | norman-finance-mcp | verified | 62 | 2026-10-29 | MIT | norman-mcp-server@0.1.7 |  |
-| ledgerskills | verified | 2 | 2026-06-12 | MIT |  |  |
+| ledgerskills | verified | 2 | 2026-06-13 | MIT |  |  |
 | anthropic-financial-services | verified | 40901 | 2026-10-28 | Apache-2.0 |  |  |
-| invoice-organizer-skill | verified | 78240 | 2026-07-24 | unknown |  |  |
+| invoice-organizer-skill | stale | None | 2025-10-17 | unknown |  | No commits for 377 days |
 | stripe-ai | verified | 1993 | 2026-10-29 | MIT |  |  |
 | qonto-mcp | verified | 42 | 2026-06-22 | MIT |  |  |
-| ramp-mcp | stale | 34 | 2025-03-20 | MIT |  | pypi name 'ramp-mcp' exists on the registry but does not link to this repo (not counted); No commits for 587 days |
+| ramp-mcp | archived | 34 | 2025-03-20 | MIT |  | pypi name 'ramp-mcp' exists on the registry but does not link to this repo (not counted); Repository is archived |
 | lunchmoney-mcp | verified | 112 | 2026-08-03 | MIT | @akutishevsky/lunchmoney-mcp@3.0.0 |  |
 | monarch-mcp | stale | 4 | 2025-06-08 | MIT |  | No commits for 508 days |
 | actual-budget-mcp | aging | 2 | 2026-03-23 | unknown |  | npm name 'actual-budget-mcp' exists on the registry but does not link to this repo (not counted); No commits for 220 days |
 | optionsahoy-mcp | verified | 6 | 2026-10-28 | MIT | optionsahoy-mcp@1.11.0 |  |
 | sec-edgar-mcp | verified | 380 | 2026-10-03 | AGPL-3.0 | sec-edgar-mcp@1.1.0 |  |
-| openbb | verified | 74856 | 2026-10-24 | NOASSERTION |  |  |
+| openbb | verified | 74856 | 2026-10-24 | Apache-2.0 |  |  |
 | equibles | verified | 7 | 2026-10-19 | MIT |  |  |
 | alphasmo | verified | 2 | 2026-08-12 | MIT | alphasmo@0.2.1 |  |
 | edgrapi-skills | verified | 1 | 2026-10-16 | MIT-0 |  |  |
@@ -78,7 +78,7 @@ Entries with a published npm/PyPI package: 28
 | claude-equity-research | verified | 749 | 2026-10-29 | MIT |  |  |
 | claude-investor | stale | 34 | 2024-03-28 | MIT |  | No commits for 945 days |
 | quantconnect-mcp | verified | 79 | 2026-10-26 | Apache-2.0 |  |  |
-| mcp-trader | stale | 273 | 2025-08-24 | unknown |  | No commits for 430 days |
+| mcp-trader | archived | 273 | 2025-08-24 | unknown |  | Repository is archived |
 | varrd | verified | 24 | 2026-08-31 | MIT | varrd@0.4.3 |  |
 | chart-library-mcp | verified | 22 | 2026-09-10 | MIT | chartlibrary-mcp@6.3.3 |  |
 | finlab-ai | verified | 420 | 2026-10-29 | unknown |  |  |
@@ -89,29 +89,29 @@ Entries with a published npm/PyPI package: 28
 | tradingview-official-mcp | verified |  |  | Proprietary / ToS |  |  |
 | robinhood-trading-mcp | verified |  |  | Proprietary / ToS |  |  |
 | fmp-mcp | verified |  |  | Proprietary / ToS |  |  |
-| eodhd-mcp | verified | 23 | 2026-10-15 | MIT |  |  |
+| eodhd-mcp | verified | 23 | 2026-10-22 | MIT |  |  |
 | finnhub-mcp | verified |  |  | Proprietary / ToS |  |  |
 | paypal-mcp | verified | 197 | 2026-09-01 | Apache-2.0 |  |  |
 | square-mcp | verified | 109 | 2026-10-14 | Apache-2.0 |  | npm name 'square-mcp-server' exists on the registry but does not link to this repo (not counted) |
-| adyen-mcp | verified | 27 | 2026-09-11 | MIT |  |  |
-| razorpay-mcp | verified | 231 | 2026-10-27 | MIT |  |  |
-| paddle-mcp | aging | 49 | 2026-04-15 | Apache-2.0 | @paddle/paddle-mcp@0.1.6 | No commits for 197 days |
+| adyen-mcp | verified | 27 | 2026-10-29 | MIT |  |  |
+| razorpay-mcp | verified | 231 | 2026-10-28 | MIT |  |  |
+| paddle-mcp | verified | 49 | 2026-09-27 | Apache-2.0 | @paddle/paddle-mcp@0.1.6 |  |
 | mercury-mcp | verified |  |  | Proprietary / ToS |  |  |
 | netsuite-ai-connector | verified |  |  | Proprietary / ToS |  |  |
 | zoho-books-mcp | verified |  |  | Proprietary / ToS |  |  |
 | avalara-avatax-mcp | verified |  |  | Proprietary / ToS |  |  |
 | ynab-api | verified |  |  | Proprietary / ToS |  |  |
 | ynab-mcp | verified | 160 | 2026-10-28 | MIT | ynab-mcp-server@0.7.1 |  |
-| firefly-iii-api | verified | 25026 | 2026-10-26 | AGPL-3.0 |  |  |
+| firefly-iii-api | verified | 25026 | 2026-10-29 | AGPL-3.0 |  |  |
 | bls-api | verified |  |  | Proprietary / ToS |  |  |
 | bea-api | verified |  |  | Proprietary / ToS |  |  |
 | world-bank-api | verified |  |  | Proprietary / ToS |  |  |
 | dbnomics-api | verified |  |  | Proprietary / ToS |  |  |
 | frankfurter | verified | 2045 | 2026-10-25 | MIT |  |  |
-| webull-openapi-mcp | verified | 30 | 2026-10-25 | Apache-2.0 | webull-openapi-mcp@1.2.6 |  |
+| webull-openapi-mcp | verified | 30 | 2026-10-26 | Apache-2.0 | webull-openapi-mcp@1.2.6 |  |
 | kraken-cli | verified | 783 | 2026-10-29 | MIT |  |  |
-| schwab-mcp | verified | 66 | 2026-10-23 | MIT |  |  |
-| alpaca-skills | verified | 157 | 2026-10-20 | Apache-2.0 |  |  |
+| schwab-mcp | verified | 66 | 2026-10-29 | MIT |  |  |
+| alpaca-skills | verified | 157 | 2026-10-27 | Apache-2.0 |  |  |
 | longbridge-skills | verified | 67 | 2026-10-26 | MIT |  |  |
 | coinbase-agentic-wallet-skills | verified | 127 | 2026-08-04 | MIT |  |  |
 | options-trading-skills | verified | 396 | 2026-10-27 | MIT |  | pypi name 'trading-skills' exists on the registry but does not link to this repo (not counted) |

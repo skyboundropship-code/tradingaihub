@@ -20,7 +20,7 @@ const cur = localeOf(lang);
 ---
 <!doctype html><html lang={lang} dir={dir} data-theme="light"><head>
 <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
-<script is:inline>try{document.documentElement.dataset.theme=localStorage.getItem("theme")==="dark"?"dark":"light"}catch(e){}</script>
+<script is:inline>(function(){var s=null;try{s=localStorage.getItem("theme")}catch(e){}var d=s==="dark"||s==="light"?s:(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.dataset.theme=d})()</script>
 <meta name="color-scheme" content="light dark" />
 <title>{fullTitle}</title><meta name="description" content={desc} />{!isNotFound && <link rel="canonical" href={canonical} />}
 {noindex && <meta name="robots" content="noindex" />}
@@ -47,7 +47,7 @@ const cur = localeOf(lang);
     <details class="langs"><summary aria-label={t("nav.language")} title={t("nav.language")}>🌐 <span>{lang.toUpperCase()}</span></summary>
       <div class="langmenu">{LOCALES.map((l) => <a href={pathFor(l.code, base)} hreflang={l.code} lang={l.code} dir={l.dir} data-lang={l.code} class={l.code === lang ? "on" : ""}>{l.name}</a>)}</div>
     </details>
-    <button class="themetoggle" type="button" aria-label={t("nav.theme")} title={t("nav.theme")}><span class="sun">☀️</span><span class="moon">🌙</span></button>
+    <button class="themetoggle" type="button" aria-pressed="false" aria-label={t("nav.theme")} title={t("nav.theme")}><span class="sun">☀️</span><span class="moon">🌙</span></button>
     <a class="btn" href={p("/submit/")}>{t("nav.submit")}</a>
   </div>
 </div></header>
@@ -64,7 +64,7 @@ const cur = localeOf(lang);
 <script is:inline define:vars={{ copyTxt: t("common.copy"), copiedTxt: t("common.copied") }}>
 document.querySelectorAll("pre").forEach(function(p){var b=document.createElement("button");b.className="copy";b.type="button";b.textContent=copyTxt;b.onclick=function(){var c=p.cloneNode(true);c.querySelectorAll("button.copy").forEach(function(x){x.remove()});navigator.clipboard.writeText(c.innerText.trim());b.textContent=copiedTxt;setTimeout(function(){b.textContent=copyTxt},1500)};p.appendChild(b)});
 document.querySelectorAll(".langmenu a").forEach(function(a){a.addEventListener("click",function(){try{localStorage.setItem("lang",a.dataset.lang)}catch(e){}})});
-document.querySelectorAll(".themetoggle").forEach(function(b){b.addEventListener("click",function(){var d=document.documentElement,n=d.dataset.theme==="dark"?"light":"dark";d.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}})});
+document.querySelectorAll(".themetoggle").forEach(function(b){var d=document.documentElement;b.setAttribute("aria-pressed",d.dataset.theme==="dark"?"true":"false");b.addEventListener("click",function(){var n=d.dataset.theme==="dark"?"light":"dark";d.dataset.theme=n;b.setAttribute("aria-pressed",n==="dark"?"true":"false");try{localStorage.setItem("theme",n)}catch(e){}})});
 document.addEventListener("click",function(e){document.querySelectorAll("details.langs[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});
 </script>
     <!-- Cloudflare Web Analytics (cookieless) -->

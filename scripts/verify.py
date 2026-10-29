@@ -7,7 +7,7 @@ package published on npm/PyPI (+latest version), homepage and docs links alive.
 Uses the GitHub REST API when GITHUB_TOKEN is set; otherwise scrapes public HTML/Atom
 (no auth, avoids the 60 req/h anonymous API limit).
 Run:  python3 scripts/verify.py        (weekly via cron / GitHub Actions)"""
-import json, os, re, sys, datetime as dt, tomllib
+import json, os, re, sys, shutil, subprocess, datetime as dt, tomllib
 from concurrent.futures import ThreadPoolExecutor
 import requests
 
@@ -35,21 +35,36 @@ LIC = [("Apache-2.0", r"Apache License"), ("MIT", r"\bMIT License|Permission is 
        ("GPL-2.0", r"GNU GENERAL PUBLIC LICENSE\s+Version 2"), ("BSD-3-Clause", r"Redistribution and use in source and binary forms"),
        ("MPL-2.0", r"Mozilla Public License"), ("Unlicense", r"This is free and unencumbered"), ("ISC", r"\bISC License")]
 
+def api(path):
+    """GitHub REST GET: GITHUB_TOKEN if set, else the logged-in `gh` CLI if available, else None."""
+    if TOKEN:
+        r = get(f"https://api.github.com/{path}", headers={"Authorization": f"Bearer {TOKEN}"})
+        return r.json() if not isinstance(r, Exception) and r.status_code == 200 else None
+    if shutil.which("gh"):
+        try:
+            p = subprocess.run(["gh", "api", path], capture_output=True, text=True, timeout=30)
+            return json.loads(p.stdout) if p.returncode == 0 else None
+        except Exception: return None
+    return None
+
+def parse_repo(url):
+    """https://github.com/o/r[/tree/<branch>/<sub/path>] -> (owner, repo, branch|None, subpath|None)."""
+    m = re.match(r"https://github.com/([^/]+)/([^/#?]+)(?:/tree/([^/]+)/([^#?]+?))?/?$", url)
+    return m.group(1), m.group(2), m.group(3), m.group(4)
+
 def raw(owner, repo, path):
     r = get(f"https://raw.githubusercontent.com/{owner}/{repo}/HEAD/{path}")
     return r.text if not isinstance(r, Exception) and r.status_code == 200 else None
 
-def gh_info(repo_url):
-    m = re.match(r"https://github.com/([^/]+)/([^/#?]+)", repo_url)
-    owner, name = m.group(1), m.group(2)
+def gh_info(repo_url, collection=False):
+    owner, name, branch, sub = parse_repo(repo_url)
     out = {"reachable": False}
-    if TOKEN:
-        r = get(f"https://api.github.com/repos/{owner}/{name}", headers={"Authorization": f"Bearer {TOKEN}"})
-        if not isinstance(r, Exception) and r.status_code == 200:
-            j = r.json()
-            out.update(reachable=True, final_url=j["html_url"], stars=j["stargazers_count"], archived=j["archived"],
-                       license=(j.get("license") or {}).get("spdx_id"), last_commit=j["pushed_at"])
-            owner, name = j["owner"]["login"], j["name"]
+    j = api(f"repos/{owner}/{name}")
+    if j:
+        lic = (j.get("license") or {}).get("spdx_id")
+        out.update(reachable=True, final_url=j["html_url"], stars=j["stargazers_count"], archived=j["archived"],
+                   license=None if lic in (None, "NOASSERTION", "OTHER") else lic, last_commit=j["pushed_at"])
+        owner, name = j["owner"]["login"], j["name"]
     if not out["reachable"]:
         r = get(f"https://github.com/{owner}/{name}")
         if isinstance(r, Exception) or r.status_code != 200:
@@ -66,7 +81,15 @@ def gh_info(repo_url):
             um = re.search(r"<entry>.*?<updated>([^<]+)</updated>", a.text, re.S)
             out["last_commit"] = um.group(1) if um else None
         lm = re.search(r'"spdxId":"([^"]+)"', html)
-        out["license"] = lm.group(1) if lm else None
+        out["license"] = lm.group(1) if lm and lm.group(1) not in ("NOASSERTION", "OTHER") else None
+    if collection or sub:
+        # Shared list / monorepo: the repo's stars belong to the whole collection, never to one entry.
+        out["collection"] = True; out["collection_stars"] = out.get("stars"); out["stars"] = None
+        if sub:
+            out["subpath"] = sub
+            c = api(f"repos/{owner}/{name}/commits?path={sub}&per_page=1")
+            if c: out["last_commit"] = c[0]["commit"]["committer"]["date"]
+            out["subpath_exists"] = api(f"repos/{owner}/{name}/contents/{sub}") is not None
     if not out.get("license"):
         for fn in ("LICENSE", "LICENSE.md", "LICENSE.txt", "LICENCE", "license"):
             t = raw(owner, name, fn)
@@ -114,14 +137,14 @@ def age_days(ts):
 def verify(t):
     v = {"checked_at": NOW.strftime("%Y-%m-%d"), "checks": [], "issues": []}
     if t.get("repo"):
-        g, owner, name = gh_info(t["repo"])
+        g, owner, name = gh_info(t["repo"], collection=t.get("repo_is_collection", False))
         v["github"] = g
         v["checks"].append({"check": "repo reachable", "ok": g["reachable"]})
         if g["reachable"]:
             pk = detect_packages(owner, name)
             if t["type"] == "skill":
                 v["claude_marketplace"] = raw(owner, name, ".claude-plugin/marketplace.json") is not None
-                v["root_skill_md"] = raw(owner, name, "SKILL.md") is not None
+                v["root_skill_md"] = raw(owner, name, (g["subpath"] + "/" if g.get("subpath") else "") + "SKILL.md") is not None
             for kind, fn in (("npm", npm), ("pypi", pypi)):
                 cand = pk.get(f"{kind}_candidate")
                 if not cand: continue
@@ -157,18 +180,60 @@ def verify(t):
     v["status"] = status
     return v
 
+def repo_key(t):
+    o, n, _, _ = parse_repo(t["repo"]); return f"{o}/{n}".lower()
+
+def parse_only(args, known_ids):
+    """Parse `--only=a,b` or `--only a,b`. Any other argument, an empty list or an unknown id exits with an error,
+    so a mistyped flag can never silently fall back to a full run."""
+    only, i = None, 0
+    while i < len(args):
+        a = args[i]
+        if a.startswith("--only="):
+            val = a.split("=", 1)[1]
+        elif a == "--only":
+            if i + 1 >= len(args) or args[i + 1].startswith("-"):
+                sys.exit("verify.py: --only needs a comma-separated list of ids, e.g. --only=openbb,fred-api")
+            i += 1
+            val = args[i]
+        else:
+            sys.exit(f"verify.py: unknown argument {a!r} (usage: verify.py [--only=id1,id2])")
+        ids = [x.strip() for x in val.split(",") if x.strip()]
+        if not ids:
+            sys.exit("verify.py: --only needs at least one id")
+        unknown = [x for x in ids if x not in known_ids]
+        if unknown:
+            sys.exit(f"verify.py: unknown id(s) for --only: {', '.join(unknown)}")
+        only = (only or []) + ids
+        i += 1
+    return only
+
+
 def main():
     seed = json.load(open(os.path.join(ROOT, "data/seed.json")))
-    with ThreadPoolExecutor(8) as ex: results = list(ex.map(verify, seed))
+    # A repo shared by several entries is a collection/monorepo: none of them gets its stars.
+    from collections import Counter
+    shared = Counter(repo_key(t) for t in seed if t.get("repo"))
+    for t in seed:
+        if t.get("repo") and (shared[repo_key(t)] > 1 or parse_repo(t["repo"])[1].lower().startswith("awesome-")):
+            t["repo_is_collection"] = True
+    # --only id1,id2: re-verify just those entries, keep the rest from the current data/tools.json
+    only = parse_only(sys.argv[1:], {t["id"] for t in seed})
+    prev = {x["id"]: x for x in json.load(open(os.path.join(ROOT, "data/tools.json")))} if only else {}
+    todo = [t for t in seed if not only or t["id"] in only or t["id"] not in prev]
+    with ThreadPoolExecutor(8) as ex: fresh = dict(zip([t["id"] for t in todo], ex.map(verify, todo)))
     tools = []
-    for t, v in zip(seed, results):
+    for t in seed:
+        if t["id"] not in fresh:
+            tools.append(prev[t["id"]]); continue
+        v = fresh[t["id"]]
         t = dict(t); t["verification"] = v
         g = v.get("github") or {}
         t["license"] = g.get("license") or ("Proprietary / ToS" if t["type"] == "api" or not t.get("repo") else "unknown")
-        if g.get("final_url"): t["repo"] = g["final_url"]
+        # keep subfolder URLs (collections) and pinned slugs; otherwise follow GitHub renames
+        if g.get("final_url") and not g.get("collection") and not t.get("repo_keep"): t["repo"] = g["final_url"]
         tools.append(t)
     json.dump(tools, open(os.path.join(ROOT, "data/tools.json"), "w"), indent=2)
-    from collections import Counter
     c = Counter(t["verification"]["status"] for t in tools)
     rep = {"checked_at": NOW.isoformat(), "total": len(tools), "by_status": dict(c),
            "with_package": sum(1 for t in tools if t["verification"].get("npm") or t["verification"].get("pypi")),
@@ -188,7 +253,7 @@ def write_history(tools):
     """Snapshot this run and diff it against the previous snapshot -> data/changelog.json (feeds /weekly and /rss.xml)."""
     hd = os.path.join(ROOT, "data/history"); os.makedirs(hd, exist_ok=True)
     today = NOW.strftime("%Y-%m-%d")
-    snap = {t["id"]: {"name": t["name"], "status": t["verification"]["status"], "stars": (t["verification"].get("github") or {}).get("stars"),
+    snap = {t["id"]: {"name": t["name"], "status": t["verification"]["status"], "stars": None if t.get("repo_is_collection") else (t["verification"].get("github") or {}).get("stars"),
                       "version": ((t["verification"].get("npm") or t["verification"].get("pypi")) or {}).get("version")} for t in tools}
     prev_files = sorted(f for f in os.listdir(hd) if f.endswith(".json") and f[:-5] < today)
     prev = json.load(open(os.path.join(hd, prev_files[-1]))) if prev_files else None
