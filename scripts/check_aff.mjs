@@ -2,7 +2,10 @@
 //  - any TradingView link in dist/ lacks the affiliate ID or rel="sponsored noopener";
 //  - a required partner CTA is missing (home page of every locale, every category page, tool pages in charting/market-data/crypto/quant categories);
 //  - a partner CTA is not labelled or its TradingView link is not sponsored/affiliate-tagged.
-//  - any EODHD link (eodhd.com or a subdomain) in dist/ lacks via=tradingaihub or rel="sponsored noopener".
+//  - any EODHD link to eodhd.com / www.eodhd.com (also protocol-relative or with a trailing dot) in dist/ lacks exactly one
+//    via=tradingaihub or rel="sponsored noopener"; any other *.eodhd.com link (api., mcp.) carries via=;
+//  - any affiliate link (TradingView or EODHD) has no visible "Partner" tag: either inside a partner <aside> or a
+//    <span class="partner-tag"> right after the link.
 import fs from "node:fs"; import path from "node:path";
 const ID = "1173592"; let bad = 0, ok = 0, ctas = 0;
 const CODES = ["en", "he", "es", "pt", "de", "fr", "ja", "ko", "zh", "hi", "tr", "ar", "ru"];
@@ -33,10 +36,31 @@ for (const c of CODES) {
 const EODHD_VIA = "tradingaihub"; let eok = 0, ebad = 0;
 for (const f of walk("dist").filter((f) => f.endsWith(".html"))) {
   const html = fs.readFileSync(f, "utf8");
-  for (const m of html.matchAll(/<a\b[^>]*href="(https?:\/\/(?:[\w-]+\.)*eodhd\.com(?=[\/:?#"])[^"]*)"[^>]*>/gi)) {
-    let via = null; try { via = new URL(m[1].replace(/&amp;/g, "&")).searchParams.get("via"); } catch {}
-    if (via === EODHD_VIA && /rel="sponsored noopener"/.test(m[0])) eok++; else { ebad++; console.error("BAD EODHD link", f, m[0]); }
+  for (const m of html.matchAll(/<a\b[^>]*href="((?:https?:)?\/\/(?:[\w-]+\.)*eodhd\.com\.?(?=[\/:?#"])[^"]*)"[^>]*>/gi)) {
+    let u = null; try { u = new URL(m[1].replace(/&amp;/g, "&"), "https://x/"); } catch {}
+    const host = u ? u.hostname.toLowerCase().replace(/\.$/, "") : "", via = u ? u.searchParams.getAll("via") : [];
+    const vendor = host === "eodhd.com" || host === "www.eodhd.com";
+    const good = vendor ? via.length === 1 && via[0] === EODHD_VIA && /rel="sponsored noopener"/.test(m[0]) : u && via.length === 0;
+    if (good) eok++; else { ebad++; console.error(vendor ? "BAD EODHD link" : "BAD EODHD API/MCP link (must not be tagged)", f, m[0]); }
   }
 }
 console.log(`EODHD links: ${eok} ok, ${ebad} bad`);
-console.log(`TradingView links: ${ok} ok, ${bad} bad; partner CTAs verified: ${ctas}`); process.exit(bad || ebad ? 1 : 0);
+// Every affiliate anchor needs a visible "Partner" tag: in a partner <aside> (CTA) or a partner-tag span right after </a>.
+let lok = 0, lbad = 0;
+for (const f of walk("dist").filter((f) => f.endsWith(".html"))) {
+  const html = fs.readFileSync(f, "utf8");
+  for (const m of html.matchAll(/<a\b[^>]*href="((?:https?:)?\/\/[^"]+)"[^>]*>[\s\S]*?<\/a>/g)) {
+    let u = null; try { u = new URL(m[1].replace(/&amp;/g, "&"), "https://x/"); } catch { continue; }
+    const host = u.hostname.toLowerCase().replace(/\.$/, "");
+    const aff = ((host === "tradingview.com" || host.endsWith(".tradingview.com")) && u.searchParams.get("aff_id") === ID) || ((host === "eodhd.com" || host === "www.eodhd.com") && u.searchParams.has("via"));
+    if (!aff) continue;
+    const before = html.slice(0, m.index), open = before.lastIndexOf("<aside"), close = before.lastIndexOf("</aside>");
+    const asideTag = open > close ? before.slice(open, before.indexOf(">", open) + 1) : "";
+    const asideEnd = open > close ? html.indexOf("</aside>", m.index) : -1;
+    const inPartnerAside = /class="partner\b/.test(asideTag) && html.slice(open, asideEnd).includes('class="partner-tag"');
+    const tagAfter = /^\s*<span class="partner-tag"[^>]*>[^<]+<\/span>/.test(html.slice(m.index + m[0].length, m.index + m[0].length + 400));
+    if (inPartnerAside || tagAfter) lok++; else { lbad++; console.error("UNLABELLED affiliate link", f, m[0].slice(0, 200)); }
+  }
+}
+console.log(`Affiliate labels: ${lok} ok, ${lbad} missing`);
+console.log(`TradingView links: ${ok} ok, ${bad} bad; partner CTAs verified: ${ctas}`); process.exit(bad || ebad || lbad ? 1 : 0);

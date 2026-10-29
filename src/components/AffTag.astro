@@ -1,0 +1,9 @@
+---
+// Visible "Partner" tag placed right after an affiliate link (any isAff() URL). The link itself points at the
+// page's #aff-note description (common.affTitle) via aria-describedby. scripts/check_aff.mjs enforces the tag.
+import { isAff } from "../lib/aff";
+import { useT } from "../i18n";
+interface Props { url?: string | null; lang?: string }
+const { url, lang = "en" } = Astro.props; const { t } = useT(lang);
+---
+{isAff(url) && <Fragment>{" "}<span class="partner-tag" title={t("common.affTitle")}>{t("partner.label")}</span></Fragment>}

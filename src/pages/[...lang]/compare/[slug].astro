@@ -6,6 +6,7 @@ import Share from "../../../components/Share.astro";
 import Newsletter from "../../../components/Newsletter.astro";
 import { SITE } from "../../../config";
 import { isAff } from "../../../lib/aff";
+import AffTag from "../../../components/AffTag.astro";
 import { tools, COMPARISONS, pkgOf, fmtStars, starsOf, byStars, lastCommit, verificationReport as r } from "../../../lib/data";
 import { langParams, useT } from "../../../i18n";
 const TV: Record<string,any> = { "market-data-api-pricing": "charts", "best-stock-market-mcp-servers": "charts", "crypto-mcp-servers": "crypto", "trading-skills-for-claude": "backtest" };
@@ -23,12 +24,12 @@ const ld = [{ "@context": "https://schema.org", "@type": "ItemList", name: title
   <div class="tablewrap"><table>
   {c.cols === "pricing" ? (<>
     <thead><tr><th>{t("th.api")}</th><th>{t("th.freeTier")}</th><th>{t("th.paidFrom")}</th><th>{t("th.plans")}</th><th>{t("th.status")}</th><th>{t("th.source")}</th></tr></thead>
-    <tbody>{list.map((x) => <tr><td><a href={p(`/tools/${x.id}/`)}>{x.name}</a></td><td><bdi>{x.pricing.free_tier}</bdi></td><td><bdi>{x.pricing.paid_from ?? "—"}</bdi></td><td class="note" lang="en"><bdi>{x.pricing.details}</bdi></td><td><Status status={x.verification.status} lang={lang} /></td><td>{x.pricing.source ? <a href={x.pricing.source} rel={isAff(x.pricing.source) ? "sponsored noopener" : "nofollow noopener"} target="_blank">{t("compare.pricingPage")}</a> : "—"}</td></tr>)}</tbody>
+    <tbody>{list.map((x) => <tr><td><a href={p(`/tools/${x.id}/`)}>{x.name}</a></td><td><bdi>{x.pricing.free_tier}</bdi></td><td><bdi>{x.pricing.paid_from ?? "—"}</bdi></td><td class="note" lang="en"><bdi>{x.pricing.details}</bdi></td><td><Status status={x.verification.status} lang={lang} /></td><td>{x.pricing.source ? <><a href={x.pricing.source} rel={isAff(x.pricing.source) ? "sponsored noopener" : "nofollow noopener"} target="_blank" aria-describedby={isAff(x.pricing.source) ? "aff-note" : undefined}>{t("compare.pricingPage")}</a><AffTag url={x.pricing.source} lang={lang} /></> : "—"}</td></tr>)}</tbody>
   </>) : (<>
     <thead><tr><th>{t("th.tool")}</th><th>{t("th.type")}</th><th>{t("th.status")}</th><th>{t("th.stars")}</th><th>{t("th.lastCommit")}</th><th>{t("th.license")}</th><th>{t("th.install")}</th><th>{t("th.pricing")}</th></tr></thead>
     <tbody>{list.map((x) => { const pk = pkgOf(x); return <tr><td><a href={p(`/tools/${x.id}/`)}>{x.name}</a>{x.official && <> <span class="badge off">{t("common.official")}</span></>}</td><td>{t(`type.${x.type}`)}</td><td><Status status={x.verification.status} lang={lang} /></td><td>{fmtStars(starsOf(x))}</td><td dir="ltr">{lastCommit(x) ?? "—"}</td><td dir="ltr">{x.license}</td><td class="note">{x.remote_mcp_url ? t("compare.hosted") : pk ? <bdi>{`${x.verification.npm ? "npm" : "PyPI"}: ${pk.name}`}</bdi> : x.type === "skill" ? t("compare.skillRepo") : t("compare.fromSource")}</td><td class="note"><bdi>{x.pricing.free_tier}</bdi></td></tr>; })}</tbody>
   </>)}
-  </table></div>
+  </table>{c.cols === "pricing" && list.some((x) => isAff(x.pricing.source)) && <span id="aff-note" hidden>{t("common.affTitle")}</span>}</div>
   <p class="note" style="margin-top:14px">{t("compare.order")}</p>
   {TV[c.slug] && <TradingView context={TV[c.slug]} lang={lang} />}
   <Newsletter lang={lang} level={2} />
