@@ -16,8 +16,12 @@ const { c } = Astro.props; const [cname, cshort, cblurb] = t(`cat.${c.slug}`);
 const order: Record<string, number> = { verified: 0, aging: 1, warning: 2, stale: 3, archived: 4, unreachable: 5 };
 const list = tools.filter((x) => x.category === c.slug).sort((a, b) => order[a.verification.status] - order[b.verification.status] || byStars(a, b));
 const comps = COMPARISONS.filter((x) => list.some((y) => x.filter(y)));
-const ld = [{ "@context": "https://schema.org", "@type": "CollectionPage", name: cname, description: cblurb, url: `${SITE.url}${p(`/category/${c.slug}/`)}`, inLanguage: lang,
-  mainEntity: { "@type": "ItemList", numberOfItems: list.length, itemListElement: list.map((x, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE.url}${p(`/tools/${x.id}/`)}`, name: x.name })) } }];
+const ld = [{ "@context": "https://schema.org", "@type": "CollectionPage", name: cname, description: cblurb, url: `${SITE.url}${p(`/category/${c.slug}/`)}`, inLanguage: lang, isPartOf: { "@id": `${SITE.url}/#website` },
+  mainEntity: { "@type": "ItemList", numberOfItems: list.length, itemListElement: list.map((x, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE.url}${p(`/tools/${x.id}/`)}`, name: x.name })) } },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: t("common.home"), item: `${SITE.url}${p("/")}` },
+    { "@type": "ListItem", position: 2, name: t("nav.categories"), item: `${SITE.url}${p("/categories/")}` },
+    { "@type": "ListItem", position: 3, name: cname, item: `${SITE.url}${p(`/category/${c.slug}/`)}` } ] }];
 const faq = categoryFaq(lang, c.slug); ld.push(faqLd(faq, lang) as any);
 ---
 <Base title={t("category.title", { name: cname, year: new Date().getFullYear() })} description={`${t("category.desc", { n: list.length, name: cname })} ${cblurb}`} jsonld={ld} og={`category-${c.slug}`} lang={lang}>

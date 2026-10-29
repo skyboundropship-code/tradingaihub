@@ -3,6 +3,15 @@
 import { SITE } from "../config";
 import { LOCALES, useT } from "../i18n";
 import { tools, CATEGORIES, COMPARISONS, STATUS, TYPE_LABEL, byStars, verificationReport } from "./data";
+// Outbound vendor URLs (repo, homepage, pricing source, remote MCP) come from RAW data/tools.json: data.ts runs them through
+// affUrl(), and affiliate IDs must never reach LLM context files. Internal URLs come from the ids.
+import raw from "../../data/tools.json";
+const rawById: Record<string, any> = Object.fromEntries((raw as any[]).map((t) => [t.id, t]));
+const plainUrl = (x: any) => (typeof x === "string" && /^https?:\/\//.test(x) && !/aff_id=/i.test(x) ? x : null);
+const known = (x: any) => typeof x === "string" && x.trim() !== "" && !/^(unknown|none|n\/a)$/i.test(x.trim());
+
+// Published guides only: add an entry when a guide page is live, so /llms.txt never links to a 404.
+export const GUIDES: { slug: string; title: string; summary: string }[] = [];
 
 const u = (path: string) => `${SITE.url}${path}`;
 const md = (s: string) => String(s ?? "").replace(/\s+/g, " ").replace(/([\[\]])/g, "\\$1").trim();
@@ -40,6 +49,7 @@ export function llmsTxt(): string {
     `- [Weekly leaderboard](${u("/weekly/")}): most-starred verified tools and weekly changes`,
     `- [Submit a tool](${u("/submit/")}): free listing via a pre-filled GitHub issue or email to ${SITE.contactEmail}`,
     "",
+    ...(GUIDES.length ? ["## Guides", "", ...GUIDES.map((g) => `- [${md(g.title)}](${u(`/guides/${g.slug}/`)}): ${md(g.summary)}`), ""] : []),
     "## Categories",
     "",
     ...CATEGORIES.map((c) => `- [${md(c.name)}](${u(`/category/${c.slug}/`)}): ${md(c.blurb)} (${toolsIn(c.slug).length} tools)`),
@@ -50,10 +60,10 @@ export function llmsTxt(): string {
     "",
     "## Machine-readable data",
     "",
-    `- [llms-full.txt](${u("/llms-full.txt")}): every tool with its category, type, official/community status, verification status and canonical URL`,
+    `- [llms-full.txt](${u("/llms-full.txt")}): every tool with its type, official/community, verification status, license, pricing (with the vendor source and check date), repository and homepage`,
     `- [tools.json](${u("/tools.json")}): the full tool list as JSON`,
     `- [RSS](${u("/rss.xml")}): weekly changes`,
-    `- [Sitemap](${u("/sitemap-en.xml")}): English sitemap with hreflang alternates for all ${LOCALES.length} languages`,
+    `- [Sitemap index](${u("/sitemap-index.xml")}): one sitemap per language, each with hreflang alternates for all ${LOCALES.length} languages`,
     "",
     "## Optional",
     "",
@@ -86,8 +96,13 @@ export function llmsFullTxt(): string {
     L.push("", `### ${c.name} (${list.length} tools)`, "", `${md(c.blurb)} Category page: ${u(`/category/${c.slug}/`)}`, "");
     for (const x of list) {
       const st = STATUS[x.verification.status]?.label ?? x.verification.status;
-      const free = x.pricing?.free_tier && x.pricing.free_tier !== "unknown" ? ` · Free tier: ${md(x.pricing.free_tier)}` : "";
-      L.push(`- [${md(x.name)}](${u(`/tools/${x.id}/`)}): ${md(x.description)} Category: ${c.name} · Type: ${TYPE_LABEL[x.type] ?? x.type} · ${x.official ? "Official (by the vendor)" : "Community"} · Status: ${st} (checked ${x.verification.checked_at})${free}`);
+      const r = rawById[x.id] ?? {}; const pr = r.pricing ?? {};
+      L.push(`- [${md(x.name)}](${u(`/tools/${x.id}/`)}): ${md(x.description)}`);
+      L.push(`  - ${TYPE_LABEL[x.type] ?? x.type} · ${x.official ? "Official (by the vendor)" : "Community"} · Status: ${st} (checked ${x.verification.checked_at}) · License: ${known(r.license) ? md(r.license) : "unknown"}`);
+      const price = [known(pr.model) && md(pr.model), known(pr.free_tier) && `free tier: ${md(pr.free_tier)}`, known(pr.paid_from) && `paid from ${md(pr.paid_from)}`].filter(Boolean).join("; ");
+      if (price) L.push(`  - Pricing: ${price}${plainUrl(pr.source) ? ` (source: ${pr.source}${pr.checked ? `, checked ${pr.checked}` : ""})` : ""}`);
+      const links = [plainUrl(r.repo) && `Repo: ${r.repo}`, plainUrl(r.homepage) && `Homepage: ${r.homepage}`, plainUrl(r.remote_mcp_url) && `Remote MCP URL: ${r.remote_mcp_url}`].filter(Boolean);
+      if (links.length) L.push(`  - ${links.join(" · ")}`);
     }
   }
   return L.join("\n") + "\n";
