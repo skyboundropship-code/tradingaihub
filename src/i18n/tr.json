@@ -561,7 +561,7 @@
   "q2": "Araçlar nasıl doğrulanıyor?",
   "a2": "Her kayıt her hafta otomatik olarak yeniden kontrol edilir: deponun erişilebilir mi yoksa arşivlenmiş mi olduğu, son commit tarihi, npm veya PyPI paketinin var olup olmadığı ve depoya geri bağlantı verip vermediği, ana sayfanın, dokümantasyonun ve barındırılan MCP uç noktalarının yanıt verip vermediği. Fiyatlar sağlayıcının kendi fiyat sayfasından alınır. Son kontrol: {date}.",
   "q3": "{site} ücretsiz mi?",
-  "a3": "Evet. Dizine göz atmak da araç listelemek de ücretsizdir. Site, açıkça etiketlenmiş sponsorlu yerleşimlerden ve bazı satış ortaklığı bağlantılarından gelir elde eder; bunların hiçbiri bir aracın doğrulama durumunu etkilemez. Her aracın sayfasında o aracın kendi fiyatları ve ücretsiz planı gösterilir.",
+  "a3": "Evet. Dizine göz atmak da araç listelemek de ücretsizdir. Site, açıkça etiketlenmiş satış ortaklığı bağlantılarından komisyon kazanabilir; bu bağlantılar bir aracın doğrulama durumunu asla etkilemez. Her aracın sayfasında o aracın kendi fiyatları ve ücretsiz planı gösterilir.",
   "q4": "Nasıl araç gönderebilirim?",
   "a4": "“{page}” sayfasını kullanın. Önceden doldurulmuş bir GitHub issue açar; GitHub hesabınız yoksa aynı bilgileri {email} adresine e-postayla gönderin. Her gönderim incelenir ve kontrolü geçen araçlar bir hafta içinde yayımlanır.",
   "q5": "{site} hangi dillerde kullanılabilir?",

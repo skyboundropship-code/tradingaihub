@@ -561,7 +561,7 @@
   "q2": "Como as ferramentas são verificadas?",
   "a2": "Cada item é verificado de novo automaticamente toda semana: se o repositório está acessível ou arquivado, a data do último commit, se o pacote npm ou PyPI existe e aponta de volta para o repositório, e se o site, a documentação e qualquer endpoint MCP hospedado respondem. Os preços são copiados da página de preços do próprio fornecedor. Última verificação: {date}.",
   "q3": "O {site} é gratuito?",
-  "a3": "Sim. Navegar pelo diretório e listar uma ferramenta são gratuitos. O site ganha dinheiro com posições patrocinadas claramente identificadas e alguns links de afiliado, e nenhum deles afeta o status de verificação de uma ferramenta. A página de cada ferramenta mostra os preços e o plano gratuito dela.",
+  "a3": "Sim. Navegar pelo diretório e listar uma ferramenta são gratuitos. O site pode ganhar uma comissão com links de afiliado claramente identificados, que nunca afetam o status de verificação de uma ferramenta. A página de cada ferramenta mostra os preços e o plano gratuito dela.",
   "q4": "Como envio uma ferramenta?",
   "a4": "Use a página “{page}”. Ela abre uma issue do GitHub já preenchida; sem conta no GitHub, envie os mesmos dados por e-mail para {email}. Cada envio é avaliado, e as ferramentas aprovadas na verificação são publicadas em até uma semana.",
   "q5": "Em quais idiomas o {site} está disponível?",

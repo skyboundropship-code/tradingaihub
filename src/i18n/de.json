@@ -561,7 +561,7 @@
   "q2": "Wie werden die Tools geprüft?",
   "a2": "Jeder Eintrag wird jede Woche automatisch neu geprüft: ob das Repository erreichbar oder archiviert ist, das Datum des letzten Commits, ob das npm- oder PyPI-Paket existiert und auf das Repository zurückverweist und ob Website, Doku und ein gehosteter MCP-Endpoint antworten. Preise werden von der Preisseite des Anbieters selbst übernommen. Letzte Prüfung: {date}.",
   "q3": "Ist {site} kostenlos?",
-  "a3": "Ja. Das Verzeichnis zu nutzen und ein Tool einzutragen ist kostenlos. Die Website verdient an klar gekennzeichneten gesponserten Platzierungen und einigen Affiliate-Links; beides hat keinen Einfluss auf den Prüfstatus eines Tools. Jede Tool-Seite zeigt die Preise und den Gratis-Tarif des jeweiligen Tools.",
+  "a3": "Ja. Das Verzeichnis zu nutzen und ein Tool einzutragen ist kostenlos. Die Website kann über klar gekennzeichnete Affiliate-Links eine Provision verdienen; diese haben keinen Einfluss auf den Prüfstatus eines Tools. Jede Tool-Seite zeigt die Preise und den Gratis-Tarif des jeweiligen Tools.",
   "q4": "Wie reiche ich ein Tool ein?",
   "a4": "Über die Seite „{page}“. Sie öffnet ein vorausgefülltes GitHub-Issue; ohne GitHub-Konto senden Sie dieselben Angaben per E-Mail an {email}. Jede Einreichung wird geprüft, und Tools, die die Prüfung bestehen, werden innerhalb einer Woche veröffentlicht.",
   "q5": "In welchen Sprachen gibt es {site}?",
