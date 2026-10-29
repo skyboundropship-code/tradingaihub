@@ -2,6 +2,7 @@
 // outbound URL comes from RAW data/tools.json, never from data.ts (which runs URLs through affUrl() and adds aff_id).
 import raw from "../../data/tools.json";
 import { SITE } from "../config";
+import { untagUrl } from "./aff";
 import { TYPE_LABEL } from "./data";
 
 const rawById: Record<string, any> = Object.fromEntries((raw as any[]).map((t) => [t.id, t]));
@@ -11,7 +12,8 @@ export const appId = (id: string) => `${SITE.url}/tools/${id}/#app`; // stable a
 const FREE_MODELS = new Set(["free", "freemium", "open-source"]);
 const SPDX = new Set(["MIT", "MIT-0", "Apache-2.0", "AGPL-3.0", "GPL-3.0", "LGPL-3.0", "BSD-2-Clause", "BSD-3-Clause", "MPL-2.0", "ISC", "Unlicense"]);
 const known = (s: any) => typeof s === "string" && s.trim() !== "" && !/^(unknown|none|n\/a)$/i.test(s.trim());
-const clean = (u: any) => (typeof u === "string" && /^https?:\/\//.test(u) && !/aff_id=/i.test(u) ? u : null);
+// Defensive: strip EODHD's ?via= (raw data has none) and drop anything still carrying an affiliate param.
+const clean = (u: any) => { if (typeof u !== "string") return null; const x = untagUrl(u, "eodhd") ?? u; return /^https?:\/\//.test(x) && !/aff_id=|[?&]via=/i.test(x) ? x : null; };
 
 export function softwareLd(id: string, page: { name: string; description: string; url: string; lang: string }) {
   const t = rawById[id]; if (!t) throw new Error(`softwareLd: unknown tool ${id}`);

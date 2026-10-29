@@ -17,4 +17,8 @@ export const SITE = {
 // Affiliate programs. Links are always labelled and use rel="sponsored noopener".
 export const AFFILIATES = {
   tradingview: { id: "1173592", param: "aff_id", hosts: ["tradingview.com"], home: "https://www.tradingview.com/" },
+  // exact: only eodhd.com / www.eodhd.com are tagged; API and MCP hosts (api., mcp.) never are.
+  // paths: only pages proven (curl) to load cdn.promotekit.com/promotekit.js are tagged; PromoteKit can't attribute
+  // anywhere else (e.g. the /financial-apis/ docs), so those links stay plain. Exact pathname match; read by check_aff.mjs.
+  eodhd: { id: "tradingaihub", param: "via", hosts: ["eodhd.com", "www.eodhd.com"], exact: true, paths: ["/", "/pricing", "/lp/eodhd-mcp-server"], home: "https://eodhd.com/" },
 };

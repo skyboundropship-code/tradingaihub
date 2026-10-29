@@ -184,14 +184,14 @@
   "title": "📬 O boletim semanal «Estado das ferramentas de IA para finanças»",
   "text": "O que é novo, o que quebrou e quais ferramentas subiram no ranking: um e-mail por semana. Grátis.",
   "subscribe": "Assinar",
-  "thanks": "Inscrição feita, obrigado! A primeira edição chega com o próximo relatório semanal.",
+  "thanks": "Quase lá: confira sua caixa de entrada e clique no link para confirmar sua inscrição.",
   "rss": "Ou acompanhe por <a href=\"/rss.xml\">RSS</a>.",
   "email": "Envie um e-mail para <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a> para assinar.",
   "sending": "Enviando…",
   "errInvalid": "Digite um e-mail válido.",
   "errRate": "Muitas tentativas. Tente novamente em uma hora.",
   "errServer": "Algo deu errado. Tente de novo ou envie um e-mail para {email} para assinar.",
-  "consent": "Ao assinar, você concorda com nossa <a href=\"{privacy}\">política de privacidade</a>. Cancele quando quiser enviando um e-mail para {email}.",
+  "consent": "Ao se inscrever, você concorda com nossa <a href=\"{privacy}\">política de privacidade</a>. Primeiro enviaremos um e-mail para confirmar. Todo e-mail tem um link para cancelar; para excluir seus dados, escreva para {email}.",
   "label": "Endereço de e-mail"
  },
  "home": {
@@ -339,7 +339,7 @@
   "latest": "Última verificação: {date} UTC —",
   "fullReport": "ver o relatório completo",
   "money": "Como ganhamos dinheiro",
-  "moneyP": "As listagens são gratuitas. Atualmente ganhamos apenas com links de afiliado (de parceiros) divulgados para alguns fornecedores de dados. Ainda não oferecemos espaços patrocinados; se oferecermos, eles serão identificados como “Patrocinado”. Nenhum deles afeta o status de verificação.",
+  "moneyP": "As listagens são gratuitas. Atualmente ganhamos apenas com links de afiliado (de parceiros) divulgados para o TradingView e a EODHD. Ainda não oferecemos espaços patrocinados; se oferecermos, eles serão identificados como “Patrocinado”. Nenhum deles afeta o status de verificação.",
   "contact": "Contato"
  },
  "disc": {
@@ -347,7 +347,7 @@
   "h1": "Aviso legal: não é recomendação de investimento",
   "intro": "{site} é um diretório de ferramentas de software. Todo o conteúdo é informação geral sobre software, suas funcionalidades e seus preços publicados.",
   "items": [
-   "<b>Divulgação de afiliados.</b> Alguns links (por exemplo, para o TradingView e alguns fornecedores de dados) são links de afiliado (de parceiros): se você comprar por eles, podemos receber uma comissão sem custo extra para você. Os quadros de parceiros são identificados como “Parceiro”. Nenhum pagamento afeta quais ferramentas listamos, seu ranking ou seu status de verificação, e um link não é endosso nem recomendação para operar.",
+   "<b>Divulgação de afiliados.</b> Alguns links externos, atualmente para o TradingView e a EODHD, são links de afiliado (de parceiros): se você comprar por eles, podemos receber uma comissão sem custo extra para você. Cada um é identificado como “Parceiro” ao lado do link ou no seu quadro de parceiro, e a compilação do site falha se faltar uma identificação. Nenhum pagamento afeta quais ferramentas listamos, seu ranking ou seu status de verificação, e um link não é endosso nem recomendação para operar.",
    "<b>Sem consultoria.</b> Nada neste site é consultoria de investimento, distribuição de investimentos, gestão de carteiras, sinais de trading ou consultoria tributária, contábil ou jurídica, e nada leva em conta suas circunstâncias pessoais. Não somos consultores de investimento, distribuidores de investimentos ou gestores de carteira autorizados em nenhuma jurisdição (incluindo a Lei de Regulação de Consultoria de Investimentos, Distribuição de Investimentos e Gestão de Carteiras de Israel, 5755-1995).",
    "<b>Sem recomendação.</b> Uma listagem, um ranking, um selo «Verificado» ou um espaço patrocinado não são recomendação para usar qualquer ferramenta, corretora, exchange ou ativo.",
    "<b>Risco.</b> Operar e investir — especialmente com agentes automatizados ou de IA, alavancagem, opções ou cripto — pode fazer você perder parte ou todo o seu dinheiro. Teste qualquer ferramenta de trading primeiro em modo de simulação e nunca dê a um agente mais permissões do que você pode perder.",
@@ -424,7 +424,9 @@
   "affP": "Quando você clica em um link de afiliado, o site de destino pode definir seus próprios cookies conforme sua própria política.",
   "rights": "Seus direitos",
   "rightsP": "Peça acesso ou exclusão dos seus dados em {email}.",
-  "c3": "Newsletter: se você se inscrever, guardamos seu e-mail, idioma, data da inscrição e um registro do seu consentimento, apenas para enviar a newsletter. Para limitar abusos, cada tentativa de inscrição também cria uma chave temporária de limite de frequência a partir de um hash irreversível do seu endereço IP (o IP em si nunca é guardado); ela é apagada automaticamente após 1 hora. Cancele a inscrição ou peça a exclusão dos seus dados a qualquer momento pelo e-mail {email}."
+  "c3": "Newsletter: se você se inscrever, guardamos seu e-mail, idioma, data de inscrição e um registro do seu consentimento, apenas para operar a newsletter. Esse registro fica em nosso armazenamento Cloudflare Workers KV como cópia de segurança da lista até que você peça a exclusão (inclusive se nunca confirmar). Para limitar abusos, cada tentativa de inscrição também cria uma chave temporária de limite de tentativas a partir de um hash irreversível do seu endereço IP (o IP em si nunca é armazenado); ela é apagada automaticamente após 1 hora.",
+  "c4": "Envio de e-mails: a newsletter é enviada pelo MailerLite, nosso provedor de e-mail, que trata os dados em nosso nome. Compartilhamos com o MailerLite apenas o seu endereço de e-mail. Para a nossa conta, o serviço é prestado pela MailerLite, Inc. (Estados Unidos); o MailerLite armazena os dados em data centers do Google na UE, e seu e-mail é transferido para os Estados Unidos com base nas salvaguardas do MailerLite, entre elas o EU-U.S. Data Privacy Framework (com sua extensão para o Reino Unido), o Swiss-U.S. Data Privacy Framework e cláusulas contratuais padrão.",
+  "c5": "Confirmação dupla (double opt-in): depois da inscrição, o MailerLite envia um e-mail de confirmação, e você só passa a ser assinante depois de clicar no link. Todo e-mail da newsletter tem um link para cancelar a inscrição. Para excluir seus dados do MailerLite e do nosso armazenamento KV, escreva para {email}."
  },
  "terms": {
   "title": "Termos de uso",
