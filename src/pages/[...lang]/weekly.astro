@@ -19,8 +19,8 @@ const official = tools.filter((x) => x.official).length;
   <p style="color:var(--muted)">{t("weekly.lead")}</p>
   <Share path={p("/weekly/")} text={t("weekly.share", { date: week.date, v: week.counts.verified ?? 0, n: tools.length })} lang={lang} />
   <div class="grid" style="margin:16px 0">
-    {Object.entries(week.counts).map(([k, n]) => <div class="panel"><Status status={k} lang={lang} /><div style="font-size:30px;font-weight:800">{n as number}</div></div>)}
-    <div class="panel"><span class="badge off">{t("weekly.officialTools")}</span><div style="font-size:30px;font-weight:800">{official}</div></div>
+    {Object.entries(week.counts).map(([k, n]) => <div class="panel"><Status status={k} lang={lang} /><div style="font-size:1.875rem;font-weight:800">{n as number}</div></div>)}
+    <div class="panel"><span class="badge off">{t("weekly.officialTools")}</span><div style="font-size:1.875rem;font-weight:800">{official}</div></div>
   </div>
   <h2 class="sec">{t("weekly.changed")}</h2>
   {lang !== "en" && <p class="note">{t("weekly.changesNote")}</p>}

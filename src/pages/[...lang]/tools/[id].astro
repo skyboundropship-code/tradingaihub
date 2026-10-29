@@ -34,7 +34,7 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
   <div class="crumbs"><a href={p("/")}>{t("common.home")}</a> / <a href={p(`/category/${cat.slug}/`)}>{cname}</a> / {tool.name}</div>
   <div class="meta" style="margin-bottom:8px"><span class="badge type">{t(`type.${tool.type}`)}</span>{tool.official && <span class="badge off">{t("common.officialVendor")}</span>}<Status status={v.status} lang={lang} /><span class="pill">{t("tool.lastChecked", { date: v.checked_at })}</span></div>
   <h1 style="margin:6px 0 6px" dir="auto">{tool.name}</h1>
-  <p style="color:var(--muted);font-size:18px;margin-top:0">{desc}</p>
+  <p style="color:var(--muted);font-size:1.125rem;margin-top:0">{desc}</p>
   {partnerPath && <PartnerCTA variant="tool" lang={lang} path={partnerPath} />}
   {mentionsTV && <TradingView context="integration" lang={lang} />}
   <Share path={p(`/tools/${tool.id}/`)} text={`${tool.name} — ${v.status === "verified" ? t("tool.shareVerified") : t("tool.shareStatus")} ${t("tool.on")} ${SITE.name}`} lang={lang} />

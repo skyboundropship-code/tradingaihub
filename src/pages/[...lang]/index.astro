@@ -31,7 +31,7 @@ const cat = (slug: string) => t(`cat.${slug}`);
   <div class="grid">{CATEGORIES.map((c) => <a class="card" href={p(`/category/${c.slug}/`)}><h3>{c.icon} {cat(c.slug)[0]}</h3><p>{cat(c.slug)[2]}</p><div class="meta">{tools.filter((x) => x.category === c.slug).length} {t("common.tools")}</div></a>)}</div>
   <h2 class="sec">{t("home.popular")}</h2>
   <div class="grid">{COMPARISONS.slice(0,6).map((c) => <a class="card" href={p(`/compare/${c.slug}/`)}><h3>{t(`cmp.${c.slug}`)[0]}</h3><p>{t(`cmp.${c.slug}`)[1]}</p></a>)}</div>
-  <h2 class="sec">{t("home.leaderboard")} <a href={p("/weekly/")} style="font-size:16px">{t("home.seeAll")}</a></h2>
+  <h2 class="sec">{t("home.leaderboard")} <a href={p("/weekly/")} style="font-size:1rem">{t("home.seeAll")}</a></h2>
   <p class="note">{t("home.boardNote", { date: r.checked_at.slice(0,10) })} <a href={p("/badges/")}>{t("home.grabBadge")}</a>.</p>
   <Newsletter lang={lang} />
   <h2 class="sec">{t("home.recent")}</h2>

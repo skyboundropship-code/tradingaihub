@@ -1,0 +1,30 @@
+---
+import Base from "../../layouts/Base.astro";
+import { SITE } from "../../config";
+import { langParams, useT } from "../../i18n";
+import { useA11yT, A11Y_STATEMENT_DATE } from "../../i18n/a11y";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en"; const { p } = useT(lang); const at = useA11yT(lang);
+const dt = new Date(`${A11Y_STATEMENT_DATE}T00:00:00Z`);
+const dateStr = new Intl.DateTimeFormat(lang === "ar" ? "ar-u-nu-latn" : lang, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(dt);
+const site = SITE.name;
+const email = SITE.contactEmail;
+const [dBefore, dMid, dAfter] = String(at("st.date")).split("{date}");
+---
+<Base title={at("st.title")} description={at("st.metaDesc")} lang={lang}>
+<div class="wrap page prose">
+  <h1>{at("st.title")}</h1>
+  <p>{at("st.intro", { site })}</p>
+  <h2>{at("st.levelH")}</h2><p>{at("st.level")}</p>
+  <h2>{at("st.adjustedH")}</h2><ul>{(at("st.adjusted") as string[]).map((x) => <li>{x}</li>)}</ul>
+  <h2>{at("st.widgetH")}</h2><p>{at("st.widgetIntro")}</p><ul>{(at("st.widgetItems") as string[]).map((x) => <li>{x}</li>)}</ul><p>{at("st.widgetNote")}</p>
+  <h2>{at("st.limitsH")}</h2><p>{at("st.limitsIntro")}</p><ul>{(at("st.limits") as string[]).map((x) => <li>{x}</li>)}</ul><p>{at("st.limitsOutro")}</p>
+  <h2>{at("st.browsersH")}</h2><p>{at("st.browsers")}</p><p>{at("st.testing")}</p><p>{at("st.physical", { site })}</p>
+  <h2 id="contact">{at("st.contactH")}</h2><p>{at("st.contactIntro")}</p>
+  <address class="callout" style="font-style:normal">{at("st.coordinator", { site })}<br />{at("st.email")}: <a href={`mailto:${email}?subject=Accessibility`} dir="ltr">{email}</a></address>
+  <p>{at("st.ask")}</p><p>{at("st.response")}</p>
+  <h2>{at("st.dateH")}</h2>
+  <p>{dBefore}<time datetime={A11Y_STATEMENT_DATE}>{dateStr}</time>{dMid}<time datetime={A11Y_STATEMENT_DATE}>{dateStr}</time>{dAfter}</p>
+  {lang !== "he" && <p>{at("st.heNote")} <a href="/he/accessibility/" hreflang="he" lang="he">הצהרת נגישות</a></p>}
+</div>
+</Base>

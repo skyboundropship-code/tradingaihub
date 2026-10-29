@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import A11yWidget from "../components/A11yWidget.astro";
+import { useA11yT } from "../i18n/a11y";
 import { SITE } from "../config";
 import { LOCALES, CODES, useT, basePath, pathFor, localeOf } from "../i18n";
 interface Props { title: string; description?: string; jsonld?: any[]; noindex?: boolean; og?: string; lang?: string }
@@ -16,11 +18,13 @@ const org = { "@context": "https://schema.org", "@type": "WebSite", name: SITE.n
   potentialAction: { "@type": "SearchAction", target: `${SITE.url}${p("/tools/")}?q={query}`, "query-input": "required name=query" } };
 const parts = SITE.name.split("AI");
 const cur = localeOf(lang);
+const at = useA11yT(lang);
 
 ---
 <!doctype html><html lang={lang} dir={dir} data-theme="light"><head>
 <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
 <script is:inline>(function(){var s=null;try{s=localStorage.getItem("theme")}catch(e){}var d=s==="dark"||s==="light"?s:(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.dataset.theme=d})()</script>
+<script is:inline>(function(){var d=document.documentElement,s={};try{s=JSON.parse(localStorage.getItem("a11y")||"{}")||{}}catch(e){}var n=Math.max(-1,Math.min(4,s.size|0));if(n)d.style.fontSize=(100+12.5*n)+"%";["contrast","links","font","noanim"].forEach(function(k){if(s[k])d.classList.add("a11y-"+k)})})()</script>
 <meta name="color-scheme" content="light dark" />
 <title>{fullTitle}</title><meta name="description" content={desc} />{!isNotFound && <link rel="canonical" href={canonical} />}
 {noindex && <meta name="robots" content="noindex" />}
@@ -40,27 +44,29 @@ const cur = localeOf(lang);
 }catch(e){}})();
 </script>}
 </head><body>
+<a class="skip-link" href="#content">{at("w.skip")}</a>
 <header class="site"><div class="wrap">
   <a class="logo" href={p("/")} dir="ltr">{parts[0]}<span>AI</span>{parts.slice(1).join("AI")}</a>
-  <nav class="main"><a href={p("/tools/")}>{t("nav.tools")}</a><a href={p("/categories/")}>{t("nav.categories")}</a><a href={p("/compare/")}>{t("nav.compare")}</a><a href={p("/weekly/")}>{t("nav.weekly")}</a><a href={p("/badges/")}>{t("nav.badges")}</a><a href={p("/about/")}>{t("nav.verify")}</a></nav>
+  <nav class="main" aria-label={at("w.navMain")}><a href={p("/tools/")}>{t("nav.tools")}</a><a href={p("/categories/")}>{t("nav.categories")}</a><a href={p("/compare/")}>{t("nav.compare")}</a><a href={p("/weekly/")}>{t("nav.weekly")}</a><a href={p("/badges/")}>{t("nav.badges")}</a><a href={p("/about/")}>{t("nav.verify")}</a></nav>
   <div class="hdr-tools">
-    <details class="langs"><summary aria-label={t("nav.language")} title={t("nav.language")}>🌐 <span>{lang.toUpperCase()}</span></summary>
+    <details class="langs"><summary title={t("nav.language")}><span aria-hidden="true">🌐 </span><span class="sr-only">{t("nav.language")}: </span><span>{lang.toUpperCase()}</span></summary>
       <div class="langmenu">{LOCALES.map((l) => <a href={pathFor(l.code, base)} hreflang={l.code} lang={l.code} dir={l.dir} data-lang={l.code} class={l.code === lang ? "on" : ""}>{l.name}</a>)}</div>
     </details>
     <button class="themetoggle" type="button" aria-pressed="false" aria-label={t("nav.theme")} title={t("nav.theme")}><span class="sun">☀️</span><span class="moon">🌙</span></button>
     <a class="btn" href={p("/submit/")}>{t("nav.submit")}</a>
   </div>
 </div></header>
-<main><Fragment set:html="<!--email_off-->" /><slot /><Fragment set:html="<!--/email_off-->" /></main>
+<main id="content" tabindex="-1"><Fragment set:html="<!--email_off-->" /><slot /><Fragment set:html="<!--/email_off-->" /></main>
 <footer class="site"><div class="wrap">
   <div class="cols">
     <div><div class="logo" dir="ltr">{SITE.name}</div><div>{tagline}. {t("footer.rechecked")}</div></div>
     <div><b>{t("footer.directory")}</b><br/><a href={p("/tools/")}>{t("nav.tools")}</a><br/><a href={p("/categories/")}>{t("nav.categories")}</a><br/><a href={p("/compare/")}>{t("footer.comparisons")}</a><br/><a href={p("/verification/")}>{t("footer.latestRun")}</a></div>
     <div><b>{t("footer.makers")}</b><br/><a href={p("/submit/")}>{t("footer.submitFree")}</a><br/><a href={p("/badges/")}>{t("footer.getBadge")}</a><br/><a href={p("/weekly/")}>{t("nav.weekly")}</a><br/><a href="/rss.xml">RSS</a> · <a href={SITE.githubAwesomeRepo}>{t("footer.awesome")}</a></div>
-    <div><b>{t("footer.legal")}</b><br/><a href={p("/disclaimer/")}>{t("footer.nia")}</a><br/><a href={p("/privacy/")}>{t("footer.privacy")}</a><br/><a href={p("/terms/")}>{t("footer.terms")}</a><br/><a href={p("/about/")}>{t("footer.about")}</a><br/><a href={p("/advertise/")} style="opacity:.6">{t("footer.advertise")}</a></div>
+    <div><b>{t("footer.legal")}</b><br/><a href={p("/disclaimer/")}>{t("footer.nia")}</a><br/><a href={p("/privacy/")}>{t("footer.privacy")}</a><br/><a href={p("/terms/")}>{t("footer.terms")}</a><br/><a href={p("/about/")}>{t("footer.about")}</a><br/><a href={p("/accessibility/")}>{at("w.statement")}</a><br/><a href={p("/advertise/")}>{t("footer.advertise")}</a></div>
   </div>
   <p class="disclaimer">{t("footer.short")} <a href={p("/disclaimer/")}>{t("footer.fullDisclaimer")}</a></p>
 </div></footer>
+<A11yWidget lang={lang} />
 <script is:inline define:vars={{ copyTxt: t("common.copy"), copiedTxt: t("common.copied") }}>
 document.querySelectorAll("pre").forEach(function(p){var b=document.createElement("button");b.className="copy";b.type="button";b.textContent=copyTxt;b.onclick=function(){var c=p.cloneNode(true);c.querySelectorAll("button.copy").forEach(function(x){x.remove()});navigator.clipboard.writeText(c.innerText.trim());b.textContent=copiedTxt;setTimeout(function(){b.textContent=copyTxt},1500)};p.appendChild(b)});
 document.querySelectorAll(".langmenu a").forEach(function(a){a.addEventListener("click",function(){try{localStorage.setItem("lang",a.dataset.lang)}catch(e){}})});
