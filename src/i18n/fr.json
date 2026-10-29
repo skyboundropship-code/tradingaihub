@@ -184,14 +184,14 @@
   "title": "📬 Le rapport hebdo « État des outils d'IA pour la finance »",
   "text": "Les nouveautés, ce qui a cassé et les outils qui montent au classement : un e-mail par semaine. Gratuit.",
   "subscribe": "S'abonner",
-  "thanks": "Vous êtes inscrit, merci ! Le premier numéro arrivera avec le prochain rapport hebdo.",
+  "thanks": "Presque terminé : consultez votre boîte de réception et cliquez sur le lien pour confirmer votre abonnement.",
   "rss": "Ou suivez-nous par <a href=\"/rss.xml\">RSS</a>.",
   "email": "Écrivez à <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a> pour vous inscrire.",
   "sending": "Envoi…",
   "errInvalid": "Veuillez saisir une adresse e-mail valide.",
   "errRate": "Trop de tentatives. Réessayez dans une heure.",
   "errServer": "Une erreur est survenue. Réessayez ou écrivez à {email} pour vous inscrire.",
-  "consent": "En vous inscrivant, vous acceptez notre <a href=\"{privacy}\">politique de confidentialité</a>. Désinscription à tout moment en écrivant à {email}.",
+  "consent": "En vous abonnant, vous acceptez notre <a href=\"{privacy}\">politique de confidentialité</a>. Nous vous enverrons d'abord un e-mail de confirmation. Chaque e-mail contient un lien de désabonnement ; pour supprimer vos données, écrivez à {email}.",
   "label": "Adresse e-mail"
  },
  "home": {
@@ -424,7 +424,9 @@
   "affP": "Lorsque vous cliquez sur un lien affilié, le site de destination peut déposer ses propres cookies selon sa propre politique.",
   "rights": "Vos droits",
   "rightsP": "Demandez l'accès à vos données ou leur suppression à {email}.",
-  "c3": "Newsletter : si vous vous abonnez, nous conservons votre adresse e-mail, votre langue, la date d’inscription et une trace de votre consentement, uniquement pour envoyer la newsletter. Pour limiter les abus, chaque tentative d’inscription crée aussi une clé temporaire de limitation de débit, issue d’un hachage irréversible de votre adresse IP (l’IP elle-même n’est jamais conservée) ; elle est supprimée automatiquement au bout d’une heure. Vous pouvez vous désabonner ou demander la suppression de vos données à tout moment en écrivant à {email}."
+  "c3": "Newsletter : si vous vous abonnez, nous conservons votre adresse e-mail, votre langue, la date d'inscription et une trace de votre consentement, uniquement pour faire fonctionner la newsletter. Cet enregistrement est conservé dans notre stockage Cloudflare Workers KV comme copie de sauvegarde de la liste jusqu'à ce que vous nous demandiez de le supprimer (y compris si vous ne confirmez jamais). Pour limiter les abus, chaque tentative d'inscription crée aussi une clé temporaire de limitation de débit à partir d'un hachage irréversible de votre adresse IP (l'IP elle-même n'est jamais stockée) ; elle est supprimée automatiquement au bout d'1 heure.",
+  "c4": "Envoi des e-mails : la newsletter est envoyée via MailerLite, notre prestataire d'e-mailing, qui traite les données pour notre compte. Nous ne partageons avec MailerLite que votre adresse e-mail. Pour notre compte, le service est fourni par MailerLite, Inc. (États-Unis) ; MailerLite stocke les données dans des centres de données Google situés dans l'UE, et votre adresse e-mail est transférée aux États-Unis en vertu des garanties de MailerLite, notamment le Data Privacy Framework UE–États-Unis (avec son extension pour le Royaume-Uni), le Data Privacy Framework Suisse–États-Unis et des clauses contractuelles types.",
+  "c5": "Double opt-in : après votre inscription, MailerLite vous envoie un e-mail de confirmation, et vous n'êtes abonné qu'après avoir cliqué sur le lien qu'il contient. Chaque e-mail de la newsletter contient un lien de désabonnement. Pour faire supprimer vos données à la fois chez MailerLite et dans notre stockage KV, écrivez à {email}."
  },
  "terms": {
   "title": "Conditions d'utilisation",

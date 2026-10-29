@@ -184,14 +184,14 @@
   "title": "📬 Haftalık “Finans Yapay Zekâ Araçlarının Durumu”",
   "text": "Neler çıktı, neler bozuldu, hangi araçlar yükseldi — haftada bir e-posta, ücretsiz.",
   "subscribe": "Abone ol",
-  "thanks": "Abone oldunuz — teşekkürler! İlk sayı bir sonraki haftalık raporla gelecek.",
+  "thanks": "Neredeyse bitti: Gelen kutunuzu kontrol edin ve aboneliğinizi onaylamak için bağlantıya tıklayın.",
   "rss": "Ya da <a href=\"/rss.xml\">RSS</a> ile takip edin.",
   "email": "Katılmak için <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a> adresine e-posta gönderin.",
   "sending": "Gönderiliyor…",
   "errInvalid": "Lütfen geçerli bir e-posta adresi girin.",
   "errRate": "Çok fazla deneme. Lütfen bir saat sonra tekrar deneyin.",
   "errServer": "Bir sorun oluştu. Tekrar deneyin ya da katılmak için {email} adresine yazın.",
-  "consent": "Abone olarak <a href=\"{privacy}\">gizlilik politikamızı</a> kabul etmiş olursunuz. {email} adresine e-posta göndererek istediğiniz zaman ayrılabilirsiniz.",
+  "consent": "Abone olarak <a href=\"{privacy}\">gizlilik politikamızı</a> kabul etmiş olursunuz. Önce onay için bir e-posta göndereceğiz. Her e-postada abonelikten çıkma bağlantısı var; verilerinizi sildirmek için {email} adresine yazın.",
   "label": "E-posta adresi"
  },
  "home": {
@@ -424,7 +424,9 @@
   "affP": "Bir ortaklık bağlantısına tıkladığınızda, hedef site kendi politikası kapsamında çerez ayarlayabilir.",
   "rights": "Haklarınız",
   "rightsP": "Verilerinize erişmek veya silinmesini istemek için {email} ile iletişime geçin.",
-  "c3": "Bülten: Abone olursanız, yalnızca bülteni göndermek amacıyla e-posta adresinizi, dilinizi, kayıt zamanınızı ve onay verdiğinize dair bir kaydı saklarız. Kötüye kullanımı sınırlamak için her kayıt denemesi, IP adresinizin tek yönlü bir özetinden (hash) geçici bir hız sınırı anahtarı da oluşturur (IP adresinin kendisi asla saklanmaz); bu anahtar 1 saat sonra otomatik olarak silinir. Abonelikten çıkmak veya verilerinizin silinmesini istemek için istediğiniz zaman {email} adresine e-posta gönderin."
+  "c3": "Bülten: Abone olursanız e-posta adresinizi, dilinizi, kayıt zamanınızı ve onay kaydınızı yalnızca bülteni yürütmek için saklarız. Bu kayıt, posta listesinin yedek kopyası olarak Cloudflare Workers KV depomuzda, silinmesini talep edene kadar tutulur (aboneliğinizi hiç onaylamasanız da). Kötüye kullanımı sınırlamak için her kayıt denemesi, IP adresinizin tek yönlü hash'inden geçici bir hız sınırı anahtarı da oluşturur (IP adresinin kendisi asla saklanmaz); bu anahtar 1 saat sonra otomatik olarak silinir.",
+  "c4": "E-posta gönderimi: Bülten, verileri bizim adımıza işleyen e-posta hizmet sağlayıcımız MailerLite üzerinden gönderilir. MailerLite ile yalnızca e-posta adresinizi paylaşırız. Hesabımız için hizmeti MailerLite, Inc. (ABD) sağlar; MailerLite verileri AB'deki Google veri merkezlerinde saklar ve e-posta adresiniz, MailerLite'ın güvenceleri kapsamında ABD'ye aktarılır; bunlar arasında AB-ABD Veri Gizliliği Çerçevesi (Birleşik Krallık uzantısıyla birlikte), İsviçre-ABD Veri Gizliliği Çerçevesi ve standart sözleşme maddeleri yer alır.",
+  "c5": "Çift onay (double opt-in): Kaydolduktan sonra MailerLite size bir onay e-postası gönderir ve aboneliğiniz ancak içindeki bağlantıya tıkladığınızda başlar. Her bülten e-postasında abonelikten çıkma bağlantısı bulunur. Verilerinizi hem MailerLite'tan hem de KV depomuzdan sildirmek için {email} adresine yazın."
  },
  "terms": {
   "title": "Kullanım koşulları",

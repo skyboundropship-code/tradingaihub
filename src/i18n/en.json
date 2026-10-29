@@ -185,14 +185,14 @@
   "title": "📬 The weekly “State of finance AI tools”",
   "text": "What's new, what broke, and which tools climbed the leaderboard — one email a week. Free.",
   "subscribe": "Subscribe",
-  "thanks": "You're subscribed — thanks! The first issue arrives with the next weekly report.",
+  "thanks": "Almost done — check your inbox and click the link to confirm your subscription.",
   "rss": "Or follow via <a href=\"/rss.xml\">RSS</a>.",
   "email": "Email <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a> to join.",
   "sending": "Sending…",
   "errInvalid": "Please enter a valid email address.",
   "errRate": "Too many attempts. Please try again in an hour.",
   "errServer": "Something went wrong. Please try again, or email {email} to join.",
-  "consent": "By subscribing you agree to our <a href=\"{privacy}\">privacy policy</a>. Unsubscribe anytime by emailing {email}.",
+  "consent": "By subscribing you agree to our <a href=\"{privacy}\">privacy policy</a>. We'll first send you an email to confirm. Every email has an unsubscribe link; to delete your data, email {email}.",
   "label": "Email address"
  },
  "home": {
@@ -425,7 +425,9 @@
   "affP": "When you click an affiliate link, the destination site may set its own cookies under its own policy.",
   "rights": "Your rights",
   "rightsP": "Ask us to access or delete your data at {email}.",
-  "c3": "Newsletter: if you subscribe, we store your email address, language, signup time and a record that you consented, solely to send the newsletter. To limit abuse, each signup attempt also creates a temporary rate-limit key made from a one-way hash of your IP address (the IP itself is never stored); it is deleted automatically after 1 hour. Unsubscribe or request deletion of your data anytime by emailing {email}."
+  "c3": "Newsletter: if you subscribe, we store your email address, language, signup time and a record that you consented, only to run the newsletter. This record is kept in our Cloudflare Workers KV store as a backup copy of the mailing list until you ask us to delete it (this also applies if you never confirm). To limit abuse, each signup attempt also creates a temporary rate-limit key made from a one-way hash of your IP address (the IP itself is never stored); it is deleted automatically after 1 hour.",
+  "c4": "Email delivery: the newsletter is sent through MailerLite, our email service provider, which processes data on our behalf. We share only your email address with MailerLite. For our account the service is provided by MailerLite, Inc. (United States); MailerLite stores data in Google data centers in the EU, and your email address is transferred to the United States under MailerLite's safeguards, including the EU-U.S. Data Privacy Framework (with its UK Extension), the Swiss-U.S. Data Privacy Framework and Standard Contractual Clauses.",
+  "c5": "Double opt-in: after you sign up, MailerLite sends you a confirmation email, and you are subscribed only after you click the link in it. Every newsletter email contains an unsubscribe link. To have your data deleted from both MailerLite and our KV store, email {email}."
  },
  "terms": {
   "title": "Terms of use",
