@@ -1,4 +1,6 @@
 ---
+import { isAff, relFor } from "../../lib/aff";
+import TradingView from "../../components/TradingView.astro";
 import Base from "../../layouts/Base.astro";
 import Status from "../../components/Status.astro";
 import ToolCard from "../../components/ToolCard.astro";
@@ -24,6 +26,7 @@ const desc = `${t.name}: ${t.description} Verification status, pricing, free tie
   <div class="meta" style="margin-bottom:8px"><span class="badge type">{TYPE_LABEL[t.type]}</span>{t.official && <span class="badge off">Official (by the vendor)</span>}<Status status={v.status} /><span class="pill">Last checked {v.checked_at}</span></div>
   <h1 style="margin:6px 0 6px">{t.name}</h1>
   <p style="color:var(--muted);font-size:18px;margin-top:0">{t.description}</p>
+  {/tradingview/i.test(JSON.stringify(t)) && <TradingView context="integration" />}
   <Share path={`/tools/${t.id}/`} text={`${t.name} — ${v.status === "verified" ? "verified this week" : "status"} on ${SITE.name}`} />
   <div class="two">
     <div>
@@ -38,7 +41,7 @@ const desc = `${t.name}: ${t.description} Verification status, pricing, free tie
         <dt>Free tier</dt><dd>{t.pricing.free_tier}</dd>
         <dt>Paid from</dt><dd>{t.pricing.paid_from ?? "—"}</dd>
         <dt>Details</dt><dd>{t.pricing.details}</dd>
-        <dt>Source</dt><dd>{t.pricing.source ? <a href={t.pricing.source} rel="nofollow noopener" target="_blank">{t.pricing.source}</a> : "Not yet verified against a vendor page"}{t.pricing.checked && ` (checked ${t.pricing.checked})`}</dd>
+        <dt>Source</dt><dd>{t.pricing.source ? <a href={t.pricing.source} rel={isAff(t.pricing.source) ? "sponsored noopener" : "nofollow noopener"} target="_blank">{t.pricing.source}</a> : "Not yet verified against a vendor page"}{t.pricing.checked && ` (checked ${t.pricing.checked})`}</dd>
       </dl><p class="note">Prices change — always confirm on the vendor's page before buying.</p></div>
       <h2>Verification</h2>
       <div class="panel">
@@ -50,16 +53,16 @@ const desc = `${t.name}: ${t.description} Verification status, pricing, free tie
     </div>
     <aside>
       <div class="panel"><dl class="kv">
-        {t.repo && <><dt>Repository</dt><dd><a href={t.repo} rel="noopener" target="_blank">{t.repo.replace("https://github.com/", "")}</a></dd></>}
-        {t.homepage && <><dt>Homepage</dt><dd><a href={t.homepage} rel="noopener" target="_blank">{new URL(t.homepage).host}</a></dd></>}
-        {t.docs && t.docs !== t.homepage && <><dt>Docs</dt><dd><a href={t.docs} rel="noopener" target="_blank">{new URL(t.docs).host}</a></dd></>}
+        {t.repo && <><dt>Repository</dt><dd><a href={t.repo} rel={relFor(t.repo)} target="_blank">{t.repo.replace("https://github.com/", "")}</a></dd></>}
+        {t.homepage && <><dt>Homepage</dt><dd><a href={t.homepage} rel={relFor(t.homepage)} target="_blank">{new URL(t.homepage).host}</a></dd></>}
+        {t.docs && t.docs !== t.homepage && <><dt>Docs</dt><dd><a href={t.docs} rel={relFor(t.docs)} target="_blank">{new URL(t.docs).host}</a></dd></>}
         {t.remote_mcp_url && <><dt>Remote MCP</dt><dd><code>{t.remote_mcp_url}</code></dd></>}
         <dt>Stars</dt><dd>{fmtStars(starsOf(t))}</dd>
         <dt>Last commit</dt><dd>{lastCommit(t) ?? "—"}</dd>
         <dt>License</dt><dd>{t.license}</dd>
         <dt>Package</dt><dd>{pkg ? <a href={pkg.url} rel="noopener" target="_blank">{pkg.name}@{pkg.version}</a> : "None detected"}</dd>
         <dt>Category</dt><dd><a href={`/category/${cat.slug}/`}>{cat.short}</a></dd>
-        <dt>Listed via</dt><dd><a href={t.source_url} rel="noopener" target="_blank">source</a></dd>
+        <dt>Listed via</dt><dd><a href={t.source_url} rel={relFor(t.source_url)} target="_blank">source</a></dd>
       </dl></div>
       <div class="panel" style="margin-top:14px"><b>Maintain this tool?</b><p class="note">Show your free, auto-updating verification badge in your README:</p>
         <p><img src={`/badge/${t.id}.svg`} alt={`${SITE.name} status`} /></p>

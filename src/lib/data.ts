@@ -1,6 +1,8 @@
 import raw from "../../data/tools.json";
 import report from "../../data/verification-report.json";
-export const tools: any[] = raw as any[];
+import { affUrl } from "./aff";
+// Every outbound URL in the data goes through affUrl, so any TradingView link automatically carries the affiliate ID.
+export const tools: any[] = (raw as any[]).map((t) => ({ ...t, homepage: affUrl(t.homepage), docs: affUrl(t.docs), source_url: affUrl(t.source_url), pricing: t.pricing ? { ...t.pricing, source: affUrl(t.pricing.source) } : t.pricing }));
 export const verificationReport: any = report;
 
 export const CATEGORIES = [

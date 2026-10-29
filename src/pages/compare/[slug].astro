@@ -1,4 +1,6 @@
 ---
+import TradingView from "../../components/TradingView.astro";
+const TV: Record<string,any> = { "market-data-api-pricing": "charts", "best-stock-market-mcp-servers": "charts", "crypto-mcp-servers": "crypto", "trading-skills-for-claude": "backtest" };
 import Base from "../../layouts/Base.astro";
 import Status from "../../components/Status.astro";
 import Share from "../../components/Share.astro";
@@ -25,6 +27,7 @@ const ld = [{ "@context": "https://schema.org", "@type": "ItemList", name: c.tit
   </>)}
   </table></div>
   <p class="note" style="margin-top:14px">Ordering is by GitHub stars, not a recommendation. Not investment advice.</p>
+  {TV[c.slug] && <TradingView context={TV[c.slug]} />}
   <Newsletter />
 </div>
 </Base>

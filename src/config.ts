@@ -13,3 +13,8 @@ export const SITE = {
   checkoutLive: false,                 // featured-listing checkout is NOT live
   checkoutUrl: "#checkout-not-live",   // replace with Polar / Lemon Squeezy link after approval
 };
+
+// Affiliate programs. Links are always labelled and use rel="sponsored noopener".
+export const AFFILIATES = {
+  tradingview: { id: "1173592", param: "aff_id", hosts: ["tradingview.com"], home: "https://www.tradingview.com/" },
+};
