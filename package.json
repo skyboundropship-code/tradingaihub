@@ -10,6 +10,7 @@
     "weekly": "python3 scripts/verify.py && python3 scripts/awesome.py && node scripts/og.mjs && npm run build",
     "screenshots": "node scripts/screenshots.mjs",
     "indexnow": "node scripts/indexnow.mjs",
+    "test:functions": "node --test tests/*.test.mjs",
     "deploy": "wrangler pages deploy dist --project-name=tradingaihub --branch=main --commit-dirty=true",
     "weekly:publish": "npm run weekly && npm run deploy && npm run indexnow"
   },
