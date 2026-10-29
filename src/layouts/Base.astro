@@ -1,0 +1,37 @@
+---
+import "../styles/global.css";
+import { SITE } from "../config";
+interface Props { title: string; description?: string; jsonld?: any[]; noindex?: boolean; og?: string }
+const { title, description = SITE.description, jsonld = [], noindex = false, og = "home" } = Astro.props;
+const ogUrl = new URL(`/og/${og}.png`, SITE.url).href;
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const fullTitle = title === SITE.name ? `${SITE.name} — ${SITE.tagline}` : `${title} | ${SITE.name}`;
+const org = { "@context": "https://schema.org", "@type": "WebSite", name: SITE.name, url: SITE.url, description: SITE.description,
+  potentialAction: { "@type": "SearchAction", target: `${SITE.url}/tools/?q={query}`, "query-input": "required name=query" } };
+---
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>{fullTitle}</title><meta name="description" content={description} /><link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex" />}
+<meta property="og:title" content={fullTitle} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta property="og:type" content="website" /><meta property="og:image" content={ogUrl} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:image" content={ogUrl} /><link rel="alternate" type="application/rss+xml" title={`${SITE.name} weekly`} href="/rss.xml" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="sitemap" href="/sitemap-index.xml" />
+<script type="application/ld+json" set:html={JSON.stringify(org)} />
+{jsonld.map((j) => <script type="application/ld+json" set:html={JSON.stringify(j)} />)}
+</head><body>
+<header class="site"><div class="wrap">
+  <a class="logo" href="/">{SITE.name.slice(0, 5)}<span>{SITE.name.slice(5)}</span></a>
+  <nav class="main"><a href="/tools/">All tools</a><a href="/categories/">Categories</a><a href="/compare/">Compare</a><a href="/weekly/">Weekly leaderboard</a><a href="/badges/">Badges</a><a href="/about/">How we verify</a></nav>
+  <a class="btn" href="/submit/">Submit a tool — free</a>
+</div></header>
+<main><slot /></main>
+<footer class="site"><div class="wrap">
+  <div class="cols">
+    <div><div class="logo">{SITE.name}</div><div>{SITE.tagline}. Re-checked every week.</div></div>
+    <div><b>Directory</b><br/><a href="/tools/">All tools</a><br/><a href="/categories/">Categories</a><br/><a href="/compare/">Comparisons</a><br/><a href="/verification/">Latest verification run</a></div>
+    <div><b>For makers</b><br/><a href="/submit/">Submit a tool (free)</a><br/><a href="/badges/">Get your verified badge</a><br/><a href="/weekly/">Weekly leaderboard</a><br/><a href="/rss.xml">RSS</a> · <a href={SITE.githubAwesomeRepo}>Awesome list</a></div>
+    <div><b>Legal</b><br/><a href="/disclaimer/">Not investment advice</a><br/><a href="/privacy/">Privacy</a><br/><a href="/terms/">Terms</a><br/><a href="/about/">About</a><br/><a href="/advertise/" style="opacity:.6">Advertise</a></div>
+  </div>
+  <p class="disclaimer"><b>Not investment advice.</b> {SITE.name} is an information directory about software tools. Nothing on this site is investment, trading, tax or legal advice or a recommendation to buy or sell any security or asset, and we are not licensed investment advisers or portfolio managers. Trading involves risk of loss. Some links may be affiliate links; they are always labelled. <a href="/disclaimer/">Full disclaimer</a>.</p>
+</div></footer>
+<script is:inline>document.querySelectorAll("pre").forEach(p=>{const b=document.createElement("button");b.className="copy";b.textContent="Copy";b.onclick=()=>{navigator.clipboard.writeText(p.innerText.replace(/Copy(ied)?$/,"").trim());b.textContent="Copied ✓";setTimeout(()=>b.textContent="Copy",1500)};p.appendChild(b)})</script>
+</body></html>

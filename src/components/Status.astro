@@ -1,0 +1,5 @@
+---
+import { STATUS } from "../lib/data";
+const { status } = Astro.props; const s = STATUS[status] || { label: status, tone: "warn", help: "" };
+---
+<span class={`badge ${s.tone}`} title={s.help}>{s.tone === "good" ? "✓" : "!"} {s.label}</span>

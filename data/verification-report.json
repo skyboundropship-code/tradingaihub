@@ -1,0 +1,160 @@
+{
+  "checked_at": "2026-10-29T09:26:55.466598+00:00",
+  "total": 75,
+  "by_status": {
+    "verified": 56,
+    "stale": 14,
+    "aging": 4,
+    "archived": 1
+  },
+  "with_package": 25,
+  "issues": [
+    {
+      "id": "finnhub-mcp-community",
+      "status": "stale",
+      "issues": [
+        "No commits for 546 days"
+      ]
+    },
+    {
+      "id": "financial-datasets-mcp",
+      "status": "stale",
+      "issues": [
+        "pypi name 'mcp-server' exists on the registry but does not link to this repo (not counted)",
+        "No commits for 510 days"
+      ]
+    },
+    {
+      "id": "metatrader-mcp",
+      "status": "aging",
+      "issues": [
+        "No commits for 214 days"
+      ]
+    },
+    {
+      "id": "paper-mcp",
+      "status": "stale",
+      "issues": [
+        "No commits for 405 days"
+      ]
+    },
+    {
+      "id": "ccxt-mcp",
+      "status": "stale",
+      "issues": [
+        "pypi name 'mcp-server-ccxt' exists on the registry but does not link to this repo (not counted)",
+        "No commits for 618 days"
+      ]
+    },
+    {
+      "id": "crypto-indicators-mcp",
+      "status": "aging",
+      "issues": [
+        "No commits for 327 days"
+      ]
+    },
+    {
+      "id": "binance-mcp",
+      "status": "stale",
+      "issues": [
+        "npm name 'binance-mcp' exists on the registry but does not link to this repo (not counted)",
+        "No commits for 561 days"
+      ]
+    },
+    {
+      "id": "crypto-liquidations-mcp",
+      "status": "stale",
+      "issues": [
+        "No commits for 541 days"
+      ]
+    },
+    {
+      "id": "coincap-mcp",
+      "status": "stale",
+      "issues": [
+        "No commits for 636 days"
+      ]
+    },
+    {
+      "id": "dexscreener-trending-mcp",
+      "status": "aging",
+      "issues": [
+        "No commits for 289 days"
+      ]
+    },
+    {
+      "id": "base-mcp",
+      "status": "archived",
+      "issues": [
+        "npm name 'base-mcp' exists on the registry but does not link to this repo (not counted)",
+        "Repository is archived"
+      ]
+    },
+    {
+      "id": "bitcoin-mcp",
+      "status": "stale",
+      "issues": [
+        "npm name 'bitcoin-mcp' exists on the registry but does not link to this repo (not counted)",
+        "No commits for 453 days"
+      ]
+    },
+    {
+      "id": "ramp-mcp",
+      "status": "stale",
+      "issues": [
+        "pypi name 'ramp-mcp' exists on the registry but does not link to this repo (not counted)",
+        "No commits for 587 days"
+      ]
+    },
+    {
+      "id": "monarch-mcp",
+      "status": "stale",
+      "issues": [
+        "No commits for 508 days"
+      ]
+    },
+    {
+      "id": "actual-budget-mcp",
+      "status": "aging",
+      "issues": [
+        "npm name 'actual-budget-mcp' exists on the registry but does not link to this repo (not counted)",
+        "No commits for 220 days"
+      ]
+    },
+    {
+      "id": "valyu-mcp",
+      "status": "stale",
+      "issues": [
+        "No commits for 572 days"
+      ]
+    },
+    {
+      "id": "finbrain-mcp",
+      "status": "verified",
+      "issues": [
+        "pypi name 'finbrain-mcp' exists on the registry but does not link to this repo (not counted)"
+      ]
+    },
+    {
+      "id": "claude-investor",
+      "status": "stale",
+      "issues": [
+        "No commits for 945 days"
+      ]
+    },
+    {
+      "id": "mcp-trader",
+      "status": "stale",
+      "issues": [
+        "No commits for 430 days"
+      ]
+    },
+    {
+      "id": "claude-code-trading-terminal",
+      "status": "stale",
+      "issues": [
+        "No commits for 425 days"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+---
+import { SITE } from "../config";
+const { path, text } = Astro.props; const url = encodeURIComponent(SITE.url + path); const t = encodeURIComponent(text);
+---
+<div class="share"><span class="pill" style="align-self:center">Share:</span>
+<a href={`https://x.com/intent/post?text=${t}&url=${url}`} target="_blank" rel="noopener">𝕏 Post</a>
+<a href={`https://www.linkedin.com/sharing/share-offsite/?url=${url}`} target="_blank" rel="noopener">LinkedIn</a>
+<a href={`https://www.reddit.com/submit?url=${url}&title=${t}`} target="_blank" rel="noopener">Reddit</a>
+<a href={`https://news.ycombinator.com/submitlink?u=${url}&t=${t}`} target="_blank" rel="noopener">Hacker News</a>
+<a href="#" onclick={`navigator.clipboard.writeText(decodeURIComponent('${url}'));this.textContent='Link copied ✓';return false`}>Copy link</a></div>

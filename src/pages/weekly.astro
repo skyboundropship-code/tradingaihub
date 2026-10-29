@@ -1,0 +1,36 @@
+---
+import Base from "../layouts/Base.astro";
+import Status from "../components/Status.astro";
+import Share from "../components/Share.astro";
+import Newsletter from "../components/Newsletter.astro";
+import { SITE } from "../config";
+import { tools, changelog, catBySlug, TYPE_LABEL, fmtStars, starsOf, lastCommit } from "../lib/data";
+const week = changelog[0];
+const board = tools.filter((t) => t.verification.status === "verified" && starsOf(t) != null).sort((a, b) => starsOf(b) - starsOf(a)).slice(0, 20);
+const fresh = tools.filter((t) => lastCommit(t)).sort((a, b) => lastCommit(b)!.localeCompare(lastCommit(a)!)).slice(0, 10);
+const needsLove = tools.filter((t) => ["stale", "archived", "unreachable"].includes(t.verification.status));
+const official = tools.filter((t) => t.official).length;
+---
+<Base title={`State of finance AI tools — week of ${week.date}`} description={`Weekly leaderboard and changelog of ${tools.length} MCP servers, skills and APIs for finance and trading.`} og="weekly">
+<div class="wrap page">
+  <h1>📊 State of finance AI tools — week of {week.date}</h1>
+  <p style="color:var(--muted)">Every week our verifier re-checks every listing. Here's the scoreboard. Free to share and cite (link back appreciated).</p>
+  <Share path="/weekly/" text={`State of finance & trading AI tools — ${week.date}: ${week.counts.verified ?? 0}/${tools.length} pass verification`} />
+  <div class="grid" style="margin:16px 0">
+    {Object.entries(week.counts).map(([k, n]) => <div class="panel"><Status status={k} /><div style="font-size:30px;font-weight:800">{n as number}</div></div>)}
+    <div class="panel"><span class="badge off">Official vendor tools</span><div style="font-size:30px;font-weight:800">{official}</div></div>
+  </div>
+  <h2 class="sec">What changed this week</h2>
+  <ul>{week.changes.map((c: any) => <li>{c.id ? <a href={`/tools/${c.id}/`}>{c.text}</a> : c.text}</li>)}</ul>
+  <h2 class="sec">Leaderboard: most-starred verified tools</h2>
+  <div class="tablewrap"><table><thead><tr><th>#</th><th>Tool</th><th>Type</th><th>Category</th><th>Stars</th><th>Last commit</th></tr></thead>
+  <tbody>{board.map((t, i) => <tr><td>{i + 1}</td><td><a href={`/tools/${t.id}/`}>{t.name}</a></td><td>{TYPE_LABEL[t.type]}</td><td>{catBySlug[t.category].short}</td><td>★ {fmtStars(starsOf(t))}</td><td>{lastCommit(t)}</td></tr>)}</tbody></table></div>
+  <h2 class="sec">Most recently shipped</h2>
+  <ul>{fresh.map((t) => <li><a href={`/tools/${t.id}/`}>{t.name}</a> — last commit {lastCommit(t)}</li>)}</ul>
+  <h2 class="sec">Needs maintainer love ({needsLove.length})</h2>
+  <p class="note">Stale = no commits for 12+ months. Maintainers: push an update and your badge turns green next week.</p>
+  <ul>{needsLove.map((t) => <li><a href={`/tools/${t.id}/`}>{t.name}</a> <Status status={t.verification.status} /></li>)}</ul>
+  <h2 class="sec">Archive</h2><ul>{changelog.map((w) => <li>{w.date}: {w.changes.length} changes</li>)}</ul>
+  <Newsletter />
+</div>
+</Base>

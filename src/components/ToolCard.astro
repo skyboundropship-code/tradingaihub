@@ -1,0 +1,11 @@
+---
+import Status from "./Status.astro";
+import { TYPE_LABEL, starsOf, fmtStars } from "../lib/data";
+const { t } = Astro.props; const s = starsOf(t);
+---
+<a class="card" href={`/tools/${t.id}/`} data-search={`${t.name} ${t.description} ${t.category} ${t.type}`.toLowerCase()} data-cat={t.category} data-type={t.type}>
+  <div class="meta"><span class="badge type">{TYPE_LABEL[t.type]}</span>{t.official && <span class="badge off">Official</span>}<Status status={t.verification.status} /></div>
+  <h3>{t.name}</h3>
+  <p>{t.description}</p>
+  <div class="meta"><span>💲 {t.pricing.free_tier === "unknown" ? "Pricing: unknown" : t.pricing.free_tier}</span>{s != null && <span>★ {fmtStars(s)}</span>}</div>
+</a>

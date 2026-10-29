@@ -1,0 +1,19 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE } from "../config";
+import { tools } from "../lib/data";
+const ex = tools.find((t) => t.id === "alpaca-mcp")!;
+---
+<Base title="Free verified badges for tool makers" description={`Embed a free, auto-updating ${SITE.name} verification badge in your README.`}>
+<div class="wrap page prose">
+  <h1>Free “Verified by {SITE.name}” badges</h1>
+  <p>Every listed tool gets a free badge that updates automatically after each weekly check. Show users your project is alive and working.</p>
+  <p><img src={`/badge/${ex.id}.svg`} alt="example badge" /></p>
+  <h2>Markdown (README)</h2>
+  <pre><code>{`[![${SITE.name}](${SITE.url}/badge/<your-tool-id>.svg)](${SITE.url}/tools/<your-tool-id>/)`}</code></pre>
+  <h2>HTML</h2>
+  <pre><code>{`<a href="${SITE.url}/tools/<your-tool-id>/"><img src="${SITE.url}/badge/<your-tool-id>.svg" alt="${SITE.name} verified"></a>`}</code></pre>
+  <p>Find your tool's id in its page URL, or the ready-made snippet on its page. Not listed yet? <a href="/submit/">Submit it free</a>.</p>
+  <h2>Badge states</h2><p>Green = verified this week · Amber = aging / check links · Red = stale, archived or unreachable.</p>
+</div>
+</Base>

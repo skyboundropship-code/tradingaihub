@@ -1,0 +1,452 @@
+{
+ "alpha-vantage-api": {
+  "name": "Alpha Vantage API",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "massive-api": {
+  "name": "Massive (formerly Polygon.io) API",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "fmp-api": {
+  "name": "Financial Modeling Prep API",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "finnhub-api": {
+  "name": "Finnhub API",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "twelve-data-api": {
+  "name": "Twelve Data API",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "eodhd-api": {
+  "name": "EODHD API",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "alpaca-market-data-api": {
+  "name": "Alpaca Market Data API",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "coingecko-api": {
+  "name": "CoinGecko API",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "fred-api": {
+  "name": "FRED API (St. Louis Fed)",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "sec-edgar-api": {
+  "name": "SEC EDGAR APIs",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "alpha-vantage-mcp": {
+  "name": "Alpha Vantage MCP",
+  "status": "verified",
+  "stars": 223,
+  "version": null
+ },
+ "massive-mcp": {
+  "name": "Massive MCP",
+  "status": "verified",
+  "stars": 398,
+  "version": null
+ },
+ "fmp-mcp-community": {
+  "name": "Financial Modeling Prep MCP (community)",
+  "status": "verified",
+  "stars": 150,
+  "version": "2.8.0"
+ },
+ "finnhub-mcp-community": {
+  "name": "Stock Market MCP (Finnhub)",
+  "status": "stale",
+  "stars": 7,
+  "version": null
+ },
+ "financial-datasets-mcp": {
+  "name": "Financial Datasets MCP",
+  "status": "stale",
+  "stars": 2315,
+  "version": null
+ },
+ "yahoo-finance-mcp": {
+  "name": "Yahoo Finance MCP",
+  "status": "verified",
+  "stars": 28,
+  "version": "0.2.0"
+ },
+ "coingecko-mcp": {
+  "name": "CoinGecko MCP",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "eodhd-claude-skills": {
+  "name": "EODHD Claude Skills",
+  "status": "verified",
+  "stars": 47,
+  "version": null
+ },
+ "maverick-mcp": {
+  "name": "Maverick MCP",
+  "status": "verified",
+  "stars": 714,
+  "version": null
+ },
+ "investor-agent": {
+  "name": "investor-agent",
+  "status": "verified",
+  "stars": 348,
+  "version": null
+ },
+ "kospi-kosdaq-mcp": {
+  "name": "KOSPI/KOSDAQ MCP",
+  "status": "verified",
+  "stars": 74,
+  "version": "0.4.2"
+ },
+ "hk-finance-mcp": {
+  "name": "HK Finance MCP",
+  "status": "verified",
+  "stars": 12,
+  "version": "0.1.7"
+ },
+ "fred-mcp": {
+  "name": "FRED MCP",
+  "status": "verified",
+  "stars": 128,
+  "version": "1.2.0"
+ },
+ "fxmacrodata-mcp": {
+  "name": "FXMacroData MCP",
+  "status": "verified",
+  "stars": 0,
+  "version": "0.1.3"
+ },
+ "alpaca-mcp": {
+  "name": "Alpaca MCP Server",
+  "status": "verified",
+  "stars": 1048,
+  "version": "2.4.0"
+ },
+ "ibkr-mcp": {
+  "name": "Interactive Brokers MCP (hosted)",
+  "status": "verified",
+  "stars": null,
+  "version": null
+ },
+ "tasty-agent": {
+  "name": "tasty-agent (tastytrade)",
+  "status": "verified",
+  "stars": 88,
+  "version": "7.1.0"
+ },
+ "metatrader-mcp": {
+  "name": "MetaTrader 5 MCP",
+  "status": "aging",
+  "stars": 843,
+  "version": "0.5.1"
+ },
+ "paper-mcp": {
+  "name": "Paper Invest MCP",
+  "status": "stale",
+  "stars": 24,
+  "version": "1.0.4"
+ },
+ "dexpaprika-mcp": {
+  "name": "DexPaprika MCP",
+  "status": "verified",
+  "stars": 118,
+  "version": "2.9.2"
+ },
+ "ccxt-mcp": {
+  "name": "CCXT MCP",
+  "status": "stale",
+  "stars": 82,
+  "version": null
+ },
+ "crypto-indicators-mcp": {
+  "name": "Crypto Indicators MCP",
+  "status": "aging",
+  "stars": 131,
+  "version": "1.0.1"
+ },
+ "tradingview-mcp": {
+  "name": "TradingView MCP (community)",
+  "status": "verified",
+  "stars": 5162,
+  "version": "0.8.1"
+ },
+ "binance-mcp": {
+  "name": "Binance MCP (community)",
+  "status": "stale",
+  "stars": 97,
+  "version": null
+ },
+ "coinbase-agentkit": {
+  "name": "Coinbase AgentKit",
+  "status": "verified",
+  "stars": 1345,
+  "version": null
+ },
+ "bankless-onchain-mcp": {
+  "name": "Bankless Onchain MCP",
+  "status": "verified",
+  "stars": 78,
+  "version": "1.0.6"
+ },
+ "crypto-liquidations-mcp": {
+  "name": "Crypto Liquidations MCP",
+  "status": "stale",
+  "stars": 8,
+  "version": null
+ },
+ "bitget-agent-mcp": {
+  "name": "Bitget Agent MCP",
+  "status": "verified",
+  "stars": 1,
+  "version": "3.3.1"
+ },
+ "coincap-mcp": {
+  "name": "CoinCap MCP",
+  "status": "stale",
+  "stars": 92,
+  "version": "0.9.3"
+ },
+ "dexscreener-trending-mcp": {
+  "name": "DexScreener Trending MCP",
+  "status": "aging",
+  "stars": 1,
+  "version": null
+ },
+ "base-mcp": {
+  "name": "Base MCP",
+  "status": "archived",
+  "stars": 351,
+  "version": null
+ },
+ "solana-agent-kit": {
+  "name": "Solana Agent Kit",
+  "status": "verified",
+  "stars": 1728,
+  "version": null
+ },
+ "bitcoin-mcp": {
+  "name": "Bitcoin & Lightning MCP",
+  "status": "stale",
+  "stars": 77,
+  "version": null
+ },
+ "x402": {
+  "name": "x402 (Coinbase)",
+  "status": "verified",
+  "stars": 176,
+  "version": null
+ },
+ "quickbooks-mcp": {
+  "name": "QuickBooks Online MCP",
+  "status": "verified",
+  "stars": 436,
+  "version": null
+ },
+ "xero-mcp": {
+  "name": "Xero MCP Server",
+  "status": "verified",
+  "stars": 385,
+  "version": "0.0.17"
+ },
+ "norman-finance-mcp": {
+  "name": "Norman Finance MCP",
+  "status": "verified",
+  "stars": 62,
+  "version": "0.1.7"
+ },
+ "ledgerskills": {
+  "name": "LedgerSkills",
+  "status": "verified",
+  "stars": 2,
+  "version": null
+ },
+ "anthropic-financial-services": {
+  "name": "Anthropic Financial Services Plugins",
+  "status": "verified",
+  "stars": 40898,
+  "version": null
+ },
+ "invoice-organizer-skill": {
+  "name": "Invoice Organizer skill",
+  "status": "verified",
+  "stars": 78234,
+  "version": null
+ },
+ "stripe-ai": {
+  "name": "Stripe Agent Toolkit & MCP",
+  "status": "verified",
+  "stars": 1991,
+  "version": null
+ },
+ "qonto-mcp": {
+  "name": "Qonto MCP",
+  "status": "verified",
+  "stars": 42,
+  "version": null
+ },
+ "ramp-mcp": {
+  "name": "Ramp MCP",
+  "status": "stale",
+  "stars": 34,
+  "version": null
+ },
+ "lunchmoney-mcp": {
+  "name": "Lunch Money MCP",
+  "status": "verified",
+  "stars": 112,
+  "version": "3.0.0"
+ },
+ "monarch-mcp": {
+  "name": "Monarch Money MCP",
+  "status": "stale",
+  "stars": 4,
+  "version": null
+ },
+ "actual-budget-mcp": {
+  "name": "Actual Budget MCP",
+  "status": "aging",
+  "stars": 2,
+  "version": null
+ },
+ "optionsahoy-mcp": {
+  "name": "OptionsAhoy MCP",
+  "status": "verified",
+  "stars": 6,
+  "version": "1.11.0"
+ },
+ "sec-edgar-mcp": {
+  "name": "SEC EDGAR MCP",
+  "status": "verified",
+  "stars": 380,
+  "version": "1.1.0"
+ },
+ "openbb": {
+  "name": "OpenBB Platform (MCP)",
+  "status": "verified",
+  "stars": 74849,
+  "version": null
+ },
+ "equibles": {
+  "name": "Equibles stock-market MCP",
+  "status": "verified",
+  "stars": 7,
+  "version": null
+ },
+ "alphasmo": {
+  "name": "AlphaSMO tools",
+  "status": "verified",
+  "stars": 2,
+  "version": "0.2.1"
+ },
+ "edgrapi-skills": {
+  "name": "Edgrapi skills",
+  "status": "verified",
+  "stars": 1,
+  "version": null
+ },
+ "valyu-mcp": {
+  "name": "Valyu MCP",
+  "status": "stale",
+  "stars": 19,
+  "version": null
+ },
+ "finbrain-mcp": {
+  "name": "FinBrain MCP",
+  "status": "verified",
+  "stars": 9,
+  "version": null
+ },
+ "claude-equity-research": {
+  "name": "Claude Equity Research",
+  "status": "verified",
+  "stars": 749,
+  "version": null
+ },
+ "claude-investor": {
+  "name": "Claude Investor",
+  "status": "stale",
+  "stars": 34,
+  "version": null
+ },
+ "quantconnect-mcp": {
+  "name": "QuantConnect MCP",
+  "status": "verified",
+  "stars": 79,
+  "version": null
+ },
+ "mcp-trader": {
+  "name": "MCP Trader",
+  "status": "stale",
+  "stars": 273,
+  "version": null
+ },
+ "varrd": {
+  "name": "VARRD",
+  "status": "verified",
+  "stars": 24,
+  "version": "0.4.3"
+ },
+ "chart-library-mcp": {
+  "name": "Chart Library MCP",
+  "status": "verified",
+  "stars": 22,
+  "version": "6.3.3"
+ },
+ "finlab-ai": {
+  "name": "FinLab AI",
+  "status": "verified",
+  "stars": 420,
+  "version": null
+ },
+ "claude-trading-skills": {
+  "name": "Claude Trading Skills",
+  "status": "verified",
+  "stars": 3414,
+  "version": null
+ },
+ "superior-skills": {
+  "name": "Superior Trade skills",
+  "status": "verified",
+  "stars": 216,
+  "version": null
+ },
+ "claude-code-trading-terminal": {
+  "name": "Claude Code Trading Terminal",
+  "status": "stale",
+  "stars": 21,
+  "version": "2.1.5"
+ },
+ "pineify-mcp": {
+  "name": "Pineify MCP",
+  "status": "verified",
+  "stars": 1,
+  "version": null
+ }
+}

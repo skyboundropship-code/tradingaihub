@@ -1,0 +1,76 @@
+---
+import Base from "../../layouts/Base.astro";
+import Status from "../../components/Status.astro";
+import ToolCard from "../../components/ToolCard.astro";
+import Share from "../../components/Share.astro";
+import { SITE } from "../../config";
+import { tools, catBySlug, TYPE_LABEL, STATUS, snippets, pkgOf, starsOf, lastCommit, fmtStars } from "../../lib/data";
+export function getStaticPaths() { return tools.map((t) => ({ params: { id: t.id }, props: { t } })); }
+const { t } = Astro.props; const v = t.verification; const cat = catBySlug[t.category];
+const pkg = pkgOf(t); const sn = snippets(t); const st = STATUS[v.status];
+const related = tools.filter((x) => x.category === t.category && x.id !== t.id).slice(0, 3);
+const ld = [
+  { "@context": "https://schema.org", "@type": "SoftwareApplication", name: t.name, description: t.description, applicationCategory: "FinanceApplication", operatingSystem: "Cross-platform",
+    url: `${SITE.url}/tools/${t.id}/`, sameAs: [t.repo, t.homepage].filter(Boolean), license: t.license,
+    ...(t.pricing.model === "open-source" || t.pricing.model === "free" ? { offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } } : {}), dateModified: v.checked_at },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: SITE.url }, { "@type": "ListItem", position: 2, name: cat.name, item: `${SITE.url}/category/${cat.slug}/` }, { "@type": "ListItem", position: 3, name: t.name } ] },
+];
+const desc = `${t.name}: ${t.description} Verification status, pricing, free tier and install snippets for Claude, Cursor, ChatGPT, Grok and Gemini.`;
+---
+<Base title={`${t.name} — ${TYPE_LABEL[t.type]} for ${cat.short.toLowerCase()}`} description={desc.slice(0, 300)} jsonld={ld} og={`tool-${t.id}`}>
+<div class="wrap page">
+  <div class="crumbs"><a href="/">Home</a> / <a href={`/category/${cat.slug}/`}>{cat.name}</a> / {t.name}</div>
+  <div class="meta" style="margin-bottom:8px"><span class="badge type">{TYPE_LABEL[t.type]}</span>{t.official && <span class="badge off">Official (by the vendor)</span>}<Status status={v.status} /><span class="pill">Last checked {v.checked_at}</span></div>
+  <h1 style="margin:6px 0 6px">{t.name}</h1>
+  <p style="color:var(--muted);font-size:18px;margin-top:0">{t.description}</p>
+  <Share path={`/tools/${t.id}/`} text={`${t.name} — ${v.status === "verified" ? "verified this week" : "status"} on ${SITE.name}`} />
+  <div class="two">
+    <div>
+      <h2>Install</h2>
+      <div class="panel">
+        <div class="tabs">{sn.map((s, i) => <button class={i === 0 ? "on" : ""} data-i={i}>{s.client}</button>)}</div>
+        {sn.map((s, i) => <div class={`snip ${i === 0 ? "on" : ""}`} data-i={i}><pre><code>{s.code}</code></pre>{s.note && <p class="note">{s.note}</p>}</div>)}
+      </div>
+      <h2>Pricing</h2>
+      <div class="panel"><dl class="kv">
+        <dt>Model</dt><dd>{t.pricing.model}</dd>
+        <dt>Free tier</dt><dd>{t.pricing.free_tier}</dd>
+        <dt>Paid from</dt><dd>{t.pricing.paid_from ?? "—"}</dd>
+        <dt>Details</dt><dd>{t.pricing.details}</dd>
+        <dt>Source</dt><dd>{t.pricing.source ? <a href={t.pricing.source} rel="nofollow noopener" target="_blank">{t.pricing.source}</a> : "Not yet verified against a vendor page"}{t.pricing.checked && ` (checked ${t.pricing.checked})`}</dd>
+      </dl><p class="note">Prices change — always confirm on the vendor's page before buying.</p></div>
+      <h2>Verification</h2>
+      <div class="panel">
+        <p><Status status={v.status} /> <span class="note">{st?.help}</span></p>
+        <table><tbody>{v.checks.map((c: any) => <tr><td style="width:36px">{c.ok ? "✅" : "⚠️"}</td><td>{c.check}{c.note && <span class="note"> — {c.note}</span>}</td></tr>)}</tbody></table>
+        {v.issues.length > 0 && <ul>{v.issues.map((i: string) => <li class="note">{i}</li>)}</ul>}
+        <p class="note">Automated check on {v.checked_at}. <a href="/about/#how-we-verify">How we verify</a>.</p>
+      </div>
+    </div>
+    <aside>
+      <div class="panel"><dl class="kv">
+        {t.repo && <><dt>Repository</dt><dd><a href={t.repo} rel="noopener" target="_blank">{t.repo.replace("https://github.com/", "")}</a></dd></>}
+        {t.homepage && <><dt>Homepage</dt><dd><a href={t.homepage} rel="noopener" target="_blank">{new URL(t.homepage).host}</a></dd></>}
+        {t.docs && t.docs !== t.homepage && <><dt>Docs</dt><dd><a href={t.docs} rel="noopener" target="_blank">{new URL(t.docs).host}</a></dd></>}
+        {t.remote_mcp_url && <><dt>Remote MCP</dt><dd><code>{t.remote_mcp_url}</code></dd></>}
+        <dt>Stars</dt><dd>{fmtStars(starsOf(t))}</dd>
+        <dt>Last commit</dt><dd>{lastCommit(t) ?? "—"}</dd>
+        <dt>License</dt><dd>{t.license}</dd>
+        <dt>Package</dt><dd>{pkg ? <a href={pkg.url} rel="noopener" target="_blank">{pkg.name}@{pkg.version}</a> : "None detected"}</dd>
+        <dt>Category</dt><dd><a href={`/category/${cat.slug}/`}>{cat.short}</a></dd>
+        <dt>Listed via</dt><dd><a href={t.source_url} rel="noopener" target="_blank">source</a></dd>
+      </dl></div>
+      <div class="panel" style="margin-top:14px"><b>Maintain this tool?</b><p class="note">Show your free, auto-updating verification badge in your README:</p>
+        <p><img src={`/badge/${t.id}.svg`} alt={`${SITE.name} status`} /></p>
+        <pre><code>{`[![${SITE.name}](${SITE.url}/badge/${t.id}.svg)](${SITE.url}/tools/${t.id}/)`}</code></pre>
+        <p class="note">Wrong info? <a href="/submit/">Send a correction</a> — free.</p></div>
+      <p class="note" style="margin-top:14px">Listing a tool is not an endorsement or investment advice. Test any trading tool in paper mode first.</p>
+    </aside>
+  </div>
+  {related.length > 0 && <><h2 class="sec">More in {cat.name}</h2><div class="grid">{related.map((r) => <ToolCard t={r} />)}</div></>}
+</div>
+<script is:inline>
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{const p=b.closest('.panel');p.querySelectorAll('.on').forEach(e=>e.classList.remove('on'));b.classList.add('on');p.querySelector('.snip[data-i="'+b.dataset.i+'"]').classList.add('on')}));
+</script>
+</Base>

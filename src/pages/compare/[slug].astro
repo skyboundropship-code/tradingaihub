@@ -1,0 +1,30 @@
+---
+import Base from "../../layouts/Base.astro";
+import Status from "../../components/Status.astro";
+import Share from "../../components/Share.astro";
+import Newsletter from "../../components/Newsletter.astro";
+import { SITE } from "../../config";
+import { tools, COMPARISONS, TYPE_LABEL, pkgOf, fmtStars, starsOf, lastCommit, verificationReport as r } from "../../lib/data";
+export function getStaticPaths() { return COMPARISONS.map((c) => ({ params: { slug: c.slug }, props: { slug: c.slug } })); }
+const c = COMPARISONS.find((x) => x.slug === Astro.props.slug)!;
+const list = tools.filter(c.filter).sort((a, b) => (b.verification.github?.stars ?? 0) - (a.verification.github?.stars ?? 0));
+const ld = [{ "@context": "https://schema.org", "@type": "ItemList", name: c.title, itemListElement: list.map((t, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE.url}/tools/${t.id}/`, name: t.name })) }];
+---
+<Base title={c.title} description={c.intro} jsonld={ld} og={`compare-${c.slug}`}>
+<div class="wrap page">
+  <div class="crumbs"><a href="/">Home</a> / <a href="/compare/">Comparisons</a></div>
+  <h1>{c.title}</h1><p style="color:var(--muted)">{c.intro} Data from our automated check on {r.checked_at.slice(0, 10)}; prices as published by each vendor.</p>
+  <Share path={`/compare/${c.slug}/`} text={c.title} />
+  <div class="tablewrap"><table>
+  {c.cols === "pricing" ? (<>
+    <thead><tr><th>API</th><th>Free tier</th><th>Paid from</th><th>Plans (published)</th><th>Status</th><th>Source</th></tr></thead>
+    <tbody>{list.map((t) => <tr><td><a href={`/tools/${t.id}/`}>{t.name}</a></td><td>{t.pricing.free_tier}</td><td>{t.pricing.paid_from ?? "—"}</td><td class="note">{t.pricing.details}</td><td><Status status={t.verification.status} /></td><td>{t.pricing.source ? <a href={t.pricing.source} rel="nofollow noopener" target="_blank">pricing page</a> : "—"}</td></tr>)}</tbody>
+  </>) : (<>
+    <thead><tr><th>Tool</th><th>Type</th><th>Status</th><th>Stars</th><th>Last commit</th><th>License</th><th>Install</th><th>Pricing</th></tr></thead>
+    <tbody>{list.map((t) => { const p = pkgOf(t); return <tr><td><a href={`/tools/${t.id}/`}>{t.name}</a>{t.official && <> <span class="badge off">Official</span></>}</td><td>{TYPE_LABEL[t.type]}</td><td><Status status={t.verification.status} /></td><td>{fmtStars(starsOf(t))}</td><td>{lastCommit(t) ?? "—"}</td><td>{t.license}</td><td class="note">{t.remote_mcp_url ? "Hosted URL" : p ? `${t.verification.npm ? "npm" : "PyPI"}: ${p.name}` : t.type === "skill" ? "Skill repo" : "From source"}</td><td class="note">{t.pricing.free_tier}</td></tr>; })}</tbody>
+  </>)}
+  </table></div>
+  <p class="note" style="margin-top:14px">Ordering is by GitHub stars, not a recommendation. Not investment advice.</p>
+  <Newsletter />
+</div>
+</Base>

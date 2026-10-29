@@ -1,0 +1,25 @@
+# Weekly verification + rebuild + deploy to Cloudflare Pages. NOT active until the repo is created and secrets are added (needs approval).
+name: weekly-verify
+on:
+  schedule: [{ cron: "0 5 * * 1" }]   # Mondays 05:00 UTC
+  workflow_dispatch: {}
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    permissions: { contents: write }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.13" }
+      - run: pip install requests && npm ci
+      - run: python3 scripts/verify.py && python3 scripts/awesome.py
+        env: { GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
+      - run: node scripts/og.mjs && npx astro build
+        env: { CHROME_PATH: /usr/bin/google-chrome }  # preinstalled on ubuntu-latest
+      - run: npx wrangler pages deploy dist --project-name=tradeskills
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - run: git config user.name bot && git config user.email bot@users.noreply.github.com && git add data awesome && git commit -m "weekly verification" || true && git push

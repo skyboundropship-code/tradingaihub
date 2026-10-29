@@ -1,0 +1,24 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE } from "../config";
+import { CATEGORIES } from "../lib/data";
+---
+<Base title="Submit a tool" description="Submit an MCP server, agent skill or API for finance and trading. Free listing, automatically verified.">
+<div class="wrap page" style="max-width:760px">
+  <h1>Submit a tool</h1>
+  <p style="color:var(--muted)"><b>Free forever.</b> No paid tiers, no catch. You also get a free auto-updating <a href="/badges/">verified badge</a>. After submission our verifier checks the repo/homepage, last commit, package registry and docs. Tools that pass are published within a week.</p>
+  <p class="callout">⚠️ Preview only: this form has no backend yet and does not send anything.</p>
+  <form class="f" onsubmit="event.preventDefault();document.getElementById('ok').hidden=false">
+    <label>Tool name</label><input required name="name" />
+    <label>Repository or homepage URL</label><input required type="url" name="url" placeholder="https://github.com/owner/repo" />
+    <label>Type</label><select name="type"><option>MCP server</option><option>Agent skill</option><option>API</option></select>
+    <label>Category</label><select name="category">{CATEGORIES.map((c) => <option value={c.slug}>{c.name}</option>)}</select>
+    <label>One-line description</label><input name="desc" maxlength="160" />
+    <label>Pricing page URL (if paid)</label><input type="url" name="pricing" />
+    <label>Your email (for verification questions)</label><input type="email" name="email" />
+    <label><input type="checkbox" required style="width:auto" /> I confirm this tool does not promise returns and is not an investment-advice service.</label>
+    <p><button class="btn" type="submit">Submit for review</button></p>
+    <p id="ok" hidden class="callout">Thanks! (Preview mode — nothing was sent.)</p>
+  </form>
+</div>
+</Base>

@@ -1,0 +1,3845 @@
+[
+  {
+    "id": "alpha-vantage-api",
+    "name": "Alpha Vantage API",
+    "type": "api",
+    "category": "market-data",
+    "description": "Stocks, forex, crypto, fundamentals and 50+ technical indicators over a simple REST API.",
+    "repo": null,
+    "homepage": "https://www.alphavantage.co/",
+    "docs": "https://www.alphavantage.co/documentation/",
+    "source_url": "https://www.alphavantage.co/premium/",
+    "official": true,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "25 requests/day",
+      "paid_from": "$49.99/mo",
+      "details": "Premium plans $49.99\u2013$249.99/mo (75\u20131,200 req/min).",
+      "source": "https://www.alphavantage.co/premium/",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "homepage alive",
+          "ok": true
+        },
+        {
+          "check": "docs alive",
+          "ok": true
+        }
+      ],
+      "issues": [],
+      "homepage": {
+        "url": "https://www.alphavantage.co/",
+        "ok": true,
+        "status": 200
+      },
+      "docs": {
+        "url": "https://www.alphavantage.co/documentation/",
+        "ok": true,
+        "status": 200
+      },
+      "last_commit_days": null,
+      "status": "verified"
+    },
+    "license": "Proprietary / ToS"
+  },
+  {
+    "id": "massive-api",
+    "name": "Massive (formerly Polygon.io) API",
+    "type": "api",
+    "category": "market-data",
+    "description": "Tick-level US stocks, options, indices, forex and crypto over REST, WebSockets and flat files.",
+    "repo": null,
+    "homepage": "https://massive.com/",
+    "docs": "https://massive.com/docs",
+    "source_url": "https://massive.com/stocks",
+    "official": true,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "Stocks Basic: 5 calls/min, EOD, 2 yrs history",
+      "paid_from": "$29/mo",
+      "details": "Starter $29, Developer $79, Advanced $199 (real-time) per month; individual non-pro use.",
+      "source": "https://massive.com/stocks",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "homepage alive",
+          "ok": true
+        },
+        {
+          "check": "docs alive",
+          "ok": true
+        }
+      ],
+      "issues": [],
+      "homepage": {
+        "url": "https://massive.com/",
+        "ok": true,
+        "status": 200
+      },
+      "docs": {
+        "url": "https://massive.com/docs",
+        "ok": true,
+        "status": 200
+      },
+      "last_commit_days": null,
+      "status": "verified"
+    },
+    "license": "Proprietary / ToS"
+  },
+  {
+    "id": "fmp-api",
+    "name": "Financial Modeling Prep API",
+    "type": "api",
+    "category": "market-data",
+    "description": "Fundamentals, ratios, prices, transcripts and 13F holdings across 150+ endpoints.",
+    "repo": null,
+    "homepage": "https://site.financialmodelingprep.com/",
+    "docs": "https://site.financialmodelingprep.com/developer/docs",
+    "source_url": "https://site.financialmodelingprep.com/pricing-plans",
+    "official": true,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "250 calls/day, EOD",
+      "paid_from": "$29/mo",
+      "details": "Starter $29, Premium $69, Ultimate $139 per month ($19/$49/$99 billed annually).",
+      "source": "https://site.financialmodelingprep.com/pricing-plans",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "homepage alive",
+          "ok": true
+        },
+        {
+          "check": "docs alive",
+          "ok": true
+        }
+      ],
+      "issues": [],
+      "homepage": {
+        "url": "https://site.financialmodelingprep.com/",
+        "ok": true,
+        "status": 403
+      },
+      "docs": {
+        "url": "https://site.financialmodelingprep.com/developer/docs",
+        "ok": true,
+        "status": 403
+      },
+      "last_commit_days": null,
+      "status": "verified"
+    },
+    "license": "Proprietary / ToS"
+  },
+  {
+    "id": "finnhub-api",
+    "name": "Finnhub API",
+    "type": "api",
+    "category": "market-data",
+    "description": "Real-time quotes, fundamentals, estimates, news and alternative data.",
+    "repo": null,
+    "homepage": "https://finnhub.io/",
+    "docs": "https://finnhub.io/docs/api",
+    "source_url": "https://www.finnhub.io/pricing-fundamental-data",
+    "official": true,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "60 calls/min, US real-time quotes",
+      "paid_from": "$50/mo per market (fundamentals)",
+      "details": "Fundamental-1 $50/mo/market, Fundamental-2 $200/mo/market (published). Other plan prices not verified.",
+      "source": "https://www.finnhub.io/pricing-fundamental-data",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "homepage alive",
+          "ok": true
+        },
+        {
+          "check": "docs alive",
+          "ok": true
+        }
+      ],
+      "issues": [],
+      "homepage": {
+        "url": "https://finnhub.io/",
+        "ok": true,
+        "status": 200
+      },
+      "docs": {
+        "url": "https://finnhub.io/docs/api",
+        "ok": true,
+        "status": 200
+      },
+      "last_commit_days": null,
+      "status": "verified"
+    },
+    "license": "Proprietary / ToS"
+  },
+  {
+    "id": "twelve-data-api",
+    "name": "Twelve Data API",
+    "type": "api",
+    "category": "market-data",
+    "description": "Real-time and historical stocks, forex, crypto and ETFs with credit-based REST and WebSocket access.",
+    "repo": null,
+    "homepage": "https://twelvedata.com/",
+    "docs": "https://twelvedata.com/docs",
+    "source_url": "https://twelvedata.com/pricing",
+    "official": true,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "8 credits/min, 800/day",
+      "paid_from": "$29/mo",
+      "details": "Grow $29\u201379, Pro $99\u2013229, Ultra $329\u2013999 per month.",
+      "source": "https://twelvedata.com/pricing",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "homepage alive",
+          "ok": true
+        },
+        {
+          "check": "docs alive",
+          "ok": true
+        }
+      ],
+      "issues": [],
+      "homepage": {
+        "url": "https://twelvedata.com/",
+        "ok": true,
+        "status": 200
+      },
+      "docs": {
+        "url": "https://twelvedata.com/docs",
+        "ok": true,
+        "status": 200
+      },
+      "last_commit_days": null,
+      "status": "verified"
+    },
+    "license": "Proprietary / ToS"
+  },
+  {
+    "id": "eodhd-api",
+    "name": "EODHD API",
+    "type": "api",
+    "category": "market-data",
+    "description": "End-of-day, intraday, fundamentals and news for 70+ exchanges; ships an MCP server.",
+    "repo": null,
+    "homepage": "https://eodhd.com/",
+    "docs": "https://eodhd.com/financial-apis/",
+    "source_url": "https://eodhd.com/pricing",
+    "official": true,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "20 calls/day, 1 yr EOD",
+      "paid_from": "$19.99/mo",
+      "details": "EOD $19.99, EOD+Intraday $29.99, Fundamentals $59.99, All-In-One $99.99 per month.",
+      "source": "https://eodhd.com/pricing",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "homepage alive",
+          "ok": true
+        },
+        {
+          "check": "docs alive",
+          "ok": true
+        }
+      ],
+      "issues": [],
+      "homepage": {
+        "url": "https://eodhd.com/",
+        "ok": true,
+        "status": 200
+      },
+      "docs": {
+        "url": "https://eodhd.com/financial-apis/",
+        "ok": true,
+        "status": 200
+      },
+      "last_commit_days": null,
+      "status": "verified"
+    },
+    "license": "Proprietary / ToS"
+  },
+  {
+    "id": "alpaca-market-data-api",
+    "name": "Alpaca Market Data API",
+    "type": "api",
+    "category": "market-data",
+    "description": "US equities and options market data, free IEX tier and paid full-SIP plan.",
+    "repo": null,
+    "homepage": "https://alpaca.markets/data",
+    "docs": "https://docs.alpaca.markets/us/docs/about-market-data-api",
+    "source_url": "https://docs.alpaca.markets/us/docs/about-market-data-api",
+    "official": true,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "Basic: real-time IEX, 200 calls/min",
+      "paid_from": "$99/mo",
+      "details": "Algo Trader Plus $99/mo: all US exchanges real-time, OPRA options.",
+      "source": "https://docs.alpaca.markets/us/docs/about-market-data-api",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "homepage alive",
+          "ok": true
+        },
+        {
+          "check": "docs alive",
+          "ok": true
+        }
+      ],
+      "issues": [],
+      "homepage": {
+        "url": "https://alpaca.markets/data",
+        "ok": true,
+        "status": 200
+      },
+      "docs": {
+        "url": "https://docs.alpaca.markets/us/docs/about-market-data-api",
+        "ok": true,
+        "status": 200
+      },
+      "last_commit_days": null,
+      "status": "verified"
+    },
+    "license": "Proprietary / ToS"
+  },
+  {
+    "id": "coingecko-api",
+    "name": "CoinGecko API",
+    "type": "api",
+    "category": "crypto",
+    "description": "Crypto prices, market caps, exchanges and on-chain DEX data.",
+    "repo": null,
+    "homepage": "https://www.coingecko.com/en/api",
+    "docs": "https://docs.coingecko.com/",
+    "source_url": "https://www.coingecko.com/en/api/pricing",
+    "official": true,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "Demo: 10,000 credits/mo, 100 calls/min",
+      "paid_from": "$35/mo",
+      "details": "Basic $35/mo ($29 annual), Analyst $129/mo.",
+      "source": "https://www.coingecko.com/en/api/pricing",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "homepage alive",
+          "ok": true
+        },
+        {
+          "check": "docs alive",
+          "ok": true
+        }
+      ],
+      "issues": [],
+      "homepage": {
+        "url": "https://www.coingecko.com/en/api",
+        "ok": true,
+        "status": 200
+      },
+      "docs": {
+        "url": "https://docs.coingecko.com/",
+        "ok": true,
+        "status": 200
+      },
+      "last_commit_days": null,
+      "status": "verified"
+    },
+    "license": "Proprietary / ToS"
+  },
+  {
+    "id": "fred-api",
+    "name": "FRED API (St. Louis Fed)",
+    "type": "api",
+    "category": "macro",
+    "description": "Hundreds of thousands of US and international economic time series from the Federal Reserve Bank of St. Louis.",
+    "repo": null,
+    "homepage": "https://fred.stlouisfed.org/docs/api/fred/",
+    "docs": "https://fred.stlouisfed.org/docs/api/fred/",
+    "source_url": "https://fred.stlouisfed.org/docs/api/fred/",
+    "official": true,
+    "pricing": {
+      "model": "free",
+      "free_tier": "Free",
+      "paid_from": null,
+      "details": "Free with an API key.",
+      "source": "https://fred.stlouisfed.org/docs/api/fred/",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "homepage alive",
+          "ok": true
+        },
+        {
+          "check": "docs alive",
+          "ok": true
+        }
+      ],
+      "issues": [],
+      "homepage": {
+        "url": "https://fred.stlouisfed.org/docs/api/fred/",
+        "ok": true,
+        "status": 200
+      },
+      "docs": {
+        "url": "https://fred.stlouisfed.org/docs/api/fred/",
+        "ok": true,
+        "status": 200
+      },
+      "last_commit_days": null,
+      "status": "verified"
+    },
+    "license": "Proprietary / ToS"
+  },
+  {
+    "id": "sec-edgar-api",
+    "name": "SEC EDGAR APIs",
+    "type": "api",
+    "category": "research-filings",
+    "description": "Official SEC JSON APIs for company submissions and XBRL financial data.",
+    "repo": null,
+    "homepage": "https://www.sec.gov/search-filings/edgar-application-programming-interfaces",
+    "docs": "https://www.sec.gov/search-filings/edgar-application-programming-interfaces",
+    "source_url": "https://www.sec.gov/search-filings/edgar-application-programming-interfaces",
+    "official": true,
+    "pricing": {
+      "model": "free",
+      "free_tier": "Free",
+      "paid_from": null,
+      "details": "Free; SEC fair-access rules apply (declared User-Agent, rate limits).",
+      "source": "https://www.sec.gov/search-filings/edgar-application-programming-interfaces",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "homepage alive",
+          "ok": true
+        },
+        {
+          "check": "docs alive",
+          "ok": true
+        }
+      ],
+      "issues": [],
+      "homepage": {
+        "url": "https://www.sec.gov/search-filings/edgar-application-programming-interfaces",
+        "ok": true,
+        "status": 200
+      },
+      "docs": {
+        "url": "https://www.sec.gov/search-filings/edgar-application-programming-interfaces",
+        "ok": true,
+        "status": 200
+      },
+      "last_commit_days": null,
+      "status": "verified"
+    },
+    "license": "Proprietary / ToS"
+  },
+  {
+    "id": "alpha-vantage-mcp",
+    "name": "Alpha Vantage MCP",
+    "type": "mcp",
+    "category": "market-data",
+    "description": "Official MCP server exposing Alpha Vantage stocks, forex, crypto and indicators to AI agents.",
+    "repo": "https://github.com/alphavantage/alpha_vantage_mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "25 requests/day",
+      "paid_from": "$49.99/mo",
+      "details": "Premium plans $49.99\u2013$249.99/mo (75\u20131,200 req/min).",
+      "source": "https://www.alphavantage.co/premium/",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": "https://mcp.alphavantage.co/mcp",
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        },
+        {
+          "check": "remote MCP endpoint responds",
+          "ok": true
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/alphavantage/alpha_vantage_mcp",
+        "stars": 223,
+        "archived": false,
+        "last_commit": "2026-10-03T00:09:33Z",
+        "license": "MIT"
+      },
+      "remote_mcp": {
+        "url": "https://mcp.alphavantage.co/mcp",
+        "ok": true,
+        "status": 401
+      },
+      "last_commit_days": 26,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "massive-mcp",
+    "name": "Massive MCP",
+    "type": "mcp",
+    "category": "market-data",
+    "description": "Official MCP server for Massive stocks, options, forex and crypto data.",
+    "repo": "https://github.com/massive-com/mcp_massive",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "Stocks Basic: 5 calls/min, EOD, 2 yrs history",
+      "paid_from": "$29/mo",
+      "details": "Starter $29, Developer $79, Advanced $199 (real-time) per month; individual non-pro use.",
+      "source": "https://massive.com/stocks",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/massive-com/mcp_massive",
+        "stars": 398,
+        "archived": false,
+        "last_commit": "2026-10-08T14:13:06Z",
+        "license": "MIT"
+      },
+      "last_commit_days": 20,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "fmp-mcp-community",
+    "name": "Financial Modeling Prep MCP (community)",
+    "type": "mcp",
+    "category": "market-data",
+    "description": "Community MCP server wrapping 250+ FMP tools for fundamentals and market insights.",
+    "repo": "https://github.com/imbenrabi/Financial-Modeling-Prep-MCP-Server",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "250 calls/day, EOD",
+      "paid_from": "$29/mo",
+      "details": "Starter $29, Premium $69, Ultimate $139 per month ($19/$49/$99 billed annually).",
+      "source": "https://site.financialmodelingprep.com/pricing-plans",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/imbenrabi/Financial-Modeling-Prep-MCP-Server",
+        "stars": 150,
+        "archived": false,
+        "last_commit": "2026-10-14T14:11:50Z",
+        "license": "Apache-2.0"
+      },
+      "npm": {
+        "name": "financial-modeling-prep-mcp-server",
+        "version": "2.8.0",
+        "published": "2026-10-14T14:20:14.205Z",
+        "url": "https://www.npmjs.com/package/financial-modeling-prep-mcp-server",
+        "links_back": true
+      },
+      "last_commit_days": 14,
+      "status": "verified"
+    },
+    "license": "Apache-2.0"
+  },
+  {
+    "id": "finnhub-mcp-community",
+    "name": "Stock Market MCP (Finnhub)",
+    "type": "mcp",
+    "category": "market-data",
+    "description": "Community MCP server serving stock market data via the Finnhub API.",
+    "repo": "https://github.com/sverze/stock-market-mcp-server",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "60 calls/min, US real-time quotes",
+      "paid_from": "$50/mo per market (fundamentals)",
+      "details": "Fundamental-1 $50/mo/market, Fundamental-2 $200/mo/market (published). Other plan prices not verified.",
+      "source": "https://www.finnhub.io/pricing-fundamental-data",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [
+        "No commits for 546 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/sverze/stock-market-mcp-server",
+        "stars": 7,
+        "archived": false,
+        "last_commit": "2025-05-01T07:20:43Z",
+        "license": null
+      },
+      "last_commit_days": 546,
+      "status": "stale"
+    },
+    "license": "unknown"
+  },
+  {
+    "id": "financial-datasets-mcp",
+    "name": "Financial Datasets MCP",
+    "type": "mcp",
+    "category": "market-data",
+    "description": "Income statements, balance sheets, cash flows and stock prices from Financial Datasets.",
+    "repo": "https://github.com/financial-datasets/mcp-server",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "paid API key",
+      "free_tier": "unknown",
+      "paid_from": null,
+      "details": "Requires a Financial Datasets API key; plan prices not yet verified.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [
+        "pypi name 'mcp-server' exists on the registry but does not link to this repo (not counted)",
+        "No commits for 510 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/financial-datasets/mcp-server",
+        "stars": 2315,
+        "archived": false,
+        "last_commit": "2025-06-05T19:50:35Z",
+        "license": "MIT"
+      },
+      "last_commit_days": 510,
+      "status": "stale"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "yahoo-finance-mcp",
+    "name": "Yahoo Finance MCP",
+    "type": "mcp",
+    "category": "market-data",
+    "description": "Community MCP server for Yahoo Finance quotes and history (unofficial data source).",
+    "repo": "https://github.com/maxscheijen/mcp-yahoo-finance",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys. Uses unofficial Yahoo Finance endpoints.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/maxscheijen/mcp-yahoo-finance",
+        "stars": 28,
+        "archived": false,
+        "last_commit": "2026-10-14T08:00:21Z",
+        "license": "MIT"
+      },
+      "pypi": {
+        "name": "mcp-yahoo-finance",
+        "version": "0.2.0",
+        "published": "2026-09-28T18:16:37.572225Z",
+        "url": "https://pypi.org/project/mcp-yahoo-finance/",
+        "links_back": true
+      },
+      "last_commit_days": 15,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "coingecko-mcp",
+    "name": "CoinGecko MCP",
+    "type": "mcp",
+    "category": "crypto",
+    "description": "Official CoinGecko MCP server; public keyless endpoint plus a Pro endpoint.",
+    "repo": null,
+    "homepage": "https://docs.coingecko.com/ai-integration/mcp-server",
+    "docs": "https://docs.coingecko.com/ai-integration/mcp-server",
+    "source_url": "https://docs.coingecko.com/ai-integration/mcp-server",
+    "official": true,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "Demo: 10,000 credits/mo, 100 calls/min",
+      "paid_from": "$35/mo",
+      "details": "Basic $35/mo ($29 annual), Analyst $129/mo.",
+      "source": "https://www.coingecko.com/en/api/pricing",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": "https://mcp.api.coingecko.com/mcp",
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "homepage alive",
+          "ok": true
+        },
+        {
+          "check": "docs alive",
+          "ok": true
+        },
+        {
+          "check": "remote MCP endpoint responds",
+          "ok": true
+        }
+      ],
+      "issues": [],
+      "homepage": {
+        "url": "https://docs.coingecko.com/ai-integration/mcp-server",
+        "ok": true,
+        "status": 200
+      },
+      "docs": {
+        "url": "https://docs.coingecko.com/ai-integration/mcp-server",
+        "ok": true,
+        "status": 200
+      },
+      "remote_mcp": {
+        "url": "https://mcp.api.coingecko.com/mcp",
+        "ok": true,
+        "status": 405
+      },
+      "last_commit_days": null,
+      "status": "verified"
+    },
+    "license": "Proprietary / ToS"
+  },
+  {
+    "id": "eodhd-claude-skills",
+    "name": "EODHD Claude Skills",
+    "type": "skill",
+    "category": "market-data",
+    "description": "Official Claude Code plugin/skills for EODHD: market overview, screener, company briefs, earnings monitor.",
+    "repo": "https://github.com/EodHistoricalData/eodhd-claude-skills",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/EodHistoricalData/eodhd-claude-skills/blob/main/README.md",
+    "official": true,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "20 calls/day, 1 yr EOD",
+      "paid_from": "$19.99/mo",
+      "details": "EOD $19.99, EOD+Intraday $29.99, Fundamentals $59.99, All-In-One $99.99 per month.",
+      "source": "https://eodhd.com/pricing",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/EodHistoricalData/eodhd-claude-skills",
+        "stars": 47,
+        "archived": false,
+        "last_commit": "2026-10-20T16:29:21Z",
+        "license": "MIT"
+      },
+      "claude_marketplace": true,
+      "root_skill_md": false,
+      "last_commit_days": 8,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "maverick-mcp",
+    "name": "Maverick MCP",
+    "type": "mcp",
+    "category": "market-data",
+    "description": "Stock analysis MCP server with technical analysis, screening and portfolio tools.",
+    "repo": "https://github.com/wshobson/maverick-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/wshobson/maverick-mcp",
+        "stars": 714,
+        "archived": false,
+        "last_commit": "2026-10-17T23:30:26Z",
+        "license": "MIT"
+      },
+      "last_commit_days": 11,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "investor-agent",
+    "name": "investor-agent",
+    "type": "mcp",
+    "category": "market-data",
+    "description": "MCP server providing market data, sentiment and fundamentals for building an investor agent.",
+    "repo": "https://github.com/ferdousbhai/investor-agent",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/ferdousbhai/investor-agent",
+        "stars": 348,
+        "archived": false,
+        "last_commit": "2026-10-09T13:58:25Z",
+        "license": "MIT"
+      },
+      "last_commit_days": 19,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "kospi-kosdaq-mcp",
+    "name": "KOSPI/KOSDAQ MCP",
+    "type": "mcp",
+    "category": "market-data",
+    "description": "Korean stock market (KOSPI/KOSDAQ) data via MCP.",
+    "repo": "https://github.com/dragon1086/kospi-kosdaq-stock-server",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/dragon1086/kospi-kosdaq-stock-server",
+        "stars": 74,
+        "archived": false,
+        "last_commit": "2026-09-11T06:43:28Z",
+        "license": "MIT"
+      },
+      "pypi": {
+        "name": "kospi-kosdaq-stock-server",
+        "version": "0.4.2",
+        "published": "2026-08-04T09:00:34.964179Z",
+        "url": "https://pypi.org/project/kospi-kosdaq-stock-server/",
+        "links_back": true
+      },
+      "last_commit_days": 48,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "hk-finance-mcp",
+    "name": "HK Finance MCP",
+    "type": "mcp",
+    "category": "market-data",
+    "description": "Hong Kong finance and stock market data via MCP.",
+    "repo": "https://github.com/hkopenai/hk-finance-mcp-server",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/hkopenai/hk-finance-mcp-server",
+        "stars": 12,
+        "archived": false,
+        "last_commit": "2026-10-02T14:08:14Z",
+        "license": "MIT"
+      },
+      "pypi": {
+        "name": "hkopenai.hk-finance-mcp-server",
+        "version": "0.1.7",
+        "published": "2025-06-10T12:38:14.577865Z",
+        "url": "https://pypi.org/project/hkopenai.hk-finance-mcp-server/",
+        "links_back": true
+      },
+      "last_commit_days": 26,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "fred-mcp",
+    "name": "FRED MCP",
+    "type": "mcp",
+    "category": "macro",
+    "description": "MCP server for Federal Reserve Economic Data (FRED) series search and retrieval.",
+    "repo": "https://github.com/stefanoamorelli/fred-mcp-server",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "free",
+      "free_tier": "Free",
+      "paid_from": null,
+      "details": "Server is open-source; FRED API key is free.",
+      "source": "https://fred.stlouisfed.org/docs/api/fred/",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/stefanoamorelli/fred-mcp-server",
+        "stars": 128,
+        "archived": false,
+        "last_commit": "2026-08-22T18:34:48Z",
+        "license": "AGPL-3.0"
+      },
+      "npm": {
+        "name": "fred-mcp-server",
+        "version": "1.2.0",
+        "published": "2026-08-20T17:12:56.633Z",
+        "url": "https://www.npmjs.com/package/fred-mcp-server",
+        "links_back": true
+      },
+      "last_commit_days": 67,
+      "status": "verified"
+    },
+    "license": "AGPL-3.0"
+  },
+  {
+    "id": "fxmacrodata-mcp",
+    "name": "FXMacroData MCP",
+    "type": "mcp",
+    "category": "macro",
+    "description": "Macro indicators, FX, economic calendars, COT and commodities.",
+    "repo": "https://github.com/fxmacrodata/mcp-server-fxmacrodata",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "unknown",
+      "paid_from": null,
+      "details": "Listed as freemium; plan prices not yet verified.",
+      "source": "https://github.com/BlockRunAI/awesome-finance-mcp",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/fxmacrodata/mcp-server-fxmacrodata",
+        "stars": 0,
+        "archived": false,
+        "last_commit": "2026-10-06T03:03:08Z",
+        "license": "MIT"
+      },
+      "pypi": {
+        "name": "mcp-server-fxmacrodata",
+        "version": "0.1.3",
+        "published": "2026-10-06T03:04:52.998955Z",
+        "url": "https://pypi.org/project/mcp-server-fxmacrodata/",
+        "links_back": true
+      },
+      "last_commit_days": 23,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "alpaca-mcp",
+    "name": "Alpaca MCP Server",
+    "type": "mcp",
+    "category": "trading-brokers",
+    "description": "Official Alpaca MCP: trade stocks, ETFs, options and crypto; query positions and market data.",
+    "repo": "https://github.com/alpacahq/alpaca-mcp-server",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "Basic: real-time IEX, 200 calls/min",
+      "paid_from": "$99/mo",
+      "details": "Algo Trader Plus $99/mo: all US exchanges real-time, OPRA options.",
+      "source": "https://docs.alpaca.markets/us/docs/about-market-data-api",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/alpacahq/alpaca-mcp-server",
+        "stars": 1048,
+        "archived": false,
+        "last_commit": "2026-10-26T11:37:33Z",
+        "license": "MIT"
+      },
+      "pypi": {
+        "name": "alpaca-mcp-server",
+        "version": "2.4.0",
+        "published": "2026-10-12T10:42:27.126588Z",
+        "url": "https://pypi.org/project/alpaca-mcp-server/",
+        "links_back": true
+      },
+      "last_commit_days": 2,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "ibkr-mcp",
+    "name": "Interactive Brokers MCP (hosted)",
+    "type": "mcp",
+    "category": "trading-brokers",
+    "description": "IBKR hosted MCP endpoint for portfolio data, monitoring and authorized trade actions.",
+    "repo": null,
+    "homepage": "https://www.interactivebrokers.com/en/trading/ai-integrations.php",
+    "docs": "https://www.interactivebrokers.com/en/trading/ai-integrations.php",
+    "source_url": "https://www.interactivebrokers.com/en/trading/ai-integrations.php",
+    "official": true,
+    "pricing": {
+      "model": "account required",
+      "free_tier": "Requires an IBKR account",
+      "paid_from": null,
+      "details": "No separate MCP fee found; brokerage fees per IBKR.",
+      "source": "https://www.interactivebrokers.com/en/trading/ai-integrations.php",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": "https://api.ibkr.com/v1/api/mcp-public",
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "homepage alive",
+          "ok": true
+        },
+        {
+          "check": "docs alive",
+          "ok": true
+        },
+        {
+          "check": "remote MCP endpoint responds",
+          "ok": true
+        }
+      ],
+      "issues": [],
+      "homepage": {
+        "url": "https://www.interactivebrokers.com/en/trading/ai-integrations.php",
+        "ok": true,
+        "status": 200
+      },
+      "docs": {
+        "url": "https://www.interactivebrokers.com/en/trading/ai-integrations.php",
+        "ok": true,
+        "status": 200
+      },
+      "remote_mcp": {
+        "url": "https://api.ibkr.com/v1/api/mcp-public",
+        "ok": true,
+        "status": 401
+      },
+      "last_commit_days": null,
+      "status": "verified"
+    },
+    "license": "Proprietary / ToS"
+  },
+  {
+    "id": "tasty-agent",
+    "name": "tasty-agent (tastytrade)",
+    "type": "mcp",
+    "category": "trading-brokers",
+    "description": "Community MCP server for tastytrade: portfolio, market data, options Greeks and order execution.",
+    "repo": "https://github.com/ferdousbhai/tasty-agent",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/ferdousbhai/tasty-agent",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys. Requires a tastytrade account.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/ferdousbhai/tasty-agent",
+        "stars": 88,
+        "archived": false,
+        "last_commit": "2026-10-04T12:37:59Z",
+        "license": "MIT"
+      },
+      "npm": {
+        "name": "tasty-agent",
+        "version": "7.1.0",
+        "published": "2026-10-03T08:18:40.134Z",
+        "url": "https://www.npmjs.com/package/tasty-agent",
+        "links_back": true
+      },
+      "last_commit_days": 24,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "metatrader-mcp",
+    "name": "MetaTrader 5 MCP",
+    "type": "mcp",
+    "category": "trading-brokers",
+    "description": "Trade via the MetaTrader 5 terminal from AI agents.",
+    "repo": "https://github.com/ariadng/metatrader-mcp-server",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys. Requires MetaTrader 5.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [
+        "No commits for 214 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/ariadng/metatrader-mcp-server",
+        "stars": 843,
+        "archived": false,
+        "last_commit": "2026-03-28T18:39:17Z",
+        "license": "MIT"
+      },
+      "pypi": {
+        "name": "metatrader-mcp-server",
+        "version": "0.5.1",
+        "published": "2026-03-28T18:40:06.160417Z",
+        "url": "https://pypi.org/project/metatrader-mcp-server/",
+        "links_back": true
+      },
+      "last_commit_days": 214,
+      "status": "aging"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "paper-mcp",
+    "name": "Paper Invest MCP",
+    "type": "mcp",
+    "category": "trading-brokers",
+    "description": "Paper trading MCP: practice strategies without real money.",
+    "repo": "https://github.com/paperinvest/mcp-server",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "free",
+      "free_tier": "Free",
+      "paid_from": null,
+      "details": "Listed as free.",
+      "source": "https://github.com/BlockRunAI/awesome-finance-mcp",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [
+        "No commits for 405 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/paperinvest/mcp-server",
+        "stars": 24,
+        "archived": false,
+        "last_commit": "2025-09-19T01:19:51Z",
+        "license": "MIT"
+      },
+      "npm": {
+        "name": "@paperinvest/mcp-server",
+        "version": "1.0.4",
+        "published": "2025-09-18T22:52:31.758Z",
+        "url": "https://www.npmjs.com/package/@paperinvest/mcp-server",
+        "links_back": true
+      },
+      "last_commit_days": 405,
+      "status": "stale"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "dexpaprika-mcp",
+    "name": "DexPaprika MCP",
+    "type": "mcp",
+    "category": "crypto",
+    "description": "DEX analytics across 20+ blockchains from CoinPaprika.",
+    "repo": "https://github.com/coinpaprika/dexpaprika-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "free",
+      "free_tier": "Free",
+      "paid_from": null,
+      "details": "Listed as free.",
+      "source": "https://github.com/BlockRunAI/awesome-finance-mcp",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/coinpaprika/dexpaprika-mcp",
+        "stars": 118,
+        "archived": false,
+        "last_commit": "2026-10-21T14:55:45Z",
+        "license": "MIT"
+      },
+      "npm": {
+        "name": "dexpaprika-mcp",
+        "version": "2.9.2",
+        "published": "2026-10-21T20:00:25.254Z",
+        "url": "https://www.npmjs.com/package/dexpaprika-mcp",
+        "links_back": true
+      },
+      "last_commit_days": 7,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "ccxt-mcp",
+    "name": "CCXT MCP",
+    "type": "mcp",
+    "category": "crypto",
+    "description": "Market data from 20+ crypto exchanges via the CCXT library.",
+    "repo": "https://github.com/Nayshins/mcp-server-ccxt",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [
+        "pypi name 'mcp-server-ccxt' exists on the registry but does not link to this repo (not counted)",
+        "No commits for 618 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/Nayshins/mcp-server-ccxt",
+        "stars": 82,
+        "archived": false,
+        "last_commit": "2025-02-17T18:45:05Z",
+        "license": "MIT"
+      },
+      "last_commit_days": 618,
+      "status": "stale"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "crypto-indicators-mcp",
+    "name": "Crypto Indicators MCP",
+    "type": "mcp",
+    "category": "crypto",
+    "description": "Technical analysis indicators for crypto assets.",
+    "repo": "https://github.com/kukapay/crypto-indicators-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [
+        "No commits for 327 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/kukapay/crypto-indicators-mcp",
+        "stars": 131,
+        "archived": false,
+        "last_commit": "2025-12-06T01:07:26Z",
+        "license": "MIT"
+      },
+      "npm": {
+        "name": "crypto-indicators-mcp",
+        "version": "1.0.1",
+        "published": "2025-03-27T23:31:29.344Z",
+        "url": "https://www.npmjs.com/package/crypto-indicators-mcp",
+        "links_back": true
+      },
+      "last_commit_days": 327,
+      "status": "aging"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "tradingview-mcp",
+    "name": "TradingView MCP (community)",
+    "type": "mcp",
+    "category": "crypto",
+    "description": "Community multi-exchange market analysis/screening MCP (not affiliated with TradingView).",
+    "repo": "https://github.com/atilaahmettaner/tradingview-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/atilaahmettaner/tradingview-mcp",
+        "stars": 5162,
+        "archived": false,
+        "last_commit": "2026-10-28T08:29:19Z",
+        "license": "MIT"
+      },
+      "pypi": {
+        "name": "tradingview-mcp-server",
+        "version": "0.8.1",
+        "published": "2026-08-24T21:36:01.038654Z",
+        "url": "https://pypi.org/project/tradingview-mcp-server/",
+        "links_back": true
+      },
+      "last_commit_days": 1,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "binance-mcp",
+    "name": "Binance MCP (community)",
+    "type": "mcp",
+    "category": "crypto",
+    "description": "Portfolio, trading and token conversion on Binance (requires API key).",
+    "repo": "https://github.com/TermiX-official/binance-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys. Requires Binance API key.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [
+        "npm name 'binance-mcp' exists on the registry but does not link to this repo (not counted)",
+        "No commits for 561 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/TermiX-official/binance-mcp",
+        "stars": 97,
+        "archived": false,
+        "last_commit": "2025-04-16T06:57:46Z",
+        "license": null
+      },
+      "last_commit_days": 561,
+      "status": "stale"
+    },
+    "license": "unknown"
+  },
+  {
+    "id": "coinbase-agentkit",
+    "name": "Coinbase AgentKit",
+    "type": "mcp",
+    "category": "crypto",
+    "description": "Coinbase toolkit for wallet operations and onchain actions by AI agents, with MCP support.",
+    "repo": "https://github.com/coinbase/agentkit",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys. Requires CDP credentials.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/coinbase/agentkit",
+        "stars": 1345,
+        "archived": false,
+        "last_commit": "2026-10-14T21:49:59Z",
+        "license": "NOASSERTION"
+      },
+      "last_commit_days": 14,
+      "status": "verified"
+    },
+    "license": "NOASSERTION"
+  },
+  {
+    "id": "bankless-onchain-mcp",
+    "name": "Bankless Onchain MCP",
+    "type": "mcp",
+    "category": "crypto",
+    "description": "Query onchain data and ERC-20 token information.",
+    "repo": "https://github.com/bankless/onchain-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "free",
+      "free_tier": "Free",
+      "paid_from": null,
+      "details": "Listed as free; Bankless API key required.",
+      "source": "https://github.com/BlockRunAI/awesome-finance-mcp",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/bankless/onchain-mcp",
+        "stars": 78,
+        "archived": false,
+        "last_commit": "2026-05-05T11:48:39Z",
+        "license": null
+      },
+      "npm": {
+        "name": "@bankless/onchain-mcp",
+        "version": "1.0.6",
+        "published": "2025-03-18T17:15:47.232Z",
+        "url": "https://www.npmjs.com/package/@bankless/onchain-mcp",
+        "links_back": true
+      },
+      "last_commit_days": 176,
+      "status": "verified"
+    },
+    "license": "unknown"
+  },
+  {
+    "id": "crypto-liquidations-mcp",
+    "name": "Crypto Liquidations MCP",
+    "type": "mcp",
+    "category": "crypto",
+    "description": "Streams real-time liquidation events.",
+    "repo": "https://github.com/kukapay/crypto-liquidations-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [
+        "No commits for 541 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/kukapay/crypto-liquidations-mcp",
+        "stars": 8,
+        "archived": false,
+        "last_commit": "2025-05-06T08:53:13Z",
+        "license": "MIT"
+      },
+      "last_commit_days": 541,
+      "status": "stale"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "bitget-agent-mcp",
+    "name": "Bitget Agent MCP",
+    "type": "mcp",
+    "category": "crypto",
+    "description": "Official Bitget spot and futures trading MCP (89 operations per listing).",
+    "repo": "https://github.com/Bitget-AI/agent-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys. Requires Bitget API key.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/Bitget-AI/agent-mcp",
+        "stars": 1,
+        "archived": false,
+        "last_commit": "2026-09-01T10:12:14Z",
+        "license": "MIT"
+      },
+      "npm": {
+        "name": "@bitget-ai/bitget-agent-mcp",
+        "version": "3.3.1",
+        "published": "2026-09-20T05:55:57.461Z",
+        "url": "https://www.npmjs.com/package/@bitget-ai/bitget-agent-mcp",
+        "links_back": true
+      },
+      "last_commit_days": 57,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "coincap-mcp",
+    "name": "CoinCap MCP",
+    "type": "mcp",
+    "category": "crypto",
+    "description": "Crypto market data from the CoinCap API.",
+    "repo": "https://github.com/QuantGeekDev/coincap-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [
+        "No commits for 636 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/QuantGeekDev/coincap-mcp",
+        "stars": 92,
+        "archived": false,
+        "last_commit": "2025-01-30T16:30:02Z",
+        "license": "MIT"
+      },
+      "npm": {
+        "name": "coincap-mcp",
+        "version": "0.9.3",
+        "published": "2024-12-09T23:31:08.464Z",
+        "url": "https://www.npmjs.com/package/coincap-mcp",
+        "links_back": true
+      },
+      "last_commit_days": 636,
+      "status": "stale"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "dexscreener-trending-mcp",
+    "name": "DexScreener Trending MCP",
+    "type": "mcp",
+    "category": "crypto",
+    "description": "Trending tokens from DexScreener.",
+    "repo": "https://github.com/kukapay/dexscreener-trending-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [
+        "No commits for 289 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/kukapay/dexscreener-trending-mcp",
+        "stars": 1,
+        "archived": false,
+        "last_commit": "2026-01-12T09:56:39Z",
+        "license": "MIT"
+      },
+      "last_commit_days": 289,
+      "status": "aging"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "base-mcp",
+    "name": "Base MCP",
+    "type": "mcp",
+    "category": "crypto",
+    "description": "Onchain tools for the Base network.",
+    "repo": "https://github.com/base/base-mcp-legacy",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [
+        "npm name 'base-mcp' exists on the registry but does not link to this repo (not counted)",
+        "Repository is archived"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/base/base-mcp-legacy",
+        "stars": 351,
+        "archived": true,
+        "last_commit": "2026-05-13T20:07:49Z",
+        "license": "MIT"
+      },
+      "status": "archived"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "solana-agent-kit",
+    "name": "Solana Agent Kit",
+    "type": "mcp",
+    "category": "crypto",
+    "description": "Toolkit connecting AI agents to Solana protocols, with MCP adapter.",
+    "repo": "https://github.com/sendaifun/solana-agent-kit",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/sendaifun/solana-agent-kit",
+        "stars": 1728,
+        "archived": false,
+        "last_commit": "2026-05-14T18:46:54Z",
+        "license": "Apache-2.0"
+      },
+      "last_commit_days": 167,
+      "status": "verified"
+    },
+    "license": "Apache-2.0"
+  },
+  {
+    "id": "bitcoin-mcp",
+    "name": "Bitcoin & Lightning MCP",
+    "type": "mcp",
+    "category": "crypto",
+    "description": "Bitcoin and Lightning Network tools for agents.",
+    "repo": "https://github.com/AbdelStark/bitcoin-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [
+        "npm name 'bitcoin-mcp' exists on the registry but does not link to this repo (not counted)",
+        "No commits for 453 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/AbdelStark/bitcoin-mcp",
+        "stars": 77,
+        "archived": false,
+        "last_commit": "2025-08-01T09:38:50Z",
+        "license": "MIT"
+      },
+      "last_commit_days": 453,
+      "status": "stale"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "x402",
+    "name": "x402 (Coinbase)",
+    "type": "mcp",
+    "category": "payments-banking",
+    "description": "Open protocol for HTTP-native stablecoin payments by agents.",
+    "repo": "https://github.com/coinbase/x402",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/coinbase/x402",
+        "stars": 176,
+        "archived": false,
+        "last_commit": "2026-10-15T17:26:05Z",
+        "license": "Apache-2.0"
+      },
+      "last_commit_days": 13,
+      "status": "verified"
+    },
+    "license": "Apache-2.0"
+  },
+  {
+    "id": "quickbooks-mcp",
+    "name": "QuickBooks Online MCP",
+    "type": "mcp",
+    "category": "accounting",
+    "description": "Official Intuit MCP server exposing QuickBooks Online entities and reports.",
+    "repo": "https://github.com/intuit/quickbooks-online-mcp-server",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/intuit/quickbooks-online-mcp-server",
+    "official": true,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys. Requires a QuickBooks Online subscription.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/intuit/quickbooks-online-mcp-server",
+        "stars": 436,
+        "archived": false,
+        "last_commit": "2026-09-15T17:56:34Z",
+        "license": "Apache-2.0"
+      },
+      "last_commit_days": 43,
+      "status": "verified"
+    },
+    "license": "Apache-2.0"
+  },
+  {
+    "id": "xero-mcp",
+    "name": "Xero MCP Server",
+    "type": "mcp",
+    "category": "accounting",
+    "description": "Official Xero MCP: contacts, chart of accounts, invoices and more.",
+    "repo": "https://github.com/XeroAPI/xero-mcp-server",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/XeroAPI/xero-mcp-server/",
+    "official": true,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys. Requires a Xero subscription.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/XeroAPI/xero-mcp-server",
+        "stars": 385,
+        "archived": false,
+        "last_commit": "2026-10-26T07:23:12Z",
+        "license": "MIT"
+      },
+      "npm": {
+        "name": "@xeroapi/xero-mcp-server",
+        "version": "0.0.17",
+        "published": "2026-05-26T05:07:15.624Z",
+        "url": "https://www.npmjs.com/package/@xeroapi/xero-mcp-server",
+        "links_back": true
+      },
+      "last_commit_days": 3,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "norman-finance-mcp",
+    "name": "Norman Finance MCP",
+    "type": "mcp",
+    "category": "accounting",
+    "description": "Accounting, invoicing and tax filing workflows for Norman Finance users.",
+    "repo": "https://github.com/norman-finance/norman-mcp-server",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys. Requires Norman Finance account.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/norman-finance/norman-mcp-server",
+        "stars": 62,
+        "archived": false,
+        "last_commit": "2026-10-28T23:11:10Z",
+        "license": "MIT"
+      },
+      "pypi": {
+        "name": "norman-mcp-server",
+        "version": "0.1.7",
+        "published": "2026-02-19T14:20:39.845097Z",
+        "url": "https://pypi.org/project/norman-mcp-server/",
+        "links_back": true
+      },
+      "last_commit_days": 0,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "ledgerskills",
+    "name": "LedgerSkills",
+    "type": "skill",
+    "category": "accounting",
+    "description": "Claude skills for audit, tax, FP&A and accounting: reconciliation, month-end close, journal-entry testing.",
+    "repo": "https://github.com/Kimonarrow/ledgerskills",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/Kimonarrow/ledgerskills",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/Kimonarrow/ledgerskills",
+        "stars": 2,
+        "archived": false,
+        "last_commit": "2026-06-12T22:17:21Z",
+        "license": "MIT"
+      },
+      "claude_marketplace": true,
+      "root_skill_md": false,
+      "last_commit_days": 138,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "anthropic-financial-services",
+    "name": "Anthropic Financial Services Plugins",
+    "type": "skill",
+    "category": "accounting",
+    "description": "Anthropic's finance plugins/skills: Excel model auditing, 3-statement models, DCF/LBO, GL reconciliation.",
+    "repo": "https://github.com/anthropics/financial-services",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://www.anthropic.com/news/finance-agents",
+    "official": true,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/anthropics/financial-services",
+        "stars": 40898,
+        "archived": false,
+        "last_commit": "2026-10-28T17:23:23Z",
+        "license": "Apache-2.0"
+      },
+      "claude_marketplace": true,
+      "root_skill_md": false,
+      "last_commit_days": 0,
+      "status": "verified"
+    },
+    "license": "Apache-2.0"
+  },
+  {
+    "id": "invoice-organizer-skill",
+    "name": "Invoice Organizer skill",
+    "type": "skill",
+    "category": "accounting",
+    "description": "Claude skill that extracts, renames and sorts invoices and receipts for tax prep.",
+    "repo": "https://github.com/ComposioHQ/awesome-claude-skills",
+    "homepage": "https://github.com/ComposioHQ/awesome-claude-skills/tree/master/invoice-organizer",
+    "docs": "https://github.com/ComposioHQ/awesome-claude-skills/tree/master/invoice-organizer",
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        },
+        {
+          "check": "homepage alive",
+          "ok": true
+        },
+        {
+          "check": "docs alive",
+          "ok": true
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/ComposioHQ/awesome-claude-skills",
+        "stars": 78234,
+        "archived": false,
+        "last_commit": "2026-07-24T07:48:01Z",
+        "license": null
+      },
+      "claude_marketplace": false,
+      "root_skill_md": false,
+      "homepage": {
+        "url": "https://github.com/ComposioHQ/awesome-claude-skills/tree/master/invoice-organizer",
+        "ok": true,
+        "status": 200
+      },
+      "docs": {
+        "url": "https://github.com/ComposioHQ/awesome-claude-skills/tree/master/invoice-organizer",
+        "ok": true,
+        "status": 200
+      },
+      "last_commit_days": 97,
+      "status": "verified"
+    },
+    "license": "unknown"
+  },
+  {
+    "id": "stripe-ai",
+    "name": "Stripe Agent Toolkit & MCP",
+    "type": "mcp",
+    "category": "payments-banking",
+    "description": "Stripe's official agent toolkit and hosted MCP for payments, customers and billing.",
+    "repo": "https://github.com/stripe/ai",
+    "homepage": null,
+    "docs": "https://docs.stripe.com/mcp",
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "usage",
+      "free_tier": "Free to use",
+      "paid_from": null,
+      "details": "Toolkit is free; standard Stripe fees apply.",
+      "source": "https://docs.stripe.com/mcp",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": "https://mcp.stripe.com",
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        },
+        {
+          "check": "docs alive",
+          "ok": true
+        },
+        {
+          "check": "remote MCP endpoint responds",
+          "ok": true
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/stripe/ai",
+        "stars": 1991,
+        "archived": false,
+        "last_commit": "2026-10-29T00:35:52Z",
+        "license": "MIT"
+      },
+      "docs": {
+        "url": "https://docs.stripe.com/mcp",
+        "ok": true,
+        "status": 200
+      },
+      "remote_mcp": {
+        "url": "https://mcp.stripe.com",
+        "ok": true,
+        "status": 401
+      },
+      "last_commit_days": 0,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "qonto-mcp",
+    "name": "Qonto MCP",
+    "type": "mcp",
+    "category": "payments-banking",
+    "description": "Official MCP server for Qonto business banking.",
+    "repo": "https://github.com/qonto/qonto-mcp-server",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys. Requires Qonto account.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/qonto/qonto-mcp-server",
+        "stars": 42,
+        "archived": false,
+        "last_commit": "2026-06-22T15:05:04Z",
+        "license": "MIT"
+      },
+      "last_commit_days": 128,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "ramp-mcp",
+    "name": "Ramp MCP",
+    "type": "mcp",
+    "category": "payments-banking",
+    "description": "Official Ramp MCP for spend and expense data.",
+    "repo": "https://github.com/ramp-public/ramp_mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys. Requires Ramp account.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [
+        "pypi name 'ramp-mcp' exists on the registry but does not link to this repo (not counted)",
+        "No commits for 587 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/ramp-public/ramp_mcp",
+        "stars": 34,
+        "archived": false,
+        "last_commit": "2025-03-20T15:30:54Z",
+        "license": "MIT"
+      },
+      "last_commit_days": 587,
+      "status": "stale"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "lunchmoney-mcp",
+    "name": "Lunch Money MCP",
+    "type": "mcp",
+    "category": "personal-finance",
+    "description": "MCP server for Lunch Money budgeting data.",
+    "repo": "https://github.com/akutishevsky/lunchmoney-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys. Requires Lunch Money account.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/akutishevsky/lunchmoney-mcp",
+        "stars": 112,
+        "archived": false,
+        "last_commit": "2026-08-03T08:07:14Z",
+        "license": "MIT"
+      },
+      "npm": {
+        "name": "@akutishevsky/lunchmoney-mcp",
+        "version": "3.0.0",
+        "published": "2026-08-03T08:07:47.782Z",
+        "url": "https://www.npmjs.com/package/@akutishevsky/lunchmoney-mcp",
+        "links_back": true
+      },
+      "last_commit_days": 87,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "monarch-mcp",
+    "name": "Monarch Money MCP",
+    "type": "mcp",
+    "category": "personal-finance",
+    "description": "Community MCP server for Monarch Money accounts, transactions and budgets.",
+    "repo": "https://github.com/carsol/monarch-mcp-server",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys. Requires Monarch Money account.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [
+        "No commits for 508 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/carsol/monarch-mcp-server",
+        "stars": 4,
+        "archived": false,
+        "last_commit": "2025-06-08T04:23:40Z",
+        "license": "MIT"
+      },
+      "last_commit_days": 508,
+      "status": "stale"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "actual-budget-mcp",
+    "name": "Actual Budget MCP",
+    "type": "mcp",
+    "category": "personal-finance",
+    "description": "MCP server for the open-source Actual Budget app.",
+    "repo": "https://github.com/Jacob-Tate/actual-budget-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/Jacob-Tate/actual-budget-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [
+        "npm name 'actual-budget-mcp' exists on the registry but does not link to this repo (not counted)",
+        "No commits for 220 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/Jacob-Tate/actual-budget-mcp",
+        "stars": 2,
+        "archived": false,
+        "last_commit": "2026-03-23T08:00:45Z",
+        "license": null
+      },
+      "last_commit_days": 220,
+      "status": "aging"
+    },
+    "license": "unknown"
+  },
+  {
+    "id": "optionsahoy-mcp",
+    "name": "OptionsAhoy MCP",
+    "type": "mcp",
+    "category": "personal-finance",
+    "description": "Equity-compensation tax optimizer for ISO, NSO, RSU and QSBS scenarios.",
+    "repo": "https://github.com/AlvisoOculus/optionsahoy-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "free",
+      "free_tier": "Free",
+      "paid_from": null,
+      "details": "Listed as free.",
+      "source": "https://github.com/BlockRunAI/awesome-finance-mcp",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/AlvisoOculus/optionsahoy-mcp",
+        "stars": 6,
+        "archived": false,
+        "last_commit": "2026-10-28T22:33:45Z",
+        "license": "MIT"
+      },
+      "npm": {
+        "name": "optionsahoy-mcp",
+        "version": "1.11.0",
+        "published": "2026-10-07T07:30:14.503Z",
+        "url": "https://www.npmjs.com/package/optionsahoy-mcp",
+        "links_back": true
+      },
+      "last_commit_days": 0,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "sec-edgar-mcp",
+    "name": "SEC EDGAR MCP",
+    "type": "mcp",
+    "category": "research-filings",
+    "description": "Open-source MCP for SEC filings, XBRL financial statements and Form 3/4/5 insider data.",
+    "repo": "https://github.com/stefanoamorelli/sec-edgar-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/stefanoamorelli/sec-edgar-mcp/",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/stefanoamorelli/sec-edgar-mcp",
+        "stars": 380,
+        "archived": false,
+        "last_commit": "2026-10-03T09:09:51Z",
+        "license": "AGPL-3.0"
+      },
+      "pypi": {
+        "name": "sec-edgar-mcp",
+        "version": "1.1.0",
+        "published": "2026-08-20T19:13:57.609150Z",
+        "url": "https://pypi.org/project/sec-edgar-mcp/",
+        "links_back": true
+      },
+      "last_commit_days": 26,
+      "status": "verified"
+    },
+    "license": "AGPL-3.0"
+  },
+  {
+    "id": "openbb",
+    "name": "OpenBB Platform (MCP)",
+    "type": "mcp",
+    "category": "research-filings",
+    "description": "Open-source investment research platform with an MCP server.",
+    "repo": "https://github.com/openbq-org/OpenBB",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/openbq-org/OpenBB",
+        "stars": 74849,
+        "archived": false,
+        "last_commit": "2026-10-24T07:01:56Z",
+        "license": "NOASSERTION"
+      },
+      "last_commit_days": 5,
+      "status": "verified"
+    },
+    "license": "NOASSERTION"
+  },
+  {
+    "id": "equibles",
+    "name": "Equibles stock-market MCP",
+    "type": "mcp",
+    "category": "research-filings",
+    "description": "SEC filings, XBRL, 13F, insider and congressional trades.",
+    "repo": "https://github.com/daniel3303/stock-market-mcp-server",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "unknown",
+      "paid_from": null,
+      "details": "Listed as freemium; not verified.",
+      "source": "https://github.com/BlockRunAI/awesome-finance-mcp",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/daniel3303/stock-market-mcp-server",
+        "stars": 7,
+        "archived": false,
+        "last_commit": "2026-10-19T14:24:59Z",
+        "license": "MIT"
+      },
+      "last_commit_days": 9,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "alphasmo",
+    "name": "AlphaSMO tools",
+    "type": "mcp",
+    "category": "research-filings",
+    "description": "13F holdings, Form 4 insider trades and smart-money signals.",
+    "repo": "https://github.com/alphasmo/alphasmo-tools",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "unknown",
+      "paid_from": null,
+      "details": "Listed as freemium; not verified.",
+      "source": "https://github.com/BlockRunAI/awesome-finance-mcp",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/alphasmo/alphasmo-tools",
+        "stars": 2,
+        "archived": false,
+        "last_commit": "2026-08-12T14:51:03Z",
+        "license": "MIT"
+      },
+      "npm": {
+        "name": "alphasmo",
+        "version": "0.2.1",
+        "published": "2026-07-18T15:34:41.377Z",
+        "url": "https://www.npmjs.com/package/alphasmo",
+        "links_back": true
+      },
+      "last_commit_days": 77,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "edgrapi-skills",
+    "name": "Edgrapi skills",
+    "type": "skill",
+    "category": "research-filings",
+    "description": "SEC EDGAR insider trades, 8-Ks, 13F/13D-G, XBRL and full-text search.",
+    "repo": "https://github.com/paperandbeyond23-gif/edgrapi-skills",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "unknown",
+      "paid_from": null,
+      "details": "Listed as freemium; not verified.",
+      "source": "https://github.com/BlockRunAI/awesome-finance-mcp",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/paperandbeyond23-gif/edgrapi-skills",
+        "stars": 1,
+        "archived": false,
+        "last_commit": "2026-10-16T16:16:26Z",
+        "license": "MIT-0"
+      },
+      "claude_marketplace": false,
+      "root_skill_md": false,
+      "last_commit_days": 12,
+      "status": "verified"
+    },
+    "license": "MIT-0"
+  },
+  {
+    "id": "valyu-mcp",
+    "name": "Valyu MCP",
+    "type": "mcp",
+    "category": "research-filings",
+    "description": "Financial deep-research search platform for agents.",
+    "repo": "https://github.com/valyuAI/valyu-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "unknown",
+      "paid_from": null,
+      "details": "Listed as free + paid; not verified.",
+      "source": "https://github.com/BlockRunAI/awesome-finance-mcp",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [
+        "No commits for 572 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/valyuAI/valyu-mcp",
+        "stars": 19,
+        "archived": false,
+        "last_commit": "2025-04-04T10:30:15Z",
+        "license": null
+      },
+      "last_commit_days": 572,
+      "status": "stale"
+    },
+    "license": "unknown"
+  },
+  {
+    "id": "finbrain-mcp",
+    "name": "FinBrain MCP",
+    "type": "mcp",
+    "category": "research-filings",
+    "description": "Alternative data (sentiment, predictions, insider) from FinBrain.",
+    "repo": "https://github.com/ahmetsbilgin/finbrain-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "paid API key",
+      "free_tier": "unknown",
+      "paid_from": null,
+      "details": "Requires FinBrain API key; prices not verified.",
+      "source": "https://github.com/BlockRunAI/awesome-finance-mcp",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [
+        "pypi name 'finbrain-mcp' exists on the registry but does not link to this repo (not counted)"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/ahmetsbilgin/finbrain-mcp",
+        "stars": 9,
+        "archived": false,
+        "last_commit": "2026-09-07T14:29:17Z",
+        "license": "MIT"
+      },
+      "last_commit_days": 51,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "claude-equity-research",
+    "name": "Claude Equity Research",
+    "type": "skill",
+    "category": "research-filings",
+    "description": "Claude Code plugin producing equity research reports with fundamental and technical analysis.",
+    "repo": "https://github.com/quant-sentiment-ai/claude-equity-research",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/quant-sentiment-ai/claude-equity-research",
+        "stars": 749,
+        "archived": false,
+        "last_commit": "2026-10-28T10:38:01Z",
+        "license": "MIT"
+      },
+      "claude_marketplace": true,
+      "root_skill_md": false,
+      "last_commit_days": 0,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "claude-investor",
+    "name": "Claude Investor",
+    "type": "skill",
+    "category": "research-filings",
+    "description": "Investment analysis agent using price data, balance sheets, sentiment and analyst ratings.",
+    "repo": "https://github.com/martinxu9/claude-investor",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [
+        "No commits for 945 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/martinxu9/claude-investor",
+        "stars": 34,
+        "archived": false,
+        "last_commit": "2024-03-28T01:26:01Z",
+        "license": "MIT"
+      },
+      "claude_marketplace": false,
+      "root_skill_md": false,
+      "last_commit_days": 945,
+      "status": "stale"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "quantconnect-mcp",
+    "name": "QuantConnect MCP",
+    "type": "mcp",
+    "category": "quant-backtesting",
+    "description": "Official QuantConnect MCP for algorithmic trading research, backtests and deployment.",
+    "repo": "https://github.com/QuantConnect/mcp-server",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "unknown",
+      "paid_from": null,
+      "details": "Requires QuantConnect account; plan prices not verified.",
+      "source": "https://github.com/BlockRunAI/awesome-finance-mcp",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/QuantConnect/mcp-server",
+        "stars": 79,
+        "archived": false,
+        "last_commit": "2026-10-26T19:34:45Z",
+        "license": "Apache-2.0"
+      },
+      "last_commit_days": 2,
+      "status": "verified"
+    },
+    "license": "Apache-2.0"
+  },
+  {
+    "id": "mcp-trader",
+    "name": "MCP Trader",
+    "type": "mcp",
+    "category": "quant-backtesting",
+    "description": "Trading MCP server with technical analysis and backtesting support.",
+    "repo": "https://github.com/wshobson/mcp-trader",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [
+        "No commits for 430 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/wshobson/mcp-trader",
+        "stars": 273,
+        "archived": false,
+        "last_commit": "2025-08-24T15:36:19Z",
+        "license": null
+      },
+      "last_commit_days": 430,
+      "status": "stale"
+    },
+    "license": "unknown"
+  },
+  {
+    "id": "varrd",
+    "name": "VARRD",
+    "type": "mcp",
+    "category": "quant-backtesting",
+    "description": "Trading research: event studies, backtesting, multiple-testing correction and OOS validation.",
+    "repo": "https://github.com/varrdinc/varrd",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "unknown",
+      "paid_from": null,
+      "details": "Listed as freemium; not verified.",
+      "source": "https://github.com/BlockRunAI/awesome-finance-mcp",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/varrdinc/varrd",
+        "stars": 24,
+        "archived": false,
+        "last_commit": "2026-08-31T13:32:00Z",
+        "license": "MIT"
+      },
+      "pypi": {
+        "name": "varrd",
+        "version": "0.4.3",
+        "published": "2026-08-27T14:11:09.501071Z",
+        "url": "https://pypi.org/project/varrd/",
+        "links_back": true
+      },
+      "last_commit_days": 58,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "chart-library-mcp",
+    "name": "Chart Library MCP",
+    "type": "mcp",
+    "category": "quant-backtesting",
+    "description": "Historical chart-pattern search across a large pattern library.",
+    "repo": "https://github.com/grahammccain/chart-library-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "freemium",
+      "free_tier": "unknown",
+      "paid_from": null,
+      "details": "Listed as freemium; not verified.",
+      "source": "https://github.com/BlockRunAI/awesome-finance-mcp",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/grahammccain/chart-library-mcp",
+        "stars": 22,
+        "archived": false,
+        "last_commit": "2026-09-10T20:37:21Z",
+        "license": "MIT"
+      },
+      "pypi": {
+        "name": "chartlibrary-mcp",
+        "version": "6.3.3",
+        "published": "2026-09-10T20:39:30.673130Z",
+        "url": "https://pypi.org/project/chartlibrary-mcp/",
+        "links_back": true
+      },
+      "last_commit_days": 48,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "finlab-ai",
+    "name": "FinLab AI",
+    "type": "skill",
+    "category": "quant-backtesting",
+    "description": "Quant strategy generation and Taiwan stock market analysis with FinLab and Claude.",
+    "repo": "https://github.com/koreal6803/finlab-ai",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/koreal6803/finlab-ai",
+        "stars": 420,
+        "archived": false,
+        "last_commit": "2026-10-29T08:19:26Z",
+        "license": null
+      },
+      "claude_marketplace": true,
+      "root_skill_md": false,
+      "last_commit_days": 0,
+      "status": "verified"
+    },
+    "license": "unknown"
+  },
+  {
+    "id": "claude-trading-skills",
+    "name": "Claude Trading Skills",
+    "type": "skill",
+    "category": "quant-backtesting",
+    "description": "Claude Code skills for trading analysis, e.g. IBD-style relative strength rating.",
+    "repo": "https://github.com/tradermonty/claude-trading-skills",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/tradermonty/claude-trading-skills",
+        "stars": 3414,
+        "archived": false,
+        "last_commit": "2026-10-26T18:34:48Z",
+        "license": "MIT"
+      },
+      "claude_marketplace": false,
+      "root_skill_md": false,
+      "last_commit_days": 2,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "superior-skills",
+    "name": "Superior Trade skills",
+    "type": "skill",
+    "category": "quant-backtesting",
+    "description": "Agent skills for strategy authoring, backtesting and deployment on Superior Trade.",
+    "repo": "https://github.com/Superior-Trade/superior-skills",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/Superior-Trade/superior-skills",
+        "stars": 216,
+        "archived": false,
+        "last_commit": "2026-09-10T03:54:43Z",
+        "license": "MIT"
+      },
+      "claude_marketplace": true,
+      "root_skill_md": true,
+      "last_commit_days": 49,
+      "status": "verified"
+    },
+    "license": "MIT"
+  },
+  {
+    "id": "claude-code-trading-terminal",
+    "name": "Claude Code Trading Terminal",
+    "type": "skill",
+    "category": "quant-backtesting",
+    "description": "Agent-native trading terminal with sub-agents for trades, positions and risk.",
+    "repo": "https://github.com/degentic-tools/claude-code-trading-terminal",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "Open-source; you supply any upstream API keys.",
+      "source": null,
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": true,
+          "note": null
+        }
+      ],
+      "issues": [
+        "No commits for 425 days"
+      ],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/degentic-tools/claude-code-trading-terminal",
+        "stars": 21,
+        "archived": false,
+        "last_commit": "2025-08-29T19:44:48Z",
+        "license": null
+      },
+      "claude_marketplace": false,
+      "root_skill_md": false,
+      "npm": {
+        "name": "@degentic/cc-trading-terminal",
+        "version": "2.1.5",
+        "published": "2025-08-28T19:10:39.288Z",
+        "url": "https://www.npmjs.com/package/@degentic/cc-trading-terminal",
+        "links_back": true
+      },
+      "last_commit_days": 425,
+      "status": "stale"
+    },
+    "license": "unknown"
+  },
+  {
+    "id": "pineify-mcp",
+    "name": "Pineify MCP",
+    "type": "mcp",
+    "category": "quant-backtesting",
+    "description": "Trading-code (Pine Script) validation and market intelligence.",
+    "repo": "https://github.com/pineifyapp/pineify-mcp",
+    "homepage": null,
+    "docs": null,
+    "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
+    "official": true,
+    "pricing": {
+      "model": "paid API key",
+      "free_tier": "unknown",
+      "paid_from": null,
+      "details": "Listed as requiring a paid API key; price not verified.",
+      "source": "https://github.com/BlockRunAI/awesome-finance-mcp",
+      "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null,
+    "verification": {
+      "checked_at": "2026-10-29",
+      "checks": [
+        {
+          "check": "repo reachable",
+          "ok": true
+        },
+        {
+          "check": "package published",
+          "ok": false,
+          "note": "no npm/PyPI package detected at repo root"
+        }
+      ],
+      "issues": [],
+      "github": {
+        "reachable": true,
+        "final_url": "https://github.com/pineifyapp/pineify-mcp",
+        "stars": 1,
+        "archived": false,
+        "last_commit": "2026-08-07T01:49:29Z",
+        "license": null
+      },
+      "last_commit_days": 83,
+      "status": "verified"
+    },
+    "license": "unknown"
+  }
+]

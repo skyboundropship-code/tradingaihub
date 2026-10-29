@@ -1,0 +1,21 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE } from "../config";
+import { tools } from "../lib/data";
+const tiers = [
+  { name: "Verified Boost", price: "$29", per: "/ month", items: ["“Featured” badge on your listing", "Pinned in the top 3 of your category", "Priority re-verification (48h)", "Cancel any time"] },
+  { name: "Category Sponsor", price: "$99", per: "/ month", pop: true, items: ["Everything in Boost", "Sponsored card on your category page + 1 comparison page", "Mention in the weekly “What changed” digest", "Click analytics report"] },
+  { name: "Homepage Spotlight", price: "$249", per: "/ month", items: ["Everything in Sponsor", "Editor's picks slot on the homepage", "Sponsored card on all relevant comparison pages", "Limited to 4 sponsors at a time"] },
+];
+---
+<Base title="Advertise" noindex description={`Advertising on ${SITE.name}.`}>
+<div class="wrap page">
+  <h1>Advertise</h1>
+  <p style="color:var(--muted);max-width:760px">{SITE.name} lists {tools.length}+ MCP servers, skills and APIs for finance and trading, re-verified weekly. Every listing is free; paid placements buy visibility only — never a better verification status. Paid placements are always labelled “Sponsored”.</p>
+  {!SITE.showAdPricing && <div class="panel"><p>Listings, badges and submissions are and will stay <b>free</b>. Sponsorships aren't open yet. Interested for later? Email {SITE.contactEmail}.</p></div>}
+  {SITE.showAdPricing && !SITE.checkoutLive && <p class="callout">⚠️ Preview only: checkout is <b>not live yet</b>. The buttons below do not take payment.</p>}
+  {SITE.showAdPricing && <div class="tiers" style="margin-top:18px">{tiers.map((t) => <div class={`panel tier ${t.pop ? "pop" : ""}`}>{t.pop && <span class="badge good" style="position:absolute;top:14px;right:14px">Most popular</span>}<h3>{t.name}</h3><div class="price">{t.price}<span class="pill"> {t.per}</span></div><ul>{t.items.map((i) => <li>{i}</li>)}</ul>
+    <a class="btn" href={SITE.checkoutUrl} aria-disabled={!SITE.checkoutLive} title="Checkout not live yet">{SITE.checkoutLive ? "Buy now" : "Checkout coming soon"}</a></div>)}</div>}
+  {SITE.showAdPricing && <div class="prose"><h2>Rules</h2><ul><li>Only real, working tools. Your tool must pass our weekly automated check to stay featured.</li><li>No guaranteed-returns claims, signals-for-sale or unregistered investment advice products.</li><li>We may decline any placement. Refunds pro-rata if we remove a listing.</li></ul></div>}
+</div>
+</Base>

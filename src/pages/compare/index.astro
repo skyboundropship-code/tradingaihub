@@ -1,0 +1,7 @@
+---
+import Base from "../../layouts/Base.astro";
+import { COMPARISONS } from "../../lib/data";
+---
+<Base title="Comparisons" description="Side-by-side comparisons of finance and trading MCP servers, skills and data APIs.">
+<div class="wrap page"><h1>Comparisons</h1><div class="grid">{COMPARISONS.map((c) => <a class="card" href={`/compare/${c.slug}/`}><h3>{c.title}</h3><p>{c.intro}</p></a>)}</div></div>
+</Base>

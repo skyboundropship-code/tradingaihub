@@ -1,0 +1,25 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE } from "../config";
+import { STATUS, verificationReport as r } from "../lib/data";
+---
+<Base title="About & how we verify" description={`How ${SITE.name} lists and verifies finance and trading AI tools every week.`}>
+<div class="wrap page prose">
+  <h1>About {SITE.name}</h1>
+  <p>{SITE.name} is an independent directory of AI tools for finance and trading: MCP servers, agent skills and data APIs. Most lists of AI tools are never re-checked. We re-check every listing automatically, every week, and show you the result.</p>
+  <h2 id="how-we-verify">How we verify</h2>
+  <ul>
+    <li><b>Repository reachable</b> (and whether it was renamed or archived).</li>
+    <li><b>Maintenance</b>: date of the latest commit and GitHub stars.</li>
+    <li><b>Package published</b>: the npm or PyPI package named in the repo exists and links back to that repo; we record the latest version.</li>
+    <li><b>Links alive</b>: homepage, docs and any hosted MCP endpoint respond.</li>
+    <li><b>Pricing</b>: copied from the vendor's own pricing page, with the URL and date. Unknown values are shown as “unknown” — we never guess.</li>
+  </ul>
+  <h2>Status badges</h2>
+  <ul>{Object.entries(STATUS).map(([k, s]) => <li><b>{s.label}</b> — {s.help}</li>)}</ul>
+  <p>Latest run: {r.checked_at.slice(0, 16).replace("T", " ")} UTC — <a href="/verification/">see the full report</a>.</p>
+  <h2>How we make money</h2>
+  <p>Listings are free. We earn from clearly-labelled sponsored placements and some affiliate links to data providers. Neither affects verification status.</p>
+  <h2>Contact</h2><p>{SITE.contactEmail}</p>
+</div>
+</Base>

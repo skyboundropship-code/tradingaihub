@@ -1,0 +1,23 @@
+---
+import Base from "../../layouts/Base.astro";
+import ToolCard from "../../components/ToolCard.astro";
+import { tools, CATEGORIES } from "../../lib/data";
+const sorted = [...tools].sort((a, b) => (b.verification.github?.stars ?? 0) - (a.verification.github?.stars ?? 0));
+---
+<Base title="All finance & trading AI tools" description="Every MCP server, agent skill and API in the directory, with weekly verification status, pricing and install snippets.">
+<div class="wrap page">
+  <h1>All tools <span class="pill">({tools.length})</span></h1>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+    <input id="q" placeholder="Filter…" style="flex:1;min-width:220px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--text)" />
+    <select id="cat" style="padding:10px;border-radius:10px;background:var(--panel);color:var(--text);border:1px solid var(--line)"><option value="">All categories</option>{CATEGORIES.map((c) => <option value={c.slug}>{c.short}</option>)}</select>
+    <select id="type" style="padding:10px;border-radius:10px;background:var(--panel);color:var(--text);border:1px solid var(--line)"><option value="">All types</option><option value="mcp">MCP servers</option><option value="skill">Skills</option><option value="api">APIs</option></select>
+  </div>
+  <div class="grid" id="list">{sorted.map((t) => <ToolCard t={t} />)}</div>
+</div>
+<script is:inline>
+const q=document.getElementById('q'),c=document.getElementById('cat'),ty=document.getElementById('type');
+q.value=new URLSearchParams(location.search).get('q')||'';
+function f(){const s=q.value.toLowerCase();document.querySelectorAll('#list .card').forEach(e=>{e.style.display=(!s||e.dataset.search.includes(s))&&(!c.value||e.dataset.cat===c.value)&&(!ty.value||e.dataset.type===ty.value)?'':'none'})}
+[q,c,ty].forEach(e=>e.addEventListener('input',f));f();
+</script>
+</Base>
