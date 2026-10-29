@@ -1,9 +1,15 @@
 ---
 import Base from "../../layouts/Base.astro";
-import { CATEGORIES } from "../../lib/data";
+import { CATEGORIES, TYPE_LABEL } from "../../lib/data";
+import { SITE } from "../../config";
 import { langParams, useT } from "../../i18n";
 export function getStaticPaths() { return langParams().map((params) => ({ params })); }
 const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
+// Submissions open a pre-filled GitHub issue form (template lives on main of the awesome repo:
+// .github/ISSUE_TEMPLATE/submit-tool.yml). Input names = the issue form field ids; dropdown values
+// must match the template's option labels exactly (English), so type/category values are the English labels.
+const issueNew = `${SITE.githubAwesomeRepo}/issues/new`;
+const mail = `<a href="mailto:${SITE.contactEmail}" dir="ltr">${SITE.contactEmail}</a>`;
 ---
 <Base title={t("submit.title")} description={t("submit.desc")} lang={lang}>
 <div class="wrap page" style="max-width:760px">
@@ -11,17 +17,43 @@ const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
   <p style="color:var(--muted)" set:html={t("submit.lead")} />
   <p><a href={p("/badges/")}>{t("footer.getBadge")}</a></p>
   <p class="callout">{t("submit.preview")}</p>
-  <form class="f" onsubmit="event.preventDefault();document.getElementById('ok').hidden=false">
-    <label>{t("submit.name")}</label><input required name="name" />
-    <label>{t("submit.url")}</label><input required type="url" name="url" placeholder="https://github.com/owner/repo" dir="ltr" />
-    <label>{t("submit.type")}</label><select name="type"><option value="mcp">{t("type.mcp")}</option><option value="skill">{t("type.skill")}</option><option value="api">{t("type.api")}</option></select>
-    <label>{t("submit.category")}</label><select name="category">{CATEGORIES.map((c) => <option value={c.slug}>{t(`cat.${c.slug}`)[0]}</option>)}</select>
-    <label>{t("submit.oneLine")}</label><input name="desc" maxlength="160" />
-    <label>{t("submit.pricingUrl")}</label><input type="url" name="pricing" dir="ltr" />
-    <label>{t("submit.email")}</label><input type="email" name="email" dir="ltr" />
-    <label><input type="checkbox" required style="width:auto" /> {t("submit.confirm")}</label>
+  <form class="f" id="submit-form" action={issueNew} method="get" target="_blank" rel="noopener noreferrer">
+    <input type="hidden" name="template" value="submit-tool.yml" />
+    <input type="hidden" name="title" value="[Submit] " />
+    <label for="s-name">{t("submit.name")}</label><input required id="s-name" name="name" maxlength="100" />
+    <label for="s-url">{t("submit.url")}</label><input required type="url" id="s-url" name="url" maxlength="300" placeholder="https://github.com/owner/repo" dir="ltr" />
+    <label for="s-type">{t("submit.type")}</label><select id="s-type" name="type">{Object.keys(TYPE_LABEL).map((k) => <option value={TYPE_LABEL[k]}>{t(`type.${k}`)}</option>)}</select>
+    <label for="s-category">{t("submit.category")}</label><select id="s-category" name="category">{CATEGORIES.map((c) => <option value={c.short}>{t(`cat.${c.slug}`)[0]}</option>)}</select>
+    <label for="s-desc">{t("submit.oneLine")}</label><input id="s-desc" name="description" maxlength="160" />
+    <label for="s-pricing">{t("submit.pricingUrl")}</label><input type="url" id="s-pricing" name="pricing" maxlength="300" dir="ltr" />
+    <label for="s-contact">{t("submit.email")}</label><input type="email" id="s-contact" name="contact" maxlength="300" dir="ltr" />
+    <label for="s-confirm"><input type="checkbox" id="s-confirm" required style="width:auto" /> {t("submit.confirm")}</label>
     <p><button class="btn" type="submit">{t("submit.button")}</button></p>
-    <p id="ok" hidden class="callout">{t("submit.thanks")}</p>
+    <p id="ok" hidden class="callout" role="status" aria-live="polite">{t("submit.thanks")}</p>
   </form>
+  <p style="color:var(--muted)" set:html={t("submit.noGithub", { email: mail })} />
 </div>
+<script is:inline>
+(function () {
+  var f = document.getElementById("submit-form"); if (!f) return;
+  f.addEventListener("submit", function () {
+    var MAX = 7500, NAME_MAX = 100;
+    var cp = function (v) { return Array.from(v || ""); };
+    var nameEl = f.querySelector('[name="name"]'), titleEl = f.querySelector('[name="title"]');
+    // Cap the name even if maxlength was bypassed, then derive the title from the (trimmed) name.
+    nameEl.value = cp(nameEl.value.trim()).slice(0, NAME_MAX).join("");
+    var setTitle = function () { titleEl.value = "[Submit] " + cp(nameEl.value.trim()).slice(0, NAME_MAX).join(""); };
+    setTitle();
+    var len = function () { return (f.action + "?" + new URLSearchParams(new FormData(f)).toString()).length; };
+    ["description", "contact", "pricing", "url", "name"].forEach(function (n) {
+      var el = f.querySelector('[name="' + n + '"]');
+      while (el && el.value && len() > MAX) { el.value = cp(el.value).slice(0, -Math.max(1, Math.ceil(cp(el.value).length / 10))).join(""); setTitle(); }
+    });
+    setTitle();
+    // Last resort: shorten the title itself so the final URL never exceeds MAX.
+    while (len() > MAX && titleEl.value.length > 9) titleEl.value = cp(titleEl.value).slice(0, -1).join("");
+    document.getElementById("ok").hidden = false;
+  });
+})();
+</script>
 </Base>

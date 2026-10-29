@@ -1,9 +1,38 @@
 ---
 import { SITE } from "../config";
 import { useT } from "../i18n";
-const { lang = "en" } = Astro.props; const { t } = useT(lang);
+const { lang = "en" } = Astro.props; const { t, p } = useT(lang);
+const email = SITE.contactEmail;
+const msgs = { ok: t("nl.thanks"), sending: t("nl.sending"), invalid_email: t("nl.errInvalid"), rate_limited: t("nl.errRate"), server: t("nl.errServer", { email }), error: t("nl.errServer", { email }) };
 ---
 <div class="panel" style="margin:30px 0"><h3 style="margin-top:0">{t("nl.title")}</h3>
 <p class="note">{t("nl.text")}</p>
-<p class="note" set:html={t("nl.email", { email: SITE.contactEmail })}></p>
+{SITE.newsletterLive ? (
+  <>
+    <form class="newsletter" method="post" action="/api/subscribe" data-locale={lang} data-msgs={JSON.stringify(msgs)} novalidate>
+      <label class="sr-only" for="nl-email">{t("nl.label")}</label>
+      <input id="nl-email" type="email" name="email" required maxlength="254" autocomplete="email" placeholder="you@example.com" dir="ltr" />
+      <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <button class="btn" type="submit">{t("nl.subscribe")}</button>
+    </form>
+    <p class="note nl-status" role="status" aria-live="polite" aria-atomic="true" tabindex="-1"></p>
+    <p class="note" set:html={t("nl.consent", { privacy: p("/privacy/"), email })}></p>
+  </>
+) : (
+  <p class="note" set:html={t("nl.email", { email, subject: encodeURIComponent(t("nl.mailSubject")) })}></p>
+)}
 <p class="note" set:html={t("nl.rss")}></p></div>
+{SITE.newsletterLive && (
+<script is:inline>
+(function(){document.querySelectorAll("form.newsletter:not([data-bound])").forEach(function(f){f.dataset.bound="1";
+var m=JSON.parse(f.dataset.msgs),s=f.nextElementSibling,b=f.querySelector("button"),i=f.querySelector('input[name="email"]');
+function show(txt,ok){s.textContent=txt;s.classList.toggle("err",!ok)}
+f.addEventListener("submit",function(e){e.preventDefault();var v=i.value.trim();
+if(!v||v.length>254||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){show(m.invalid_email,false);i.focus();return}
+b.disabled=true;show(m.sending,true);
+fetch("/api/subscribe",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({email:v,locale:f.dataset.locale,website:f.querySelector('input[name="website"]').value})})
+.then(function(r){return r.json().catch(function(){return{ok:false}})})
+.then(function(d){if(d&&d.ok){show(m.ok,true);f.reset();f.hidden=true;s.focus()}else{show(m[d&&d.error]||m.error,false)}})
+.catch(function(){show(m.error,false)}).finally(function(){b.disabled=false})})})})();
+</script>
+)}

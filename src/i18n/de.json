@@ -180,12 +180,19 @@
   ]
  },
  "nl": {
+  "mailSubject": "Newsletter abonnieren",
   "title": "📬 Der wöchentliche Bericht „State of AI Finance Tools“",
   "text": "Was neu ist, was kaputtging und welche Tools im Ranking gestiegen sind – eine E-Mail pro Woche. Kostenlos.",
   "subscribe": "Abonnieren",
-  "thanks": "Danke – bitte prüfen Sie Ihr Postfach.",
+  "thanks": "Sie sind angemeldet – danke! Die erste Ausgabe kommt mit dem nächsten Wochenbericht.",
   "rss": "Oder per <a href=\"/rss.xml\">RSS</a> folgen.",
-  "email": "Schreiben Sie an <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a>, um sich anzumelden."
+  "email": "Schreiben Sie an <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a>, um sich anzumelden.",
+  "sending": "Wird gesendet…",
+  "errInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+  "errRate": "Zu viele Versuche. Bitte versuchen Sie es in einer Stunde erneut.",
+  "errServer": "Etwas ist schiefgelaufen. Bitte erneut versuchen oder an {email} schreiben, um sich anzumelden.",
+  "consent": "Mit der Anmeldung stimmen Sie unserer <a href=\"{privacy}\">Datenschutzerklärung</a> zu. Abmeldung jederzeit per E-Mail an {email}.",
+  "label": "E-Mail-Adresse"
  },
  "home": {
   "h1a": "KI-Tools für",
@@ -314,7 +321,8 @@
   "skillsCli": "Verwenden Sie die offene Skills-CLI (skills.sh). Funktioniert mit Claude Code, Cursor, Codex, Gemini CLI und weiteren.",
   "manualSkill": "Kopieren Sie den Skill-Ordner (mit seiner SKILL.md) nach ~/.claude/skills/ oder in das Skills-Verzeichnis Ihres Agenten.",
   "viaMcp": "Aus einem KI-Client nutzen über: {list}.",
-  "rest": "REST-API: aus Ihrem Code oder den Tools Ihres Agenten aufrufen. Siehe offizielle Dokumentation."
+  "rest": "REST-API: aus Ihrem Code oder den Tools Ihres Agenten aufrufen. Siehe offizielle Dokumentation.",
+  "accountUrl": "Die URL dieses Servers wird für dein eigenes Konto erzeugt. Erstelle sie gemäß der Herstellerdokumentation und füge sie dann als Remote-MCP-Server in deinem Client hinzu."
  },
  "about": {
   "title": "Über uns und wie wir prüfen",
@@ -357,17 +365,18 @@
   "title": "Tool einreichen",
   "desc": "Reichen Sie einen MCP-Server, Agent-Skill oder eine API für Finanzen und Trading ein. Kostenloser, automatisch geprüfter Eintrag.",
   "lead": "<b>Für immer kostenlos.</b> Keine bezahlten Tarife, kein Haken. Sie erhalten außerdem ein kostenloses, sich selbst aktualisierendes Prüf-Badge. Nach dem Einreichen prüft unser Prüfer Repository oder Website, den letzten Commit, die Paketregistrierung und die Dokumentation. Bestandene Tools gehen innerhalb einer Woche online.",
-  "preview": "⚠️ Nur Vorschau: Dieses Formular hat noch kein Backend und sendet nichts.",
+  "preview": "Beim Absenden öffnet sich in einem neuen Tab ein vorausgefülltes GitHub-Issue. Wir prüfen jede Einreichung, bevor sie gelistet wird.",
+  "noGithub": "Kein GitHub-Konto? Senden Sie dieselben Angaben per E-Mail an {email}.",
   "name": "Name des Tools",
   "url": "Repository- oder Website-URL",
   "type": "Typ",
   "category": "Kategorie",
   "oneLine": "Einzeilige Beschreibung",
   "pricingUrl": "URL der Preisseite (falls kostenpflichtig)",
-  "email": "Ihre E-Mail (für Rückfragen zur Prüfung)",
+  "email": "Kontakt (optional — wird im GitHub-Issue öffentlich angezeigt)",
   "confirm": "Ich bestätige, dass dieses Tool keine Renditen verspricht und kein Anlageberatungsdienst ist.",
   "button": "Zur Prüfung einreichen",
-  "thanks": "Danke! (Vorschaumodus – es wurde nichts gesendet.)"
+  "thanks": "Fast geschafft: Prüfen Sie das vorausgefüllte GitHub-Issue im neuen Tab und klicken Sie auf „Create“. Nichts geöffnet? Pop-ups erlauben und erneut versuchen."
  },
  "badges": {
   "title": "Kostenlose Prüf-Badges für Entwickler",
@@ -413,7 +422,8 @@
   "aff": "Affiliate-Links",
   "affP": "Wenn Sie auf einen Affiliate-Link klicken, kann die Zielseite nach ihrer eigenen Richtlinie eigene Cookies setzen.",
   "rights": "Ihre Rechte",
-  "rightsP": "Auskunft oder Löschung Ihrer Daten erhalten Sie über {email}."
+  "rightsP": "Auskunft oder Löschung Ihrer Daten erhalten Sie über {email}.",
+  "c3": "Newsletter: Wenn Sie sich anmelden, speichern wir Ihre E-Mail-Adresse, Sprache, den Anmeldezeitpunkt und einen Vermerk über Ihre Einwilligung – ausschließlich, um den Newsletter zu versenden. Zum Schutz vor Missbrauch erzeugt jeder Anmeldeversuch außerdem einen temporären Schlüssel zur Ratenbegrenzung aus einem nicht umkehrbaren Hash Ihrer IP-Adresse (die IP selbst wird nie gespeichert); er wird nach 1 Stunde automatisch gelöscht. Abmelden oder die Löschung Ihrer Daten verlangen können Sie jederzeit per E-Mail an {email}."
  },
  "terms": {
   "title": "Nutzungsbedingungen",
@@ -470,7 +480,7 @@
   "dexpaprika-mcp": "DEX-Analysen über mehr als 20 Blockchains, von CoinPaprika.",
   "ccxt-mcp": "Marktdaten von über 20 Krypto-Börsen über die CCXT-Bibliothek.",
   "crypto-indicators-mcp": "Technische Analyseindikatoren für Krypto-Assets.",
-  "tradingview-mcp": "Community-MCP für börsenübergreifende Marktanalyse und Screening (nicht mit TradingView verbunden).",
+  "tradingview-mcp": "Inoffizielles Community-MCP (nicht mit TradingView verbunden): Screener, technische Analyse über mehrere Zeitrahmen und Backtests für Krypto, Aktien, Devisen und Futures.",
   "binance-mcp": "Portfolio, Trading und Token-Umtausch auf Binance (API-Schlüssel erforderlich).",
   "coinbase-agentkit": "Coinbase-Toolkit für Wallet-Operationen und On-Chain-Aktionen von KI-Agenten, MCP-kompatibel.",
   "bankless-onchain-mcp": "On-Chain-Daten und ERC-20-Token-Informationen abfragen.",
@@ -512,6 +522,35 @@
   "claude-trading-skills": "Claude-Code-Skills für Trading-Analyse, etwa ein Relative-Stärke-Rating im IBD-Stil.",
   "superior-skills": "Agent-Skills zum Erstellen, Backtesten und Bereitstellen von Strategien auf Superior Trade.",
   "claude-code-trading-terminal": "Agenten-natives Trading-Terminal mit Subagenten für Trades, Positionen und Risiko.",
-  "pineify-mcp": "Validierung von Trading-Code (Pine Script) und Marktinformationen."
+  "pineify-mcp": "Validierung von Trading-Code (Pine Script) und Marktinformationen.",
+  "tradingview-official-mcp": "TradingViews eigener gehosteter MCP-Server (öffentliche Beta): OHLCV, Screener, technische Analyse, Fundamentaldaten, News, Watchlists und Preisalarme.",
+  "robinhood-trading-mcp": "Robinhoods gehostetes MCP für externe Agenten: liest deine Konten und handelt Aktien, Optionen und Krypto in einem eigenen Agentenkonto.",
+  "fmp-mcp": "Offizieller gehosteter MCP-Server von FMP: Kurse, Finanzberichte, technische Indikatoren, News und Filings als 27 Datensatz-Tools.",
+  "eodhd-mcp": "Offizieller MCP-Server von EODHD: über 70 schreibgeschützte Tools für Kurse, Fundamentaldaten, News, technische Analyse, Optionen und Makro; API-Schlüssel oder OAuth.",
+  "finnhub-mcp": "Gehosteter MCP-Server von Finnhub: rund 70 Tools für Kurse, Finanzdaten, Schätzungen, Filings, Fonds, Devisen, Krypto und Wirtschaftsdaten; OAuth-Anmeldung.",
+  "paypal-mcp": "Offizieller MCP-Server und Agent-Toolkit von PayPal: Rechnungen, Bestellungen, Zahlungen, Erstattungen, Abos und Streitfälle; Sandbox wird unterstützt.",
+  "square-mcp": "Offizieller MCP-Server von Square (Block) (Beta) für die Square-APIs: Zahlungen, Bestellungen, Katalog, Kunden, Lagerbestand und mehr.",
+  "adyen-mcp": "Offizieller MCP-Server von Adyen für Zahlungslinks, Checkout-Sessions, Zahlungen, Erstattungen und Händlerkontoverwaltung.",
+  "razorpay-mcp": "Offizieller MCP-Server von Razorpay für Zahlungen, Bestellungen, Erstattungen, Zahlungslinks, QR-Codes, Abrechnungen und Auszahlungen; gehostet oder lokal.",
+  "paddle-mcp": "Offizieller MCP-Server für Paddle Billing: Produkte, Preise, Kunden, Abos, Transaktionen und Berichte; Sandbox wird unterstützt.",
+  "mercury-mcp": "Gehosteter MCP-Server von Mercury (Beta): Salden, Transaktionen, Karten und Empfänger; Zahlungs- und Überweisungsanfragen müssen in Mercury freigegeben werden.",
+  "netsuite-ai-connector": "MCP-Dienst von Oracle NetSuite plus SuiteApp MCP Standard Tools: Datensätze, Berichte, gespeicherte Suchen und SuiteQL im Rahmen deiner Rollenrechte.",
+  "zoho-books-mcp": "Offizielles Zoho-Books-MCP über Zoho MCP: Rechnungen, Ausgaben, Bankabgleich, Kontakte und Berichte aus jedem MCP-Client.",
+  "avalara-avatax-mcp": "Offizieller AvaTax-MCP-Server von Avalara: Umsatzsteuerberechnung, Transaktionen, Nexus, Steuercodes und Adressvalidierung per OAuth.",
+  "ynab-api": "Offizielle REST-API von YNAB für Budgets, Konten, Kategorien, Zahlungsempfänger und Transaktionen; persönliches Zugriffstoken oder OAuth.",
+  "ynab-mcp": "Community-MCP-Server für YNAB auf Basis des offiziellen SDK: Budgets, Transaktionen und Freigaben, mit optionalem Nur-Lese-Modus.",
+  "firefly-iii-api": "REST-API von Firefly III, dem selbst gehosteten Open-Source-Finanzmanager: Konten, Transaktionen, Budgets und Regeln.",
+  "bls-api": "API des US Bureau of Labor Statistics (BLS): Verbraucherpreise, Beschäftigung, Löhne, Produktivität und weitere amtliche Zeitreihen.",
+  "bea-api": "API des US Bureau of Economic Analysis (BEA): BIP/NIPA, regionale und Branchendaten, internationale Transaktionen und Auslandsvermögensstatus.",
+  "world-bank-api": "Fast 16.000 Entwicklungs- und Wirtschaftsindikatoren aus über 45 Datenbanken der Weltbank, viele über 50 Jahre zurück; kein Schlüssel nötig.",
+  "dbnomics-api": "Offener Aggregator für Makrozeitreihen von über 90 Anbietern (IWF, OECD, Eurostat, EZB, nationale Statistikämter) hinter einer kostenlosen API.",
+  "frankfurter": "Kostenlose Open-Source-API für Wechselkurse mit Referenzkursen der Zentralbanken seit 1948, dazu ein offizieller gehosteter MCP-Endpunkt.",
+  "webull-openapi-mcp": "Offizielles MCP für die Webull OpenAPI: Marktdaten und Orders in mehreren Regionen für Aktien, Optionen, Futures und Krypto, mit UAT-Sandbox.",
+  "kraken-cli": "Offizielle Kraken-CLI mit eingebautem MCP-Server und 59 Agent-Skills: Krypto, xStocks, Devisen und Futures, dazu Papierhandel ohne Schlüssel.",
+  "schwab-mcp": "Community-MCP-Server für die Trader API von Charles Schwab: Konten, Kurse, Optionsketten; standardmäßig schreibgeschützt, Trades erfordern Freigabe per Discord/Signal.",
+  "alpaca-skills": "Offizielle Alpaca-Agent-Skills für die Trading- und Broker-API: Backtests, Orders, Kontoeröffnung, Geldbewegungen und Events.",
+  "longbridge-skills": "Offizielle Longbridge-Agent-Skills: Kurse, technische Analyse, Derivate, Fundamentaldaten, Portfolio und Watchlist für HK, USA, A-Aktien und Singapur.",
+  "coinbase-agentic-wallet-skills": "Offizielle Coinbase-Skills für Agenten-Wallets: Salden, USDC senden, Token tauschen, Guthaben aufladen und x402-APIs bezahlen auf Base, Polygon und Solana.",
+  "options-trading-skills": "Community-Claude-Skills für Optionshändler: Scanner, Griechen, Spreads, PMCC-Screens, Korrelationen und IBKR-Portfolioberichte."
  }
 }
