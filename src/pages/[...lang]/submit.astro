@@ -37,13 +37,21 @@ const mail = `<a href="mailto:${SITE.contactEmail}" dir="ltr">${SITE.contactEmai
 (function () {
   var f = document.getElementById("submit-form"); if (!f) return;
   f.addEventListener("submit", function () {
-    f.querySelector('[name="title"]').value = "[Submit] " + (f.querySelector('[name="name"]').value || "").trim();
-    var MAX = 7500;
+    var MAX = 7500, NAME_MAX = 100;
+    var cp = function (v) { return Array.from(v || ""); };
+    var nameEl = f.querySelector('[name="name"]'), titleEl = f.querySelector('[name="title"]');
+    // Cap the name even if maxlength was bypassed, then derive the title from the (trimmed) name.
+    nameEl.value = cp(nameEl.value.trim()).slice(0, NAME_MAX).join("");
+    var setTitle = function () { titleEl.value = "[Submit] " + cp(nameEl.value.trim()).slice(0, NAME_MAX).join(""); };
+    setTitle();
     var len = function () { return (f.action + "?" + new URLSearchParams(new FormData(f)).toString()).length; };
     ["description", "contact", "pricing", "url", "name"].forEach(function (n) {
       var el = f.querySelector('[name="' + n + '"]');
-      while (el && el.value && len() > MAX) el.value = Array.from(el.value).slice(0, -Math.max(1, Math.ceil(Array.from(el.value).length / 10))).join("");
+      while (el && el.value && len() > MAX) { el.value = cp(el.value).slice(0, -Math.max(1, Math.ceil(cp(el.value).length / 10))).join(""); setTitle(); }
     });
+    setTitle();
+    // Last resort: shorten the title itself so the final URL never exceeds MAX.
+    while (len() > MAX && titleEl.value.length > 9) titleEl.value = cp(titleEl.value).slice(0, -1).join("");
     document.getElementById("ok").hidden = false;
   });
 })();
