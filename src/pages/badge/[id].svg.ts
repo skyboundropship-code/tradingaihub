@@ -1,7 +1,8 @@
 import { SITE } from "../../config";
 import { tools, STATUS } from "../../lib/data";
 export function getStaticPaths() { return tools.map((t) => ({ params: { id: t.id }, props: { t } })); }
-const COL: Record<string, string> = { good: "#16a34a", warn: "#d97706", bad: "#dc2626" };
+// White text on these is >= 4.5:1 (WCAG AA): green-700 5.02, amber-700 5.02, red-700 6.47.
+const COL: Record<string, string> = { good: "#15803d", warn: "#b45309", bad: "#b91c1c" };
 export function GET({ props }: any) {
   const st = STATUS[props.t.verification.status]; const left = SITE.name; const right = `${st.tone === "good" ? "✓ " : ""}${st.label} ${props.t.verification.checked_at}`;
   const w = (s: string) => Math.round(s.length * 6.6 + 16); const lw = w(left), rw = w(right);

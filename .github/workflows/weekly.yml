@@ -18,6 +18,7 @@ jobs:
         env: { GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}" }
       - run: npm run build   # runs scripts/og.mjs first (OG cards from live data)
         env: { CHROME_PATH: /usr/bin/google-chrome }  # preinstalled on ubuntu-latest
+      - run: npm run test:dist && npm run test:aff && npm run test:functions && npm run test:verify   # gate the deploy on the built site
       - run: npx wrangler pages deploy dist --project-name=tradingaihub --branch=main
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

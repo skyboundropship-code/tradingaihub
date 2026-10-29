@@ -23,7 +23,7 @@ const ld = [{ "@context": "https://schema.org", "@type": "ItemList", name: title
 ---
 <Base title={title} description={intro} jsonld={ld} og={`compare-${c.slug}`} lang={lang}>
 <div class="wrap page">
-  <div class="crumbs"><a href={p("/")}>{t("common.home")}</a> / <a href={p("/compare/")}>{t("compare.title")}</a></div>
+  <div class="crumbs"><a href={p("/")}>{t("common.home")}</a> / <a href={p("/compare/")}>{t("compare.title")}</a> / {title}</div>
   <h1>{title}</h1><p style="color:var(--muted)">{intro} {t("compare.dataNote", { date: r.checked_at.slice(0, 10) })}</p>
   <Share path={p(`/compare/${c.slug}/`)} text={title} lang={lang} />
   <div class="tablewrap"><table>

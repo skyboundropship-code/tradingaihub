@@ -18,7 +18,7 @@ export const A11Y_STATEMENT = {
     name: "",
     /** Phone in international format, e.g. "+972-3-000-0000" (rendered as a tel: link). */
     phone: "",
-    /** Contact email (rendered as a mailto: link with subject=Accessibility). */
+    /** Contact email (rendered as a mailto: link whose subject is the localized w.title, e.g. "Accessibility"). */
     email: "hello@tradingaihub.com",
     /** Optional postal address for written requests (one line; use ", " between parts). */
     postal: "",

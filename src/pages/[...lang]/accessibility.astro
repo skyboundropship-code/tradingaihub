@@ -25,7 +25,7 @@ const [dBefore, dMid, dAfter] = String(at("st.date")).split("{date}");
   <address class="callout" style="font-style:normal">{at("st.coordinator", { site })}
     {co.name && <><br />{at("st.name")}: <span dir="auto">{co.name}</span></>}
     {co.phone && <><br />{at("st.phone")}: <a href={`tel:${tel}`} dir="ltr">{co.phone}</a></>}
-    {co.email && <><br />{at("st.email")}: <a href={`mailto:${co.email}?subject=Accessibility`} dir="ltr">{co.email}</a></>}
+    {co.email && <><br />{at("st.email")}: <a href={`mailto:${co.email}?subject=${encodeURIComponent(at("w.title"))}`} dir="ltr">{co.email}</a></>}
     {co.postal && <><br />{at("st.postal")}: <span dir="auto">{co.postal}</span></>}
   </address>
   <p>{at("st.ask")}</p><p>{at("st.response", { days: A11Y_STATEMENT.responseDays })}</p>
