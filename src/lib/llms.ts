@@ -6,12 +6,13 @@ import { tools, CATEGORIES, COMPARISONS, STATUS, TYPE_LABEL, byStars, verificati
 // Outbound vendor URLs (repo, homepage, pricing source, remote MCP) come from RAW data/tools.json: data.ts runs them through
 // affUrl(), and affiliate IDs must never reach LLM context files. Internal URLs come from the ids.
 import raw from "../../data/tools.json";
+import { GUIDES as GUIDE_PAGES } from "./guides";
 const rawById: Record<string, any> = Object.fromEntries((raw as any[]).map((t) => [t.id, t]));
 const plainUrl = (x: any) => (typeof x === "string" && /^https?:\/\//.test(x) && !/aff_id=/i.test(x) ? x : null);
 const known = (x: any) => typeof x === "string" && x.trim() !== "" && !/^(unknown|none|n\/a)$/i.test(x.trim());
 
-// Published guides only: add an entry when a guide page is live, so /llms.txt never links to a 404.
-export const GUIDES: { slug: string; title: string; summary: string }[] = [];
+// Published guides: one per src/content/guides/<slug>.md (each builds /guides/<slug>/), so /llms.txt never links to a 404.
+export const GUIDES: { slug: string; title: string; summary: string }[] = GUIDE_PAGES.map((g) => ({ slug: g.slug, title: g.h1, summary: g.summary }));
 
 const u = (path: string) => `${SITE.url}${path}`;
 const md = (s: string) => String(s ?? "").replace(/\s+/g, " ").replace(/([\[\]])/g, "\\$1").trim();
@@ -44,6 +45,7 @@ export function llmsTxt(): string {
     `- [All tools](${u("/tools/")}): the full searchable directory, filterable by category and type`,
     `- [Categories](${u("/categories/")}): all ${CATEGORIES.length} categories`,
     `- [Comparisons](${u("/compare/")}): side-by-side comparison tables`,
+    ...(GUIDES.length ? [`- [Guides](${u("/guides/")}): step-by-step setup guides (English)`] : []),
     `- [About & how we verify](${u("/about/")}): methodology, status badges and how the site makes money`,
     `- [Latest verification report](${u("/verification/")}): results of the most recent weekly check`,
     `- [Weekly leaderboard](${u("/weekly/")}): most-starred verified tools and weekly changes`,

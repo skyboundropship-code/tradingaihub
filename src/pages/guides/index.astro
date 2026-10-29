@@ -1,0 +1,27 @@
+---
+// /guides/ index (English-only, like the guides themselves). Lists every src/content/guides/*.md.
+import Base from "../../layouts/Base.astro";
+import { SITE } from "../../config";
+import { COMPARISONS } from "../../lib/data";
+import { GUIDES } from "../../lib/guides";
+const url = `${SITE.url}/guides/`;
+const desc = "Step-by-step setup guides for finance and trading MCP servers in Claude, ChatGPT and Cursor, checked against vendor docs.";
+const ld = [
+  { "@context": "https://schema.org", "@type": "ItemList", name: "Guides", url, numberOfItems: GUIDES.length,
+    itemListElement: GUIDES.map((g, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE.url}/guides/${g.slug}/`, name: g.h1 })) },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE.url}/` },
+    { "@type": "ListItem", position: 2, name: "Guides", item: url } ] },
+];
+const fmt = (d: string) => new Date(`${d}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+---
+<Base title="Guides" description={desc} jsonld={ld} lang="en" langs={["en"]}>
+<div class="wrap page">
+  <div class="crumbs"><a href="/">Home</a> / Guides</div>
+  <h1>Guides</h1>
+  <p style="color:var(--muted)">{desc} Guides are in English. Not investment advice.</p>
+  <div class="grid">{GUIDES.map((g) => <a class="card" href={`/guides/${g.slug}/`}><h2 class="card-t">{g.h1}</h2><p>{g.summary}</p><div class="meta"><span>Checked {fmt(g.dateModified)}</span></div></a>)}</div>
+  <h2 class="sec">Comparisons</h2>
+  <div class="grid">{COMPARISONS.map((c) => <a class="card" href={`/compare/${c.slug}/`}><h3>{c.title}</h3><p>{c.intro}</p></a>)}</div>
+</div>
+</Base>

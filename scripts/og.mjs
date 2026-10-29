@@ -12,6 +12,11 @@ const cfg = fs.readFileSync("src/config.ts", "utf8"); const brand = cfg.match(/n
 const lib = fs.readFileSync("src/lib/data.ts", "utf8");
 const cats = [...lib.matchAll(/slug: "([^"]+)", name: "([^"]+)", short: "[^"]+", icon: "([^"]+)"/g)].map((m) => ({ slug: m[1], name: m[2], icon: m[3] }));
 const comps = [...lib.matchAll(/slug: "([^"]+)", title: "([^"]+)"/g)].map((m) => ({ slug: m[1], title: m[2] }));
+// Guides: one card per src/content/guides/*.md, titled with its frontmatter h1 (same list src/lib/guides.ts publishes).
+const guides = fs.existsSync("src/content/guides") ? fs.readdirSync("src/content/guides").filter((f) => /^[a-z0-9-]+\.md$/.test(f)).map((f) => {
+  const fm = fs.readFileSync(`src/content/guides/${f}`, "utf8").match(/^---\n([\s\S]*?)\n---/)?.[1] ?? "";
+  return { slug: f.slice(0, -3), title: JSON.parse(fm.match(/^h1:\s*(".*")\s*$/m)?.[1] ?? '""') };
+}) : [];
 // Friendly status names ("Needs review", not "unconfirmed"), taken from the site's STATUS map in src/lib/data.ts.
 const STATUS_LABEL = Object.fromEntries([...lib.matchAll(/^\s+(\w+): \{ label: "([^"]+)"/gm)].map((m) => [m[1], m[2]]));
 const statusLabel = (s) => STATUS_LABEL[s] || s;
@@ -59,6 +64,7 @@ const jobs = [["home", card("Free directory", "AI tools for finance & trading", 
   ["weekly", card("Weekly leaderboard", "State of finance AI tools", weeklySub)],
   ...cats.map((c) => [`category-${c.slug}`, card("Category", `${c.icon} ${c.name}`, `${tools.filter((t) => t.category === c.slug).length} tools · free${fresh ? " · verified weekly" : ""}`)]),
   ...comps.map((c) => [`compare-${c.slug}`, card("Comparison", c.title, "Pricing, status, stars & install — side by side")]),
+  ...guides.map((g) => [`guide-${g.slug}`, card("Guide", g.title, "Setup steps checked against vendor docs")]),
   ...tools.map((t) => [`tool-${t.id}`, card(t.type === "mcp" ? "MCP server" : t.type === "skill" ? "Agent skill" : "API", t.name, `Status: ${statusLabel(t.verification.status)}${checkedAt(t) ? ` · checked ${checkedAt(t)}` : ""}`, toolBadge(t))])];
 fs.mkdirSync("public/og", { recursive: true });
 // Render-side inputs. Bump RENDER_VERSION for any render change the key below can't see.

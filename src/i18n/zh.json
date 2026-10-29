@@ -18,6 +18,7 @@
   "rechecked": "每周重新检查。",
   "directory": "目录",
   "comparisons": "对比",
+  "guides": "指南（英文）",
   "latestRun": "最新验证结果",
   "makers": "开发者专区",
   "submitFree": "提交工具（免费）",
@@ -293,6 +294,7 @@
   "free": "免费",
   "notEndorse": "收录不代表背书或投资建议。任何交易工具请先在模拟模式下测试。",
   "more": "{cat}中的更多工具",
+  "guides": "介绍此工具的指南（英文）",
   "pricingDataNote": "价格详情以英文原文引自厂商页面。"
  },
  "checks": {
