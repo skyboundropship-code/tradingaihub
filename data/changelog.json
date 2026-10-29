@@ -2,7 +2,7 @@
   {
     "date": "2026-10-29",
     "counts": {
-      "verified": 55,
+      "verified": 84,
       "stale": 13,
       "aging": 4,
       "archived": 3
@@ -10,7 +10,7 @@
     "changes": [
       {
         "kind": "launch",
-        "text": "First verification run: 75 tools checked."
+        "text": "First verification run: 104 tools checked."
       }
     ]
   }

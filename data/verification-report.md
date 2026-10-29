@@ -1,13 +1,13 @@
-# Verification report — 2026-10-29 12:26 UTC
+# Verification report — 2026-10-29 12:34 UTC
 
-Total entries: 75
+Total entries: 104
 
-- verified: 55
+- verified: 84
 - stale: 13
 - aging: 4
 - archived: 3
 
-Entries with a published npm/PyPI package: 25
+Entries with a published npm/PyPI package: 28
 
 | id | status | stars | last commit | license | package | issues |
 |---|---|---|---|---|---|---|
@@ -43,9 +43,9 @@ Entries with a published npm/PyPI package: 25
 | dexpaprika-mcp | verified | 118 | 2026-10-21 | MIT | dexpaprika-mcp@2.9.2 |  |
 | ccxt-mcp | stale | 82 | 2025-02-17 | MIT |  | pypi name 'mcp-server-ccxt' exists on the registry but does not link to this repo (not counted); No commits for 618 days |
 | crypto-indicators-mcp | aging | 131 | 2025-12-06 | MIT | crypto-indicators-mcp@1.0.1 | No commits for 327 days |
-| tradingview-mcp | verified | 5162 | 2026-10-28 | MIT | tradingview-mcp-server@0.8.1 |  |
+| tradingview-mcp | verified | 5164 | 2026-10-28 | MIT | tradingview-mcp-server@0.8.1 |  |
 | binance-mcp | stale | 97 | 2025-04-16 | unknown |  | npm name 'binance-mcp' exists on the registry but does not link to this repo (not counted); No commits for 561 days |
-| coinbase-agentkit | verified | 1345 | 2026-10-14 | NOASSERTION |  |  |
+| coinbase-agentkit | verified | 1345 | 2026-10-14 | Apache-2.0 |  |  |
 | bankless-onchain-mcp | verified | 78 | 2026-05-05 | unknown | @bankless/onchain-mcp@1.0.6 |  |
 | crypto-liquidations-mcp | stale | 8 | 2025-05-06 | MIT |  | No commits for 541 days |
 | bitget-agent-mcp | verified | 1 | 2026-09-01 | MIT | @bitget-ai/bitget-agent-mcp@3.3.1 |  |
@@ -82,7 +82,36 @@ Entries with a published npm/PyPI package: 25
 | varrd | verified | 24 | 2026-08-31 | MIT | varrd@0.4.3 |  |
 | chart-library-mcp | verified | 22 | 2026-09-10 | MIT | chartlibrary-mcp@6.3.3 |  |
 | finlab-ai | verified | 420 | 2026-10-29 | unknown |  |  |
-| claude-trading-skills | verified | 3420 | 2026-10-26 | MIT |  |  |
+| claude-trading-skills | verified | 3421 | 2026-10-26 | MIT |  |  |
 | superior-skills | verified | 216 | 2026-09-10 | MIT |  |  |
 | claude-code-trading-terminal | stale | 21 | 2025-08-29 | unknown | @degentic/cc-trading-terminal@2.1.5 | No commits for 425 days |
 | pineify-mcp | verified | 1 | 2026-08-07 | unknown |  |  |
+| tradingview-official-mcp | verified |  |  | Proprietary / ToS |  |  |
+| robinhood-trading-mcp | verified |  |  | Proprietary / ToS |  |  |
+| fmp-mcp | verified |  |  | Proprietary / ToS |  |  |
+| eodhd-mcp | verified | 23 | 2026-10-22 | MIT |  |  |
+| finnhub-mcp | verified |  |  | Proprietary / ToS |  |  |
+| paypal-mcp | verified | 197 | 2026-09-01 | Apache-2.0 |  |  |
+| square-mcp | verified | 109 | 2026-10-14 | Apache-2.0 |  | npm name 'square-mcp-server' exists on the registry but does not link to this repo (not counted) |
+| adyen-mcp | verified | 27 | 2026-10-29 | MIT |  |  |
+| razorpay-mcp | verified | 231 | 2026-10-28 | MIT |  |  |
+| paddle-mcp | verified | 49 | 2026-09-27 | Apache-2.0 | @paddle/paddle-mcp@0.1.6 |  |
+| mercury-mcp | verified |  |  | Proprietary / ToS |  |  |
+| netsuite-ai-connector | verified |  |  | Proprietary / ToS |  |  |
+| zoho-books-mcp | verified |  |  | Proprietary / ToS |  |  |
+| avalara-avatax-mcp | verified |  |  | Proprietary / ToS |  |  |
+| ynab-api | verified |  |  | Proprietary / ToS |  |  |
+| ynab-mcp | verified | 160 | 2026-10-28 | MIT | ynab-mcp-server@0.7.1 |  |
+| firefly-iii-api | verified | 25026 | 2026-10-29 | AGPL-3.0 |  |  |
+| bls-api | verified |  |  | Proprietary / ToS |  |  |
+| bea-api | verified |  |  | Proprietary / ToS |  |  |
+| world-bank-api | verified |  |  | Proprietary / ToS |  |  |
+| dbnomics-api | verified |  |  | Proprietary / ToS |  |  |
+| frankfurter | verified | 2045 | 2026-10-25 | MIT |  |  |
+| webull-openapi-mcp | verified | 30 | 2026-10-26 | Apache-2.0 | webull-openapi-mcp@1.2.6 |  |
+| kraken-cli | verified | 783 | 2026-10-29 | MIT |  |  |
+| schwab-mcp | verified | 66 | 2026-10-29 | MIT |  |  |
+| alpaca-skills | verified | 157 | 2026-10-27 | Apache-2.0 |  |  |
+| longbridge-skills | verified | 67 | 2026-10-26 | MIT |  |  |
+| coinbase-agentic-wallet-skills | verified | 127 | 2026-08-04 | MIT |  |  |
+| options-trading-skills | verified | 396 | 2026-10-27 | MIT |  | pypi name 'trading-skills' exists on the registry but does not link to this repo (not counted) |

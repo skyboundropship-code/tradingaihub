@@ -180,12 +180,19 @@
   ]
  },
  "nl": {
+  "mailSubject": "Bülten aboneliği",
   "title": "📬 Haftalık “Finans Yapay Zekâ Araçlarının Durumu”",
   "text": "Neler çıktı, neler bozuldu, hangi araçlar yükseldi — haftada bir e-posta, ücretsiz.",
   "subscribe": "Abone ol",
-  "thanks": "Teşekkürler — gelen kutunuzu kontrol edin.",
+  "thanks": "Abone oldunuz — teşekkürler! İlk sayı bir sonraki haftalık raporla gelecek.",
   "rss": "Ya da <a href=\"/rss.xml\">RSS</a> ile takip edin.",
-  "email": "Katılmak için <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> adresine e-posta gönderin."
+  "email": "Katılmak için <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a> adresine e-posta gönderin.",
+  "sending": "Gönderiliyor…",
+  "errInvalid": "Lütfen geçerli bir e-posta adresi girin.",
+  "errRate": "Çok fazla deneme. Lütfen bir saat sonra tekrar deneyin.",
+  "errServer": "Bir sorun oluştu. Tekrar deneyin ya da katılmak için {email} adresine yazın.",
+  "consent": "Abone olarak <a href=\"{privacy}\">gizlilik politikamızı</a> kabul etmiş olursunuz. {email} adresine e-posta göndererek istediğiniz zaman ayrılabilirsiniz.",
+  "label": "E-posta adresi"
  },
  "home": {
   "h1a": "Yapay zekâ araçları:",
@@ -314,7 +321,8 @@
   "skillsCli": "Açık skills CLI'ı (skills.sh) kullanın. Claude Code, Cursor, Codex, Gemini CLI ve diğerleriyle çalışır.",
   "manualSkill": "Beceri klasörünü (SKILL.md ile) ~/.claude/skills/ veya ajanınızın beceri dizinine kopyalayın.",
   "viaMcp": "Yapay zekâ istemcilerinde şu yolla kullanılabilir: {list}.",
-  "rest": "REST API: kodunuzdan veya ajan araçlarınızdan çağırın. Resmî dokümanlara bakın."
+  "rest": "REST API: kodunuzdan veya ajan araçlarınızdan çağırın. Resmî dokümanlara bakın.",
+  "accountUrl": "Bu sunucunun URL'si kendi hesabınız için oluşturulur. Sağlayıcının belgelerine göre oluşturun, ardından istemcinize uzak MCP sunucusu olarak ekleyin."
  },
  "about": {
   "title": "Hakkında ve doğrulama",
@@ -357,17 +365,18 @@
   "title": "Araç ekle",
   "desc": "Finans ve trading için bir MCP sunucusu, ajan becerisi veya API ekleyin. Ücretsiz listeleme, otomatik doğrulama.",
   "lead": "<b>Her zaman ücretsiz.</b> Ücretli katman yok, gizli şart yok. Ayrıca otomatik güncellenen ücretsiz bir doğrulama rozeti alırsınız. Gönderimden sonra denetleyicimiz depoyu veya siteyi, son commit'leri, paket kayıtlarını ve dokümanları kontrol eder. Geçen araçlar bir hafta içinde yayına girer.",
-  "preview": "⚠️ Yalnızca önizleme: bu formun henüz bir arka ucu yok ve hiçbir şey gönderilmez.",
+  "preview": "Gönderdiğinizde yeni sekmede önceden doldurulmuş bir GitHub issue açılır. Listelemeden önce her başvuruyu inceliyoruz.",
+  "noGithub": "GitHub hesabınız yok mu? Aynı bilgileri {email} adresine e-postayla gönderin.",
   "name": "Araç adı",
   "url": "Depo veya web sitesi URL'si",
   "type": "Tür",
   "category": "Kategori",
   "oneLine": "Tek satırlık açıklama",
   "pricingUrl": "Fiyat sayfası URL'si (ücretliyse)",
-  "email": "E-posta adresiniz (doğrulama soruları için)",
+  "email": "İletişim (isteğe bağlı — GitHub issue'da herkese açık görünür)",
   "confirm": "Bu aracın getiri vaat etmediğini ve bir yatırım danışmanlığı hizmeti olmadığını onaylıyorum.",
   "button": "İncelemeye gönder",
-  "thanks": "Teşekkürler! (Önizleme: hiçbir şey gönderilmedi.)"
+  "thanks": "Neredeyse bitti: Yeni sekmedeki önceden doldurulmuş GitHub issue'yu kontrol edip “Create”e tıklayın. Hiçbir şey açılmadı mı? Açılır pencerelere izin verip tekrar deneyin."
  },
  "badges": {
   "title": "Geliştiriciler için ücretsiz doğrulama rozetleri",
@@ -413,7 +422,8 @@
   "aff": "Ortaklık bağlantıları",
   "affP": "Bir ortaklık bağlantısına tıkladığınızda, hedef site kendi politikası kapsamında çerez ayarlayabilir.",
   "rights": "Haklarınız",
-  "rightsP": "Verilerinize erişmek veya silinmesini istemek için {email} ile iletişime geçin."
+  "rightsP": "Verilerinize erişmek veya silinmesini istemek için {email} ile iletişime geçin.",
+  "c3": "Bülten: Abone olursanız, yalnızca bülteni göndermek amacıyla e-posta adresinizi, dilinizi, kayıt zamanınızı ve onay verdiğinize dair bir kaydı saklarız. Kötüye kullanımı sınırlamak için her kayıt denemesi, IP adresinizin tek yönlü bir özetinden (hash) geçici bir hız sınırı anahtarı da oluşturur (IP adresinin kendisi asla saklanmaz); bu anahtar 1 saat sonra otomatik olarak silinir. Abonelikten çıkmak veya verilerinizin silinmesini istemek için istediğiniz zaman {email} adresine e-posta gönderin."
  },
  "terms": {
   "title": "Kullanım koşulları",
@@ -470,7 +480,7 @@
   "dexpaprika-mcp": "CoinPaprika'dan 20'den fazla blokzincirde DEX analitiği.",
   "ccxt-mcp": "CCXT kütüphanesi aracılığıyla 20'den fazla kripto borsasından piyasa verisi.",
   "crypto-indicators-mcp": "Kripto varlıklar için teknik analiz göstergeleri.",
-  "tradingview-mcp": "Borsalar genelinde piyasa analizi ve tarama için topluluk MCP'si (TradingView ile bağlantılı değildir).",
+  "tradingview-mcp": "Resmi olmayan topluluk MCP'si (TradingView ile bağlantısı yok): kripto, hisse, döviz ve vadeli işlemler için tarayıcılar, çoklu zaman dilimi teknik analiz ve geriye dönük testler.",
   "binance-mcp": "Binance'te portföy, işlem ve token takası (API anahtarı gerekir).",
   "coinbase-agentkit": "Yapay zekâ ajanlarında cüzdan ve zincir üstü işlemler için Coinbase araç seti, MCP uyumlu.",
   "bankless-onchain-mcp": "Zincir üstü verileri ve ERC-20 token bilgilerini sorgulayın.",
@@ -512,6 +522,35 @@
   "claude-trading-skills": "Trading analizi için Claude Code becerileri, örneğin IBD tarzı göreceli güç puanları.",
   "superior-skills": "Superior Trade üzerinde strateji oluşturmak, backtest yapmak ve yayına almak için ajan becerileri.",
   "claude-code-trading-terminal": "İşlemler, pozisyonlar ve risk için alt ajanlara sahip ajan tabanlı trading terminali.",
-  "pineify-mcp": "Trading kodu (Pine Script) doğrulama ve piyasa istihbaratı."
+  "pineify-mcp": "Trading kodu (Pine Script) doğrulama ve piyasa istihbaratı.",
+  "tradingview-official-mcp": "TradingView'in kendi barındırılan MCP sunucusu (herkese açık beta): OHLCV, tarayıcılar, teknik analiz, temel veriler, haberler, izleme listeleri ve fiyat alarmları.",
+  "robinhood-trading-mcp": "Robinhood'un harici ajanlar için barındırılan MCP'si: hesaplarınızı okuyun ve ajana özel bir hesapta hisse, opsiyon ve kripto işlemi yapın.",
+  "fmp-mcp": "FMP'nin resmi barındırılan MCP sunucusu: fiyatlar, finansal tablolar, teknik göstergeler, haberler ve bildirimler 27 veri seti aracıyla.",
+  "eodhd-mcp": "EODHD'nin resmi MCP sunucusu: fiyatlar, temel veriler, haberler, teknik analiz, opsiyonlar ve makro için 70'ten fazla salt okunur araç; API anahtarı veya OAuth.",
+  "finnhub-mcp": "Finnhub'ın barındırılan MCP sunucusu: fiyatlar, finansallar, tahminler, bildirimler, fonlar, döviz, kripto ve ekonomik veriler için yaklaşık 70 araç; OAuth girişi.",
+  "paypal-mcp": "PayPal'ın resmi MCP sunucusu ve ajan araç seti: faturalar, siparişler, ödemeler, iadeler, abonelikler ve itirazlar; sandbox desteklenir.",
+  "square-mcp": "Square (Block) resmi MCP sunucusu (beta), Square API'lerini sunar: ödemeler, siparişler, katalog, müşteriler, stok ve daha fazlası.",
+  "adyen-mcp": "Ödeme bağlantıları, checkout oturumları, ödemeler, iadeler ve üye işyeri hesap yönetimi için Adyen'in resmi MCP sunucusu.",
+  "razorpay-mcp": "Ödemeler, siparişler, iadeler, ödeme bağlantıları, QR kodları, mutabakatlar ve ödeme aktarımları için Razorpay'in resmi MCP sunucusu; barındırılan veya yerel.",
+  "paddle-mcp": "Paddle Billing'in resmi MCP sunucusu: ürünler, fiyatlar, müşteriler, abonelikler, işlemler ve raporlar; sandbox desteklenir.",
+  "mercury-mcp": "Mercury'nin barındırılan MCP sunucusu (beta): bakiyeler, işlemler, kartlar ve alıcılar; ödeme ve transfer talepleri Mercury'de onaylanmalıdır.",
+  "netsuite-ai-connector": "Oracle NetSuite MCP hizmeti ve MCP Standard Tools SuiteApp: rolünüzün izinleri dahilinde kayıtlar, raporlar, kayıtlı aramalar ve SuiteQL.",
+  "zoho-books-mcp": "Zoho MCP üzerinden resmi Zoho Books MCP: herhangi bir MCP istemcisinden faturalar, giderler, banka mutabakatı, kişiler ve raporlar.",
+  "avalara-avatax-mcp": "Avalara'nın resmi AvaTax MCP sunucusu: OAuth ile satış vergisi hesaplama, işlemler, nexus, vergi kodları ve adres doğrulama.",
+  "ynab-api": "YNAB'ın resmi REST API'si: bütçeler, hesaplar, kategoriler, alacaklılar ve işlemler; kişisel erişim belirteci veya OAuth.",
+  "ynab-mcp": "Resmi SDK üzerine kurulu topluluk YNAB MCP sunucusu: bütçeler, işlemler ve onaylar; isteğe bağlı salt okunur mod.",
+  "firefly-iii-api": "Kendi sunucunuzda barındırılan açık kaynaklı kişisel finans yöneticisi Firefly III'ün REST API'si: hesaplar, işlemler, bütçeler ve kurallar.",
+  "bls-api": "ABD Çalışma İstatistikleri Bürosu (BLS) API'si: TÜFE, istihdam, ücretler, verimlilik ve diğer resmi zaman serileri.",
+  "bea-api": "ABD Ekonomik Analiz Bürosu (BEA) API'si: GSYH/NIPA, bölgesel, sektörel, uluslararası işlemler ve yatırım pozisyonu verileri.",
+  "world-bank-api": "Dünya Bankası'nın 45'ten fazla veritabanından yaklaşık 16.000 kalkınma ve ekonomi göstergesi, çoğu 50 yıldan eskiye uzanır; anahtar gerekmez.",
+  "dbnomics-api": "90'dan fazla sağlayıcının (IMF, OECD, Eurostat, ECB, ulusal istatistik kurumları) makroekonomik serilerini tek bir ücretsiz API'de toplayan açık bir toplayıcı.",
+  "frankfurter": "1948'den bu yana merkez bankası referans kurlarını sunan ücretsiz açık kaynaklı döviz kuru API'si ve resmi barındırılan MCP uç noktası.",
+  "webull-openapi-mcp": "Resmi Webull OpenAPI MCP: hisse, opsiyon, vadeli işlem ve kripto için çok bölgeli piyasa verileri ve emirler; UAT sandbox ile.",
+  "kraken-cli": "Yerleşik MCP sunucusu ve 59 ajan becerisi sunan resmi Kraken CLI: kripto, xStocks, döviz ve vadeli işlemler, ayrıca anahtarsız kağıt üzerinde işlem.",
+  "schwab-mcp": "Charles Schwab Trader API için topluluk MCP sunucusu: hesaplar, fiyatlar, opsiyon zincirleri; varsayılan olarak salt okunur, işlemler Discord/Signal onayı gerektirir.",
+  "alpaca-skills": "Trading ve Broker API'leri için resmi Alpaca ajan becerileri: geriye dönük testler, emirler, hesap açılışı, para hareketleri ve olaylar.",
+  "longbridge-skills": "Resmi Longbridge ajan becerileri: HK, ABD, A-hisse ve Singapur piyasalarında fiyatlar, teknik analiz, türevler, temel veriler, portföy ve izleme listesi.",
+  "coinbase-agentic-wallet-skills": "Ajan cüzdanları için resmi Coinbase becerileri: bakiyeler, USDC gönderme, token takası, para yatırma ve Base, Polygon ve Solana'da x402 API ödemeleri.",
+  "options-trading-skills": "Opsiyon yatırımcıları için topluluk Claude becerileri: tarayıcılar, Yunanlar, spreadler, PMCC taramaları, korelasyonlar ve IBKR portföy raporları."
  }
 }
