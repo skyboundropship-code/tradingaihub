@@ -358,17 +358,18 @@
   "title": "Araç ekle",
   "desc": "Finans ve trading için bir MCP sunucusu, ajan becerisi veya API ekleyin. Ücretsiz listeleme, otomatik doğrulama.",
   "lead": "<b>Her zaman ücretsiz.</b> Ücretli katman yok, gizli şart yok. Ayrıca otomatik güncellenen ücretsiz bir doğrulama rozeti alırsınız. Gönderimden sonra denetleyicimiz depoyu veya siteyi, son commit'leri, paket kayıtlarını ve dokümanları kontrol eder. Geçen araçlar bir hafta içinde yayına girer.",
-  "preview": "⚠️ Yalnızca önizleme: bu formun henüz bir arka ucu yok ve hiçbir şey gönderilmez.",
+  "preview": "Gönderdiğinizde yeni sekmede önceden doldurulmuş bir GitHub issue açılır. Listelemeden önce her başvuruyu inceliyoruz.",
+  "noGithub": "GitHub hesabınız yok mu? Aynı bilgileri {email} adresine e-postayla gönderin.",
   "name": "Araç adı",
   "url": "Depo veya web sitesi URL'si",
   "type": "Tür",
   "category": "Kategori",
   "oneLine": "Tek satırlık açıklama",
   "pricingUrl": "Fiyat sayfası URL'si (ücretliyse)",
-  "email": "E-posta adresiniz (doğrulama soruları için)",
+  "email": "İletişim (isteğe bağlı — GitHub issue'da herkese açık görünür)",
   "confirm": "Bu aracın getiri vaat etmediğini ve bir yatırım danışmanlığı hizmeti olmadığını onaylıyorum.",
   "button": "İncelemeye gönder",
-  "thanks": "Teşekkürler! (Önizleme: hiçbir şey gönderilmedi.)"
+  "thanks": "Neredeyse bitti: Yeni sekmedeki önceden doldurulmuş GitHub issue'yu kontrol edip “Create”e tıklayın. Hiçbir şey açılmadı mı? Açılır pencerelere izin verip tekrar deneyin."
  },
  "badges": {
   "title": "Geliştiriciler için ücretsiz doğrulama rozetleri",

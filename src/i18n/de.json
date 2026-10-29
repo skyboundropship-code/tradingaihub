@@ -358,17 +358,18 @@
   "title": "Tool einreichen",
   "desc": "Reichen Sie einen MCP-Server, Agent-Skill oder eine API für Finanzen und Trading ein. Kostenloser, automatisch geprüfter Eintrag.",
   "lead": "<b>Für immer kostenlos.</b> Keine bezahlten Tarife, kein Haken. Sie erhalten außerdem ein kostenloses, sich selbst aktualisierendes Prüf-Badge. Nach dem Einreichen prüft unser Prüfer Repository oder Website, den letzten Commit, die Paketregistrierung und die Dokumentation. Bestandene Tools gehen innerhalb einer Woche online.",
-  "preview": "⚠️ Nur Vorschau: Dieses Formular hat noch kein Backend und sendet nichts.",
+  "preview": "Beim Absenden öffnet sich in einem neuen Tab ein vorausgefülltes GitHub-Issue. Wir prüfen jede Einreichung, bevor sie gelistet wird.",
+  "noGithub": "Kein GitHub-Konto? Senden Sie dieselben Angaben per E-Mail an {email}.",
   "name": "Name des Tools",
   "url": "Repository- oder Website-URL",
   "type": "Typ",
   "category": "Kategorie",
   "oneLine": "Einzeilige Beschreibung",
   "pricingUrl": "URL der Preisseite (falls kostenpflichtig)",
-  "email": "Ihre E-Mail (für Rückfragen zur Prüfung)",
+  "email": "Kontakt (optional — wird im GitHub-Issue öffentlich angezeigt)",
   "confirm": "Ich bestätige, dass dieses Tool keine Renditen verspricht und kein Anlageberatungsdienst ist.",
   "button": "Zur Prüfung einreichen",
-  "thanks": "Danke! (Vorschaumodus – es wurde nichts gesendet.)"
+  "thanks": "Fast geschafft: Prüfen Sie das vorausgefüllte GitHub-Issue im neuen Tab und klicken Sie auf „Create“. Nichts geöffnet? Pop-ups erlauben und erneut versuchen."
  },
  "badges": {
   "title": "Kostenlose Prüf-Badges für Entwickler",
