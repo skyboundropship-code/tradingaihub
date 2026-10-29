@@ -339,7 +339,7 @@
   "latest": "Dernière vérification : {date} UTC —",
   "fullReport": "voir le rapport complet",
   "money": "Comment nous gagnons de l'argent",
-  "moneyP": "Le référencement est gratuit. Actuellement, nous gagnons de l'argent uniquement grâce à des liens d'affiliation (partenaires) déclarés vers certains fournisseurs de données. Les emplacements sponsorisés ne sont pas encore proposés ; s'ils le deviennent, ils seront signalés « Sponsorisé ». Aucun n'influence le statut de vérification.",
+  "moneyP": "Le référencement est gratuit. Actuellement, nous gagnons de l'argent uniquement grâce à des liens d'affiliation (partenaires) déclarés vers TradingView et EODHD. Les emplacements sponsorisés ne sont pas encore proposés ; s'ils le deviennent, ils seront signalés « Sponsorisé ». Aucun n'influence le statut de vérification.",
   "contact": "Contact"
  },
  "disc": {
@@ -347,7 +347,7 @@
   "h1": "Avertissement : pas un conseil en investissement",
   "intro": "{site} est un annuaire d'outils logiciels. Tout le contenu est une information générale sur des logiciels, leurs fonctionnalités et leurs prix publiés.",
   "items": [
-   "<b>Liens affiliés.</b> Certains liens (par exemple vers TradingView et certains fournisseurs de données) sont des liens d'affiliation (partenaires) : si vous achetez par leur biais, nous pouvons percevoir une commission sans surcoût pour vous. Les encadrés partenaires sont signalés « Partenaire ». Aucun paiement n'influence les outils que nous référençons, leur classement ou leur statut de vérification, et un lien n'est ni une approbation ni une recommandation de trader.",
+   "<b>Liens affiliés.</b> Certains liens sortants, actuellement vers TradingView et EODHD, sont des liens d'affiliation (partenaires) : si vous achetez par leur biais, nous pouvons percevoir une commission sans surcoût pour vous. Chacun est signalé « Partenaire » à côté du lien ou sur son encadré partenaire, et la génération du site échoue si une mention manque. Aucun paiement n'influence les outils que nous référençons, leur classement ou leur statut de vérification, et un lien n'est ni une approbation ni une recommandation de trader.",
    "<b>Aucun conseil.</b> Rien sur ce site ne constitue un conseil en investissement, de la commercialisation de placements, de la gestion de portefeuille, des signaux de trading ou un conseil fiscal, comptable ou juridique, et rien ne tient compte de votre situation personnelle. Nous ne sommes conseillers en investissement, distributeurs de placements ou gérants de portefeuille agréés dans aucune juridiction (y compris au titre de la loi israélienne sur la réglementation du conseil en investissement, de la commercialisation de placements et de la gestion de portefeuille, 5755-1995).",
    "<b>Aucune recommandation.</b> Une fiche, un classement, un badge « Vérifié » ou un emplacement sponsorisé ne constitue pas une recommandation d'utiliser un outil, un courtier, une plateforme ou un actif.",
    "<b>Risque.</b> Le trading et l'investissement — notamment avec des agents automatisés ou d'IA, l'effet de levier, les options ou la crypto — peuvent vous faire perdre tout ou partie de votre argent. Testez d'abord tout outil de trading en mode démo et ne donnez jamais à un agent plus de droits que ce que vous pouvez vous permettre de perdre.",

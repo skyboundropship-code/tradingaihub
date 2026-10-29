@@ -339,7 +339,7 @@
   "latest": "Son çalıştırma: {date} UTC —",
   "fullReport": "tam raporu gör",
   "money": "Nasıl para kazanıyoruz",
-  "moneyP": "Listeleme ücretsizdir. Şu anda yalnızca bazı veri sağlayıcılarına verilen, açıklanmış satış ortaklığı (partner) bağlantılarından gelir elde ediyoruz. Sponsorlu alanlar henüz sunulmuyor; sunulursa “Sponsorlu” olarak işaretlenecek. Hiçbiri doğrulama durumunu etkilemez.",
+  "moneyP": "Listeleme ücretsizdir. Şu anda yalnızca TradingView'e ve EODHD'ye verilen, açıklanmış satış ortaklığı (partner) bağlantılarından gelir elde ediyoruz. Sponsorlu alanlar henüz sunulmuyor; sunulursa “Sponsorlu” olarak işaretlenecek. Hiçbiri doğrulama durumunu etkilemez.",
   "contact": "İletişim"
  },
  "disc": {
@@ -347,7 +347,7 @@
   "h1": "Sorumluluk reddi: yatırım tavsiyesi değildir",
   "intro": "{site} bir yazılım araçları dizinidir. Tüm içerik yazılımlar, yetenekleri ve yayımlanmış fiyatları hakkında genel bilgidir.",
   "items": [
-   "<b>Ortaklık bildirimi.</b> Bazı bağlantılar (örneğin TradingView'e ve bazı veri sağlayıcılarına yönelik olanlar) satış ortaklığı (partner) bağlantılarıdır: bunlar üzerinden satın alırsanız, size ek maliyet olmadan komisyon kazanabiliriz. Ortak kutuları “Ortak” olarak işaretlenir. Hiçbir ödeme hangi araçları listelediğimizi, sıralamalarını veya doğrulama durumlarını etkilemez; bağlantılar onay veya trading tavsiyesi değildir.",
+   "<b>Ortaklık bildirimi.</b> Bazı dış bağlantılar, şu anda TradingView'e ve EODHD'ye yönelik olanlar, satış ortaklığı (partner) bağlantılarıdır: bunlar üzerinden satın alırsanız, size ek maliyet olmadan komisyon kazanabiliriz. Her biri bağlantının yanında veya ortak kutusunda “Ortak” olarak işaretlenir ve bir etiket eksikse site derlemesi başarısız olur. Hiçbir ödeme hangi araçları listelediğimizi, sıralamalarını veya doğrulama durumlarını etkilemez; bağlantılar onay veya trading tavsiyesi değildir.",
    "<b>Tavsiye değildir.</b> Bu sitedeki hiçbir şey yatırım tavsiyesi, yatırım pazarlaması, portföy yönetimi, trading sinyali ya da vergi, muhasebe veya hukuki tavsiye değildir ve kişisel durumunuzu dikkate almaz. Hiçbir yargı bölgesinde (İsrail'in Yatırım Danışmanlığı, Yatırım Pazarlaması ve Portföy Yönetiminin Düzenlenmesi Kanunu, 5755-1995 dahil) lisanslı yatırım danışmanı, yatırım pazarlamacısı veya portföy yöneticisi değiliz.",
    "<b>Öneri değildir.</b> Bir listeleme, sıralama, “Doğrulandı” rozeti veya sponsorlu alan, herhangi bir aracı, aracı kurumu, borsayı veya varlığı kullanma önerisi değildir.",
    "<b>Risk.</b> Trading ve yatırım — özellikle otomasyon veya yapay zekâ ajanları, kaldıraç, opsiyonlar ya da kripto ile — sermayenizin bir kısmını veya tamamını kaybetmenize yol açabilir. Her trading aracını önce paper modunda test edin ve bir ajana asla kaybetmeyi göze alabileceğinizden fazla yetki vermeyin.",
