@@ -5,7 +5,10 @@
 //  - any EODHD link to a tracked path (AFFILIATES.eodhd.paths) on eodhd.com / www.eodhd.com (also protocol-relative or with
 //    a trailing dot) lacks exactly one via=tradingaihub or rel="sponsored noopener"; any untracked EODHD path has via=,
 //    rel sponsored or a Partner tag; any other *.eodhd.com link (api., mcp.) carries via=;
-//  - any affiliate link (TradingView or EODHD) has no visible "Partner" tag: either inside a partner <aside> or a
+//  - any TrendSpider link on trendspider.com / www.trendspider.com (also protocol-relative or with a trailing dot) lacks exactly
+//    one _go=<AFFILIATES.trendspider.id>, rel="sponsored noopener" or aria-describedby="aff-note" (with #aff-note on the page);
+//    any other *.trendspider.com link carries _go=, rel sponsored or a Partner tag;
+//  - any affiliate link (TradingView, EODHD or TrendSpider) has no visible "Partner" tag: either inside a partner <aside> or a
 //    <span class="partner-tag"> right after the link;
 //  - any Partner tag is hidden, its text differs from the page locale's partner.label, or it sits on a non-affiliate link.
 import fs from "node:fs"; import path from "node:path";
@@ -47,11 +50,18 @@ const TAG_RE = /<span\b[^>]*\bclass="[^"]*\bpartner-tag\b[^"]*"[^>]*>([\s\S]*?)<
 const parse = (href) => { try { return new URL(href.replace(/&amp;/g, "&"), "https://x/"); } catch { return null; } };
 const normHost = (u) => u.hostname.toLowerCase().replace(/\.$/, "");
 const isEodhdVendor = (u) => ["eodhd.com", "www.eodhd.com"].includes(normHost(u));
-// An affiliate link as the site defines it: TradingView with our aff_id, or an EODHD tracked path with via.
+const isTsVendor = (u) => ["trendspider.com", "www.trendspider.com"].includes(normHost(u));
+const TS_ID = (() => {
+  const m = fs.readFileSync("src/config.ts", "utf8").match(/\btrendspider:\s*\{[^}]*\bid:\s*"([^"]+)"/);
+  if (!m) { console.error("check_aff: AFFILIATES.trendspider.id not found in src/config.ts"); process.exit(1); }
+  return m[1];
+})();
+// An affiliate link as the site defines it: TradingView with our aff_id, an EODHD tracked path with via, or TrendSpider with _go.
 const isAffHref = (href) => {
   const u = /^(?:https?:)?\/\//.test(href) ? parse(href) : null; if (!u) return false; const h = normHost(u);
   return ((h === "tradingview.com" || h.endsWith(".tradingview.com")) && u.searchParams.get("aff_id") === ID)
-    || (isEodhdVendor(u) && EODHD_PATHS.includes(u.pathname) && u.searchParams.has("via"));
+    || (isEodhdVendor(u) && EODHD_PATHS.includes(u.pathname) && u.searchParams.has("via"))
+    || (isTsVendor(u) && u.searchParams.has("_go"));
 };
 for (const f of walk("dist").filter((f) => f.endsWith(".html"))) {
   const html = fs.readFileSync(f, "utf8");
@@ -66,6 +76,22 @@ for (const f of walk("dist").filter((f) => f.endsWith(".html"))) {
     else { ebad++; console.error(trackedPath ? "BAD EODHD link (tracked path needs exactly one via=tradingaihub + rel sponsored)" : vendor ? "BAD EODHD link (untracked path must be plain: no via, no sponsored, no Partner tag)" : "BAD EODHD API/MCP link (must not be tagged)", f, m[0]); }
   }
 }
+// TrendSpider affiliate (_go=<id>, FirstPromoter): every link on trendspider.com / www.trendspider.com, any path, must carry
+// exactly one _go=<id>, rel="sponsored noopener" and aria-describedby="aff-note"; other *.trendspider.com hosts stay plain.
+let tsok = 0, tsbad = 0, tstag = 0, tsplain = 0;
+for (const f of walk("dist").filter((f) => f.endsWith(".html"))) {
+  const html = fs.readFileSync(f, "utf8"), note = /\bid="aff-note"/.test(html);
+  for (const m of html.matchAll(/<a\b[^>]*href="((?:https?:)?\/\/(?:[\w-]+\.)*trendspider\.com\.?(?=[\/:?#"])[^"]*)"[^>]*>/gi)) {
+    const u = parse(m[1]), go = u ? u.searchParams.getAll("_go") : [], vendor = !!u && isTsVendor(u);
+    const close = html.indexOf("</a>", m.index);
+    const tagAfter = close >= 0 && /^<\/a>\s*<span\b[^>]*\bpartner-tag\b/.test(html.slice(close, close + 300));
+    const good = vendor ? go.length === 1 && go[0] === TS_ID && /rel="sponsored noopener"/.test(m[0]) && /aria-describedby="aff-note"/.test(m[0]) && note
+      : !!u && go.length === 0 && !/\bsponsored\b/.test(m[0]) && !tagAfter;
+    if (good) { tsok++; if (vendor) tstag++; else tsplain++; }
+    else { tsbad++; console.error(vendor ? `BAD TrendSpider link (needs exactly one _go=${TS_ID} + rel sponsored + aria-describedby aff-note)` : "BAD TrendSpider subdomain link (must not be tagged)", f, m[0]); }
+  }
+}
+console.log(`TrendSpider links: ${tsok} ok (${tstag} tagged; ${tsplain} plain), ${tsbad} bad`);
 console.log(`EODHD links: ${eok} ok (${etag} tagged on ${EODHD_PATHS.join(", ")}; ${eplain} plain), ${ebad} bad`);
 // Every affiliate anchor needs a visible "Partner" tag: in a partner <aside> (CTA) or a partner-tag span right after </a>.
 let lok = 0, lbad = 0;
@@ -107,4 +133,4 @@ for (const f of walk("dist").filter((f) => f.endsWith(".html"))) {
   }
 }
 console.log(`Partner tag text: ${tok} ok, ${tbad} wrong; ${orphan} on non-affiliate links`);
-console.log(`TradingView links: ${ok} ok, ${bad} bad; partner CTAs verified: ${ctas}`); process.exit(bad || ebad || lbad || tbad || orphan ? 1 : 0);
+console.log(`TradingView links: ${ok} ok, ${bad} bad; partner CTAs verified: ${ctas}`); process.exit(bad || ebad || tsbad || lbad || tbad || orphan ? 1 : 0);
