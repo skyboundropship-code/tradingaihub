@@ -5,7 +5,8 @@
 //  - any EODHD link to eodhd.com / www.eodhd.com (also protocol-relative or with a trailing dot) in dist/ lacks exactly one
 //    via=tradingaihub or rel="sponsored noopener"; any other *.eodhd.com link (api., mcp.) carries via=;
 //  - any affiliate link (TradingView or EODHD) has no visible "Partner" tag: either inside a partner <aside> or a
-//    <span class="partner-tag"> right after the link.
+//    <span class="partner-tag"> right after the link;
+//  - any Partner tag's text differs from the page locale's partner.label.
 import fs from "node:fs"; import path from "node:path";
 const ID = "1173592"; let bad = 0, ok = 0, ctas = 0;
 const CODES = ["en", "he", "es", "pt", "de", "fr", "ja", "ko", "zh", "hi", "tr", "ar", "ru"];
@@ -63,4 +64,14 @@ for (const f of walk("dist").filter((f) => f.endsWith(".html"))) {
   }
 }
 console.log(`Affiliate labels: ${lok} ok, ${lbad} missing`);
-console.log(`TradingView links: ${ok} ok, ${bad} bad; partner CTAs verified: ${ctas}`); process.exit(bad || ebad || lbad ? 1 : 0);
+// Every Partner tag's text must be exactly the page locale's partner.label (empty or other words like "Featured" fail).
+const LABEL = Object.fromEntries(CODES.map((c) => [c, JSON.parse(fs.readFileSync(`src/i18n/${c}.json`, "utf8")).partner.label]));
+let tok = 0, tbad = 0;
+for (const f of walk("dist").filter((f) => f.endsWith(".html"))) {
+  const seg = path.relative("dist", f).split(path.sep)[0], lang = CODES.includes(seg) ? seg : "en";
+  for (const m of fs.readFileSync(f, "utf8").matchAll(/<span class="partner-tag"[^>]*>([\s\S]*?)<\/span>/g)) {
+    if (m[1].trim() === LABEL[lang]) tok++; else { tbad++; console.error(`WRONG Partner tag text (want "${LABEL[lang]}")`, f, JSON.stringify(m[1])); }
+  }
+}
+console.log(`Partner tag text: ${tok} ok, ${tbad} wrong`);
+console.log(`TradingView links: ${ok} ok, ${bad} bad; partner CTAs verified: ${ctas}`); process.exit(bad || ebad || lbad || tbad ? 1 : 0);

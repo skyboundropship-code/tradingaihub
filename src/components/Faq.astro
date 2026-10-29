@@ -1,0 +1,18 @@
+---
+// Visible FAQ section. The same items feed the page's FAQPage JSON-LD (see src/lib/faq.ts), so keep them in sync by
+// always passing the exact array used for faqLd().
+import { useT } from "../i18n";
+import type { QA } from "../lib/faq";
+interface Props { items: QA[]; lang?: string }
+const { items, lang = "en" } = Astro.props;
+const { t } = useT(lang);
+// Split on the isolate markers: odd segments are LTR-safe values rendered in <bdi>.
+const parts = (s: string) => s.split(/\u2068|\u2069/);
+---
+<section class="faq" aria-labelledby="faq-h">
+  <h2 class="sec" id="faq-h">{t("faq.title")}</h2>
+  <div class="faq-list">{items.map(({ q, a }) => <div class="faq-item">
+    <h3>{parts(q).map((s, i) => (i % 2 ? <bdi>{s}</bdi> : s))}</h3>
+    <p>{parts(a).map((s, i) => (i % 2 ? <bdi>{s}</bdi> : s))}</p>
+  </div>)}</div>
+</section>

@@ -339,7 +339,7 @@
   "latest": "Última verificação: {date} UTC —",
   "fullReport": "ver o relatório completo",
   "money": "Como ganhamos dinheiro",
-  "moneyP": "As listagens são gratuitas. Ganhamos com espaços patrocinados claramente identificados e com alguns links de afiliado para fornecedores de dados. Nenhum deles afeta o status de verificação.",
+  "moneyP": "As listagens são gratuitas. Atualmente ganhamos apenas com links de afiliado (de parceiros) divulgados (atualmente TradingView e EODHD). Ainda não oferecemos espaços patrocinados; se oferecermos, eles serão identificados como “Patrocinado”. Nenhum deles afeta o status de verificação.",
   "contact": "Contato"
  },
  "disc": {
@@ -347,13 +347,13 @@
   "h1": "Aviso legal: não é recomendação de investimento",
   "intro": "{site} é um diretório de ferramentas de software. Todo o conteúdo é informação geral sobre software, suas funcionalidades e seus preços publicados.",
   "items": [
-   "<b>Divulgação de afiliados.</b> Alguns links externos, atualmente para o TradingView e a EODHD, são links de afiliado (parceiros) declarados. Cada um traz a etiqueta «Parceiro» ao lado do link e usa rel=\"sponsored\". Se você comprar uma assinatura por eles, podemos receber uma comissão sem custo extra para você. Nenhum pagamento afeta quais ferramentas listamos, seu ranking ou seu status de verificação, e um link não é endosso nem recomendação para operar.",
+   "<b>Divulgação de afiliados.</b> Alguns links externos, atualmente para o TradingView e a EODHD, são links de afiliado (de parceiros): se você comprar por eles, podemos receber uma comissão sem custo extra para você. Cada um é identificado como “Parceiro” ao lado do link ou no seu quadro de parceiro, e a compilação do site falha se faltar uma identificação. Nenhum pagamento afeta quais ferramentas listamos, seu ranking ou seu status de verificação, e um link não é endosso nem recomendação para operar.",
    "<b>Sem consultoria.</b> Nada neste site é consultoria de investimento, distribuição de investimentos, gestão de carteiras, sinais de trading ou consultoria tributária, contábil ou jurídica, e nada leva em conta suas circunstâncias pessoais. Não somos consultores de investimento, distribuidores de investimentos ou gestores de carteira autorizados em nenhuma jurisdição (incluindo a Lei de Regulação de Consultoria de Investimentos, Distribuição de Investimentos e Gestão de Carteiras de Israel, 5755-1995).",
    "<b>Sem recomendação.</b> Uma listagem, um ranking, um selo «Verificado» ou um espaço patrocinado não são recomendação para usar qualquer ferramenta, corretora, exchange ou ativo.",
    "<b>Risco.</b> Operar e investir — especialmente com agentes automatizados ou de IA, alavancagem, opções ou cripto — pode fazer você perder parte ou todo o seu dinheiro. Teste qualquer ferramenta de trading primeiro em modo de simulação e nunca dê a um agente mais permissões do que você pode perder.",
    "<b>Terceiros.</b> As ferramentas são criadas e operadas por terceiros. Não controlamos elas, seus dados, sua segurança ou sua disponibilidade. A verificação é automática e limitada às checagens descritas na página Sobre.",
    "<b>Precisão.</b> Preços e funcionalidades mudam. Confirme sempre no site do fornecedor.",
-   "<b>Divulgação de afiliados e patrocínios.</b> Alguns links nos rendem comissão e algumas listagens são espaços pagos. Eles são identificados."
+   "<b>Espaços patrocinados.</b> Alguns links são links de afiliado (de parceiros) e podem nos render comissão. Hoje nenhuma listagem é um espaço pago; se espaços patrocinados forem oferecidos, serão identificados como “Patrocinado”."
   ]
  },
  "ver": {
@@ -553,5 +553,24 @@
   "longbridge-skills": "Skills oficiais da Longbridge: cotações, análise técnica, derivativos, fundamentos, carteira e lista de observação nos mercados de HK, EUA, ações A e Singapura.",
   "coinbase-agentic-wallet-skills": "Skills oficiais da Coinbase para carteiras de agentes: saldos, envio de USDC, troca de tokens, depósitos e pagamento de APIs x402 em Base, Polygon e Solana.",
   "options-trading-skills": "Skills comunitárias do Claude para traders de opções: scanners, gregas, spreads, filtros PMCC, correlações e relatórios de carteira da IBKR."
+ },
+ "faq": {
+  "title": "Perguntas frequentes",
+  "q1": "O que é o {site}?",
+  "a1": "O {site} é um diretório independente de ferramentas de IA para finanças e trading: servidores MCP, skills para agentes e APIs de dados para dados de mercado, corretoras, cripto, contabilidade e pesquisa financeira. Lista {n} ferramentas em {c} categorias, com trechos de instalação prontos para copiar em clientes de IA como Claude, Cursor, ChatGPT, Grok e Gemini.",
+  "q2": "Como as ferramentas são verificadas?",
+  "a2": "Cada item é verificado de novo automaticamente toda semana: se o repositório está acessível ou arquivado, a data do último commit, se o pacote npm ou PyPI existe e aponta de volta para o repositório, e se o site, a documentação e qualquer endpoint MCP hospedado respondem. Os preços são copiados da página de preços do próprio fornecedor. Última verificação: {date}.",
+  "q3": "O {site} é gratuito?",
+  "a3": "Sim. Navegar pelo diretório e listar uma ferramenta são gratuitos. O site pode ganhar uma comissão com links de afiliado (de parceiros) divulgados, que nunca afetam o status de verificação de uma ferramenta. A página de cada ferramenta mostra os preços e o plano gratuito dela.",
+  "q4": "Como envio uma ferramenta?",
+  "a4": "Use a página “{page}”. Ela abre uma issue do GitHub já preenchida; sem conta no GitHub, envie os mesmos dados por e-mail para {email}. Cada envio é avaliado, e as ferramentas aprovadas na verificação são publicadas em até uma semana.",
+  "q5": "Em quais idiomas o {site} está disponível?",
+  "a5": "O {site} está disponível em {n} idiomas: {list}.",
+  "cq1": "Quantas ferramentas estão listadas em “{name}”?",
+  "ca1": "Esta categoria lista {n} ferramentas, e {v} delas passaram na última verificação semanal ({date}) com o status “{status}”.",
+  "cq2": "Quais são as ferramentas mais populares em “{name}”?",
+  "ca2": "Por estrelas no GitHub, as ferramentas verificadas mais populares desta categoria são {list}.",
+  "cq3": "As ferramentas em “{name}” são oficiais?",
+  "ca3": "Ferramentas oficiais, publicadas pelo próprio fornecedor: {o} de {n}. Projetos da comunidade: {c}. As ferramentas oficiais têm o selo “{badge}”."
  }
 }

@@ -340,7 +340,7 @@
   "latest": "Latest run: {date} UTC —",
   "fullReport": "see the full report",
   "money": "How we make money",
-  "moneyP": "Listings are free. We earn from clearly-labelled sponsored placements and some affiliate links to data providers. Neither affects verification status.",
+  "moneyP": "Listings are free. We currently earn only from disclosed affiliate (partner) links (currently TradingView and EODHD). Sponsored placements aren't offered yet; if they are, they'll be labelled “Sponsored”. Neither affects verification status.",
   "contact": "Contact"
  },
  "disc": {
@@ -348,13 +348,13 @@
   "h1": "Disclaimer: not investment advice",
   "intro": "{site} is a directory of software tools. All content is general information about software, its features and its published prices.",
   "items": [
-   "<b>Affiliate disclosure.</b> Some outbound links, currently to TradingView and EODHD, are disclosed affiliate (partner) links. Each one is marked \"Partner\" next to the link and tagged rel=\"sponsored\". If you buy a subscription through them we may earn a commission at no extra cost to you. Payment never affects which tools we list, how they rank, or their verification status, and a link is not an endorsement or a recommendation to trade.",
+   "<b>Affiliate disclosure.</b> Some outbound links, currently to TradingView and EODHD, are affiliate (partner) links: if you buy through them we may earn a commission at no extra cost to you. Each one is marked “Partner” next to the link or on its partner box, and the build fails if a label is missing. Payment never affects which tools we list, how they rank, or their verification status, and a link is not an endorsement or a recommendation to trade.",
    "<b>No advice.</b> Nothing on this site is investment advice, investment marketing, portfolio management, trading signals, or tax, accounting or legal advice, and nothing takes into account your personal circumstances. We are not licensed investment advisers, investment marketers or portfolio managers in any jurisdiction (including under Israel's Regulation of Investment Advice, Investment Marketing and Portfolio Management Law, 5755-1995).",
    "<b>No recommendation.</b> Listing, ranking, a “Verified” badge or a sponsored placement is not a recommendation to use a tool, broker, exchange or asset.",
    "<b>Risk.</b> Trading and investing — especially with automated or AI agents, leverage, options or crypto — can lose some or all of your money. Test any trading tool in paper mode first and never give an agent more permissions than you can afford to lose.",
    "<b>Third parties.</b> Tools are built and run by third parties. We don't control them, their data, their security or their availability. Verification is automated and limited to the checks described on the About page.",
    "<b>Accuracy.</b> Prices and features change. Always confirm on the vendor's site.",
-   "<b>Affiliate & sponsored disclosure.</b> Some links earn us a commission and some listings are paid placements. They are labelled."
+   "<b>Sponsored placements.</b> Some links are affiliate (partner) links and may earn us a commission. No listing is a paid placement today; if sponsored placements are offered, they will be labelled “Sponsored”."
   ]
  },
  "ver": {
@@ -554,5 +554,24 @@
   "toolText": "Charts, screeners and alerts for stocks, forex and crypto — free Basic plan.",
   "toolBtn": "Try TradingView",
   "disclosure": "Partner link: we may earn a commission at no extra cost to you. It never affects listings."
+ },
+ "faq": {
+  "title": "Frequently asked questions",
+  "q1": "What is {site}?",
+  "a1": "{site} is an independent directory of AI tools for finance and trading: MCP servers, agent skills and data APIs for market data, brokers, crypto, accounting and financial research. It lists {n} tools in {c} categories, with copy-paste install snippets for AI clients such as Claude, Cursor, ChatGPT, Grok and Gemini.",
+  "q2": "How are the tools verified?",
+  "a2": "Every listing is re-checked automatically every week: whether the repository is reachable or archived, the date of its latest commit, whether its npm or PyPI package exists and links back to the repository, and whether the homepage, docs and any hosted MCP endpoint respond. Pricing is copied from the vendor's own pricing page. Latest check: {date}.",
+  "q3": "Is {site} free?",
+  "a3": "Yes. Browsing the directory and listing a tool are both free. The site may earn a commission from disclosed affiliate (partner) links, which never affect a tool's verification status. Each tool page shows that tool's own pricing and free tier.",
+  "q4": "How do I submit a tool?",
+  "a4": "Use the “{page}” page. It opens a pre-filled GitHub issue; without a GitHub account, email the same details to {email}. Every submission is vetted, and tools that pass the check are published within a week.",
+  "q5": "Which languages is {site} available in?",
+  "a5": "{site} is available in {n} languages: {list}.",
+  "cq1": "How many tools are listed in “{name}”?",
+  "ca1": "{n} tools are listed in this category, and {v} of them passed the latest weekly check ({date}) with the status “{status}”.",
+  "cq2": "Which tools in “{name}” are the most popular?",
+  "ca2": "By GitHub stars, the most popular verified tools in this category are {list}.",
+  "cq3": "Are the tools in “{name}” official?",
+  "ca3": "Official tools, published by the vendor itself: {o} of {n}. Community projects: {c}. Official tools carry the “{badge}” badge."
  }
 }
