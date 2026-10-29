@@ -4,7 +4,7 @@ import PartnerCTA from "../../../components/PartnerCTA.astro";
 import Base from "../../../layouts/Base.astro";
 import ToolCard from "../../../components/ToolCard.astro";
 import { SITE } from "../../../config";
-import { tools, CATEGORIES, COMPARISONS } from "../../../lib/data";
+import { tools, CATEGORIES, COMPARISONS, byStars } from "../../../lib/data";
 import { langParams, useT } from "../../../i18n";
 const TV: Record<string,any> = { "market-data": "charts", "crypto": "crypto", "quant-backtesting": "backtest" };
 const TVPATH: Record<string,string> = { "crypto": "/markets/cryptocurrencies/", "quant-backtesting": "/pine-script-docs/", "macro": "/markets/currencies/", "research-filings": "/screener/", "trading-brokers": "/chart/", "market-data": "/screener/" };
@@ -12,7 +12,7 @@ export function getStaticPaths() { return langParams().flatMap((lp) => CATEGORIE
 const lang = Astro.params.lang ?? "en"; const { t, p } = useT(lang);
 const { c } = Astro.props; const [cname, cshort, cblurb] = t(`cat.${c.slug}`);
 const order: Record<string, number> = { verified: 0, aging: 1, warning: 2, stale: 3, archived: 4, unreachable: 5 };
-const list = tools.filter((x) => x.category === c.slug).sort((a, b) => order[a.verification.status] - order[b.verification.status] || (b.verification.github?.stars ?? 0) - (a.verification.github?.stars ?? 0));
+const list = tools.filter((x) => x.category === c.slug).sort((a, b) => order[a.verification.status] - order[b.verification.status] || byStars(a, b));
 const comps = COMPARISONS.filter((x) => list.some((y) => x.filter(y)));
 const ld = [{ "@context": "https://schema.org", "@type": "CollectionPage", name: cname, description: cblurb, url: `${SITE.url}${p(`/category/${c.slug}/`)}`, inLanguage: lang,
   mainEntity: { "@type": "ItemList", numberOfItems: list.length, itemListElement: list.map((x, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE.url}${p(`/tools/${x.id}/`)}`, name: x.name })) } }];

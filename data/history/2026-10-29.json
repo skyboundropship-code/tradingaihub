@@ -290,13 +290,13 @@
  "anthropic-financial-services": {
   "name": "Anthropic Financial Services Plugins",
   "status": "verified",
-  "stars": 40900,
+  "stars": 40901,
   "version": null
  },
  "invoice-organizer-skill": {
   "name": "Invoice Organizer skill",
-  "status": "verified",
-  "stars": 78238,
+  "status": "stale",
+  "stars": null,
   "version": null
  },
  "stripe-ai": {
@@ -350,7 +350,7 @@
  "openbb": {
   "name": "OpenBB Platform (MCP)",
   "status": "verified",
-  "stars": 74855,
+  "stars": 74856,
   "version": null
  },
  "equibles": {

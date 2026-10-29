@@ -1,11 +1,11 @@
 ---
 import Base from "../../../layouts/Base.astro";
 import ToolCard from "../../../components/ToolCard.astro";
-import { tools, CATEGORIES } from "../../../lib/data";
+import { tools, CATEGORIES, byStars } from "../../../lib/data";
 import { langParams, useT } from "../../../i18n";
 export function getStaticPaths() { return langParams().map((params) => ({ params })); }
 const lang = Astro.params.lang ?? "en"; const { t } = useT(lang);
-const sorted = [...tools].sort((a, b) => (b.verification.github?.stars ?? 0) - (a.verification.github?.stars ?? 0));
+const sorted = [...tools].sort(byStars);
 const fs = "padding:10px;border-radius:10px;background:var(--panel);color:var(--text);border:1px solid var(--line)";
 ---
 <Base title={t("tools.title")} description={t("tools.desc")} lang={lang}>

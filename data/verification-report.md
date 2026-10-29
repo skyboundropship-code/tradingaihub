@@ -1,9 +1,9 @@
-# Verification report — 2026-10-29 11:53 UTC
+# Verification report — 2026-10-29 12:26 UTC
 
 Total entries: 75
 
-- verified: 56
-- stale: 12
+- verified: 55
+- stale: 13
 - aging: 4
 - archived: 3
 
@@ -59,8 +59,8 @@ Entries with a published npm/PyPI package: 25
 | xero-mcp | verified | 386 | 2026-10-26 | MIT | @xeroapi/xero-mcp-server@0.0.17 |  |
 | norman-finance-mcp | verified | 62 | 2026-10-29 | MIT | norman-mcp-server@0.1.7 |  |
 | ledgerskills | verified | 2 | 2026-06-13 | MIT |  |  |
-| anthropic-financial-services | verified | 40900 | 2026-10-28 | Apache-2.0 |  |  |
-| invoice-organizer-skill | verified | 78238 | 2026-09-18 | unknown |  |  |
+| anthropic-financial-services | verified | 40901 | 2026-10-28 | Apache-2.0 |  |  |
+| invoice-organizer-skill | stale | None | 2025-10-17 | unknown |  | No commits for 377 days |
 | stripe-ai | verified | 1993 | 2026-10-29 | MIT |  |  |
 | qonto-mcp | verified | 42 | 2026-06-22 | MIT |  |  |
 | ramp-mcp | archived | 34 | 2025-03-20 | MIT |  | pypi name 'ramp-mcp' exists on the registry but does not link to this repo (not counted); Repository is archived |
@@ -69,7 +69,7 @@ Entries with a published npm/PyPI package: 25
 | actual-budget-mcp | aging | 2 | 2026-03-23 | unknown |  | npm name 'actual-budget-mcp' exists on the registry but does not link to this repo (not counted); No commits for 220 days |
 | optionsahoy-mcp | verified | 6 | 2026-10-28 | MIT | optionsahoy-mcp@1.11.0 |  |
 | sec-edgar-mcp | verified | 380 | 2026-10-03 | AGPL-3.0 | sec-edgar-mcp@1.1.0 |  |
-| openbb | verified | 74855 | 2026-10-24 | NOASSERTION |  |  |
+| openbb | verified | 74856 | 2026-10-24 | Apache-2.0 |  |  |
 | equibles | verified | 7 | 2026-10-19 | MIT |  |  |
 | alphasmo | verified | 2 | 2026-08-12 | MIT | alphasmo@0.2.1 |  |
 | edgrapi-skills | verified | 1 | 2026-10-16 | MIT-0 |  |  |

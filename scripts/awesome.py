@@ -8,6 +8,9 @@ brand = re.search(r'name: "([^"]+)"', cfg).group(1); url = re.search(r'url: "([^
 lib = open(os.path.join(ROOT, "src/lib/data.ts")).read()
 cats = re.findall(r'slug: "([^"]+)", name: "([^"]+)", short: "[^"]+", icon: "([^"]+)"', lib)
 tools = json.load(open(os.path.join(ROOT, "data/tools.json")))
+def stars_of(t):  # None for shared lists/monorepos: their stars belong to the collection, not one entry
+    g = t["verification"].get("github") or {}
+    return None if (t.get("repo_is_collection") or g.get("collection")) else g.get("stars")
 ok = {"verified": "✅", "aging": "🟡", "warning": "🟡", "stale": "🔴", "archived": "🗄️", "unreachable": "❌"}
 date = tools[0]["verification"]["checked_at"]
 L = [f"# Awesome Finance & Trading AI Tools [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)", "",
@@ -15,12 +18,12 @@ L = [f"# Awesome Finance & Trading AI Tools [![Awesome](https://awesome.re/badge
      "Legend: ✅ verified · 🟡 aging (6–12 months without commits) · 🔴 stale (12+ months) · 🗄️ archived. ⭐ = GitHub stars. Not investment advice.", "", "## Contents", ""]
 L += [f"- [{n}](#{re.sub(r'[^a-z0-9 -]', '', n.lower()).strip().replace(' ', '-')})" for s, n, i in cats]
 for s, n, i in cats:
-    items = sorted([t for t in tools if t["category"] == s], key=lambda t: -((t["verification"].get("github") or {}).get("stars") or 0))
+    items = sorted([t for t in tools if t["category"] == s], key=lambda t: -(stars_of(t) or 0))
     if not items: continue
     L += ["", f"## {n}", ""]
     for t in items:
         g = t["verification"].get("github") or {}; link = t.get("repo") or t.get("homepage")
-        stars = f" ⭐ {g['stars']:,}" if g.get("stars") is not None else ""
+        stars = f" ⭐ {stars_of(t):,}" if stars_of(t) is not None else ""
         off = " *(official)*" if t.get("official") else ""
         L.append(f"- {ok.get(t['verification']['status'], '')} [{t['name']}]({link}){off} — {t['description']}{stars} · [details]({url}/tools/{t['id']}/)")
 L += ["", "## Contributing", "", f"Submit a tool for free at {url}/submit/ or open a PR. Entries are re-checked weekly; stale ones are flagged, not silently kept.", "",
