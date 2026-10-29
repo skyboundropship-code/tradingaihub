@@ -553,5 +553,24 @@
   "longbridge-skills": "Resmi Longbridge ajan becerileri: HK, ABD, A-hisse ve Singapur piyasalarında fiyatlar, teknik analiz, türevler, temel veriler, portföy ve izleme listesi.",
   "coinbase-agentic-wallet-skills": "Ajan cüzdanları için resmi Coinbase becerileri: bakiyeler, USDC gönderme, token takası, para yatırma ve Base, Polygon ve Solana'da x402 API ödemeleri.",
   "options-trading-skills": "Opsiyon yatırımcıları için topluluk Claude becerileri: tarayıcılar, Yunanlar, spreadler, PMCC taramaları, korelasyonlar ve IBKR portföy raporları."
+ },
+ "faq": {
+  "title": "Sıkça sorulan sorular",
+  "q1": "{site} nedir?",
+  "a1": "{site}, finans ve trading için yapay zekâ araçlarının bağımsız bir dizinidir: piyasa verileri, aracı kurumlar, kripto, muhasebe ve finansal araştırma için MCP sunucuları, ajan becerileri ve veri API'leri. {c} kategoride {n} araç listelenir ve Claude, Cursor, ChatGPT, Grok ve Gemini gibi yapay zekâ istemcileri için kopyala-yapıştır kurulum kod parçaları sunulur.",
+  "q2": "Araçlar nasıl doğrulanıyor?",
+  "a2": "Her kayıt her hafta otomatik olarak yeniden kontrol edilir: deponun erişilebilir mi yoksa arşivlenmiş mi olduğu, son commit tarihi, npm veya PyPI paketinin var olup olmadığı ve depoya geri bağlantı verip vermediği, ana sayfanın, dokümantasyonun ve barındırılan MCP uç noktalarının yanıt verip vermediği. Fiyatlar sağlayıcının kendi fiyat sayfasından alınır. Son kontrol: {date}.",
+  "q3": "{site} ücretsiz mi?",
+  "a3": "Evet. Dizine göz atmak da araç listelemek de ücretsizdir. Site, açıkça etiketlenmiş sponsorlu yerleşimlerden ve bazı satış ortaklığı bağlantılarından gelir elde eder; bunların hiçbiri bir aracın doğrulama durumunu etkilemez. Her aracın sayfasında o aracın kendi fiyatları ve ücretsiz planı gösterilir.",
+  "q4": "Nasıl araç gönderebilirim?",
+  "a4": "“{page}” sayfasını kullanın. Önceden doldurulmuş bir GitHub issue açar; GitHub hesabınız yoksa aynı bilgileri {email} adresine e-postayla gönderin. Her gönderim incelenir ve kontrolü geçen araçlar bir hafta içinde yayımlanır.",
+  "q5": "{site} hangi dillerde kullanılabilir?",
+  "a5": "{site} {n} dilde kullanılabilir: {list}.",
+  "cq1": "“{name}” kategorisinde kaç araç listeleniyor?",
+  "ca1": "Bu kategoride {n} araç listeleniyor; bunlardan {v} tanesi son haftalık kontrolü ({date}) “{status}” durumuyla geçti.",
+  "cq2": "“{name}” kategorisindeki en popüler araçlar hangileri?",
+  "ca2": "GitHub yıldızlarına göre bu kategorideki en popüler doğrulanmış araçlar: {list}.",
+  "cq3": "“{name}” kategorisindeki araçlar resmî mi?",
+  "ca3": "Sağlayıcının kendisi tarafından yayımlanan resmî araçlar: {n} araçtan {o} tanesi. Topluluk projeleri: {c}. Resmî araçlarda “{badge}” rozeti bulunur."
  }
 }

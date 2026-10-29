@@ -553,5 +553,24 @@
   "longbridge-skills": "Skills oficiales de Longbridge: cotizaciones, análisis técnico, derivados, fundamentales, cartera y lista de seguimiento en los mercados de HK, EE. UU., acciones A y Singapur.",
   "coinbase-agentic-wallet-skills": "Skills oficiales de Coinbase para billeteras de agentes: saldos, envío de USDC, intercambio de tokens, fondeo y pago de API x402 en Base, Polygon y Solana.",
   "options-trading-skills": "Skills comunitarias de Claude para operadores de opciones: escáneres, griegas, spreads, filtros PMCC, correlaciones e informes de cartera de IBKR."
+ },
+ "faq": {
+  "title": "Preguntas frecuentes",
+  "q1": "¿Qué es {site}?",
+  "a1": "{site} es un directorio independiente de herramientas de IA para finanzas y trading: servidores MCP, skills para agentes y APIs de datos para datos de mercado, brókers, cripto, contabilidad e investigación financiera. Incluye {n} herramientas en {c} categorías, con fragmentos de instalación listos para copiar en clientes de IA como Claude, Cursor, ChatGPT, Grok y Gemini.",
+  "q2": "¿Cómo se verifican las herramientas?",
+  "a2": "Cada ficha se vuelve a comprobar automáticamente cada semana: si el repositorio es accesible o está archivado, la fecha de su último commit, si su paquete de npm o PyPI existe y enlaza al repositorio, y si responden la web, la documentación y cualquier endpoint MCP alojado. Los precios se copian de la página de precios del propio proveedor. Última comprobación: {date}.",
+  "q3": "¿{site} es gratis?",
+  "a3": "Sí. Consultar el directorio y publicar una herramienta son gratis. El sitio obtiene ingresos de ubicaciones patrocinadas claramente señalizadas y de algunos enlaces de afiliado, y ninguno de ellos afecta al estado de verificación de una herramienta. La página de cada herramienta muestra sus propios precios y su plan gratuito.",
+  "q4": "¿Cómo envío una herramienta?",
+  "a4": "Usa la página «{page}». Abre una issue de GitHub ya rellenada; si no tienes cuenta de GitHub, envía los mismos datos por correo a {email}. Cada envío se revisa, y las herramientas que superan la comprobación se publican en el plazo de una semana.",
+  "q5": "¿En qué idiomas está disponible {site}?",
+  "a5": "{site} está disponible en {n} idiomas: {list}.",
+  "cq1": "¿Cuántas herramientas hay en «{name}»?",
+  "ca1": "Esta categoría incluye {n} herramientas, y {v} de ellas superaron la última comprobación semanal ({date}) con el estado «{status}».",
+  "cq2": "¿Cuáles son las herramientas más populares de «{name}»?",
+  "ca2": "Por estrellas en GitHub, las herramientas verificadas más populares de esta categoría son {list}.",
+  "cq3": "¿Las herramientas de «{name}» son oficiales?",
+  "ca3": "Herramientas oficiales, publicadas por el propio proveedor: {o} de {n}. Proyectos de la comunidad: {c}. Las herramientas oficiales llevan la insignia «{badge}»."
  }
 }

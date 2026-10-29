@@ -553,5 +553,24 @@
   "longbridge-skills": "Offizielle Longbridge-Agent-Skills: Kurse, technische Analyse, Derivate, Fundamentaldaten, Portfolio und Watchlist für HK, USA, A-Aktien und Singapur.",
   "coinbase-agentic-wallet-skills": "Offizielle Coinbase-Skills für Agenten-Wallets: Salden, USDC senden, Token tauschen, Guthaben aufladen und x402-APIs bezahlen auf Base, Polygon und Solana.",
   "options-trading-skills": "Community-Claude-Skills für Optionshändler: Scanner, Griechen, Spreads, PMCC-Screens, Korrelationen und IBKR-Portfolioberichte."
+ },
+ "faq": {
+  "title": "Häufige Fragen",
+  "q1": "Was ist {site}?",
+  "a1": "{site} ist ein unabhängiges Verzeichnis von KI-Tools für Finanzen und Trading: MCP-Server, Agent-Skills und Daten-APIs für Marktdaten, Broker, Krypto, Buchhaltung und Finanzrecherche. Es listet {n} Tools in {c} Kategorien, mit Installations-Snippets zum Kopieren für KI-Clients wie Claude, Cursor, ChatGPT, Grok und Gemini.",
+  "q2": "Wie werden die Tools geprüft?",
+  "a2": "Jeder Eintrag wird jede Woche automatisch neu geprüft: ob das Repository erreichbar oder archiviert ist, das Datum des letzten Commits, ob das npm- oder PyPI-Paket existiert und auf das Repository zurückverweist und ob Website, Doku und ein gehosteter MCP-Endpoint antworten. Preise werden von der Preisseite des Anbieters selbst übernommen. Letzte Prüfung: {date}.",
+  "q3": "Ist {site} kostenlos?",
+  "a3": "Ja. Das Verzeichnis zu nutzen und ein Tool einzutragen ist kostenlos. Die Website verdient an klar gekennzeichneten gesponserten Platzierungen und einigen Affiliate-Links; beides hat keinen Einfluss auf den Prüfstatus eines Tools. Jede Tool-Seite zeigt die Preise und den Gratis-Tarif des jeweiligen Tools.",
+  "q4": "Wie reiche ich ein Tool ein?",
+  "a4": "Über die Seite „{page}“. Sie öffnet ein vorausgefülltes GitHub-Issue; ohne GitHub-Konto senden Sie dieselben Angaben per E-Mail an {email}. Jede Einreichung wird geprüft, und Tools, die die Prüfung bestehen, werden innerhalb einer Woche veröffentlicht.",
+  "q5": "In welchen Sprachen gibt es {site}?",
+  "a5": "{site} ist in {n} Sprachen verfügbar: {list}.",
+  "cq1": "Wie viele Tools sind in „{name}“ gelistet?",
+  "ca1": "In dieser Kategorie sind {n} Tools gelistet; {v} davon haben die letzte wöchentliche Prüfung ({date}) mit dem Status „{status}“ bestanden.",
+  "cq2": "Welche Tools in „{name}“ sind am beliebtesten?",
+  "ca2": "Nach GitHub-Sternen sind die beliebtesten geprüften Tools dieser Kategorie {list}.",
+  "cq3": "Sind die Tools in „{name}“ offiziell?",
+  "ca3": "Offizielle Tools, vom Anbieter selbst veröffentlicht: {o} von {n}. Community-Projekte: {c}. Offizielle Tools tragen das Badge „{badge}“."
  }
 }

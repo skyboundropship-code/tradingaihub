@@ -4,6 +4,8 @@ import ToolCard from "../../components/ToolCard.astro";
 import Newsletter from "../../components/Newsletter.astro";
 import PartnerCTA from "../../components/PartnerCTA.astro";
 import StatCards from "../../components/StatCards.astro";
+import Faq from "../../components/Faq.astro";
+import { homeFaq, faqLd } from "../../lib/faq";
 import { SITE } from "../../config";
 import { tools, CATEGORIES, COMPARISONS, verificationReport as r } from "../../lib/data";
 import { langParams, useT } from "../../i18n";
@@ -14,6 +16,7 @@ const picks = featuredIds.map((id) => tools.find((x) => x.id === id)).filter(Boo
 const verified = tools.filter((x) => x.verification.status === "verified").length;
 const recent = [...tools].filter((x)=>x.verification.github?.last_commit).sort((a,b)=>b.verification.github.last_commit.localeCompare(a.verification.github.last_commit)).slice(0,6);
 const ld = [{ "@context": "https://schema.org", "@type": "ItemList", name: t("home.picks"), itemListElement: picks.map((x, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE.url}${p(`/tools/${x.id}/`)}`, name: x.name })) }];
+const faq = homeFaq(lang); ld.push(faqLd(faq, lang) as any);
 const cat = (slug: string) => t(`cat.${slug}`);
 ---
 <Base title={SITE.name} jsonld={ld} lang={lang}>
@@ -37,5 +40,6 @@ const cat = (slug: string) => t(`cat.${slug}`);
   <Newsletter lang={lang} />
   <h2 class="sec">{t("home.recent")}</h2>
   <div class="grid">{recent.map((x) => <ToolCard t={x} lang={lang} />)}</div>
+  <Faq items={faq} lang={lang} />
 </div>
 </Base>

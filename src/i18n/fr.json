@@ -553,5 +553,24 @@
   "longbridge-skills": "Skills d'agent officiels de Longbridge : cotations, analyse technique, dérivés, fondamentaux, portefeuille et liste de suivi sur les marchés de HK, des États-Unis, des actions A et de Singapour.",
   "coinbase-agentic-wallet-skills": "Skills officiels de Coinbase pour portefeuilles d'agents : soldes, envoi d'USDC, échange de jetons, approvisionnement et paiement d'API x402 sur Base, Polygon et Solana.",
   "options-trading-skills": "Skills Claude communautaires pour traders d'options : scanners, grecques, spreads, filtres PMCC, corrélations et rapports de portefeuille IBKR."
+ },
+ "faq": {
+  "title": "Questions fréquentes",
+  "q1": "Qu'est-ce que {site} ?",
+  "a1": "{site} est un annuaire indépendant d'outils d'IA pour la finance et le trading : serveurs MCP, skills d'agents et API de données pour les données de marché, les courtiers, la crypto, la comptabilité et la recherche financière. Il répertorie {n} outils dans {c} catégories, avec des extraits d'installation prêts à copier pour des clients d'IA comme Claude, Cursor, ChatGPT, Grok et Gemini.",
+  "q2": "Comment les outils sont-ils vérifiés ?",
+  "a2": "Chaque fiche est revérifiée automatiquement chaque semaine : le dépôt est-il accessible ou archivé, la date de son dernier commit, le paquet npm ou PyPI existe-t-il et renvoie-t-il vers le dépôt, et le site, la documentation et tout endpoint MCP hébergé répondent-ils. Les prix sont copiés depuis la page tarifaire de l'éditeur lui-même. Dernière vérification : {date}.",
+  "q3": "{site} est-il gratuit ?",
+  "a3": "Oui. Consulter l'annuaire et y inscrire un outil sont gratuits. Le site se rémunère grâce à des emplacements sponsorisés clairement signalés et à quelques liens d'affiliation, et aucun des deux n'influence le statut de vérification d'un outil. La page de chaque outil indique ses propres tarifs et son offre gratuite.",
+  "q4": "Comment proposer un outil ?",
+  "a4": "Passez par la page « {page} ». Elle ouvre une issue GitHub préremplie ; sans compte GitHub, envoyez les mêmes informations par e-mail à {email}. Chaque proposition est examinée, et les outils qui passent la vérification sont publiés sous une semaine.",
+  "q5": "Dans quelles langues {site} est-il disponible ?",
+  "a5": "{site} est disponible en {n} langues : {list}.",
+  "cq1": "Combien d'outils sont répertoriés dans « {name} » ?",
+  "ca1": "Cette catégorie répertorie {n} outils, dont {v} ont passé la dernière vérification hebdomadaire ({date}) avec le statut « {status} ».",
+  "cq2": "Quels sont les outils les plus populaires dans « {name} » ?",
+  "ca2": "D'après les étoiles GitHub, les outils vérifiés les plus populaires de cette catégorie sont {list}.",
+  "cq3": "Les outils de « {name} » sont-ils officiels ?",
+  "ca3": "Outils officiels, publiés par l'éditeur lui-même : {o} sur {n}. Projets communautaires : {c}. Les outils officiels portent le badge « {badge} »."
  }
 }
