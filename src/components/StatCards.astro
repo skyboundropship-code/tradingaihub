@@ -1,0 +1,81 @@
+---
+// Home stats strip as 4 stat cards. All numbers come from data (tools.json + verification report);
+// the final values are rendered in the HTML (no-JS / SEO), and a tiny script counts the numbers up
+// unless the visitor prefers reduced motion or turned on "stop animations" in the accessibility widget.
+import { useT } from "../i18n";
+interface Props { lang?: string; tools: number; verified: number; categories: number; checkedAt: string }
+const { lang = "en", tools, verified, categories, checkedAt } = Astro.props;
+const { t } = useT(lang);
+// Latin digits everywhere (matches the rest of the site), locale-specific grouping and month names.
+const loc = lang === "ar" ? "ar-u-nu-latn" : lang;
+const nf = new Intl.NumberFormat(loc);
+const iso = String(checkedAt).slice(0, 10);
+const dateText = new Intl.DateTimeFormat(loc, { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(`${iso}T00:00:00Z`));
+const items = [
+  { key: "tools", n: tools, label: t("home.listed"), icon: "grid" },
+  { key: "verified", n: verified, label: t("home.passed"), icon: "shield" },
+  { key: "cats", n: categories, label: t("home.categories"), icon: "tag" },
+];
+---
+<ul class="statcards" role="list" data-loc={loc}>
+  {items.map((s) => (
+    <li class={`statcard sc-${s.key}`}>
+      <span class="sc-icon" aria-hidden="true">
+        {s.icon === "grid" && <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>}
+        {s.icon === "shield" && <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"/><path d="M8.5 12.5l2.5 2.5 4.5-5"/></svg>}
+        {s.icon === "tag" && <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>}
+      </span>
+      <span class="sc-num" data-count={s.n} aria-hidden="true">{nf.format(s.n)}</span><span class="sr-only">{nf.format(s.n)}</span>
+      <span class="sc-label">{s.label}</span>
+    </li>
+  ))}
+  <li class="statcard sc-date">
+    <span class="sc-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+    <time class="sc-num sc-datev" datetime={iso}>{dateText}</time>
+    <span class="sc-label">{t("home.lastVerified")}</span>
+  </li>
+</ul>
+<script is:inline>
+(function(){
+  var list=document.currentScript&&document.currentScript.previousElementSibling;
+  if(!list||!list.classList.contains("statcards"))return;
+  var d=document.documentElement,off=false;
+  try{off=(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)||d.classList.contains("a11y-noanim")||!!(JSON.parse(localStorage.getItem("a11y")||"{}").noanim)}catch(e){}
+  if(off||!("requestAnimationFrame" in window))return;
+  var nf;try{nf=new Intl.NumberFormat(list.getAttribute("data-loc")||undefined)}catch(e){nf={format:String}}
+  var els=list.querySelectorAll("[data-count]");
+  function run(){
+    els.forEach(function(el){
+      var end=+el.getAttribute("data-count");if(!(end>0))return;
+      var finalTxt=el.textContent,t0=null,dur=900;
+      el.style.minWidth=el.getBoundingClientRect().width+"px";
+      function step(ts){
+        if(d.classList.contains("a11y-noanim")){el.textContent=finalTxt;return}
+        if(t0===null)t0=ts;var k=Math.min(1,(ts-t0)/dur),e=1-Math.pow(1-k,3);
+        el.textContent=k<1?nf.format(Math.round(end*e)):finalTxt;
+        if(k<1)requestAnimationFrame(step);
+      }
+      el.textContent=nf.format(0);requestAnimationFrame(step);
+    });
+  }
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){if(es.some(function(x){return x.isIntersecting})){io.disconnect();run()}},{threshold:.3});
+    io.observe(list);
+  } else run();
+})();
+</script>
+<style>
+/* the hero is .wrap but .hero's shorthand padding drops the side gutter; restore it so the cards don't touch the screen edge */
+:global(.hero.wrap){padding-left:20px;padding-right:20px}
+.statcards{list-style:none;margin:22px auto 0;padding:0;max-width:880px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;text-align:start}
+.statcard{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 1px 2px rgba(15,23,42,.06),0 4px 14px rgba(15,23,42,.06);padding:16px 16px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+:global([data-theme=dark]) .statcard{box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 6px 18px rgba(0,0,0,.35)}
+.sc-icon{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;margin-bottom:6px;color:var(--brand);background:var(--g-bg);border:1px solid var(--g-bd)}
+.sc-verified .sc-icon{color:var(--t-fg);background:var(--t-bg);border-color:var(--t-bd)}
+.sc-cats .sc-icon{color:var(--o-fg);background:var(--o-bg);border-color:var(--o-bd)}
+.sc-date .sc-icon{color:var(--w-fg);background:var(--w-bg);border-color:var(--w-bd)}
+.sc-num{font-size:2rem;line-height:1.1;font-weight:800;letter-spacing:-.02em;color:var(--text);font-variant-numeric:tabular-nums;display:inline-block}
+.sc-datev{font-size:1.25rem;line-height:1.25;letter-spacing:0;overflow-wrap:anywhere}
+.sc-label{font-size:.875rem;color:var(--muted);line-height:1.35}
+@media(max-width:700px){.statcards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.statcard{padding:14px 12px 12px}.sc-num{font-size:1.75rem}.sc-datev{font-size:1.0625rem}}
+</style>
