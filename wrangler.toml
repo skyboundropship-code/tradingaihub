@@ -1,4 +1,4 @@
-# Cloudflare Pages config (static). Deploy ONLY after Liran approves:
+# Cloudflare Pages config (static + functions/). Deploy from repo root:
 #   npm run build && npx wrangler pages deploy dist --project-name=tradingaihub
 name = "tradingaihub"
 pages_build_output_dir = "./dist"
