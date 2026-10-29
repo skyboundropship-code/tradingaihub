@@ -79,6 +79,7 @@
    "Bağlantı kontrol edilmeli",
    "Son kontrolde web sitesi, doküman veya uç nokta bağlantısı başarısız oldu."
   ],
+  "unconfirmed": ["İnceleme gerekli", "Erişilebilir, ancak bir ana sayfa, doküman veya uç nokta bağlantısı denetleyicimizi reddetti (giriş gerekli, bot engeli veya hız sınırı), bu yüzden tam olarak doğrulanamadı. Doğrulanmış sayılmaz."],
   "unreachable": [
    "Erişilemiyor",
    "Depoya veya web sitesine ulaşılamadı."

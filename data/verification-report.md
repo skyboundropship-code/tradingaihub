@@ -1,11 +1,12 @@
-# Verification report — 2026-10-29 12:34 UTC
+# Verification report — 2026-10-29 17:26 UTC
 
 Total entries: 104
 
-- verified: 84
+- verified: 82
 - stale: 13
 - aging: 4
 - archived: 3
+- unconfirmed: 2
 
 Entries with a published npm/PyPI package: 28
 
@@ -61,7 +62,7 @@ Entries with a published npm/PyPI package: 28
 | ledgerskills | verified | 2 | 2026-06-13 | MIT |  |  |
 | anthropic-financial-services | verified | 40901 | 2026-10-28 | Apache-2.0 |  |  |
 | invoice-organizer-skill | stale | None | 2025-10-17 | unknown |  | No commits for 377 days |
-| stripe-ai | verified | 1993 | 2026-10-29 | MIT |  |  |
+| stripe-ai | verified | 2000 | 2026-10-29 | MIT |  |  |
 | qonto-mcp | verified | 42 | 2026-06-22 | MIT |  |  |
 | ramp-mcp | archived | 34 | 2025-03-20 | MIT |  | pypi name 'ramp-mcp' exists on the registry but does not link to this repo (not counted); Repository is archived |
 | lunchmoney-mcp | verified | 112 | 2026-08-03 | MIT | @akutishevsky/lunchmoney-mcp@3.0.0 |  |
@@ -69,7 +70,7 @@ Entries with a published npm/PyPI package: 28
 | actual-budget-mcp | aging | 2 | 2026-03-23 | unknown |  | npm name 'actual-budget-mcp' exists on the registry but does not link to this repo (not counted); No commits for 220 days |
 | optionsahoy-mcp | verified | 6 | 2026-10-28 | MIT | optionsahoy-mcp@1.11.0 |  |
 | sec-edgar-mcp | verified | 380 | 2026-10-03 | AGPL-3.0 | sec-edgar-mcp@1.1.0 |  |
-| openbb | verified | 74856 | 2026-10-24 | Apache-2.0 |  |  |
+| openbb | unconfirmed | 74866 | 2026-10-24 | Apache-2.0 |  | Repository redirects to another owner (https://github.com/openbq-org/OpenBB); stored link not updated |
 | equibles | verified | 7 | 2026-10-19 | MIT |  |  |
 | alphasmo | verified | 2 | 2026-08-12 | MIT | alphasmo@0.2.1 |  |
 | edgrapi-skills | verified | 1 | 2026-10-16 | MIT-0 |  |  |
@@ -96,7 +97,7 @@ Entries with a published npm/PyPI package: 28
 | adyen-mcp | verified | 27 | 2026-10-29 | MIT |  |  |
 | razorpay-mcp | verified | 231 | 2026-10-28 | MIT |  |  |
 | paddle-mcp | verified | 49 | 2026-09-27 | Apache-2.0 | @paddle/paddle-mcp@0.1.6 |  |
-| mercury-mcp | verified |  |  | Proprietary / ToS |  |  |
+| mercury-mcp | unconfirmed |  |  | Proprietary / ToS |  | Could not confirm: MCP endpoint 401: answered but refused our checker (sign-in required, bot block or rate limit) [no resource_metadata in WWW-Authenticate] |
 | netsuite-ai-connector | verified |  |  | Proprietary / ToS |  |  |
 | zoho-books-mcp | verified |  |  | Proprietary / ToS |  |  |
 | avalara-avatax-mcp | verified |  |  | Proprietary / ToS |  |  |

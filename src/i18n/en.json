@@ -80,6 +80,7 @@
    "Check links",
    "A homepage, docs or endpoint link failed in the last check."
   ],
+  "unconfirmed": ["Needs review", "Reachable, but a homepage, docs or endpoint link refused our checker (sign-in required, bot block or rate limit), so it could not be fully confirmed. Not counted as verified."],
   "unreachable": [
    "Unreachable",
    "The repository or homepage could not be reached."

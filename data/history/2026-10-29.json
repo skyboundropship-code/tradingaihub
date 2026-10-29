@@ -302,7 +302,7 @@
  "stripe-ai": {
   "name": "Stripe Agent Toolkit & MCP",
   "status": "verified",
-  "stars": 1993,
+  "stars": 2000,
   "version": null
  },
  "qonto-mcp": {
@@ -349,8 +349,8 @@
  },
  "openbb": {
   "name": "OpenBB Platform (MCP)",
-  "status": "verified",
-  "stars": 74856,
+  "status": "unconfirmed",
+  "stars": 74866,
   "version": null
  },
  "equibles": {
@@ -511,7 +511,7 @@
  },
  "mercury-mcp": {
   "name": "Mercury MCP (official)",
-  "status": "verified",
+  "status": "unconfirmed",
   "stars": null,
   "version": null
  },

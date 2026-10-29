@@ -4,4 +4,6 @@ dist
 .wrangler
 .env
 *.local
+__pycache__/
+*.pyc
 .dev.vars*

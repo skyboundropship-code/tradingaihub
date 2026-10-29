@@ -79,6 +79,7 @@
    "Liens à vérifier",
    "Un lien vers le site, la documentation ou l'endpoint a échoué lors de la dernière vérification."
   ],
+  "unconfirmed": ["À vérifier", "Accessible, mais un lien vers le site, la documentation ou l’endpoint a refusé notre vérificateur (connexion requise, blocage des robots ou limite de requêtes) : il n’a pas pu être entièrement confirmé. Non compté comme vérifié."],
   "unreachable": [
    "Inaccessible",
    "Impossible d'accéder au dépôt ou au site."

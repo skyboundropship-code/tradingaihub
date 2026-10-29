@@ -13,7 +13,7 @@ const TVPATH: Record<string,string> = { "crypto": "/markets/cryptocurrencies/", 
 export function getStaticPaths() { return langParams().flatMap((lp) => CATEGORIES.map((c) => ({ params: { ...lp, slug: c.slug }, props: { c } }))); }
 const lang = Astro.params.lang ?? "en"; const { t, p } = useT(lang);
 const { c } = Astro.props; const [cname, cshort, cblurb] = t(`cat.${c.slug}`);
-const order: Record<string, number> = { verified: 0, aging: 1, warning: 2, stale: 3, archived: 4, unreachable: 5 };
+const order: Record<string, number> = { verified: 0, unconfirmed: 1, aging: 2, warning: 3, stale: 4, archived: 5, unreachable: 6 };
 const list = tools.filter((x) => x.category === c.slug).sort((a, b) => order[a.verification.status] - order[b.verification.status] || byStars(a, b));
 const comps = COMPARISONS.filter((x) => list.some((y) => x.filter(y)));
 const ld = [{ "@context": "https://schema.org", "@type": "CollectionPage", name: cname, description: cblurb, url: `${SITE.url}${p(`/category/${c.slug}/`)}`, inLanguage: lang, isPartOf: { "@id": `${SITE.url}/#website` },
