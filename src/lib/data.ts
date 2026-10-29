@@ -1,3 +1,4 @@
+import { useT } from "../i18n";
 import raw from "../../data/tools.json";
 import report from "../../data/verification-report.json";
 import { affUrl } from "./aff";
@@ -34,43 +35,43 @@ export const ownerRepo = (t: any) => (t.repo || "").replace("https://github.com/
 export const fmtStars = (n: number | null) => (n == null ? "—" : n >= 1000 ? (n / 1000).toFixed(1) + "k" : String(n));
 export const slugName = (t: any) => t.id.replace(/[^a-z0-9-]/g, "");
 
-export function snippets(t: any) {
+export function snippets(t: any, tr: (k: string, v?: any) => string = useT("en").t) {
   const name = slugName(t);
   const v = t.verification || {};
   const out: { client: string; lang: string; code: string; note?: string }[] = [];
   const pkg = v.npm ? { cmd: "npx", args: ["-y", v.npm.name] } : v.pypi ? { cmd: "uvx", args: [v.pypi.name] } : null;
   const remote = t.remote_mcp_url;
-  const keyNote = "Add any API keys the server needs as \"env\" entries — see the project README for the exact variable names.";
+  const keyNote = tr("snip.keyNote");
   if (t.type === "mcp" && pkg) {
     const block = JSON.stringify({ mcpServers: { [name]: { command: pkg.cmd, args: pkg.args } } }, null, 2);
-    out.push({ client: "Claude Desktop", lang: "json", code: block, note: "Add to claude_desktop_config.json. " + keyNote });
+    out.push({ client: "Claude Desktop", lang: "json", code: block, note: tr("snip.claudeDesktop") + " " + keyNote });
     out.push({ client: "Claude Code", lang: "bash", code: `claude mcp add ${name} -- ${pkg.cmd} ${pkg.args.join(" ")}` });
-    out.push({ client: "Cursor", lang: "json", code: block, note: "Add to .cursor/mcp.json (project) or ~/.cursor/mcp.json (global)." });
-    out.push({ client: "Gemini CLI", lang: "json", code: block, note: "Add to ~/.gemini/settings.json." });
+    out.push({ client: "Cursor", lang: "json", code: block, note: tr("snip.cursor") });
+    out.push({ client: "Gemini CLI", lang: "json", code: block, note: tr("snip.gemini") });
   }
   if (t.type === "mcp" && remote) {
-    out.push({ client: "Claude (connector)", lang: "text", code: remote, note: "Claude → Settings → Connectors → Add custom connector, paste this URL." });
+    out.push({ client: "Claude (connector)", lang: "text", code: remote, note: tr("snip.claudeConnector") });
     out.push({ client: "Claude Code", lang: "bash", code: `claude mcp add --transport http ${name} ${remote}` });
     out.push({ client: "Cursor", lang: "json", code: JSON.stringify({ mcpServers: { [name]: { url: remote } } }, null, 2) });
-    out.push({ client: "ChatGPT", lang: "text", code: remote, note: "ChatGPT → Settings → Apps & Connectors (developer mode) → Create, paste this URL." });
-    out.push({ client: "Grok (xAI API)", lang: "json", code: JSON.stringify({ tools: [{ type: "mcp", server_url: remote, server_label: name }] }, null, 2), note: "Remote MCP tool in an xAI API request; see docs.x.ai for auth headers." });
+    out.push({ client: "ChatGPT", lang: "text", code: remote, note: tr("snip.chatgpt") });
+    out.push({ client: "Grok (xAI API)", lang: "json", code: JSON.stringify({ tools: [{ type: "mcp", server_url: remote, server_label: name }] }, null, 2), note: tr("snip.grok") });
     out.push({ client: "Gemini CLI", lang: "json", code: JSON.stringify({ mcpServers: { [name]: { httpUrl: remote } } }, null, 2) });
   }
   if (t.type === "mcp" && !pkg && !remote) {
-    out.push({ client: "All clients", lang: "text", code: `git clone ${t.repo}`, note: "No published npm/PyPI package or hosted endpoint was detected by our verifier. Follow the README to run it locally, then register the start command as a stdio MCP server in your client." });
+    out.push({ client: tr("snip.allClients"), lang: "text", code: `git clone ${t.repo}`, note: tr("snip.fromSource") });
   }
   if (t.type === "mcp" && pkg && !remote) {
-    out.push({ client: "ChatGPT / Grok", lang: "text", code: "Requires a remote (HTTPS) MCP URL", note: "This server runs locally over stdio. ChatGPT connectors and the Grok API need a hosted HTTPS endpoint, which this project does not publish." });
+    out.push({ client: "ChatGPT / Grok", lang: "text", code: tr("snip.needsRemote"), note: tr("snip.stdioOnly") });
   }
   if (t.type === "skill") {
     const or = ownerRepo(t);
-    if (v.claude_marketplace) out.push({ client: "Claude Code", lang: "bash", code: `/plugin marketplace add ${or}`, note: "Then run /plugin to browse and install its plugins/skills." });
-    out.push({ client: "Any skills-compatible agent", lang: "bash", code: `npx skills add ${or}`, note: "Uses the open skills CLI (skills.sh). Works with Claude Code, Cursor, Codex, Gemini CLI and others." });
-    out.push({ client: "Manual", lang: "bash", code: `git clone ${t.repo}`, note: "Copy the skill folder (with its SKILL.md) into ~/.claude/skills/ or your agent's skills directory." });
+    if (v.claude_marketplace) out.push({ client: "Claude Code", lang: "bash", code: `/plugin marketplace add ${or}`, note: tr("snip.marketplace") });
+    out.push({ client: tr("snip.anySkills"), lang: "bash", code: `npx skills add ${or}`, note: tr("snip.skillsCli") });
+    out.push({ client: tr("snip.manual"), lang: "bash", code: `git clone ${t.repo}`, note: tr("snip.manualSkill") });
   }
   if (t.type === "api") {
     const mcp = tools.filter((x) => x.type === "mcp" && x.pricing?.source && x.pricing.source === t.pricing?.source);
-    out.push({ client: "Any agent", lang: "text", code: t.docs || t.homepage, note: mcp.length ? `Use it from an AI client through: ${mcp.map((m) => m.name).join(", ")}.` : "REST API — call it from your own agent code or tools. See the official docs." });
+    out.push({ client: tr("snip.anyAgent"), lang: "text", code: t.docs || t.homepage, note: mcp.length ? tr("snip.viaMcp", { list: mcp.map((m) => m.name).join(", ") }) : tr("snip.rest") });
   }
   return out;
 }

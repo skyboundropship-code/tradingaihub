@@ -1,0 +1,22 @@
+---
+import Base from "../../layouts/Base.astro";
+import { SITE } from "../../config";
+import { tools } from "../../lib/data";
+import { langParams, useT } from "../../i18n";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
+const ex = tools.find((x) => x.id === "alpaca-mcp")!; const site = SITE.name;
+---
+<Base title={t("badges.title")} description={t("badges.desc", { site })} lang={lang}>
+<div class="wrap page prose">
+  <h1>{t("badges.h1", { site })}</h1>
+  <p>{t("badges.p1")}</p>
+  <p><img src={`/badge/${ex.id}.svg`} alt="example badge" /></p>
+  <h2>Markdown (README)</h2>
+  <pre><code>{`[![${site}](${SITE.url}/badge/<your-tool-id>.svg)](${SITE.url}/tools/<your-tool-id>/)`}</code></pre>
+  <h2>HTML</h2>
+  <pre><code>{`<a href="${SITE.url}/tools/<your-tool-id>/"><img src="${SITE.url}/badge/<your-tool-id>.svg" alt="${site} verified"></a>`}</code></pre>
+  <p>{t("badges.p2")} <a href={p("/submit/")}>{t("badges.submitFree")}</a>.</p>
+  <h2>{t("badges.states")}</h2><p>{t("badges.statesP")}</p>
+</div>
+</Base>

@@ -1,4 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
+import { LOCALES, useT } from "../i18n";
+const { t } = useT("en");
 ---
-<Base title="Not found" noindex><div class="wrap page"><h1>Page not found</h1><p><a href="/tools/">Browse all tools</a></p></div></Base>
+<Base title="Not found" noindex><div class="wrap page"><h1>{t("common.notFound")}</h1><p><a href="/tools/">{t("common.browseAll")}</a></p>
+<p class="note">{LOCALES.filter((l) => l.code !== "en").map((l, i) => <>{i > 0 && " · "}<a href={`/${l.code}/`} lang={l.code}>{l.name}</a></>)}</p></div></Base>

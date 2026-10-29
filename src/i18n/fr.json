@@ -1,0 +1,516 @@
+{
+ "meta": {
+  "tagline": "Outils d'IA vérifiés pour la finance et le trading",
+  "description": "Annuaire vérifié chaque semaine de serveurs MCP, de skills pour agents et d'API pour les données de marché, le trading, la crypto, la comptabilité et la recherche financière, avec prix, offres gratuites et extraits d'installation prêts à copier pour Claude, Cursor, ChatGPT, Grok et Gemini."
+ },
+ "nav": {
+  "tools": "Tous les outils",
+  "categories": "Catégories",
+  "compare": "Comparer",
+  "weekly": "Classement hebdo",
+  "badges": "Badges",
+  "verify": "Notre vérification",
+  "submit": "Proposer un outil — gratuit",
+  "language": "Langue",
+  "theme": "Basculer thème clair/sombre"
+ },
+ "footer": {
+  "rechecked": "Revérifié chaque semaine.",
+  "directory": "Annuaire",
+  "comparisons": "Comparatifs",
+  "latestRun": "Dernière vérification",
+  "makers": "Pour les créateurs",
+  "submitFree": "Proposer un outil (gratuit)",
+  "getBadge": "Obtenez votre badge vérifié",
+  "awesome": "Liste Awesome",
+  "legal": "Mentions légales",
+  "nia": "Pas un conseil en investissement",
+  "privacy": "Confidentialité",
+  "terms": "Conditions",
+  "about": "À propos",
+  "advertise": "Publicité",
+  "disclaimer": "<b>Pas un conseil en investissement.</b> {site} est un annuaire informatif d'outils logiciels. Rien sur ce site ne constitue un conseil en investissement, en trading, fiscal ou juridique, ni une recommandation d'acheter ou de vendre un titre ou un actif, et nous ne sommes ni conseillers en investissement ni gérants de portefeuille agréés. Le trading comporte un risque de perte. <b>Liens affiliés :</b> certains liens (actuellement TradingView) sont des liens affiliés. Si vous vous inscrivez par leur biais, nous pouvons percevoir une commission sans surcoût pour vous. Ils sont signalés et n'influencent jamais les fiches, le classement ni le statut de vérification.",
+  "fullDisclaimer": "Avertissement complet"
+ },
+ "common": {
+  "copy": "Copier",
+  "copied": "Copié ✓",
+  "official": "Officiel",
+  "officialVendor": "Officiel (éditeur)",
+  "pricingUnknown": "Prix : inconnu",
+  "tools": "outils",
+  "home": "Accueil",
+  "share": "Partager :",
+  "copyLink": "Copier le lien",
+  "linkCopied": "Lien copié ✓",
+  "affLink": "lien affilié",
+  "affTitle": "Nous pouvons percevoir une commission si vous vous abonnez. Cela n'influence pas le classement.",
+  "openTV": "Ouvrir TradingView ↗",
+  "notFound": "Page introuvable",
+  "browseAll": "Voir tous les outils"
+ },
+ "type": {
+  "mcp": "Serveur MCP",
+  "skill": "Skill d'agent",
+  "api": "API",
+  "mcpPlural": "Serveurs MCP",
+  "skillPlural": "Skills",
+  "apiPlural": "API"
+ },
+ "status": {
+  "verified": [
+   "Vérifié",
+   "Accessible, liens actifs et (pour les dépôts) un commit au cours des 180 derniers jours."
+  ],
+  "aging": [
+   "Vieillissant",
+   "Accessible, mais aucun commit depuis 180 à 365 jours."
+  ],
+  "stale": [
+   "Non maintenu",
+   "Accessible, mais aucun commit depuis plus d'un an. À tester avant de s'y fier."
+  ],
+  "archived": [
+   "Archivé",
+   "Le dépôt a été archivé par son propriétaire."
+  ],
+  "warning": [
+   "Liens à vérifier",
+   "Un lien vers le site, la documentation ou l'endpoint a échoué lors de la dernière vérification."
+  ],
+  "unreachable": [
+   "Inaccessible",
+   "Impossible d'accéder au dépôt ou au site."
+  ]
+ },
+ "cat": {
+  "market-data": [
+   "API et MCP de données de marché",
+   "Données de marché",
+   "Cours en temps réel et historiques, fondamentaux et indicateurs pour actions, ETF, forex et plus."
+  ],
+  "trading-brokers": [
+   "MCP de trading et de courtiers",
+   "Trading et courtiers",
+   "Laissez un agent IA consulter vos positions et passer des ordres sur un compte réel ou de démonstration."
+  ],
+  "crypto": [
+   "Crypto et DeFi",
+   "Crypto",
+   "Cours, analyse de DEX, trading sur plateformes et actions on-chain pour agents crypto."
+  ],
+  "accounting": [
+   "Comptabilité et tenue de livres",
+   "Comptabilité",
+   "Connectez des agents à QuickBooks, Xero et aux processus de clôture et de rapprochement."
+  ],
+  "payments-banking": [
+   "Paiements et banque pro",
+   "Paiements",
+   "Stripe, comptes bancaires professionnels, gestion des dépenses et paiements par agents."
+  ],
+  "personal-finance": [
+   "Finances personnelles et budget",
+   "Finances perso",
+   "Applis de budget, patrimoine net et aide sur la rémunération en actions."
+  ],
+  "research-filings": [
+   "Recherche et documents SEC",
+   "Recherche",
+   "SEC EDGAR, 13F, transactions d'initiés, recherche approfondie et rapports sur actions."
+  ],
+  "quant-backtesting": [
+   "Quant et backtesting",
+   "Quant",
+   "Recherche de stratégies, backtests, figures chartistes et skills de trading."
+  ],
+  "macro": [
+   "Macro et économie",
+   "Macro",
+   "Séries FRED, calendriers économiques, changes et indicateurs macro."
+  ]
+ },
+ "cmp": {
+  "market-data-api-pricing": [
+   "API de données de marché pour agents IA : offres gratuites et prix comparés",
+   "Limites publiées des offres gratuites et prix d'entrée des principales API de données de marché, avec lien vers la page tarifaire de chaque éditeur."
+  ],
+  "best-stock-market-mcp-servers": [
+   "Serveurs MCP boursiers comparés",
+   "Serveurs MCP qui apportent données boursières et fondamentaux à Claude, Cursor et autres clients IA, selon la maintenance, les étoiles, la licence et le mode d'installation."
+  ],
+  "broker-trading-mcp-servers": [
+   "Serveurs MCP de courtiers et de trading comparés",
+   "Serveurs MCP capables de consulter des positions ou de passer des ordres. Commencez toujours en mode démo (paper trading)."
+  ],
+  "crypto-mcp-servers": [
+   "Serveurs MCP crypto comparés",
+   "Données de marché crypto, analyse de DEX, plateformes d'échange et outils on-chain."
+  ],
+  "accounting-mcp-servers": [
+   "MCP de comptabilité, paiements et banque comparés",
+   "Serveurs officiels et communautaires pour QuickBooks, Xero, Stripe, Ramp, Qonto et plus."
+  ],
+  "sec-filings-research-tools": [
+   "Outils de recherche et documents SEC pour agents IA",
+   "EDGAR, 13F, transactions d'initiés et agents de recherche comparés."
+  ],
+  "trading-skills-for-claude": [
+   "Skills d'agent pour la finance et le trading comparées",
+   "Skills basées sur SKILL.md et plugins Claude Code pour la finance et le trading."
+  ]
+ },
+ "tv": {
+  "charts": [
+   "Envie de voir les données sur un graphique ?",
+   "Beaucoup de traders associent ces API à TradingView pour tracer actions, ETF, forex et indices. Il existe une offre Basic gratuite."
+  ],
+  "crypto": [
+   "Graphiques crypto ?",
+   "TradingView affiche des milliers de paires crypto issues de nombreuses plateformes, et l'offre Basic est gratuite."
+  ],
+  "backtest": [
+   "Vérifiez une stratégie visuellement",
+   "L'éditeur Pine Script et le Strategy Tester de TradingView permettent de tester rapidement une idée avant de la brancher à un agent. L'offre Basic est gratuite."
+  ],
+  "integration": [
+   "Utilisez les données TradingView",
+   "Cet outil fonctionne avec TradingView. Si vous n'avez pas de compte, l'offre Basic est gratuite."
+  ]
+ },
+ "nl": {
+  "title": "📬 Le rapport hebdo « État des outils d'IA pour la finance »",
+  "text": "Les nouveautés, ce qui a cassé et les outils qui montent au classement : un e-mail par semaine. Gratuit.",
+  "subscribe": "S'abonner",
+  "thanks": "Merci ! Vérifiez votre boîte de réception.",
+  "preview": "Mode aperçu : l'inscription n'est pas encore branchée, rien n'a été envoyé.",
+  "rss": "Ou suivez-nous par <a href=\"/rss.xml\">RSS</a>."
+ },
+ "home": {
+  "h1a": "Des outils d'IA pour",
+  "h1em": "la finance et le trading",
+  "h1b": "vérifiés chaque semaine.",
+  "lead": "Un annuaire gratuit et ouvert de serveurs MCP, de skills pour agents et d'API qui connectent données de marché, courtiers, crypto et comptabilité à Claude, Cursor, ChatGPT, Grok et Gemini, avec de vrais prix, des offres gratuites et une installation en un clic.",
+  "search": "Rechercher p. ex. 'options', 'SEC filings', 'Binance', 'QuickBooks'…",
+  "searchLabel": "Rechercher des outils",
+  "listed": "outils référencés",
+  "passed": "ont passé la vérification de cette semaine",
+  "categories": "catégories",
+  "lastVerified": "dernière vérification",
+  "picks": "Sélection de la rédaction",
+  "browse": "Parcourir par catégorie",
+  "popular": "Comparatifs populaires",
+  "leaderboard": "Classement de la semaine →",
+  "seeAll": "tout voir",
+  "boardNote": "Outils vérifiés les plus étoilés, vérifiés le {date}.",
+  "grabBadge": "Créateurs : récupérez votre badge gratuit",
+  "recent": "Mis à jour récemment",
+  "h1sep": ","
+ },
+ "tools": {
+  "title": "Tous les outils d'IA pour la finance et le trading",
+  "desc": "Tous les serveurs MCP, skills et API de l'annuaire, avec statut de vérification hebdomadaire, prix et extraits d'installation.",
+  "h1": "Tous les outils",
+  "filter": "Filtrer…",
+  "allCats": "Toutes les catégories",
+  "allTypes": "Tous les types"
+ },
+ "cats": {
+  "title": "Catégories",
+  "desc": "Parcourez les outils d'IA pour la finance et le trading par catégorie : données de marché, courtiers, crypto, comptabilité, finances personnelles, recherche et quant.",
+  "h1": "Catégories"
+ },
+ "category": {
+  "title": "{name} : outils d'IA, serveurs MCP et skills ({year})",
+  "desc": "{n} outils {name} vérifiés pour agents IA.",
+  "sorted": "Triés par statut de vérification, puis par étoiles GitHub.",
+  "compare": "Comparer :"
+ },
+ "compare": {
+  "title": "Comparatifs",
+  "desc": "Comparatifs côte à côte de serveurs MCP, skills et API de données pour la finance et le trading.",
+  "dataNote": "Données issues de notre vérification automatique du {date} ; prix tels que publiés par chaque éditeur.",
+  "order": "L'ordre suit les étoiles GitHub et n'est pas une recommandation. Pas un conseil en investissement.",
+  "pricingPage": "page tarifaire",
+  "hosted": "URL hébergée",
+  "skillRepo": "Dépôt de la skill",
+  "fromSource": "Depuis le code source"
+ },
+ "th": {
+  "tool": "Outil",
+  "api": "API",
+  "type": "Type",
+  "status": "Statut",
+  "stars": "Étoiles",
+  "lastCommit": "Dernier commit",
+  "license": "Licence",
+  "install": "Installation",
+  "pricing": "Prix",
+  "freeTier": "Offre gratuite",
+  "paidFrom": "Payant dès",
+  "plans": "Offres (publiées)",
+  "source": "Source",
+  "issues": "Problèmes",
+  "category": "Catégorie"
+ },
+ "tool": {
+  "titleFor": "{type} pour {cat}",
+  "descSuffix": "Statut de vérification, prix, offre gratuite et extraits d'installation pour Claude, Cursor, ChatGPT, Grok et Gemini.",
+  "lastChecked": "Dernière vérification : {date}",
+  "shareVerified": "vérifié cette semaine",
+  "shareStatus": "statut",
+  "on": "sur",
+  "install": "Installation",
+  "pricing": "Prix",
+  "model": "Modèle",
+  "details": "Détails",
+  "notVerifiedPrice": "Pas encore vérifié sur une page de l'éditeur",
+  "checked": "vérifié le {date}",
+  "pricesChange": "Les prix changent : confirmez toujours sur la page de l'éditeur avant d'acheter.",
+  "verification": "Vérification",
+  "autoCheck": "Vérification automatique du {date}.",
+  "repository": "Dépôt",
+  "homepage": "Site",
+  "docs": "Documentation",
+  "remote": "MCP distant",
+  "package": "Paquet",
+  "noPackage": "Non détecté",
+  "listedVia": "Référencé via",
+  "source": "source",
+  "maintain": "Vous maintenez cet outil ?",
+  "badgeNote": "Affichez dans votre README votre badge de vérification gratuit, mis à jour automatiquement :",
+  "wrongInfo": "Information erronée ?",
+  "sendCorrection": "Envoyer une correction",
+  "free": "gratuit",
+  "notEndorse": "Le référencement d'un outil n'est ni une approbation ni un conseil en investissement. Testez d'abord tout outil de trading en mode démo.",
+  "more": "Plus dans {cat}",
+  "pricingDataNote": "Les détails tarifaires sont cités en anglais depuis la page de l'éditeur."
+ },
+ "checks": {
+  "repo reachable": "dépôt accessible",
+  "package published": "paquet publié",
+  "homepage alive": "site actif",
+  "docs alive": "documentation active",
+  "remote MCP endpoint responds": "l'endpoint MCP distant répond",
+  "no npm/PyPI package detected at repo root": "aucun paquet npm/PyPI détecté à la racine du dépôt"
+ },
+ "snip": {
+  "allClients": "Tous les clients",
+  "anyAgent": "Tout agent",
+  "anySkills": "Tout agent compatible skills",
+  "manual": "Manuel",
+  "keyNote": "Ajoutez les clés d'API requises par le serveur sous forme d'entrées \"env\" ; voir le README du projet pour les noms exacts des variables.",
+  "claudeDesktop": "À ajouter dans claude_desktop_config.json.",
+  "cursor": "À ajouter dans .cursor/mcp.json (projet) ou ~/.cursor/mcp.json (global).",
+  "gemini": "À ajouter dans ~/.gemini/settings.json.",
+  "claudeConnector": "Claude → Settings → Connectors → Add custom connector, puis collez cette URL.",
+  "chatgpt": "ChatGPT → Settings → Apps & Connectors (mode développeur) → Create, puis collez cette URL.",
+  "grok": "Outil MCP distant dans une requête à l'API xAI ; voir docs.x.ai pour les en-têtes d'authentification.",
+  "fromSource": "Notre vérificateur n'a trouvé ni paquet npm/PyPI publié ni endpoint hébergé. Suivez le README pour l'exécuter en local et enregistrez la commande de lancement comme serveur MCP stdio dans votre client.",
+  "needsRemote": "Nécessite une URL MCP distante (HTTPS)",
+  "stdioOnly": "Ce serveur s'exécute en local via stdio. Les connecteurs ChatGPT et l'API Grok exigent un endpoint HTTPS hébergé, que ce projet ne publie pas.",
+  "marketplace": "Lancez ensuite /plugin pour parcourir et installer ses plugins/skills.",
+  "skillsCli": "Utilisez la CLI ouverte de skills (skills.sh). Fonctionne avec Claude Code, Cursor, Codex, Gemini CLI et d'autres.",
+  "manualSkill": "Copiez le dossier de la skill (avec son SKILL.md) dans ~/.claude/skills/ ou dans le répertoire de skills de votre agent.",
+  "viaMcp": "Utilisable depuis un client IA via : {list}.",
+  "rest": "API REST : appelez-la depuis votre code ou les outils de votre agent. Voir la documentation officielle."
+ },
+ "about": {
+  "title": "À propos et notre vérification",
+  "desc": "Comment {site} référence et vérifie chaque semaine les outils d'IA pour la finance et le trading.",
+  "h1": "À propos de {site}",
+  "p1": "{site} est un annuaire indépendant d'outils d'IA pour la finance et le trading : serveurs MCP, skills pour agents et API de données. La plupart des listes d'outils d'IA ne sont jamais revérifiées. Nous vérifions chaque fiche automatiquement, chaque semaine, et vous montrons le résultat.",
+  "how": "Notre vérification",
+  "c1": "<b>Dépôt accessible</b> (et s'il a été renommé ou archivé).",
+  "c2": "<b>Maintenance</b> : date du dernier commit et étoiles GitHub.",
+  "c3": "<b>Paquet publié</b> : le paquet npm ou PyPI indiqué dans le dépôt existe et pointe vers ce dépôt ; nous relevons la dernière version.",
+  "c4": "<b>Liens actifs</b> : le site, la documentation et tout endpoint MCP hébergé répondent.",
+  "c5": "<b>Prix</b> : repris de la page tarifaire de l'éditeur, avec l'URL et la date. Les valeurs inconnues apparaissent comme « inconnu » : nous ne devinons jamais.",
+  "badges": "Badges de statut",
+  "latest": "Dernière vérification : {date} UTC —",
+  "fullReport": "voir le rapport complet",
+  "money": "Comment nous gagnons de l'argent",
+  "moneyP": "Le référencement est gratuit. Nous gagnons de l'argent grâce à des emplacements sponsorisés clairement signalés et à quelques liens affiliés vers des fournisseurs de données. Aucun n'influence le statut de vérification.",
+  "contact": "Contact"
+ },
+ "disc": {
+  "title": "Avertissement : pas un conseil en investissement",
+  "h1": "Avertissement : pas un conseil en investissement",
+  "intro": "{site} est un annuaire d'outils logiciels. Tout le contenu est une information générale sur des logiciels, leurs fonctionnalités et leurs prix publiés.",
+  "items": [
+   "<b>Liens affiliés.</b> Certains liens sortants, actuellement vers TradingView, sont des liens affiliés signalés comme « lien affilié » et marqués rel=\"sponsored\". Si vous souscrivez un abonnement par leur biais, nous pouvons percevoir une commission sans surcoût pour vous. Aucun paiement n'influence les outils que nous référençons, leur classement ou leur statut de vérification, et un lien n'est ni une approbation ni une recommandation de trader.",
+   "<b>Aucun conseil.</b> Rien sur ce site ne constitue un conseil en investissement, de la commercialisation de placements, de la gestion de portefeuille, des signaux de trading ou un conseil fiscal, comptable ou juridique, et rien ne tient compte de votre situation personnelle. Nous ne sommes conseillers en investissement, distributeurs de placements ou gérants de portefeuille agréés dans aucune juridiction (y compris au titre de la loi israélienne sur la réglementation du conseil en investissement, de la commercialisation de placements et de la gestion de portefeuille, 5755-1995).",
+   "<b>Aucune recommandation.</b> Une fiche, un classement, un badge « Vérifié » ou un emplacement sponsorisé ne constitue pas une recommandation d'utiliser un outil, un courtier, une plateforme ou un actif.",
+   "<b>Risque.</b> Le trading et l'investissement — notamment avec des agents automatisés ou d'IA, l'effet de levier, les options ou la crypto — peuvent vous faire perdre tout ou partie de votre argent. Testez d'abord tout outil de trading en mode démo et ne donnez jamais à un agent plus de droits que ce que vous pouvez vous permettre de perdre.",
+   "<b>Tiers.</b> Les outils sont créés et exploités par des tiers. Nous ne contrôlons ni ces outils, ni leurs données, leur sécurité ou leur disponibilité. La vérification est automatisée et limitée aux contrôles décrits sur la page À propos.",
+   "<b>Exactitude.</b> Les prix et fonctionnalités changent. Confirmez-les toujours sur le site de l'éditeur.",
+   "<b>Liens affiliés et sponsoring.</b> Certains liens nous rapportent une commission et certaines fiches sont des emplacements payants. Ils sont signalés."
+  ]
+ },
+ "ver": {
+  "title": "Dernière vérification",
+  "desc": "Résultats de la vérification automatique hebdomadaire de chaque outil d'IA pour la finance et le trading référencé.",
+  "h1": "Vérification — {date}"
+ },
+ "submit": {
+  "title": "Proposer un outil",
+  "desc": "Proposez un serveur MCP, une skill d'agent ou une API pour la finance et le trading. Référencement gratuit et vérifié automatiquement.",
+  "lead": "<b>Gratuit pour toujours.</b> Pas d'offres payantes, pas de piège. Vous recevez aussi un badge vérifié gratuit, mis à jour automatiquement. Après l'envoi, notre vérificateur contrôle le dépôt ou le site, le dernier commit, le registre de paquets et la documentation. Les outils validés sont en ligne sous une semaine.",
+  "preview": "⚠️ Aperçu uniquement : ce formulaire n'a pas encore de backend et n'envoie rien.",
+  "name": "Nom de l'outil",
+  "url": "URL du dépôt ou du site",
+  "type": "Type",
+  "category": "Catégorie",
+  "oneLine": "Description en une ligne",
+  "pricingUrl": "URL de la page tarifaire (si payant)",
+  "email": "Votre e-mail (pour les questions de vérification)",
+  "confirm": "Je confirme que cet outil ne promet aucun rendement et n'est pas un service de conseil en investissement.",
+  "button": "Envoyer pour examen",
+  "thanks": "Merci ! (Mode aperçu : rien n'a été envoyé.)"
+ },
+ "badges": {
+  "title": "Badges vérifiés gratuits pour les créateurs",
+  "desc": "Intégrez à votre README un badge de vérification {site} gratuit, mis à jour automatiquement.",
+  "h1": "Badges « Verified by {site} » gratuits",
+  "p1": "Chaque outil référencé reçoit un badge gratuit qui se met à jour automatiquement après chaque vérification hebdomadaire. Montrez à vos utilisateurs que votre projet est vivant et fonctionne.",
+  "p2": "L'id de votre outil figure dans l'URL de sa page, ou récupérez l'extrait prêt à l'emploi sur la page elle-même. Pas encore référencé ?",
+  "submitFree": "Proposez-le gratuitement",
+  "states": "États du badge",
+  "statesP": "Vert = vérifié cette semaine · Ambre = vieillissant / liens à vérifier · Rouge = non maintenu, archivé ou inaccessible."
+ },
+ "weekly": {
+  "title": "État des outils d'IA pour la finance — semaine du {date}",
+  "desc": "Classement hebdomadaire et journal des changements de {n} serveurs MCP, skills et API pour la finance et le trading.",
+  "lead": "Chaque semaine, notre vérificateur revérifie chaque fiche. Voici le tableau. Libre à partager et à citer (un lien est apprécié).",
+  "share": "État des outils d'IA pour la finance et le trading — {date} : {v}/{n} passent la vérification",
+  "officialTools": "Outils officiels d'éditeurs",
+  "changed": "Ce qui a changé cette semaine",
+  "board": "Classement : outils vérifiés les plus étoilés",
+  "shipped": "Publiés le plus récemment",
+  "lastCommit": "dernier commit {date}",
+  "love": "Ont besoin de l'attention de leurs mainteneurs ({n})",
+  "loveNote": "Non maintenu = aucun commit depuis 12 mois ou plus. Mainteneurs : publiez une mise à jour et votre badge repassera au vert la semaine prochaine.",
+  "archive": "Archives",
+  "changes": "{n} changements",
+  "changesNote": "Les entrées de changements sont générées automatiquement en anglais."
+ },
+ "adv": {
+  "title": "Publicité",
+  "desc": "Faire de la publicité sur {site}.",
+  "lead": "{site} référence plus de {n} serveurs MCP, skills et API pour la finance et le trading, revérifiés chaque semaine. Tous les référencements sont gratuits ; les emplacements payants n'achètent que de la visibilité, jamais un meilleur statut de vérification. Ils sont toujours signalés « Sponsorisé ».",
+  "free": "Les fiches, badges et propositions sont et resteront <b>gratuits</b>. Les sponsorings ne sont pas encore ouverts. Intéressé plus tard ? Écrivez à {email}."
+ },
+ "privacy": {
+  "title": "Politique de confidentialité",
+  "draft": "Brouillon : sera revu avant le lancement.",
+  "p1": "{site} est un site statique. Nous n'exigeons pas de compte et n'utilisons pas de cookies publicitaires. Vos préférences de langue et de thème sont enregistrées uniquement dans votre navigateur (localStorage).",
+  "collect": "Ce que nous collectons",
+  "c1": "Des statistiques agrégées, respectueuses de la vie privée et sans cookies (pages vues, référents, pays).",
+  "c2": "Les informations que vous nous envoyez en proposant un outil ou en achetant un emplacement (nom, e-mail, détails de l'outil). Les paiements sont traités par notre merchant of record ; nous ne voyons jamais les numéros de carte.",
+  "use": "Comment nous les utilisons",
+  "useP": "Pour examiner les propositions, diffuser les emplacements publicitaires et vous contacter au sujet de votre fiche. Nous ne vendons pas de données personnelles.",
+  "aff": "Liens affiliés",
+  "affP": "Lorsque vous cliquez sur un lien affilié, le site de destination peut déposer ses propres cookies selon sa propre politique.",
+  "rights": "Vos droits",
+  "rightsP": "Demandez l'accès à vos données ou leur suppression à {email}."
+ },
+ "terms": {
+  "title": "Conditions d'utilisation",
+  "items": [
+   "Le site est fourni « en l'état », à titre informatif uniquement. Voir l'<a href=\"{disc}\">avertissement</a> : rien ici n'est un conseil en investissement.",
+   "Les noms d'outils et les marques appartiennent à leurs propriétaires. Les fiches sont des descriptions factuelles ; les propriétaires peuvent demander des corrections ou un retrait.",
+   "Les emplacements sponsorisés n'achètent que de la visibilité, sont signalés, peuvent être refusés ou retirés (avec remboursement au prorata) et sont facturés par notre merchant of record.",
+   "Toute personne proposant un outil confirme avoir le droit de le référencer et qu'il ne promet aucun rendement garanti.",
+   "Notre responsabilité est limitée au montant que vous nous avez payé au cours des 12 derniers mois.",
+   "En cas de divergence entre une traduction et la version anglaise, la version anglaise prévaut."
+  ],
+  "contact": "Contact :"
+ },
+ "partner": {
+  "label": "Partenaire",
+  "homeTitle": "Les graphiques et screeners qu'utilisent la plupart des traders",
+  "homeText": "Associez les outils de cet annuaire à TradingView : graphiques en temps réel, screeners actions et crypto, alertes et backtests en Pine Script. L'offre Basic est gratuite.",
+  "homeCta": "Essayer TradingView gratuitement",
+  "toolTitle": "Tracez-le sur TradingView",
+  "toolText": "Graphiques, screeners et alertes pour actions, forex et crypto, avec une offre Basic gratuite.",
+  "toolBtn": "Essayer TradingView",
+  "disclosure": "Lien partenaire : nous pouvons percevoir une commission sans surcoût pour vous. N'influence jamais les fiches."
+ },
+ "desc": {
+  "alpha-vantage-api": "Actions, forex, crypto, fondamentaux et plus de 50 indicateurs techniques via une API REST simple.",
+  "massive-api": "Données tick par tick sur les actions, options, indices, forex et crypto américains via REST, WebSockets et fichiers plats.",
+  "fmp-api": "Fondamentaux, ratios, cours, transcriptions et positions 13F sur plus de 150 endpoints.",
+  "finnhub-api": "Cotations en temps réel, fondamentaux, estimations, actualités et données alternatives.",
+  "twelve-data-api": "Actions, forex, crypto et ETF en temps réel et historiques, avec accès REST et WebSocket par crédits.",
+  "eodhd-api": "Données de clôture, intrajournalières, fondamentales et actualités de plus de 70 places boursières ; inclut un serveur MCP.",
+  "alpaca-market-data-api": "Données de marché actions et options américaines, avec offre IEX gratuite et offre SIP complète payante.",
+  "coingecko-api": "Cours crypto, capitalisations, plateformes d'échange et données on-chain de DEX.",
+  "fred-api": "Des centaines de milliers de séries économiques américaines et internationales de la Réserve fédérale de Saint-Louis.",
+  "sec-edgar-api": "API JSON officielles de la SEC pour les documents des sociétés et les données financières XBRL.",
+  "alpha-vantage-mcp": "Serveur MCP officiel qui expose aux agents IA les actions, le forex, la crypto et les indicateurs d'Alpha Vantage.",
+  "massive-mcp": "Serveur MCP officiel pour les données actions, options, forex et crypto de Massive.",
+  "fmp-mcp-community": "Serveur MCP communautaire intégrant plus de 250 outils FMP pour les fondamentaux et l'analyse de marché.",
+  "finnhub-mcp-community": "Serveur MCP communautaire fournissant des données boursières via l'API Finnhub.",
+  "financial-datasets-mcp": "Comptes de résultat, bilans, flux de trésorerie et cours d'actions de Financial Datasets.",
+  "yahoo-finance-mcp": "Serveur MCP communautaire pour les cotations et historiques de Yahoo Finance (source de données non officielle).",
+  "coingecko-mcp": "Serveur MCP officiel de CoinGecko ; endpoint public sans clé et endpoint Pro.",
+  "eodhd-claude-skills": "Plugin et skills officiels EODHD pour Claude Code : aperçu du marché, screener, profils d'entreprises et suivi des résultats.",
+  "maverick-mcp": "Serveur MCP d'analyse d'actions avec analyse technique, filtrage et outils de portefeuille.",
+  "investor-agent": "Serveur MCP fournissant données de marché, sentiment et fondamentaux pour bâtir un agent investisseur.",
+  "kospi-kosdaq-mcp": "Données du marché boursier coréen (KOSPI/KOSDAQ) via MCP.",
+  "hk-finance-mcp": "Données financières et boursières de Hong Kong via MCP.",
+  "fred-mcp": "Serveur MCP pour rechercher et récupérer les séries FRED (Federal Reserve Economic Data).",
+  "fxmacrodata-mcp": "Indicateurs macro, changes, calendriers économiques, COT et matières premières.",
+  "alpaca-mcp": "MCP officiel d'Alpaca : tradez actions, ETF, options et crypto ; consultez positions et données de marché.",
+  "ibkr-mcp": "Endpoint MCP hébergé d'IBKR pour les données de portefeuille, le suivi et les ordres autorisés.",
+  "tasty-agent": "Serveur MCP communautaire pour tastytrade : portefeuille, données de marché, grecques des options et exécution d'ordres.",
+  "metatrader-mcp": "Tradez via le terminal MetaTrader 5 depuis des agents IA.",
+  "paper-mcp": "MCP de paper trading : entraînez-vous sur des stratégies sans argent réel.",
+  "dexpaprika-mcp": "Analyse de DEX sur plus de 20 blockchains, par CoinPaprika.",
+  "ccxt-mcp": "Données de marché de plus de 20 plateformes crypto via la bibliothèque CCXT.",
+  "crypto-indicators-mcp": "Indicateurs d'analyse technique pour les crypto-actifs.",
+  "tradingview-mcp": "MCP communautaire d'analyse et de filtrage de marché multi-plateformes (non affilié à TradingView).",
+  "binance-mcp": "Portefeuille, trading et conversion de tokens sur Binance (clé d'API requise).",
+  "coinbase-agentkit": "Kit Coinbase pour les opérations de portefeuille et les actions on-chain d'agents IA, compatible MCP.",
+  "bankless-onchain-mcp": "Interrogez les données on-chain et les informations de tokens ERC-20.",
+  "crypto-liquidations-mcp": "Diffuse en continu les liquidations en temps réel.",
+  "bitget-agent-mcp": "MCP officiel de Bitget pour le trading spot et de contrats à terme (89 opérations selon la fiche).",
+  "coincap-mcp": "Données de marché crypto de l'API CoinCap.",
+  "dexscreener-trending-mcp": "Tokens tendance sur DexScreener.",
+  "base-mcp": "Outils on-chain pour le réseau Base.",
+  "solana-agent-kit": "Kit reliant les agents IA aux protocoles Solana, avec adaptateur MCP.",
+  "bitcoin-mcp": "Outils Bitcoin et Lightning Network pour agents.",
+  "x402": "Protocole ouvert de paiements en stablecoins natifs HTTP effectués par des agents.",
+  "quickbooks-mcp": "Serveur MCP officiel d'Intuit exposant les entités et rapports de QuickBooks Online.",
+  "xero-mcp": "MCP officiel de Xero : contacts, plan comptable, factures et plus.",
+  "norman-finance-mcp": "Flux de comptabilité, de facturation et de déclaration fiscale pour les utilisateurs de Norman Finance.",
+  "ledgerskills": "Skills Claude pour l'audit, la fiscalité, le FP&A et la comptabilité : rapprochement, clôture mensuelle et contrôle des écritures.",
+  "anthropic-financial-services": "Plugins et skills financiers d'Anthropic : audit de modèles Excel, modèles à trois états, DCF/LBO et rapprochement du grand livre.",
+  "invoice-organizer-skill": "Skill Claude qui extrait, renomme et classe factures et reçus pour préparer les impôts.",
+  "stripe-ai": "Kit officiel Stripe pour agents et MCP hébergé pour les paiements, les clients et la facturation.",
+  "qonto-mcp": "Serveur MCP officiel pour la banque professionnelle Qonto.",
+  "ramp-mcp": "MCP officiel de Ramp pour les données de dépenses.",
+  "lunchmoney-mcp": "Serveur MCP pour les données budgétaires de Lunch Money.",
+  "monarch-mcp": "Serveur MCP communautaire pour les comptes, transactions et budgets de Monarch Money.",
+  "actual-budget-mcp": "Serveur MCP pour l'appli de budget open source Actual Budget.",
+  "optionsahoy-mcp": "Optimiseur fiscal de rémunération en actions pour les scénarios ISO, NSO, RSU et QSBS.",
+  "sec-edgar-mcp": "MCP open source pour les documents SEC, les états financiers XBRL et les données d'initiés des formulaires 3/4/5.",
+  "openbb": "Plateforme open source de recherche en investissement avec serveur MCP.",
+  "equibles": "Documents SEC, XBRL, 13F et transactions d'initiés et de membres du Congrès.",
+  "alphasmo": "Positions 13F, transactions d'initiés du formulaire 4 et signaux « smart money ».",
+  "edgrapi-skills": "Transactions d'initiés SEC EDGAR, 8-K, 13F/13D-G, XBRL et recherche plein texte.",
+  "valyu-mcp": "Plateforme de recherche pour la recherche financière approfondie par des agents.",
+  "finbrain-mcp": "Données alternatives (sentiment, prévisions, initiés) de FinBrain.",
+  "claude-equity-research": "Plugin Claude Code qui génère des rapports d'analyse d'actions avec analyses fondamentale et technique.",
+  "claude-investor": "Agent d'analyse d'investissement utilisant cours, bilans, sentiment et notes d'analystes.",
+  "quantconnect-mcp": "MCP officiel de QuantConnect pour la recherche en trading algorithmique, les backtests et le déploiement.",
+  "mcp-trader": "Serveur MCP de trading avec analyse technique et prise en charge du backtesting.",
+  "varrd": "Recherche en trading : études d'événements, backtesting, correction des tests multiples et validation hors échantillon (OOS).",
+  "chart-library-mcp": "Recherche de figures chartistes historiques dans une vaste bibliothèque de motifs.",
+  "finlab-ai": "Génération de stratégies quant et analyse du marché boursier taïwanais avec FinLab et Claude.",
+  "claude-trading-skills": "Skills Claude Code pour l'analyse de trading, comme la note de force relative façon IBD.",
+  "superior-skills": "Skills d'agent pour créer des stratégies, les backtester et les déployer sur Superior Trade.",
+  "claude-code-trading-terminal": "Terminal de trading natif pour agents, avec sous-agents pour les ordres, les positions et le risque.",
+  "pineify-mcp": "Validation de code de trading (Pine Script) et intelligence de marché."
+ }
+}

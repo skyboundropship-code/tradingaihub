@@ -1,0 +1,27 @@
+---
+import Base from "../../layouts/Base.astro";
+import { CATEGORIES } from "../../lib/data";
+import { langParams, useT } from "../../i18n";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
+---
+<Base title={t("submit.title")} description={t("submit.desc")} lang={lang}>
+<div class="wrap page" style="max-width:760px">
+  <h1>{t("submit.title")}</h1>
+  <p style="color:var(--muted)" set:html={t("submit.lead")} />
+  <p><a href={p("/badges/")}>{t("footer.getBadge")}</a></p>
+  <p class="callout">{t("submit.preview")}</p>
+  <form class="f" onsubmit="event.preventDefault();document.getElementById('ok').hidden=false">
+    <label>{t("submit.name")}</label><input required name="name" />
+    <label>{t("submit.url")}</label><input required type="url" name="url" placeholder="https://github.com/owner/repo" dir="ltr" />
+    <label>{t("submit.type")}</label><select name="type"><option value="mcp">{t("type.mcp")}</option><option value="skill">{t("type.skill")}</option><option value="api">{t("type.api")}</option></select>
+    <label>{t("submit.category")}</label><select name="category">{CATEGORIES.map((c) => <option value={c.slug}>{t(`cat.${c.slug}`)[0]}</option>)}</select>
+    <label>{t("submit.oneLine")}</label><input name="desc" maxlength="160" />
+    <label>{t("submit.pricingUrl")}</label><input type="url" name="pricing" dir="ltr" />
+    <label>{t("submit.email")}</label><input type="email" name="email" dir="ltr" />
+    <label><input type="checkbox" required style="width:auto" /> {t("submit.confirm")}</label>
+    <p><button class="btn" type="submit">{t("submit.button")}</button></p>
+    <p id="ok" hidden class="callout">{t("submit.thanks")}</p>
+  </form>
+</div>
+</Base>

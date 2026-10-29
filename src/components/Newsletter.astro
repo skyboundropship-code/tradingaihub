@@ -1,8 +1,10 @@
 ---
 import { SITE } from "../config";
+import { useT } from "../i18n";
+const { lang = "en" } = Astro.props; const { t } = useT(lang);
 ---
-<div class="panel" style="margin:30px 0"><h3 style="margin-top:0">📬 The weekly “State of finance AI tools”</h3>
-<p class="note">What's new, what broke, and which tools climbed the leaderboard — one email a week. Free.</p>
-<form class="newsletter" onsubmit="event.preventDefault();this.nextElementSibling.hidden=false"><input type="email" required placeholder="you@example.com" aria-label="Email" /><button class="btn">Subscribe</button></form>
-<p class="note" hidden>{SITE.newsletterLive ? "Thanks — check your inbox." : "Preview mode: signup isn't connected yet, nothing was sent."}</p>
-<p class="note">Or follow via <a href="/rss.xml">RSS</a>.</p></div>
+<div class="panel" style="margin:30px 0"><h3 style="margin-top:0">{t("nl.title")}</h3>
+<p class="note">{t("nl.text")}</p>
+<form class="newsletter" onsubmit="event.preventDefault();this.nextElementSibling.hidden=false"><input type="email" required placeholder="you@example.com" aria-label="Email" dir="ltr" /><button class="btn">{t("nl.subscribe")}</button></form>
+<p class="note" hidden>{SITE.newsletterLive ? t("nl.thanks") : t("nl.preview")}</p>
+<p class="note" set:html={t("nl.rss")}></p></div>

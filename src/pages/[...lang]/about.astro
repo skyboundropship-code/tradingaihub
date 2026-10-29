@@ -1,0 +1,23 @@
+---
+import Base from "../../layouts/Base.astro";
+import { SITE } from "../../config";
+import { STATUS, verificationReport as r } from "../../lib/data";
+import { langParams, useT } from "../../i18n";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
+const site = SITE.name;
+---
+<Base title={t("about.title")} description={t("about.desc", { site })} lang={lang}>
+<div class="wrap page prose">
+  <h1>{t("about.h1", { site })}</h1>
+  <p>{t("about.p1", { site })}</p>
+  <h2 id="how-we-verify">{t("about.how")}</h2>
+  <ul>{["c1","c2","c3","c4","c5"].map((k) => <li set:html={t(`about.${k}`)} />)}</ul>
+  <h2>{t("about.badges")}</h2>
+  <ul>{Object.keys(STATUS).map((k) => <li><b>{t(`status.${k}`)[0]}</b> — {t(`status.${k}`)[1]}</li>)}</ul>
+  <p>{t("about.latest", { date: r.checked_at.slice(0, 16).replace("T", " ") })} <a href={p("/verification/")}>{t("about.fullReport")}</a>.</p>
+  <h2>{t("about.money")}</h2>
+  <p>{t("about.moneyP")}</p>
+  <h2>{t("about.contact")}</h2><p dir="ltr">{SITE.contactEmail}</p>
+</div>
+</Base>

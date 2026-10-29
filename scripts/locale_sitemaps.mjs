@@ -1,0 +1,16 @@
+// Writes one sitemap per locale (dist/sitemap-<lang>.xml) with hreflang alternates, from the built HTML files.
+import { readdirSync, statSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+const SITE = "https://tradingaihub.com";
+const CODES = ["en", "he", "es", "pt", "de", "fr", "ja", "ko", "zh", "hi", "tr", "ar", "ru"];
+const dist = "dist";
+const walk = (d) => readdirSync(d).flatMap((f) => { const p = join(d, f); return statSync(p).isDirectory() ? walk(p) : [p]; });
+const pages = walk(dist).filter((f) => f.endsWith("/index.html")).map((f) => "/" + f.slice(dist.length + 1).replace(/index\.html$/, ""))
+  .filter((p) => !p.startsWith("/advertise/") && !/^\/[a-z]{2}\/advertise\//.test(p));
+const base = new Set(pages.filter((p) => { const m = p.match(/^\/([a-z]{2})\//); return !(m && CODES.includes(m[1])); }));
+const pathFor = (c, b) => (c === "en" ? b : `/${c}${b}`);
+for (const c of CODES) {
+  const urls = [...base].sort().map((b) => `<url><loc>${SITE}${pathFor(c, b)}</loc>${CODES.map((a) => `<xhtml:link rel="alternate" hreflang="${a}" href="${SITE}${pathFor(a, b)}"/>`).join("")}<xhtml:link rel="alternate" hreflang="x-default" href="${SITE}${b}"/></url>`);
+  writeFileSync(join(dist, `sitemap-${c}.xml`), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urls.join("\n")}\n</urlset>\n`);
+}
+console.log(`locale sitemaps: ${CODES.length} × ${base.size} URLs`);

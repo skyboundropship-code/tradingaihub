@@ -1,15 +1,12 @@
 ---
 import { tvUrl } from "../lib/aff";
-interface Props { context?: "charts" | "crypto" | "backtest" | "integration"; }
-const { context = "charts" } = Astro.props;
-const copy = {
-  charts: ["Want to eyeball the data?", "Many traders pair these APIs with TradingView for charting stocks, ETFs, forex and indices. It has a free Basic plan.", "/chart/"],
-  crypto: ["Charting crypto?", "TradingView charts thousands of crypto pairs across exchanges, and its Basic plan is free.", "/markets/cryptocurrencies/"],
-  backtest: ["Sanity-check a strategy visually", "TradingView's Pine Script editor and Strategy Tester are a quick way to eyeball an idea before you wire it into an agent. Basic plan is free.", "/pine-script-docs/"],
-  integration: ["Uses TradingView data", "This tool works with TradingView. If you don't have an account, the Basic plan is free.", "/"],
-}[context];
+import { useT } from "../i18n";
+interface Props { context?: "charts" | "crypto" | "backtest" | "integration"; lang?: string }
+const { context = "charts", lang = "en" } = Astro.props; const { t } = useT(lang);
+const path = { charts: "/chart/", crypto: "/markets/cryptocurrencies/", backtest: "/pine-script-docs/", integration: "/" }[context];
+const copy = t(`tv.${context}`);
 ---
 <aside class="panel tv-note" style="margin:18px 0;font-size:14px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap">
   <span><b>{copy[0]}</b> <span style="color:var(--muted)">{copy[1]}</span></span>
-  <span style="white-space:nowrap"><a href={tvUrl(copy[2])} target="_blank" rel="sponsored noopener">Open TradingView ↗</a> <small style="color:var(--muted);opacity:.8" title="We may earn a commission if you subscribe. It doesn't affect rankings.">· affiliate link</small></span>
+  <span style="white-space:nowrap"><a href={tvUrl(path)} target="_blank" rel="sponsored noopener">{t("common.openTV")}</a> <small style="color:var(--muted);opacity:.8" title={t("common.affTitle")}>· {t("common.affLink")}</small></span>
 </aside>

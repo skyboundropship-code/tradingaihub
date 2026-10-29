@@ -8,10 +8,10 @@ const cats = [...lib.matchAll(/slug: "([^"]+)", name: "([^"]+)", short: "[^"]+",
 const comps = [...lib.matchAll(/slug: "([^"]+)", title: "([^"]+)"/g)].map((m) => ({ slug: m[1], title: m[2] }));
 const verified = tools.filter((t) => t.verification.status === "verified").length;
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
-const card = (kicker, title, sub) => `<html><body style="margin:0;width:1200px;height:630px;background:radial-gradient(circle at 80% 0%,#0c4a6e 0,#0b0f17 55%);font-family:Inter,DejaVu Sans,sans-serif;color:#e8edf6;display:flex;flex-direction:column;justify-content:space-between;padding:64px;box-sizing:border-box">
-<div style="font-size:30px;font-weight:800">📈 ${esc(brand)} <span style="color:#22c55e;font-size:24px;font-weight:600;margin-left:12px">✓ verified weekly</span></div>
-<div><div style="color:#38bdf8;font-size:28px;margin-bottom:14px">${esc(kicker)}</div><div style="font-size:${title.length > 60 ? 54 : 66}px;font-weight:800;line-height:1.08;letter-spacing:-1px">${esc(title)}</div></div>
-<div style="display:flex;justify-content:space-between;color:#9aa7bd;font-size:26px"><span>${esc(sub)}</span><span>${esc(domain)}</span></div></body></html>`;
+const card = (kicker, title, sub) => `<html><body style="margin:0;width:1200px;height:630px;background:radial-gradient(circle at 85% 0%,#dbeafe 0,#ffffff 55%);border-top:12px solid #2563eb;font-family:Inter,DejaVu Sans,sans-serif;color:#0f172a;display:flex;flex-direction:column;justify-content:space-between;padding:64px;box-sizing:border-box">
+<div style="font-size:30px;font-weight:800">📈 ${esc(brand)} <span style="color:#15803d;font-size:24px;font-weight:600;margin-left:12px">✓ verified weekly</span></div>
+<div><div style="color:#2563eb;font-size:28px;margin-bottom:14px">${esc(kicker)}</div><div style="font-size:${title.length > 60 ? 54 : 66}px;font-weight:800;line-height:1.08;letter-spacing:-1px">${esc(title)}</div></div>
+<div style="display:flex;justify-content:space-between;color:#475569;font-size:26px"><span>${esc(sub)}</span><span>${esc(domain)}</span></div></body></html>`;
 const jobs = [["home", card("Free directory", "AI tools for finance & trading", `${tools.length} MCP servers, skills & APIs · ${verified} verified this week`)],
   ["weekly", card("Weekly leaderboard", "State of finance AI tools", `${verified}/${tools.length} pass this week's check`)],
   ...cats.map((c) => [`category-${c.slug}`, card("Category", `${c.icon} ${c.name}`, `${tools.filter((t) => t.category === c.slug).length} tools · free · verified weekly`)]),

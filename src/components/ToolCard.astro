@@ -1,11 +1,13 @@
 ---
 import Status from "./Status.astro";
-import { TYPE_LABEL, starsOf, fmtStars } from "../lib/data";
-const { t } = Astro.props; const s = starsOf(t);
+import { starsOf, fmtStars } from "../lib/data";
+import { useT } from "../i18n";
+const { t: tool, lang = "en" } = Astro.props; const s = starsOf(tool); const { t, p, desc } = useT(lang);
+const d = desc(tool);
 ---
-<a class="card" href={`/tools/${t.id}/`} data-search={`${t.name} ${t.description} ${t.category} ${t.type}`.toLowerCase()} data-cat={t.category} data-type={t.type}>
-  <div class="meta"><span class="badge type">{TYPE_LABEL[t.type]}</span>{t.official && <span class="badge off">Official</span>}<Status status={t.verification.status} /></div>
-  <h3>{t.name}</h3>
-  <p>{t.description}</p>
-  <div class="meta"><span>💲 {t.pricing.free_tier === "unknown" ? "Pricing: unknown" : t.pricing.free_tier}</span>{s != null && <span>★ {fmtStars(s)}</span>}</div>
+<a class="card" href={p(`/tools/${tool.id}/`)} data-search={`${tool.name} ${tool.description} ${d} ${tool.category} ${tool.type}`.toLowerCase()} data-cat={tool.category} data-type={tool.type}>
+  <div class="meta"><span class="badge type">{t(`type.${tool.type}`)}</span>{tool.official && <span class="badge off">{t("common.official")}</span>}<Status status={tool.verification.status} lang={lang} /></div>
+  <h3 dir="auto">{tool.name}</h3>
+  <p>{d}</p>
+  <div class="meta"><span>💲 {tool.pricing.free_tier === "unknown" ? t("common.pricingUnknown") : <bdi>{tool.pricing.free_tier}</bdi>}</span>{s != null && <span>★ {fmtStars(s)}</span>}</div>
 </a>

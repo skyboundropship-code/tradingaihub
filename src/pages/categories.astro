@@ -1,8 +1,0 @@
----
-import Base from "../layouts/Base.astro";
-import { tools, CATEGORIES } from "../lib/data";
----
-<Base title="Categories" description="Browse finance and trading AI tools by category: market data, brokers, crypto, accounting, personal finance, research and quant.">
-<div class="wrap page"><h1>Categories</h1>
-<div class="grid">{CATEGORIES.map((c) => <a class="card" href={`/category/${c.slug}/`}><h3>{c.icon} {c.name}</h3><p>{c.blurb}</p><div class="meta">{tools.filter((t) => t.category === c.slug).length} tools</div></a>)}</div></div>
-</Base>

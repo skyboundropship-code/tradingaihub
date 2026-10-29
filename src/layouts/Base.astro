@@ -1,37 +1,70 @@
 ---
 import "../styles/global.css";
 import { SITE } from "../config";
-interface Props { title: string; description?: string; jsonld?: any[]; noindex?: boolean; og?: string }
-const { title, description = SITE.description, jsonld = [], noindex = false, og = "home" } = Astro.props;
+import { LOCALES, CODES, useT, basePath, pathFor, localeOf } from "../i18n";
+interface Props { title: string; description?: string; jsonld?: any[]; noindex?: boolean; og?: string; lang?: string }
+const { title, description, jsonld = [], noindex = false, og = "home", lang = "en" } = Astro.props;
+const { t, p, dir } = useT(lang);
+const tagline = t("meta.tagline");
+const desc = description ?? t("meta.description");
 const ogUrl = new URL(`/og/${og}.png`, SITE.url).href;
-const canonical = new URL(Astro.url.pathname, SITE.url).href;
-const fullTitle = title === SITE.name ? `${SITE.name} — ${SITE.tagline}` : `${title} | ${SITE.name}`;
-const org = { "@context": "https://schema.org", "@type": "WebSite", name: SITE.name, url: SITE.url, description: SITE.description,
-  potentialAction: { "@type": "SearchAction", target: `${SITE.url}/tools/?q={query}`, "query-input": "required name=query" } };
+const isNotFound = /\/404(\.html|\/)?$/.test(Astro.url.pathname);
+const base = isNotFound ? "/" : basePath(Astro.url.pathname);
+const canonical = new URL(pathFor(lang, base), SITE.url).href;
+const fullTitle = title === SITE.name ? `${SITE.name} — ${tagline}` : `${title} | ${SITE.name}`;
+const org = { "@context": "https://schema.org", "@type": "WebSite", name: SITE.name, url: SITE.url, inLanguage: lang, description: desc,
+  potentialAction: { "@type": "SearchAction", target: `${SITE.url}${p("/tools/")}?q={query}`, "query-input": "required name=query" } };
+const parts = SITE.name.split("AI");
+const cur = localeOf(lang);
+const disclaimerHtml = t("footer.disclaimer", { site: SITE.name });
 ---
-<!doctype html><html lang="en"><head>
+<!doctype html><html lang={lang} dir={dir} data-theme="light"><head>
 <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>{fullTitle}</title><meta name="description" content={description} /><link rel="canonical" href={canonical} />
+<script is:inline>try{document.documentElement.dataset.theme=localStorage.getItem("theme")==="dark"?"dark":"light"}catch(e){}</script>
+<meta name="color-scheme" content="light dark" />
+<title>{fullTitle}</title><meta name="description" content={desc} />{!isNotFound && <link rel="canonical" href={canonical} />}
 {noindex && <meta name="robots" content="noindex" />}
-<meta property="og:title" content={fullTitle} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta property="og:type" content="website" /><meta property="og:image" content={ogUrl} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:image" content={ogUrl} /><link rel="alternate" type="application/rss+xml" title={`${SITE.name} weekly`} href="/rss.xml" />
+{!noindex && LOCALES.map((l) => <link rel="alternate" hreflang={l.code} href={new URL(pathFor(l.code, base), SITE.url).href} />)}
+{!noindex && <link rel="alternate" hreflang="x-default" href={new URL(base, SITE.url).href} />}
+<meta property="og:title" content={fullTitle} /><meta property="og:description" content={desc} /><meta property="og:url" content={canonical} /><meta property="og:type" content="website" /><meta property="og:locale" content={cur.og} /><meta property="og:site_name" content={SITE.name} /><meta property="og:image" content={ogUrl} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={fullTitle} /><meta name="twitter:image" content={ogUrl} /><link rel="alternate" type="application/rss+xml" title={`${SITE.name} weekly`} href="/rss.xml" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="sitemap" href="/sitemap-index.xml" />
 <script type="application/ld+json" set:html={JSON.stringify(org)} />
 {jsonld.map((j) => <script type="application/ld+json" set:html={JSON.stringify(j)} />)}
+{base === "/" && lang === "en" && <script is:inline define:vars={{ codes: CODES }}>
+(function(){try{
+  if(/bot|crawl|spider|slurp|bingpreview|facebookexternalhit|embedly|quora|whatsapp|telegram|discord|slack|linkedin|preview|lighthouse|headless|google|baidu|yandex|duckduck/i.test(navigator.userAgent)||navigator.webdriver)return;
+  if(localStorage.getItem("lang")||localStorage.getItem("langAuto"))return;
+  localStorage.setItem("langAuto","1");
+  var ls=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||"en"];
+  for(var i=0;i<ls.length;i++){var c=String(ls[i]).toLowerCase().split("-")[0];if(c==="iw")c="he";if(codes.indexOf(c)>=0){if(c!=="en")location.replace("/"+c+"/"+location.search+location.hash);return}}
+}catch(e){}})();
+</script>}
 </head><body>
 <header class="site"><div class="wrap">
-  <a class="logo" href="/">{SITE.name.split("AI")[0]}<span>AI</span>{SITE.name.split("AI").slice(1).join("AI")}</a>
-  <nav class="main"><a href="/tools/">All tools</a><a href="/categories/">Categories</a><a href="/compare/">Compare</a><a href="/weekly/">Weekly leaderboard</a><a href="/badges/">Badges</a><a href="/about/">How we verify</a></nav>
-  <a class="btn" href="/submit/">Submit a tool — free</a>
+  <a class="logo" href={p("/")} dir="ltr">{parts[0]}<span>AI</span>{parts.slice(1).join("AI")}</a>
+  <nav class="main"><a href={p("/tools/")}>{t("nav.tools")}</a><a href={p("/categories/")}>{t("nav.categories")}</a><a href={p("/compare/")}>{t("nav.compare")}</a><a href={p("/weekly/")}>{t("nav.weekly")}</a><a href={p("/badges/")}>{t("nav.badges")}</a><a href={p("/about/")}>{t("nav.verify")}</a></nav>
+  <div class="hdr-tools">
+    <details class="langs"><summary aria-label={t("nav.language")} title={t("nav.language")}>🌐 <span>{lang.toUpperCase()}</span></summary>
+      <div class="langmenu">{LOCALES.map((l) => <a href={pathFor(l.code, base)} hreflang={l.code} lang={l.code} dir={l.dir} data-lang={l.code} class={l.code === lang ? "on" : ""}>{l.name}</a>)}</div>
+    </details>
+    <button class="themetoggle" type="button" aria-label={t("nav.theme")} title={t("nav.theme")}><span class="sun">☀️</span><span class="moon">🌙</span></button>
+    <a class="btn" href={p("/submit/")}>{t("nav.submit")}</a>
+  </div>
 </div></header>
-<main><slot /></main>
+<main><Fragment set:html="<!--email_off-->" /><slot /><Fragment set:html="<!--/email_off-->" /></main>
 <footer class="site"><div class="wrap">
   <div class="cols">
-    <div><div class="logo">{SITE.name}</div><div>{SITE.tagline}. Re-checked every week.</div></div>
-    <div><b>Directory</b><br/><a href="/tools/">All tools</a><br/><a href="/categories/">Categories</a><br/><a href="/compare/">Comparisons</a><br/><a href="/verification/">Latest verification run</a></div>
-    <div><b>For makers</b><br/><a href="/submit/">Submit a tool (free)</a><br/><a href="/badges/">Get your verified badge</a><br/><a href="/weekly/">Weekly leaderboard</a><br/><a href="/rss.xml">RSS</a> · <a href={SITE.githubAwesomeRepo}>Awesome list</a></div>
-    <div><b>Legal</b><br/><a href="/disclaimer/">Not investment advice</a><br/><a href="/privacy/">Privacy</a><br/><a href="/terms/">Terms</a><br/><a href="/about/">About</a><br/><a href="/advertise/" style="opacity:.6">Advertise</a></div>
+    <div><div class="logo" dir="ltr">{SITE.name}</div><div>{tagline}. {t("footer.rechecked")}</div></div>
+    <div><b>{t("footer.directory")}</b><br/><a href={p("/tools/")}>{t("nav.tools")}</a><br/><a href={p("/categories/")}>{t("nav.categories")}</a><br/><a href={p("/compare/")}>{t("footer.comparisons")}</a><br/><a href={p("/verification/")}>{t("footer.latestRun")}</a></div>
+    <div><b>{t("footer.makers")}</b><br/><a href={p("/submit/")}>{t("footer.submitFree")}</a><br/><a href={p("/badges/")}>{t("footer.getBadge")}</a><br/><a href={p("/weekly/")}>{t("nav.weekly")}</a><br/><a href="/rss.xml">RSS</a> · <a href={SITE.githubAwesomeRepo}>{t("footer.awesome")}</a></div>
+    <div><b>{t("footer.legal")}</b><br/><a href={p("/disclaimer/")}>{t("footer.nia")}</a><br/><a href={p("/privacy/")}>{t("footer.privacy")}</a><br/><a href={p("/terms/")}>{t("footer.terms")}</a><br/><a href={p("/about/")}>{t("footer.about")}</a><br/><a href={p("/advertise/")} style="opacity:.6">{t("footer.advertise")}</a></div>
   </div>
-  <p class="disclaimer"><b>Not investment advice.</b> {SITE.name} is an information directory about software tools. Nothing on this site is investment, trading, tax or legal advice or a recommendation to buy or sell any security or asset, and we are not licensed investment advisers or portfolio managers. Trading involves risk of loss. <b>Affiliate disclosure:</b> some links (currently TradingView) are affiliate links. If you sign up through them we may earn a commission at no extra cost to you. They are labelled, and they never affect listings, rankings or verification status. <a href="/disclaimer/">Full disclaimer</a>.</p>
+  <p class="disclaimer"><Fragment set:html={disclaimerHtml} /> <a href={p("/disclaimer/")}>{t("footer.fullDisclaimer")}</a>.</p>
 </div></footer>
-<script is:inline>document.querySelectorAll("pre").forEach(p=>{const b=document.createElement("button");b.className="copy";b.textContent="Copy";b.onclick=()=>{navigator.clipboard.writeText(p.innerText.replace(/Copy(ied)?$/,"").trim());b.textContent="Copied ✓";setTimeout(()=>b.textContent="Copy",1500)};p.appendChild(b)})</script>
+<script is:inline define:vars={{ copyTxt: t("common.copy"), copiedTxt: t("common.copied") }}>
+document.querySelectorAll("pre").forEach(function(p){var b=document.createElement("button");b.className="copy";b.type="button";b.textContent=copyTxt;b.onclick=function(){var c=p.cloneNode(true);c.querySelectorAll("button.copy").forEach(function(x){x.remove()});navigator.clipboard.writeText(c.innerText.trim());b.textContent=copiedTxt;setTimeout(function(){b.textContent=copyTxt},1500)};p.appendChild(b)});
+document.querySelectorAll(".langmenu a").forEach(function(a){a.addEventListener("click",function(){try{localStorage.setItem("lang",a.dataset.lang)}catch(e){}})});
+document.querySelectorAll(".themetoggle").forEach(function(b){b.addEventListener("click",function(){var d=document.documentElement,n=d.dataset.theme==="dark"?"light":"dark";d.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}})});
+document.addEventListener("click",function(e){document.querySelectorAll("details.langs[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});
+</script>
 </body></html>

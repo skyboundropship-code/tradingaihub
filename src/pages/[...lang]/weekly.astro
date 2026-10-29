@@ -1,0 +1,39 @@
+---
+import Base from "../../layouts/Base.astro";
+import Status from "../../components/Status.astro";
+import Share from "../../components/Share.astro";
+import Newsletter from "../../components/Newsletter.astro";
+import { tools, changelog, fmtStars, starsOf, lastCommit } from "../../lib/data";
+import { langParams, useT } from "../../i18n";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
+const week = changelog[0];
+const board = tools.filter((x) => x.verification.status === "verified" && starsOf(x) != null).sort((a, b) => starsOf(b) - starsOf(a)).slice(0, 20);
+const fresh = tools.filter((x) => lastCommit(x)).sort((a, b) => lastCommit(b)!.localeCompare(lastCommit(a)!)).slice(0, 10);
+const needsLove = tools.filter((x) => ["stale", "archived", "unreachable"].includes(x.verification.status));
+const official = tools.filter((x) => x.official).length;
+---
+<Base title={t("weekly.title", { date: week.date })} description={t("weekly.desc", { n: tools.length })} og="weekly" lang={lang}>
+<div class="wrap page">
+  <h1>📊 {t("weekly.title", { date: week.date })}</h1>
+  <p style="color:var(--muted)">{t("weekly.lead")}</p>
+  <Share path={p("/weekly/")} text={t("weekly.share", { date: week.date, v: week.counts.verified ?? 0, n: tools.length })} lang={lang} />
+  <div class="grid" style="margin:16px 0">
+    {Object.entries(week.counts).map(([k, n]) => <div class="panel"><Status status={k} lang={lang} /><div style="font-size:30px;font-weight:800">{n as number}</div></div>)}
+    <div class="panel"><span class="badge off">{t("weekly.officialTools")}</span><div style="font-size:30px;font-weight:800">{official}</div></div>
+  </div>
+  <h2 class="sec">{t("weekly.changed")}</h2>
+  {lang !== "en" && <p class="note">{t("weekly.changesNote")}</p>}
+  <ul lang="en" dir="ltr">{week.changes.map((c: any) => <li>{c.id ? <a href={p(`/tools/${c.id}/`)}>{c.text}</a> : c.text}</li>)}</ul>
+  <h2 class="sec">{t("weekly.board")}</h2>
+  <div class="tablewrap"><table><thead><tr><th>#</th><th>{t("th.tool")}</th><th>{t("th.type")}</th><th>{t("th.category")}</th><th>{t("th.stars")}</th><th>{t("th.lastCommit")}</th></tr></thead>
+  <tbody>{board.map((x, i) => <tr><td>{i + 1}</td><td><a href={p(`/tools/${x.id}/`)}>{x.name}</a></td><td>{t(`type.${x.type}`)}</td><td>{t(`cat.${x.category}`)[1]}</td><td>★ {fmtStars(starsOf(x))}</td><td dir="ltr">{lastCommit(x)}</td></tr>)}</tbody></table></div>
+  <h2 class="sec">{t("weekly.shipped")}</h2>
+  <ul>{fresh.map((x) => <li><a href={p(`/tools/${x.id}/`)}>{x.name}</a> — {t("weekly.lastCommit", { date: lastCommit(x) })}</li>)}</ul>
+  <h2 class="sec">{t("weekly.love", { n: needsLove.length })}</h2>
+  <p class="note">{t("weekly.loveNote")}</p>
+  <ul>{needsLove.map((x) => <li><a href={p(`/tools/${x.id}/`)}>{x.name}</a> <Status status={x.verification.status} lang={lang} /></li>)}</ul>
+  <h2 class="sec">{t("weekly.archive")}</h2><ul>{changelog.map((w) => <li><span dir="ltr">{w.date}</span>: {t("weekly.changes", { n: w.changes.length })}</li>)}</ul>
+  <Newsletter lang={lang} />
+</div>
+</Base>

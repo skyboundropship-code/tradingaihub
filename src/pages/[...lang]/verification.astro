@@ -1,0 +1,16 @@
+---
+import Base from "../../layouts/Base.astro";
+import Status from "../../components/Status.astro";
+import { tools, verificationReport as r, lastCommit, fmtStars, starsOf } from "../../lib/data";
+import { langParams, useT } from "../../i18n";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
+---
+<Base title={t("ver.title")} description={t("ver.desc")} lang={lang}>
+<div class="wrap page">
+  <h1>{t("ver.h1", { date: r.checked_at.slice(0, 10) })}</h1>
+  <p class="meta">{Object.entries(r.by_status).map(([k, n]) => <span><Status status={k} lang={lang} /> {n as number}</span>)}</p>
+  <div class="tablewrap"><table><thead><tr><th>{t("th.tool")}</th><th>{t("th.status")}</th><th>{t("th.stars")}</th><th>{t("th.lastCommit")}</th><th>{t("th.issues")}</th></tr></thead>
+  <tbody>{tools.map((x) => <tr><td><a href={p(`/tools/${x.id}/`)}>{x.name}</a></td><td><Status status={x.verification.status} lang={lang} /></td><td>{fmtStars(starsOf(x))}</td><td dir="ltr">{lastCommit(x) ?? "—"}</td><td class="note" dir="ltr">{x.verification.issues.join("; ")}</td></tr>)}</tbody></table></div>
+</div>
+</Base>

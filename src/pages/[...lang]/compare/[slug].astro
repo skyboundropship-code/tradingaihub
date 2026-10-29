@@ -1,0 +1,35 @@
+---
+import TradingView from "../../../components/TradingView.astro";
+import Base from "../../../layouts/Base.astro";
+import Status from "../../../components/Status.astro";
+import Share from "../../../components/Share.astro";
+import Newsletter from "../../../components/Newsletter.astro";
+import { SITE } from "../../../config";
+import { tools, COMPARISONS, pkgOf, fmtStars, starsOf, lastCommit, verificationReport as r } from "../../../lib/data";
+import { langParams, useT } from "../../../i18n";
+const TV: Record<string,any> = { "market-data-api-pricing": "charts", "best-stock-market-mcp-servers": "charts", "crypto-mcp-servers": "crypto", "trading-skills-for-claude": "backtest" };
+export function getStaticPaths() { return langParams().flatMap((lp) => COMPARISONS.map((c) => ({ params: { ...lp, slug: c.slug }, props: { slug: c.slug } }))); }
+const lang = Astro.params.lang ?? "en"; const { t, p } = useT(lang);
+const c = COMPARISONS.find((x) => x.slug === Astro.props.slug)!; const [title, intro] = t(`cmp.${c.slug}`);
+const list = tools.filter(c.filter).sort((a, b) => (b.verification.github?.stars ?? 0) - (a.verification.github?.stars ?? 0));
+const ld = [{ "@context": "https://schema.org", "@type": "ItemList", name: title, itemListElement: list.map((x, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE.url}${p(`/tools/${x.id}/`)}`, name: x.name })) }];
+---
+<Base title={title} description={intro} jsonld={ld} og={`compare-${c.slug}`} lang={lang}>
+<div class="wrap page">
+  <div class="crumbs"><a href={p("/")}>{t("common.home")}</a> / <a href={p("/compare/")}>{t("compare.title")}</a></div>
+  <h1>{title}</h1><p style="color:var(--muted)">{intro} {t("compare.dataNote", { date: r.checked_at.slice(0, 10) })}</p>
+  <Share path={p(`/compare/${c.slug}/`)} text={title} lang={lang} />
+  <div class="tablewrap"><table>
+  {c.cols === "pricing" ? (<>
+    <thead><tr><th>{t("th.api")}</th><th>{t("th.freeTier")}</th><th>{t("th.paidFrom")}</th><th>{t("th.plans")}</th><th>{t("th.status")}</th><th>{t("th.source")}</th></tr></thead>
+    <tbody>{list.map((x) => <tr><td><a href={p(`/tools/${x.id}/`)}>{x.name}</a></td><td><bdi>{x.pricing.free_tier}</bdi></td><td><bdi>{x.pricing.paid_from ?? "—"}</bdi></td><td class="note" lang="en"><bdi>{x.pricing.details}</bdi></td><td><Status status={x.verification.status} lang={lang} /></td><td>{x.pricing.source ? <a href={x.pricing.source} rel="nofollow noopener" target="_blank">{t("compare.pricingPage")}</a> : "—"}</td></tr>)}</tbody>
+  </>) : (<>
+    <thead><tr><th>{t("th.tool")}</th><th>{t("th.type")}</th><th>{t("th.status")}</th><th>{t("th.stars")}</th><th>{t("th.lastCommit")}</th><th>{t("th.license")}</th><th>{t("th.install")}</th><th>{t("th.pricing")}</th></tr></thead>
+    <tbody>{list.map((x) => { const pk = pkgOf(x); return <tr><td><a href={p(`/tools/${x.id}/`)}>{x.name}</a>{x.official && <> <span class="badge off">{t("common.official")}</span></>}</td><td>{t(`type.${x.type}`)}</td><td><Status status={x.verification.status} lang={lang} /></td><td>{fmtStars(starsOf(x))}</td><td dir="ltr">{lastCommit(x) ?? "—"}</td><td dir="ltr">{x.license}</td><td class="note">{x.remote_mcp_url ? t("compare.hosted") : pk ? <bdi>{`${x.verification.npm ? "npm" : "PyPI"}: ${pk.name}`}</bdi> : x.type === "skill" ? t("compare.skillRepo") : t("compare.fromSource")}</td><td class="note"><bdi>{x.pricing.free_tier}</bdi></td></tr>; })}</tbody>
+  </>)}
+  </table></div>
+  <p class="note" style="margin-top:14px">{t("compare.order")}</p>
+  {TV[c.slug] && <TradingView context={TV[c.slug]} lang={lang} />}
+  <Newsletter lang={lang} />
+</div>
+</Base>

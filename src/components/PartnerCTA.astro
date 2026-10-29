@@ -1,0 +1,19 @@
+---
+// Prominent, labelled TradingView partner CTA. All links go through tvUrl (aff_id) and use rel="sponsored noopener"; scripts/check_aff.mjs enforces both.
+import { tvUrl } from "../lib/aff";
+import { useT } from "../i18n";
+interface Props { variant?: "hero" | "tool"; lang?: string; path?: string }
+const { variant = "hero", lang = "en", path = "/" } = Astro.props; const { t } = useT(lang);
+---
+{variant === "hero" ? (
+<aside class="partner partner-hero" aria-label={t("partner.label")}>
+  <div class="partner-art" aria-hidden="true"><svg viewBox="0 0 120 60" width="120" height="60"><polyline points="2,50 18,38 30,44 46,22 60,30 76,12 92,20 118,6" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <div class="partner-body"><span class="partner-tag">{t("partner.label")}</span><h2>{t("partner.homeTitle")}</h2><p>{t("partner.homeText")}</p></div>
+  <div class="partner-act"><a class="btn partner-btn" href={tvUrl(path)} target="_blank" rel="sponsored noopener">{t("partner.homeCta")} ↗</a><small title={t("common.affTitle")}>{t("partner.disclosure")}</small></div>
+</aside>
+) : (
+<aside class="partner partner-tool" aria-label={t("partner.label")}>
+  <div class="partner-body"><span class="partner-tag">{t("partner.label")}</span> <b>{t("partner.toolTitle")}</b> <span class="note">{t("partner.toolText")}</span></div>
+  <a class="btn partner-btn" href={tvUrl(path)} target="_blank" rel="sponsored noopener">{t("partner.toolBtn")} ↗</a>
+</aside>
+)}

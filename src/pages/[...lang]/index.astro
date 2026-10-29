@@ -1,0 +1,40 @@
+---
+import Base from "../../layouts/Base.astro";
+import ToolCard from "../../components/ToolCard.astro";
+import Newsletter from "../../components/Newsletter.astro";
+import PartnerCTA from "../../components/PartnerCTA.astro";
+import { SITE } from "../../config";
+import { tools, CATEGORIES, COMPARISONS, verificationReport as r } from "../../lib/data";
+import { langParams, useT } from "../../i18n";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
+const featuredIds = ["alpaca-mcp","alpha-vantage-mcp","coingecko-mcp","sec-edgar-mcp","anthropic-financial-services","quickbooks-mcp","stripe-ai","ibkr-mcp"];
+const picks = featuredIds.map((id) => tools.find((x) => x.id === id)).filter(Boolean);
+const verified = tools.filter((x) => x.verification.status === "verified").length;
+const recent = [...tools].filter((x)=>x.verification.github?.last_commit).sort((a,b)=>b.verification.github.last_commit.localeCompare(a.verification.github.last_commit)).slice(0,6);
+const ld = [{ "@context": "https://schema.org", "@type": "ItemList", name: t("home.picks"), itemListElement: picks.map((x, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE.url}${p(`/tools/${x.id}/`)}`, name: x.name })) }];
+const cat = (slug: string) => t(`cat.${slug}`);
+---
+<Base title={SITE.name} jsonld={ld} lang={lang}>
+<section class="hero wrap">
+  <h1>{t("home.h1a")} <em>{t("home.h1em")}</em>{t("home.h1sep")}<br/>{t("home.h1b")}</h1>
+  <p>{t("home.lead")}</p>
+  <form class="search" action={p("/tools/")}><input name="q" placeholder={t("home.search")} aria-label={t("home.searchLabel")} /></form>
+  <div class="chips">{CATEGORIES.map((c) => <a class="chip" href={p(`/category/${c.slug}/`)}>{c.icon} {cat(c.slug)[1]}</a>)}</div>
+  <div class="stats"><div><b>{tools.length}</b>{t("home.listed")}</div><div><b>{verified}</b>{t("home.passed")}</div><div><b>{CATEGORIES.length}</b>{t("home.categories")}</div><div><b dir="ltr">{r.checked_at.slice(0,10)}</b>{t("home.lastVerified")}</div></div>
+</section>
+<div class="wrap">
+  <PartnerCTA variant="hero" lang={lang} path="/" />
+  <h2 class="sec">{t("home.picks")}</h2>
+  <div class="grid">{picks.map((x) => <ToolCard t={x} lang={lang} />)}</div>
+  <h2 class="sec">{t("home.browse")}</h2>
+  <div class="grid">{CATEGORIES.map((c) => <a class="card" href={p(`/category/${c.slug}/`)}><h3>{c.icon} {cat(c.slug)[0]}</h3><p>{cat(c.slug)[2]}</p><div class="meta">{tools.filter((x) => x.category === c.slug).length} {t("common.tools")}</div></a>)}</div>
+  <h2 class="sec">{t("home.popular")}</h2>
+  <div class="grid">{COMPARISONS.slice(0,6).map((c) => <a class="card" href={p(`/compare/${c.slug}/`)}><h3>{t(`cmp.${c.slug}`)[0]}</h3><p>{t(`cmp.${c.slug}`)[1]}</p></a>)}</div>
+  <h2 class="sec">{t("home.leaderboard")} <a href={p("/weekly/")} style="font-size:16px">{t("home.seeAll")}</a></h2>
+  <p class="note">{t("home.boardNote", { date: r.checked_at.slice(0,10) })} <a href={p("/badges/")}>{t("home.grabBadge")}</a>.</p>
+  <Newsletter lang={lang} />
+  <h2 class="sec">{t("home.recent")}</h2>
+  <div class="grid">{recent.map((x) => <ToolCard t={x} lang={lang} />)}</div>
+</div>
+</Base>

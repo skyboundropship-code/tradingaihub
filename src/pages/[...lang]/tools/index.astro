@@ -1,0 +1,27 @@
+---
+import Base from "../../../layouts/Base.astro";
+import ToolCard from "../../../components/ToolCard.astro";
+import { tools, CATEGORIES } from "../../../lib/data";
+import { langParams, useT } from "../../../i18n";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en"; const { t } = useT(lang);
+const sorted = [...tools].sort((a, b) => (b.verification.github?.stars ?? 0) - (a.verification.github?.stars ?? 0));
+const fs = "padding:10px;border-radius:10px;background:var(--panel);color:var(--text);border:1px solid var(--line)";
+---
+<Base title={t("tools.title")} description={t("tools.desc")} lang={lang}>
+<div class="wrap page">
+  <h1>{t("tools.h1")} <span class="pill">({tools.length})</span></h1>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+    <input id="q" placeholder={t("tools.filter")} aria-label={t("tools.filter")} style={`flex:1;min-width:220px;${fs}`} />
+    <select id="cat" aria-label={t("th.category")} style={fs}><option value="">{t("tools.allCats")}</option>{CATEGORIES.map((c) => <option value={c.slug}>{t(`cat.${c.slug}`)[1]}</option>)}</select>
+    <select id="type" aria-label={t("th.type")} style={fs}><option value="">{t("tools.allTypes")}</option><option value="mcp">{t("type.mcpPlural")}</option><option value="skill">{t("type.skillPlural")}</option><option value="api">{t("type.apiPlural")}</option></select>
+  </div>
+  <div class="grid" id="list">{sorted.map((x) => <ToolCard t={x} lang={lang} />)}</div>
+</div>
+<script is:inline>
+const q=document.getElementById('q'),c=document.getElementById('cat'),ty=document.getElementById('type');
+q.value=new URLSearchParams(location.search).get('q')||'';
+function f(){const s=q.value.toLowerCase();document.querySelectorAll('#list .card').forEach(e=>{e.style.display=(!s||e.dataset.search.includes(s))&&(!c.value||e.dataset.cat===c.value)&&(!ty.value||e.dataset.type===ty.value)?'':'none'})}
+[q,c,ty].forEach(e=>e.addEventListener('input',f));f();
+</script>
+</Base>

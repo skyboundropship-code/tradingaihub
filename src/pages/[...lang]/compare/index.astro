@@ -1,0 +1,10 @@
+---
+import Base from "../../../layouts/Base.astro";
+import { COMPARISONS } from "../../../lib/data";
+import { langParams, useT } from "../../../i18n";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en"; const { t, p } = useT(lang);
+---
+<Base title={t("compare.title")} description={t("compare.desc")} lang={lang}>
+<div class="wrap page"><h1>{t("compare.title")}</h1><div class="grid">{COMPARISONS.map((c) => <a class="card" href={p(`/compare/${c.slug}/`)}><h3>{t(`cmp.${c.slug}`)[0]}</h3><p>{t(`cmp.${c.slug}`)[1]}</p></a>)}</div></div>
+</Base>

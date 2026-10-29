@@ -1,0 +1,15 @@
+---
+import Base from "../../layouts/Base.astro";
+import { SITE } from "../../config";
+import { tools } from "../../lib/data";
+import { langParams, useT } from "../../i18n";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
+---
+<Base title={t("adv.title")} noindex description={t("adv.desc", { site: SITE.name })} lang={lang}>
+<div class="wrap page">
+  <h1>{t("adv.title")}</h1>
+  <p style="color:var(--muted);max-width:760px">{t("adv.lead", { site: SITE.name, n: tools.length })}</p>
+  <div class="panel"><p set:html={t("adv.free", { email: SITE.contactEmail })} /></div>
+</div>
+</Base>

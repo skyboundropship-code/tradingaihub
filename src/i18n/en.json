@@ -1,0 +1,517 @@
+{
+ "meta": {
+  "tagline": "Verified AI tools for finance & trading",
+  "description": "A weekly-verified directory of MCP servers, agent skills and APIs for market data, trading, crypto, accounting and financial research — with pricing, free tiers and copy-paste install snippets for Claude, Cursor, ChatGPT, Grok and Gemini."
+ },
+ "nav": {
+  "tools": "All tools",
+  "categories": "Categories",
+  "compare": "Compare",
+  "weekly": "Weekly leaderboard",
+  "badges": "Badges",
+  "verify": "How we verify",
+  "submit": "Submit a tool — free",
+  "language": "Language",
+  "theme": "Toggle light/dark theme"
+ },
+ "footer": {
+  "rechecked": "Re-checked every week.",
+  "directory": "Directory",
+  "comparisons": "Comparisons",
+  "latestRun": "Latest verification run",
+  "makers": "For makers",
+  "submitFree": "Submit a tool (free)",
+  "getBadge": "Get your verified badge",
+  "awesome": "Awesome list",
+  "legal": "Legal",
+  "nia": "Not investment advice",
+  "privacy": "Privacy",
+  "terms": "Terms",
+  "about": "About",
+  "advertise": "Advertise",
+  "disclaimer": "<b>Not investment advice.</b> {site} is an information directory about software tools. Nothing on this site is investment, trading, tax or legal advice or a recommendation to buy or sell any security or asset, and we are not licensed investment advisers or portfolio managers. Trading involves risk of loss. <b>Affiliate disclosure:</b> some links (currently TradingView) are affiliate links. If you sign up through them we may earn a commission at no extra cost to you. They are labelled, and they never affect listings, rankings or verification status.",
+  "fullDisclaimer": "Full disclaimer"
+ },
+ "common": {
+  "copy": "Copy",
+  "copied": "Copied ✓",
+  "official": "Official",
+  "officialVendor": "Official (by the vendor)",
+  "pricingUnknown": "Pricing: unknown",
+  "tools": "tools",
+  "home": "Home",
+  "share": "Share:",
+  "copyLink": "Copy link",
+  "linkCopied": "Link copied ✓",
+  "affLink": "affiliate link",
+  "affTitle": "We may earn a commission if you subscribe. It doesn't affect rankings.",
+  "openTV": "Open TradingView ↗",
+  "notFound": "Page not found",
+  "browseAll": "Browse all tools",
+  "translatedNote": ""
+ },
+ "type": {
+  "mcp": "MCP server",
+  "skill": "Agent skill",
+  "api": "API",
+  "mcpPlural": "MCP servers",
+  "skillPlural": "Skills",
+  "apiPlural": "APIs"
+ },
+ "status": {
+  "verified": [
+   "Verified",
+   "Reachable, links alive, and (for repos) a commit in the last 180 days."
+  ],
+  "aging": [
+   "Aging",
+   "Reachable, but no commits in 180–365 days."
+  ],
+  "stale": [
+   "Stale",
+   "Reachable, but no commits in over a year. Test before relying on it."
+  ],
+  "archived": [
+   "Archived",
+   "The repository is archived by its owner."
+  ],
+  "warning": [
+   "Check links",
+   "A homepage, docs or endpoint link failed in the last check."
+  ],
+  "unreachable": [
+   "Unreachable",
+   "The repository or homepage could not be reached."
+  ]
+ },
+ "cat": {
+  "market-data": [
+   "Market data APIs & MCPs",
+   "Market data",
+   "Real-time and historical prices, fundamentals and indicators for stocks, ETFs, forex and more."
+  ],
+  "trading-brokers": [
+   "Trading & broker MCPs",
+   "Trading & brokers",
+   "Let an AI agent read positions and place orders through a real or paper brokerage account."
+  ],
+  "crypto": [
+   "Crypto & DeFi",
+   "Crypto",
+   "Prices, DEX analytics, exchange trading and onchain actions for crypto agents."
+  ],
+  "accounting": [
+   "Accounting & bookkeeping",
+   "Accounting",
+   "Connect agents to QuickBooks, Xero and close/reconciliation workflows."
+  ],
+  "payments-banking": [
+   "Payments & business banking",
+   "Payments",
+   "Stripe, business bank accounts, spend management and agent payments."
+  ],
+  "personal-finance": [
+   "Personal finance & budgeting",
+   "Personal finance",
+   "Budgeting apps, net worth and equity-compensation helpers."
+  ],
+  "research-filings": [
+   "Research & SEC filings",
+   "Research",
+   "SEC EDGAR, 13F, insider trades, deep research and equity reports."
+  ],
+  "quant-backtesting": [
+   "Quant & backtesting",
+   "Quant",
+   "Strategy research, backtests, chart patterns and trading skills."
+  ],
+  "macro": [
+   "Macro & economics",
+   "Macro",
+   "FRED series, economic calendars, FX and macro indicators."
+  ]
+ },
+ "cmp": {
+  "market-data-api-pricing": [
+   "Market data APIs for AI agents: free tiers & pricing compared",
+   "Published free-tier limits and entry prices of the major market-data APIs, each linked to the vendor's pricing page."
+  ],
+  "best-stock-market-mcp-servers": [
+   "Stock market MCP servers compared",
+   "MCP servers that bring stock and fundamentals data into Claude, Cursor and other AI clients — by maintenance status, stars, license and install method."
+  ],
+  "broker-trading-mcp-servers": [
+   "Broker & trading MCP servers compared",
+   "MCP servers that can read positions or place orders. Always start in paper-trading mode."
+  ],
+  "crypto-mcp-servers": [
+   "Crypto MCP servers compared",
+   "Crypto market data, DEX analytics, exchanges and onchain tools."
+  ],
+  "accounting-mcp-servers": [
+   "Accounting, payments & banking MCPs compared",
+   "Official and community servers for QuickBooks, Xero, Stripe, Ramp, Qonto and more."
+  ],
+  "sec-filings-research-tools": [
+   "SEC filings & research tools for AI agents",
+   "EDGAR, 13F, insider trades and research agents compared."
+  ],
+  "trading-skills-for-claude": [
+   "Finance & trading agent skills compared",
+   "SKILL.md-based skills and Claude Code plugins for finance and trading work."
+  ]
+ },
+ "tv": {
+  "charts": [
+   "Want to eyeball the data?",
+   "Many traders pair these APIs with TradingView for charting stocks, ETFs, forex and indices. It has a free Basic plan."
+  ],
+  "crypto": [
+   "Charting crypto?",
+   "TradingView charts thousands of crypto pairs across exchanges, and its Basic plan is free."
+  ],
+  "backtest": [
+   "Sanity-check a strategy visually",
+   "TradingView's Pine Script editor and Strategy Tester are a quick way to eyeball an idea before you wire it into an agent. Basic plan is free."
+  ],
+  "integration": [
+   "Uses TradingView data",
+   "This tool works with TradingView. If you don't have an account, the Basic plan is free."
+  ]
+ },
+ "nl": {
+  "title": "📬 The weekly “State of finance AI tools”",
+  "text": "What's new, what broke, and which tools climbed the leaderboard — one email a week. Free.",
+  "subscribe": "Subscribe",
+  "thanks": "Thanks — check your inbox.",
+  "preview": "Preview mode: signup isn't connected yet, nothing was sent.",
+  "rss": "Or follow via <a href=\"/rss.xml\">RSS</a>."
+ },
+ "home": {
+  "h1a": "AI tools for",
+  "h1em": "finance & trading",
+  "h1b": "verified every week.",
+  "lead": "Free, open directory of MCP servers, agent skills and APIs that plug market data, brokers, crypto and accounting into Claude, Cursor, ChatGPT, Grok and Gemini — with real pricing, free tiers and one-click install snippets.",
+  "search": "Search e.g. 'options', 'SEC filings', 'Binance', 'QuickBooks'…",
+  "searchLabel": "Search tools",
+  "listed": "tools listed",
+  "passed": "passed this week's check",
+  "categories": "categories",
+  "lastVerified": "last verified",
+  "picks": "Editor's picks",
+  "browse": "Browse by category",
+  "popular": "Popular comparisons",
+  "leaderboard": "This week's leaderboard →",
+  "seeAll": "see all",
+  "boardNote": "Most-starred verified tools, re-checked {date}.",
+  "grabBadge": "Tool makers: grab your free badge",
+  "recent": "Recently updated",
+  "h1sep": ","
+ },
+ "tools": {
+  "title": "All finance & trading AI tools",
+  "desc": "Every MCP server, agent skill and API in the directory, with weekly verification status, pricing and install snippets.",
+  "h1": "All tools",
+  "filter": "Filter…",
+  "allCats": "All categories",
+  "allTypes": "All types"
+ },
+ "cats": {
+  "title": "Categories",
+  "desc": "Browse finance and trading AI tools by category: market data, brokers, crypto, accounting, personal finance, research and quant.",
+  "h1": "Categories"
+ },
+ "category": {
+  "title": "{name}: AI tools, MCP servers & skills ({year})",
+  "desc": "{n} verified {name} tools for AI agents.",
+  "sorted": "Sorted by verification status, then GitHub stars.",
+  "compare": "Compare:"
+ },
+ "compare": {
+  "title": "Comparisons",
+  "desc": "Side-by-side comparisons of finance and trading MCP servers, skills and data APIs.",
+  "dataNote": "Data from our automated check on {date}; prices as published by each vendor.",
+  "order": "Ordering is by GitHub stars, not a recommendation. Not investment advice.",
+  "pricingPage": "pricing page",
+  "hosted": "Hosted URL",
+  "skillRepo": "Skill repo",
+  "fromSource": "From source"
+ },
+ "th": {
+  "tool": "Tool",
+  "api": "API",
+  "type": "Type",
+  "status": "Status",
+  "stars": "Stars",
+  "lastCommit": "Last commit",
+  "license": "License",
+  "install": "Install",
+  "pricing": "Pricing",
+  "freeTier": "Free tier",
+  "paidFrom": "Paid from",
+  "plans": "Plans (published)",
+  "source": "Source",
+  "issues": "Issues",
+  "category": "Category"
+ },
+ "tool": {
+  "titleFor": "{type} for {cat}",
+  "descSuffix": "Verification status, pricing, free tier and install snippets for Claude, Cursor, ChatGPT, Grok and Gemini.",
+  "lastChecked": "Last checked {date}",
+  "shareVerified": "verified this week",
+  "shareStatus": "status",
+  "on": "on",
+  "install": "Install",
+  "pricing": "Pricing",
+  "model": "Model",
+  "details": "Details",
+  "notVerifiedPrice": "Not yet verified against a vendor page",
+  "checked": "checked {date}",
+  "pricesChange": "Prices change — always confirm on the vendor's page before buying.",
+  "verification": "Verification",
+  "autoCheck": "Automated check on {date}.",
+  "repository": "Repository",
+  "homepage": "Homepage",
+  "docs": "Docs",
+  "remote": "Remote MCP",
+  "package": "Package",
+  "noPackage": "None detected",
+  "listedVia": "Listed via",
+  "source": "source",
+  "maintain": "Maintain this tool?",
+  "badgeNote": "Show your free, auto-updating verification badge in your README:",
+  "wrongInfo": "Wrong info?",
+  "sendCorrection": "Send a correction",
+  "free": "free",
+  "notEndorse": "Listing a tool is not an endorsement or investment advice. Test any trading tool in paper mode first.",
+  "more": "More in {cat}",
+  "pricingDataNote": "Pricing details are quoted in English from the vendor's page."
+ },
+ "checks": {
+  "repo reachable": "repo reachable",
+  "package published": "package published",
+  "homepage alive": "homepage alive",
+  "docs alive": "docs alive",
+  "remote MCP endpoint responds": "remote MCP endpoint responds",
+  "no npm/PyPI package detected at repo root": "no npm/PyPI package detected at repo root"
+ },
+ "snip": {
+  "allClients": "All clients",
+  "anyAgent": "Any agent",
+  "anySkills": "Any skills-compatible agent",
+  "manual": "Manual",
+  "keyNote": "Add any API keys the server needs as \"env\" entries — see the project README for the exact variable names.",
+  "claudeDesktop": "Add to claude_desktop_config.json.",
+  "cursor": "Add to .cursor/mcp.json (project) or ~/.cursor/mcp.json (global).",
+  "gemini": "Add to ~/.gemini/settings.json.",
+  "claudeConnector": "Claude → Settings → Connectors → Add custom connector, paste this URL.",
+  "chatgpt": "ChatGPT → Settings → Apps & Connectors (developer mode) → Create, paste this URL.",
+  "grok": "Remote MCP tool in an xAI API request; see docs.x.ai for auth headers.",
+  "fromSource": "No published npm/PyPI package or hosted endpoint was detected by our verifier. Follow the README to run it locally, then register the start command as a stdio MCP server in your client.",
+  "needsRemote": "Requires a remote (HTTPS) MCP URL",
+  "stdioOnly": "This server runs locally over stdio. ChatGPT connectors and the Grok API need a hosted HTTPS endpoint, which this project does not publish.",
+  "marketplace": "Then run /plugin to browse and install its plugins/skills.",
+  "skillsCli": "Uses the open skills CLI (skills.sh). Works with Claude Code, Cursor, Codex, Gemini CLI and others.",
+  "manualSkill": "Copy the skill folder (with its SKILL.md) into ~/.claude/skills/ or your agent's skills directory.",
+  "viaMcp": "Use it from an AI client through: {list}.",
+  "rest": "REST API — call it from your own agent code or tools. See the official docs."
+ },
+ "about": {
+  "title": "About & how we verify",
+  "desc": "How {site} lists and verifies finance and trading AI tools every week.",
+  "h1": "About {site}",
+  "p1": "{site} is an independent directory of AI tools for finance and trading: MCP servers, agent skills and data APIs. Most lists of AI tools are never re-checked. We re-check every listing automatically, every week, and show you the result.",
+  "how": "How we verify",
+  "c1": "<b>Repository reachable</b> (and whether it was renamed or archived).",
+  "c2": "<b>Maintenance</b>: date of the latest commit and GitHub stars.",
+  "c3": "<b>Package published</b>: the npm or PyPI package named in the repo exists and links back to that repo; we record the latest version.",
+  "c4": "<b>Links alive</b>: homepage, docs and any hosted MCP endpoint respond.",
+  "c5": "<b>Pricing</b>: copied from the vendor's own pricing page, with the URL and date. Unknown values are shown as “unknown” — we never guess.",
+  "badges": "Status badges",
+  "latest": "Latest run: {date} UTC —",
+  "fullReport": "see the full report",
+  "money": "How we make money",
+  "moneyP": "Listings are free. We earn from clearly-labelled sponsored placements and some affiliate links to data providers. Neither affects verification status.",
+  "contact": "Contact"
+ },
+ "disc": {
+  "title": "Disclaimer — not investment advice",
+  "h1": "Disclaimer: not investment advice",
+  "intro": "{site} is a directory of software tools. All content is general information about software, its features and its published prices.",
+  "items": [
+   "<b>Affiliate disclosure.</b> Some outbound links, currently to TradingView, are affiliate links marked \"affiliate link\" and tagged rel=\"sponsored\". If you buy a subscription through them we may earn a commission at no extra cost to you. Payment never affects which tools we list, how they rank, or their verification status, and a link is not an endorsement or a recommendation to trade.",
+   "<b>No advice.</b> Nothing on this site is investment advice, investment marketing, portfolio management, trading signals, or tax, accounting or legal advice, and nothing takes into account your personal circumstances. We are not licensed investment advisers, investment marketers or portfolio managers in any jurisdiction (including under Israel's Regulation of Investment Advice, Investment Marketing and Portfolio Management Law, 5755-1995).",
+   "<b>No recommendation.</b> Listing, ranking, a “Verified” badge or a sponsored placement is not a recommendation to use a tool, broker, exchange or asset.",
+   "<b>Risk.</b> Trading and investing — especially with automated or AI agents, leverage, options or crypto — can lose some or all of your money. Test any trading tool in paper mode first and never give an agent more permissions than you can afford to lose.",
+   "<b>Third parties.</b> Tools are built and run by third parties. We don't control them, their data, their security or their availability. Verification is automated and limited to the checks described on the About page.",
+   "<b>Accuracy.</b> Prices and features change. Always confirm on the vendor's site.",
+   "<b>Affiliate & sponsored disclosure.</b> Some links earn us a commission and some listings are paid placements. They are labelled."
+  ]
+ },
+ "ver": {
+  "title": "Latest verification run",
+  "desc": "Results of the weekly automated verification of every listed finance and trading AI tool.",
+  "h1": "Verification run — {date}"
+ },
+ "submit": {
+  "title": "Submit a tool",
+  "desc": "Submit an MCP server, agent skill or API for finance and trading. Free listing, automatically verified.",
+  "lead": "<b>Free forever.</b> No paid tiers, no catch. You also get a free auto-updating verified badge. After submission our verifier checks the repo/homepage, last commit, package registry and docs. Tools that pass are published within a week.",
+  "preview": "⚠️ Preview only: this form has no backend yet and does not send anything.",
+  "name": "Tool name",
+  "url": "Repository or homepage URL",
+  "type": "Type",
+  "category": "Category",
+  "oneLine": "One-line description",
+  "pricingUrl": "Pricing page URL (if paid)",
+  "email": "Your email (for verification questions)",
+  "confirm": "I confirm this tool does not promise returns and is not an investment-advice service.",
+  "button": "Submit for review",
+  "thanks": "Thanks! (Preview mode — nothing was sent.)"
+ },
+ "badges": {
+  "title": "Free verified badges for tool makers",
+  "desc": "Embed a free, auto-updating {site} verification badge in your README.",
+  "h1": "Free “Verified by {site}” badges",
+  "p1": "Every listed tool gets a free badge that updates automatically after each weekly check. Show users your project is alive and working.",
+  "p2": "Find your tool's id in its page URL, or the ready-made snippet on its page. Not listed yet?",
+  "submitFree": "Submit it free",
+  "states": "Badge states",
+  "statesP": "Green = verified this week · Amber = aging / check links · Red = stale, archived or unreachable."
+ },
+ "weekly": {
+  "title": "State of finance AI tools — week of {date}",
+  "desc": "Weekly leaderboard and changelog of {n} MCP servers, skills and APIs for finance and trading.",
+  "lead": "Every week our verifier re-checks every listing. Here's the scoreboard. Free to share and cite (link back appreciated).",
+  "share": "State of finance & trading AI tools — {date}: {v}/{n} pass verification",
+  "officialTools": "Official vendor tools",
+  "changed": "What changed this week",
+  "board": "Leaderboard: most-starred verified tools",
+  "shipped": "Most recently shipped",
+  "lastCommit": "last commit {date}",
+  "love": "Needs maintainer love ({n})",
+  "loveNote": "Stale = no commits for 12+ months. Maintainers: push an update and your badge turns green next week.",
+  "archive": "Archive",
+  "changes": "{n} changes",
+  "changesNote": "Change entries are generated automatically in English."
+ },
+ "adv": {
+  "title": "Advertise",
+  "desc": "Advertising on {site}.",
+  "lead": "{site} lists {n}+ MCP servers, skills and APIs for finance and trading, re-verified weekly. Every listing is free; paid placements buy visibility only — never a better verification status. Paid placements are always labelled “Sponsored”.",
+  "free": "Listings, badges and submissions are and will stay <b>free</b>. Sponsorships aren't open yet. Interested for later? Email {email}."
+ },
+ "privacy": {
+  "title": "Privacy policy",
+  "draft": "Draft — to be reviewed before launch.",
+  "p1": "{site} is a static website. We do not require accounts and do not set advertising cookies. Your language and theme choices are stored only in your browser (localStorage).",
+  "collect": "What we collect",
+  "c1": "Privacy-friendly, cookie-less aggregate analytics (page views, referrers, country).",
+  "c2": "Information you send us when you submit a tool or buy a placement (name, email, tool details). Payments are processed by our merchant of record; we never see card numbers.",
+  "use": "How we use it",
+  "useP": "To review submissions, deliver placements, and contact you about your listing. We don't sell personal data.",
+  "aff": "Affiliate links",
+  "affP": "When you click an affiliate link, the destination site may set its own cookies under its own policy.",
+  "rights": "Your rights",
+  "rightsP": "Ask us to access or delete your data at {email}."
+ },
+ "terms": {
+  "title": "Terms of use",
+  "items": [
+   "The site is provided “as is” for information only. See the <a href=\"{disc}\">disclaimer</a> — nothing here is investment advice.",
+   "Tool names and trademarks belong to their owners. Listings are factual descriptions; owners may request corrections or removal.",
+   "Sponsored placements buy visibility only, are labelled, may be declined or removed (pro-rata refund) and are billed by our merchant of record.",
+   "Submitters confirm they have the right to list the tool and that it makes no guaranteed-return claims.",
+   "Our liability is limited to the amount you paid us in the last 12 months.",
+   "If a translation differs from the English version, the English version applies."
+  ],
+  "contact": "Contact:"
+ },
+ "desc": {
+  "alpha-vantage-api": "Stocks, forex, crypto, fundamentals and 50+ technical indicators over a simple REST API.",
+  "massive-api": "Tick-level US stocks, options, indices, forex and crypto over REST, WebSockets and flat files.",
+  "fmp-api": "Fundamentals, ratios, prices, transcripts and 13F holdings across 150+ endpoints.",
+  "finnhub-api": "Real-time quotes, fundamentals, estimates, news and alternative data.",
+  "twelve-data-api": "Real-time and historical stocks, forex, crypto and ETFs with credit-based REST and WebSocket access.",
+  "eodhd-api": "End-of-day, intraday, fundamentals and news for 70+ exchanges; ships an MCP server.",
+  "alpaca-market-data-api": "US equities and options market data, free IEX tier and paid full-SIP plan.",
+  "coingecko-api": "Crypto prices, market caps, exchanges and on-chain DEX data.",
+  "fred-api": "Hundreds of thousands of US and international economic time series from the Federal Reserve Bank of St. Louis.",
+  "sec-edgar-api": "Official SEC JSON APIs for company submissions and XBRL financial data.",
+  "alpha-vantage-mcp": "Official MCP server exposing Alpha Vantage stocks, forex, crypto and indicators to AI agents.",
+  "massive-mcp": "Official MCP server for Massive stocks, options, forex and crypto data.",
+  "fmp-mcp-community": "Community MCP server wrapping 250+ FMP tools for fundamentals and market insights.",
+  "finnhub-mcp-community": "Community MCP server serving stock market data via the Finnhub API.",
+  "financial-datasets-mcp": "Income statements, balance sheets, cash flows and stock prices from Financial Datasets.",
+  "yahoo-finance-mcp": "Community MCP server for Yahoo Finance quotes and history (unofficial data source).",
+  "coingecko-mcp": "Official CoinGecko MCP server; public keyless endpoint plus a Pro endpoint.",
+  "eodhd-claude-skills": "Official Claude Code plugin/skills for EODHD: market overview, screener, company briefs, earnings monitor.",
+  "maverick-mcp": "Stock analysis MCP server with technical analysis, screening and portfolio tools.",
+  "investor-agent": "MCP server providing market data, sentiment and fundamentals for building an investor agent.",
+  "kospi-kosdaq-mcp": "Korean stock market (KOSPI/KOSDAQ) data via MCP.",
+  "hk-finance-mcp": "Hong Kong finance and stock market data via MCP.",
+  "fred-mcp": "MCP server for Federal Reserve Economic Data (FRED) series search and retrieval.",
+  "fxmacrodata-mcp": "Macro indicators, FX, economic calendars, COT and commodities.",
+  "alpaca-mcp": "Official Alpaca MCP: trade stocks, ETFs, options and crypto; query positions and market data.",
+  "ibkr-mcp": "IBKR hosted MCP endpoint for portfolio data, monitoring and authorized trade actions.",
+  "tasty-agent": "Community MCP server for tastytrade: portfolio, market data, options Greeks and order execution.",
+  "metatrader-mcp": "Trade via the MetaTrader 5 terminal from AI agents.",
+  "paper-mcp": "Paper trading MCP: practice strategies without real money.",
+  "dexpaprika-mcp": "DEX analytics across 20+ blockchains from CoinPaprika.",
+  "ccxt-mcp": "Market data from 20+ crypto exchanges via the CCXT library.",
+  "crypto-indicators-mcp": "Technical analysis indicators for crypto assets.",
+  "tradingview-mcp": "Community multi-exchange market analysis/screening MCP (not affiliated with TradingView).",
+  "binance-mcp": "Portfolio, trading and token conversion on Binance (requires API key).",
+  "coinbase-agentkit": "Coinbase toolkit for wallet operations and onchain actions by AI agents, with MCP support.",
+  "bankless-onchain-mcp": "Query onchain data and ERC-20 token information.",
+  "crypto-liquidations-mcp": "Streams real-time liquidation events.",
+  "bitget-agent-mcp": "Official Bitget spot and futures trading MCP (89 operations per listing).",
+  "coincap-mcp": "Crypto market data from the CoinCap API.",
+  "dexscreener-trending-mcp": "Trending tokens from DexScreener.",
+  "base-mcp": "Onchain tools for the Base network.",
+  "solana-agent-kit": "Toolkit connecting AI agents to Solana protocols, with MCP adapter.",
+  "bitcoin-mcp": "Bitcoin and Lightning Network tools for agents.",
+  "x402": "Open protocol for HTTP-native stablecoin payments by agents.",
+  "quickbooks-mcp": "Official Intuit MCP server exposing QuickBooks Online entities and reports.",
+  "xero-mcp": "Official Xero MCP: contacts, chart of accounts, invoices and more.",
+  "norman-finance-mcp": "Accounting, invoicing and tax filing workflows for Norman Finance users.",
+  "ledgerskills": "Claude skills for audit, tax, FP&A and accounting: reconciliation, month-end close, journal-entry testing.",
+  "anthropic-financial-services": "Anthropic's finance plugins/skills: Excel model auditing, 3-statement models, DCF/LBO, GL reconciliation.",
+  "invoice-organizer-skill": "Claude skill that extracts, renames and sorts invoices and receipts for tax prep.",
+  "stripe-ai": "Stripe's official agent toolkit and hosted MCP for payments, customers and billing.",
+  "qonto-mcp": "Official MCP server for Qonto business banking.",
+  "ramp-mcp": "Official Ramp MCP for spend and expense data.",
+  "lunchmoney-mcp": "MCP server for Lunch Money budgeting data.",
+  "monarch-mcp": "Community MCP server for Monarch Money accounts, transactions and budgets.",
+  "actual-budget-mcp": "MCP server for the open-source Actual Budget app.",
+  "optionsahoy-mcp": "Equity-compensation tax optimizer for ISO, NSO, RSU and QSBS scenarios.",
+  "sec-edgar-mcp": "Open-source MCP for SEC filings, XBRL financial statements and Form 3/4/5 insider data.",
+  "openbb": "Open-source investment research platform with an MCP server.",
+  "equibles": "SEC filings, XBRL, 13F, insider and congressional trades.",
+  "alphasmo": "13F holdings, Form 4 insider trades and smart-money signals.",
+  "edgrapi-skills": "SEC EDGAR insider trades, 8-Ks, 13F/13D-G, XBRL and full-text search.",
+  "valyu-mcp": "Financial deep-research search platform for agents.",
+  "finbrain-mcp": "Alternative data (sentiment, predictions, insider) from FinBrain.",
+  "claude-equity-research": "Claude Code plugin producing equity research reports with fundamental and technical analysis.",
+  "claude-investor": "Investment analysis agent using price data, balance sheets, sentiment and analyst ratings.",
+  "quantconnect-mcp": "Official QuantConnect MCP for algorithmic trading research, backtests and deployment.",
+  "mcp-trader": "Trading MCP server with technical analysis and backtesting support.",
+  "varrd": "Trading research: event studies, backtesting, multiple-testing correction and OOS validation.",
+  "chart-library-mcp": "Historical chart-pattern search across a large pattern library.",
+  "finlab-ai": "Quant strategy generation and Taiwan stock market analysis with FinLab and Claude.",
+  "claude-trading-skills": "Claude Code skills for trading analysis, e.g. IBD-style relative strength rating.",
+  "superior-skills": "Agent skills for strategy authoring, backtesting and deployment on Superior Trade.",
+  "claude-code-trading-terminal": "Agent-native trading terminal with sub-agents for trades, positions and risk.",
+  "pineify-mcp": "Trading-code (Pine Script) validation and market intelligence."
+ },
+ "partner": {
+  "label": "Partner",
+  "homeTitle": "Charting & screeners most traders use",
+  "homeText": "Pair the tools in this directory with TradingView: real-time charts, stock & crypto screeners, alerts and Pine Script backtests. The Basic plan is free.",
+  "homeCta": "Try TradingView free",
+  "toolTitle": "Chart it on TradingView",
+  "toolText": "Charts, screeners and alerts for stocks, forex and crypto — free Basic plan.",
+  "toolBtn": "Try TradingView",
+  "disclosure": "Partner link: we may earn a commission at no extra cost to you. It never affects listings."
+ }
+}

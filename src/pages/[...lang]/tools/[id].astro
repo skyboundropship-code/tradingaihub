@@ -1,0 +1,89 @@
+---
+import { isAff, relFor } from "../../../lib/aff";
+import TradingView from "../../../components/TradingView.astro";
+import PartnerCTA from "../../../components/PartnerCTA.astro";
+import Base from "../../../layouts/Base.astro";
+import Status from "../../../components/Status.astro";
+import ToolCard from "../../../components/ToolCard.astro";
+import Share from "../../../components/Share.astro";
+import { SITE } from "../../../config";
+import { tools, catBySlug, snippets, pkgOf, starsOf, lastCommit, fmtStars } from "../../../lib/data";
+import { langParams, useT } from "../../../i18n";
+export function getStaticPaths() { return langParams().flatMap((lp) => tools.map((t) => ({ params: { ...lp, id: t.id }, props: { tool: t } }))); }
+const lang = Astro.params.lang ?? "en"; const { t, p, desc: dsc } = useT(lang);
+const { tool } = Astro.props; const v = tool.verification; const cat = catBySlug[tool.category];
+const [cname, cshort] = t(`cat.${cat.slug}`);
+const pkg = pkgOf(tool); const sn = snippets(tool, t); const stHelp = t(`status.${v.status}`)[1];
+const desc = dsc(tool);
+const related = tools.filter((x) => x.category === tool.category && x.id !== tool.id).slice(0, 3);
+// Partner CTA on tool pages related to charting, stocks, market data, crypto, quant/backtesting.
+const PARTNER_CATS: Record<string, string> = { "market-data": "/chart/", "trading-brokers": "/chart/", "crypto": "/markets/cryptocurrencies/", "quant-backtesting": "/pine-script-docs/", "research-filings": "/screener/", "macro": "/markets/currencies/" };
+const mentionsTV = /tradingview/i.test(JSON.stringify(tool));
+const partnerPath = PARTNER_CATS[tool.category] ?? (mentionsTV || /chart|stock|backtest|crypto|trading/i.test(tool.description) ? "/chart/" : null);
+const ld = [
+  { "@context": "https://schema.org", "@type": "SoftwareApplication", name: tool.name, description: desc, applicationCategory: "FinanceApplication", operatingSystem: "Cross-platform", inLanguage: lang,
+    url: `${SITE.url}${p(`/tools/${tool.id}/`)}`, sameAs: [tool.repo, tool.homepage].filter(Boolean), license: tool.license,
+    ...(tool.pricing.model === "open-source" || tool.pricing.model === "free" ? { offers: { "@type": "Offer", price: "0", priceCurrency: "USD" } } : {}), dateModified: v.checked_at },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: t("common.home"), item: `${SITE.url}${p("/")}` }, { "@type": "ListItem", position: 2, name: cname, item: `${SITE.url}${p(`/category/${cat.slug}/`)}` }, { "@type": "ListItem", position: 3, name: tool.name } ] },
+];
+const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
+---
+<Base title={`${tool.name} — ${t("tool.titleFor", { type: t(`type.${tool.type}`), cat: lang === "en" ? cshort.toLowerCase() : cshort })}`} description={metaDesc.slice(0, 300)} jsonld={ld} og={`tool-${tool.id}`} lang={lang}>
+<div class="wrap page">
+  <div class="crumbs"><a href={p("/")}>{t("common.home")}</a> / <a href={p(`/category/${cat.slug}/`)}>{cname}</a> / {tool.name}</div>
+  <div class="meta" style="margin-bottom:8px"><span class="badge type">{t(`type.${tool.type}`)}</span>{tool.official && <span class="badge off">{t("common.officialVendor")}</span>}<Status status={v.status} lang={lang} /><span class="pill">{t("tool.lastChecked", { date: v.checked_at })}</span></div>
+  <h1 style="margin:6px 0 6px" dir="auto">{tool.name}</h1>
+  <p style="color:var(--muted);font-size:18px;margin-top:0">{desc}</p>
+  {partnerPath && <PartnerCTA variant="tool" lang={lang} path={partnerPath} />}
+  {mentionsTV && <TradingView context="integration" lang={lang} />}
+  <Share path={p(`/tools/${tool.id}/`)} text={`${tool.name} — ${v.status === "verified" ? t("tool.shareVerified") : t("tool.shareStatus")} ${t("tool.on")} ${SITE.name}`} lang={lang} />
+  <div class="two">
+    <div>
+      <h2>{t("tool.install")}</h2>
+      <div class="panel">
+        <div class="tabs">{sn.map((s, i) => <button class={i === 0 ? "on" : ""} data-i={i}>{s.client}</button>)}</div>
+        {sn.map((s, i) => <div class={`snip ${i === 0 ? "on" : ""}`} data-i={i}><pre><code>{s.code}</code></pre>{s.note && <p class="note">{s.note}</p>}</div>)}
+      </div>
+      <h2>{t("tool.pricing")}</h2>
+      <div class="panel"><dl class="kv">
+        <dt>{t("tool.model")}</dt><dd><bdi>{tool.pricing.model}</bdi></dd>
+        <dt>{t("th.freeTier")}</dt><dd><bdi>{tool.pricing.free_tier}</bdi></dd>
+        <dt>{t("th.paidFrom")}</dt><dd><bdi>{tool.pricing.paid_from ?? "—"}</bdi></dd>
+        <dt>{t("tool.details")}</dt><dd lang="en"><bdi>{tool.pricing.details}</bdi></dd>
+        <dt>{t("th.source")}</dt><dd>{tool.pricing.source ? <a href={tool.pricing.source} rel={isAff(tool.pricing.source) ? "sponsored noopener" : "nofollow noopener"} target="_blank">{tool.pricing.source}</a> : t("tool.notVerifiedPrice")}{tool.pricing.checked && ` (${t("tool.checked", { date: tool.pricing.checked })})`}</dd>
+      </dl><p class="note">{t("tool.pricesChange")}{lang !== "en" && ` ${t("tool.pricingDataNote")}`}</p></div>
+      <h2>{t("tool.verification")}</h2>
+      <div class="panel">
+        <p><Status status={v.status} lang={lang} /> <span class="note">{stHelp}</span></p>
+        <table><tbody>{v.checks.map((c: any) => <tr><td style="width:36px">{c.ok ? "✅" : "⚠️"}</td><td>{t(`checks.${c.check}`) === `checks.${c.check}` ? c.check : t(`checks.${c.check}`)}{c.note && <span class="note"> — <bdi>{c.note}</bdi></span>}</td></tr>)}</tbody></table>
+        {v.issues.length > 0 && <ul>{v.issues.map((i: string) => <li class="note"><bdi>{i}</bdi></li>)}</ul>}
+        <p class="note">{t("tool.autoCheck", { date: v.checked_at })} <a href={`${p("/about/")}#how-we-verify`}>{t("nav.verify")}</a>.</p>
+      </div>
+    </div>
+    <aside>
+      <div class="panel"><dl class="kv">
+        {tool.repo && <><dt>{t("tool.repository")}</dt><dd><a href={tool.repo} rel={relFor(tool.repo)} target="_blank">{tool.repo.replace("https://github.com/", "")}</a></dd></>}
+        {tool.homepage && <><dt>{t("tool.homepage")}</dt><dd><a href={tool.homepage} rel={relFor(tool.homepage)} target="_blank">{new URL(tool.homepage).host}</a></dd></>}
+        {tool.docs && tool.docs !== tool.homepage && <><dt>{t("tool.docs")}</dt><dd><a href={tool.docs} rel={relFor(tool.docs)} target="_blank">{new URL(tool.docs).host}</a></dd></>}
+        {tool.remote_mcp_url && <><dt>{t("tool.remote")}</dt><dd><code>{tool.remote_mcp_url}</code></dd></>}
+        <dt>{t("th.stars")}</dt><dd>{fmtStars(starsOf(tool))}</dd>
+        <dt>{t("th.lastCommit")}</dt><dd dir="ltr">{lastCommit(tool) ?? "—"}</dd>
+        <dt>{t("th.license")}</dt><dd dir="ltr">{tool.license}</dd>
+        <dt>{t("tool.package")}</dt><dd>{pkg ? <a href={pkg.url} rel="noopener" target="_blank">{pkg.name}@{pkg.version}</a> : t("tool.noPackage")}</dd>
+        <dt>{t("th.category")}</dt><dd><a href={p(`/category/${cat.slug}/`)}>{cshort}</a></dd>
+        <dt>{t("tool.listedVia")}</dt><dd><a href={tool.source_url} rel={relFor(tool.source_url)} target="_blank">{t("tool.source")}</a></dd>
+      </dl></div>
+      <div class="panel" style="margin-top:14px"><b>{t("tool.maintain")}</b><p class="note">{t("tool.badgeNote")}</p>
+        <p><img src={`/badge/${tool.id}.svg`} alt={`${SITE.name} status`} /></p>
+        <pre><code>{`[![${SITE.name}](${SITE.url}/badge/${tool.id}.svg)](${SITE.url}/tools/${tool.id}/)`}</code></pre>
+        <p class="note">{t("tool.wrongInfo")} <a href={p("/submit/")}>{t("tool.sendCorrection")}</a> — {t("tool.free")}.</p></div>
+      <p class="note" style="margin-top:14px">{t("tool.notEndorse")}</p>
+    </aside>
+  </div>
+  {related.length > 0 && <><h2 class="sec">{t("tool.more", { cat: cname })}</h2><div class="grid">{related.map((r) => <ToolCard t={r} lang={lang} />)}</div></>}
+</div>
+<script is:inline>
+document.querySelectorAll('.tabs button').forEach(b=>b.addEventListener('click',()=>{const p=b.closest('.panel');p.querySelectorAll('.tabs .on,.snip.on').forEach(e=>e.classList.remove('on'));b.classList.add('on');p.querySelector('.snip[data-i="'+b.dataset.i+'"]').classList.add('on')}));
+</script>
+</Base>
