@@ -66,12 +66,12 @@ Legend: ✅ verified · 🟡 aging (6–12 months without commits) · 🔴 stale
 
 ## Accounting & bookkeeping
 
-- ✅ [Invoice Organizer skill](https://github.com/ComposioHQ/awesome-claude-skills) — Claude skill that extracts, renames and sorts invoices and receipts for tax prep. ⭐ 78,238 · [details](https://tradingaihub.com/tools/invoice-organizer-skill/)
-- ✅ [Anthropic Financial Services Plugins](https://github.com/anthropics/financial-services) *(official)* — Anthropic's finance plugins/skills: Excel model auditing, 3-statement models, DCF/LBO, GL reconciliation. ⭐ 40,900 · [details](https://tradingaihub.com/tools/anthropic-financial-services/)
+- ✅ [Anthropic Financial Services Plugins](https://github.com/anthropics/financial-services) *(official)* — Anthropic's finance plugins/skills: Excel model auditing, 3-statement models, DCF/LBO, GL reconciliation. ⭐ 40,901 · [details](https://tradingaihub.com/tools/anthropic-financial-services/)
 - ✅ [QuickBooks Online MCP](https://github.com/intuit/quickbooks-online-mcp-server) *(official)* — Official Intuit MCP server exposing QuickBooks Online entities and reports. ⭐ 436 · [details](https://tradingaihub.com/tools/quickbooks-mcp/)
 - ✅ [Xero MCP Server](https://github.com/XeroAPI/xero-mcp-server) *(official)* — Official Xero MCP: contacts, chart of accounts, invoices and more. ⭐ 386 · [details](https://tradingaihub.com/tools/xero-mcp/)
 - ✅ [Norman Finance MCP](https://github.com/norman-finance/norman-mcp-server) *(official)* — Accounting, invoicing and tax filing workflows for Norman Finance users. ⭐ 62 · [details](https://tradingaihub.com/tools/norman-finance-mcp/)
 - ✅ [LedgerSkills](https://github.com/Kimonarrow/ledgerskills) — Claude skills for audit, tax, FP&A and accounting: reconciliation, month-end close, journal-entry testing. ⭐ 2 · [details](https://tradingaihub.com/tools/ledgerskills/)
+- 🔴 [Invoice Organizer skill](https://github.com/ComposioHQ/awesome-claude-skills/tree/master/invoice-organizer) — Claude skill that extracts, renames and sorts invoices and receipts for tax prep. · [details](https://tradingaihub.com/tools/invoice-organizer-skill/)
 
 ## Payments & business banking
 
@@ -89,7 +89,7 @@ Legend: ✅ verified · 🟡 aging (6–12 months without commits) · 🔴 stale
 
 ## Research & SEC filings
 
-- ✅ [OpenBB Platform (MCP)](https://github.com/openbq-org/OpenBB) *(official)* — Open-source investment research platform with an MCP server. ⭐ 74,855 · [details](https://tradingaihub.com/tools/openbb/)
+- ✅ [OpenBB Platform (MCP)](https://github.com/OpenBB-finance/OpenBB) *(official)* — Open-source investment research platform with an MCP server. ⭐ 74,856 · [details](https://tradingaihub.com/tools/openbb/)
 - ✅ [Claude Equity Research](https://github.com/quant-sentiment-ai/claude-equity-research) — Claude Code plugin producing equity research reports with fundamental and technical analysis. ⭐ 749 · [details](https://tradingaihub.com/tools/claude-equity-research/)
 - ✅ [SEC EDGAR MCP](https://github.com/stefanoamorelli/sec-edgar-mcp) — Open-source MCP for SEC filings, XBRL financial statements and Form 3/4/5 insider data. ⭐ 380 · [details](https://tradingaihub.com/tools/sec-edgar-mcp/)
 - 🔴 [Claude Investor](https://github.com/martinxu9/claude-investor) — Investment analysis agent using price data, balance sheets, sentiment and analyst ratings. ⭐ 34 · [details](https://tradingaihub.com/tools/claude-investor/)
