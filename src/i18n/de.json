@@ -180,12 +180,13 @@
   ]
  },
  "nl": {
+  "mailSubject": "Newsletter abonnieren",
   "title": "📬 Der wöchentliche Bericht „State of AI Finance Tools“",
   "text": "Was neu ist, was kaputtging und welche Tools im Ranking gestiegen sind – eine E-Mail pro Woche. Kostenlos.",
   "subscribe": "Abonnieren",
   "thanks": "Sie sind angemeldet – danke! Die erste Ausgabe kommt mit dem nächsten Wochenbericht.",
   "rss": "Oder per <a href=\"/rss.xml\">RSS</a> folgen.",
-  "email": "Schreiben Sie an <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a>, um sich anzumelden.",
+  "email": "Schreiben Sie an <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a>, um sich anzumelden.",
   "sending": "Wird gesendet…",
   "errInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
   "errRate": "Zu viele Versuche. Bitte versuchen Sie es in einer Stunde erneut.",

@@ -181,12 +181,13 @@
   ]
  },
  "nl": {
+  "mailSubject": "Newsletter subscription",
   "title": "📬 The weekly “State of finance AI tools”",
   "text": "What's new, what broke, and which tools climbed the leaderboard — one email a week. Free.",
   "subscribe": "Subscribe",
   "thanks": "You're subscribed — thanks! The first issue arrives with the next weekly report.",
   "rss": "Or follow via <a href=\"/rss.xml\">RSS</a>.",
-  "email": "Email <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> to join.",
+  "email": "Email <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a> to join.",
   "sending": "Sending…",
   "errInvalid": "Please enter a valid email address.",
   "errRate": "Too many attempts. Please try again in an hour.",

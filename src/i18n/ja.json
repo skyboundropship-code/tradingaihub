@@ -180,12 +180,13 @@
   ]
  },
  "nl": {
+  "mailSubject": "ニュースレター登録",
   "title": "📬 週刊レポート「金融AIツールの現状」",
   "text": "新着、壊れたもの、ランキングを上げたツールを週1回のメールでお届けします。無料。",
   "subscribe": "購読する",
   "thanks": "登録が完了しました。ありがとうございます！初回は次の週刊レポートと一緒に届きます。",
   "rss": "<a href=\"/rss.xml\">RSS</a>でもフォローできます。",
-  "email": "購読をご希望の方は <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> までメールでご連絡ください。",
+  "email": "購読をご希望の方は <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a> までメールでご連絡ください。",
   "sending": "送信中…",
   "errInvalid": "有効なメールアドレスを入力してください。",
   "errRate": "試行回数が多すぎます。1時間後にもう一度お試しください。",

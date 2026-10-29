@@ -18,7 +18,7 @@ const msgs = { ok: t("nl.thanks"), sending: t("nl.sending"), invalid_email: t("n
     <p class="note" set:html={t("nl.consent", { privacy: p("/privacy/"), email })}></p>
   </>
 ) : (
-  <p class="note" set:html={t("nl.email", { email })}></p>
+  <p class="note" set:html={t("nl.email", { email, subject: encodeURIComponent(t("nl.mailSubject")) })}></p>
 )}
 <p class="note" set:html={t("nl.rss")}></p></div>
 {SITE.newsletterLive && (

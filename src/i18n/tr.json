@@ -180,12 +180,13 @@
   ]
  },
  "nl": {
+  "mailSubject": "Bülten aboneliği",
   "title": "📬 Haftalık “Finans Yapay Zekâ Araçlarının Durumu”",
   "text": "Neler çıktı, neler bozuldu, hangi araçlar yükseldi — haftada bir e-posta, ücretsiz.",
   "subscribe": "Abone ol",
   "thanks": "Abone oldunuz — teşekkürler! İlk sayı bir sonraki haftalık raporla gelecek.",
   "rss": "Ya da <a href=\"/rss.xml\">RSS</a> ile takip edin.",
-  "email": "Katılmak için <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> adresine e-posta gönderin.",
+  "email": "Katılmak için <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a> adresine e-posta gönderin.",
   "sending": "Gönderiliyor…",
   "errInvalid": "Lütfen geçerli bir e-posta adresi girin.",
   "errRate": "Çok fazla deneme. Lütfen bir saat sonra tekrar deneyin.",

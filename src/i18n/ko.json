@@ -180,12 +180,13 @@
   ]
  },
  "nl": {
+  "mailSubject": "뉴스레터 구독",
   "title": "📬 주간 리포트 「금융 AI 도구 현황」",
   "text": "새로 나온 것, 고장 난 것, 순위가 오른 도구를 매주 한 통의 이메일로. 무료.",
   "subscribe": "구독",
   "thanks": "구독되었습니다. 감사합니다! 첫 호는 다음 주간 리포트와 함께 발송됩니다.",
   "rss": "또는 <a href=\"/rss.xml\">RSS</a>로 구독하세요.",
-  "email": "구독하려면 <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a>(으)로 이메일을 보내 주세요.",
+  "email": "구독하려면 <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a>(으)로 이메일을 보내 주세요.",
   "sending": "전송 중…",
   "errInvalid": "올바른 이메일 주소를 입력하세요.",
   "errRate": "시도 횟수가 너무 많습니다. 1시간 후 다시 시도하세요.",

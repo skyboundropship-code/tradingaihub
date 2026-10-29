@@ -180,12 +180,13 @@
   ]
  },
  "nl": {
+  "mailSubject": "Suscripción al boletín",
   "title": "📬 El informe semanal «Estado de las herramientas de IA financieras»",
   "text": "Qué hay de nuevo, qué se rompió y qué herramientas subieron en el ranking: un email a la semana. Gratis.",
   "subscribe": "Suscribirse",
   "thanks": "¡Ya estás suscrito, gracias! El primer número llegará con el próximo informe semanal.",
   "rss": "O síguenos por <a href=\"/rss.xml\">RSS</a>.",
-  "email": "Escribe a <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> para suscribirte.",
+  "email": "Escribe a <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a> para suscribirte.",
   "sending": "Enviando…",
   "errInvalid": "Introduce un email válido.",
   "errRate": "Demasiados intentos. Vuelve a intentarlo en una hora.",

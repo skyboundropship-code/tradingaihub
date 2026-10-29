@@ -180,12 +180,13 @@
   ]
  },
  "nl": {
+  "mailSubject": "Abonnement à la newsletter",
   "title": "📬 Le rapport hebdo « État des outils d'IA pour la finance »",
   "text": "Les nouveautés, ce qui a cassé et les outils qui montent au classement : un e-mail par semaine. Gratuit.",
   "subscribe": "S'abonner",
   "thanks": "Vous êtes inscrit, merci ! Le premier numéro arrivera avec le prochain rapport hebdo.",
   "rss": "Ou suivez-nous par <a href=\"/rss.xml\">RSS</a>.",
-  "email": "Écrivez à <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> pour vous inscrire.",
+  "email": "Écrivez à <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a> pour vous inscrire.",
   "sending": "Envoi…",
   "errInvalid": "Veuillez saisir une adresse e-mail valide.",
   "errRate": "Trop de tentatives. Réessayez dans une heure.",
