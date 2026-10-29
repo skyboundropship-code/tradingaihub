@@ -12,6 +12,9 @@ const cfg = fs.readFileSync("src/config.ts", "utf8"); const brand = cfg.match(/n
 const lib = fs.readFileSync("src/lib/data.ts", "utf8");
 const cats = [...lib.matchAll(/slug: "([^"]+)", name: "([^"]+)", short: "[^"]+", icon: "([^"]+)"/g)].map((m) => ({ slug: m[1], name: m[2], icon: m[3] }));
 const comps = [...lib.matchAll(/slug: "([^"]+)", title: "([^"]+)"/g)].map((m) => ({ slug: m[1], title: m[2] }));
+// Friendly status names ("Needs review", not "unconfirmed"), taken from the site's STATUS map in src/lib/data.ts.
+const STATUS_LABEL = Object.fromEntries([...lib.matchAll(/^\s+(\w+): \{ label: "([^"]+)"/gm)].map((m) => [m[1], m[2]]));
+const statusLabel = (s) => STATUS_LABEL[s] || s;
 const verified = tools.filter((t) => t.verification.status === "verified").length;
 // "This week" = the check is less than 7 days old (age < 7 days, i.e. checked_at > build date − 7 days), using UTC dates.
 // It is only claimed when the latest verification run is that fresh; otherwise the cards name the date of the last check,
@@ -56,7 +59,7 @@ const jobs = [["home", card("Free directory", "AI tools for finance & trading", 
   ["weekly", card("Weekly leaderboard", "State of finance AI tools", weeklySub)],
   ...cats.map((c) => [`category-${c.slug}`, card("Category", `${c.icon} ${c.name}`, `${tools.filter((t) => t.category === c.slug).length} tools · free${fresh ? " · verified weekly" : ""}`)]),
   ...comps.map((c) => [`compare-${c.slug}`, card("Comparison", c.title, "Pricing, status, stars & install — side by side")]),
-  ...tools.map((t) => [`tool-${t.id}`, card(t.type === "mcp" ? "MCP server" : t.type === "skill" ? "Agent skill" : "API", t.name, `Status: ${t.verification.status}${checkedAt(t) ? ` · checked ${checkedAt(t)}` : ""}`, toolBadge(t))])];
+  ...tools.map((t) => [`tool-${t.id}`, card(t.type === "mcp" ? "MCP server" : t.type === "skill" ? "Agent skill" : "API", t.name, `Status: ${statusLabel(t.verification.status)}${checkedAt(t) ? ` · checked ${checkedAt(t)}` : ""}`, toolBadge(t))])];
 fs.mkdirSync("public/og", { recursive: true });
 // Render-side inputs. Bump RENDER_VERSION for any render change the key below can't see.
 const RENDER_VERSION = 1;

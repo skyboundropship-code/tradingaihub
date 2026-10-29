@@ -10,9 +10,9 @@ Run:  python3 scripts/verify.py        (weekly via cron / GitHub Actions)
       python3 scripts/verify.py --dry-run [--only=id1,id2]   (verify, write nothing, print status changes;
       set VERIFY_DRY_JSON=/path.json to save the would-be tools.json for review)"""
 from urllib.parse import urlsplit
-import json, os, re, sys, shutil, subprocess, datetime as dt, tomllib
+import json, os, re, sys, shutil, subprocess, threading, time, datetime as dt, tomllib
 from concurrent.futures import ThreadPoolExecutor
-import requests
+import requests, urllib3
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UA = {"User-Agent": "FinanceAgentDirectoryBot/0.1 (weekly link check)"}
@@ -20,11 +20,25 @@ TOKEN = os.environ.get("GITHUB_TOKEN")
 NOW = dt.datetime.now(dt.timezone.utc)
 S = requests.Session(); S.headers.update(UA)
 
+GET_DEADLINE = 25.0  # seconds, hard total for one homepage/docs/GitHub GET (DNS, connect, TLS, headers, body)
+
+def _bounded(fn, deadline):
+    """Run fn() in a daemon worker and wait at most `deadline` seconds of wall-clock time.
+    -> (finished, value_or_exception). A worker that is still stuck (e.g. a server trickling one header line every few
+    seconds, which keeps resetting the per-read socket timeout) is abandoned; being a daemon it cannot keep the run alive."""
+    box = {}
+    def run():
+        try: box["v"] = fn()
+        except BaseException as e: box["v"] = e
+    th = threading.Thread(target=run, daemon=True); th.start(); th.join(max(deadline, 0))
+    return ("v" in box), box.get("v")
+
 def get(url, **kw):
-    try:
-        return S.get(url, timeout=20, allow_redirects=True, **kw)
-    except requests.RequestException as e:
-        return e
+    done, r = _bounded(lambda: S.get(url, timeout=20, allow_redirects=True, **kw), GET_DEADLINE)
+    if not done: return Timeout(f"no complete answer within {GET_DEADLINE:g}s")
+    if isinstance(r, requests.RequestException): return r
+    if isinstance(r, Exception): return requests.RequestException(f"{type(r).__name__}: {r}")
+    return r
 
 # --- HTTP status classification -------------------------------------------------------------
 # ok     2xx/3xx (redirects followed)                         -> counts as a live link
@@ -76,49 +90,110 @@ MCP_INIT = {"jsonrpc": "2.0", "id": 1, "method": "initialize",
             "params": {"protocolVersion": "2025-06-18", "capabilities": {}, "clientInfo": {"name": "tradingaihub-verify", "version": "0.2"}}}
 
 # --- Bounded HTTP for MCP endpoints and their metadata -------------------------------------------------------
-# A server may keep an SSE stream open forever (the spec only says it SHOULD close it). Every MCP-side request has
-# a hard wall-clock DEADLINE for headers + body (a watchdog closes the socket) and reads at most MAX_BODY bytes, so
-# one endpoint can never hang or crash the weekly run: the worst case is that this one tool becomes Needs review.
-DEADLINE = 8.0           # seconds, total per request (connect + headers + body)
-TIMEOUT = (5, DEADLINE)  # requests' connect / per-read timeouts (the watchdog enforces the total)
+# A server may keep an SSE stream open forever (the spec only says it SHOULD close it), or trickle its headers one
+# line at a time (each line resets the per-read socket timeout). Every MCP-side request therefore runs in a daemon
+# worker that is joined with a hard wall-clock DEADLINE covering DNS, connect, TLS, headers and body, then abandoned;
+# and mcp_probe() gives ONE endpoint a single DEADLINE budget shared by all its requests (POST, GET fallback, metadata
+# fetch and its retry). Bodies are read up to MAX_BODY bytes. One endpoint can never hang or crash the weekly run: the
+# worst case is that this one tool becomes Needs review (and, if it was verified, one recheck: <= 2 x DEADLINE).
+DEADLINE = 8.0           # seconds, hard total per endpoint (all of its requests together)
+TIMEOUT = (5, DEADLINE)  # requests' connect / per-read timeouts (the worker join enforces the total)
 MAX_BODY = 64 * 1024
 
 class Timeout(Exception):
-    """The request hit DEADLINE (e.g. an SSE stream that stays open without a JSON-RPC response)."""
+    """The request hit DEADLINE (an SSE stream that stays open without a JSON-RPC response, a header trickle ...)."""
+
+class UnsafeURL(Exception):
+    """A URL we refuse to fetch: parsers could disagree about its host (backslash, @/userinfo, control chars ...)."""
+
+def _norm_host(h):
+    h = (h or "").strip("[]").lower().rstrip(".")
+    try: h.encode("ascii")
+    except UnicodeEncodeError:
+        try: h = h.encode("idna").decode("ascii")
+        except UnicodeError: return ""
+    return h
+
+_DEFAULT_PORT = {"https": 443, "http": 80}
+
+def url_problem(u):
+    """None if `u` is a plain http(s) URL whose host every parser agrees on; else the reason we refuse it.
+    `https://evil.test\\@mcp.example.com/` is read by urlsplit as host mcp.example.com but fetched by
+    requests/urllib3 from evil.test, so backslashes, '@' (userinfo) and their %-encodings are rejected anywhere,
+    and the host/port must be identical in urlsplit, urllib3.parse_url and the URL requests would actually send."""
+    if not isinstance(u, str) or not u: return "empty URL"
+    if "\\" in u or "@" in u or re.search(r"%(5c|40)", u, re.I): return "URL contains a backslash or '@' (userinfo is not allowed)"
+    if any(ord(c) <= 0x20 or ord(c) == 0x7f for c in u): return "URL contains whitespace or control characters"
+    try:
+        p = urlsplit(u); port = p.port
+    except ValueError: return "not a valid URL"
+    if p.scheme.lower() not in _DEFAULT_PORT or not p.hostname: return "not an http(s) URL with a host"
+    if p.username is not None or p.password is not None: return "URL contains userinfo"
+    want = (p.scheme.lower(), _norm_host(p.hostname), port or _DEFAULT_PORT[p.scheme.lower()])
+    try:
+        for other in (u, requests.Request("GET", u).prepare().url):
+            q = urllib3.util.parse_url(other)
+            if q.auth: return "URL contains userinfo"
+            if ((q.scheme or "").lower(), _norm_host(q.host), q.port or _DEFAULT_PORT.get((q.scheme or "").lower())) != want:
+                return "URL parsers disagree about the host"
+    except Exception: return "not a valid URL"
+    return None
+
+def _target(u):
+    """(scheme, host, port) as urllib3 will connect to it (urllib3 parses the prepared URL with parse_url)."""
+    q = urllib3.util.parse_url(u); sc = (q.scheme or "").lower()
+    return (sc, _norm_host(q.host), q.port or _DEFAULT_PORT.get(sc))
+
+def _validated(u):
+    """(scheme, host, port) from the urlsplit components that our host checks were made on."""
+    p = urlsplit(u); sc = p.scheme.lower()
+    return (sc, _norm_host(p.hostname), p.port or _DEFAULT_PORT.get(sc))
 
 def _req(method, url, until=None, deadline=None, max_body=MAX_BODY, **kw):
-    """-> (response | exception, body bytes). Body is read only for 2xx, chunk by chunk, until `until(r, body)` is
-    true, EOF, max_body bytes, or the deadline. Never raises: any network/protocol error comes back as the exception."""
-    import threading, time
+    """-> (response | exception, body bytes). Hard wall-clock `deadline` (default DEADLINE) for the whole request.
+    The URL must pass url_problem(), and the prepared request (exactly what urllib3 connects to) must target the same
+    scheme/host/port. Redirects are not followed unless asked. Body is read only for 2xx, chunk by chunk, until
+    `until(r, body)` is true, EOF, max_body bytes, or the deadline. Never raises."""
     deadline = DEADLINE if deadline is None else deadline
-    kw.setdefault("allow_redirects", True)
-    box, t0 = {}, time.monotonic()
-    def kill():
-        box["timed_out"] = True
-        r = box.get("r")
-        try: r.close() if r is not None else None
-        except Exception: pass
-    w = threading.Timer(deadline, kill); w.daemon = True; w.start()
-    body = b""
+    if deadline <= 0: return Timeout(f"no complete answer within {DEADLINE:g}s"), b""
+    bad = url_problem(url)
+    if bad: return UnsafeURL(bad), b""
+    allow = kw.pop("allow_redirects", False)
     try:
-        r = S.request(method, url, timeout=TIMEOUT, stream=True, **kw); box["r"] = r
-        if 200 <= r.status_code < 300:
-            rd = (lambda n: r.raw.read1(n, decode_content=True)) if hasattr(r.raw, "read1") else (lambda n: r.raw.read(n, decode_content=True))
-            while len(body) < max_body:
-                if box.get("timed_out") or time.monotonic() - t0 > deadline: raise Timeout(f"no complete answer within {deadline:g}s")
-                chunk = rd(min(4096, max_body - len(body)))
-                if not chunk: break
-                body += chunk
-                if until and until(r, body): break
-            if box.get("timed_out") and not (until and until(r, body)): raise Timeout(f"no complete answer within {deadline:g}s")
-        r.close(); return r, body
-    except Exception as e:  # requests/urllib3 errors, socket closed by the watchdog, decode errors ...
-        if box.get("timed_out") and not isinstance(e, Timeout): e = Timeout(f"no complete answer within {deadline:g}s")
-        try: box["r"].close()
-        except Exception: pass
-        return e, body
-    finally:
-        w.cancel()
+        prep = S.prepare_request(requests.Request(method, url, **kw))
+        if _target(prep.url) != _validated(url): return UnsafeURL("prepared request targets another host"), b""
+    except Exception as e: return e, b""
+    t0, box, stop = time.monotonic(), {"body": b""}, threading.Event()
+    def work():
+        r = S.send(prep, timeout=(min(TIMEOUT[0], deadline), deadline + 1), stream=True, allow_redirects=allow)
+        box["r"] = r
+        try:
+            if 200 <= r.status_code < 300:
+                rd = (lambda n: r.raw.read1(n, decode_content=True)) if hasattr(r.raw, "read1") else (lambda n: r.raw.read(n, decode_content=True))
+                body = b""
+                while len(body) < max_body:
+                    if stop.is_set() or time.monotonic() - t0 > deadline: raise Timeout(f"no complete answer within {deadline:g}s")
+                    chunk = rd(min(4096, max_body - len(body)))
+                    if not chunk: break
+                    body += chunk; box["body"] = body
+                    if until and until(r, body): break
+        finally:
+            r.close()
+        return r
+    done, r = _bounded(work, deadline)
+    body = box["body"]
+    if not done:
+        stop.set()
+        def _close(x):
+            try: x.close()
+            except Exception: pass
+        # Close from yet another daemon thread: Response.close() can block on the stuck reader's lock. This unblocks a
+        # worker stuck reading the body; a worker stuck in the header phase is simply abandoned (daemon).
+        if box.get("r") is not None: threading.Thread(target=_close, args=(box["r"],), daemon=True).start()
+        r = box.get("r")
+        if r is not None and until and until(r, body): return r, body
+        return Timeout(f"no complete answer within {deadline:g}s"), body
+    return r, body
 
 def jsonrpc_response(body, ctype=""):
     """The JSON-RPC 2.0 response to our initialize (id 1), from a JSON body or an SSE `data:` line; else None."""
@@ -170,22 +245,27 @@ class _Meta:
     def __init__(self, status, body): self.status_code, self._b = status, body
     def json(self): return json.loads(self._b.decode("utf-8"))
 
-def fetch_metadata(u):
-    """GET protected-resource metadata: redirects NOT followed, bounded size and time, one retry on error/5xx."""
+def fetch_metadata(u, end=None):
+    """GET protected-resource metadata: redirects NOT followed, bounded size and time, one retry on error/5xx while
+    the endpoint's budget (`end`, a time.monotonic() value; default now + DEADLINE) has time left."""
+    end = time.monotonic() + DEADLINE if end is None else end
     for attempt in (1, 2):
-        r, body = _req("GET", u, allow_redirects=False, headers={"Accept": "application/json"})
+        r, body = _req("GET", u, deadline=end - time.monotonic(), allow_redirects=False, headers={"Accept": "application/json"})
         if not isinstance(r, Exception) and r.status_code < 500: return _Meta(r.status_code, body)
+        if isinstance(r, UnsafeURL): break
     if isinstance(r, Exception): raise r if isinstance(r, requests.RequestException) else requests.RequestException(str(r) or type(r).__name__)
     return _Meta(r.status_code, body)
 
-def oauth_evidence(endpoint, www_auth, fetch=None):
+def oauth_evidence(endpoint, www_auth, fetch=None, end=None):
     """QA's strict 401 rule. Returns (True, metadata_url) or (False, reason). Never raises."""
-    fetch = fetch or fetch_metadata
+    fetch = fetch or (lambda u: fetch_metadata(u, end=end))
     wa = (www_auth or "").strip()
     if not wa.lower().startswith("bearer"): return False, "no Bearer challenge"
     m = re.search(r'resource_metadata="?([^",\s]+)', wa)
     if not m: return False, "no resource_metadata in WWW-Authenticate"
     md_url = m.group(1)
+    bad = url_problem(md_url)
+    if bad: return False, f"resource_metadata refused: {bad}"
     try: mp = urlsplit(md_url); md_host = (mp.hostname or "").lower().rstrip("."); mp.port
     except ValueError: return False, "resource_metadata is not a valid URL"
     if mp.scheme != "https" or not md_host: return False, "resource_metadata is not an https URL"
@@ -200,6 +280,8 @@ def oauth_evidence(endpoint, www_auth, fetch=None):
     if not isinstance(j, dict): return False, "metadata is not a JSON object"                            # (b)
     res = j.get("resource")
     if not isinstance(res, str) or not res: return False, "metadata has no resource"                     # (c)
+    bad = url_problem(res)
+    if bad: return False, f"metadata resource {res[:120]!r} refused: {bad}"                              # (c)
     try: same = _origin(res) == _origin(endpoint) and _path_prefix(urlsplit(res).path, urlsplit(endpoint).path)
     except ValueError: return False, f"metadata resource {res[:120]!r} is not a valid URL"                # (c)
     if not same: return False, f"metadata resource {res[:120]} does not match endpoint origin/path"      # (c)
@@ -218,18 +300,25 @@ def mcp_probe(url):
     hdr = {"Accept": "application/json, text/event-stream", "Content-Type": "application/json"}
     def ct(resp): return (resp.headers.get("Content-Type") or "").lower()
     def done(resp, body): return jsonrpc_response(body, ct(resp)) is not None
+    def left(): return end - time.monotonic()
+    bad = url_problem(url)
+    if bad: return link(url, "UnsafeURL", "gated", method="POST", why=f"endpoint URL refused: {bad}")
+    end = time.monotonic() + DEADLINE  # one budget for every request this endpoint needs
     try:
-        r, body = _req("POST", url, json=MCP_INIT, headers=hdr, until=done)
+        r, body = _req("POST", url, json=MCP_INIT, headers=hdr, until=done, deadline=left())
     except Exception as e:  # belt and braces: _req never raises
         r, body = e, b""
     if isinstance(r, Timeout): return link(url, "Timeout", "gated", method="POST", why=str(r))
+    if isinstance(r, UnsafeURL): return link(url, "UnsafeURL", "gated", method="POST", why=str(r))
     if isinstance(r, Exception): return link(url, type(r).__name__, "error", method="POST")
     if r.status_code < 300:
         if done(r, body) and not _challenge(r): return link(url, r.status_code, "ok", method="POST", evidence="mcp-initialize")
         why = "bot challenge page (cf-mitigated)" if _challenge(r) else f"{r.status_code} {ct(r) or 'no content-type'} without a JSON-RPC initialize response"
         return link(url, r.status_code, "gated", method="POST", why=why)
+    if 300 <= r.status_code < 400:
+        return link(url, r.status_code, "gated", method="POST", why=f"redirects to {r.headers.get('Location') or '?'} (not followed)")
     if r.status_code == 401:
-        ok, info = oauth_evidence(url, r.headers.get("WWW-Authenticate"))
+        ok, info = oauth_evidence(url, r.headers.get("WWW-Authenticate"), end=end)
         if ok: return link(url, r.status_code, "ok", method="POST", evidence="mcp-oauth", resource_metadata=info)
         return link(url, r.status_code, "gated", method="POST", why=info)
     if r.status_code == 403:
@@ -237,9 +326,12 @@ def mcp_probe(url):
     if r.status_code in DEAD or r.status_code == 429 or r.status_code >= 500:
         return link(url, r.status_code, classify(r.status_code), method="POST")
     def sse_ok(resp, b): return b"event:" in b or b"data:" in b
-    g, gb = _req("GET", url, headers={"Accept": "text/event-stream"}, until=sse_ok)
+    g, gb = _req("GET", url, headers={"Accept": "text/event-stream"}, until=sse_ok, deadline=left())
     if isinstance(g, Timeout): return link(url, "Timeout", "gated", method="GET", post_status=r.status_code, why=str(g))
     if isinstance(g, Exception): return link(url, type(g).__name__, "error", method="GET", post_status=r.status_code)
+    if 300 <= g.status_code < 400:
+        return link(url, g.status_code, "gated", method="GET", post_status=r.status_code,
+                    why=f"redirects to {g.headers.get('Location') or '?'} (not followed)")
     if g.status_code < 300:
         gct = (g.headers.get("Content-Type") or "").lower()
         if "text/event-stream" in gct and sse_ok(g, gb) and not _challenge(g):
@@ -250,7 +342,8 @@ def mcp_probe(url):
 
 LABEL = {"homepage alive": "homepage", "docs alive": "docs", "remote MCP endpoint responds": "MCP endpoint"}
 NOTE = {"dead": "{s}: not found (dead link)", "fail": "{s}: client error", "error": "{s}: server/connection error",
-        "gated": "{s}: answered but refused our checker (sign-in required, bot block or rate limit)"}
+        "gated": "{s}: answered but refused our checker (sign-in required, bot block or rate limit)",
+        "timeout": "timed out: no complete answer in time", "refused": "{s}: not checked, the URL was refused"}
 
 LIC = [("Apache-2.0", r"Apache License"), ("MIT", r"\bMIT License|Permission is hereby granted, free of charge"),
        ("AGPL-3.0", r"GNU AFFERO GENERAL PUBLIC"), ("LGPL", r"GNU LESSER GENERAL PUBLIC"), ("GPL-3.0", r"GNU GENERAL PUBLIC LICENSE\s+Version 3"),
@@ -411,15 +504,20 @@ def recheck_demotions(todo, fresh, current, fn=None):
         for i, v in retry.items(): v["rechecked"] = True; fresh[i] = v
     return [t["id"] for t in again]
 
+TOOL_DEADLINE = 150.0  # last-resort hard cap for one tool's whole verify() (GitHub, packages, links, endpoint)
+
 def safe_verify(t):
-    """verify() that can never abort the run: an unexpected error makes only this tool Needs review."""
-    try: return verify(t)
-    except Exception as e:
-        return {"checked_at": NOW.strftime("%Y-%m-%d"), "checks": [], "status": "unconfirmed",
-                "issues": [f"Could not confirm: checker error ({type(e).__name__})"]}
+    """verify() that can never abort or hang the run: an unexpected error, or a verify() still running after
+    TOOL_DEADLINE seconds, makes only this tool Needs review."""
+    done, v = _bounded(lambda: verify(t), TOOL_DEADLINE)
+    if done and not isinstance(v, BaseException): return v
+    why = f"checker error ({type(v).__name__})" if done else f"checker timed out after {TOOL_DEADLINE:g}s"
+    return {"checked_at": NOW.strftime("%Y-%m-%d"), "checks": [], "status": "unconfirmed", "issues": [f"Could not confirm: {why}"]}
 
 def _note(a):
-    return None if a["ok"] else NOTE[a["result"]].format(s=a["status"]) + (f" [{a['why']}]" if a.get("why") else "")
+    if a["ok"]: return None
+    key = {"Timeout": "timeout", "UnsafeURL": "refused"}.get(a["status"], a["result"]) if a["result"] == "gated" else a["result"]
+    return NOTE[key].format(s=a["status"]) + (f" [{a['why']}]" if a.get("why") else "")
 
 def _why(c):
     return f"{LABEL.get(c['check'], c['check'])} {c.get('note') or 'failed'}"

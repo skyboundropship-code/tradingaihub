@@ -4,7 +4,8 @@ import importlib.util, os, sys, unittest
 from unittest import mock
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-spec = importlib.util.spec_from_file_location("verify", os.path.join(ROOT, "scripts", "verify.py"))
+# VERIFY_PY lets scripts/tests/mutate_verify.py run this suite against a mutated copy without touching the repo.
+spec = importlib.util.spec_from_file_location("verify", os.environ.get("VERIFY_PY") or os.path.join(ROOT, "scripts", "verify.py"))
 V = importlib.util.module_from_spec(spec); spec.loader.exec_module(V)
 
 
@@ -165,6 +166,143 @@ class McpProbe(unittest.TestCase):
     def test_5xx_error(self):
         a, _ = self.probe((R(503), b""))
         self.assertEqual(a["result"], "error")
+
+    def test_jsonrpc_reply_needs_result_or_error(self):
+        for body, ct in ((b'{"jsonrpc":"2.0","id":1}', "application/json"), (b'data: {"jsonrpc":"2.0","id":1}\n\n', "text/event-stream"),
+                         (b'{"jsonrpc":"2.0","id":1,"method":"x"}', "application/json")):
+            with self.subTest(body=body):
+                self.assertIsNone(V.jsonrpc_response(body, ct))
+                a, _ = self.probe((R(200, {"Content-Type": ct}), body)); self.assertEqual(a["result"], "gated")
+        self.assertIsNotNone(V.jsonrpc_response(b'{"jsonrpc":"2.0","id":1,"result":{}}', "application/json"))
+
+    def test_post_redirect_not_followed(self):
+        for code in (301, 302, 307, 308):
+            with self.subTest(code=code):
+                a, rq = self.probe((R(code, {"Location": "https://elsewhere.example/mcp"}), b""))
+                self.assertEqual(a["result"], "gated"); self.assertIn("not followed", a["why"]); self.assertEqual(rq.call_count, 1)
+                self.assertFalse(rq.call_args.kwargs.get("allow_redirects", False))
+
+    def test_get_fallback_redirect_not_followed(self):
+        a, rq = self.probe((R(405), b""), get=(R(302, {"Location": "https://elsewhere.example/sse"}), b""))
+        self.assertEqual((a["result"], a["method"]), ("gated", "GET")); self.assertIn("not followed", a["why"])
+
+    def test_one_budget_for_the_whole_endpoint(self):
+        h = {"WWW-Authenticate": hdr("https://mcp.example.com/.well-known/oauth-protected-resource/mcp")}
+        fm = mock.Mock(return_value=R(200, json_body={"resource": "https://mcp.example.com/mcp", "authorization_servers": ["https://a"]}))
+        with mock.patch.object(V, "_req", return_value=(R(401, h), b"")) as rq, mock.patch.object(V, "fetch_metadata", fm):
+            t = V.time.monotonic(); a = V.mcp_probe("https://mcp.example.com/mcp")
+        self.assertEqual(a["result"], "ok")
+        self.assertLessEqual(rq.call_args.kwargs["deadline"], V.DEADLINE)
+        end = fm.call_args.kwargs["end"]; self.assertLessEqual(end, t + V.DEADLINE + 0.01); self.assertGreater(end, t)
+
+    def test_unsafe_endpoint_never_requested(self):
+        for u in ("https://evil.test\\@mcp.example.com/mcp", "https://evil.test%5C@mcp.example.com/mcp", "https://u@mcp.example.com/mcp"):
+            with self.subTest(u=u), mock.patch.object(V, "_req") as rq:
+                a = V.mcp_probe(u)
+                self.assertEqual((a["result"], a["status"]), ("gated", "UnsafeURL")); rq.assert_not_called()
+
+
+class TimeoutNote(unittest.TestCase):
+    def test_timeout_note_says_timed_out(self):
+        n = V._note(V.link("https://x/mcp", "Timeout", "gated", why="no complete answer within 8s"))
+        self.assertIn("timed out", n); self.assertNotIn("refused our checker", n); self.assertIn("8s", n)
+        self.assertIn("refused our checker", V._note(V.link("https://x/mcp", 401, "gated", why="no Bearer challenge")))
+
+
+class MetadataRetry(unittest.TestCase):
+    U = "https://mcp.example.com/.well-known/oauth-protected-resource"
+    def fm(self, *seq):
+        with mock.patch.object(V, "_req", side_effect=list(seq)) as rq:
+            try: out = V.fetch_metadata(self.U)
+            except Exception as e: out = e
+        return out, rq.call_count
+
+    def test_retry_once_after_error_or_5xx(self):
+        for first in ((V.requests.ConnectionError("blip"), b""), (R(503), b""), (V.Timeout("t"), b"")):
+            with self.subTest(first=first[0]):
+                out, n = self.fm(first, (R(200), b'{"resource":"x"}'))
+                self.assertEqual((out.status_code, n), (200, 2)); self.assertEqual(out.json()["resource"], "x")
+
+    def test_only_one_retry(self):
+        out, n = self.fm((R(503), b""), (R(502), b""), (R(200), b"{}"))
+        self.assertEqual((out.status_code, n), (502, 2))
+        out, n = self.fm((V.requests.ConnectionError("a"), b""), (V.requests.ConnectionError("b"), b""))
+        self.assertIsInstance(out, V.requests.RequestException); self.assertEqual(n, 2)
+
+    def test_no_retry_on_4xx(self):
+        out, n = self.fm((R(404), b""), (R(200), b"{}"))
+        self.assertEqual((out.status_code, n), (404, 1))
+
+    def test_no_retry_when_budget_is_spent(self):
+        with mock.patch.object(V.S, "send") as send:
+            with self.assertRaises(Exception): V.fetch_metadata(self.U, end=V.time.monotonic() - 1)
+            send.assert_not_called()
+
+
+class UrlSafety(unittest.TestCase):
+    """QA round 2 blocker 1: `https://evil.test\\@mcp.example.com/` is host mcp.example.com to urlsplit but is fetched
+    from evil.test by requests/urllib3. Backslash, '@'/userinfo and their %-encodings are refused everywhere."""
+    BAD = ("https://evil.test\\@mcp.example.com/.well-known/oauth-protected-resource",
+           "https://evil.test%5C@mcp.example.com/.well-known/oauth-protected-resource",
+           "https://evil.test%5c@mcp.example.com/.well-known/oauth-protected-resource",
+           "https://evil.test%5C%40mcp.example.com/.well-known/oauth-protected-resource",
+           "https://evil.test\\%40mcp.example.com/.well-known/oauth-protected-resource",
+           "https://evil.test%40mcp.example.com/.well-known/oauth-protected-resource",
+           "https://evil.test\\mcp.example.com/.well-known/oauth-protected-resource",
+           "https://mcp.example.com\\.evil.test/.well-known/oauth-protected-resource",
+           "https://mcp.example.com@evil.test/.well-known/oauth-protected-resource",
+           "https://user:pw@mcp.example.com/.well-known/oauth-protected-resource",
+           "https://@mcp.example.com/.well-known/oauth-protected-resource",
+           "https://mcp.example.com/a\\b", "https://mcp.example.com/%5C", "https://mcp.example.com/x y",
+           "https://mcp.example.com/\tx", "https://mcp.example.com\n.evil.test/", "ftp://mcp.example.com/x",
+           "https://mcp.example.com:abc/x", "https:///x", "",
+           # "@" anywhere is refused, not just in the authority (some parsers split on the last "@", some on the first)
+           "https://mcp.example.com/x@evil.test", "https://mcp.example.com/x?u=a@evil.test", "https://mcp.example.com/#@evil.test")
+    GOOD = ("https://mcp.example.com/.well-known/oauth-protected-resource/v2/mcp", "https://MCP.Example.com:443/x",
+            "https://mcp.example.com./x", "http://127.0.0.1:8080/mcp", "https://mcp.example.com/v2/mcp?x=1#y")
+
+    def test_url_problem(self):
+        for u in self.BAD:
+            with self.subTest(bad=u): self.assertIsNotNone(V.url_problem(u))
+        for u in self.GOOD:
+            with self.subTest(good=u): self.assertIsNone(V.url_problem(u))
+
+    def test_parsers_really_disagree_on_backslash(self):
+        u = "https://evil.test\\@mcp.example.com/x"
+        self.assertEqual(V._validated(u)[1], "mcp.example.com")
+        self.assertEqual(V._target(V.requests.Request("GET", u).prepare().url)[1], "evil.test")
+
+    def test_metadata_url_refused_before_any_fetch(self):
+        for md in self.BAD[:11]:
+            with self.subTest(md=md):
+                fetch = mock.Mock(return_value=R(200, json_body=GOOD))
+                ok, why = V.oauth_evidence(EP, hdr(md), fetch=fetch)
+                self.assertFalse(ok); fetch.assert_not_called()
+
+    def test_resource_with_backslash_refused(self):
+        for res in ("https://evil.test\\@mcp.example.com/v2/mcp", "https://evil.test%5C@mcp.example.com/v2/mcp",
+                    "https://x@mcp.example.com/v2/mcp", "https://mcp.example.com/v2/mcp\\"):
+            with self.subTest(res=res):
+                ok, why = V.oauth_evidence(EP, hdr(), fetch=lambda u: R(200, json_body={**GOOD, "resource": res}))
+                self.assertFalse(ok); self.assertIn("refused", why)
+
+    def test_req_never_connects_to_unsafe_url(self):
+        with mock.patch.object(V.S, "send") as send:
+            for u in self.BAD:
+                with self.subTest(u=u):
+                    r, _ = V._req("GET", u); self.assertIsInstance(r, Exception)
+            send.assert_not_called()
+
+    def test_req_checks_prepared_target_too(self):
+        # second layer: even if url_problem() missed a trick, the prepared request must target the validated host
+        with mock.patch.object(V, "url_problem", return_value=None), mock.patch.object(V.S, "send") as send:
+            r, _ = V._req("GET", "https://evil.test\\@mcp.example.com/x")
+        self.assertIsInstance(r, V.UnsafeURL); send.assert_not_called()
+
+    def test_fetch_metadata_live_shape_refused(self):
+        with mock.patch.object(V.S, "send") as send:
+            with self.assertRaises(Exception): V.fetch_metadata("https://example.org\\@mcp.example.com/.well-known/oauth-protected-resource")
+            send.assert_not_called()
 
 
 EP = "https://mcp.example.com/v2/mcp"
@@ -379,6 +517,12 @@ class RunNeverDies(unittest.TestCase):
         self.assertEqual(again, ["a"]); fn.assert_called_once_with({"id": "a"})
         self.assertEqual(fresh["a"], {"status": "verified", "rechecked": True})
 
+    def test_safe_verify_hard_cap(self):
+        with mock.patch.object(V, "TOOL_DEADLINE", 0.3), mock.patch.object(V, "verify", side_effect=lambda t: time.sleep(3)):
+            t = time.monotonic(); v = V.safe_verify({"id": "x"})
+        self.assertLess(time.monotonic() - t, 1.5)
+        self.assertEqual(v["status"], "unconfirmed"); self.assertIn("timed out", v["issues"][0])
+
     def test_recheck_keeps_second_result(self):
         fresh = {"a": {"status": "warning"}}
         V.recheck_demotions([{"id": "a"}], fresh, {"a": {"verification": {"status": "verified"}}}, fn=lambda t: {"status": "unconfirmed"})
@@ -409,18 +553,33 @@ class _H(http.server.BaseHTTPRequestHandler):
         elif self.path == "/drip": self._sse(ping=True)
         elif self.path == "/silent": self._sse()
         elif self.path == "/html": self._send(200, b"<html>jsonrpc</html>", "text/html")
+        elif self.path == "/slowhdr": self._slowhdr()
+        elif self.path == "/big": self._send(200, b"x" * (200 * 1024), "application/octet-stream")
+        elif self.path == "/redir": self._send(307, b"", Location="/hold")
         else: self._send(404)
+    def _slowhdr(self):
+        # QA blocker 2: one header line every 0.3s (< the 1s per-read timeout), for ~15s
+        try:
+            self.wfile.write(b"HTTP/1.1 200 OK\r\n"); self.wfile.flush()
+            for i in range(50):
+                time.sleep(0.3); self.wfile.write(b"X-Slow-%d: 1\r\n" % i); self.wfile.flush()
+        except OSError: pass
     def do_GET(self):
+        if self.path == "/slowhdr": return self._slowhdr()
         if self.path == "/md-redirect": self._send(302, b"", Location="/md-good")
         elif self.path == "/md-good": self._send(200, b'{"resource":"x","authorization_servers":["a"]}')
         else: self._send(404)
+
+
+class _Srv(http.server.ThreadingHTTPServer):
+    def handle_error(self, request, client_address): pass  # clients hang up on purpose (deadline); keep test output clean
 
 
 class LiveServer(unittest.TestCase):
     """Real sockets on 127.0.0.1: open SSE streams, the read deadline, and redirect handling of the metadata fetch."""
     @classmethod
     def setUpClass(cls):
-        cls.srv = http.server.ThreadingHTTPServer(("127.0.0.1", 0), _H); cls.srv.daemon_threads = True
+        cls.srv = _Srv(("127.0.0.1", 0), _H); cls.srv.daemon_threads = True
         threading.Thread(target=cls.srv.serve_forever, daemon=True).start()
         cls.base = f"http://127.0.0.1:{cls.srv.server_address[1]}"
         cls.p = [mock.patch.object(V, "DEADLINE", 1.0), mock.patch.object(V, "TIMEOUT", (1, 1.0))]
@@ -452,9 +611,86 @@ class LiveServer(unittest.TestCase):
         self.assertEqual(V.fetch_metadata(self.base + "/md-redirect").status_code, 302)
         self.assertEqual(V.fetch_metadata(self.base + "/md-good").json()["resource"], "x")
 
+    def test_slow_header_trickle_is_bounded(self):
+        t = time.monotonic(); a = V.mcp_probe(self.base + "/slowhdr")
+        self.assertEqual((a["result"], a["status"]), ("gated", "Timeout")); self.assertLess(time.monotonic() - t, 2.0)
+        self.assertIn("timed out", V._note(a))
+
+    def test_slow_header_trickle_bounded_for_plain_get(self):
+        with mock.patch.object(V, "GET_DEADLINE", 1.0):
+            t = time.monotonic(); r = V.get(self.base + "/slowhdr")
+        self.assertIsInstance(r, Exception); self.assertLess(time.monotonic() - t, 2.0)
+        self.assertEqual(V.alive(self.base + "/html")["result"], "dead")  # GET /html -> 404 here; plain path still works
+
+    def test_body_cap_64k(self):
+        r, body = V._req("POST", self.base + "/big", json={})
+        self.assertEqual(r.status_code, 200); self.assertEqual(len(body), V.MAX_BODY); self.assertEqual(V.MAX_BODY, 64 * 1024)
+
+    def test_post_redirect_not_followed_live(self):
+        a = V.mcp_probe(self.base + "/redir")
+        self.assertEqual((a["result"], a["status"]), ("gated", 307)); self.assertIn("not followed", a["why"])
+
     def test_bad_port_endpoint_is_error_not_crash(self):
         a = V.mcp_probe("http://127.0.0.1:abc/mcp")
         self.assertFalse(a["ok"])
+
+
+import contextlib, io, json, tempfile
+
+class MainRun(unittest.TestCase):
+    """main() end to end (dry run, temp data dir): the recheck is wired in, the run is bounded, links are kept."""
+    def run_main(self, seed, current, extra=()):
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, "data"))
+            for name, obj in (("seed.json", seed), ("tools.json", current)):
+                with open(os.path.join(d, "data", name), "w") as f: json.dump(obj, f)
+            out_json = os.path.join(d, "dry.json")
+            with mock.patch.object(V, "ROOT", d), mock.patch.object(V.sys, "argv", ["verify.py", "--dry-run"]), \
+                 mock.patch.dict(os.environ, {"VERIFY_DRY_JSON": out_json}), contextlib.ExitStack() as st, \
+                 contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+                for p in extra: st.enter_context(p)
+                t = time.monotonic(); V.main(); el = time.monotonic() - t
+            with open(out_json) as f: return {x["id"]: x for x in json.load(f)}, el
+
+    def test_main_rechecks_demotions(self):
+        seed = [{"id": "a", "name": "A", "type": "mcp", "remote_mcp_url": "https://a.example/mcp"}]
+        cur = [{**seed[0], "verification": {"status": "verified"}}]
+        res = iter([V.link("u", "ConnectionError", "error"), V.link("u", 200, "ok", evidence="mcp-initialize")])
+        calls = []
+        def probe(u): calls.append(u); return next(res)
+        out, _ = self.run_main(seed, cur, [mock.patch.object(V, "mcp_probe", side_effect=probe)])
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(out["a"]["verification"]["status"], "verified"); self.assertTrue(out["a"]["verification"].get("rechecked"))
+
+    def test_main_cross_org_link_never_rewritten(self):
+        g = dict(CrossOrg.G)
+        seed = [{"id": "openbb", "name": "OpenBB", "type": "api", "repo": "https://github.com/OpenBB-finance/OpenBB"},
+                {"id": "ren", "name": "Ren", "type": "api", "repo": "https://github.com/Same/old"}]
+        def gh(url, collection=False):
+            if "OpenBB" in url: return dict(g), "openbq-org", "OpenBB"
+            return {"reachable": True, "final_url": "https://github.com/Same/new", "archived": False, "last_commit": "x"}, "Same", "new"
+        out, _ = self.run_main(seed, [], [mock.patch.object(V, "gh_info", side_effect=gh), mock.patch.object(V, "detect_packages", return_value={}),
+                                          mock.patch.object(V, "age_days", return_value=5)])
+        self.assertEqual(out["openbb"]["repo"], "https://github.com/OpenBB-finance/OpenBB")
+        self.assertEqual(out["openbb"]["verification"]["status"], "unconfirmed")
+        self.assertEqual(out["ren"]["repo"], "https://github.com/Same/new")  # same-owner rename is still followed
+
+    def test_whole_run_bounded_with_header_trickle_and_recheck(self):
+        srv = _Srv(("127.0.0.1", 0), _H); srv.daemon_threads = True
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        base = f"http://127.0.0.1:{srv.server_address[1]}"
+        try:
+            seed = [{"id": f"s{i}", "name": f"S{i}", "type": "mcp", "remote_mcp_url": base + p}
+                    for i, p in enumerate(("/slowhdr", "/slowhdr", "/drip", "/silent", "/hold"))]
+            cur = [{**t, "verification": {"status": "verified"}} for t in seed]
+            out, el = self.run_main(seed, cur, [mock.patch.object(V, "DEADLINE", 1.0), mock.patch.object(V, "TIMEOUT", (1, 1.0))])
+        finally:
+            srv.shutdown(); srv.server_close()
+        self.assertLess(el, 2 * 1.0 + 1.5)  # first pass + one recheck, each <= DEADLINE, plus margin
+        for i in range(4):
+            v = out[f"s{i}"]["verification"]
+            self.assertEqual(v["status"], "unconfirmed"); self.assertTrue(v.get("rechecked")); self.assertEqual(v["remote_mcp"]["status"], "Timeout")
+        self.assertEqual(out["s4"]["verification"]["status"], "verified"); self.assertNotIn("rechecked", out["s4"]["verification"])
 
 
 class Args(unittest.TestCase):
