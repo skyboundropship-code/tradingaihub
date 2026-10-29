@@ -1,7 +1,7 @@
 # Awesome-list PR plan (approved by Liran; ready to open once `gh` is logged in)
 
 One PR per list, one line, matching each list's format. Use `gh repo fork <list> --clone`, edit, commit, `gh pr create`.
-Directory link = https://tradingaihub.com · Awesome repo = https://github.com/<user>/awesome-finance-ai-tools
+Directory link = https://tradingaihub.com · Awesome repo = https://github.com/skyboundropship-code/awesome-finance-ai-tools
 
 | # | List | Section | Entry |
 |---|------|---------|-------|

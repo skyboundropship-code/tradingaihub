@@ -9,7 +9,7 @@ export const SITE = {
   contactEmail: "hello@tradingaihub.com", // Cloudflare Email Routing → Liran
   showAdPricing: false,               // launch = 100% free feel: hide paid tiers until traffic exists
   newsletterLive: false,               // email capture form has no backend yet
-  githubAwesomeRepo: "https://github.com/<owner>/awesome-finance-ai-tools", // placeholder, not created
+  githubAwesomeRepo: "https://github.com/skyboundropship-code/awesome-finance-ai-tools",
   checkoutLive: false,                 // featured-listing checkout is NOT live
   checkoutUrl: "#checkout-not-live",   // replace with Polar / Lemon Squeezy link after approval
 };
