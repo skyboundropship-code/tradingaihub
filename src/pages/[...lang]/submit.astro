@@ -17,11 +17,11 @@ const mail = `<a href="mailto:${SITE.contactEmail}" dir="ltr">${SITE.contactEmai
   <p style="color:var(--muted)" set:html={t("submit.lead")} />
   <p><a href={p("/badges/")}>{t("footer.getBadge")}</a></p>
   <p class="callout">{t("submit.preview")}</p>
-  <form class="f" id="submit-form" action={issueNew} method="get" target="_blank" rel="noopener noreferrer">
+  <form class="f" id="submit-form" data-blank-msg={t("submit.blank")} action={issueNew} method="get" target="_blank" rel="noopener noreferrer">
     <input type="hidden" name="template" value="submit-tool.yml" />
     <input type="hidden" name="title" value="[Submit] " />
-    <label for="s-name">{t("submit.name")}</label><input required id="s-name" name="name" maxlength="100" autocomplete="off" />
-    <label for="s-url">{t("submit.url")}</label><input required type="url" id="s-url" name="url" maxlength="300" placeholder="https://github.com/owner/repo" dir="ltr" />
+    <label for="s-name">{t("submit.name")}</label><input required id="s-name" name="name" maxlength="100" autocomplete="off" pattern=".*\S.*" aria-describedby="err-name" /><p id="err-name" class="field-err" role="alert" hidden></p>
+    <label for="s-url">{t("submit.url")}</label><input required type="url" id="s-url" name="url" maxlength="300" pattern=".*\S.*" aria-describedby="err-url" placeholder="https://github.com/owner/repo" dir="ltr" /><p id="err-url" class="field-err" role="alert" hidden></p>
     <label for="s-type">{t("submit.type")}</label><select id="s-type" name="type">{Object.keys(TYPE_LABEL).map((k) => <option value={TYPE_LABEL[k]}>{t(`type.${k}`)}</option>)}</select>
     <label for="s-category">{t("submit.category")}</label><select id="s-category" name="category">{CATEGORIES.map((c) => <option value={c.short}>{t(`cat.${c.slug}`)[0]}</option>)}</select>
     <label for="s-desc">{t("submit.oneLine")}</label><input id="s-desc" name="description" maxlength="160" />
@@ -36,7 +36,34 @@ const mail = `<a href="mailto:${SITE.contactEmail}" dir="ltr">${SITE.contactEmai
 <script is:inline>
 (function () {
   var f = document.getElementById("submit-form"); if (!f) return;
-  f.addEventListener("submit", function () {
+  // Required text fields must contain something other than whitespace (pattern=".*\S.*" + this trim check).
+  var BLANK = f.getAttribute("data-blank-msg") || "Please fill in this field.";
+  var reqText = Array.prototype.slice.call(f.querySelectorAll("input[required]:not([type=checkbox]), textarea[required]"));
+  // Each required text field has its own error <p role="alert"> linked via aria-describedby. For blank values we show that
+  // (translated) error and suppress the native bubble, so the message is announced once; other invalid cases stay native.
+  var errOf = function (el) { return document.getElementById("err-" + el.name); };
+  var showBlank = function (el) {
+    el.setCustomValidity(BLANK); el.setAttribute("aria-invalid", "true");
+    var er = errOf(el); if (er) { er.textContent = BLANK; er.hidden = false; }
+  };
+  var clearErr = function (el) {
+    el.setCustomValidity(""); el.removeAttribute("aria-invalid");
+    var er = errOf(el); if (er) { er.hidden = true; er.textContent = ""; }
+  };
+  var focusFirstBlank = function () { for (var i = 0; i < reqText.length; i++) if (!reqText[i].value.trim()) { reqText[i].focus(); return; } };
+  var focusQueued = false;
+  reqText.forEach(function (el) {
+    el.addEventListener("invalid", function (e) {
+      if (el.value.trim()) return;
+      e.preventDefault(); showBlank(el);
+      if (!focusQueued) { focusQueued = true; setTimeout(function () { focusQueued = false; focusFirstBlank(); }, 0); }
+    });
+    el.addEventListener("input", function () { clearErr(el); });
+  });
+  f.addEventListener("submit", function (e) {
+    // Fallback for browsers/paths that skip constraint validation: block whitespace-only required values.
+    var blank = reqText.filter(function (el) { return !el.value.trim(); });
+    if (blank.length) { e.preventDefault(); blank.forEach(function (el) { el.value = ""; showBlank(el); }); blank[0].focus(); return; }
     var MAX = 7500, NAME_MAX = 100;
     var cp = function (v) { return Array.from(v || ""); };
     var nameEl = f.querySelector('[name="name"]'), titleEl = f.querySelector('[name="title"]');
