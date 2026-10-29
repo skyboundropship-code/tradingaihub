@@ -376,7 +376,8 @@
   "email": "Contacto (opcional — se muestra públicamente en el issue de GitHub)",
   "confirm": "Confirmo que esta herramienta no promete rentabilidades y no es un servicio de asesoramiento de inversión.",
   "button": "Enviar para revisión",
-  "thanks": "Casi listo: revisa el issue de GitHub prellenado en la pestaña nueva y pulsa «Create». ¿No se abrió nada? Permite las ventanas emergentes e inténtalo de nuevo."
+  "thanks": "Casi listo: revisa el issue de GitHub prellenado en la pestaña nueva y pulsa «Create». ¿No se abrió nada? Permite las ventanas emergentes e inténtalo de nuevo.",
+  "blank": "Completa este campo (los espacios solos no cuentan)."
  },
  "badges": {
   "title": "Insignias verificadas gratuitas para creadores",
