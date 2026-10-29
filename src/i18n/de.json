@@ -180,12 +180,19 @@
   ]
  },
  "nl": {
+  "mailSubject": "Newsletter abonnieren",
   "title": "📬 Der wöchentliche Bericht „State of AI Finance Tools“",
   "text": "Was neu ist, was kaputtging und welche Tools im Ranking gestiegen sind – eine E-Mail pro Woche. Kostenlos.",
   "subscribe": "Abonnieren",
-  "thanks": "Danke – bitte prüfen Sie Ihr Postfach.",
+  "thanks": "Sie sind angemeldet – danke! Die erste Ausgabe kommt mit dem nächsten Wochenbericht.",
   "rss": "Oder per <a href=\"/rss.xml\">RSS</a> folgen.",
-  "email": "Schreiben Sie an <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a>, um sich anzumelden."
+  "email": "Schreiben Sie an <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a>, um sich anzumelden.",
+  "sending": "Wird gesendet…",
+  "errInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+  "errRate": "Zu viele Versuche. Bitte versuchen Sie es in einer Stunde erneut.",
+  "errServer": "Etwas ist schiefgelaufen. Bitte erneut versuchen oder an {email} schreiben, um sich anzumelden.",
+  "consent": "Mit der Anmeldung stimmen Sie unserer <a href=\"{privacy}\">Datenschutzerklärung</a> zu. Abmeldung jederzeit per E-Mail an {email}.",
+  "label": "E-Mail-Adresse"
  },
  "home": {
   "h1a": "KI-Tools für",
@@ -415,7 +422,8 @@
   "aff": "Affiliate-Links",
   "affP": "Wenn Sie auf einen Affiliate-Link klicken, kann die Zielseite nach ihrer eigenen Richtlinie eigene Cookies setzen.",
   "rights": "Ihre Rechte",
-  "rightsP": "Auskunft oder Löschung Ihrer Daten erhalten Sie über {email}."
+  "rightsP": "Auskunft oder Löschung Ihrer Daten erhalten Sie über {email}.",
+  "c3": "Newsletter: Wenn Sie sich anmelden, speichern wir Ihre E-Mail-Adresse, Sprache, den Anmeldezeitpunkt und einen Vermerk über Ihre Einwilligung – ausschließlich, um den Newsletter zu versenden. Zum Schutz vor Missbrauch erzeugt jeder Anmeldeversuch außerdem einen temporären Schlüssel zur Ratenbegrenzung aus einem nicht umkehrbaren Hash Ihrer IP-Adresse (die IP selbst wird nie gespeichert); er wird nach 1 Stunde automatisch gelöscht. Abmelden oder die Löschung Ihrer Daten verlangen können Sie jederzeit per E-Mail an {email}."
  },
  "terms": {
   "title": "Nutzungsbedingungen",

@@ -9,7 +9,7 @@ const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
 <div class="wrap page prose">
   <h1>{t("privacy.title")}</h1><p class="callout">{t("privacy.draft")}</p>
   <p>{t("privacy.p1", { site: SITE.name })}</p>
-  <h2>{t("privacy.collect")}</h2><ul><li>{t("privacy.c1")}</li><li>{t("privacy.c2")}</li></ul>
+  <h2>{t("privacy.collect")}</h2><ul><li>{t("privacy.c1")}</li><li>{t("privacy.c2")}</li><li>{t("privacy.c3", { email: SITE.contactEmail })}</li></ul>
   <h2>{t("privacy.use")}</h2><p>{t("privacy.useP")}</p>
   <h2>{t("privacy.aff")}</h2><p>{t("privacy.affP")}</p>
   <h2>{t("privacy.rights")}</h2><p>{t("privacy.rightsP", { email: SITE.contactEmail })}</p>

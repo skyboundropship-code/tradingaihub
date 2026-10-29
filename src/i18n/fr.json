@@ -180,12 +180,19 @@
   ]
  },
  "nl": {
+  "mailSubject": "Abonnement à la newsletter",
   "title": "📬 Le rapport hebdo « État des outils d'IA pour la finance »",
   "text": "Les nouveautés, ce qui a cassé et les outils qui montent au classement : un e-mail par semaine. Gratuit.",
   "subscribe": "S'abonner",
-  "thanks": "Merci ! Vérifiez votre boîte de réception.",
+  "thanks": "Vous êtes inscrit, merci ! Le premier numéro arrivera avec le prochain rapport hebdo.",
   "rss": "Ou suivez-nous par <a href=\"/rss.xml\">RSS</a>.",
-  "email": "Écrivez à <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> pour vous inscrire."
+  "email": "Écrivez à <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a> pour vous inscrire.",
+  "sending": "Envoi…",
+  "errInvalid": "Veuillez saisir une adresse e-mail valide.",
+  "errRate": "Trop de tentatives. Réessayez dans une heure.",
+  "errServer": "Une erreur est survenue. Réessayez ou écrivez à {email} pour vous inscrire.",
+  "consent": "En vous inscrivant, vous acceptez notre <a href=\"{privacy}\">politique de confidentialité</a>. Désinscription à tout moment en écrivant à {email}.",
+  "label": "Adresse e-mail"
  },
  "home": {
   "h1a": "Des outils d'IA pour",
@@ -415,7 +422,8 @@
   "aff": "Liens affiliés",
   "affP": "Lorsque vous cliquez sur un lien affilié, le site de destination peut déposer ses propres cookies selon sa propre politique.",
   "rights": "Vos droits",
-  "rightsP": "Demandez l'accès à vos données ou leur suppression à {email}."
+  "rightsP": "Demandez l'accès à vos données ou leur suppression à {email}.",
+  "c3": "Newsletter : si vous vous abonnez, nous conservons votre adresse e-mail, votre langue, la date d’inscription et une trace de votre consentement, uniquement pour envoyer la newsletter. Pour limiter les abus, chaque tentative d’inscription crée aussi une clé temporaire de limitation de débit, issue d’un hachage irréversible de votre adresse IP (l’IP elle-même n’est jamais conservée) ; elle est supprimée automatiquement au bout d’une heure. Vous pouvez vous désabonner ou demander la suppression de vos données à tout moment en écrivant à {email}."
  },
  "terms": {
   "title": "Conditions d'utilisation",

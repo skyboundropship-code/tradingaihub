@@ -180,12 +180,19 @@
   ]
  },
  "nl": {
+  "mailSubject": "Bülten aboneliği",
   "title": "📬 Haftalık “Finans Yapay Zekâ Araçlarının Durumu”",
   "text": "Neler çıktı, neler bozuldu, hangi araçlar yükseldi — haftada bir e-posta, ücretsiz.",
   "subscribe": "Abone ol",
-  "thanks": "Teşekkürler — gelen kutunuzu kontrol edin.",
+  "thanks": "Abone oldunuz — teşekkürler! İlk sayı bir sonraki haftalık raporla gelecek.",
   "rss": "Ya da <a href=\"/rss.xml\">RSS</a> ile takip edin.",
-  "email": "Katılmak için <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> adresine e-posta gönderin."
+  "email": "Katılmak için <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a> adresine e-posta gönderin.",
+  "sending": "Gönderiliyor…",
+  "errInvalid": "Lütfen geçerli bir e-posta adresi girin.",
+  "errRate": "Çok fazla deneme. Lütfen bir saat sonra tekrar deneyin.",
+  "errServer": "Bir sorun oluştu. Tekrar deneyin ya da katılmak için {email} adresine yazın.",
+  "consent": "Abone olarak <a href=\"{privacy}\">gizlilik politikamızı</a> kabul etmiş olursunuz. {email} adresine e-posta göndererek istediğiniz zaman ayrılabilirsiniz.",
+  "label": "E-posta adresi"
  },
  "home": {
   "h1a": "Yapay zekâ araçları:",
@@ -415,7 +422,8 @@
   "aff": "Ortaklık bağlantıları",
   "affP": "Bir ortaklık bağlantısına tıkladığınızda, hedef site kendi politikası kapsamında çerez ayarlayabilir.",
   "rights": "Haklarınız",
-  "rightsP": "Verilerinize erişmek veya silinmesini istemek için {email} ile iletişime geçin."
+  "rightsP": "Verilerinize erişmek veya silinmesini istemek için {email} ile iletişime geçin.",
+  "c3": "Bülten: Abone olursanız, yalnızca bülteni göndermek amacıyla e-posta adresinizi, dilinizi, kayıt zamanınızı ve onay verdiğinize dair bir kaydı saklarız. Kötüye kullanımı sınırlamak için her kayıt denemesi, IP adresinizin tek yönlü bir özetinden (hash) geçici bir hız sınırı anahtarı da oluşturur (IP adresinin kendisi asla saklanmaz); bu anahtar 1 saat sonra otomatik olarak silinir. Abonelikten çıkmak veya verilerinizin silinmesini istemek için istediğiniz zaman {email} adresine e-posta gönderin."
  },
  "terms": {
   "title": "Kullanım koşulları",

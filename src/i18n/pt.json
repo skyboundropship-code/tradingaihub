@@ -180,12 +180,19 @@
   ]
  },
  "nl": {
+  "mailSubject": "Assinar a newsletter",
   "title": "📬 O boletim semanal «Estado das ferramentas de IA para finanças»",
   "text": "O que é novo, o que quebrou e quais ferramentas subiram no ranking: um e-mail por semana. Grátis.",
   "subscribe": "Assinar",
-  "thanks": "Obrigado! Confira sua caixa de entrada.",
+  "thanks": "Inscrição feita, obrigado! A primeira edição chega com o próximo relatório semanal.",
   "rss": "Ou acompanhe por <a href=\"/rss.xml\">RSS</a>.",
-  "email": "Envie um e-mail para <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> para assinar."
+  "email": "Envie um e-mail para <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a> para assinar.",
+  "sending": "Enviando…",
+  "errInvalid": "Digite um e-mail válido.",
+  "errRate": "Muitas tentativas. Tente novamente em uma hora.",
+  "errServer": "Algo deu errado. Tente de novo ou envie um e-mail para {email} para assinar.",
+  "consent": "Ao assinar, você concorda com nossa <a href=\"{privacy}\">política de privacidade</a>. Cancele quando quiser enviando um e-mail para {email}.",
+  "label": "Endereço de e-mail"
  },
  "home": {
   "h1a": "Ferramentas de IA para",
@@ -415,7 +422,8 @@
   "aff": "Links de afiliado",
   "affP": "Quando você clica em um link de afiliado, o site de destino pode definir seus próprios cookies conforme sua própria política.",
   "rights": "Seus direitos",
-  "rightsP": "Peça acesso ou exclusão dos seus dados em {email}."
+  "rightsP": "Peça acesso ou exclusão dos seus dados em {email}.",
+  "c3": "Newsletter: se você se inscrever, guardamos seu e-mail, idioma, data da inscrição e um registro do seu consentimento, apenas para enviar a newsletter. Para limitar abusos, cada tentativa de inscrição também cria uma chave temporária de limite de frequência a partir de um hash irreversível do seu endereço IP (o IP em si nunca é guardado); ela é apagada automaticamente após 1 hora. Cancele a inscrição ou peça a exclusão dos seus dados a qualquer momento pelo e-mail {email}."
  },
  "terms": {
   "title": "Termos de uso",
