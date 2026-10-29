@@ -339,7 +339,7 @@
   "latest": "Letzte Prüfung: {date} UTC —",
   "fullReport": "vollständigen Bericht ansehen",
   "money": "Wie wir Geld verdienen",
-  "moneyP": "Einträge sind kostenlos. Wir verdienen an klar gekennzeichneten Sponsorplätzen und an einigen Affiliate-Links zu Datenanbietern. Keines davon beeinflusst den Prüfstatus.",
+  "moneyP": "Einträge sind kostenlos. Derzeit verdienen wir ausschließlich an offengelegten Affiliate-(Partner-)Links zu einigen Datenanbietern. Gesponserte Platzierungen bieten wir noch nicht an; falls doch, werden sie als „Gesponsert“ gekennzeichnet. Keines davon beeinflusst den Prüfstatus.",
   "contact": "Kontakt"
  },
  "disc": {
@@ -347,13 +347,13 @@
   "h1": "Haftungsausschluss: keine Anlageberatung",
   "intro": "{site} ist ein Verzeichnis von Software-Tools. Alle Inhalte sind allgemeine Informationen über Software, ihre Funktionen und ihre veröffentlichten Preise.",
   "items": [
-   "<b>Affiliate-Hinweis.</b> Einige ausgehende Links, derzeit zu TradingView, sind Affiliate-Links, als „Affiliate-Link“ gekennzeichnet und mit rel=\"sponsored\" markiert. Wenn Sie darüber ein Abo abschließen, erhalten wir eventuell eine Provision – ohne Mehrkosten für Sie. Keine Zahlung beeinflusst, welche Tools wir listen, ihr Ranking oder ihren Prüfstatus, und ein Link ist weder Empfehlung noch Aufforderung zum Handel.",
+   "<b>Affiliate-Hinweis.</b> Einige Links (zum Beispiel zu TradingView und einigen Datenanbietern) sind Affiliate-(Partner-)Links: Wenn Sie darüber kaufen, erhalten wir eventuell eine Provision – ohne Mehrkosten für Sie. Partner-Boxen sind mit „Partner“ gekennzeichnet. Keine Zahlung beeinflusst, welche Tools wir listen, ihr Ranking oder ihren Prüfstatus, und ein Link ist weder Empfehlung noch Aufforderung zum Handel.",
    "<b>Keine Beratung.</b> Nichts auf dieser Website ist Anlageberatung, Anlagevermittlung, Vermögensverwaltung, ein Trading-Signal oder Steuer-, Buchhaltungs- oder Rechtsberatung, und nichts berücksichtigt Ihre persönlichen Umstände. Wir sind in keiner Rechtsordnung zugelassene Anlageberater, Anlagevermittler oder Vermögensverwalter (einschließlich des israelischen Gesetzes zur Regulierung von Anlageberatung, Anlagevermarktung und Portfolioverwaltung, 5755-1995).",
    "<b>Keine Empfehlung.</b> Ein Eintrag, ein Ranking, ein „Geprüft“-Badge oder ein Sponsorplatz ist keine Empfehlung, ein Tool, einen Broker, eine Börse oder einen Vermögenswert zu nutzen.",
    "<b>Risiko.</b> Trading und Investieren – besonders mit automatisierten oder KI-Agenten, Hebel, Optionen oder Krypto – kann zum teilweisen oder vollständigen Verlust Ihres Geldes führen. Testen Sie jedes Trading-Tool zuerst im Demomodus und geben Sie einem Agenten nie mehr Rechte, als Sie zu verlieren bereit sind.",
    "<b>Dritte.</b> Die Tools werden von Dritten entwickelt und betrieben. Wir kontrollieren weder sie noch ihre Daten, Sicherheit oder Verfügbarkeit. Die Prüfung ist automatisiert und auf die auf der Über-uns-Seite beschriebenen Kontrollen beschränkt.",
    "<b>Genauigkeit.</b> Preise und Funktionen ändern sich. Bestätigen Sie sie immer auf der Website des Anbieters.",
-   "<b>Affiliate- und Sponsoring-Hinweis.</b> Einige Links bringen uns eine Provision, und einige Einträge sind bezahlte Plätze. Sie sind gekennzeichnet."
+   "<b>Gesponserte Platzierungen.</b> Einige Links sind Affiliate-(Partner-)Links und können uns eine Provision einbringen. Derzeit ist kein Eintrag eine bezahlte Platzierung; falls gesponserte Platzierungen angeboten werden, sind sie als „Gesponsert“ gekennzeichnet."
   ]
  },
  "ver": {
@@ -553,5 +553,24 @@
   "longbridge-skills": "Offizielle Longbridge-Agent-Skills: Kurse, technische Analyse, Derivate, Fundamentaldaten, Portfolio und Watchlist für HK, USA, A-Aktien und Singapur.",
   "coinbase-agentic-wallet-skills": "Offizielle Coinbase-Skills für Agenten-Wallets: Salden, USDC senden, Token tauschen, Guthaben aufladen und x402-APIs bezahlen auf Base, Polygon und Solana.",
   "options-trading-skills": "Community-Claude-Skills für Optionshändler: Scanner, Griechen, Spreads, PMCC-Screens, Korrelationen und IBKR-Portfolioberichte."
+ },
+ "faq": {
+  "title": "Häufige Fragen",
+  "q1": "Was ist {site}?",
+  "a1": "{site} ist ein unabhängiges Verzeichnis von KI-Tools für Finanzen und Trading: MCP-Server, Agent-Skills und Daten-APIs für Marktdaten, Broker, Krypto, Buchhaltung und Finanzrecherche. Es listet {n} Tools in {c} Kategorien, mit Installations-Snippets zum Kopieren für KI-Clients wie Claude, Cursor, ChatGPT, Grok und Gemini.",
+  "q2": "Wie werden die Tools geprüft?",
+  "a2": "Jeder Eintrag wird jede Woche automatisch neu geprüft: ob das Repository erreichbar oder archiviert ist, das Datum des letzten Commits, ob das npm- oder PyPI-Paket existiert und auf das Repository zurückverweist und ob Website, Doku und ein gehosteter MCP-Endpoint antworten. Preise werden von der Preisseite des Anbieters selbst übernommen. Letzte Prüfung: {date}.",
+  "q3": "Ist {site} kostenlos?",
+  "a3": "Ja. Das Verzeichnis zu nutzen und ein Tool einzutragen ist kostenlos. Die Website kann über offengelegte Affiliate-(Partner-)Links eine Provision verdienen; diese haben keinen Einfluss auf den Prüfstatus eines Tools. Jede Tool-Seite zeigt die Preise und den Gratis-Tarif des jeweiligen Tools.",
+  "q4": "Wie reiche ich ein Tool ein?",
+  "a4": "Über die Seite „{page}“. Sie öffnet ein vorausgefülltes GitHub-Issue; ohne GitHub-Konto senden Sie dieselben Angaben per E-Mail an {email}. Jede Einreichung wird geprüft, und Tools, die die Prüfung bestehen, werden innerhalb einer Woche veröffentlicht.",
+  "q5": "In welchen Sprachen gibt es {site}?",
+  "a5": "{site} ist in {n} Sprachen verfügbar: {list}.",
+  "cq1": "Wie viele Tools sind in „{name}“ gelistet?",
+  "ca1": "In dieser Kategorie sind {n} Tools gelistet; {v} davon haben die letzte wöchentliche Prüfung ({date}) mit dem Status „{status}“ bestanden.",
+  "cq2": "Welche Tools in „{name}“ sind am beliebtesten?",
+  "ca2": "Nach GitHub-Sternen sind die beliebtesten geprüften Tools dieser Kategorie {list}.",
+  "cq3": "Sind die Tools in „{name}“ offiziell?",
+  "ca3": "Offizielle Tools, vom Anbieter selbst veröffentlicht: {o} von {n}. Community-Projekte: {c}. Offizielle Tools tragen das Badge „{badge}“."
  }
 }
