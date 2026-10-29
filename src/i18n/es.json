@@ -184,8 +184,8 @@
   "text": "Qué hay de nuevo, qué se rompió y qué herramientas subieron en el ranking: un email a la semana. Gratis.",
   "subscribe": "Suscribirse",
   "thanks": "Gracias, revisa tu bandeja de entrada.",
-  "preview": "Modo de vista previa: la suscripción aún no está conectada, no se envió nada.",
-  "rss": "O síguenos por <a href=\"/rss.xml\">RSS</a>."
+  "rss": "O síguenos por <a href=\"/rss.xml\">RSS</a>.",
+  "email": "Escribe a <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a> para suscribirte."
  },
  "home": {
   "h1a": "Herramientas de IA para",

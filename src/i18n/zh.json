@@ -184,8 +184,8 @@
   "text": "新上线了什么、什么坏了、哪些工具排名上升——每周一封邮件，免费。",
   "subscribe": "订阅",
   "thanks": "谢谢，请查收您的邮箱。",
-  "preview": "预览模式：订阅功能尚未接通，未发送任何内容。",
-  "rss": "也可以通过 <a href=\"/rss.xml\">RSS</a> 关注。"
+  "rss": "也可以通过 <a href=\"/rss.xml\">RSS</a> 关注。",
+  "email": "如需订阅，请发送邮件至 <a href=\"mailto:{email}?subject=Subscribe\" dir=\"ltr\">{email}</a>。"
  },
  "home": {
   "h1a": "面向",

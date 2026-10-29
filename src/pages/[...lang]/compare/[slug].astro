@@ -5,13 +5,13 @@ import Status from "../../../components/Status.astro";
 import Share from "../../../components/Share.astro";
 import Newsletter from "../../../components/Newsletter.astro";
 import { SITE } from "../../../config";
-import { tools, COMPARISONS, pkgOf, fmtStars, starsOf, lastCommit, verificationReport as r } from "../../../lib/data";
+import { tools, COMPARISONS, pkgOf, fmtStars, starsOf, byStars, lastCommit, verificationReport as r } from "../../../lib/data";
 import { langParams, useT } from "../../../i18n";
 const TV: Record<string,any> = { "market-data-api-pricing": "charts", "best-stock-market-mcp-servers": "charts", "crypto-mcp-servers": "crypto", "trading-skills-for-claude": "backtest" };
 export function getStaticPaths() { return langParams().flatMap((lp) => COMPARISONS.map((c) => ({ params: { ...lp, slug: c.slug }, props: { slug: c.slug } }))); }
 const lang = Astro.params.lang ?? "en"; const { t, p } = useT(lang);
 const c = COMPARISONS.find((x) => x.slug === Astro.props.slug)!; const [title, intro] = t(`cmp.${c.slug}`);
-const list = tools.filter(c.filter).sort((a, b) => (b.verification.github?.stars ?? 0) - (a.verification.github?.stars ?? 0));
+const list = tools.filter(c.filter).sort(byStars);
 const ld = [{ "@context": "https://schema.org", "@type": "ItemList", name: title, itemListElement: list.map((x, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE.url}${p(`/tools/${x.id}/`)}`, name: x.name })) }];
 ---
 <Base title={title} description={intro} jsonld={ld} og={`compare-${c.slug}`} lang={lang}>
