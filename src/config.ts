@@ -6,7 +6,7 @@ export const SITE = {
   tagline: "Verified AI tools for finance & trading",
   description:
     "A weekly-verified directory of MCP servers, agent skills and APIs for market data, trading, crypto, accounting and financial research — with pricing, free tiers and copy-paste install snippets for Claude, Cursor, ChatGPT, Grok and Gemini.",
-  contactEmail: "hello@example.com",   // placeholder — no mailbox exists yet
+  contactEmail: "hello@tradingaihub.com", // Cloudflare Email Routing → Liran
   showAdPricing: false,               // launch = 100% free feel: hide paid tiers until traffic exists
   newsletterLive: false,               // email capture form has no backend yet
   githubAwesomeRepo: "https://github.com/<owner>/awesome-finance-ai-tools", // placeholder, not created
