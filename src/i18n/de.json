@@ -18,6 +18,7 @@
   "rechecked": "Jede Woche neu geprüft.",
   "directory": "Verzeichnis",
   "comparisons": "Vergleiche",
+  "guides": "Anleitungen (auf Englisch)",
   "latestRun": "Letzte Prüfung",
   "makers": "Für Entwickler",
   "submitFree": "Tool einreichen (kostenlos)",
@@ -293,6 +294,7 @@
   "free": "kostenlos",
   "notEndorse": "Ein Eintrag ist weder eine Empfehlung noch Anlageberatung. Testen Sie jedes Trading-Tool zuerst im Demomodus.",
   "more": "Mehr in {cat}",
+  "guides": "Anleitungen zu diesem Tool (auf Englisch)",
   "pricingDataNote": "Preisdetails werden auf Englisch von der Anbieterseite zitiert."
  },
  "checks": {

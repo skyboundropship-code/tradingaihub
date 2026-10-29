@@ -18,6 +18,7 @@
   "rechecked": "매주 다시 검사합니다.",
   "directory": "디렉터리",
   "comparisons": "비교",
+  "guides": "가이드 (영어)",
   "latestRun": "최근 검증 결과",
   "makers": "개발자용",
   "submitFree": "도구 등록 (무료)",
@@ -293,6 +294,7 @@
   "free": "무료",
   "notEndorse": "등재는 보증이나 투자 조언이 아닙니다. 트레이딩 도구는 먼저 모의 투자 모드에서 테스트하세요.",
   "more": "{cat}의 다른 도구",
+  "guides": "이 도구를 다루는 가이드 (영어)",
   "pricingDataNote": "가격 세부 정보는 제공사 페이지에서 영어로 인용합니다."
  },
  "checks": {

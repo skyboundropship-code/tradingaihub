@@ -9,23 +9,34 @@ import { isAff } from "../../../lib/aff";
 import AffTag from "../../../components/AffTag.astro";
 import { tools, COMPARISONS, pkgOf, fmtStars, starsOf, byStars, lastCommit, verificationReport as r } from "../../../lib/data";
 import { langParams, useT } from "../../../i18n";
+import { techArticleLd } from "../../../lib/jsonld";
+import { faqLd } from "../../../lib/faq";
+import { compareEditorial, render } from "../../../lib/guides";
 const TV: Record<string,any> = { "market-data-api-pricing": "charts", "best-stock-market-mcp-servers": "charts", "crypto-mcp-servers": "crypto", "trading-skills-for-claude": "backtest" };
 export function getStaticPaths() { return langParams().flatMap((lp) => COMPARISONS.map((c) => ({ params: { ...lp, slug: c.slug }, props: { slug: c.slug } }))); }
 const lang = Astro.params.lang ?? "en"; const { t, p } = useT(lang);
 const c = COMPARISONS.find((x) => x.slug === Astro.props.slug)!; const [title, intro] = t(`cmp.${c.slug}`);
 const list = tools.filter(c.filter).sort(byStars);
 const pageUrl = `${SITE.url}${p(`/compare/${c.slug}/`)}`;
+// English editorial copy (src/content/compare/<slug>.md) wraps the live table on /compare/<slug>/ only; other locales keep
+// their translated intro + table until the editorial is translated.
+const ed = lang === "en" ? compareEditorial(c.slug) : null;
+const edr = ed ? await render(ed.mod, `src/content/compare/${c.slug}.md`) : null;
+const [edBefore, edAfter] = edr ? [edr.parts[0], edr.parts.slice(1).join("")] : ["", ""];
 const ld = [{ "@context": "https://schema.org", "@type": "ItemList", name: title, url: pageUrl, numberOfItems: list.length, itemListElement: list.map((x, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE.url}${p(`/tools/${x.id}/`)}`, name: x.name })) },
   { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
     { "@type": "ListItem", position: 1, name: t("common.home"), item: `${SITE.url}${p("/")}` },
     { "@type": "ListItem", position: 2, name: t("compare.title"), item: `${SITE.url}${p("/compare/")}` },
-    { "@type": "ListItem", position: 3, name: title, item: pageUrl } ] }];
+    { "@type": "ListItem", position: 3, name: title, item: pageUrl } ] },
+  ...(ed ? [techArticleLd({ url: pageUrl, headline: title, description: ed.description, lang, datePublished: ed.datePublished, dateModified: ed.dateModified, toolIds: list.map((x) => x.id), image: `${SITE.url}/og/compare-${c.slug}.png` })] : []),
+  ...(edr?.faq.length ? [faqLd(edr.faq, lang)] : [])];
 ---
-<Base title={title} description={intro} jsonld={ld} og={`compare-${c.slug}`} lang={lang}>
+<Base title={ed ? ed.title : title} description={ed ? ed.description : intro} jsonld={ld} og={`compare-${c.slug}`} lang={lang} article={ed ? { published: ed.datePublished, modified: ed.dateModified } : undefined}>
 <div class="wrap page">
   <div class="crumbs"><a href={p("/")}>{t("common.home")}</a> / <a href={p("/compare/")}>{t("compare.title")}</a></div>
-  <h1>{title}</h1><p style="color:var(--muted)">{intro} {t("compare.dataNote", { date: r.checked_at.slice(0, 10) })}</p>
+  <h1>{title}</h1>{!ed && <p style="color:var(--muted)">{intro} {t("compare.dataNote", { date: r.checked_at.slice(0, 10) })}</p>}
   <Share path={p(`/compare/${c.slug}/`)} text={title} lang={lang} />
+  {ed && <><div class="prose" set:html={edBefore} /><h2 class="sec" id="live-table">Every market-data MCP server we track</h2><p class="note">{t("compare.dataNote", { date: r.checked_at.slice(0, 10) })}</p></>}
   <div class="tablewrap"><table>
   {c.cols === "pricing" ? (<>
     <thead><tr><th>{t("th.api")}</th><th>{t("th.freeTier")}</th><th>{t("th.paidFrom")}</th><th>{t("th.plans")}</th><th>{t("th.status")}</th><th>{t("th.source")}</th></tr></thead>
@@ -37,6 +48,7 @@ const ld = [{ "@context": "https://schema.org", "@type": "ItemList", name: title
   </table>{c.cols === "pricing" && list.some((x) => isAff(x.pricing.source)) && <span id="aff-note" hidden>{t("common.affTitle")}</span>}</div>
   <p class="note" style="margin-top:14px">{t("compare.order")}</p>
   {TV[c.slug] && <TradingView context={TV[c.slug]} lang={lang} />}
+  {ed && <div class="prose" set:html={edAfter} />}
   <Newsletter lang={lang} level={2} />
 </div>
 </Base>

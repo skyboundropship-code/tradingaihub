@@ -18,6 +18,7 @@
   "rechecked": "Her hafta yeniden kontrol edilir.",
   "directory": "Dizin",
   "comparisons": "Karşılaştırmalar",
+  "guides": "Rehberler (İngilizce)",
   "latestRun": "Son doğrulama",
   "makers": "Geliştiriciler için",
   "submitFree": "Araç ekle (ücretsiz)",
@@ -293,6 +294,7 @@
   "free": "Ücretsiz",
   "notEndorse": "Listelenmek onay veya yatırım tavsiyesi anlamına gelmez. Her trading aracını önce paper modunda test edin.",
   "more": "{cat} kategorisinde diğer araçlar",
+  "guides": "Bu aracı ele alan rehberler (İngilizce)",
   "pricingDataNote": "Fiyat ayrıntıları sağlayıcı sayfasından İngilizce olarak alıntılanmıştır."
  },
  "checks": {
