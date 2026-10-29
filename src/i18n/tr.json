@@ -339,7 +339,7 @@
   "latest": "Son çalıştırma: {date} UTC —",
   "fullReport": "tam raporu gör",
   "money": "Nasıl para kazanıyoruz",
-  "moneyP": "Listeleme ücretsizdir. Şu anda yalnızca açıklanmış satış ortaklığı (partner) bağlantılarından (şu anda TradingView ve EODHD) gelir elde ediyoruz. Sponsorlu alanlar henüz sunulmuyor; sunulursa “Sponsorlu” olarak işaretlenecek. Hiçbiri doğrulama durumunu etkilemez.",
+  "moneyP": "Listeleme ücretsizdir. Şu anda yalnızca TradingView'e ve EODHD'ye verilen, açıklanmış satış ortaklığı (partner) bağlantılarından gelir elde ediyoruz. Sponsorlu alanlar henüz sunulmuyor; sunulursa “Sponsorlu” olarak işaretlenecek. Hiçbiri doğrulama durumunu etkilemez.",
   "contact": "İletişim"
  },
  "disc": {
