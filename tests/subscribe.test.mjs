@@ -1,4 +1,4 @@
-// node --test tests/  — unit tests for functions/api/subscribe.js with mocked KV and fetch (no network).
+// npm run test:functions (node --test tests/*.test.mjs) — unit tests for functions/api/subscribe.js with mocked KV and fetch (no network).
 import test from "node:test";
 import assert from "node:assert/strict";
 import { onRequest } from "../functions/api/subscribe.js";
@@ -113,8 +113,8 @@ test("oversized body: 400", async () => {
   assert.equal(res.status, 400);
 });
 
-test("KV failure: 503 and no MailerLite call", async () => {
-  const kv = makeKV(); kv.put = async () => { throw new Error("kv down"); };
+test("KV failure on the sub: write (rate-limit write ok): 503 and no MailerLite call", async () => {
+  const kv = makeKV(); const put = kv.put; kv.put = async (k, v) => { if (k.startsWith("sub:")) throw new Error("kv down"); return put(k, v); };
   const { res, calls } = await run(req({ email: "j@example.com" }), baseEnv(kv, { MAILERLITE_API_KEY: FAKE_KEY }), ok201);
   assert.equal(res.status, 503); assert.equal(calls.length, 0);
 });
