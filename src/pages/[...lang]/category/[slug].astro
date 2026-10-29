@@ -3,6 +3,8 @@ import TradingView from "../../../components/TradingView.astro";
 import PartnerCTA from "../../../components/PartnerCTA.astro";
 import Base from "../../../layouts/Base.astro";
 import ToolCard from "../../../components/ToolCard.astro";
+import Faq from "../../../components/Faq.astro";
+import { categoryFaq, faqLd } from "../../../lib/faq";
 import { SITE } from "../../../config";
 import { tools, CATEGORIES, COMPARISONS, byStars } from "../../../lib/data";
 import { langParams, useT } from "../../../i18n";
@@ -16,6 +18,7 @@ const list = tools.filter((x) => x.category === c.slug).sort((a, b) => order[a.v
 const comps = COMPARISONS.filter((x) => list.some((y) => x.filter(y)));
 const ld = [{ "@context": "https://schema.org", "@type": "CollectionPage", name: cname, description: cblurb, url: `${SITE.url}${p(`/category/${c.slug}/`)}`, inLanguage: lang,
   mainEntity: { "@type": "ItemList", numberOfItems: list.length, itemListElement: list.map((x, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE.url}${p(`/tools/${x.id}/`)}`, name: x.name })) } }];
+const faq = categoryFaq(lang, c.slug); ld.push(faqLd(faq, lang) as any);
 ---
 <Base title={t("category.title", { name: cname, year: new Date().getFullYear() })} description={`${t("category.desc", { n: list.length, name: cname })} ${cblurb}`} jsonld={ld} og={`category-${c.slug}`} lang={lang}>
 <div class="wrap page">
@@ -24,6 +27,7 @@ const ld = [{ "@context": "https://schema.org", "@type": "CollectionPage", name:
   <PartnerCTA variant="tool" lang={lang} path={TVPATH[c.slug] ?? "/"} />
   {comps.length > 0 && <p class="note">{t("category.compare")} {comps.map((x, i) => <>{i > 0 && " · "}<a href={p(`/compare/${x.slug}/`)}>{t(`cmp.${x.slug}`)[0]}</a></>)}</p>}
   <div class="grid">{list.map((x) => <ToolCard t={x} lang={lang} level={2} />)}</div>
+  <Faq items={faq} lang={lang} />
   {TV[c.slug] && <TradingView context={TV[c.slug]} lang={lang} />}
 </div>
 </Base>

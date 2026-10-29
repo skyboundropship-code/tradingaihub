@@ -185,14 +185,14 @@
   "title": "📬 Le rapport hebdo « État des outils d'IA pour la finance »",
   "text": "Les nouveautés, ce qui a cassé et les outils qui montent au classement : un e-mail par semaine. Gratuit.",
   "subscribe": "S'abonner",
-  "thanks": "Vous êtes inscrit, merci ! Le premier numéro arrivera avec le prochain rapport hebdo.",
+  "thanks": "Presque terminé : consultez votre boîte de réception et cliquez sur le lien pour confirmer votre abonnement.",
   "rss": "Ou suivez-nous par <a href=\"/rss.xml\">RSS</a>.",
   "email": "Écrivez à <a href=\"mailto:{email}?subject={subject}\" dir=\"ltr\">{email}</a> pour vous inscrire.",
   "sending": "Envoi…",
   "errInvalid": "Veuillez saisir une adresse e-mail valide.",
   "errRate": "Trop de tentatives. Réessayez dans une heure.",
   "errServer": "Une erreur est survenue. Réessayez ou écrivez à {email} pour vous inscrire.",
-  "consent": "En vous inscrivant, vous acceptez notre <a href=\"{privacy}\">politique de confidentialité</a>. Désinscription à tout moment en écrivant à {email}.",
+  "consent": "En vous abonnant, vous acceptez notre <a href=\"{privacy}\">politique de confidentialité</a>. Nous vous enverrons d'abord un e-mail de confirmation. Chaque e-mail contient un lien de désabonnement ; pour supprimer vos données, écrivez à {email}.",
   "label": "Adresse e-mail"
  },
  "home": {
@@ -340,7 +340,7 @@
   "latest": "Dernière vérification : {date} UTC —",
   "fullReport": "voir le rapport complet",
   "money": "Comment nous gagnons de l'argent",
-  "moneyP": "Le référencement est gratuit. Nous gagnons de l'argent grâce à des emplacements sponsorisés clairement signalés et à quelques liens affiliés vers des fournisseurs de données. Aucun n'influence le statut de vérification.",
+  "moneyP": "Le référencement est gratuit. Actuellement, nous gagnons de l'argent uniquement grâce à des liens d'affiliation (partenaires) déclarés vers certains fournisseurs de données. Les emplacements sponsorisés ne sont pas encore proposés ; s'ils le deviennent, ils seront signalés « Sponsorisé ». Aucun n'influence le statut de vérification.",
   "contact": "Contact"
  },
  "disc": {
@@ -348,13 +348,13 @@
   "h1": "Avertissement : pas un conseil en investissement",
   "intro": "{site} est un annuaire d'outils logiciels. Tout le contenu est une information générale sur des logiciels, leurs fonctionnalités et leurs prix publiés.",
   "items": [
-   "<b>Liens affiliés.</b> Certains liens sortants, actuellement vers TradingView, sont des liens affiliés signalés comme « lien affilié » et marqués rel=\"sponsored\". Si vous souscrivez un abonnement par leur biais, nous pouvons percevoir une commission sans surcoût pour vous. Aucun paiement n'influence les outils que nous référençons, leur classement ou leur statut de vérification, et un lien n'est ni une approbation ni une recommandation de trader.",
+   "<b>Liens affiliés.</b> Certains liens (par exemple vers TradingView et certains fournisseurs de données) sont des liens d'affiliation (partenaires) : si vous achetez par leur biais, nous pouvons percevoir une commission sans surcoût pour vous. Les encadrés partenaires sont signalés « Partenaire ». Aucun paiement n'influence les outils que nous référençons, leur classement ou leur statut de vérification, et un lien n'est ni une approbation ni une recommandation de trader.",
    "<b>Aucun conseil.</b> Rien sur ce site ne constitue un conseil en investissement, de la commercialisation de placements, de la gestion de portefeuille, des signaux de trading ou un conseil fiscal, comptable ou juridique, et rien ne tient compte de votre situation personnelle. Nous ne sommes conseillers en investissement, distributeurs de placements ou gérants de portefeuille agréés dans aucune juridiction (y compris au titre de la loi israélienne sur la réglementation du conseil en investissement, de la commercialisation de placements et de la gestion de portefeuille, 5755-1995).",
    "<b>Aucune recommandation.</b> Une fiche, un classement, un badge « Vérifié » ou un emplacement sponsorisé ne constitue pas une recommandation d'utiliser un outil, un courtier, une plateforme ou un actif.",
    "<b>Risque.</b> Le trading et l'investissement — notamment avec des agents automatisés ou d'IA, l'effet de levier, les options ou la crypto — peuvent vous faire perdre tout ou partie de votre argent. Testez d'abord tout outil de trading en mode démo et ne donnez jamais à un agent plus de droits que ce que vous pouvez vous permettre de perdre.",
    "<b>Tiers.</b> Les outils sont créés et exploités par des tiers. Nous ne contrôlons ni ces outils, ni leurs données, leur sécurité ou leur disponibilité. La vérification est automatisée et limitée aux contrôles décrits sur la page À propos.",
    "<b>Exactitude.</b> Les prix et fonctionnalités changent. Confirmez-les toujours sur le site de l'éditeur.",
-   "<b>Liens affiliés et sponsoring.</b> Certains liens nous rapportent une commission et certaines fiches sont des emplacements payants. Ils sont signalés."
+   "<b>Emplacements sponsorisés.</b> Certains liens sont des liens d'affiliation (partenaires) et peuvent nous rapporter une commission. Aucune fiche n'est aujourd'hui un emplacement payant ; si des emplacements sponsorisés sont proposés, ils seront signalés « Sponsorisé »."
   ]
  },
  "ver": {
@@ -425,7 +425,9 @@
   "affP": "Lorsque vous cliquez sur un lien affilié, le site de destination peut déposer ses propres cookies selon sa propre politique.",
   "rights": "Vos droits",
   "rightsP": "Demandez l'accès à vos données ou leur suppression à {email}.",
-  "c3": "Newsletter : si vous vous abonnez, nous conservons votre adresse e-mail, votre langue, la date d’inscription et une trace de votre consentement, uniquement pour envoyer la newsletter. Pour limiter les abus, chaque tentative d’inscription crée aussi une clé temporaire de limitation de débit, issue d’un hachage irréversible de votre adresse IP (l’IP elle-même n’est jamais conservée) ; elle est supprimée automatiquement au bout d’une heure. Vous pouvez vous désabonner ou demander la suppression de vos données à tout moment en écrivant à {email}."
+  "c3": "Newsletter : si vous vous abonnez, nous conservons votre adresse e-mail, votre langue, la date d'inscription et une trace de votre consentement, uniquement pour faire fonctionner la newsletter. Cet enregistrement est conservé dans notre stockage Cloudflare Workers KV comme copie de sauvegarde de la liste jusqu'à ce que vous nous demandiez de le supprimer (y compris si vous ne confirmez jamais). Pour limiter les abus, chaque tentative d'inscription crée aussi une clé temporaire de limitation de débit à partir d'un hachage irréversible de votre adresse IP (l'IP elle-même n'est jamais stockée) ; elle est supprimée automatiquement au bout d'1 heure.",
+  "c4": "Envoi des e-mails : la newsletter est envoyée via MailerLite, notre prestataire d'e-mailing, qui traite les données pour notre compte. Nous ne partageons avec MailerLite que votre adresse e-mail. Pour notre compte, le service est fourni par MailerLite, Inc. (États-Unis) ; MailerLite stocke les données dans des centres de données Google situés dans l'UE, et votre adresse e-mail est transférée aux États-Unis en vertu des garanties de MailerLite, notamment le Data Privacy Framework UE–États-Unis (avec son extension pour le Royaume-Uni), le Data Privacy Framework Suisse–États-Unis et des clauses contractuelles types.",
+  "c5": "Double opt-in : après votre inscription, MailerLite vous envoie un e-mail de confirmation, et vous n'êtes abonné qu'après avoir cliqué sur le lien qu'il contient. Chaque e-mail de la newsletter contient un lien de désabonnement. Pour faire supprimer vos données à la fois chez MailerLite et dans notre stockage KV, écrivez à {email}."
  },
  "terms": {
   "title": "Conditions d'utilisation",
@@ -554,5 +556,24 @@
   "longbridge-skills": "Skills d'agent officiels de Longbridge : cotations, analyse technique, dérivés, fondamentaux, portefeuille et liste de suivi sur les marchés de HK, des États-Unis, des actions A et de Singapour.",
   "coinbase-agentic-wallet-skills": "Skills officiels de Coinbase pour portefeuilles d'agents : soldes, envoi d'USDC, échange de jetons, approvisionnement et paiement d'API x402 sur Base, Polygon et Solana.",
   "options-trading-skills": "Skills Claude communautaires pour traders d'options : scanners, grecques, spreads, filtres PMCC, corrélations et rapports de portefeuille IBKR."
+ },
+ "faq": {
+  "title": "Questions fréquentes",
+  "q1": "Qu'est-ce que {site} ?",
+  "a1": "{site} est un annuaire indépendant d'outils d'IA pour la finance et le trading : serveurs MCP, skills d'agents et API de données pour les données de marché, les courtiers, la crypto, la comptabilité et la recherche financière. Il répertorie {n} outils dans {c} catégories, avec des extraits d'installation prêts à copier pour des clients d'IA comme Claude, Cursor, ChatGPT, Grok et Gemini.",
+  "q2": "Comment les outils sont-ils vérifiés ?",
+  "a2": "Chaque fiche est revérifiée automatiquement chaque semaine : le dépôt est-il accessible ou archivé, la date de son dernier commit, le paquet npm ou PyPI existe-t-il et renvoie-t-il vers le dépôt, et le site, la documentation et tout endpoint MCP hébergé répondent-ils. Les prix sont copiés depuis la page tarifaire de l'éditeur lui-même. Dernière vérification : {date}.",
+  "q3": "{site} est-il gratuit ?",
+  "a3": "Oui. Consulter l'annuaire et y inscrire un outil sont gratuits. Le site peut percevoir une commission via des liens d'affiliation (partenaires) déclarés, qui n'influencent jamais le statut de vérification d'un outil. La page de chaque outil indique ses propres tarifs et son offre gratuite.",
+  "q4": "Comment proposer un outil ?",
+  "a4": "Passez par la page « {page} ». Elle ouvre une issue GitHub préremplie ; sans compte GitHub, envoyez les mêmes informations par e-mail à {email}. Chaque proposition est examinée, et les outils qui passent la vérification sont publiés sous une semaine.",
+  "q5": "Dans quelles langues {site} est-il disponible ?",
+  "a5": "{site} est disponible en {n} langues : {list}.",
+  "cq1": "Combien d'outils sont répertoriés dans « {name} » ?",
+  "ca1": "Cette catégorie répertorie {n} outils, dont {v} ont passé la dernière vérification hebdomadaire ({date}) avec le statut « {status} ».",
+  "cq2": "Quels sont les outils les plus populaires dans « {name} » ?",
+  "ca2": "D'après les étoiles GitHub, les outils vérifiés les plus populaires de cette catégorie sont {list}.",
+  "cq3": "Les outils de « {name} » sont-ils officiels ?",
+  "ca3": "Outils officiels, publiés par l'éditeur lui-même : {o} sur {n}. Projets communautaires : {c}. Les outils officiels portent le badge « {badge} »."
  }
 }
