@@ -137,7 +137,7 @@ for (const { name, rec } of todo) {
   r.result === "ok" ? ok++ : err++;
   console.log(`  ${mask(rec.email)} -> ${r.result}: ${r.action} (http ${r.status || "network"})`);
   try { putRecord(name, { ...rec, ml: r.result }); } catch { console.log(`  ${mask(rec.email)} kv status update failed`); }
-  await new Promise((r) => setTimeout(r, 600)); // stay well under MailerLite's 120 req/min
+  await new Promise((r) => setTimeout(r, 1100)); // up to 2 calls per record: stays under MailerLite's 120 req/min
 }
 console.log(`done: ok=${ok} err=${err}`);
 process.exitCode = err ? 1 : 0;
