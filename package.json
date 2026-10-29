@@ -16,7 +16,8 @@
     "test:functions": "node --test tests/*.test.mjs",
     "deploy": "npm run build && wrangler pages deploy dist --project-name=tradingaihub --branch=main --commit-dirty=true",
     "weekly:publish": "npm run weekly && npm run deploy && npm run indexnow",
-    "test:aff": "node --test scripts/aff.test.mjs"
+    "test:aff": "node --test scripts/aff.test.mjs",
+    "clicks": "node scripts/clicks.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
