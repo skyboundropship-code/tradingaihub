@@ -15,8 +15,15 @@ const isNotFound = /\/404(\.html|\/)?$/.test(Astro.url.pathname);
 const base = isNotFound ? "/" : basePath(Astro.url.pathname);
 const canonical = new URL(pathFor(lang, base), SITE.url).href;
 const fullTitle = title === SITE.name ? `${SITE.name} — ${tagline}` : `${title} | ${SITE.name}`;
-const org = { "@context": "https://schema.org", "@type": "WebSite", name: SITE.name, url: SITE.url, inLanguage: lang, description: desc,
-  potentialAction: { "@type": "SearchAction", target: `${SITE.url}${p("/tools/")}?q={query}`, "query-input": "required name=query" } };
+// Sitewide entity graph, identical on every page and locale (stable @ids), so Organization/WebSite are never duplicated.
+// No SearchAction: Google retired the sitelinks search box. logo-512.png is rendered from public/favicon.svg (the header mark).
+const org = { "@context": "https://schema.org", "@graph": [
+  { "@type": "Organization", "@id": `${SITE.url}/#organization`, name: SITE.name, url: `${SITE.url}/`, email: SITE.contactEmail,
+    logo: { "@type": "ImageObject", "@id": `${SITE.url}/#logo`, url: `${SITE.url}/logo-512.png`, contentUrl: `${SITE.url}/logo-512.png`, width: 512, height: 512, caption: SITE.name },
+    image: { "@id": `${SITE.url}/#logo` }, sameAs: [SITE.githubAwesomeRepo] },
+  { "@type": "WebSite", "@id": `${SITE.url}/#website`, name: SITE.name, url: `${SITE.url}/`, description: SITE.description, inLanguage: CODES,
+    publisher: { "@id": `${SITE.url}/#organization` } },
+] };
 const parts = SITE.name.split("AI");
 const cur = localeOf(lang);
 const at = useA11yT(lang);
