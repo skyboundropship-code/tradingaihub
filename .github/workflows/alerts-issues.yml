@@ -1,0 +1,30 @@
+# Phone alert (ntfy) for a new tool submission. The /submit/ form opens a pre-filled GitHub issue titled "[Submit] <name>",
+# so the alert fires on issues.opened with that prefix. Repo secret: NTFY_TOPIC (never echoed).
+# The issue title is untrusted input: it only reaches curl through an env var and a file, never through ${{ }} in the script.
+name: alerts-issues
+on:
+  issues:
+    types: [opened]
+permissions: {}
+jobs:
+  notify:
+    if: startsWith(github.event.issue.title, '[Submit]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Notify
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+          ISSUE_USER: ${{ github.event.issue.user.login }}
+        run: |
+          set -euo pipefail
+          [ -n "$NTFY_TOPIC" ] || { echo "NTFY_TOPIC missing"; exit 1; }
+          name="${ISSUE_TITLE#\[Submit\]}"; name="$(printf '%s' "$name" | tr -d '\r\n' | sed 's/^ *//' | cut -c1-120)"
+          printf '%s\nby @%s\n%s\n' "$name" "$ISSUE_USER" "$ISSUE_URL" > msg.txt
+          code=$(curl -sS --max-time 20 --retry 2 -o /dev/null -w '%{http_code}' \
+            -H "Title: New tool submission" -H "Tags: toolbox" -H "Priority: 3" -H "Click: $ISSUE_URL" \
+            --data-binary @msg.txt "https://ntfy.sh/$NTFY_TOPIC")
+          echo "ntfy http $code"
+          [ "$code" = 200 ]

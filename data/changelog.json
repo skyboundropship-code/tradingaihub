@@ -1,5 +1,62 @@
 [
   {
+    "date": "2026-11-02",
+    "counts": {
+      "verified": 81,
+      "stale": 13,
+      "aging": 4,
+      "archived": 3,
+      "unconfirmed": 3
+    },
+    "changes": [
+      {
+        "kind": "stars",
+        "id": "tradingview-mcp",
+        "text": "TradingView MCP (community, unofficial) gained 26 stars"
+      },
+      {
+        "kind": "stars",
+        "id": "anthropic-financial-services",
+        "text": "Anthropic Financial Services Plugins gained 76 stars"
+      },
+      {
+        "kind": "stars",
+        "id": "stripe-ai",
+        "text": "Stripe Agent Toolkit & MCP gained 28 stars"
+      },
+      {
+        "kind": "release",
+        "id": "optionsahoy-mcp",
+        "text": "OptionsAhoy MCP released 1.11.1 (was 1.11.0)"
+      },
+      {
+        "kind": "stars",
+        "id": "openbb",
+        "text": "OpenBB Platform (MCP) gained 144 stars"
+      },
+      {
+        "kind": "stars",
+        "id": "claude-trading-skills",
+        "text": "Claude Trading Skills gained 122 stars"
+      },
+      {
+        "kind": "release",
+        "id": "ynab-mcp",
+        "text": "YNAB MCP Server (community) released 0.7.2 (was 0.7.1)"
+      },
+      {
+        "kind": "status",
+        "id": "firefly-iii-api",
+        "text": "Firefly III API: verified \u2192 unconfirmed"
+      },
+      {
+        "kind": "stars",
+        "id": "firefly-iii-api",
+        "text": "Firefly III API gained 31 stars"
+      }
+    ]
+  },
+  {
     "date": "2026-10-29",
     "counts": {
       "verified": 82,
