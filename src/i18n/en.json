@@ -22,6 +22,7 @@
   "makers": "For makers",
   "submitFree": "Submit a tool (free)",
   "getBadge": "Get your verified badge",
+  "getFeatured": "Get featured",
   "awesome": "Awesome list",
   "legal": "Legal",
   "nia": "Not investment advice",
@@ -201,6 +202,7 @@
   "h1em": "finance & trading",
   "h1b": "verified every week.",
   "lead": "Free, open directory of MCP servers, agent skills and APIs that plug market data, brokers, crypto and accounting into Claude, Cursor, ChatGPT, Grok and Gemini — with real pricing, free tiers and one-click install snippets.",
+  "featThanks": "Thank you, your payment was received. We'll email you within 1 business day to set up your placement. Questions: {email}.",
   "search": "Search e.g. 'options', 'SEC filings', 'Binance', 'QuickBooks'…",
   "searchLabel": "Search tools",
   "listed": "tools listed",
@@ -341,7 +343,7 @@
   "latest": "Latest run: {date} UTC —",
   "fullReport": "see the full report",
   "money": "How we make money",
-  "moneyP": "Listings are free. We currently earn only from disclosed affiliate (partner) links to TradingView and EODHD. Sponsored placements aren't offered yet; if they are, they'll be labelled “Sponsored”. Neither affects verification status.",
+  "moneyP": "Listings are free. We earn from disclosed affiliate (partner) links to TradingView and EODHD, and from two paid placements: Category Featured and Homepage Feature. Paid placements are always labelled “Sponsored” and never affect verification status.",
   "contact": "Contact"
  },
  "disc": {
@@ -355,7 +357,7 @@
    "<b>Risk.</b> Trading and investing — especially with automated or AI agents, leverage, options or crypto — can lose some or all of your money. Test any trading tool in paper mode first and never give an agent more permissions than you can afford to lose.",
    "<b>Third parties.</b> Tools are built and run by third parties. We don't control them, their data, their security or their availability. Verification is automated and limited to the checks described on the About page.",
    "<b>Accuracy.</b> Prices and features change. Always confirm on the vendor's site.",
-   "<b>Sponsored placements.</b> Some links are affiliate (partner) links and may earn us a commission. No listing is a paid placement today; if sponsored placements are offered, they will be labelled “Sponsored”."
+   "<b>Sponsored placements.</b> Some links are affiliate (partner) links and may earn us a commission. We also offer two paid placements (Category Featured and Homepage Feature); they are always labelled “Sponsored” and never affect verification status."
   ]
  },
  "ver": {
@@ -367,6 +369,7 @@
   "title": "Submit a tool",
   "desc": "Submit an MCP server, agent skill or API for finance and trading. Free listing, automatically verified.",
   "lead": "<b>Free forever.</b> No paid tiers, no catch. You also get a free auto-updating verified badge. After submission our verifier checks the repo/homepage, last commit, package registry and docs. Tools that pass are published within a week.",
+  "getFeatured": "Want more visibility? Get featured",
   "preview": "Submitting opens a pre-filled GitHub issue in a new tab. We vet every submission before it is listed.",
   "noGithub": "No GitHub account? Email the same details to {email}.",
   "name": "Tool name",
@@ -411,7 +414,8 @@
   "title": "Advertise",
   "desc": "Advertising on {site}.",
   "lead": "{site} lists {n}+ MCP servers, skills and APIs for finance and trading, re-verified weekly. Every listing is free; paid placements buy visibility only — never a better verification status. Paid placements are always labelled “Sponsored”.",
-  "free": "Listings, badges and submissions are and will stay <b>free</b>. Sponsorships aren't open yet. Interested for later? Email {email}."
+  "free": "Listings, badges and submissions are and will stay <b>free</b>. Paid placements are available now: buy one below.",
+  "more": "Full details and terms"
  },
  "privacy": {
   "title": "Privacy policy",
@@ -576,5 +580,45 @@
   "ca2": "By GitHub stars, the most popular verified tools in this category are {list}.",
   "cq3": "Are the tools in “{name}” official?",
   "ca3": "Official tools, published by the vendor itself: {o} of {n}. Community projects: {c}. Official tools carry the “{badge}” badge."
+ },
+ "feat": {
+  "title": "Get featured",
+  "desc": "Paid placements on {site}: Category Featured ($29/month) and Homepage Feature ($99/month). Always labelled Sponsored; verification can't be bought.",
+  "lead": "Listing your tool on {site} is free and stays free. If you want more visibility, you can buy one of two monthly placements.",
+  "editorial": "Sponsored placements are always labelled “Sponsored”. “Verified” status is editorial and can't be bought: paying has no effect on verification, reviews or the weekly check.",
+  "perMonth": "per month, recurring",
+  "buy": "Buy {name}",
+  "priceNote": "Prices are in US dollars. Tax is added at checkout where applicable.",
+  "termsH": "Terms",
+  "free": "Just want to be listed? Submit your tool for free.",
+  "products": {
+   "category": {
+    "name": "Category Featured",
+    "what": "A pinned top-3 slot in one category of your choice.",
+    "bullets": [
+     "Pinned in the top 3 of the category you choose",
+     "“Featured” badge on your listing",
+     "Direct link to your site, marked rel=\"sponsored\"",
+     "At most {n} per category"
+    ]
+   },
+   "homepage": {
+    "name": "Homepage Feature",
+    "what": "A spot in the homepage “Featured tools” strip and in the sidebar of every category page.",
+    "bullets": [
+     "Spot in the homepage “Featured tools” strip",
+     "Shown in the sidebar on all category pages",
+     "At most {n} at a time"
+    ]
+   }
+  },
+  "terms": {
+   "polar": "Payments are processed by Polar, our merchant of record, which issues invoices and handles VAT and sales tax.",
+   "label": "Sponsored placements are always labelled “Sponsored”.",
+   "verified": "“Verified” status is editorial and can't be bought. Paying does not affect verification, reviews or the weekly check.",
+   "decline": "We don't accept CFD or broker offers, unlicensed financial advice or claims of guaranteed returns, and we may decline any sponsor.",
+   "cancel": "Cancel any time. A monthly placement runs until the end of the paid period.",
+   "contact": "Questions: {email}."
+  }
  }
 }

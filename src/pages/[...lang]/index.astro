@@ -18,9 +18,25 @@ const recent = [...tools].filter((x)=>x.verification.github?.last_commit).sort((
 const ld = [{ "@context": "https://schema.org", "@type": "ItemList", name: t("home.picks"), itemListElement: picks.map((x, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE.url}${p(`/tools/${x.id}/`)}`, name: x.name })) }];
 const faq = homeFaq(lang); ld.push(faqLd(faq, lang) as any);
 const cat = (slug: string) => t(`cat.${slug}`);
+const mail = `<a href="mailto:${SITE.contactEmail}" dir="ltr">${SITE.contactEmail}</a>`;
 ---
 <Base title={SITE.name} jsonld={ld} lang={lang}>
 <section class="hero wrap">
+  <p id="feat-thanks" class="callout" role="status" hidden set:html={t("home.featThanks", { email: mail })} />
+  <script is:inline>
+  // Post-checkout thank-you (Polar success URL: /?featured=thanks&checkout_id=...). Purely client-side: the checkout id
+  // is never read, shown or stored; both params are stripped from the address bar before analytics or links can see them.
+  (function () {
+    try {
+      var u = new URL(location.href), q = u.searchParams;
+      if (!q.has("featured") && !q.has("checkout_id")) return;
+      if (q.get("featured") === "thanks") { var el = document.getElementById("feat-thanks"); if (el) el.hidden = false; }
+      q.delete("featured"); q.delete("checkout_id");
+      var s = q.toString();
+      history.replaceState(history.state, "", u.pathname + (s ? "?" + s : "") + u.hash);
+    } catch (e) {}
+  })();
+  </script>
   <h1>{t("home.h1a")} <em>{t("home.h1em")}</em>{t("home.h1sep")}<br/>{t("home.h1b")}</h1>
   <p>{t("home.lead")}</p>
   <form class="search" action={p("/tools/")}><input name="q" placeholder={t("home.search")} aria-label={t("home.searchLabel")} /></form>

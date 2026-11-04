@@ -22,6 +22,7 @@
   "makers": "Für Entwickler",
   "submitFree": "Tool einreichen (kostenlos)",
   "getBadge": "Holen Sie sich Ihr Prüf-Badge",
+  "getFeatured": "Hervorgehoben werden",
   "awesome": "Awesome-Liste",
   "legal": "Rechtliches",
   "nia": "Keine Anlageberatung",
@@ -200,6 +201,7 @@
   "h1em": "Finanzen und Trading",
   "h1b": "jede Woche geprüft.",
   "lead": "Ein kostenloses, offenes Verzeichnis von MCP-Servern, Agent-Skills und APIs, die Marktdaten, Broker, Krypto und Buchhaltung mit Claude, Cursor, ChatGPT, Grok und Gemini verbinden – mit echten Preisen, kostenlosen Tarifen und Installation per Klick.",
+  "featThanks": "Danke, Ihre Zahlung ist eingegangen. Wir melden uns innerhalb von 1 Werktag per E-Mail, um Ihre Platzierung einzurichten. Fragen: {email}.",
   "search": "Suche z. B. 'options', 'SEC filings', 'Binance', 'QuickBooks'…",
   "searchLabel": "Tools durchsuchen",
   "listed": "gelistete Tools",
@@ -340,7 +342,7 @@
   "latest": "Letzte Prüfung: {date} UTC —",
   "fullReport": "vollständigen Bericht ansehen",
   "money": "Wie wir Geld verdienen",
-  "moneyP": "Einträge sind kostenlos. Derzeit verdienen wir ausschließlich an offengelegten Affiliate-(Partner-)Links zu TradingView und EODHD. Gesponserte Platzierungen bieten wir noch nicht an; falls doch, werden sie als „Gesponsert“ gekennzeichnet. Keines davon beeinflusst den Prüfstatus.",
+  "moneyP": "Einträge sind kostenlos. Wir verdienen an offengelegten Affiliate-(Partner-)Links zu TradingView und EODHD sowie an zwei bezahlten Platzierungen: Category Featured und Homepage Feature. Bezahlte Platzierungen sind immer als „Gesponsert“ gekennzeichnet und beeinflussen nie den Prüfstatus.",
   "contact": "Kontakt"
  },
  "disc": {
@@ -354,7 +356,7 @@
    "<b>Risiko.</b> Trading und Investieren – besonders mit automatisierten oder KI-Agenten, Hebel, Optionen oder Krypto – kann zum teilweisen oder vollständigen Verlust Ihres Geldes führen. Testen Sie jedes Trading-Tool zuerst im Demomodus und geben Sie einem Agenten nie mehr Rechte, als Sie zu verlieren bereit sind.",
    "<b>Dritte.</b> Die Tools werden von Dritten entwickelt und betrieben. Wir kontrollieren weder sie noch ihre Daten, Sicherheit oder Verfügbarkeit. Die Prüfung ist automatisiert und auf die auf der Über-uns-Seite beschriebenen Kontrollen beschränkt.",
    "<b>Genauigkeit.</b> Preise und Funktionen ändern sich. Bestätigen Sie sie immer auf der Website des Anbieters.",
-   "<b>Gesponserte Platzierungen.</b> Einige Links sind Affiliate-(Partner-)Links und können uns eine Provision einbringen. Derzeit ist kein Eintrag eine bezahlte Platzierung; falls gesponserte Platzierungen angeboten werden, sind sie als „Gesponsert“ gekennzeichnet."
+   "<b>Gesponserte Platzierungen.</b> Einige Links sind Affiliate-(Partner-)Links und können uns eine Provision einbringen. Außerdem bieten wir zwei bezahlte Platzierungen an (Category Featured und Homepage Feature); sie sind immer als „Gesponsert“ gekennzeichnet und beeinflussen nie den Prüfstatus."
   ]
  },
  "ver": {
@@ -366,6 +368,7 @@
   "title": "Tool einreichen",
   "desc": "Reichen Sie einen MCP-Server, Agent-Skill oder eine API für Finanzen und Trading ein. Kostenloser, automatisch geprüfter Eintrag.",
   "lead": "<b>Für immer kostenlos.</b> Keine bezahlten Tarife, kein Haken. Sie erhalten außerdem ein kostenloses, sich selbst aktualisierendes Prüf-Badge. Nach dem Einreichen prüft unser Prüfer Repository oder Website, den letzten Commit, die Paketregistrierung und die Dokumentation. Bestandene Tools gehen innerhalb einer Woche online.",
+  "getFeatured": "Mehr Sichtbarkeit? Hervorgehoben werden",
   "preview": "Beim Absenden öffnet sich in einem neuen Tab ein vorausgefülltes GitHub-Issue. Wir prüfen jede Einreichung, bevor sie gelistet wird.",
   "noGithub": "Kein GitHub-Konto? Senden Sie dieselben Angaben per E-Mail an {email}.",
   "name": "Name des Tools",
@@ -410,7 +413,8 @@
   "title": "Werbung",
   "desc": "Werbung auf {site}.",
   "lead": "{site} listet über {n} MCP-Server, Skills und APIs für Finanzen und Trading, jede Woche neu geprüft. Alle Einträge sind kostenlos; bezahlte Plätze kaufen nur Sichtbarkeit, nie einen besseren Prüfstatus. Bezahlte Plätze sind immer als „Gesponsert“ gekennzeichnet.",
-  "free": "Einträge, Badges und Einreichungen sind und bleiben <b>kostenlos</b>. Sponsoring ist noch nicht verfügbar. Später interessiert? Schreiben Sie an {email}."
+  "free": "Einträge, Badges und Einreichungen sind und bleiben <b>kostenlos</b>. Bezahlte Platzierungen sind jetzt verfügbar: unten buchen.",
+  "more": "Alle Details und Bedingungen"
  },
  "privacy": {
   "title": "Datenschutzerklärung",
@@ -575,5 +579,45 @@
   "ca2": "Nach GitHub-Sternen sind die beliebtesten geprüften Tools dieser Kategorie {list}.",
   "cq3": "Sind die Tools in „{name}“ offiziell?",
   "ca3": "Offizielle Tools, vom Anbieter selbst veröffentlicht: {o} von {n}. Community-Projekte: {c}. Offizielle Tools tragen das Badge „{badge}“."
+ },
+ "feat": {
+  "title": "Hervorgehoben werden",
+  "desc": "Bezahlte Platzierungen auf {site}: Category Featured (29 $/Monat) und Homepage Feature (99 $/Monat). Immer als „Gesponsert“ gekennzeichnet; der Prüfstatus ist nicht käuflich.",
+  "lead": "Der Eintrag Ihres Tools auf {site} ist kostenlos und bleibt es. Wenn Sie mehr Sichtbarkeit möchten, können Sie eine von zwei monatlichen Platzierungen buchen.",
+  "editorial": "Bezahlte Platzierungen sind immer als „Gesponsert“ gekennzeichnet. Der Status „Geprüft“ ist eine redaktionelle Entscheidung und nicht käuflich: Eine Zahlung beeinflusst weder die Prüfung noch Bewertungen oder den wöchentlichen Check.",
+  "perMonth": "pro Monat, wiederkehrend",
+  "buy": "{name} kaufen",
+  "priceNote": "Preise in US-Dollar. Steuern werden an der Kasse hinzugefügt, sofern sie anfallen.",
+  "termsH": "Bedingungen",
+  "free": "Nur gelistet werden? Reichen Sie Ihr Tool kostenlos ein.",
+  "products": {
+   "category": {
+    "name": "Category Featured",
+    "what": "Ein fixierter Top-3-Platz in einer Kategorie Ihrer Wahl.",
+    "bullets": [
+     "Fixiert unter den Top 3 der Kategorie Ihrer Wahl",
+     "„Featured“-Badge an Ihrem Eintrag",
+     "Direkter Link zu Ihrer Website, mit rel=\"sponsored\" gekennzeichnet",
+     "Höchstens {n} pro Kategorie"
+    ]
+   },
+   "homepage": {
+    "name": "Homepage Feature",
+    "what": "Ein Platz in der Leiste „Ausgewählte Tools“ auf der Startseite und in der Seitenleiste aller Kategorieseiten.",
+    "bullets": [
+     "Platz in der Leiste „Ausgewählte Tools“ auf der Startseite",
+     "Sichtbar in der Seitenleiste aller Kategorieseiten",
+     "Höchstens {n} gleichzeitig"
+    ]
+   }
+  },
+  "terms": {
+   "polar": "Zahlungen werden von Polar abgewickelt, unserem Merchant of Record, der die Rechnungen ausstellt und sich um Umsatzsteuer bzw. Sales Tax kümmert.",
+   "label": "Bezahlte Platzierungen sind immer als „Gesponsert“ gekennzeichnet.",
+   "verified": "Der Status „Geprüft“ ist eine redaktionelle Entscheidung und nicht käuflich. Eine Zahlung beeinflusst weder die Prüfung noch Bewertungen oder den wöchentlichen Check.",
+   "decline": "Wir akzeptieren keine CFD- oder Broker-Angebote, keine Finanzberatung ohne Lizenz und keine Versprechen garantierter Renditen, und wir können jeden Sponsor ablehnen.",
+   "cancel": "Jederzeit kündbar. Eine monatliche Platzierung läuft bis zum Ende des bezahlten Zeitraums.",
+   "contact": "Fragen: {email}."
+  }
  }
 }
