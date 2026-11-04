@@ -1,0 +1,12 @@
+---
+// Post cards for /blog/, /blog/page/<n>/ and /blog/tag/<tag>/ (English-only).
+import { fmtDate, type Post } from "../lib/blog";
+interface Props { posts: Post[] }
+const { posts } = Astro.props;
+---
+{posts.length === 0 ? <p class="blog-empty">No posts yet. The first articles are on their way; meanwhile, browse the <a href="/tools/">tools directory</a> or the <a href="/compare/">comparisons</a>.</p> :
+<ol class="blog-list">{posts.map((p) => <li class="card blog-card">
+  <h2 class="card-t"><a href={`/blog/${p.slug}/`}>{p.title}</a>{p.draft && <span class="draft-tag"> Draft</span>}</h2>
+  <p>{p.description}</p>
+  <div class="meta"><time datetime={p.date}>{fmtDate(p.date)}</time>{p.tags.length > 0 && <span class="blog-tags">{p.tags.map((t) => <a class="chip" href={`/blog/tag/${t}/`}>#{t}</a>)}</span>}</div>
+</li>)}</ol>}

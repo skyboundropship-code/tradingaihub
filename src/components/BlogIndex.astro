@@ -1,0 +1,36 @@
+---
+// Shared body of /blog/ and /blog/page/<n>/. English-only (hreflang en + x-default), like the guides.
+import Base from "../layouts/Base.astro";
+import BlogList from "./BlogList.astro";
+import Newsletter from "./Newsletter.astro";
+import { SITE } from "../config";
+import { POSTS, PUBLISHED, PER_PAGE, TAGS, pageCount, crumbsLd } from "../lib/blog";
+interface Props { page: number }
+const { page } = Astro.props;
+const list = POSTS.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+const path = page === 1 ? "/blog/" : `/blog/page/${page}/`, url = `${SITE.url}${path}`;
+const desc = "Articles from TradingAIHub Editorial on AI tools for finance and trading: MCP servers, agent skills, market-data APIs and how to use them safely.";
+const pub = list.filter((p) => !p.draft);
+const crumbs: [string, string][] = [["Home", "/"], ["Blog", "/blog/"], ...(page > 1 ? [[`Page ${page}`, path] as [string, string]] : [])];
+const ld = [
+  { "@context": "https://schema.org", "@type": "Blog", "@id": `${SITE.url}/blog/#blog`, name: `${SITE.name} Blog`, url: `${SITE.url}/blog/`, inLanguage: "en", description: desc,
+    publisher: { "@id": `${SITE.url}/#organization` },
+    blogPost: pub.map((p) => ({ "@type": "BlogPosting", headline: p.title, url: `${SITE.url}/blog/${p.slug}/`, datePublished: p.date })) },
+  crumbsLd(crumbs),
+];
+---
+<Base title={page === 1 ? "Blog" : `Blog: Page ${page}`} description={desc} jsonld={ld} og="blog" lang="en" langs={["en"]}>
+<div class="wrap page">
+  <div class="crumbs"><a href="/">Home</a> / {page === 1 ? "Blog" : <><a href="/blog/">Blog</a> / Page {page}</>}</div>
+  <h1>{page === 1 ? "Blog" : `Blog: Page ${page}`}</h1>
+  <p class="blog-lede">{desc} Posts are in English. Not investment advice. <a href="/blog/rss.xml">RSS feed</a></p>
+  {TAGS.length > 0 && <p class="blog-tags" aria-label="Tags">{TAGS.map((t) => <a class="chip" href={`/blog/tag/${t}/`}>#{t}</a>)}</p>}
+  <BlogList posts={list} />
+  {pageCount > 1 && <nav class="pager" aria-label="Blog pages">
+    {page > 1 && <a rel="prev" href={page === 2 ? "/blog/" : `/blog/page/${page - 1}/`}>← Newer</a>}
+    <span>Page {page} of {pageCount}</span>
+    {page < pageCount && <a rel="next" href={`/blog/page/${page + 1}/`}>Older →</a>}
+  </nav>}
+  <Newsletter lang="en" level={2} />
+</div>
+</Base>
