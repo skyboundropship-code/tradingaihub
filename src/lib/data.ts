@@ -68,7 +68,7 @@ export function snippets(t: any, tr: (k: string, v?: any) => string = useT("en")
     out.push({ client: tr("snip.allClients"), lang: "text", code: cloneOf(t), note: tr("snip.fromSource") });
   }
   if (t.type === "mcp" && !pkg && !remote && !t.repo) {
-    out.push({ client: tr("snip.allClients"), lang: "text", code: untagUrl(t.docs || t.homepage, "eodhd"), note: tr("snip.accountUrl") });
+    out.push({ client: tr("snip.allClients"), lang: "text", code: untagUrl(untagUrl(t.docs || t.homepage, "eodhd"), "trendspider"), note: tr("snip.accountUrl") });
   }
   if (t.type === "mcp" && pkg && !remote) {
     out.push({ client: "ChatGPT / Grok", lang: "text", code: tr("snip.needsRemote"), note: tr("snip.stdioOnly") });
@@ -81,7 +81,7 @@ export function snippets(t: any, tr: (k: string, v?: any) => string = useT("en")
   }
   if (t.type === "api") {
     const mcp = tools.filter((x) => x.type === "mcp" && x.pricing?.source && x.pricing.source === t.pricing?.source);
-    out.push({ client: tr("snip.anyAgent"), lang: "text", code: untagUrl(t.docs || t.homepage, "eodhd"), note: mcp.length ? tr("snip.viaMcp", { list: mcp.map((m) => m.name).join(", ") }) : tr("snip.rest") });
+    out.push({ client: tr("snip.anyAgent"), lang: "text", code: untagUrl(untagUrl(t.docs || t.homepage, "eodhd"), "trendspider"), note: mcp.length ? tr("snip.viaMcp", { list: mcp.map((m) => m.name).join(", ") }) : tr("snip.rest") });
   }
   return out;
 }

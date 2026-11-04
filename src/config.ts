@@ -1,12 +1,12 @@
 // ===== Single place to swap the brand. Change these and rebuild. =====
 export const SITE = {
-  name: "TradingAIHub",                 // brand — domain purchased by Liran at Cloudflare Registrar 2026-10-29
+  name: "TradingAIHub",                 // brand — domain registered at Cloudflare Registrar 2026-10-29
   domain: "tradingaihub.com",            // owned (Cloudflare Registrar)
   url: "https://tradingaihub.com",       // used for canonical URLs + sitemap
   tagline: "Verified AI tools for finance & trading",
   description:
     "A weekly-verified directory of MCP servers, agent skills and APIs for market data, trading, crypto, accounting and financial research — with pricing, free tiers and copy-paste install snippets for Claude, Cursor, ChatGPT, Grok and Gemini.",
-  contactEmail: "hello@tradingaihub.com", // Cloudflare Email Routing → Liran
+  contactEmail: "hello@tradingaihub.com", // Cloudflare Email Routing → owner inbox
   showAdPricing: false,               // launch = 100% free feel: hide paid tiers until traffic exists
   newsletterLive: true,                // form POSTs to functions/api/subscribe.js (needs KV binding NEWSLETTER)
   githubAwesomeRepo: "https://github.com/skyboundropship-code/awesome-finance-ai-tools",
@@ -21,4 +21,6 @@ export const AFFILIATES = {
   // paths: only pages proven (curl) to load cdn.promotekit.com/promotekit.js are tagged; PromoteKit can't attribute
   // anywhere else (e.g. the /financial-apis/ docs), so those links stay plain. Exact pathname match; read by check_aff.mjs.
   eodhd: { id: "tradingaihub", param: "via", hosts: ["eodhd.com", "www.eodhd.com"], exact: true, paths: ["/", "/pricing", "/lp/eodhd-mcp-server"], home: "https://eodhd.com/" },
+  // TrendSpider (FirstPromoter, ?_go=). exact: only trendspider.com / www.trendspider.com are tagged, every path (deep links kept).
+  trendspider: { id: "tradingaihub", param: "_go", hosts: ["trendspider.com", "www.trendspider.com"], exact: true, home: "https://trendspider.com/" },
 };

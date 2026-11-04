@@ -7,7 +7,7 @@ import { tools, CATEGORIES, COMPARISONS, STATUS, TYPE_LABEL, byStars, verificati
 // affUrl(), and affiliate IDs must never reach LLM context files. Internal URLs come from the ids.
 import raw from "../../data/tools.json";
 const rawById: Record<string, any> = Object.fromEntries((raw as any[]).map((t) => [t.id, t]));
-const plainUrl = (x: any) => (typeof x === "string" && /^https?:\/\//.test(x) && !/aff_id=/i.test(x) ? x : null);
+const plainUrl = (x: any) => (typeof x === "string" && /^https?:\/\//.test(x) && !/aff_id=|[?&]_go=/i.test(x) ? x : null);
 const known = (x: any) => typeof x === "string" && x.trim() !== "" && !/^(unknown|none|n\/a)$/i.test(x.trim());
 
 // Published guides only: add an entry when a guide page is live, so /llms.txt never links to a 404.
