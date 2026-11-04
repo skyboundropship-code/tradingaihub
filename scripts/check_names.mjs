@@ -8,9 +8,7 @@ import { fileURLToPath } from "node:url";
 
 const RE = new RegExp(["\x6ciran", "\x73egal", "\u05dc\u05d9\u05e8\u05df", "\u05e1\u05d2\u05dc", "\u0644\u064a\u0631\u0627\u0646"].join("|"), "gi");
 // Exact substrings that are allowed (third-party ids we don't control). Remove each entry once it's gone.
-export const ALLOW = [
-  "\x6ciran-13d76f", // TrendSpider referral id (_go=…), flagged to the owner separately
-];
+export const ALLOW = [];
 
 export function findNames(text) {
   let t = String(text);
