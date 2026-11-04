@@ -22,6 +22,10 @@ Static [Astro](https://astro.build) site + weekly verifier. Brand settings live 
 
 Docs: `docs/HOSTING.md`, `docs/DOMAINS.md`, `docs/LAUNCH-PLAN.md`.
 
+## Brand
+
+Logo 6 "Verified t" (lowercase wordmark `tradingaihub`; green #15803d on light, #22c55e on dark). Optimized SVGs and the 1600x400 lockup PNG live in `public/brand/`; favicons, `apple-touch-icon.png`, `icon-192/512.png` and `logo-512.png` (JSON-LD Organization logo) are in `public/`. The header/footer use `src/components/BrandLogo.astro`, which follows the site theme.
+
 ## Contact
 hello@tradingaihub.com — the TradingAIHub team.
 
