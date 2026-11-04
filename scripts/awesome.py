@@ -27,7 +27,7 @@ for s, n, i in cats:
         off = " *(official)*" if t.get("official") else ""
         L.append(f"- {ok.get(t['verification']['status'], '')} [{t['name']}]({link}){off} — {t['description']}{stars} · [details]({url}/tools/{t['id']}/)")
 L += ["", "## Contributing", "", f"Submit a tool for free at {url}/submit/ or open a PR. Entries are re-checked weekly; stale ones are flagged, not silently kept.", "",
-      "## License", "", "[![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/) — list text is CC0. Tool names and trademarks belong to their owners.", ""]
+      "## License", "", "[![CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/) — list text is CC BY 4.0; attribution: \"TradingAIHub, https://tradingaihub.com\". Tool names and trademarks belong to their owners.", ""]
 os.makedirs(os.path.join(ROOT, "awesome"), exist_ok=True)
 open(os.path.join(ROOT, "awesome/README.md"), "w").write("\n".join(L))
 print("awesome/README.md:", sum(1 for l in L if l.startswith("- ") and "](http" in l), "entries")
