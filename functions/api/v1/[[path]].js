@@ -1,7 +1,7 @@
 // Public read-only API v1 router: /api/v1, /api/v1/tools, /api/v1/tools/{slug}, /api/v1/search, /api/v1/categories,
 // and the static dumps /api/v1/tools.json + /api/v1/categories.json (served from ASSETS so they get CORS, cache and the
 // rate limit too). Scoped to /api/v1/* on purpose: /api/subscribe keeps its own handler and headers.
-import { CORS, json, error, methodGate, rateLimit, tooMany, loadData, allowed, filterTools, searchTools, LIMITS, SITE, DATA_LICENSE as LIC } from "../../_lib/api.js";
+import { CORS, json, error, methodGate, rateLimit, tooMany, loadData, allowed, filterTools, searchTools, LIMITS, SITE, DATA_LICENSE as LIC, CODE_LICENSE } from "../../_lib/api.js";
 
 const intParam = (sp, name, def, min, max) => {
   const raw = sp.get(name);
@@ -34,7 +34,7 @@ export async function onRequest({ request, env, params }) {
   const bad = (msg, extra = {}) => error(400, "invalid_parameter", msg, extra, h, m);
 
   if (seg.length === 0) {
-    return json({ name: "TradingAIHub public API", version: data.dump.api_version, ...LIC, code_license: "MIT", docs: `${SITE}/developers/`, openapi: `${SITE}/api/openapi.json`, mcp: `${SITE}/mcp`,
+    return json({ name: "TradingAIHub public API", version: data.dump.api_version, ...LIC, code_license: CODE_LICENSE, docs: `${SITE}/developers/`, openapi: `${SITE}/api/openapi.json`, mcp: `${SITE}/mcp`,
       endpoints: ["/api/v1/tools", "/api/v1/tools/{slug}", "/api/v1/search?q=", "/api/v1/categories", "/api/v1/tools.json", "/api/v1/categories.json"].map((p) => SITE + p),
       rate_limit: { requests: LIMITS.api, window_seconds: LIMITS.windowMs / 1000, scope: "per IP, per edge instance" } }, 200, h, m);
   }

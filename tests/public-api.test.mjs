@@ -227,3 +227,13 @@ test("licence: built dumps and openapi info.license", { skip: !existsSync(DISTL)
     assert.equal(d.license_url, "https://creativecommons.org/licenses/by/4.0/", f);
   }
 });
+
+test("licence: API index code_license is the scoped MIT string; LICENSE-CODE carries the scope header", async () => {
+  const { body } = await call("/api/v1");
+  assert.equal(body.code_license, "MIT (API and MCP server code)");
+  const lc = readFileSync(new URL("../LICENSE-CODE", import.meta.url), "utf8");
+  assert.match(lc, /^SCOPE: The MIT License below applies only to the public API and MCP server code:/);
+  assert.match(lc, /not licensed\s+for reuse unless\s+stated otherwise/);
+  assert.match(lc, /MIT License\n\nCopyright \(c\) 2026 TradingAIHub/);
+  assert.equal(existsSync(new URL("../LICENSE", import.meta.url)), false);
+});

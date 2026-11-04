@@ -1,3 +1,20 @@
+SCOPE: The MIT License below applies only to the public API and MCP server code:
+  functions/_lib/api.js
+  functions/_lib/mcp.js
+  functions/_lib/discovery.js
+  functions/api/index.js
+  functions/api/openapi.json.js
+  functions/api/v1/
+  functions/mcp/
+  functions/.well-known/
+  src/lib/publicApi.ts
+  src/lib/openapi.ts
+  src/pages/api/
+All other code and content in this repository is not licensed for reuse unless
+stated otherwise. Directory data is licensed under CC BY 4.0, see LICENSE-DATA.
+
+------------------------------------------------------------------------------
+
 MIT License
 
 Copyright (c) 2026 TradingAIHub

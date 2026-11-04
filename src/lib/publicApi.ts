@@ -16,7 +16,7 @@ export const API_VERSION = "1.0.0";
 export const MCP_URL = `${SITE.url}/mcp`;
 export const DOCS_URL = `${SITE.url}/developers/`;
 export const DISCLOSURE = `This link is an affiliate link; TradingAIHub may earn a commission at no extra cost to you. It never affects listings. See ${SITE.url}/disclaimer/`;
-/** Data licence (Liran: CC BY 4.0 for the data, MIT for the API/MCP code). Same values as functions/_lib/api.js DATA_LICENSE. */
+/** Data licence (Liran: CC BY 4.0 for the data, MIT (API and MCP server code), scoped in LICENSE-CODE). Same values as functions/_lib/api.js DATA_LICENSE. */
 export const DATA_LICENSE = { license: "CC BY 4.0", license_url: "https://creativecommons.org/licenses/by/4.0/", attribution: "TradingAIHub, https://tradingaihub.com" };
 export const RATE_LIMITS = { api: 120, mcp: 60, windowSec: 60 };
 

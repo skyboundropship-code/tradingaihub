@@ -20,7 +20,7 @@ export const openapi = {
     title: "TradingAIHub public API",
     version: API_VERSION,
     summary: "Free, read-only, no-sign-in API for the TradingAIHub directory of AI tools for finance and trading.",
-    description: `Every MCP server, agent skill and API listed on ${SITE.url}, with pricing, license, packages and the weekly verification status. No API key, CORS enabled (\`Access-Control-Allow-Origin: *\`), JSON only. Rate limit: about ${RATE_LIMITS.api} requests per minute per IP (enforced per edge instance, so treat it as a ceiling, not a guarantee); over the limit you get HTTP 429 with \`Retry-After\`. Responses are cacheable for 5 minutes. A remote MCP server with the same data is at ${SITE.url}/mcp. Data licence: CC BY 4.0, credit \"TradingAIHub, https://tradingaihub.com\"; the API and MCP server code is MIT. Not investment advice.`,
+    description: `Every MCP server, agent skill and API listed on ${SITE.url}, with pricing, license, packages and the weekly verification status. No API key, CORS enabled (\`Access-Control-Allow-Origin: *\`), JSON only. Rate limit: about ${RATE_LIMITS.api} requests per minute per IP (enforced per edge instance, so treat it as a ceiling, not a guarantee); over the limit you get HTTP 429 with \`Retry-After\`. Responses are cacheable for 5 minutes. A remote MCP server with the same data is at ${SITE.url}/mcp. Data licence: CC BY 4.0, credit \"TradingAIHub, https://tradingaihub.com\"; code licence: MIT (API and MCP server code), see LICENSE-CODE in the repository. Not investment advice.`,
     termsOfService: `${SITE.url}/terms/`,
     license: { name: "CC BY 4.0", url: "https://creativecommons.org/licenses/by/4.0/" },
     contact: { name: SITE.name, url: DOCS_URL, email: SITE.contactEmail },

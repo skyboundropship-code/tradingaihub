@@ -13,7 +13,9 @@ Creative Commons Attribution 4.0 International License (CC BY 4.0).
 Required attribution: "TradingAIHub, https://tradingaihub.com"
 
 Tool names, logos and trademarks belong to their respective owners and are not licensed by TradingAIHub.
-The code in this repository is licensed separately under the MIT License (see LICENSE).
+The public API and MCP server code is licensed separately: MIT (API and MCP server code), see
+LICENSE-CODE for the exact files. All other code and content in this repository is not licensed
+for reuse unless stated otherwise.
 
 The full legal code of CC BY 4.0 follows.
 
