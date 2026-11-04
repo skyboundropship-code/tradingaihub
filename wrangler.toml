@@ -15,7 +15,17 @@ compatibility_date = "2026-10-01"
 binding = "NEWSLETTER"
 id = "a9f8a42d1ec641c8abe07640adb8241e"        # tradingaihub-newsletter
 
+# Anonymous outbound clicks (functions/api/click.js) go to Workers Analytics Engine, NOT KV: one datapoint per click,
+# zero KV writes, so they never touch the account-wide KV write limit. Report: `npm run clicks` (AE SQL API).
+[[analytics_engine_datasets]]
+binding = "CLICKS"
+dataset = "tah_clicks"
+
 [env.preview]
+[[env.preview.analytics_engine_datasets]]
+binding = "CLICKS"
+dataset = "tah_clicks_preview"
+
 [[env.preview.kv_namespaces]]
 binding = "NEWSLETTER"
 id = "9e02466fee564ed89729982776b46919"        # tradingaihub-newsletter-preview
