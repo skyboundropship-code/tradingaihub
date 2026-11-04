@@ -29,6 +29,8 @@
   "terms": "Terms",
   "about": "About",
   "advertise": "Advertise",
+  "api": "API & MCP",
+  "apiDocs": "Free API & MCP server",
   "disclaimer": "<b>Not investment advice.</b> {site} is an information directory about software tools. Nothing on this site is investment, trading, tax or legal advice or a recommendation to buy or sell any security or asset, and we are not licensed investment advisers or portfolio managers. Trading involves risk of loss. <b>Affiliate disclosure:</b> some links (currently TradingView) are affiliate links. If you sign up through them we may earn a commission at no extra cost to you. They are labelled, and they never affect listings, rankings or verification status.",
   "fullDisclaimer": "Full disclaimer",
   "short": "Not investment advice. Some links are partner links and may earn us a commission."
@@ -438,6 +440,7 @@
    "Sponsored placements buy visibility only, are labelled, may be declined or removed (pro-rata refund) and are billed by our merchant of record.",
    "Submitters confirm they have the right to list the tool and that it makes no guaranteed-return claims.",
    "Our liability is limited to the amount you paid us in the last 12 months.",
+   "The directory data in our free <a href=\"/developers/\" hreflang=\"en\">API and MCP server</a> is licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\" rel=\"license noopener\">CC BY 4.0</a>: you may reuse it, including commercially, if you credit “TradingAIHub, https://tradingaihub.com”. The API and MCP server code is MIT-licensed.",
    "If a translation differs from the English version, the English version applies."
   ],
   "contact": "Contact:"

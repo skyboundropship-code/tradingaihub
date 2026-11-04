@@ -29,6 +29,8 @@
   "terms": "条款",
   "about": "关于",
   "advertise": "广告合作",
+  "api": "API 与 MCP",
+  "apiDocs": "免费 API 与 MCP 服务器（英文）",
   "disclaimer": "<b>非投资建议。</b>{site} 是一个关于软件工具的信息目录。本网站的任何内容均不构成投资、交易、税务或法律建议，也不构成买卖任何证券或资产的推荐，我们不是持牌投资顾问或投资组合经理。交易存在亏损风险。<b>联盟链接披露：</b>部分链接（目前为 TradingView）是联盟链接。如果您通过这些链接注册，我们可能会获得佣金，您无需支付额外费用。这些链接均有标注，绝不影响收录、排名或验证状态。",
   "fullDisclaimer": "完整免责声明",
   "short": "不构成投资建议。部分链接为合作伙伴链接，我们可能因此获得佣金。"
@@ -437,6 +439,7 @@
    "赞助位仅购买曝光，均有标注，可能被拒绝或撤下（按比例退款），并由我们的 merchant of record 开具账单。",
    "提交者确认其有权收录该工具，且该工具不承诺保证收益。",
    "我们的责任以您在过去 12 个月内向我们支付的金额为限。",
+   "我们免费的<a href=\"/developers/\" hreflang=\"en\">API 和 MCP 服务器</a>中的目录数据采用 <a href=\"https://creativecommons.org/licenses/by/4.0/\" rel=\"license noopener\">CC BY 4.0</a> 许可：只要注明 “TradingAIHub, https://tradingaihub.com”，即可重复使用，包括用于商业用途。API 和 MCP 服务器的代码采用 MIT 许可。",
    "如译文与英文版本不一致，以英文版本为准。"
   ],
   "contact": "联系："

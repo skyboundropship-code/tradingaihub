@@ -29,6 +29,8 @@
   "terms": "Conditions",
   "about": "À propos",
   "advertise": "Publicité",
+  "api": "API et MCP",
+  "apiDocs": "API et serveur MCP gratuits (en anglais)",
   "disclaimer": "<b>Pas un conseil en investissement.</b> {site} est un annuaire informatif d'outils logiciels. Rien sur ce site ne constitue un conseil en investissement, en trading, fiscal ou juridique, ni une recommandation d'acheter ou de vendre un titre ou un actif, et nous ne sommes ni conseillers en investissement ni gérants de portefeuille agréés. Le trading comporte un risque de perte. <b>Liens affiliés :</b> certains liens (actuellement TradingView) sont des liens affiliés. Si vous vous inscrivez par leur biais, nous pouvons percevoir une commission sans surcoût pour vous. Ils sont signalés et n'influencent jamais les fiches, le classement ni le statut de vérification.",
   "fullDisclaimer": "Avertissement complet",
   "short": "Ceci n'est pas un conseil en investissement. Certains liens sont des liens partenaires et peuvent nous rapporter une commission."
@@ -437,6 +439,7 @@
    "Les emplacements sponsorisés n'achètent que de la visibilité, sont signalés, peuvent être refusés ou retirés (avec remboursement au prorata) et sont facturés par notre merchant of record.",
    "Toute personne proposant un outil confirme avoir le droit de le référencer et qu'il ne promet aucun rendement garanti.",
    "Notre responsabilité est limitée au montant que vous nous avez payé au cours des 12 derniers mois.",
+   "Les données de l’annuaire fournies par notre <a href=\"/developers/\" hreflang=\"en\">API et serveur MCP gratuits</a> sont sous licence <a href=\"https://creativecommons.org/licenses/by/4.0/\" rel=\"license noopener\">CC BY 4.0</a> : vous pouvez les réutiliser, y compris à des fins commerciales, à condition de créditer “TradingAIHub, https://tradingaihub.com”. Le code de l’API et du serveur MCP est sous licence MIT.",
    "En cas de divergence entre une traduction et la version anglaise, la version anglaise prévaut."
   ],
   "contact": "Contact :"

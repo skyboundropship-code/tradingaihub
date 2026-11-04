@@ -29,6 +29,8 @@
   "terms": "Koşullar",
   "about": "Hakkında",
   "advertise": "Reklam ver",
+  "api": "API ve MCP",
+  "apiDocs": "Ücretsiz API ve MCP sunucusu (İngilizce)",
   "disclaimer": "<b>Yatırım tavsiyesi değildir.</b> {site}, yazılım araçlarına ilişkin bilgilendirme amaçlı bir dizindir. Bu sitedeki hiçbir içerik yatırım, trading, vergi veya hukuki tavsiye ya da herhangi bir menkul kıymet veya varlığı alma veya satma önerisi değildir ve biz lisanslı yatırım danışmanı veya portföy yöneticisi değiliz. Trading kayıp riski içerir. <b>Ortaklık bildirimi:</b> Bazı bağlantılar (şu anda TradingView) ortaklık bağlantılarıdır. Bunlar üzerinden kaydolursanız, size ek maliyet olmadan komisyon kazanabiliriz. Bu bağlantılar işaretlidir ve listelemeleri, sıralamaları veya doğrulama durumunu asla etkilemez.",
   "fullDisclaimer": "Tam sorumluluk reddi",
   "short": "Yatırım tavsiyesi değildir. Bazı bağlantılar iş ortağı bağlantılarıdır ve bize komisyon kazandırabilir."
@@ -437,6 +439,7 @@
    "Sponsorlu alanlar yalnızca görünürlük satın alır, işaretlenir, reddedilebilir veya kaldırılabilir (orantılı iade ile) ve merchant of record'umuz tarafından faturalandırılır.",
    "Gönderenler aracı listeleme hakkına sahip olduklarını ve aracın garantili getiri vaat etmediğini onaylar.",
    "Sorumluluğumuz, son 12 ayda bize ödediğiniz tutarla sınırlıdır.",
+   "Ücretsiz <a href=\"/developers/\" hreflang=\"en\">API ve MCP sunucumuzdaki</a> dizin verileri <a href=\"https://creativecommons.org/licenses/by/4.0/\" rel=\"license noopener\">CC BY 4.0</a> lisansı altındadır: “TradingAIHub, https://tradingaihub.com” kaynak gösterildiği sürece, ticari amaçlar dahil yeniden kullanabilirsiniz. API ve MCP sunucusunun kodu MIT lisanslıdır.",
    "Çeviri ile İngilizce sürüm arasında çelişki olması halinde İngilizce sürüm geçerlidir."
   ],
   "contact": "İletişim:"
