@@ -68,3 +68,41 @@ test("untagUrl handles protocol-relative URLs and keeps the // form", () => {
   assert.equal(untagUrl("//eodhd.com/pricing?a=1&via=tradingaihub", "eodhd"), "//eodhd.com/pricing?a=1");
   assert.equal(untagUrl("//mcp.eodhd.com/v2/mcp?via=x", "eodhd"), "//mcp.eodhd.com/v2/mcp?via=x");
 });
+const go = (u) => new URL(u.startsWith("//") ? "https:" + u : u).searchParams.getAll("_go");
+test("TrendSpider: trendspider.com and www.trendspider.com are tagged, deep paths kept", () => {
+  assert.equal(affUrl("https://trendspider.com"), "https://trendspider.com/?_go=tradingaihub");
+  assert.equal(affUrl("https://trendspider.com/"), "https://trendspider.com/?_go=tradingaihub");
+  assert.equal(affUrl("https://www.trendspider.com/pricing/"), "https://www.trendspider.com/pricing/?_go=tradingaihub");
+  assert.equal(affUrl("https://TrendSpider.com/learning-center/x/#y"), "https://trendspider.com/learning-center/x/?_go=tradingaihub#y");
+  for (const u of ["https://trendspider.com/", "https://www.trendspider.com/markets/"]) {
+    const t = affUrl(u); assert.deepEqual(go(t), ["tradingaihub"]); assert.equal(isAff(t), true); assert.equal(isAff(u), true); assert.equal(relFor(t), "sponsored noopener");
+  }
+});
+test("TrendSpider: existing query params are kept and merged", () => {
+  assert.equal(affUrl("https://trendspider.com/pricing/?plan=pro&utm_source=x"), "https://trendspider.com/pricing/?plan=pro&utm_source=x&_go=tradingaihub");
+  assert.deepEqual(go(affUrl("https://trendspider.com/?_go=someone&_go=tradingaihub")), ["tradingaihub"]);
+  assert.deepEqual(go(affUrl(affUrl("https://trendspider.com/"))), ["tradingaihub"]);
+});
+test("TrendSpider: trailing dot and protocol-relative are tagged", () => {
+  assert.deepEqual(go(affUrl("https://trendspider.com./pricing/")), ["tradingaihub"]);
+  const t = affUrl("//trendspider.com/pricing/"); assert.deepEqual(go(t), ["tradingaihub"]); assert.equal(isAff(t), true);
+});
+test("TrendSpider: other subdomains and lookalikes are never tagged", () => {
+  for (const u of ["https://charts.trendspider.com/", "https://help.trendspider.com/kb/x", "https://trendspider.firstpromoter.com/signup/16908",
+    "https://trendspider.com.evil.example/", "https://nottrendspider.com/", "https://trendspider.co/", "https://example.com/?u=trendspider.com"]) {
+    assert.equal(affUrl(u), u); assert.equal(isAff(u), false); assert.equal(relFor(u), "noopener");
+  }
+});
+test("TrendSpider: untagUrl strips only _go on TrendSpider hosts, keeps other params and // form", () => {
+  assert.equal(untagUrl("https://trendspider.com/?_go=tradingaihub", "trendspider"), "https://trendspider.com/");
+  assert.equal(untagUrl("https://trendspider.com/pricing/?plan=pro&_go=tradingaihub", "trendspider"), "https://trendspider.com/pricing/?plan=pro");
+  assert.equal(untagUrl("//www.trendspider.com/x?_go=tradingaihub", "trendspider"), "//www.trendspider.com/x");
+  assert.equal(untagUrl("https://example.com/?_go=tradingaihub", "trendspider"), "https://example.com/?_go=tradingaihub");
+  const e = affUrl("https://eodhd.com/"); assert.equal(untagUrl(e, "trendspider"), e);
+});
+test("TrendSpider entry does not change TradingView or EODHD tagging", () => {
+  assert.equal(affUrl("https://www.tradingview.com/pricing/"), "https://www.tradingview.com/pricing/?aff_id=1173592");
+  assert.equal(affUrl("https://eodhd.com/pricing"), "https://eodhd.com/pricing?via=tradingaihub");
+  assert.equal(affUrl("https://eodhd.com/financial-apis/"), "https://eodhd.com/financial-apis/");
+  assert.equal(untagUrl("https://eodhd.com/pricing?via=tradingaihub", "trendspider"), "https://eodhd.com/pricing?via=tradingaihub");
+});
