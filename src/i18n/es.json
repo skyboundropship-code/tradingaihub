@@ -342,7 +342,7 @@
   "latest": "Última revisión: {date} UTC —",
   "fullReport": "ver el informe completo",
   "money": "Cómo ganamos dinero",
-  "moneyP": "Los listados son gratuitos. Actualmente solo ganamos con enlaces de afiliado (de socios) divulgados a TradingView y EODHD. Aún no ofrecemos espacios patrocinados; si lo hacemos, se señalarán como «Patrocinado». Ninguno afecta al estado de verificación.",
+  "moneyP": "Los listados son gratuitos. Ganamos dinero con enlaces de afiliado (partner) declarados a TradingView y EODHD, y con dos espacios de pago: Category Featured y Homepage Feature. Los espacios de pago siempre se marcan como «Patrocinado» y nunca afectan al estado de verificación.",
   "contact": "Contacto"
  },
  "disc": {
@@ -356,7 +356,7 @@
    "<b>Riesgo.</b> Operar e invertir —especialmente con agentes automáticos o de IA, apalancamiento, opciones o cripto— puede hacerte perder parte o la totalidad de tu dinero. Prueba primero cualquier herramienta de trading en modo demo y nunca le des a un agente más permisos de los que puedas permitirte perder.",
    "<b>Terceros.</b> Las herramientas las crean y operan terceros. No controlamos ni a ellas ni sus datos, su seguridad o su disponibilidad. La verificación es automática y se limita a las comprobaciones descritas en la página Acerca de.",
    "<b>Exactitud.</b> Los precios y las funciones cambian. Confírmalos siempre en la web del proveedor.",
-   "<b>Espacios patrocinados.</b> Algunos enlaces son enlaces de afiliado (de socios) y pueden generarnos una comisión. Hoy ningún listado es un espacio de pago; si se ofrecen espacios patrocinados, se señalarán como «Patrocinado»."
+   "<b>Espacios patrocinados.</b> Algunos enlaces son de afiliado (partner) y pueden generarnos una comisión. También ofrecemos dos espacios de pago (Category Featured y Homepage Feature); siempre se marcan como «Patrocinado» y nunca afectan al estado de verificación."
   ]
  },
  "ver": {
@@ -413,7 +413,8 @@
   "title": "Publicidad",
   "desc": "Publicidad en {site}.",
   "lead": "{site} lista más de {n} servidores MCP, skills y APIs para finanzas y trading, reverificados cada semana. Todos los listados son gratuitos; los espacios de pago solo compran visibilidad, nunca un mejor estado de verificación. Los espacios de pago siempre se marcan como «Patrocinado».",
-  "free": "Los listados, las insignias y los envíos son y seguirán siendo <b>gratuitos</b>. Los patrocinios aún no están abiertos. ¿Te interesa más adelante? Escribe a {email}."
+  "free": "Los listados, insignias y envíos son y seguirán siendo <b>gratuitos</b>. Los espacios de pago ya están disponibles: cómpralos abajo.",
+  "more": "Todos los detalles y condiciones"
  },
  "privacy": {
   "title": "Política de privacidad",
@@ -586,7 +587,6 @@
   "editorial": "Los espacios de pago siempre se marcan como «Patrocinado». El estado «Verificado» es editorial y no se puede comprar: pagar no influye en la verificación, las reseñas ni la comprobación semanal.",
   "perMonth": "al mes, suscripción recurrente",
   "buy": "Comprar {name}",
-  "contact": "Escríbenos sobre {name}",
   "priceNote": "Precios en dólares estadounidenses. Los impuestos se añaden al pagar cuando corresponda.",
   "termsH": "Condiciones",
   "free": "¿Solo quieres aparecer en el listado? Envía tu herramienta gratis.",

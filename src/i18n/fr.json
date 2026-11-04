@@ -342,7 +342,7 @@
   "latest": "Dernière vérification : {date} UTC —",
   "fullReport": "voir le rapport complet",
   "money": "Comment nous gagnons de l'argent",
-  "moneyP": "Le référencement est gratuit. Actuellement, nous gagnons de l'argent uniquement grâce à des liens d'affiliation (partenaires) déclarés vers TradingView et EODHD. Les emplacements sponsorisés ne sont pas encore proposés ; s'ils le deviennent, ils seront signalés « Sponsorisé ». Aucun n'influence le statut de vérification.",
+  "moneyP": "Le référencement est gratuit. Nous gagnons de l'argent grâce à des liens d'affiliation (partenaires) déclarés vers TradingView et EODHD, et à deux emplacements payants : Category Featured et Homepage Feature. Les emplacements payants sont toujours signalés « Sponsorisé » et n'affectent jamais le statut de vérification.",
   "contact": "Contact"
  },
  "disc": {
@@ -356,7 +356,7 @@
    "<b>Risque.</b> Le trading et l'investissement — notamment avec des agents automatisés ou d'IA, l'effet de levier, les options ou la crypto — peuvent vous faire perdre tout ou partie de votre argent. Testez d'abord tout outil de trading en mode démo et ne donnez jamais à un agent plus de droits que ce que vous pouvez vous permettre de perdre.",
    "<b>Tiers.</b> Les outils sont créés et exploités par des tiers. Nous ne contrôlons ni ces outils, ni leurs données, leur sécurité ou leur disponibilité. La vérification est automatisée et limitée aux contrôles décrits sur la page À propos.",
    "<b>Exactitude.</b> Les prix et fonctionnalités changent. Confirmez-les toujours sur le site de l'éditeur.",
-   "<b>Emplacements sponsorisés.</b> Certains liens sont des liens d'affiliation (partenaires) et peuvent nous rapporter une commission. Aucune fiche n'est aujourd'hui un emplacement payant ; si des emplacements sponsorisés sont proposés, ils seront signalés « Sponsorisé »."
+   "<b>Emplacements sponsorisés.</b> Certains liens sont des liens d'affiliation (partenaires) et peuvent nous rapporter une commission. Nous proposons aussi deux emplacements payants (Category Featured et Homepage Feature) ; ils sont toujours signalés « Sponsorisé » et n'affectent jamais le statut de vérification."
   ]
  },
  "ver": {
@@ -413,7 +413,8 @@
   "title": "Publicité",
   "desc": "Faire de la publicité sur {site}.",
   "lead": "{site} référence plus de {n} serveurs MCP, skills et API pour la finance et le trading, revérifiés chaque semaine. Tous les référencements sont gratuits ; les emplacements payants n'achètent que de la visibilité, jamais un meilleur statut de vérification. Ils sont toujours signalés « Sponsorisé ».",
-  "free": "Les fiches, badges et propositions sont et resteront <b>gratuits</b>. Les sponsorings ne sont pas encore ouverts. Intéressé plus tard ? Écrivez à {email}."
+  "free": "Le référencement, les badges et les soumissions sont et resteront <b>gratuits</b>. Les emplacements payants sont disponibles dès maintenant : achetez-les ci-dessous.",
+  "more": "Tous les détails et conditions"
  },
  "privacy": {
   "title": "Politique de confidentialité",
@@ -586,7 +587,6 @@
   "editorial": "Les emplacements payants sont toujours signalés « Sponsorisé ». Le statut « Vérifié » est éditorial et ne s'achète pas : payer n'a aucun effet sur la vérification, les avis ni le contrôle hebdomadaire.",
   "perMonth": "par mois, abonnement récurrent",
   "buy": "Acheter {name}",
-  "contact": "Écrivez-nous à propos de {name}",
   "priceNote": "Prix en dollars américains. Les taxes sont ajoutées au paiement le cas échéant.",
   "termsH": "Conditions",
   "free": "Vous voulez simplement être référencé ? Proposez votre outil gratuitement.",

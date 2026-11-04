@@ -342,7 +342,7 @@
   "latest": "Son çalıştırma: {date} UTC —",
   "fullReport": "tam raporu gör",
   "money": "Nasıl para kazanıyoruz",
-  "moneyP": "Listeleme ücretsizdir. Şu anda yalnızca TradingView'e ve EODHD'ye verilen, açıklanmış satış ortaklığı (partner) bağlantılarından gelir elde ediyoruz. Sponsorlu alanlar henüz sunulmuyor; sunulursa “Sponsorlu” olarak işaretlenecek. Hiçbiri doğrulama durumunu etkilemez.",
+  "moneyP": "Listelemeler ücretsizdir. Gelirimiz, açıkça belirtilen TradingView ve EODHD ortaklık (affiliate) bağlantılarından ve iki ücretli alandan gelir: Category Featured ve Homepage Feature. Ücretli alanlar her zaman “Sponsorlu” olarak işaretlenir ve doğrulama durumunu asla etkilemez.",
   "contact": "İletişim"
  },
  "disc": {
@@ -356,7 +356,7 @@
    "<b>Risk.</b> Trading ve yatırım — özellikle otomasyon veya yapay zekâ ajanları, kaldıraç, opsiyonlar ya da kripto ile — sermayenizin bir kısmını veya tamamını kaybetmenize yol açabilir. Her trading aracını önce paper modunda test edin ve bir ajana asla kaybetmeyi göze alabileceğinizden fazla yetki vermeyin.",
    "<b>Üçüncü taraflar.</b> Araçlar üçüncü taraflarca geliştirilir ve işletilir. Bunları, verilerini, güvenliklerini veya erişilebilirliklerini kontrol etmeyiz. Doğrulama otomatiktir ve Hakkında sayfasında açıklanan kontrollerle sınırlıdır.",
    "<b>Doğruluk.</b> Fiyatlar ve özellikler değişir. Her zaman sağlayıcının sitesinden teyit edin.",
-   "<b>Sponsorlu alanlar.</b> Bazı bağlantılar satış ortaklığı (partner) bağlantılarıdır ve bize komisyon kazandırabilir. Şu anda hiçbir listeleme ücretli alan değildir; sponsorlu alanlar sunulursa “Sponsorlu” olarak işaretlenecek."
+   "<b>Sponsorlu alanlar.</b> Bazı bağlantılar ortaklık (affiliate) bağlantılarıdır ve bize komisyon kazandırabilir. Ayrıca iki ücretli alan sunuyoruz (Category Featured ve Homepage Feature); bunlar her zaman “Sponsorlu” olarak işaretlenir ve doğrulama durumunu asla etkilemez."
   ]
  },
  "ver": {
@@ -413,7 +413,8 @@
   "title": "Reklam ver",
   "desc": "{site} üzerinde reklam verin.",
   "lead": "{site}, her hafta yeniden doğrulanan {n}+ finans ve trading MCP sunucusu, beceri ve API listeler. Tüm listelemeler ücretsizdir; ücretli alanlar yalnızca görünürlük satın alır, asla daha iyi bir doğrulama durumu değil. Ücretli alanlar her zaman “Sponsorlu” olarak işaretlenir.",
-  "free": "Listeleme, rozetler ve gönderimler <b>ücretsizdir</b> ve öyle kalacaktır. Sponsorlu alanlar henüz açık değil. İleride ilgilenir misiniz? {email} adresine e-posta gönderin."
+  "free": "Listelemeler, rozetler ve gönderimler <b>ücretsizdir</b> ve öyle kalacak. Ücretli alanlar şimdi satışta: aşağıdan satın alabilirsiniz.",
+  "more": "Tüm ayrıntılar ve koşullar"
  },
  "privacy": {
   "title": "Gizlilik politikası",
@@ -586,7 +587,6 @@
   "editorial": "Ücretli alanlar her zaman “Sponsorlu” olarak işaretlenir. “Doğrulandı” durumu editoryal bir karardır ve satın alınamaz: ödeme yapmak doğrulamayı, incelemeleri veya haftalık kontrolü etkilemez.",
   "perMonth": "aylık, yinelenen",
   "buy": "{name} satın al",
-  "contact": "{name} hakkında bize yazın",
   "priceNote": "Fiyatlar ABD doları cinsindendir. Geçerli olduğunda vergi ödeme sırasında eklenir.",
   "termsH": "Koşullar",
   "free": "Sadece listelenmek mi istiyorsunuz? Aracınızı ücretsiz ekleyin.",
