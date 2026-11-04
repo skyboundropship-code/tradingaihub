@@ -29,6 +29,8 @@
   "terms": "Koşullar",
   "about": "Hakkında",
   "advertise": "Reklam ver",
+  "api": "API ve MCP",
+  "apiDocs": "Ücretsiz API ve MCP sunucusu (İngilizce)",
   "disclaimer": "<b>Yatırım tavsiyesi değildir.</b> {site}, yazılım araçlarına ilişkin bilgilendirme amaçlı bir dizindir. Bu sitedeki hiçbir içerik yatırım, trading, vergi veya hukuki tavsiye ya da herhangi bir menkul kıymet veya varlığı alma veya satma önerisi değildir ve biz lisanslı yatırım danışmanı veya portföy yöneticisi değiliz. Trading kayıp riski içerir. <b>Ortaklık bildirimi:</b> Bazı bağlantılar (şu anda TradingView) ortaklık bağlantılarıdır. Bunlar üzerinden kaydolursanız, size ek maliyet olmadan komisyon kazanabiliriz. Bu bağlantılar işaretlidir ve listelemeleri, sıralamaları veya doğrulama durumunu asla etkilemez.",
   "fullDisclaimer": "Tam sorumluluk reddi",
   "short": "Yatırım tavsiyesi değildir. Bazı bağlantılar iş ortağı bağlantılarıdır ve bize komisyon kazandırabilir."
