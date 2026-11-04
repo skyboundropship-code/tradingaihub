@@ -1,4 +1,5 @@
 ---
+import BrandLogo from "../components/BrandLogo.astro";
 import "../styles/global.css";
 import A11yWidget from "../components/A11yWidget.astro";
 import { useA11yT } from "../i18n/a11y";
@@ -16,7 +17,7 @@ const base = isNotFound ? "/" : basePath(Astro.url.pathname);
 const canonical = new URL(pathFor(lang, base), SITE.url).href;
 const fullTitle = title === SITE.name ? `${SITE.name} — ${tagline}` : `${title} | ${SITE.name}`;
 // Sitewide entity graph, identical on every page and locale (stable @ids), so Organization/WebSite are never duplicated.
-// No SearchAction: Google retired the sitelinks search box. logo-512.png is rendered from public/favicon.svg (the header mark).
+// No SearchAction: Google retired the sitelinks search box. logo-512.png is the 512px "Verified t" app icon (logo 6, from public/brand/).
 const org = { "@context": "https://schema.org", "@graph": [
   { "@type": "Organization", "@id": `${SITE.url}/#organization`, name: SITE.name, url: `${SITE.url}/`, email: SITE.contactEmail,
     logo: { "@type": "ImageObject", "@id": `${SITE.url}/#logo`, url: `${SITE.url}/logo-512.png`, contentUrl: `${SITE.url}/logo-512.png`, width: 512, height: 512, caption: SITE.name },
@@ -24,7 +25,6 @@ const org = { "@context": "https://schema.org", "@graph": [
   { "@type": "WebSite", "@id": `${SITE.url}/#website`, name: SITE.name, url: `${SITE.url}/`, description: SITE.description, inLanguage: CODES,
     publisher: { "@id": `${SITE.url}/#organization` } },
 ] };
-const parts = SITE.name.split("AI");
 const cur = localeOf(lang);
 const at = useA11yT(lang);
 
@@ -39,7 +39,7 @@ const at = useA11yT(lang);
 {!noindex && LOCALES.map((l) => <link rel="alternate" hreflang={l.code} href={new URL(pathFor(l.code, base), SITE.url).href} />)}
 {!noindex && <link rel="alternate" hreflang="x-default" href={new URL(base, SITE.url).href} />}
 <meta property="og:title" content={fullTitle} /><meta property="og:description" content={desc} /><meta property="og:url" content={canonical} /><meta property="og:type" content="website" /><meta property="og:locale" content={cur.og} /><meta property="og:site_name" content={SITE.name} /><meta property="og:image" content={ogUrl} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={fullTitle} /><meta name="twitter:image" content={ogUrl} /><link rel="alternate" type="application/rss+xml" title={`${SITE.name} weekly`} href="/rss.xml" />
-<link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" /><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="apple-touch-icon" href="/apple-touch-icon.png" /><link rel="manifest" href="/site.webmanifest" /><meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" /><meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)" /><link rel="sitemap" href="/sitemap-index.xml" />
 <script type="application/ld+json" set:html={JSON.stringify(org)} />
 {jsonld.map((j) => <script type="application/ld+json" set:html={JSON.stringify(j)} />)}
 {base === "/" && lang === "en" && <script is:inline define:vars={{ codes: CODES }}>
@@ -54,7 +54,7 @@ const at = useA11yT(lang);
 </head><body>
 <a class="skip-link" href="#content">{at("w.skip")}</a>
 <header class="site"><div class="wrap">
-  <a class="logo" href={p("/")} dir="ltr" aria-label={SITE.name}><svg class="logo-mark" viewBox="0 0 32 32" width="44" height="44" aria-hidden="true" focusable="false"><rect x=".5" y=".5" width="31" height="31" rx="8" fill="#0b0f17" stroke="var(--line)"/><path d="M6 22l7-7 5 5 8-10" stroke="#22c55e" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="logo-word" aria-hidden="true">{parts[0]}<span>AI</span>{parts.slice(1).join("AI")}</span></a>
+  <a class="logo" href={p("/")} dir="ltr" aria-label={SITE.name}><BrandLogo height={36} /></a>
   <nav class="main" aria-label={at("w.navMain")}><a href={p("/tools/")}>{t("nav.tools")}</a><a href={p("/categories/")}>{t("nav.categories")}</a><a href={p("/compare/")}>{t("nav.compare")}</a><a href={p("/weekly/")}>{t("nav.weekly")}</a><a href={p("/badges/")}>{t("nav.badges")}</a><a href={p("/about/")}>{t("nav.verify")}</a></nav>
   <div class="hdr-tools">
     <details class="langs"><summary title={t("nav.language")}><span aria-hidden="true">🌐 </span><span class="sr-only">{t("nav.language")}: </span><span>{lang.toUpperCase()}</span></summary>
@@ -67,7 +67,7 @@ const at = useA11yT(lang);
 <main id="content" tabindex="-1"><Fragment set:html="<!--email_off-->" /><slot /><Fragment set:html="<!--/email_off-->" /></main>
 <footer class="site"><div class="wrap">
   <div class="cols">
-    <div><div class="logo" dir="ltr">{SITE.name}</div><div>{tagline}. {t("footer.rechecked")}</div></div>
+    <div><div class="logo" dir="ltr"><BrandLogo height={28} /></div><div>{tagline}. {t("footer.rechecked")}</div></div>
     <div><b>{t("footer.directory")}</b><br/><a href={p("/tools/")}>{t("nav.tools")}</a><br/><a href={p("/categories/")}>{t("nav.categories")}</a><br/><a href={p("/compare/")}>{t("footer.comparisons")}</a><br/><a href={p("/verification/")}>{t("footer.latestRun")}</a></div>
     <div><b>{t("footer.makers")}</b><br/><a href={p("/submit/")}>{t("footer.submitFree")}</a><br/><a href={p("/badges/")}>{t("footer.getBadge")}</a><br/><a href={p("/weekly/")}>{t("nav.weekly")}</a><br/><a href="/rss.xml">RSS</a> · <a href={SITE.githubAwesomeRepo}>{t("footer.awesome")}</a></div>
     <div><b>{t("footer.legal")}</b><br/><a href={p("/disclaimer/")}>{t("footer.nia")}</a><br/><a href={p("/privacy/")}>{t("footer.privacy")}</a><br/><a href={p("/terms/")}>{t("footer.terms")}</a><br/><a href={p("/about/")}>{t("footer.about")}</a><br/><a href={p("/accessibility/")}>{at("w.statement")}</a><br/><a href={p("/advertise/")}>{t("footer.advertise")}</a></div>
