@@ -1,18 +1,15 @@
-# Viral launch plan — every post/PR/email below is a DRAFT. Nothing is sent without the TradingAIHub team's approval (they go out under the team's accounts).
-
-## Preconditions (approval needed)
-1. Domain bought; site deployed (docs/HOSTING.md). 2. Public GitHub repo `awesome-finance-ai-tools` with the generated README. 3. Newsletter live. 4. Analytics on.
+# Launch plan (drafts)
 
 ## Timeline
-| Day | Channel | Account | Approval |
-|---|---|---|---|
-| D-7…D-1 | Badge outreach to the 56 "verified" makers (GitHub issue or email) so badges are live on launch day | TradingAIHub's GitHub | ✅ needed (per batch) |
-| D-3 | PRs to awesome lists + directory submissions (below) | TradingAIHub's GitHub | ✅ |
-| D0 Tue 15:00 Israel time (= 8am ET) | Show HN | TradingAIHub's HN | ✅ |
-| D0 | X thread + post in r/mcp, r/ClaudeAI | TradingAIHub's X / Reddit | ✅ |
-| D+2 | r/algotrading (only in their self-promo/weekly thread — rules are strict), r/LocalLLaMA, r/cursor, r/quant (if allowed), r/fintech | Reddit | ✅ |
-| D+7 | Product Hunt (Tuesday 00:01 PT = 10:01 Israel time); first weekly "State of finance AI tools" issue | PH / newsletter | ✅ |
-| Weekly | Changelog post on X + newsletter + /weekly page | X | ✅ once for a standing routine |
+| Day | Channel | Account |
+|---|---|---|
+| D-7…D-1 | Badge outreach to the 56 "verified" makers (GitHub issue or email) so badges are live on launch day | TradingAIHub's GitHub |
+| D-3 | PRs to awesome lists + directory submissions (below) | TradingAIHub's GitHub |
+| D0 Tue 15:00 Israel time (= 8am ET) | Show HN | TradingAIHub's HN |
+| D0 | X thread + post in r/mcp, r/ClaudeAI | TradingAIHub's X / Reddit |
+| D+2 | r/algotrading (only in their self-promo/weekly thread — rules are strict), r/LocalLLaMA, r/cursor, r/quant (if allowed), r/fintech | Reddit |
+| D+7 | Product Hunt (Tuesday 00:01 PT = 10:01 Israel time); first weekly "State of finance AI tools" issue | PH / newsletter |
+| Weekly | Changelog post on X + newsletter + /weekly page | X |
 
 ## Drafts
 **Show HN** — Title: `Show HN: TradingAIHub – a directory of finance/trading MCP servers and skills, re-verified weekly`
@@ -39,10 +36,10 @@ Tag the makers' official handles where they exist.
 > Hi! We list <name> on TradingAIHub, a free directory of finance AI tools that we re-check every week. It currently passes (last commit <date>, package <pkg>). If you'd like, here is a badge that updates itself: `[![TradingAIHub](https://tradingaihub.com/badge/<id>.svg)](https://tradingaihub.com/tools/<id>/)`. If any of the info is wrong, reply here or use /submit. No cost, ever. Feel free to close this issue.
 Send it only to repos that welcome issues; cap it at 10 a day so it doesn't look like spam.
 
-## Awesome lists & registries (PRs/submissions — approval needed)
+## Awesome lists & registries
 - PRs: BlockRunAI/awesome-finance-mcp (our seed source, CC0 — add "verified status" link), punkpeye/awesome-mcp-servers (Resources/Directories section), wong2/awesome-mcp-servers, appcypher/awesome-mcp-servers, awesome-claude-skills lists, awesome-quant (wilsonfreitas/awesome-quant), awesome-fintech lists. Check each repo's CONTRIBUTING rules first.
 - Directory/registry listings of the *site* itself: TAAFT, Futurepedia, Glama, mcp.so, PulseMCP, mcpservers.org, Smithery (as resource), skills.sh. (The official MCP Registry is for servers, not directories — skip unless we ship an MCP server.)
-- Growth idea (optional, phase 2): ship a tiny `tradingaihub-mcp` server ("find a verified finance MCP for X") → then it's listable in the official MCP Registry, Smithery, Glama. Strong distribution loop.
+- Phase 2: ship a tiny `tradingaihub-mcp` server ("find a verified finance MCP for X") → then it's listable in the official MCP Registry, Smithery, Glama. Strong distribution loop.
 
 ## Built-in loops (already in the site)
-Embeddable badges (/badge/<id>.svg + /badges), copy buttons on every snippet, share buttons + per-page OG images (93), /weekly changelog + leaderboard, /rss.xml, /tools.json, awesome/README.md mirror, free /submit, newsletter capture (inactive until a provider is approved).
+Embeddable badges (/badge/<id>.svg + /badges), copy buttons on every snippet, share buttons + per-page OG images (93), /weekly changelog + leaderboard, /rss.xml, /tools.json, awesome/README.md mirror, free /submit, newsletter capture.
