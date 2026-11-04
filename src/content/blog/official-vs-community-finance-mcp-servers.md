@@ -15,9 +15,9 @@ Below is what we learned from labelling 104 finance tools (73 MCP servers, 16 AP
 
 ## The split, and what it says about reliability
 
-Of the 104 listings, **61 are official** (published by the company whose product or data they expose) and **43 are community** projects. All figures here come from our public [tools.json](https://tradingaihub.com/tools.json) and the 2 November 2026 verification run.
+Of the 104 listings, **61 are official** (published by the company whose product or data they expose) and **43 are community** projects. All figures here come from our public [tools.json](/tools.json).
 
-On the 2 November 2026 run, a listing counted as "passing" if its repo was reachable, its links worked, and (for repos) it had a commit in the last 180 days. Here's how the two groups did:
+As of the 2 November 2026 verification run, a listing counted as "passing" if its repo was reachable, its links worked, and (for repos) it had a commit in the last 180 days. Here's how the two groups did:
 
 | | Listings | Passing | Stale (no commit > 1 yr) | Aging (180–365 days) | Archived | Needs review |
 |---|---|---|---|---|---|---|
@@ -37,7 +37,7 @@ The split also varies a lot by category. Every listing in payments and banking i
 
 Look at the GitHub owner, not the project name. Official finance servers in the directory live under organisations such as `alpacahq`, `stripe`, `paypal`, `coinbase`, `square`, `krakenfx`, `webull-inc`, `XeroAPI` and `intuit`.
 
-The word "official" in a name proves nothing. The community Binance MCP lives under an account called `TermiX-official`. It isn't published by Binance, and it was stale on the last run (no commits for 564 days).
+The word "official" in a name proves nothing. The community Binance MCP lives under an account called `TermiX-official`. It isn't published by Binance, and it was stale on the last run (no commits for 564 days as of Nov 2, 2026).
 
 ### 2. Hosted endpoints on the vendor's own domain
 
@@ -68,7 +68,7 @@ On the latest run, the stored link for one large, official research platform red
 
 ### 5. "Not affiliated" disclaimers and naming
 
-Good community projects say what they are. The most-starred TradingView server in the directory (5.2k stars, commit 29 October 2026) describes itself as an *unofficial community MCP, not affiliated with TradingView*. TradingView's own server is a separate, hosted product.
+Good community projects say what they are. The most-starred TradingView server in the directory (5.2k stars as of Nov 2, 2026, last commit 29 October 2026) describes itself as an *unofficial community MCP, not affiliated with TradingView*. TradingView's own server is a separate, hosted product.
 
 The two differ in practical ways:
 
@@ -89,11 +89,11 @@ Also ask where the data comes from. A community server built on a vendor's offic
 
 Community doesn't mean worse. Several of the most useful finance tools have no official MCP server in the directory. (SEC and FRED do publish official APIs, but not MCP servers.)
 
-- an SEC EDGAR MCP server (383 stars)
+- an SEC EDGAR MCP server (383 stars as of Nov 2, 2026)
 - a Schwab MCP server
 - a tastytrade agent
 - a FRED server
-- the most popular trading skill pack in the directory (3.5k stars)
+- the most popular trading skill pack in the directory (3.5k stars as of Nov 2, 2026)
 
 Where an official server does exist, the community version sometimes covers more endpoints (FMP) or more features (TradingView).
 

@@ -85,6 +85,8 @@ const STATIC = ["/", "/tools/", "/categories/", "/compare/", "/blog/", "/about/"
 const PAGES = new Set([
   ...STATIC, ...tools.map((t) => `/tools/${t.id}/`), ...CATEGORIES.map((c) => `/category/${c.slug}/`), ...COMPARISONS.map((c) => `/compare/${c.slug}/`),
   ...[...guideSlugs].map((g) => `/guides/${g}/`), ...(guideSlugs.size ? ["/guides/"] : []), ...PUBLISHED.map((p) => `/blog/${p.slug}/`),
+  // Generated files (src/pages/*.ts endpoints), linkable from posts like pages.
+  "/tools.json", "/llms.txt", "/llms-full.txt", "/rss.xml", "/blog/rss.xml",
 ]);
 
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
