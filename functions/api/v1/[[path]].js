@@ -1,7 +1,7 @@
 // Public read-only API v1 router: /api/v1, /api/v1/tools, /api/v1/tools/{slug}, /api/v1/search, /api/v1/categories,
 // and the static dumps /api/v1/tools.json + /api/v1/categories.json (served from ASSETS so they get CORS, cache and the
 // rate limit too). Scoped to /api/v1/* on purpose: /api/subscribe keeps its own handler and headers.
-import { CORS, json, error, methodGate, rateLimit, tooMany, loadData, allowed, filterTools, searchTools, LIMITS, SITE } from "../../_lib/api.js";
+import { CORS, json, error, methodGate, rateLimit, tooMany, loadData, allowed, filterTools, searchTools, LIMITS, SITE, DATA_LICENSE as LIC } from "../../_lib/api.js";
 
 const intParam = (sp, name, def, min, max) => {
   const raw = sp.get(name);
@@ -34,7 +34,7 @@ export async function onRequest({ request, env, params }) {
   const bad = (msg, extra = {}) => error(400, "invalid_parameter", msg, extra, h, m);
 
   if (seg.length === 0) {
-    return json({ name: "TradingAIHub public API", version: data.dump.api_version, docs: `${SITE}/developers/`, openapi: `${SITE}/api/openapi.json`, mcp: `${SITE}/mcp`,
+    return json({ name: "TradingAIHub public API", version: data.dump.api_version, ...LIC, code_license: "MIT", docs: `${SITE}/developers/`, openapi: `${SITE}/api/openapi.json`, mcp: `${SITE}/mcp`,
       endpoints: ["/api/v1/tools", "/api/v1/tools/{slug}", "/api/v1/search?q=", "/api/v1/categories", "/api/v1/tools.json", "/api/v1/categories.json"].map((p) => SITE + p),
       rate_limit: { requests: LIMITS.api, window_seconds: LIMITS.windowMs / 1000, scope: "per IP, per edge instance" } }, 200, h, m);
   }
@@ -59,13 +59,13 @@ export async function onRequest({ request, env, params }) {
     const page = all.slice(off.v, off.v + lim.v);
     let next = null;
     if (off.v + lim.v < all.length) { const n = new URL(url.pathname, SITE); for (const [k, v] of sp) n.searchParams.set(k, v); n.searchParams.set("offset", String(off.v + lim.v)); n.searchParams.set("limit", String(lim.v)); next = n.href; }
-    return json({ total: all.length, count: page.length, limit: lim.v, offset: off.v, next, tools: page }, 200, h, m);
+    return json({ ...LIC, total: all.length, count: page.length, limit: lim.v, offset: off.v, next, tools: page }, 200, h, m);
   }
 
   if (a === "tools" && b) {
     const t = /^[a-z0-9-]{1,100}$/.test(b) ? data.bySlug.get(b) : null;
     if (!t) return error(404, "not_found", `No tool with slug "${b.slice(0, 100)}". List slugs at /api/v1/tools.`, {}, h, m);
-    return json({ tool: t }, 200, h, m);
+    return json({ ...LIC, tool: t }, 200, h, m);
   }
 
   if (a === "search" && !b) {
@@ -81,7 +81,7 @@ export async function onRequest({ request, env, params }) {
     }
     const lim = intParam(sp, "limit", 10, 1, 50); if (lim.err) return bad(lim.err, { parameter: "limit" });
     const tools = searchTools(filterTools(data.dump.tools, f), q, lim.v);
-    return json({ query: q, count: tools.length, tools }, 200, h, m);
+    return json({ ...LIC, query: q, count: tools.length, tools }, 200, h, m);
   }
 
   return error(404, "not_found", "Unknown endpoint. See /api/openapi.json.", {}, h, m);

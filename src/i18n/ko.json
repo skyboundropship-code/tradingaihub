@@ -439,6 +439,7 @@
    "스폰서 자리는 노출만 구매하며, 표시되고, 거절되거나 삭제될 수 있으며(일할 환불), 저희 merchant of record가 청구합니다.",
    "도구를 등록하는 사람은 등재할 권리가 있으며 해당 도구가 보장된 수익을 약속하지 않음을 확인합니다.",
    "저희의 책임은 최근 12개월 동안 귀하가 저희에게 지불한 금액으로 제한됩니다.",
+   "무료 <a href=\"/developers/\" hreflang=\"en\">API 및 MCP 서버</a>로 제공되는 디렉터리 데이터는 <a href=\"https://creativecommons.org/licenses/by/4.0/\" rel=\"license noopener\">CC BY 4.0</a> 라이선스를 따릅니다. “TradingAIHub, https://tradingaihub.com”의 출처를 표시하면 상업적 용도를 포함해 재사용할 수 있습니다. API 및 MCP 서버 코드는 MIT 라이선스입니다.",
    "번역본과 영어본이 다를 경우 영어본이 우선합니다."
   ],
   "contact": "문의:"

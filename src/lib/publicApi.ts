@@ -16,6 +16,8 @@ export const API_VERSION = "1.0.0";
 export const MCP_URL = `${SITE.url}/mcp`;
 export const DOCS_URL = `${SITE.url}/developers/`;
 export const DISCLOSURE = `This link is an affiliate link; TradingAIHub may earn a commission at no extra cost to you. It never affects listings. See ${SITE.url}/disclaimer/`;
+/** Data licence (Liran: CC BY 4.0 for the data, MIT for the API/MCP code). Same values as functions/_lib/api.js DATA_LICENSE. */
+export const DATA_LICENSE = { license: "CC BY 4.0", license_url: "https://creativecommons.org/licenses/by/4.0/", attribution: "TradingAIHub, https://tradingaihub.com" };
 export const RATE_LIMITS = { api: 120, mcp: 60, windowSec: 60 };
 
 const plain = (u: any): string | null => {
@@ -76,7 +78,7 @@ export const publicCategories = CATEGORIES.map((c) => ({
 }));
 
 const latestCheck = publicTools.map((t) => t.checked_at || "").sort().at(-1) || null;
-const meta = { api_version: API_VERSION, source: SITE.url, docs: DOCS_URL, terms: `${SITE.url}/terms/`, notice: "Information directory only. Not investment advice.", data_checked_at: latestCheck };
+const meta = { api_version: API_VERSION, source: SITE.url, docs: DOCS_URL, terms: `${SITE.url}/terms/`, ...DATA_LICENSE, notice: "Information directory only. Not investment advice.", data_checked_at: latestCheck };
 
 // Affiliate contract, checked at build time (the build fails on any violation):
 //  - website_url equals the href the site renders for that tool (data.ts homepage / docs / repo, all via affUrl)

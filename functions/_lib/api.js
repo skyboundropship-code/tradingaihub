@@ -4,6 +4,8 @@
 // No KV anywhere: KV free-tier writes (1,000/day) are reserved for the newsletter.
 
 export const SITE = "https://tradingaihub.com";
+/** Data licence, added to every API JSON body and MCP tool result (CC BY 4.0; the code is MIT, see LICENSE). */
+export const DATA_LICENSE = { license: "CC BY 4.0", license_url: "https://creativecommons.org/licenses/by/4.0/", attribution: "TradingAIHub, https://tradingaihub.com" };
 export const CACHE_OK = "public, max-age=300, s-maxage=3600";
 export const LIMITS = { api: 120, mcp: 60, windowMs: 60_000 };
 const DATA_TTL_MS = 300_000;

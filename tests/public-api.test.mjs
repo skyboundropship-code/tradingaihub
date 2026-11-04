@@ -208,3 +208,22 @@ test("built dump: no internals, affiliate contract", { skip: !existsSync(DIST) &
   assert.equal(oa.openapi, "3.1.0");
   for (const p of ["/api/v1/tools", "/api/v1/tools/{slug}", "/api/v1/search", "/api/v1/categories"]) assert.ok(oa.paths[p], p);
 });
+
+test("licence: CC BY 4.0 fields on every API JSON body", async () => {
+  const LIC = { license: "CC BY 4.0", license_url: "https://creativecommons.org/licenses/by/4.0/", attribution: "TradingAIHub, https://tradingaihub.com" };
+  for (const p of ["/api/v1", "/api/v1/tools", "/api/v1/tools/alpha-vantage-mcp", "/api/v1/search?q=stock"]) {
+    const { res, body } = await call(p);
+    assert.equal(res.status, 200, p);
+    for (const [k, v] of Object.entries(LIC)) assert.equal(body[k], v, `${p} ${k}`);
+  }
+});
+const DISTL = new URL("../dist/api/openapi.json", import.meta.url);
+test("licence: built dumps and openapi info.license", { skip: !existsSync(DISTL) && "dist not built" }, () => {
+  const oa = JSON.parse(readFileSync(DISTL, "utf8"));
+  assert.deepEqual(oa.info.license, { name: "CC BY 4.0", url: "https://creativecommons.org/licenses/by/4.0/" });
+  for (const f of ["tools.json", "categories.json"]) {
+    const d = JSON.parse(readFileSync(new URL(`../dist/api/v1/${f}`, import.meta.url), "utf8"));
+    assert.equal(d.license, "CC BY 4.0", f); assert.equal(d.attribution, "TradingAIHub, https://tradingaihub.com", f);
+    assert.equal(d.license_url, "https://creativecommons.org/licenses/by/4.0/", f);
+  }
+});

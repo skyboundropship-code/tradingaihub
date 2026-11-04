@@ -3,13 +3,13 @@
 // headers, server/discover) AND the earlier initialize-handshake versions 2025-11-25 / 2025-06-18 / 2025-03-26, so
 // current clients (Claude, Cursor, ChatGPT, mcp-remote, the Inspector) work. No sessions: Mcp-Session-Id is never
 // issued and ignored if sent. GET (SSE stream) and DELETE return 405. Read-only tools over the public API dump.
-import { loadData, searchTools, filterTools, allowed, SITE } from "./api.js";
+import { loadData, searchTools, filterTools, allowed, SITE, DATA_LICENSE } from "./api.js";
 
 export const MODERN = "2026-07-28";
 export const LEGACY = ["2025-11-25", "2025-06-18", "2025-03-26"];
 export const SUPPORTED = [MODERN, ...LEGACY];
 export const SERVER_INFO = { name: "tradingaihub", title: "TradingAIHub directory", version: "1.0.0", websiteUrl: `${SITE}/developers/` };
-export const INSTRUCTIONS = "Read-only directory of AI tools for finance and trading (MCP servers, agent skills and APIs), re-verified weekly by TradingAIHub. Use search_tools to find tools for a task, get_tool for full details (links, pricing, license, install packages, verification status) and list_categories to browse. Data is informational only and is not investment advice.";
+export const INSTRUCTIONS = "Read-only directory of AI tools for finance and trading (MCP servers, agent skills and APIs), re-verified weekly by TradingAIHub. Use search_tools to find tools for a task, get_tool for full details (links, pricing, license, install packages, verification status) and list_categories to browse. Data is informational only and is not investment advice. The data is licensed CC BY 4.0: when you reuse or show it, credit \"TradingAIHub, https://tradingaihub.com\" (https://creativecommons.org/licenses/by/4.0/).";
 const TTL_MS = 300_000;
 const MAX_BODY = 64 * 1024;
 
@@ -41,7 +41,7 @@ const brief = (t) => ({ slug: t.slug, name: t.name, url: t.url, ...vendorLinks(t
 export const vendorLinks = (t) => ({ website_url: t.website_url ?? null, ...(t.affiliate ? { website_url_label: "affiliate link", disclosure: t.disclosure } : {}), vendor_url: t.vendor_url ?? null, affiliate: !!t.affiliate });
 /** get_tool: same fields as the REST API, reordered so the tool page and the (labelled) vendor link come first. */
 const full = (t) => { const { slug, name, url, website_url, vendor_url, affiliate, disclosure, ...rest } = t; return { slug, name, url, ...vendorLinks(t), ...rest }; };
-const textResult = (obj, isError = false) => ({ content: [{ type: "text", text: JSON.stringify(obj, null, 2) }], ...(isError ? {} : { structuredContent: obj }), isError });
+const textResult = (obj, isError = false) => { obj = { ...obj, ...DATA_LICENSE }; return { content: [{ type: "text", text: JSON.stringify(obj, null, 2) }], ...(isError ? {} : { structuredContent: obj }), isError }; };
 const toolError = (msg) => ({ content: [{ type: "text", text: msg }], isError: true });
 
 export async function callTool(name, args, ctx) {

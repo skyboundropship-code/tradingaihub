@@ -174,3 +174,13 @@ test("tool outputs lead with the TradingAIHub page; affiliate links are labelled
   const s = (await modern("tools/call", { name: "search_tools", arguments: { query: "yahoo" } })).body.result.structuredContent.tools[0];
   assert.deepEqual(Object.keys(s).slice(0, 5), ["slug", "name", "url", "website_url", "website_url_label"]);
 });
+
+test("licence: MCP tool results carry the CC BY 4.0 data licence", async () => {
+  for (const [name, args] of [["search_tools", { query: "stock" }], ["get_tool", { slug: "ccxt-mcp" }], ["list_categories", {}]]) {
+    const sc = (await modern("tools/call", { name, arguments: args })).body.result.structuredContent;
+    assert.equal(sc.license, "CC BY 4.0", name);
+    assert.equal(sc.attribution, "TradingAIHub, https://tradingaihub.com", name);
+  }
+  const init = await rpc({ jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-11-25", capabilities: {}, clientInfo: { name: "t", version: "1" } } });
+  assert.match(init.body.result.instructions, /CC BY 4\.0/);
+});

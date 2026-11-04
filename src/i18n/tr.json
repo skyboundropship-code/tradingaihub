@@ -439,6 +439,7 @@
    "Sponsorlu alanlar yalnızca görünürlük satın alır, işaretlenir, reddedilebilir veya kaldırılabilir (orantılı iade ile) ve merchant of record'umuz tarafından faturalandırılır.",
    "Gönderenler aracı listeleme hakkına sahip olduklarını ve aracın garantili getiri vaat etmediğini onaylar.",
    "Sorumluluğumuz, son 12 ayda bize ödediğiniz tutarla sınırlıdır.",
+   "Ücretsiz <a href=\"/developers/\" hreflang=\"en\">API ve MCP sunucumuzdaki</a> dizin verileri <a href=\"https://creativecommons.org/licenses/by/4.0/\" rel=\"license noopener\">CC BY 4.0</a> lisansı altındadır: “TradingAIHub, https://tradingaihub.com” kaynak gösterildiği sürece, ticari amaçlar dahil yeniden kullanabilirsiniz. API ve MCP sunucusunun kodu MIT lisanslıdır.",
    "Çeviri ile İngilizce sürüm arasında çelişki olması halinde İngilizce sürüm geçerlidir."
   ],
   "contact": "İletişim:"

@@ -11,7 +11,8 @@ const okHeaders = { "Access-Control-Allow-Origin": { $ref: "#/components/headers
 const json = (schema: any, description: string, headers: any = okHeaders) => ({ description, headers, content: { "application/json": { schema } } });
 const err = (d: string) => json({ $ref: "#/components/schemas/Error" }, d, { "Access-Control-Allow-Origin": { $ref: "#/components/headers/ACAO" } });
 const errors = { "400": err("Invalid parameter (JSON error body names the parameter and the allowed values)."), "405": err("Method not allowed (only GET, HEAD and OPTIONS)."), "429": { $ref: "#/components/responses/RateLimited" } };
-const meta = { api_version: str, source: { type: "string", format: "uri" }, docs: { type: "string", format: "uri" }, terms: { type: "string", format: "uri" }, notice: str, data_checked_at: nstr };
+const lic = { license: { type: "string", const: "CC BY 4.0", description: "Licence of the data." }, license_url: { type: "string", format: "uri" }, attribution: { type: "string", description: "Required credit when you reuse the data: \"TradingAIHub, https://tradingaihub.com\"." } };
+const meta = { ...lic, api_version: str, source: { type: "string", format: "uri" }, docs: { type: "string", format: "uri" }, terms: { type: "string", format: "uri" }, notice: str, data_checked_at: nstr };
 
 export const openapi = {
   openapi: "3.1.0",
@@ -19,8 +20,9 @@ export const openapi = {
     title: "TradingAIHub public API",
     version: API_VERSION,
     summary: "Free, read-only, no-sign-in API for the TradingAIHub directory of AI tools for finance and trading.",
-    description: `Every MCP server, agent skill and API listed on ${SITE.url}, with pricing, license, packages and the weekly verification status. No API key, CORS enabled (\`Access-Control-Allow-Origin: *\`), JSON only. Rate limit: about ${RATE_LIMITS.api} requests per minute per IP (enforced per edge instance, so treat it as a ceiling, not a guarantee); over the limit you get HTTP 429 with \`Retry-After\`. Responses are cacheable for 5 minutes. A remote MCP server with the same data is at ${SITE.url}/mcp. Not investment advice.`,
+    description: `Every MCP server, agent skill and API listed on ${SITE.url}, with pricing, license, packages and the weekly verification status. No API key, CORS enabled (\`Access-Control-Allow-Origin: *\`), JSON only. Rate limit: about ${RATE_LIMITS.api} requests per minute per IP (enforced per edge instance, so treat it as a ceiling, not a guarantee); over the limit you get HTTP 429 with \`Retry-After\`. Responses are cacheable for 5 minutes. A remote MCP server with the same data is at ${SITE.url}/mcp. Data licence: CC BY 4.0, credit \"TradingAIHub, https://tradingaihub.com\"; the API and MCP server code is MIT. Not investment advice.`,
     termsOfService: `${SITE.url}/terms/`,
+    license: { name: "CC BY 4.0", url: "https://creativecommons.org/licenses/by/4.0/" },
     contact: { name: SITE.name, url: DOCS_URL, email: SITE.contactEmail },
   },
   externalDocs: { description: "Developer docs, examples and MCP install snippets", url: DOCS_URL },
@@ -44,7 +46,7 @@ export const openapi = {
     "/api/v1/tools/{slug}": { get: {
       operationId: "getTool", tags: ["tools"], summary: "One tool by slug",
       parameters: [{ name: "slug", in: "path", required: true, schema: { type: "string", pattern: "^[a-z0-9-]+$" }, example: "alpha-vantage-mcp" }],
-      responses: { "200": json({ type: "object", properties: { tool: { $ref: "#/components/schemas/Tool" } }, required: ["tool"] }, "The tool."), "404": err("No tool with that slug."), ...errors },
+      responses: { "200": json({ type: "object", properties: { ...lic, tool: { $ref: "#/components/schemas/Tool" } }, required: ["tool"] }, "The tool."), "404": err("No tool with that slug."), ...errors },
     } },
     "/api/v1/search": { get: {
       operationId: "searchTools", tags: ["tools"], summary: "Full-text search over name, description, category and packages",
@@ -99,8 +101,8 @@ export const openapi = {
         status: { type: "string", enum: FILTERS.status }, status_label: str, verified: { type: "boolean" }, checked_at: nstr,
         github: { type: ["object", "null"], properties: { stars: { type: ["integer", "null"], description: "null for shared collection repos" }, last_commit: nstr, archived: { type: "boolean" }, collection: { type: "boolean" } } },
       } },
-      ToolList: { type: "object", required: ["total", "count", "limit", "offset", "tools"], properties: { total: { type: "integer" }, count: { type: "integer" }, limit: { type: "integer" }, offset: { type: "integer" }, next: { type: ["string", "null"], description: "URL of the next page, or null." }, tools: { type: "array", items: { $ref: "#/components/schemas/Tool" } } } },
-      SearchResult: { type: "object", required: ["query", "count", "tools"], properties: { query: str, count: { type: "integer" }, tools: { type: "array", items: { $ref: "#/components/schemas/Tool" } } } },
+      ToolList: { type: "object", required: ["total", "count", "limit", "offset", "tools"], properties: { ...lic, total: { type: "integer" }, count: { type: "integer" }, limit: { type: "integer" }, offset: { type: "integer" }, next: { type: ["string", "null"], description: "URL of the next page, or null." }, tools: { type: "array", items: { $ref: "#/components/schemas/Tool" } } } },
+      SearchResult: { type: "object", required: ["query", "count", "tools"], properties: { ...lic, query: str, count: { type: "integer" }, tools: { type: "array", items: { $ref: "#/components/schemas/Tool" } } } },
     },
   },
 };
