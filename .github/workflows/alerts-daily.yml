@@ -1,0 +1,27 @@
+# Daily phone summary (ntfy). 06:00 UTC = 08:00 Israel (09:00 in summer time).
+# Reads numbers from the protected, read-only https://tradingaihub.com/api/alerts/summary and posts them to ntfy from
+# GitHub's runner (not from Cloudflare's shared Worker IPs). Repo secrets: ALERTS_TOKEN, NTFY_TOPIC (never echoed).
+name: alerts-daily
+on:
+  schedule: [{ cron: "0 6 * * *" }]
+  workflow_dispatch: {}
+permissions: {}
+jobs:
+  summary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Fetch summary and notify
+        env:
+          ALERTS_TOKEN: ${{ secrets.ALERTS_TOKEN }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+          set -euo pipefail
+          [ -n "$ALERTS_TOKEN" ] && [ -n "$NTFY_TOPIC" ] || { echo "secrets missing"; exit 1; }
+          curl -fsS --max-time 30 --retry 2 -H "authorization: Bearer $ALERTS_TOKEN" https://tradingaihub.com/api/alerts/summary -o s.json
+          jq -r .message s.json > msg.txt
+          code=$(curl -sS --max-time 20 --retry 2 -o /dev/null -w '%{http_code}' \
+            -H "Title: $(jq -r .title s.json)" -H "Tags: $(jq -r .tags s.json)" -H "Priority: $(jq -r .priority s.json)" \
+            --data-binary @msg.txt "https://ntfy.sh/$NTFY_TOPIC")
+          echo "ntfy http $code"
+          [ "$code" = 200 ]
