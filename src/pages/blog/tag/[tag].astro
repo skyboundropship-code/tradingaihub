@@ -1,0 +1,19 @@
+---
+// /blog/tag/<tag>/: every post with that tag, newest first (English-only).
+import Base from "../../../layouts/Base.astro";
+import BlogList from "../../../components/BlogList.astro";
+import { SITE } from "../../../config";
+import { POSTS, TAGS, crumbsLd } from "../../../lib/blog";
+export function getStaticPaths() { return TAGS.map((tag) => ({ params: { tag } })); }
+const { tag } = Astro.params as { tag: string };
+const list = POSTS.filter((p) => p.tags.includes(tag));
+const name = `Tag: ${tag}`;
+const ld = [crumbsLd([["Home", "/"], ["Blog", "/blog/"], [name, `/blog/tag/${tag}/`]])];
+---
+<Base title={`${name} | Blog`} description={`TradingAIHub blog posts tagged ${tag}.`} jsonld={ld} og="blog" lang="en" langs={["en"]} noindex={list.every((p) => p.draft)}>
+<div class="wrap page">
+  <div class="crumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a> / {name}</div>
+  <h1>{name}</h1>
+  <BlogList posts={list} />
+</div>
+</Base>

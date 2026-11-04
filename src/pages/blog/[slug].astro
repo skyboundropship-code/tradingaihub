@@ -1,0 +1,39 @@
+---
+// One page per src/content/blog/<slug>.md (see src/lib/blog.ts). English-only: hreflang en + x-default, and the locale
+// sitemaps list it once (sitemap-en.xml). Drafts are only built with BLOG_DRAFTS=1, and then as noindex.
+import Base from "../../layouts/Base.astro";
+import ToolCard from "../../components/ToolCard.astro";
+import Share from "../../components/Share.astro";
+import Newsletter from "../../components/Newsletter.astro";
+import { tools } from "../../lib/data";
+import { POSTS, PUBLISHED, BYLINE, AFF_NOTE, render, blogPostingLd, crumbsLd, fmtDate, guideTitle, type Post } from "../../lib/blog";
+export function getStaticPaths() { return POSTS.map((p) => ({ params: { slug: p.slug }, props: { p } })); }
+const { p } = Astro.props as { p: Post };
+const r = await render(p);
+const path = `/blog/${p.slug}/`;
+const ld = [blogPostingLd(p), crumbsLd([["Home", "/"], ["Blog", "/blog/"], [p.title, path]])];
+const showToc = r.toc.filter((h) => h.depth === 2).length >= 3 || r.words > 1200;
+const featured = p.tools.map((id) => tools.find((t) => t.id === id)!).filter(Boolean);
+const more = PUBLISHED.filter((x) => x.slug !== p.slug && x.tags.some((t) => p.tags.includes(t))).slice(0, 3);
+---
+<Base title={p.title} description={p.description} jsonld={ld} og={`blog-${p.slug}`} ogImage={p.ogImage} lang="en" langs={["en"]} noindex={p.draft} article={{ published: p.date, modified: p.updated }}>
+<div class="wrap page">
+  <div class="crumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a></div>
+  <article class="post">
+    <header>
+      {p.draft && <p class="draft-tag">Draft: preview only, not published</p>}
+      <h1>{p.title}</h1>
+      <p class="post-meta">By {BYLINE} · <time datetime={p.date}>{fmtDate(p.date)}</time>{p.updated !== p.date && <> · Updated <time datetime={p.updated}>{fmtDate(p.updated)}</time></>} · {r.minutes} min read · Not investment advice</p>
+      {p.tags.length > 0 && <p class="blog-tags">{p.tags.map((t) => <a class="chip" href={`/blog/tag/${t}/`}>#{t}</a>)}</p>}
+    </header>
+    {showToc && <nav class="toc" aria-label="Contents"><b>Contents</b><ol>{r.toc.map((h) => <li class={`toc-${h.depth}`}><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol></nav>}
+    <div class="prose post-body" set:html={r.html} />
+    {r.partner && <Fragment set:html={AFF_NOTE} />}
+  </article>
+  <Share path={path} text={p.title} lang="en" />
+  {featured.length > 0 && <><h2 class="sec">Tools mentioned</h2><div class="grid">{featured.map((t) => <ToolCard t={t} lang="en" />)}</div></>}
+  {p.guides.length > 0 && <><h2 class="sec">Related guides</h2><div class="grid">{p.guides.map((g) => <a class="card" href={`/guides/${g}/`}><h3>{guideTitle(g)}</h3></a>)}</div></>}
+  {more.length > 0 && <><h2 class="sec">More from the blog</h2><div class="grid">{more.map((x) => <a class="card" href={`/blog/${x.slug}/`}><h3>{x.title}</h3><p>{x.description}</p></a>)}</div></>}
+  <Newsletter lang="en" level={2} />
+</div>
+</Base>
