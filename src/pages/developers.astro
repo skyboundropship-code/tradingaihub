@@ -1,7 +1,7 @@
 ---
 // /developers/: docs for the free public API (/api/v1/*) and the remote MCP server (/mcp). English-only (like /guides/):
 // hreflang en + x-default, listed once in sitemap-en.xml. /api redirects here (functions/api/index.js).
-// No affiliate links on this page: examples use non-partner tools, and the API/MCP output carries plain vendor URLs.
+// No affiliate links on this page: examples use non-partner tools. The API/MCP output labels affiliate links (affiliate, disclosure).
 import Base from "../layouts/Base.astro";
 import { SITE } from "../config";
 import { publicTools, publicCategories, FILTERS, RATE_LIMITS, MCP_URL } from "../lib/publicApi";
@@ -17,7 +17,7 @@ const ld = [
     { "@type": "ListItem", position: 2, name: title, item: url } ] },
 ];
 const ex = publicTools.find((t) => t.slug === "alpha-vantage-mcp") ?? publicTools[0];
-const sample = JSON.stringify({ tool: { slug: ex.slug, name: ex.name, type: ex.type, category: ex.category, description: ex.description, url: ex.url, homepage: ex.homepage, remote_mcp_url: ex.remote_mcp_url, license: ex.license, pricing: ex.pricing ? { model: ex.pricing.model, free_tier: ex.pricing.free_tier } : null, languages: ex.languages, status: ex.status, verified: ex.verified, checked_at: ex.checked_at, "…": "…" } }, null, 2);
+const sample = JSON.stringify({ tool: { slug: ex.slug, name: ex.name, type: ex.type, category: ex.category, description: ex.description, url: ex.url, website_url: ex.website_url, vendor_url: ex.vendor_url, affiliate: ex.affiliate, disclosure: ex.disclosure, homepage: ex.homepage, remote_mcp_url: ex.remote_mcp_url, license: ex.license, pricing: ex.pricing ? { model: ex.pricing.model, free_tier: ex.pricing.free_tier } : null, languages: ex.languages, status: ex.status, verified: ex.verified, checked_at: ex.checked_at, "…": "…" } }, null, 2);
 const B = SITE.url;
 const curl = `# Every verified market-data MCP server
 curl -s "${B}/api/v1/tools?category=market-data&type=mcp&verified=true"
@@ -70,7 +70,7 @@ const endpoints = [
   <div class="crumbs"><a href="/">Home</a> / {title}</div>
   <h1>{title}</h1>
   <p>{desc} The data is the same as on the site: every MCP server, agent skill and API we list, with pricing, license, published packages and the result of our weekly verification. These docs are in English.</p>
-  <p class="callout">Information only, not investment advice. Vendor links in the API are plain URLs, and listings never depend on payment. See the <a href="/terms/">terms</a> and <a href="/about/">how we verify</a>.</p>
+  <p class="callout">Information only, not investment advice. Affiliate disclosure: for partner tools (currently TradingView and EODHD), <code>website_url</code> is the same affiliate link the site uses, marked <code>affiliate: true</code> with a <code>disclosure</code>; <code>vendor_url</code> is always the plain link. TradingAIHub may earn a commission, and listings never depend on payment. See the <a href="/disclaimer/">disclaimer</a>, <a href="/terms/">terms</a> and <a href="/about/">how we verify</a>. See the <a href="/terms/">terms</a> and <a href="/about/">how we verify</a>.</p>
 
   <h2 id="rest">REST API</h2>
   <p>Base URL <code>{B}</code>. Only <code>GET</code> (and <code>HEAD</code>, <code>OPTIONS</code>); anything else returns 405. Every response is JSON with <code>Access-Control-Allow-Origin: *</code>, so you can call it from a browser. Successful responses are cacheable (<code>Cache-Control: public, max-age=300, s-maxage=3600</code>). The full spec is at <a href="/api/openapi.json">/api/openapi.json</a>.</p>

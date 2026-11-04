@@ -24,7 +24,7 @@ export const TOOLS = [
       required: ["query"], additionalProperties: false },
     annotations: RO },
   { name: "get_tool", title: "Get one tool",
-    description: "Full details for one tool in the TradingAIHub directory by its slug (from search_tools): homepage, docs, repo, remote MCP URL, pricing, license, npm/PyPI packages, GitHub stars and verification status.",
+    description: "Full details for one tool in the TradingAIHub directory by its slug (from search_tools): its TradingAIHub page (url) and vendor link (website_url; labelled when it is an affiliate link), homepage, docs, repo, remote MCP URL, pricing, license, npm/PyPI packages, GitHub stars and verification status.",
     inputSchema: { type: "object", properties: { slug: { type: "string", pattern: "^[a-z0-9-]+$", description: "Tool slug, e.g. alpha-vantage-mcp." } }, required: ["slug"], additionalProperties: false },
     annotations: RO },
   { name: "list_categories", title: "List categories",
@@ -34,9 +34,13 @@ export const TOOLS = [
 ];
 
 // Compact tool object for search results (full object comes from get_tool).
-const brief = (t) => ({ slug: t.slug, name: t.name, type: t.type, category: t.category, description: t.description, status: t.status, official: t.official,
-  url: t.url, homepage: t.homepage, remote_mcp_url: t.remote_mcp_url, pricing_model: t.pricing?.model ?? null, free_tier: t.pricing?.free_tier ?? null, stars: t.github?.stars ?? null });
+// Links lead with the tradingaihub.com tool page; the vendor link follows, labelled when it is an affiliate link.
+const brief = (t) => ({ slug: t.slug, name: t.name, url: t.url, ...vendorLinks(t), type: t.type, category: t.category, description: t.description, status: t.status, official: t.official,
+  homepage: t.homepage, remote_mcp_url: t.remote_mcp_url, pricing_model: t.pricing?.model ?? null, free_tier: t.pricing?.free_tier ?? null, stars: t.github?.stars ?? null });
 
+export const vendorLinks = (t) => ({ website_url: t.website_url ?? null, ...(t.affiliate ? { website_url_label: "affiliate link", disclosure: t.disclosure } : {}), vendor_url: t.vendor_url ?? null, affiliate: !!t.affiliate });
+/** get_tool: same fields as the REST API, reordered so the tool page and the (labelled) vendor link come first. */
+const full = (t) => { const { slug, name, url, website_url, vendor_url, affiliate, disclosure, ...rest } = t; return { slug, name, url, ...vendorLinks(t), ...rest }; };
 const textResult = (obj, isError = false) => ({ content: [{ type: "text", text: JSON.stringify(obj, null, 2) }], ...(isError ? {} : { structuredContent: obj }), isError });
 const toolError = (msg) => ({ content: [{ type: "text", text: msg }], isError: true });
 
@@ -48,7 +52,7 @@ export async function callTool(name, args, ctx) {
     const slug = typeof args.slug === "string" ? args.slug.trim().toLowerCase() : "";
     if (!slug) return toolError("slug is required (a tool slug from search_tools, e.g. alpha-vantage-mcp).");
     const t = data.bySlug.get(slug);
-    return t ? textResult({ tool: t }) : toolError(`No tool with slug "${slug.slice(0, 100)}". Use search_tools to find slugs.`);
+    return t ? textResult({ tool: full(t) }) : toolError(`No tool with slug "${slug.slice(0, 100)}". Use search_tools to find slugs.`);
   }
   if (name === "search_tools") {
     const q = typeof args.query === "string" ? args.query.trim() : "";

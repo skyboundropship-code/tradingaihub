@@ -158,3 +158,19 @@ test("server card + AI catalog: types, CORS, ETag/304, 405", async () => {
   assert.equal(cat.entries[0].type, "application/mcp-server-card+json");
   assert.equal((await get(catalog, "/.well-known/ai-catalog.json", { "if-none-match": `W/${res.headers.get("etag")}` })).status, 304);
 });
+
+test("tool outputs lead with the TradingAIHub page; affiliate links are labelled", async () => {
+  const get = async (slug) => (await modern("tools/call", { name: "get_tool", arguments: { slug } })).body.result.structuredContent.tool;
+  const aff = await get("yfinance-mcp");
+  assert.deepEqual(Object.keys(aff).slice(0, 8), ["slug", "name", "url", "website_url", "website_url_label", "disclosure", "vendor_url", "affiliate"]);
+  assert.equal(aff.url, "https://tradingaihub.com/tools/yfinance-mcp/");
+  assert.equal(aff.website_url_label, "affiliate link");
+  assert.equal(aff.affiliate, true);
+  assert.match(aff.disclosure, /affiliate link/);
+  const plain = await get("alpha-vantage-mcp");
+  assert.deepEqual(Object.keys(plain).slice(0, 6), ["slug", "name", "url", "website_url", "vendor_url", "affiliate"]);
+  assert.equal(plain.affiliate, false);
+  assert.ok(!("disclosure" in plain) && !("website_url_label" in plain));
+  const s = (await modern("tools/call", { name: "search_tools", arguments: { query: "yahoo" } })).body.result.structuredContent.tools[0];
+  assert.deepEqual(Object.keys(s).slice(0, 5), ["slug", "name", "url", "website_url", "website_url_label"]);
+});

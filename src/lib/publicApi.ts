@@ -1,17 +1,21 @@
 // Public read-only API (v1) data, built at `astro build` time into static JSON under dist/api/. Pages Functions
 // (functions/api/v1/[[path]].js, functions/mcp/index.js) read that dump via env.ASSETS and never touch KV.
 // Public fields only: no verification internals (checks, issues, http codes), no repo_keep / *_note / source_url, and no
-// affiliate internals. Outbound vendor URLs are the RAW data/tools.json values (plain, exactly as llms.txt / llms-full.txt
-// publish them): data.ts runs URLs through affUrl() for the site's own links, and those tags never enter this dump.
-// As a guard, every URL is also passed through untagUrl() for each program, and the build fails if a tag slips through.
+// affiliate internals (no partner ids, config or param names as fields). Links per tool:
+//   url          the tool's page on tradingaihub.com
+//   website_url  the vendor link exactly as the site renders it (affUrl from src/lib/aff.ts): tagged when it is an affiliate link
+//   vendor_url   the same link, always plain
+//   affiliate    true when website_url is a tagged affiliate link; disclosure is a short English notice then, otherwise null
+// Every other URL field (homepage, docs, repo, pricing.source, ...) stays plain. The build checks this contract (contract()).
 import raw from "../../data/tools.json";
 import { AFFILIATES, SITE } from "../config";
-import { untagUrl } from "./aff";
-import { CATEGORIES, STATUS, TYPE_LABEL, starsOf, lastCommit, isCollection } from "./data";
+import { affUrl, isAff, untagUrl } from "./aff";
+import { tools as siteTools, CATEGORIES, STATUS, TYPE_LABEL, starsOf, lastCommit, isCollection } from "./data";
 
 export const API_VERSION = "1.0.0";
 export const MCP_URL = `${SITE.url}/mcp`;
 export const DOCS_URL = `${SITE.url}/developers/`;
+export const DISCLOSURE = `This link is an affiliate link; TradingAIHub may earn a commission at no extra cost to you. It never affects listings. See ${SITE.url}/disclaimer/`;
 export const RATE_LIMITS = { api: 120, mcp: 60, windowSec: 60 };
 
 const plain = (u: any): string | null => {
@@ -24,6 +28,14 @@ const known = (x: any) => (typeof x === "string" && x.trim() !== "" && !/^(unkno
 /** Package ecosystem -> language. The data has no language field; it is derived from the published package (documented). */
 const languagesOf = (v: any) => [...(v?.npm ? ["javascript"] : []), ...(v?.pypi ? ["python"] : [])];
 const pkg = (p: any) => (p ? { name: p.name, version: p.version ?? null, url: plain(p.url) } : null);
+
+/** The vendor link the tool page shows first (homepage, else docs, else repo): tagged as on the site, and plain. */
+function links(t: any) {
+  const vendor = plain(t.homepage) ?? plain(t.docs) ?? plain(t.repo);
+  const website = vendor ? affUrl(vendor) ?? vendor : null;
+  const affiliate = !!vendor && isAff(vendor) && website !== vendor;
+  return { website_url: website, vendor_url: vendor, affiliate, disclosure: affiliate ? DISCLOSURE : null };
+}
 
 export function publicTool(t: any) {
   const v = t.verification || {};
@@ -38,6 +50,7 @@ export function publicTool(t: any) {
     description: t.description,
     official: !!t.official,
     url: `${SITE.url}/tools/${t.id}/`,
+    ...links(t),
     homepage: plain(t.homepage),
     docs: plain(t.docs),
     repo: plain(t.repo),
@@ -65,15 +78,31 @@ export const publicCategories = CATEGORIES.map((c) => ({
 const latestCheck = publicTools.map((t) => t.checked_at || "").sort().at(-1) || null;
 const meta = { api_version: API_VERSION, source: SITE.url, docs: DOCS_URL, terms: `${SITE.url}/terms/`, notice: "Information directory only. Not investment advice.", data_checked_at: latestCheck };
 
-// Affiliate guard: no affiliate param of any program, and no _go= redirect param, may appear anywhere in the dump.
-const AFF_RE = new RegExp(`[?&](${[...Object.values(AFFILIATES).map((a) => a.param), "_go"].join("|")})=`, "i");
-function guard(o: any) {
-  const s = JSON.stringify(o);
-  if (AFF_RE.test(s)) throw new Error("publicApi: an affiliate parameter reached the public API dump");
-  return s;
+// Affiliate contract, checked at build time (the build fails on any violation):
+//  - website_url equals the href the site renders for that tool (data.ts homepage / docs / repo, all via affUrl)
+//  - affiliate (and a disclosure) appear exactly when website_url carries an affiliate tag
+//  - vendor_url and every other field carry no affiliate param and no _go= redirect param
+export const AFF_RE = new RegExp(`[?&](${[...Object.values(AFFILIATES).map((a) => a.param), "_go"].join("|")})=`, "i");
+const siteHref = new Map(siteTools.map((t: any) => [t.id, t.homepage || t.docs || t.repo || null]));
+export function contract(tool: any) {
+  const fail = (m: string) => { throw new Error(`publicApi: ${tool.slug}: ${m}`); };
+  const site = siteHref.get(tool.slug) ?? null;
+  if (tool.website_url !== site) fail(`website_url ${tool.website_url} != site href ${site}`);
+  const tagged = !!tool.website_url && AFF_RE.test(tool.website_url);
+  if (tool.affiliate !== tagged) fail("affiliate flag does not match the tagged link");
+  if (tagged ? tool.disclosure !== DISCLOSURE : tool.disclosure !== null) fail("disclosure must be set exactly for affiliate links");
+  const { website_url, ...rest } = tool;
+  if (AFF_RE.test(JSON.stringify(rest))) fail("an affiliate param reached a field other than website_url");
+  return tool;
 }
-export const toolsDumpJson = () => guard({ ...meta, count: publicTools.length, tools: publicTools });
-export const categoriesJson = () => guard({ ...meta, count: publicCategories.length, categories: publicCategories });
+publicTools.forEach(contract);
+const guard = (o: any) => {
+  const s = JSON.stringify(o);
+  if (/"(partner|partners|aff_id|affiliate_id)"\s*:/.test(s)) throw new Error("publicApi: affiliate internals in the dump");
+  return s;
+};
+export const toolsDumpJson = () => guard({ ...meta, count: publicTools.length, tools: publicTools.map(contract) });
+export const categoriesJson = () => { const s = guard({ ...meta, count: publicCategories.length, categories: publicCategories }); if (AFF_RE.test(s)) throw new Error("publicApi: affiliate param in categories"); return s; };
 
 export const FILTERS = {
   type: Object.keys(TYPE_LABEL),

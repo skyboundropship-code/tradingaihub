@@ -84,10 +84,14 @@ export const openapi = {
     schemas: {
       Error: { type: "object", required: ["error"], properties: { error: { type: "object", required: ["status", "code", "message"], properties: { status: { type: "integer" }, code: { type: "string", examples: ["not_found", "invalid_parameter", "method_not_allowed", "rate_limited"] }, message: str, allowed: { type: "array", items: str } } } } },
       Category: { type: "object", required: ["slug", "name", "count"], properties: { slug: str, name: str, short: str, icon: str, description: str, url: { type: "string", format: "uri" }, count: { type: "integer" } } },
-      Tool: { type: "object", required: ["slug", "name", "type", "category", "description", "url", "status", "verified"], properties: {
+      Tool: { type: "object", required: ["slug", "name", "type", "category", "description", "url", "website_url", "vendor_url", "affiliate", "disclosure", "status", "verified"], properties: {
         slug: str, name: str, type: { type: "string", enum: FILTERS.type }, type_label: str, category: { type: "string", enum: FILTERS.category }, category_name: nstr, description: str,
         official: { type: "boolean", description: "Published by the vendor itself." },
         url: { type: "string", format: "uri", description: "The tool's page on TradingAIHub." },
+        website_url: { ...nurl, description: "The vendor link exactly as the TradingAIHub site renders it. For affiliate partners this is the tagged affiliate link (affiliate = true)." },
+        vendor_url: { ...nurl, description: "The same vendor link, always plain (never tagged)." },
+        affiliate: { type: "boolean", description: "true when website_url is an affiliate link; TradingAIHub may earn a commission." },
+        disclosure: { ...nstr, description: "Short English affiliate disclosure when affiliate is true, otherwise null." },
         homepage: nurl, docs: nurl, repo: nurl, remote_mcp_url: nurl, license: nstr,
         pricing: { type: ["object", "null"], properties: { model: nstr, free_tier: nstr, paid_from: nstr, details: nstr, source: nurl, checked: nstr } },
         languages: { type: "array", items: { type: "string", enum: FILTERS.language } },

@@ -7,7 +7,7 @@ import { onRequest as v1 } from "../functions/api/v1/[[path]].js";
 import { onRequest as openapi } from "../functions/api/openapi.json.js";
 import { onRequest as apiIndex } from "../functions/api/index.js";
 import { rateLimit, _rateLimitState, _resetDataCache, LIMITS } from "../functions/_lib/api.js";
-import { makeAssets, freshIp, TOOLS } from "./fixtures/public-api.mjs";
+import { makeAssets, freshIp, TOOLS, DISCLOSURE } from "./fixtures/public-api.mjs";
 
 const B = "https://tradingaihub.com";
 async function call(path, { method = "GET", ip = freshIp(), env, headers = {} } = {}) {
@@ -173,20 +173,35 @@ test("/api/openapi.json via ASSETS with CORS; /api redirects to /developers/", a
   assert.equal(r.headers.get("location"), `${B}/developers/`);
 });
 
-// The built dump (dist/api/v1/tools.json, after `npm run build`) must carry no internals and no affiliate tags.
+// The built dump (dist/api/v1/tools.json, after `npm run build`): no internals, and the affiliate contract:
+// website_url = the href the built tool page renders, affiliate/disclosure exactly when tagged, vendor_url never tagged.
 const DIST = new URL("../dist/api/v1/tools.json", import.meta.url);
-test("built dump: no internals, no affiliate params", { skip: !existsSync(DIST) && "dist not built" }, () => {
+const TAG = /[?&](aff_id|via|_go)=/;
+const esc = (u) => u.replace(/&/g, "&amp;");
+test("built dump: no internals, affiliate contract", { skip: !existsSync(DIST) && "dist not built" }, () => {
   const text = readFileSync(DIST, "utf8");
-  assert.doesNotMatch(text, /[?&](aff_id|via|_go)=/);
-  for (const k of ["checks", "issues", "repo_keep", "source_url", "_note", "verification", "partner", "affiliate"]) assert.ok(!text.includes(`"${k}"`), k);
+  for (const k of ["checks", "issues", "repo_keep", "source_url", "_note", "verification", "partner", "aff_id", "param"]) assert.ok(!text.includes(`"${k}"`), k);
   const dump = JSON.parse(text);
   assert.ok(dump.tools.length >= 100);
-  const keys = ["slug", "name", "type", "type_label", "category", "category_name", "description", "official", "url", "homepage", "docs", "repo", "remote_mcp_url", "license", "pricing", "languages", "packages", "status", "status_label", "verified", "checked_at", "github"];
+  const keys = ["slug", "name", "type", "type_label", "category", "category_name", "description", "official", "url", "website_url", "vendor_url", "affiliate", "disclosure", "homepage", "docs", "repo", "remote_mcp_url", "license", "pricing", "languages", "packages", "status", "status_label", "verified", "checked_at", "github"];
+  let nAff = 0;
   for (const t of dump.tools) {
     assert.deepEqual(Object.keys(t), keys, t.slug);
     assert.equal(t.url, `${B}/tools/${t.slug}/`);
+    const tagged = !!t.website_url && TAG.test(t.website_url);
+    assert.equal(t.affiliate, tagged, t.slug);
+    assert.equal(t.disclosure, tagged ? DISCLOSURE : null, t.slug);
+    if (t.vendor_url) assert.doesNotMatch(t.vendor_url, TAG, t.slug);
+    const { website_url, ...rest } = t;
+    assert.doesNotMatch(JSON.stringify(rest), TAG, t.slug);
+    if (website_url) {
+      const page = readFileSync(new URL(`../dist/tools/${t.slug}/index.html`, import.meta.url), "utf8");
+      assert.ok(page.includes(`href="${esc(website_url)}"`), `${t.slug}: website_url is not an href on its tool page`);
+      if (tagged) nAff++;
+    }
     for (const l of t.languages) assert.ok(["javascript", "python"].includes(l));
   }
+  assert.ok(nAff >= 1, "at least one affiliate tool (TradingView / EODHD)");
   const cats = JSON.parse(readFileSync(new URL("../dist/api/v1/categories.json", import.meta.url), "utf8"));
   assert.equal(cats.categories.reduce((s, c) => s + c.count, 0), dump.tools.length);
   const oa = JSON.parse(readFileSync(new URL("../dist/api/openapi.json", import.meta.url), "utf8"));
