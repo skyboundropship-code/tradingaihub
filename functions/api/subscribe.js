@@ -7,6 +7,10 @@
 // Secret: MAILERLITE_API_KEY (wrangler pages secret, optional). When set, each NEW signup is upserted to the
 //         MailerLite group "Website signups" with status "unconfirmed", so MailerLite sends its double opt-in
 //         confirmation email. KV stays the source of truth / backup: a MailerLite failure never fails the signup.
+// Alert:  each genuinely NEW signup sends a phone alert "New subscriber" with the email masked (functions/_lib/notify.js,
+//         fire-and-forget; a failing or missing ntfy never affects the signup). KV metadata {ts} feeds /api/alerts/summary.
+import { notify, maskEmail } from "../_lib/notify.js";
+
 const LOCALES = ["en", "he", "es", "pt", "de", "fr", "ja", "ko", "zh", "hi", "tr", "ar", "ru"];
 const EMAIL_RE = /^[^\s@"<>()[\]\\,;:]+@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)+$/;
 const RATE_MAX = 5;          // requests per IP per window
@@ -139,8 +143,10 @@ export async function onRequest(context) {
     if ((await kv.get(key)) !== null) return json({ ok: true }); // duplicate: no write, original record kept
 
     const record = { email, locale, ts: new Date().toISOString(), consent: true };
-    await kv.put(key, JSON.stringify(record));
+    const meta = { metadata: { ts: record.ts } };
+    await kv.put(key, JSON.stringify(record), meta);
     const written = Date.now();
+    try { notify(context, "subscriber", `${maskEmail(email)} (${locale})`); } catch {}
 
     // MailerLite sync runs after the response (KV already holds the signup). Missing key: skip quietly.
     const apiKey = typeof env.MAILERLITE_API_KEY === "string" ? env.MAILERLITE_API_KEY.trim() : "";
@@ -149,7 +155,7 @@ export async function onRequest(context) {
         const ml = await syncToMailerLite(apiKey, email, mlEndpoint(env));
         const wait = KV_SAME_KEY_GAP - (Date.now() - written);
         if (wait > 0) await new Promise((r) => setTimeout(r, wait));
-        try { await kv.put(key, JSON.stringify({ ...record, ml })); } catch { console.error("newsletter: kv status update failed"); }
+        try { await kv.put(key, JSON.stringify({ ...record, ml }), meta); } catch { console.error("newsletter: kv status update failed"); }
       })();
       if (typeof context.waitUntil === "function") context.waitUntil(task); else await task;
     }

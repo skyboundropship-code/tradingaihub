@@ -19,3 +19,10 @@ id = "a9f8a42d1ec641c8abe07640adb8241e"        # tradingaihub-newsletter
 [[env.preview.kv_namespaces]]
 binding = "NEWSLETTER"
 id = "9e02466fee564ed89729982776b46919"        # tradingaihub-newsletter-preview
+
+# Phone alerts (functions/_lib/notify.js): secret NTFY_TOPIC (production + preview), optional NTFY_SERVER / NTFY_TOKEN.
+# /api/polar-webhook: secret POLAR_WEBHOOK_SECRET (production = Polar endpoint secret, preview = a separate TEST secret).
+# /api/alerts/summary: secret ALERTS_TOKEN (also a GitHub repo secret, used by .github/workflows/alerts-daily.yml).
+# Every preview alert title starts with "[TEST] " so it can never be mistaken for a real event.
+[env.preview.vars]
+NTFY_TITLE_PREFIX = "[TEST] "
