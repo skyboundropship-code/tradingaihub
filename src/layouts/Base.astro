@@ -39,7 +39,7 @@ const at = useA11yT(lang);
 {!noindex && LOCALES.map((l) => <link rel="alternate" hreflang={l.code} href={new URL(pathFor(l.code, base), SITE.url).href} />)}
 {!noindex && <link rel="alternate" hreflang="x-default" href={new URL(base, SITE.url).href} />}
 <meta property="og:title" content={fullTitle} /><meta property="og:description" content={desc} /><meta property="og:url" content={canonical} /><meta property="og:type" content="website" /><meta property="og:locale" content={cur.og} /><meta property="og:site_name" content={SITE.name} /><meta property="og:image" content={ogUrl} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={fullTitle} /><meta name="twitter:image" content={ogUrl} /><link rel="alternate" type="application/rss+xml" title={`${SITE.name} weekly`} href="/rss.xml" />
-<link rel="icon" href="/favicon.ico" sizes="48x48" /><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="apple-touch-icon" href="/apple-touch-icon.png" /><link rel="manifest" href="/site.webmanifest" /><meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" /><meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)" /><link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" /><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="apple-touch-icon" href="/apple-touch-icon.png" /><link rel="manifest" href="/site.webmanifest" /><meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)" /><meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)" /><link rel="sitemap" href="/sitemap-index.xml" />
 <script type="application/ld+json" set:html={JSON.stringify(org)} />
 {jsonld.map((j) => <script type="application/ld+json" set:html={JSON.stringify(j)} />)}
 {base === "/" && lang === "en" && <script is:inline define:vars={{ codes: CODES }}>
@@ -54,7 +54,7 @@ const at = useA11yT(lang);
 </head><body>
 <a class="skip-link" href="#content">{at("w.skip")}</a>
 <header class="site"><div class="wrap">
-  <a class="logo" href={p("/")} dir="ltr" aria-label={SITE.name}><BrandLogo height={36} /></a>
+  <a class="logo" href={p("/")} dir="ltr" aria-label={SITE.name}><BrandLogo decorative height={36} /></a>
   <nav class="main" aria-label={at("w.navMain")}><a href={p("/tools/")}>{t("nav.tools")}</a><a href={p("/categories/")}>{t("nav.categories")}</a><a href={p("/compare/")}>{t("nav.compare")}</a><a href={p("/weekly/")}>{t("nav.weekly")}</a><a href={p("/badges/")}>{t("nav.badges")}</a><a href={p("/about/")}>{t("nav.verify")}</a></nav>
   <div class="hdr-tools">
     <details class="langs"><summary title={t("nav.language")}><span aria-hidden="true">🌐 </span><span class="sr-only">{t("nav.language")}: </span><span>{lang.toUpperCase()}</span></summary>
