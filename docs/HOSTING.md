@@ -1,6 +1,6 @@
 # Hosting, deploy, accounts, monetization (later)
 
-## Deploy to Cloudflare Pages — ONLY after Liran approves
+## Deploy to Cloudflare Pages — ONLY after the owner approves
 Token `CLOUDFLARE_API_TOKEN` is on the box (checked read-only with `wrangler whoami`: 1 account; not used for anything else).
 ```bash
 cd /workspace/finance-skills-directory
@@ -26,7 +26,7 @@ Alternative with no GitHub: a weekly box routine running `npm run weekly && npx 
 | GitHub repo (site) + public repo `awesome-finance-ai-tools` (mirror of awesome/README.md) | launch | needs approval to create |
 | Newsletter: Buttondown or beehiiv (free tier; confirm limits) → set `newsletterLive` + form action | launch | sign-up needed |
 | Submissions: GitHub Issue Form in the public repo (free, public, extra backlinks) or Tally/Formspree | launch | — |
-| Contact mailbox for `contactEmail` (e.g. Cloudflare Email Routing → Liran's Gmail) | launch | needed |
+| Contact mailbox for `contactEmail` (e.g. Cloudflare Email Routing → owner inbox) | launch | needed |
 | Plausible/Cloudflare Web Analytics (free, no cookies) | launch | turn on in CF dashboard |
 | Polar or Lemon Squeezy (merchant of record, handles VAT; KYC) | only once there's traffic | later |
 

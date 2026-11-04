@@ -11,7 +11,7 @@ export const NTFY_TIMEOUT = 4000; // ms
 const DEFAULT_SERVER = "https://ntfy.sh";
 
 // One entry per event type: title, ntfy tags (first tag that matches an emoji shortcode is shown as the emoji),
-// priority 1-5 (5 = urgent -> Time Sensitive on iOS, 4 = high, 3 = default). Different tags/priorities let Liran pick
+// priority 1-5 (5 = urgent -> Time Sensitive on iOS, 4 = high, 3 = default). Different tags/priorities let the owner pick
 // a different sound per event in the ntfy app.
 export const EVENTS = {
   purchase:        { title: "New purchase",          tags: ["moneybag"],            priority: 5 },
