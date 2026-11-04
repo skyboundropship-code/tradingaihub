@@ -1,4 +1,4 @@
-# Viral launch plan — every post/PR/email below is a DRAFT. Nothing is sent without Liran's approval (they go out under his accounts).
+# Viral launch plan — every post/PR/email below is a DRAFT. Nothing is sent without the TradingAIHub team's approval (they go out under the team's accounts).
 
 ## Preconditions (approval needed)
 1. Domain bought; site deployed (docs/HOSTING.md). 2. Public GitHub repo `awesome-finance-ai-tools` with the generated README. 3. Newsletter live. 4. Analytics on.
@@ -6,10 +6,10 @@
 ## Timeline
 | Day | Channel | Account | Approval |
 |---|---|---|---|
-| D-7…D-1 | Badge outreach to the 56 "verified" makers (GitHub issue or email) so badges are live on launch day | Liran's GitHub | ✅ needed (per batch) |
-| D-3 | PRs to awesome lists + directory submissions (below) | Liran's GitHub | ✅ |
-| D0 Tue 15:00 Israel time (= 8am ET) | Show HN | Liran's HN | ✅ |
-| D0 | X thread + post in r/mcp, r/ClaudeAI | Liran's X / Reddit | ✅ |
+| D-7…D-1 | Badge outreach to the 56 "verified" makers (GitHub issue or email) so badges are live on launch day | TradingAIHub's GitHub | ✅ needed (per batch) |
+| D-3 | PRs to awesome lists + directory submissions (below) | TradingAIHub's GitHub | ✅ |
+| D0 Tue 15:00 Israel time (= 8am ET) | Show HN | TradingAIHub's HN | ✅ |
+| D0 | X thread + post in r/mcp, r/ClaudeAI | TradingAIHub's X / Reddit | ✅ |
 | D+2 | r/algotrading (only in their self-promo/weekly thread — rules are strict), r/LocalLLaMA, r/cursor, r/quant (if allowed), r/fintech | Reddit | ✅ |
 | D+7 | Product Hunt (Tuesday 00:01 PT = 10:01 Israel time); first weekly "State of finance AI tools" issue | PH / newsletter | ✅ |
 | Weekly | Changelog post on X + newsletter + /weekly page | X | ✅ once for a standing routine |
