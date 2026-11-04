@@ -84,15 +84,16 @@ document.addEventListener("click",function(e){document.querySelectorAll("details
 </script>
 <script is:inline>
 // Anonymous outbound-click counts (functions/api/click.js). Links are never rewritten; nothing is stored in the browser,
-// and only {tool, target host, link kind, page path, locale} is sent.
+// and only {tool, target host, link kind, page path, locale, referrer host} is sent.
 (function(){
   if(!navigator.sendBeacon||navigator.webdriver)return;
-  var m=location.pathname.match(/^(?:\/[a-z]{2})?\/tools\/([a-z0-9-]+)\/?$/),tool=m?m[1]:"",lang=document.documentElement.lang||"en",last=0;
+  var m=location.pathname.match(/^(?:\/[a-z]{2})?\/tools\/([a-z0-9-]+)\/?$/),tool=m?m[1]:"",lang=document.documentElement.lang||"en",last=0,ref="";
+  try{ref=document.referrer?new URL(document.referrer).hostname:""}catch(e){}
   function send(a){try{
     var u=new URL(a.href,location.href);if(!/^https?:$/.test(u.protocol)||u.hostname===location.hostname)return;
     var now=Date.now();if(now-last<300)return;last=now;
     var rel=" "+(a.getAttribute("rel")||"").toLowerCase()+" ",k=a.closest(".partner")?"partner":rel.indexOf(" sponsored ")>=0?"affiliate":"plain";
-    navigator.sendBeacon("/api/click",JSON.stringify({t:tool,h:u.hostname,k:k,p:location.pathname,l:lang}));
+    navigator.sendBeacon("/api/click",JSON.stringify({t:tool,h:u.hostname,k:k,p:location.pathname,l:lang,r:ref}));
   }catch(e){}}
   function on(e){if(e.type==="auxclick"&&e.button!==1)return;var a=e.target&&e.target.closest?e.target.closest("a[href]"):null;if(a)send(a)}
   document.addEventListener("click",on,true);document.addEventListener("auxclick",on,true);

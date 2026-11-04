@@ -1,24 +1,26 @@
-// npm run test:functions — scripts/clicks.mjs aggregation (no wrangler, no network).
+// npm run test:functions — scripts/clicks.mjs (no network).
 import test from "node:test";
 import assert from "node:assert/strict";
-import { aggregate, lastDays } from "../scripts/clicks.mjs";
+import { buildQuery, rowsToMap, explainError, WINDOWS } from "../scripts/clicks.mjs";
 
-test("aggregate sums counters by kind/tool/host/page/locale/day and skips junk", () => {
-  const a = aggregate([
-    { name: "click:2026-10-29:openbb:plain", value: JSON.stringify({ n: 3, hosts: { "github.com": 3 }, pages: { "/tools/openbb/": 3 }, locales: { en: 2, he: 1 } }) },
-    { name: "click:2026-10-30:-:partner", value: { n: 2, hosts: { "tradingview.com": 2 }, pages: { "/": 2 }, locales: { en: 2 } } },
-    { name: "click:2026-10-30:-:affiliate", value: "not json" },
-    { name: "crl:abc", value: JSON.stringify({ n: 9, seen: [] }) },
-    { name: "sub:a@b.c", value: "{}" },
-  ]);
-  assert.equal(a.total, 5);
-  assert.deepEqual(a.byKind, { plain: 3, partner: 2 });
-  assert.deepEqual(a.byDay, { "2026-10-29": 3, "2026-10-30": 2 });
-  assert.deepEqual(a.byLocale, { en: 4, he: 1 });
-  assert.equal(a.byTool["openbb (plain)"], 3);
+test("queries cover 1/7/30 days, exclude bots and QA, and group by affiliate or tool", () => {
+  assert.deepEqual(WINDOWS, [1, 7, 30]);
+  const q = buildQuery("tah_clicks", "affiliate", 7);
+  assert.match(q, /FROM tah_clicks /); assert.match(q, /INTERVAL '7' DAY/); assert.match(q, /blob8 = '0'/); assert.match(q, /SELECT blob2 AS k/);
+  assert.match(buildQuery("tah_clicks", "tool", 1), /SELECT blob1 AS k/);
+  assert.match(q, /SUM\(_sample_interval\)/);
 });
 
-test("lastDays returns N UTC dates ending today", () => {
-  const s = lastDays(3, new Date("2026-10-30T01:00:00Z"));
-  assert.deepEqual([...s], ["2026-10-30", "2026-10-29", "2026-10-28"]);
+test("buildQuery rejects injection and bad args", () => {
+  assert.throws(() => buildQuery("x; DROP", "tool", 1));
+  assert.throws(() => buildQuery("tah_clicks", "blob9", 1));
+  assert.throws(() => buildQuery("tah_clicks", "tool", 0));
+});
+
+test("rowsToMap and auth errors", () => {
+  assert.deepEqual(rowsToMap({ data: [{ k: "tradingview", n: "3" }, { k: "eodhd", n: 2 }] }), { tradingview: 3, eodhd: 2 });
+  assert.deepEqual(rowsToMap({}), {});
+  assert.match(explainError(200, "Authorization error"), /no Analytics Engine read permission/);
+  assert.match(explainError(403, ""), /Account Analytics: Read/);
+  assert.doesNotMatch(explainError(500, "x"), /Bearer/);
 });
