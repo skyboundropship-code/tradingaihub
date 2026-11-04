@@ -1,0 +1,29 @@
+---
+// Package provenance badge. Meaning is carried by the text label and icon (never colour alone); amber/grey, never red.
+// `small` renders a compact dot+short label for cards. The badge links to /package-provenance/#<id> unless `link={false}`.
+import { useT } from "../i18n";
+import { useProvT } from "../i18n/prov";
+import { provOf, REGISTRY_LABEL } from "../lib/provenance";
+interface Props { id: string; lang?: string; small?: boolean; link?: boolean }
+const { id, lang = "en", small = false, link = true } = Astro.props;
+const { p } = useT(lang); const pt = useProvT(lang);
+const v = provOf(id); const st = v.state;
+const reg = v.registry ? REGISTRY_LABEL[v.registry] ?? v.registry : "npm/PyPI";
+const tip = pt(`tip.${st}`, { registry: reg, name: v.package ?? "", repo: v.declared_repo ?? "", date: v.checked_at ?? "" });
+const icon = { verified: "✓", mismatch: "≠", unlinked: "?", none: "–" }[st];
+const label = small ? pt(`short.${st}`) : pt(`label.${st}`);
+const cls = `badge prov prov-${st}${small ? " prov-sm" : ""}`;
+const href = `${p("/package-provenance/")}#${id}`;
+---
+{link
+  ? <a class={cls} href={href} title={tip}><span aria-hidden="true">{icon}</span> {small && <span class="sr-only">{pt("row")}: </span>}{label}<span class="sr-only"> — {tip}</span></a>
+  : <span class={cls} title={tip}><span aria-hidden="true">{icon}</span> {small && <span class="sr-only">{pt("row")}: </span>}{label}<span class="sr-only"> — {tip}</span></span>}
+<style>
+.prov{text-decoration:none}
+a.prov:hover{text-decoration:underline}
+.prov-verified{color:var(--g-fg);border-color:var(--g-bd);background:var(--g-bg)}
+.prov-mismatch{color:var(--w-fg);border-color:var(--w-bd);background:var(--w-bg)}
+.prov-unlinked{color:var(--w-fg);border:1px dashed var(--w-bd);background:transparent}
+.prov-none{color:var(--muted);border-color:var(--line);background:transparent}
+.prov-sm{font-size:11px;padding:2px 7px}
+</style>

@@ -1,0 +1,82 @@
+{
+ "label": { "verified": "パッケージ所有者を確認済み", "mismatch": "パッケージ所有者が不一致", "unlinked": "パッケージ所有者が不一致（未確認）", "none": "パッケージなし" },
+ "short": { "verified": "確認済み", "mismatch": "不一致", "unlinked": "未確認", "none": "パッケージなし" },
+ "tip": {
+  "verified": "このリポジトリのマニフェストに記載された {registry} パッケージは、このリポジトリにリンクしています。確認日: {date}。",
+  "mismatch": "{registry} のパッケージ {name} は別のリポジトリ（{repo}）を指しています。フォーク、名前変更、サードパーティのラッパーの可能性があります。インストール前に確認してください。",
+  "unlinked": "{registry} に {name} という名前のパッケージがありますが、メタデータにリポジトリへのリンクがないため、このリポジトリのものか確認できませんでした。",
+  "none": "リポジトリのルートに npm/PyPI パッケージが宣言されていません。README に従ってソースからインストールしてください。"
+ },
+ "obs": {
+  "verified": "パッケージのメタデータは掲載中のリポジトリにリンクしています。",
+  "mismatch": "パッケージのメタデータは掲載中のリポジトリ {listed} ではなく {declared} を指しています。",
+  "unlinked": "{registry} にこの名前のパッケージがあります。メタデータにリポジトリへのリンクはありません。",
+  "none": "リポジトリのルートに npm または PyPI パッケージが宣言されていません。",
+  "norepo": "公開リポジトリのないホスト型 API です。"
+ },
+ "row": "パッケージの出所",
+ "learn": "これの意味",
+ "nav": "パッケージの出所",
+ "verPara": "ステータスとは別に、各ツールの npm または PyPI パッケージが掲載中のリポジトリにリンクしているかを確認しています。",
+ "title": "パッケージの出所: npm/PyPI パッケージはリポジトリと一致するか",
+ "desc": "各 AI 金融ツールの npm または PyPI パッケージが、掲載しているリポジトリにリンクしているかを確認しています。ライブの表、方法論、自分で確認する方法。",
+ "h1": "パッケージの出所",
+ "intro1": "多くの MCP サーバーやエージェントスキルは、<code>npx some-package</code> や <code>pip install some-package</code> のような 1 行でインストールされます。この 1 行は、npm や PyPI でその名前で公開されているものを取得します。それが今読んだ GitHub リポジトリのコードとは限りません。",
+ "intro2": "毎週、ディレクトリ内のすべてのツールを確認しています。リポジトリに記載されたパッケージは本当にそのリポジトリを指しているか。このページはその結果です。",
+ "latest": "<strong>最新の確認: {date}。</strong>{total} 件のツールのうち、{verified} 件は掲載中のリポジトリにリンクするパッケージがあります。{mm} 件はパッケージがリンクしていません。{none} 件は npm や PyPI のパッケージがありません。{norepo} 件は公開リポジトリのないホスト型 API です。",
+ "note": "不一致は非難ではありません。よくある無害な原因は、元の名前で公開されたフォーク、名前変更や移動されたリポジトリ、別のラッパーパッケージ、メタデータにリポジトリ欄がないだけのパッケージなどです。私たちは観察した事実を報告し、理由は判断しません。",
+ "stat": { "verified": "所有者を確認済み", "mismatch": "不一致", "unlinked": "不一致（未確認）", "none": "パッケージなし", "total": "確認したツール" },
+ "badgesH": "バッジの意味",
+ "b": {
+  "verified": "リポジトリの <code>package.json</code> または <code>pyproject.toml</code> に記載されたパッケージが npm または PyPI に存在し、そのメタデータが同じ GitHub リポジトリにリンクしています。",
+  "mismatch": "その名前のパッケージは存在しますが、メタデータが別のリポジトリを指しています。",
+  "unlinked": "その名前のパッケージは存在しますが、メタデータにリポジトリへのリンクがないため、このリポジトリのものか確認できません。",
+  "none": "リポジトリのルートで公開済みの npm または PyPI パッケージが宣言されていません。README の説明どおりソースからインストールしてください。"
+ },
+ "sep": "これらのバッジはツールの検証ステータス（確認済み、古くなりつつある、古い…）とは別です。不一致によってステータスが変わることはありません。",
+ "methodH": "方法論",
+ "m": [
+  "掲載中の各リポジトリについて、ルートの <code>package.json</code>（private 指定のパッケージは除外）と <code>pyproject.toml</code> を読み、宣言されたパッケージ名を取得します。",
+  "その名前を公開 npm レジストリ（<code>registry.npmjs.org</code>）または PyPI（<code>pypi.org/pypi/&lt;name&gt;/json</code>）で検索します。",
+  "パッケージのメタデータ（npm: <code>repository</code>、<code>homepage</code>、<code>bugs</code>、PyPI: <code>project_urls</code>、<code>home_page</code>、<code>download_url</code>）に掲載中の <code>owner/repo</code> が含まれるかを確認します。GitHub の URL は、名前変更や移動されたリポジトリへの GitHub のリダイレクトをたどった後、大文字小文字を区別せずに比較します。",
+  "パッケージ名、最新バージョン、その公開日、メタデータが宣言するリポジトリを記録します。"
+ ],
+ "notCheck": "確認しないこと: レジストリのアカウントを誰が管理しているか、公開ファイルの内容、インストールスクリプト。「確認済み」バッジはリンクが一致することを意味し、コードが監査されたことは意味しません。",
+ "runs": "この確認は、他の{verification}とともに毎週実行されます。変更は{weekly}に掲載されます。データは {json} で CC BY 4.0 のもと、TradingAIHub のクレジット表記付きで利用できます。",
+ "runsVer": "検証",
+ "runsWeekly": "週次の変更履歴",
+ "lastRun": "最終実行: {date}。",
+ "tableH": "ライブの表",
+ "th": { "tool": "ツール", "type": "種類", "registry": "レジストリ", "package": "パッケージ", "badge": "バッジ", "declared": "宣言されたリポジトリ", "observed": "観察結果", "checked": "確認日" },
+ "filter": { "label": "バッジで絞り込み", "all": "すべて", "verified": "確認済み", "mismatch": "不一致", "unlinked": "未確認", "none": "パッケージなし", "search": "ツールやパッケージを検索", "shown": "{total} 件中 {n} 件を表示" },
+ "howH": "パッケージを自分で確認する方法",
+ "npm": [
+  "<code>https://www.npmjs.com/package/&lt;name&gt;</code> を開き、サイドバーの「Repository」リンクを見てください。読んだリポジトリと一致していますか。",
+  "または <code>npm view &lt;name&gt; repository homepage maintainers</code> を実行します。",
+  "最新バージョンと公開日を、リポジトリのリリースやタグと比較します。",
+  "<code>npx</code> を実行する前に、<code>preinstall</code>/<code>postinstall</code> スクリプトを確認します: <code>npm view &lt;name&gt; scripts</code>。"
+ ],
+ "pypi": [
+  "<code>https://pypi.org/project/&lt;name&gt;/</code> を開き、「Project links」と「Meta」を確認します。",
+  "または <code>https://pypi.org/pypi/&lt;name&gt;/json</code> を取得し、<code>info.project_urls</code> を読みます。",
+  "リリース履歴をリポジトリのタグと比較します。"
+ ],
+ "eitherH": "どちらの場合も",
+ "either": [
+  "メタデータにリポジトリへのリンクがない場合は、リポジトリの README の手順でインストールしてください（例: <code>npx github:owner/repo</code>、<code>pip install git+https://github.com/owner/repo</code>、ローカルクローン）。",
+  "バージョンを固定し、リンクが一致するパッケージを優先してください。"
+ ],
+ "faq": [
+  ["「不一致」はパッケージが悪意あるものだという意味ですか？", "いいえ。パッケージのメタデータが掲載中のリポジトリにリンクしていないという意味です。フォーク、名前変更、別のラッパー、メタデータの欠落がよくある理由です。"],
+  ["「パッケージ所有者を確認済み」はコードが安全だという意味ですか？", "いいえ。パッケージとリポジトリが互いにリンクしているという意味です。コードやインストールスクリプトは監査していません。"],
+  ["一部のツールが「パッケージなし」と表示されるのはなぜですか？", "多くの MCP サーバーはソースやコンテナから実行され、ホスト型 API にはパッケージがありません。これは普通のことです。"],
+  ["どのくらいの頻度で更新されますか？", "毎週、リポジトリとエンドポイントの確認とともに更新されます。変更は週次の変更履歴に掲載されます。"],
+  ["これらのツールのメンテナーです。確認済みバッジを得るには？", "パッケージのメタデータにリポジトリの URL を追加し（package.json の repository、または pyproject.toml の project_urls）、新しいバージョンを公開してください。次の週次実行で反映されます。修正を送ることもできます。"],
+  ["このデータを再利用できますか？", "はい。/tools.json で CC BY 4.0 のもと、TradingAIHub のクレジット表記付きで利用できます。"]
+ ],
+ "linksH": "関連リンク",
+ "links": { "verification": "最新の検証結果", "weekly": "週次の変更履歴", "json": "tools.json（CC BY 4.0）", "submit": "修正を送る", "about": "検証方法" },
+ "nia": "情報提供のみを目的としています。このページのいかなる内容も投資助言ではありません。",
+ "dsName": "TradingAIHub パッケージの出所",
+ "dsDesc": "TradingAIHub ディレクトリの各ツールについて、npm または PyPI パッケージが掲載中のソースリポジトリにリンクしているか（verified、mismatch、unlinked、none）を、レジストリ、パッケージ名、宣言されたリポジトリとともに示します。"
+}

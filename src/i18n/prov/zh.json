@@ -1,0 +1,82 @@
+{
+ "label": { "verified": "包所有者已验证", "mismatch": "包所有者不一致", "unlinked": "包所有者不一致（未确认）", "none": "无包" },
+ "short": { "verified": "已验证", "mismatch": "不一致", "unlinked": "未确认", "none": "无包" },
+ "tip": {
+  "verified": "此仓库清单中声明的 {registry} 包链接回此仓库。检查日期：{date}。",
+  "mismatch": "{registry} 上的包 {name} 指向另一个仓库（{repo}）。这可能是复刻、改名或第三方封装。安装前请先核实。",
+  "unlinked": "{registry} 上存在名为 {name} 的包，但其元数据中没有仓库链接，因此我们无法确认它属于此仓库。",
+  "none": "仓库根目录未声明 npm/PyPI 包。请按 README 从源码安装。"
+ },
+ "obs": {
+  "verified": "包元数据链接回所列仓库。",
+  "mismatch": "包元数据指向 {declared}，而不是所列仓库 {listed}。",
+  "unlinked": "{registry} 上存在同名包。其元数据中没有仓库链接。",
+  "none": "仓库根目录未声明 npm 或 PyPI 包。",
+  "norepo": "托管 API，无公开仓库。"
+ },
+ "row": "包来源",
+ "learn": "这意味着什么",
+ "nav": "包来源",
+ "verPara": "除状态之外，我们还会检查每个工具的 npm 或 PyPI 包是否链接回所列仓库。",
+ "title": "包来源：npm/PyPI 包与仓库是否一致？",
+ "desc": "我们检查每个 AI 金融工具的 npm 或 PyPI 包是否链接回我们所列的仓库。实时表格、方法说明以及自行检查的方法。",
+ "h1": "包来源",
+ "intro1": "许多 MCP 服务器和智能体技能只需一行命令即可安装，例如 <code>npx some-package</code> 或 <code>pip install some-package</code>。这行命令会拉取 npm 或 PyPI 上以该名称发布的内容，而那并不总是你刚刚阅读的 GitHub 仓库中的代码。",
+ "intro2": "我们每周检查目录中的每个工具：仓库中声明的包是否真的指回该仓库？本页展示检查结果。",
+ "latest": "<strong>最近检查：{date}。</strong>在 {total} 个工具中，{verified} 个的包链接回所列仓库。{mm} 个的包没有链接回仓库。{none} 个没有 npm 或 PyPI 包。{norepo} 个是没有公开仓库的托管 API。",
+ "note": "不一致并不是指控。常见的无害原因包括：以原名称发布的复刻、已改名或迁移的仓库、单独的封装包，或元数据中只是缺少仓库字段的包。我们报告观察到的情况，而不判断原因。",
+ "stat": { "verified": "包所有者已验证", "mismatch": "包所有者不一致", "unlinked": "不一致（未确认）", "none": "无包", "total": "已检查工具" },
+ "badgesH": "徽章含义",
+ "b": {
+  "verified": "仓库的 <code>package.json</code> 或 <code>pyproject.toml</code> 中声明的包存在于 npm 或 PyPI，且其元数据链接回同一个 GitHub 仓库。",
+  "mismatch": "存在该名称的包，但其元数据指向另一个仓库。",
+  "unlinked": "存在该名称的包，但其元数据中没有仓库链接，因此无法确认它属于此仓库。",
+  "none": "仓库根目录没有声明已发布的 npm 或 PyPI 包。请按 README 说明从源码安装。"
+ },
+ "sep": "这些徽章与工具的验证状态（已验证、老化、过时…）相互独立。不一致不会改变该状态。",
+ "methodH": "方法说明",
+ "m": [
+  "对每个所列仓库，我们读取根目录的 <code>package.json</code>（跳过标记为 private 的包）和 <code>pyproject.toml</code>，取得声明的包名。",
+  "我们在公共 npm 注册表（<code>registry.npmjs.org</code>）或 PyPI（<code>pypi.org/pypi/&lt;name&gt;/json</code>）中查找该名称。",
+  "我们检查包元数据（npm：<code>repository</code>、<code>homepage</code>、<code>bugs</code>；PyPI：<code>project_urls</code>、<code>home_page</code>、<code>download_url</code>）是否包含所列的 <code>owner/repo</code>。GitHub URL 在跟随 GitHub 对改名或迁移仓库的重定向后，以不区分大小写的方式比较。",
+  "我们记录包名、最新版本、其发布日期以及元数据声明的任何仓库。"
+ ],
+ "notCheck": "我们不检查：谁控制注册表账号、已发布文件的内容或安装脚本。“已验证”徽章表示链接一致，并不表示代码经过审计。",
+ "runs": "该检查与我们其余的{verification}一起每周运行。变更会出现在{weekly}中。数据可在 {json} 获取，采用 CC BY 4.0 许可，需注明 TradingAIHub。",
+ "runsVer": "验证",
+ "runsWeekly": "每周更新日志",
+ "lastRun": "最近运行：{date}。",
+ "tableH": "实时表格",
+ "th": { "tool": "工具", "type": "类型", "registry": "注册表", "package": "包", "badge": "徽章", "declared": "声明的仓库", "observed": "观察结果", "checked": "检查日期" },
+ "filter": { "label": "按徽章筛选", "all": "全部", "verified": "已验证", "mismatch": "不一致", "unlinked": "未确认", "none": "无包", "search": "搜索工具或包", "shown": "显示 {n} / {total} 个工具" },
+ "howH": "如何自行检查一个包",
+ "npm": [
+  "打开 <code>https://www.npmjs.com/package/&lt;name&gt;</code>，查看侧边栏中的“Repository”链接。它与你阅读的仓库一致吗？",
+  "或运行 <code>npm view &lt;name&gt; repository homepage maintainers</code>。",
+  "将最新版本和发布日期与仓库的 release 或 tag 对比。",
+  "运行 <code>npx</code> 之前，检查是否有 <code>preinstall</code>/<code>postinstall</code> 脚本：<code>npm view &lt;name&gt; scripts</code>。"
+ ],
+ "pypi": [
+  "打开 <code>https://pypi.org/project/&lt;name&gt;/</code>，查看“Project links”和“Meta”。",
+  "或获取 <code>https://pypi.org/pypi/&lt;name&gt;/json</code> 并读取 <code>info.project_urls</code>。",
+  "将发布历史与仓库的 tag 对比。"
+ ],
+ "eitherH": "两种情况通用",
+ "either": [
+  "如果元数据中没有仓库链接，请按仓库 README 的说明安装（例如 <code>npx github:owner/repo</code>、<code>pip install git+https://github.com/owner/repo</code> 或本地克隆）。",
+  "锁定版本，并优先选择链接一致的包。"
+ ],
+ "faq": [
+  ["“不一致”是否意味着包是恶意的？", "不是。它表示包的元数据没有链接到我们所列的仓库。复刻、改名、单独的封装以及元数据缺失是常见原因。"],
+  ["“包所有者已验证”是否意味着代码是安全的？", "不是。它表示包和仓库相互链接。我们不审计代码或安装脚本。"],
+  ["为什么有些工具显示“无包”？", "许多 MCP 服务器从源码或容器运行，托管 API 没有包。这很正常。"],
+  ["多久更新一次？", "每周一次，与我们的仓库和端点检查一起进行。变更会出现在每周更新日志中。"],
+  ["我维护其中一个工具。如何获得已验证徽章？", "在包元数据中添加你的仓库 URL（package.json 中的 repository，或 pyproject.toml 中的 project_urls），然后发布新版本。下一次每周运行会自动识别。你也可以提交更正。"],
+  ["我可以复用这些数据吗？", "可以。数据在 /tools.json 中，采用 CC BY 4.0 许可，需注明 TradingAIHub。"]
+ ],
+ "linksH": "相关链接",
+ "links": { "verification": "最近一次验证", "weekly": "每周更新日志", "json": "tools.json（CC BY 4.0）", "submit": "提交更正", "about": "我们如何验证" },
+ "nia": "仅供参考。本页任何内容均不构成投资建议。",
+ "dsName": "TradingAIHub 包来源",
+ "dsDesc": "针对 TradingAIHub 目录中的每个工具：其 npm 或 PyPI 包是否链接回所列源码仓库（verified、mismatch、unlinked 或 none），并附注册表、包名和声明的仓库。"
+}

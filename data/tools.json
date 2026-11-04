@@ -49,7 +49,17 @@
         "result": "ok"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -103,7 +113,17 @@
         "result": "ok"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -161,7 +181,17 @@
         "retry": "browser-headers"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -215,7 +245,17 @@
         "result": "ok"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -269,7 +309,17 @@
         "result": "ok"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -323,7 +373,17 @@
         "result": "ok"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -377,7 +437,17 @@
         "result": "ok"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -431,7 +501,17 @@
         "result": "ok"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -485,7 +565,17 @@
         "result": "ok"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -539,7 +629,17 @@
         "result": "ok"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -601,7 +701,17 @@
         "resource_metadata": "https://mcp.alphavantage.co/.well-known/oauth-protected-resource/mcp"
       },
       "last_commit_days": 30,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -648,7 +758,17 @@
         "last_commit": "2026-10-08T14:13:09Z"
       },
       "last_commit_days": 24,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": "pypi",
+        "package": "mcp_massive",
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -702,7 +822,19 @@
         "links_back": true
       },
       "last_commit_days": 18,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "npm",
+        "package": "financial-modeling-prep-mcp-server",
+        "package_url": "https://www.npmjs.com/package/financial-modeling-prep-mcp-server",
+        "version": "2.8.0",
+        "declared_repo": "https://github.com/imbenrabi/financial-modeling-prep-mcp-server",
+        "maintainers": [
+          "imbenrabi"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Apache-2.0"
   },
@@ -751,7 +883,17 @@
         "last_commit": "2025-05-01T07:20:48Z"
       },
       "last_commit_days": 549,
-      "status": "stale"
+      "status": "stale",
+      "provenance": {
+        "state": "none",
+        "registry": "pypi",
+        "package": "stock-market-mcp-server",
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "unknown"
   },
@@ -801,7 +943,17 @@
         "last_commit": "2025-06-05T19:50:38Z"
       },
       "last_commit_days": 514,
-      "status": "stale"
+      "status": "stale",
+      "provenance": {
+        "registry": "pypi",
+        "package": "mcp-server",
+        "package_url": "https://pypi.org/project/mcp-server/",
+        "version": "0.1.4",
+        "declared_repo": null,
+        "maintainers": [],
+        "state": "unlinked",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -855,7 +1007,17 @@
         "links_back": true
       },
       "last_commit_days": 2,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "pypi",
+        "package": "mcp-yahoo-finance",
+        "package_url": "https://pypi.org/project/mcp-yahoo-finance/",
+        "version": "0.2.0",
+        "declared_repo": "https://github.com/maxscheijen/mcp-yahoo-finance",
+        "maintainers": [],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -923,7 +1085,17 @@
         "evidence": "mcp-initialize"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -972,7 +1144,17 @@
       "claude_marketplace": true,
       "root_skill_md": false,
       "last_commit_days": 10,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -1019,7 +1201,17 @@
         "last_commit": "2026-10-31T07:44:22Z"
       },
       "last_commit_days": 1,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": "pypi",
+        "package": "maverick-mcp-server",
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -1066,7 +1258,17 @@
         "last_commit": "2026-10-09T13:58:27Z"
       },
       "last_commit_days": 23,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": "npm",
+        "package": "investor-agent",
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -1120,7 +1322,17 @@
         "links_back": true
       },
       "last_commit_days": 51,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "pypi",
+        "package": "kospi-kosdaq-stock-server",
+        "package_url": "https://pypi.org/project/kospi-kosdaq-stock-server/",
+        "version": "0.4.2",
+        "declared_repo": "https://github.com/dragon1086/kospi-kosdaq-stock-server",
+        "maintainers": [],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -1174,7 +1386,17 @@
         "links_back": true
       },
       "last_commit_days": 30,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "pypi",
+        "package": "hkopenai.hk-finance-mcp-server",
+        "package_url": "https://pypi.org/project/hkopenai.hk-finance-mcp-server/",
+        "version": "0.1.7",
+        "declared_repo": "https://github.com/hkopenai/hk-finance-mcp-server",
+        "maintainers": [],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -1228,7 +1450,19 @@
         "links_back": true
       },
       "last_commit_days": 71,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "npm",
+        "package": "fred-mcp-server",
+        "package_url": "https://www.npmjs.com/package/fred-mcp-server",
+        "version": "1.2.0",
+        "declared_repo": "https://github.com/stefanoamorelli/fred-mcp-server",
+        "maintainers": [
+          "stefano.amorelli"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "AGPL-3.0"
   },
@@ -1282,7 +1516,17 @@
         "links_back": true
       },
       "last_commit_days": 27,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "pypi",
+        "package": "mcp-server-fxmacrodata",
+        "package_url": "https://pypi.org/project/mcp-server-fxmacrodata/",
+        "version": "0.1.3",
+        "declared_repo": "https://github.com/fxmacrodata/mcp-server-fxmacrodata",
+        "maintainers": [],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -1336,7 +1580,17 @@
         "links_back": true
       },
       "last_commit_days": 5,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "pypi",
+        "package": "alpaca-mcp-server",
+        "package_url": "https://pypi.org/project/alpaca-mcp-server/",
+        "version": "2.4.1",
+        "declared_repo": "https://github.com/alpacahq/alpaca-mcp-server",
+        "maintainers": [],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -1405,7 +1659,17 @@
         "resource_metadata": "https://api.ibkr.com/v1/api/mcp-public/.well-known/oauth-protected-resource"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -1459,7 +1723,19 @@
         "links_back": true
       },
       "last_commit_days": 28,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "npm",
+        "package": "tasty-agent",
+        "package_url": "https://www.npmjs.com/package/tasty-agent",
+        "version": "7.1.0",
+        "declared_repo": "https://github.com/ferdousbhai/tasty-agent",
+        "maintainers": [
+          "ferdouspy"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -1515,7 +1791,17 @@
         "links_back": true
       },
       "last_commit_days": 218,
-      "status": "aging"
+      "status": "aging",
+      "provenance": {
+        "registry": "pypi",
+        "package": "metatrader-mcp-server",
+        "package_url": "https://pypi.org/project/metatrader-mcp-server/",
+        "version": "0.5.1",
+        "declared_repo": "https://github.com/ariadng/metatrader-mcp-server",
+        "maintainers": [],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -1571,7 +1857,19 @@
         "links_back": true
       },
       "last_commit_days": 409,
-      "status": "stale"
+      "status": "stale",
+      "provenance": {
+        "registry": "npm",
+        "package": "@paperinvest/mcp-server",
+        "package_url": "https://www.npmjs.com/package/@paperinvest/mcp-server",
+        "version": "1.0.4",
+        "declared_repo": "https://github.com/paperinvest/mcp-server",
+        "maintainers": [
+          "paperinvest"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -1625,7 +1923,20 @@
         "links_back": true
       },
       "last_commit_days": 0,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "npm",
+        "package": "dexpaprika-mcp",
+        "package_url": "https://www.npmjs.com/package/dexpaprika-mcp",
+        "version": "2.9.2",
+        "declared_repo": "https://github.com/coinpaprika/dexpaprika-mcp",
+        "maintainers": [
+          "it_coinpaprika",
+          "0xmattsroka"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -1675,7 +1986,17 @@
         "last_commit": "2025-02-17T18:45:06Z"
       },
       "last_commit_days": 622,
-      "status": "stale"
+      "status": "stale",
+      "provenance": {
+        "registry": "pypi",
+        "package": "mcp-server-ccxt",
+        "package_url": "https://pypi.org/project/mcp-server-ccxt/",
+        "version": "0.1.0",
+        "declared_repo": null,
+        "maintainers": [],
+        "state": "unlinked",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -1731,7 +2052,19 @@
         "links_back": true
       },
       "last_commit_days": 331,
-      "status": "aging"
+      "status": "aging",
+      "provenance": {
+        "registry": "npm",
+        "package": "crypto-indicators-mcp",
+        "package_url": "https://www.npmjs.com/package/crypto-indicators-mcp",
+        "version": "1.0.1",
+        "declared_repo": "https://github.com/kukapay/crypto-indicators-mcp",
+        "maintainers": [
+          "kukapay"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -1785,7 +2118,19 @@
         "links_back": true
       },
       "last_commit_days": 3,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "pypi",
+        "package": "tradingview-mcp-server",
+        "package_url": "https://pypi.org/project/tradingview-mcp-server/",
+        "version": "0.8.1",
+        "declared_repo": "https://github.com/atilaahmettaner/tradingview-mcp",
+        "maintainers": [
+          "Atila Ahmettaner"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -1835,7 +2180,19 @@
         "last_commit": "2025-04-16T06:57:55Z"
       },
       "last_commit_days": 564,
-      "status": "stale"
+      "status": "stale",
+      "provenance": {
+        "registry": "npm",
+        "package": "binance-mcp",
+        "package_url": "https://www.npmjs.com/package/binance-mcp",
+        "version": "1.0.4",
+        "declared_repo": null,
+        "maintainers": [
+          "ferandreassi"
+        ],
+        "state": "unlinked",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "unknown"
   },
@@ -1882,7 +2239,17 @@
         "last_commit": "2026-10-14T21:50:54Z"
       },
       "last_commit_days": 18,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Apache-2.0"
   },
@@ -1936,7 +2303,20 @@
         "links_back": true
       },
       "last_commit_days": 180,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "npm",
+        "package": "@bankless/onchain-mcp",
+        "package_url": "https://www.npmjs.com/package/@bankless/onchain-mcp",
+        "version": "1.0.6",
+        "declared_repo": "https://github.com/bankless/onchain-mcp",
+        "maintainers": [
+          "bankless-employee",
+          "quintendes"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "unknown"
   },
@@ -1985,7 +2365,17 @@
         "last_commit": "2025-05-06T08:53:13Z"
       },
       "last_commit_days": 544,
-      "status": "stale"
+      "status": "stale",
+      "provenance": {
+        "state": "none",
+        "registry": "pypi",
+        "package": "crypto-liquidations-mcp",
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -2039,7 +2429,19 @@
         "links_back": true
       },
       "last_commit_days": 61,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "npm",
+        "package": "@bitget-ai/bitget-agent-mcp",
+        "package_url": "https://www.npmjs.com/package/@bitget-ai/bitget-agent-mcp",
+        "version": "3.3.1",
+        "declared_repo": "https://github.com/bitget-ai/agent-mcp",
+        "maintainers": [
+          "andrewyang_bgai"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -2095,7 +2497,19 @@
         "links_back": true
       },
       "last_commit_days": 640,
-      "status": "stale"
+      "status": "stale",
+      "provenance": {
+        "registry": "npm",
+        "package": "coincap-mcp",
+        "package_url": "https://www.npmjs.com/package/coincap-mcp",
+        "version": "0.9.3",
+        "declared_repo": "https://github.com/quantgeekdev/coincap-mcp",
+        "maintainers": [
+          "quantgeekdev"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -2144,7 +2558,17 @@
         "last_commit": "2026-01-12T09:58:48Z"
       },
       "last_commit_days": 293,
-      "status": "aging"
+      "status": "aging",
+      "provenance": {
+        "state": "none",
+        "registry": "npm",
+        "package": "dexscreener-trending-mcp",
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -2193,7 +2617,23 @@
         "license": "MIT",
         "last_commit": "2026-05-13T20:07:50Z"
       },
-      "status": "archived"
+      "status": "archived",
+      "provenance": {
+        "registry": "npm",
+        "package": "base-mcp",
+        "package_url": "https://www.npmjs.com/package/base-mcp",
+        "version": "1.0.14",
+        "declared_repo": "https://github.com/base/base-mcp",
+        "maintainers": [
+          "lukasrosario",
+          "zencephalon",
+          "wilsoncusack",
+          "ericliu121187",
+          "base-npm"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -2240,7 +2680,17 @@
         "last_commit": "2026-05-14T18:46:54Z"
       },
       "last_commit_days": 171,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Apache-2.0"
   },
@@ -2290,7 +2740,19 @@
         "last_commit": "2025-08-01T09:38:50Z"
       },
       "last_commit_days": 457,
-      "status": "stale"
+      "status": "stale",
+      "provenance": {
+        "registry": "npm",
+        "package": "bitcoin-mcp",
+        "package_url": "https://www.npmjs.com/package/bitcoin-mcp",
+        "version": "0.0.6",
+        "declared_repo": null,
+        "maintainers": [
+          "abdelhamid-bakhta"
+        ],
+        "state": "unlinked",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -2337,7 +2799,17 @@
         "last_commit": "2026-10-27T22:27:13Z"
       },
       "last_commit_days": 5,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Apache-2.0"
   },
@@ -2384,7 +2856,17 @@
         "last_commit": "2026-09-15T17:56:34Z"
       },
       "last_commit_days": 47,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": "npm",
+        "package": "@qboapi/qbo-mcp-server",
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Apache-2.0"
   },
@@ -2438,7 +2920,24 @@
         "links_back": true
       },
       "last_commit_days": 6,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "npm",
+        "package": "@xeroapi/xero-mcp-server",
+        "package_url": "https://www.npmjs.com/package/@xeroapi/xero-mcp-server",
+        "version": "0.0.17",
+        "declared_repo": "https://github.com/xeroapi/xero-mcp-server",
+        "maintainers": [
+          "eco-sdk",
+          "manisht72x",
+          "aasimqureshi",
+          "rdemarco-xero",
+          "stanislav-pankrashin-xero",
+          "theregan"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -2492,7 +2991,17 @@
         "links_back": true
       },
       "last_commit_days": 0,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -2541,7 +3050,17 @@
       "claude_marketplace": true,
       "root_skill_md": false,
       "last_commit_days": 141,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -2590,7 +3109,17 @@
       "claude_marketplace": true,
       "root_skill_md": false,
       "last_commit_days": 4,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Apache-2.0"
   },
@@ -2646,7 +3175,17 @@
       "claude_marketplace": false,
       "root_skill_md": true,
       "last_commit_days": 380,
-      "status": "stale"
+      "status": "stale",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "unknown"
   },
@@ -2720,7 +3259,17 @@
         "resource_metadata": "https://mcp.stripe.com/.well-known/oauth-protected-resource"
       },
       "last_commit_days": 0,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -2767,7 +3316,17 @@
         "last_commit": "2026-06-22T17:03:03Z"
       },
       "last_commit_days": 132,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -2816,7 +3375,17 @@
         "license": "MIT",
         "last_commit": "2025-03-20T15:30:58Z"
       },
-      "status": "archived"
+      "status": "archived",
+      "provenance": {
+        "registry": "pypi",
+        "package": "ramp-mcp",
+        "package_url": "https://pypi.org/project/ramp-mcp/",
+        "version": "0.0.1",
+        "declared_repo": null,
+        "maintainers": [],
+        "state": "unlinked",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -2870,7 +3439,19 @@
         "links_back": true
       },
       "last_commit_days": 90,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "npm",
+        "package": "@akutishevsky/lunchmoney-mcp",
+        "package_url": "https://www.npmjs.com/package/@akutishevsky/lunchmoney-mcp",
+        "version": "3.0.0",
+        "declared_repo": "https://github.com/akutishevsky/lunchmoney-mcp",
+        "maintainers": [
+          "akutishevsky"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -2919,7 +3500,17 @@
         "last_commit": "2025-06-08T04:25:30Z"
       },
       "last_commit_days": 512,
-      "status": "stale"
+      "status": "stale",
+      "provenance": {
+        "state": "none",
+        "registry": "pypi",
+        "package": "monarch-mcp-server",
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -2969,7 +3560,19 @@
         "last_commit": "2026-03-23T08:00:46Z"
       },
       "last_commit_days": 223,
-      "status": "aging"
+      "status": "aging",
+      "provenance": {
+        "registry": "npm",
+        "package": "actual-budget-mcp",
+        "package_url": "https://www.npmjs.com/package/actual-budget-mcp",
+        "version": "0.12.0",
+        "declared_repo": "https://github.com/henfrydls/actual-budget-mcp",
+        "maintainers": [
+          "henfrydls"
+        ],
+        "state": "mismatch",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "unknown"
   },
@@ -3023,7 +3626,19 @@
         "links_back": true
       },
       "last_commit_days": 0,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "npm",
+        "package": "optionsahoy-mcp",
+        "package_url": "https://www.npmjs.com/package/optionsahoy-mcp",
+        "version": "1.11.1",
+        "declared_repo": "https://github.com/alvisooculus/optionsahoy-mcp",
+        "maintainers": [
+          "optionsahoy"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -3077,7 +3692,17 @@
         "links_back": true
       },
       "last_commit_days": 0,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "pypi",
+        "package": "sec-edgar-mcp",
+        "package_url": "https://pypi.org/project/sec-edgar-mcp/",
+        "version": "1.1.0",
+        "declared_repo": "https://github.com/stefanoamorelli/sec-edgar-mcp",
+        "maintainers": [],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "AGPL-3.0"
   },
@@ -3128,7 +3753,17 @@
         "cross_org_redirect": "https://github.com/openbq-org/OpenBB"
       },
       "last_commit_days": 0,
-      "status": "unconfirmed"
+      "status": "unconfirmed",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Apache-2.0"
   },
@@ -3175,7 +3810,17 @@
         "last_commit": "2026-10-19T14:25:03Z"
       },
       "last_commit_days": 13,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -3229,7 +3874,19 @@
         "links_back": true
       },
       "last_commit_days": 81,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "npm",
+        "package": "alphasmo",
+        "package_url": "https://www.npmjs.com/package/alphasmo",
+        "version": "0.2.1",
+        "declared_repo": "https://github.com/alphasmo/alphasmo-tools",
+        "maintainers": [
+          "alphasmo"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -3278,7 +3935,17 @@
       "claude_marketplace": false,
       "root_skill_md": false,
       "last_commit_days": 16,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": "npm",
+        "package": "edgrapi-skills",
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT-0"
   },
@@ -3327,7 +3994,17 @@
         "last_commit": "2025-04-04T10:30:18Z"
       },
       "last_commit_days": 576,
-      "status": "stale"
+      "status": "stale",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "unknown"
   },
@@ -3376,7 +4053,17 @@
         "last_commit": "2026-09-07T14:29:20Z"
       },
       "last_commit_days": 55,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "pypi",
+        "package": "finbrain-mcp",
+        "package_url": "https://pypi.org/project/finbrain-mcp/",
+        "version": "0.3.1",
+        "declared_repo": null,
+        "maintainers": [],
+        "state": "unlinked",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -3425,7 +4112,17 @@
       "claude_marketplace": true,
       "root_skill_md": false,
       "last_commit_days": 1,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -3476,7 +4173,17 @@
       "claude_marketplace": false,
       "root_skill_md": false,
       "last_commit_days": 949,
-      "status": "stale"
+      "status": "stale",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -3523,7 +4230,17 @@
         "last_commit": "2026-10-26T19:34:55Z"
       },
       "last_commit_days": 6,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Apache-2.0"
   },
@@ -3571,7 +4288,17 @@
         "license": null,
         "last_commit": "2025-08-24T15:36:43Z"
       },
-      "status": "archived"
+      "status": "archived",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "unknown"
   },
@@ -3625,7 +4352,17 @@
         "links_back": true
       },
       "last_commit_days": 62,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "pypi",
+        "package": "varrd",
+        "package_url": "https://pypi.org/project/varrd/",
+        "version": "0.4.3",
+        "declared_repo": "https://github.com/varrdinc/varrd",
+        "maintainers": [],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -3679,7 +4416,17 @@
         "links_back": true
       },
       "last_commit_days": 52,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "pypi",
+        "package": "chartlibrary-mcp",
+        "package_url": "https://pypi.org/project/chartlibrary-mcp/",
+        "version": "6.3.3",
+        "declared_repo": "https://github.com/grahammccain/chart-library-mcp",
+        "maintainers": [],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -3728,7 +4475,17 @@
       "claude_marketplace": true,
       "root_skill_md": false,
       "last_commit_days": 0,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "unknown"
   },
@@ -3777,7 +4534,17 @@
       "claude_marketplace": false,
       "root_skill_md": false,
       "last_commit_days": 0,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": "pypi",
+        "package": "claude-trading-skills",
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -3826,7 +4593,17 @@
       "claude_marketplace": true,
       "root_skill_md": true,
       "last_commit_days": 53,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -3884,7 +4661,19 @@
         "links_back": true
       },
       "last_commit_days": 429,
-      "status": "stale"
+      "status": "stale",
+      "provenance": {
+        "registry": "npm",
+        "package": "@degentic/cc-trading-terminal",
+        "package_url": "https://www.npmjs.com/package/@degentic/cc-trading-terminal",
+        "version": "2.1.5",
+        "declared_repo": "https://github.com/degentic-tools/claude-code-trading-terminal",
+        "maintainers": [
+          "degentic"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "unknown"
   },
@@ -3931,7 +4720,17 @@
         "last_commit": "2026-08-07T01:49:29Z"
       },
       "last_commit_days": 87,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "unknown"
   },
@@ -4000,7 +4799,17 @@
         "resource_metadata": "https://mcp.tradingview.com/.well-known/oauth-protected-resource/mcp"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -4069,7 +4878,17 @@
         "resource_metadata": "https://agent.robinhood.com/.well-known/oauth-protected-resource/mcp/trading"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -4141,7 +4960,17 @@
         "evidence": "mcp-initialize"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -4227,7 +5056,17 @@
         "resource_metadata": "https://mcp.eodhd.com/.well-known/oauth-protected-resource/v2/mcp"
       },
       "last_commit_days": 10,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": "pypi",
+        "package": "eodhd-mcp",
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -4296,7 +5135,17 @@
         "resource_metadata": "https://mcp.finnhub.io/.well-known/oauth-protected-resource"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -4383,7 +5232,17 @@
         "resource_metadata": "https://mcp.paypal.com/.well-known/oauth-protected-resource/mcp"
       },
       "last_commit_days": 62,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Apache-2.0"
   },
@@ -4471,7 +5330,19 @@
         "resource_metadata": "https://mcp.squareup.com/.well-known/oauth-protected-resource/mcp"
       },
       "last_commit_days": 18,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "npm",
+        "package": "square-mcp-server",
+        "package_url": "https://www.npmjs.com/package/square-mcp-server",
+        "version": "0.1.2",
+        "declared_repo": null,
+        "maintainers": [
+          "block-oss-releases"
+        ],
+        "state": "unlinked",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Apache-2.0"
   },
@@ -4530,7 +5401,17 @@
         "result": "ok"
       },
       "last_commit_days": 1,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -4604,7 +5485,17 @@
         "resource_metadata": "https://mcp.razorpay.com/.well-known/oauth-protected-resource"
       },
       "last_commit_days": 2,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -4670,7 +5561,20 @@
         "result": "ok"
       },
       "last_commit_days": 35,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "npm",
+        "package": "@paddle/paddle-mcp",
+        "package_url": "https://www.npmjs.com/package/@paddle/paddle-mcp",
+        "version": "0.1.6",
+        "declared_repo": "https://github.com/paddlehq/paddle-mcp-server",
+        "maintainers": [
+          "paddle.com",
+          "gedskikas"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Apache-2.0"
   },
@@ -4740,7 +5644,17 @@
         "why": "no resource_metadata in WWW-Authenticate"
       },
       "last_commit_days": null,
-      "status": "unconfirmed"
+      "status": "unconfirmed",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -4794,7 +5708,17 @@
         "result": "ok"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -4848,7 +5772,17 @@
         "result": "ok"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -4917,7 +5851,17 @@
         "resource_metadata": "https://mcp.avalara.com/.well-known/oauth-protected-resource/avatax"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -4971,7 +5915,17 @@
         "result": "ok"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -5025,7 +5979,19 @@
         "links_back": true
       },
       "last_commit_days": 1,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "npm",
+        "package": "ynab-mcp-server",
+        "package_url": "https://www.npmjs.com/package/ynab-mcp-server",
+        "version": "0.8.0",
+        "declared_repo": "https://github.com/calebl/ynab-mcp-server",
+        "maintainers": [
+          "calebl"
+        ],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -5101,7 +6067,17 @@
       },
       "last_commit_days": 0,
       "status": "unconfirmed",
-      "rechecked": true
+      "rechecked": true,
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "AGPL-3.0"
   },
@@ -5155,7 +6131,17 @@
         "result": "ok"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -5209,7 +6195,17 @@
         "result": "ok"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -5263,7 +6259,17 @@
         "result": "ok"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -5317,7 +6323,17 @@
         "result": "ok"
       },
       "last_commit_days": null,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Proprietary / ToS"
   },
@@ -5402,7 +6418,17 @@
         "evidence": "mcp-initialize"
       },
       "last_commit_days": 2,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -5468,7 +6494,17 @@
         "result": "ok"
       },
       "last_commit_days": 7,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "pypi",
+        "package": "webull-openapi-mcp",
+        "package_url": "https://pypi.org/project/webull-openapi-mcp/",
+        "version": "1.2.6",
+        "declared_repo": "https://github.com/webull-inc/webull-openapi-mcp",
+        "maintainers": [],
+        "state": "verified",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Apache-2.0"
   },
@@ -5515,7 +6551,17 @@
         "last_commit": "2026-10-29T10:32:10Z"
       },
       "last_commit_days": 3,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -5562,7 +6608,17 @@
         "last_commit": "2026-10-30T17:15:15Z"
       },
       "last_commit_days": 2,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": "pypi",
+        "package": "schwab-mcp",
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -5611,7 +6667,17 @@
       "claude_marketplace": false,
       "root_skill_md": false,
       "last_commit_days": 5,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "Apache-2.0"
   },
@@ -5672,7 +6738,17 @@
         "result": "ok"
       },
       "last_commit_days": 7,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -5721,7 +6797,17 @@
       "claude_marketplace": false,
       "root_skill_md": false,
       "last_commit_days": 89,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "state": "none",
+        "registry": null,
+        "package": null,
+        "package_url": null,
+        "version": null,
+        "declared_repo": null,
+        "maintainers": [],
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   },
@@ -5772,7 +6858,17 @@
       "claude_marketplace": false,
       "root_skill_md": false,
       "last_commit_days": 0,
-      "status": "verified"
+      "status": "verified",
+      "provenance": {
+        "registry": "pypi",
+        "package": "trading-skills",
+        "package_url": "https://pypi.org/project/trading-skills/",
+        "version": "0.23.1",
+        "declared_repo": null,
+        "maintainers": [],
+        "state": "unlinked",
+        "checked_at": "2026-11-04"
+      }
     },
     "license": "MIT"
   }

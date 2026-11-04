@@ -1,0 +1,82 @@
+{
+ "label": { "verified": "Propriétaire du paquet vérifié", "mismatch": "Propriétaire du paquet discordant", "unlinked": "Propriétaire du paquet discordant (non confirmé)", "none": "Aucun paquet" },
+ "short": { "verified": "Vérifié", "mismatch": "Discordance", "unlinked": "Non confirmé", "none": "Aucun paquet" },
+ "tip": {
+  "verified": "Le paquet {registry} indiqué dans le manifeste de ce dépôt renvoie vers ce dépôt. Vérifié le {date}.",
+  "mismatch": "Le paquet {name} sur {registry} pointe vers un autre dépôt ({repo}). Il peut s'agir d'un fork, d'un renommage ou d'un wrapper tiers. Vérifiez avant d'installer.",
+  "unlinked": "Un paquet nommé {name} existe sur {registry}, mais ses métadonnées ne contiennent aucun lien de dépôt : nous n'avons pas pu confirmer qu'il appartient à ce dépôt.",
+  "none": "Aucun paquet npm/PyPI n'est déclaré à la racine du dépôt. Installez depuis les sources selon le README."
+ },
+ "obs": {
+  "verified": "Les métadonnées du paquet renvoient vers le dépôt listé.",
+  "mismatch": "Les métadonnées du paquet pointent vers {declared}, et non vers le dépôt listé {listed}.",
+  "unlinked": "Un paquet de ce nom existe sur {registry}. Ses métadonnées ne contiennent aucun lien de dépôt.",
+  "none": "Aucun paquet npm ou PyPI n'est déclaré à la racine du dépôt.",
+  "norepo": "API hébergée sans dépôt public."
+ },
+ "row": "Provenance du paquet",
+ "learn": "Ce que cela signifie",
+ "nav": "Provenance des paquets",
+ "verPara": "Indépendamment du statut, nous vérifions si le paquet npm ou PyPI de chaque outil renvoie vers le dépôt listé.",
+ "title": "Provenance des paquets : le paquet npm/PyPI correspond-il au dépôt ?",
+ "desc": "Nous vérifions si le paquet npm ou PyPI de chaque outil d'IA pour la finance renvoie vers le dépôt que nous listons. Tableau en direct, méthodologie et comment vérifier vous-même.",
+ "h1": "Provenance des paquets",
+ "intro1": "De nombreux serveurs MCP et skills d'agents s'installent en une ligne, comme <code>npx some-package</code> ou <code>pip install some-package</code>. Cette ligne récupère ce qui est publié sous ce nom sur npm ou PyPI, qui n'est pas toujours le code du dépôt GitHub que vous venez de lire.",
+ "intro2": "Chaque semaine, nous vérifions chaque outil de l'annuaire : le paquet indiqué dans le dépôt renvoie-t-il vraiment vers ce dépôt ? Cette page présente les résultats.",
+ "latest": "<strong>Dernière vérification : {date}.</strong> Sur {total} outils, {verified} ont un paquet qui renvoie vers le dépôt listé. Pour {mm}, le paquet ne renvoie pas vers le dépôt. {none} n'ont aucun paquet npm ou PyPI. {norepo} sont des API hébergées sans dépôt public.",
+ "note": "Une discordance n'est pas une accusation. Causes anodines fréquentes : un fork publié sous le nom d'origine, un dépôt renommé ou déplacé, un paquet wrapper distinct, ou un paquet dont les métadonnées omettent simplement le champ du dépôt. Nous rapportons ce que nous avons observé, pas pourquoi.",
+ "stat": { "verified": "Propriétaire vérifié", "mismatch": "Discordance", "unlinked": "Discordance (non confirmée)", "none": "Aucun paquet", "total": "Outils vérifiés" },
+ "badgesH": "Ce que signifient les badges",
+ "b": {
+  "verified": "Le paquet indiqué dans le <code>package.json</code> ou le <code>pyproject.toml</code> du dépôt existe sur npm ou PyPI, et ses métadonnées renvoient vers le même dépôt GitHub.",
+  "mismatch": "Un paquet de ce nom existe, mais ses métadonnées pointent vers un autre dépôt.",
+  "unlinked": "Un paquet de ce nom existe, mais ses métadonnées ne contiennent aucun lien de dépôt : nous ne pouvons pas confirmer qu'il appartient à ce dépôt.",
+  "none": "Le dépôt ne déclare à sa racine aucun paquet publié sur npm ou PyPI. Installez depuis les sources comme l'indique le README."
+ },
+ "sep": "Ces badges sont distincts du statut de vérification de l'outil (Vérifié, Vieillissant, Obsolète…). Une discordance ne modifie jamais ce statut.",
+ "methodH": "Méthodologie",
+ "m": [
+  "Pour chaque dépôt listé, nous lisons le <code>package.json</code> à la racine (en ignorant les paquets marqués privés) et le <code>pyproject.toml</code>, et retenons le nom de paquet déclaré.",
+  "Nous recherchons ce nom dans le registre public npm (<code>registry.npmjs.org</code>) ou sur PyPI (<code>pypi.org/pypi/&lt;name&gt;/json</code>).",
+  "Nous vérifions si les métadonnées du paquet (npm : <code>repository</code>, <code>homepage</code>, <code>bugs</code> ; PyPI : <code>project_urls</code>, <code>home_page</code>, <code>download_url</code>) contiennent le <code>owner/repo</code> listé. Les URL GitHub sont comparées sans tenir compte de la casse, après avoir suivi les redirections GitHub des dépôts renommés ou déplacés.",
+  "Nous enregistrons le nom du paquet, la dernière version, sa date de publication et tout dépôt déclaré dans les métadonnées."
+ ],
+ "notCheck": "Ce que nous ne vérifions pas : qui contrôle le compte du registre, le contenu des fichiers publiés ou les scripts d'installation. Un badge « vérifié » signifie que les liens correspondent. Il ne signifie pas que le code a été audité.",
+ "runs": "La vérification s'exécute chaque semaine avec le reste de notre {verification}. Les changements apparaissent dans le {weekly}. Les données sont disponibles dans {json} sous CC BY 4.0 avec attribution à TradingAIHub.",
+ "runsVer": "vérification",
+ "runsWeekly": "journal hebdomadaire des changements",
+ "lastRun": "Dernière exécution : {date}.",
+ "tableH": "Tableau en direct",
+ "th": { "tool": "Outil", "type": "Type", "registry": "Registre", "package": "Paquet", "badge": "Badge", "declared": "Dépôt déclaré", "observed": "Ce que nous avons observé", "checked": "Vérifié le" },
+ "filter": { "label": "Filtrer par badge", "all": "Tous", "verified": "Vérifié", "mismatch": "Discordance", "unlinked": "Non confirmé", "none": "Aucun paquet", "search": "Rechercher des outils ou des paquets", "shown": "{n} outils affichés sur {total}" },
+ "howH": "Comment vérifier un paquet vous-même",
+ "npm": [
+  "Ouvrez <code>https://www.npmjs.com/package/&lt;name&gt;</code> et regardez le lien « Repository » dans la barre latérale. Correspond-il au dépôt que vous avez lu ?",
+  "Ou exécutez <code>npm view &lt;name&gt; repository homepage maintainers</code>.",
+  "Comparez la dernière version et sa date de publication avec les releases ou tags du dépôt.",
+  "Avant d'exécuter <code>npx</code>, cherchez des scripts <code>preinstall</code>/<code>postinstall</code> : <code>npm view &lt;name&gt; scripts</code>."
+ ],
+ "pypi": [
+  "Ouvrez <code>https://pypi.org/project/&lt;name&gt;/</code> et consultez « Project links » et « Meta ».",
+  "Ou récupérez <code>https://pypi.org/pypi/&lt;name&gt;/json</code> et lisez <code>info.project_urls</code>.",
+  "Comparez l'historique des versions avec les tags du dépôt."
+ ],
+ "eitherH": "Dans les deux cas",
+ "either": [
+  "Si les métadonnées n'ont aucun lien de dépôt, installez selon le README du dépôt (par exemple <code>npx github:owner/repo</code>, <code>pip install git+https://github.com/owner/repo</code> ou un clone local).",
+  "Épinglez les versions et privilégiez les paquets dont les liens correspondent."
+ ],
+ "faq": [
+  ["Une « discordance » signifie-t-elle qu'un paquet est malveillant ?", "Non. Cela signifie que les métadonnées du paquet ne renvoient pas vers le dépôt que nous listons. Forks, renommages, wrappers distincts et métadonnées manquantes en sont les raisons habituelles."],
+  ["« Propriétaire du paquet vérifié » signifie-t-il que le code est sûr ?", "Non. Cela signifie que le paquet et le dépôt renvoient l'un vers l'autre. Nous n'auditons ni le code ni les scripts d'installation."],
+  ["Pourquoi certains outils affichent-ils « Aucun paquet » ?", "De nombreux serveurs MCP s'exécutent depuis les sources ou un conteneur, et les API hébergées n'ont pas de paquet. C'est normal."],
+  ["À quelle fréquence est-ce mis à jour ?", "Chaque semaine, avec nos vérifications des dépôts et des endpoints. Les changements apparaissent dans le journal hebdomadaire."],
+  ["Je maintiens l'un de ces outils. Comment obtenir le badge vérifié ?", "Ajoutez l'URL de votre dépôt aux métadonnées du paquet (repository dans package.json, ou project_urls dans pyproject.toml) et publiez une nouvelle version. La prochaine exécution hebdomadaire la prendra en compte. Vous pouvez aussi soumettre une correction."],
+  ["Puis-je réutiliser ces données ?", "Oui. Elles sont dans /tools.json sous CC BY 4.0 avec attribution à TradingAIHub."]
+ ],
+ "linksH": "Voir aussi",
+ "links": { "verification": "Dernière vérification", "weekly": "Journal hebdomadaire", "json": "tools.json (CC BY 4.0)", "submit": "Soumettre une correction", "about": "Comment nous vérifions" },
+ "nia": "À titre informatif uniquement. Rien sur cette page ne constitue un conseil en investissement.",
+ "dsName": "Provenance des paquets TradingAIHub",
+ "dsDesc": "Pour chaque outil de l'annuaire TradingAIHub : si son paquet npm ou PyPI renvoie vers le dépôt source listé (verified, mismatch, unlinked ou none), avec le registre, le nom du paquet et le dépôt déclaré."
+}

@@ -5,6 +5,8 @@ import PartnerCTA from "../../../components/PartnerCTA.astro";
 import AffTag from "../../../components/AffTag.astro";
 import Base from "../../../layouts/Base.astro";
 import Status from "../../../components/Status.astro";
+import Provenance from "../../../components/Provenance.astro";
+import { useProvT } from "../../../i18n/prov";
 import ToolCard from "../../../components/ToolCard.astro";
 import Share from "../../../components/Share.astro";
 import { SITE } from "../../../config";
@@ -16,7 +18,7 @@ const lang = Astro.params.lang ?? "en"; const { t, p, desc: dsc } = useT(lang);
 const { tool } = Astro.props; const v = tool.verification; const cat = catBySlug[tool.category];
 const [cname, cshort] = t(`cat.${cat.slug}`);
 const pkg = pkgOf(tool); const sn = snippets(tool, t); const stHelp = t(`status.${v.status}`)[1];
-const desc = dsc(tool);
+const desc = dsc(tool); const pt = useProvT(lang);
 const hasAff = [tool.homepage, tool.docs, tool.source_url, tool.pricing.source].some((u) => isAff(u));
 const related = tools.filter((x) => x.category === tool.category && x.id !== tool.id).slice(0, 3);
 // Partner CTA on tool pages related to charting, stocks, market data, crypto, quant/backtesting.
@@ -34,7 +36,7 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
 <Base title={`${tool.name} — ${t("tool.titleFor", { type: t(`type.${tool.type}`), cat: lang === "en" ? cshort.toLowerCase() : cshort })}`} description={metaDesc.slice(0, 300)} jsonld={ld} og={`tool-${tool.id}`} lang={lang}>
 <div class="wrap page">
   <div class="crumbs"><a href={p("/")}>{t("common.home")}</a> / <a href={p(`/category/${cat.slug}/`)}>{cname}</a> / {tool.name}</div>
-  <div class="meta" style="margin-bottom:8px"><span class="badge type">{t(`type.${tool.type}`)}</span>{tool.official && <span class="badge off">{t("common.officialVendor")}</span>}<Status status={v.status} lang={lang} /><span class="pill">{t("tool.lastChecked", { date: v.checked_at })}</span></div>
+  <div class="meta" style="margin-bottom:8px"><span class="badge type">{t(`type.${tool.type}`)}</span>{tool.official && <span class="badge off">{t("common.officialVendor")}</span>}<Status status={v.status} lang={lang} />{tool.repo && <Provenance id={tool.id} lang={lang} />}<span class="pill">{t("tool.lastChecked", { date: v.checked_at })}</span></div>
   <h1 style="margin:6px 0 6px" dir="auto">{tool.name}</h1>
   <p style="color:var(--muted);font-size:1.125rem;margin-top:0">{desc}</p>
   {partnerPath && <PartnerCTA variant="tool" lang={lang} path={partnerPath} />}
@@ -58,7 +60,7 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
       <h2>{t("tool.verification")}</h2>
       <div class="panel">
         <p><Status status={v.status} lang={lang} /> <span class="note">{stHelp}</span></p>
-        <table><tbody>{v.checks.map((c: any) => <tr><td style="width:36px">{c.ok ? "✅" : "⚠️"}</td><td>{t(`checks.${c.check}`) === `checks.${c.check}` ? c.check : t(`checks.${c.check}`)}{c.note && <span class="note"> — <bdi>{c.note}</bdi></span>}</td></tr>)}</tbody></table>
+        <table><tbody>{v.checks.map((c: any) => <tr><td style="width:36px">{c.ok ? "✅" : "⚠️"}</td><td>{t(`checks.${c.check}`) === `checks.${c.check}` ? c.check : t(`checks.${c.check}`)}{c.note && <span class="note"> — <bdi>{c.note}</bdi></span>}</td></tr>)}{tool.repo && <tr><td style="width:36px" aria-hidden="true">{v.provenance?.state === "verified" ? "✅" : v.provenance?.state === "none" ? "➖" : "⚠️"}</td><td>{pt("row")}: <Provenance id={tool.id} lang={lang} link={false} /> <a href={`${p("/package-provenance/")}#${tool.id}`}>{pt("learn")}</a></td></tr>}</tbody></table>
         {v.issues.length > 0 && <ul>{v.issues.map((i: string) => <li class="note"><bdi>{i}</bdi></li>)}</ul>}
         <p class="note">{t("tool.autoCheck", { date: v.checked_at })} <a href={`${p("/about/")}#how-we-verify`}>{t("nav.verify")}</a>.</p>
       </div>

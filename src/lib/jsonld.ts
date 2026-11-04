@@ -45,3 +45,14 @@ export function techArticleLd(g: { url: string; headline: string; description: s
     ...(g.toolIds?.length ? { about: g.toolIds.filter((id) => rawById[id]).map((id) => ({ "@type": "SoftwareApplication", "@id": appId(id), name: rawById[id].name })) } : {}),
   };
 }
+
+// Dataset for /package-provenance/ (data licence: CC BY 4.0, attribution "TradingAIHub, https://tradingaihub.com").
+export function datasetLd(d: { name: string; description: string; url: string; lang: string; dateModified: string }) {
+  return {
+    "@context": "https://schema.org", "@type": "Dataset", name: d.name, description: d.description, url: d.url, inLanguage: d.lang,
+    license: "https://creativecommons.org/licenses/by/4.0/", creator: { "@id": ORG_ID }, publisher: { "@id": ORG_ID },
+    isAccessibleForFree: true, dateModified: d.dateModified,
+    variableMeasured: ["state", "registry", "package", "declared_repo"].map((n) => ({ "@type": "PropertyValue", name: n })),
+    distribution: [{ "@type": "DataDownload", encodingFormat: "application/json", contentUrl: `${SITE.url}/tools.json` }],
+  };
+}

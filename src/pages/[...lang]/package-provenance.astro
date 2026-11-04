@@ -1,0 +1,121 @@
+---
+// /package-provenance/: per-tool npm/PyPI provenance (data: data/tools.json -> verification.provenance, from scripts/verify.py).
+// Table is fully server-rendered (works without JS); the filter/search is progressive enhancement. Registry and repo links
+// are raw URLs from data/tools.json (no affiliate tags).
+import Base from "../../layouts/Base.astro";
+import Faq from "../../components/Faq.astro";
+import Provenance from "../../components/Provenance.astro";
+import { SITE } from "../../config";
+import raw from "../../../data/tools.json";
+import { verificationReport as r } from "../../lib/data";
+import { datasetLd } from "../../lib/jsonld";
+import { faqLd, type QA } from "../../lib/faq";
+import { provOf, provCounts, PROV_STATES, REGISTRY_LABEL, shortRepo } from "../../lib/provenance";
+import { langParams, useT } from "../../i18n";
+import { useProvT } from "../../i18n/prov";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en"; const { t, p } = useT(lang); const pt = useProvT(lang);
+const all = raw as any[];
+const c = provCounts();
+const norepo = all.filter((x) => !x.repo).length;
+const checked = String((r as any).provenance_checked_at || r.checked_at).slice(0, 10);
+const lastRun = String(r.checked_at).slice(0, 10);
+const order: Record<string, number> = { mismatch: 0, unlinked: 1, verified: 2, none: 3 };
+const rows = all.map((x) => ({ x, v: provOf(x.id) })).sort((a, b) => order[a.v.state] - order[b.v.state] || a.x.name.localeCompare(b.x.name));
+const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const obs = (x: any, v: any) => !x.repo ? pt("obs.norepo") : pt(`obs.${v.state}`, { registry: REGISTRY_LABEL[v.registry] ?? "", declared: shortRepo(v.declared_repo), listed: shortRepo(x.repo) });
+const faqItems: QA[] = (pt("faq") as [string, string][]).map(([q, a]) => ({ q, a }));
+const pageUrl = `${SITE.url}${p("/package-provenance/")}`;
+const ld = [
+  datasetLd({ name: pt("dsName"), description: pt("dsDesc"), url: pageUrl, lang, dateModified: checked }),
+  faqLd(faqItems, lang),
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: t("common.home"), item: `${SITE.url}${p("/")}` },
+    { "@type": "ListItem", position: 2, name: pt("h1"), item: pageUrl } ] },
+];
+const nf = new Intl.NumberFormat(lang === "ar" ? "ar-u-nu-latn" : lang);
+const stats = [["verified", c.verified], ["mismatch", c.mismatch], ["unlinked", c.unlinked], ["none", c.none], ["total", all.length]] as const;
+const link = (href: string, text: string) => `<a href="${href}">${esc(text)}</a>`;
+---
+<Base title={pt("title")} description={pt("desc")} jsonld={ld} lang={lang}>
+<div class="wrap page prov-page">
+  <div class="crumbs"><a href={p("/")}>{t("common.home")}</a> / {pt("h1")}</div>
+  <h1>{pt("h1")}</h1>
+  <p set:html={pt("intro1")} />
+  <p>{pt("intro2")}</p>
+  <ul class="pv-stats" role="list">{stats.map(([k, n]) => <li class={`pv-stat pv-${k}`}><span class="pv-n">{nf.format(n)}</span><span class="pv-l">{pt(`stat.${k}`)}</span></li>)}</ul>
+  <p set:html={pt("latest", { date: `<time datetime="${checked}" dir="ltr">${checked}</time>`, total: nf.format(all.length), verified: nf.format(c.verified), mm: nf.format(c.mismatch + c.unlinked), none: nf.format(c.none - norepo), norepo: nf.format(norepo) })} />
+  <blockquote class="pv-note">{pt("note")}</blockquote>
+
+  <h2 id="badges">{pt("badgesH")}</h2>
+  <ul class="pv-legend">{PROV_STATES.map((s) => <li><strong>{pt(`label.${s}`)}.</strong> <span set:html={pt(`b.${s}`)} /></li>)}</ul>
+  <p>{pt("sep")}</p>
+
+  <h2 id="methodology">{pt("methodH")}</h2>
+  <ol>{(pt("m") as string[]).map((m) => <li set:html={m} />)}</ol>
+  <p>{pt("notCheck")}</p>
+  <p set:html={pt("runs", { verification: link(p("/verification/"), pt("runsVer")), weekly: link(p("/weekly/"), pt("runsWeekly")), json: '<a href="/tools.json">/tools.json</a>' }) + " " + esc(pt("lastRun", { date: lastRun }))} />
+
+  <h2 id="table">{pt("tableH")}</h2>
+  <div class="pv-filter" hidden>
+    <div role="group" aria-label={pt("filter.label")} class="pv-btns">{["all", ...PROV_STATES].map((s, i) => <button type="button" data-f={s} aria-pressed={i === 0 ? "true" : "false"}>{pt(`filter.${s}`)}</button>)}</div>
+    <label class="pv-search"><span class="sr-only">{pt("filter.search")}</span><input type="search" placeholder={pt("filter.search")} /></label>
+    <p class="note pv-count" role="status" aria-live="polite" data-tpl={pt("filter.shown")} data-total={all.length}></p>
+  </div>
+  <div class="tablewrap"><table class="pv-table"><thead><tr>
+    <th scope="col">{pt("th.tool")}</th><th scope="col">{pt("th.type")}</th><th scope="col">{pt("th.registry")}</th><th scope="col">{pt("th.package")}</th><th scope="col">{pt("th.badge")}</th><th scope="col">{pt("th.declared")}</th><th scope="col">{pt("th.observed")}</th><th scope="col">{pt("th.checked")}</th>
+  </tr></thead><tbody>{rows.map(({ x, v }) => <tr id={x.id} data-state={v.state} data-q={`${x.name} ${x.id} ${v.package ?? ""}`.toLowerCase()}>
+    <th scope="row"><a href={p(`/tools/${x.id}/`)} dir="auto">{x.name}</a></th>
+    <td>{t(`type.${x.type}`)}</td>
+    <td dir="ltr">{v.registry ? REGISTRY_LABEL[v.registry] : "—"}</td>
+    <td dir="ltr">{v.package && v.package_url ? <a href={v.package_url} rel="nofollow noopener" target="_blank"><code>{v.package}</code></a> : "—"}</td>
+    <td><Provenance id={x.id} lang={lang} link={false} /></td>
+    <td dir="ltr">{v.declared_repo ? <a href={v.declared_repo} rel="nofollow noopener" target="_blank">{shortRepo(v.declared_repo)}</a> : "—"}</td>
+    <td class="note"><bdi>{obs(x, v)}</bdi></td>
+    <td dir="ltr">{v.checked_at ?? checked}</td>
+  </tr>)}</tbody></table></div>
+
+  <h2 id="check-yourself">{pt("howH")}</h2>
+  <h3>npm</h3><ol>{(pt("npm") as string[]).map((m) => <li set:html={m} />)}</ol>
+  <h3>PyPI</h3><ol>{(pt("pypi") as string[]).map((m) => <li set:html={m} />)}</ol>
+  <h3>{pt("eitherH")}</h3><ul>{(pt("either") as string[]).map((m) => <li set:html={m} />)}</ul>
+
+  <Faq items={faqItems} lang={lang} />
+
+  <h2 id="related">{pt("linksH")}</h2>
+  <ul>
+    <li><a href={p("/verification/")}>{pt("links.verification")}</a></li>
+    <li><a href={p("/weekly/")}>{pt("links.weekly")}</a></li>
+    <li><a href="/tools.json">{pt("links.json")}</a></li>
+    <li><a href={`${p("/about/")}#how-we-verify`}>{pt("links.about")}</a></li>
+    <li><a href={p("/submit/")}>{pt("links.submit")}</a></li>
+  </ul>
+  <p class="note"><em>{pt("nia")}</em></p>
+</div>
+<script is:inline>
+(function(){
+  var box=document.querySelector(".pv-filter"); if(!box) return; box.hidden=false;
+  var rows=[].slice.call(document.querySelectorAll(".pv-table tbody tr")), btns=[].slice.call(box.querySelectorAll("button")), q=box.querySelector("input"), out=box.querySelector(".pv-count"), f="all";
+  function apply(){ var s=(q.value||"").toLowerCase().trim(), n=0;
+    rows.forEach(function(r){ var show=(f==="all"||r.getAttribute("data-state")===f)&&(!s||r.getAttribute("data-q").indexOf(s)>=0); r.hidden=!show; if(show) n++; });
+    out.textContent=out.getAttribute("data-tpl").replace("{n}",n).replace("{total}",out.getAttribute("data-total")); }
+  btns.forEach(function(b){ b.addEventListener("click",function(){ f=b.getAttribute("data-f"); btns.forEach(function(x){ x.setAttribute("aria-pressed", x===b?"true":"false"); }); apply(); }); });
+  q.addEventListener("input",apply);
+})();
+</script>
+<style is:global>
+.pv-stats{list-style:none;padding:0;margin:16px 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.pv-stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px;display:flex;flex-direction:column;gap:2px}
+.pv-n{font-size:1.75rem;font-weight:800;font-variant-numeric:tabular-nums}
+.pv-l{font-size:.875rem;color:var(--muted)}
+.pv-note{border-inline-start:4px solid var(--line);margin:16px 0;padding:8px 14px;color:var(--muted)}
+.pv-filter{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:10px 0}
+.pv-btns{display:flex;flex-wrap:wrap;gap:6px}
+.pv-btns button{min-height:32px;padding:4px 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:var(--text);cursor:pointer;font:inherit}
+.pv-btns button[aria-pressed=true]{border-color:var(--brand);font-weight:700;box-shadow:inset 0 0 0 1px var(--brand)}
+.pv-search input{min-height:32px;padding:4px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);font:inherit}
+.pv-table tr:target{outline:2px solid var(--brand2);outline-offset:-2px}
+.pv-table th[scope=row]{font-weight:600;text-align:start}
+@media(max-width:700px){.pv-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</Base>
