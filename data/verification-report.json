@@ -1,12 +1,12 @@
 {
-  "checked_at": "2026-10-29T17:26:10.908662+00:00",
+  "checked_at": "2026-11-02T05:46:05.904036+00:00",
   "total": 104,
   "by_status": {
-    "verified": 82,
+    "verified": 81,
     "stale": 13,
     "aging": 4,
     "archived": 3,
-    "unconfirmed": 2
+    "unconfirmed": 3
   },
   "with_package": 28,
   "issues": [
@@ -14,7 +14,7 @@
       "id": "finnhub-mcp-community",
       "status": "stale",
       "issues": [
-        "No commits for 546 days"
+        "No commits for 549 days"
       ]
     },
     {
@@ -22,21 +22,21 @@
       "status": "stale",
       "issues": [
         "pypi name 'mcp-server' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 510 days"
+        "No commits for 514 days"
       ]
     },
     {
       "id": "metatrader-mcp",
       "status": "aging",
       "issues": [
-        "No commits for 214 days"
+        "No commits for 218 days"
       ]
     },
     {
       "id": "paper-mcp",
       "status": "stale",
       "issues": [
-        "No commits for 405 days"
+        "No commits for 409 days"
       ]
     },
     {
@@ -44,14 +44,14 @@
       "status": "stale",
       "issues": [
         "pypi name 'mcp-server-ccxt' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 618 days"
+        "No commits for 622 days"
       ]
     },
     {
       "id": "crypto-indicators-mcp",
       "status": "aging",
       "issues": [
-        "No commits for 327 days"
+        "No commits for 331 days"
       ]
     },
     {
@@ -59,28 +59,28 @@
       "status": "stale",
       "issues": [
         "npm name 'binance-mcp' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 561 days"
+        "No commits for 564 days"
       ]
     },
     {
       "id": "crypto-liquidations-mcp",
       "status": "stale",
       "issues": [
-        "No commits for 541 days"
+        "No commits for 544 days"
       ]
     },
     {
       "id": "coincap-mcp",
       "status": "stale",
       "issues": [
-        "No commits for 636 days"
+        "No commits for 640 days"
       ]
     },
     {
       "id": "dexscreener-trending-mcp",
       "status": "aging",
       "issues": [
-        "No commits for 290 days"
+        "No commits for 293 days"
       ]
     },
     {
@@ -96,14 +96,14 @@
       "status": "stale",
       "issues": [
         "npm name 'bitcoin-mcp' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 454 days"
+        "No commits for 457 days"
       ]
     },
     {
       "id": "invoice-organizer-skill",
       "status": "stale",
       "issues": [
-        "No commits for 377 days"
+        "No commits for 380 days"
       ]
     },
     {
@@ -118,7 +118,7 @@
       "id": "monarch-mcp",
       "status": "stale",
       "issues": [
-        "No commits for 508 days"
+        "No commits for 512 days"
       ]
     },
     {
@@ -126,7 +126,7 @@
       "status": "aging",
       "issues": [
         "npm name 'actual-budget-mcp' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 220 days"
+        "No commits for 223 days"
       ]
     },
     {
@@ -140,7 +140,7 @@
       "id": "valyu-mcp",
       "status": "stale",
       "issues": [
-        "No commits for 573 days"
+        "No commits for 576 days"
       ]
     },
     {
@@ -154,7 +154,7 @@
       "id": "claude-investor",
       "status": "stale",
       "issues": [
-        "No commits for 945 days"
+        "No commits for 949 days"
       ]
     },
     {
@@ -168,7 +168,7 @@
       "id": "claude-code-trading-terminal",
       "status": "stale",
       "issues": [
-        "No commits for 425 days"
+        "No commits for 429 days"
       ]
     },
     {
@@ -183,6 +183,13 @@
       "status": "unconfirmed",
       "issues": [
         "Could not confirm: MCP endpoint 401: answered but refused our checker (sign-in required, bot block or rate limit) [no resource_metadata in WWW-Authenticate]"
+      ]
+    },
+    {
+      "id": "firefly-iii-api",
+      "status": "unconfirmed",
+      "issues": [
+        "Could not confirm: homepage 403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)]; docs 403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)]"
       ]
     },
     {

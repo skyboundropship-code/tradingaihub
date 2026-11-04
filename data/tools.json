@@ -20,27 +20,33 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://www.alphavantage.co/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://www.alphavantage.co/documentation/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -68,27 +74,33 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://massive.com/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://massive.com/docs",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -116,27 +128,37 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://site.financialmodelingprep.com/",
         "ok": true,
-        "status": 403
+        "status": 200,
+        "result": "ok",
+        "first_status": 403,
+        "retry": "browser-headers"
       },
       "docs": {
         "url": "https://site.financialmodelingprep.com/developer/docs",
         "ok": true,
-        "status": 403
+        "status": 200,
+        "result": "ok",
+        "first_status": 403,
+        "retry": "browser-headers"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -164,27 +186,33 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://finnhub.io/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://finnhub.io/docs/api",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -212,27 +240,33 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://twelvedata.com/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://twelvedata.com/docs",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -260,27 +294,33 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://eodhd.com/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://eodhd.com/financial-apis/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -308,27 +348,33 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://alpaca.markets/data",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://docs.alpaca.markets/us/docs/about-market-data-api",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -356,27 +402,33 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://www.coingecko.com/en/api",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://docs.coingecko.com/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -404,27 +456,33 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://fred.stlouisfed.org/docs/api/fred/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://fred.stlouisfed.org/docs/api/fred/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -452,27 +510,33 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://www.sec.gov/search-filings/edgar-application-programming-interfaces",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://www.sec.gov/search-filings/edgar-application-programming-interfaces",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -500,7 +564,7 @@
     },
     "remote_mcp_url": "https://mcp.alphavantage.co/mcp",
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -522,7 +586,7 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/alphavantage/alpha_vantage_mcp",
-        "stars": 223,
+        "stars": 224,
         "archived": false,
         "license": "MIT",
         "last_commit": "2026-10-03T00:09:33Z"
@@ -536,7 +600,7 @@
         "evidence": "mcp-oauth",
         "resource_metadata": "https://mcp.alphavantage.co/.well-known/oauth-protected-resource/mcp"
       },
-      "last_commit_days": 26,
+      "last_commit_days": 30,
       "status": "verified"
     },
     "license": "MIT"
@@ -562,7 +626,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -578,12 +642,12 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/massive-com/mcp_massive",
-        "stars": 398,
+        "stars": 399,
         "archived": false,
         "license": "MIT",
         "last_commit": "2026-10-08T14:13:09Z"
       },
-      "last_commit_days": 20,
+      "last_commit_days": 24,
       "status": "verified"
     },
     "license": "MIT"
@@ -609,7 +673,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -637,7 +701,7 @@
         "url": "https://www.npmjs.com/package/financial-modeling-prep-mcp-server",
         "links_back": true
       },
-      "last_commit_days": 14,
+      "last_commit_days": 18,
       "status": "verified"
     },
     "license": "Apache-2.0"
@@ -663,7 +727,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -676,7 +740,7 @@
         }
       ],
       "issues": [
-        "No commits for 546 days"
+        "No commits for 549 days"
       ],
       "github": {
         "reachable": true,
@@ -686,7 +750,7 @@
         "license": null,
         "last_commit": "2025-05-01T07:20:48Z"
       },
-      "last_commit_days": 546,
+      "last_commit_days": 549,
       "status": "stale"
     },
     "license": "unknown"
@@ -712,7 +776,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -726,7 +790,7 @@
       ],
       "issues": [
         "pypi name 'mcp-server' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 510 days"
+        "No commits for 514 days"
       ],
       "github": {
         "reachable": true,
@@ -736,7 +800,7 @@
         "license": "MIT",
         "last_commit": "2025-06-05T19:50:38Z"
       },
-      "last_commit_days": 510,
+      "last_commit_days": 514,
       "status": "stale"
     },
     "license": "MIT"
@@ -762,7 +826,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -781,7 +845,7 @@
         "stars": 28,
         "archived": false,
         "license": "MIT",
-        "last_commit": "2026-10-26T11:54:49Z"
+        "last_commit": "2026-10-30T10:38:24Z"
       },
       "pypi": {
         "name": "mcp-yahoo-finance",
@@ -790,7 +854,7 @@
         "url": "https://pypi.org/project/mcp-yahoo-finance/",
         "links_back": true
       },
-      "last_commit_days": 3,
+      "last_commit_days": 2,
       "status": "verified"
     },
     "license": "MIT"
@@ -816,36 +880,47 @@
     },
     "remote_mcp_url": "https://mcp.api.coingecko.com/mcp",
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "remote MCP endpoint responds",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://docs.coingecko.com/ai-integration/mcp-server",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://docs.coingecko.com/ai-integration/mcp-server",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "remote_mcp": {
         "url": "https://mcp.api.coingecko.com/mcp",
         "ok": true,
-        "status": 405
+        "status": 200,
+        "result": "ok",
+        "method": "POST",
+        "evidence": "mcp-initialize"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -873,7 +948,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -896,7 +971,7 @@
       },
       "claude_marketplace": true,
       "root_skill_md": false,
-      "last_commit_days": 6,
+      "last_commit_days": 10,
       "status": "verified"
     },
     "license": "MIT"
@@ -922,7 +997,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -938,12 +1013,12 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/wshobson/maverick-mcp",
-        "stars": 714,
+        "stars": 716,
         "archived": false,
         "license": "MIT",
-        "last_commit": "2026-10-26T20:35:46Z"
+        "last_commit": "2026-10-31T07:44:22Z"
       },
-      "last_commit_days": 2,
+      "last_commit_days": 1,
       "status": "verified"
     },
     "license": "MIT"
@@ -969,7 +1044,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -990,7 +1065,7 @@
         "license": "MIT",
         "last_commit": "2026-10-09T13:58:27Z"
       },
-      "last_commit_days": 19,
+      "last_commit_days": 23,
       "status": "verified"
     },
     "license": "MIT"
@@ -1016,7 +1091,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1044,7 +1119,7 @@
         "url": "https://pypi.org/project/kospi-kosdaq-stock-server/",
         "links_back": true
       },
-      "last_commit_days": 48,
+      "last_commit_days": 51,
       "status": "verified"
     },
     "license": "MIT"
@@ -1070,7 +1145,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1098,7 +1173,7 @@
         "url": "https://pypi.org/project/hkopenai.hk-finance-mcp-server/",
         "links_back": true
       },
-      "last_commit_days": 26,
+      "last_commit_days": 30,
       "status": "verified"
     },
     "license": "MIT"
@@ -1124,7 +1199,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1140,7 +1215,7 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/stefanoamorelli/fred-mcp-server",
-        "stars": 128,
+        "stars": 130,
         "archived": false,
         "license": "AGPL-3.0",
         "last_commit": "2026-08-22T18:34:49Z"
@@ -1152,7 +1227,7 @@
         "url": "https://www.npmjs.com/package/fred-mcp-server",
         "links_back": true
       },
-      "last_commit_days": 67,
+      "last_commit_days": 71,
       "status": "verified"
     },
     "license": "AGPL-3.0"
@@ -1178,7 +1253,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1206,7 +1281,7 @@
         "url": "https://pypi.org/project/mcp-server-fxmacrodata/",
         "links_back": true
       },
-      "last_commit_days": 23,
+      "last_commit_days": 27,
       "status": "verified"
     },
     "license": "MIT"
@@ -1232,7 +1307,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1248,7 +1323,7 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/alpacahq/alpaca-mcp-server",
-        "stars": 1048,
+        "stars": 1054,
         "archived": false,
         "license": "MIT",
         "last_commit": "2026-10-27T09:06:46Z"
@@ -1260,7 +1335,7 @@
         "url": "https://pypi.org/project/alpaca-mcp-server/",
         "links_back": true
       },
-      "last_commit_days": 2,
+      "last_commit_days": 5,
       "status": "verified"
     },
     "license": "MIT"
@@ -1286,7 +1361,7 @@
     },
     "remote_mcp_url": "https://api.ibkr.com/v1/api/mcp-public",
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
@@ -1355,7 +1430,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1383,7 +1458,7 @@
         "url": "https://www.npmjs.com/package/tasty-agent",
         "links_back": true
       },
-      "last_commit_days": 24,
+      "last_commit_days": 28,
       "status": "verified"
     },
     "license": "MIT"
@@ -1409,7 +1484,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1422,12 +1497,12 @@
         }
       ],
       "issues": [
-        "No commits for 214 days"
+        "No commits for 218 days"
       ],
       "github": {
         "reachable": true,
         "final_url": "https://github.com/ariadng/metatrader-mcp-server",
-        "stars": 843,
+        "stars": 844,
         "archived": false,
         "license": "MIT",
         "last_commit": "2026-03-28T18:39:29Z"
@@ -1439,7 +1514,7 @@
         "url": "https://pypi.org/project/metatrader-mcp-server/",
         "links_back": true
       },
-      "last_commit_days": 214,
+      "last_commit_days": 218,
       "status": "aging"
     },
     "license": "MIT"
@@ -1465,7 +1540,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1478,7 +1553,7 @@
         }
       ],
       "issues": [
-        "No commits for 405 days"
+        "No commits for 409 days"
       ],
       "github": {
         "reachable": true,
@@ -1495,7 +1570,7 @@
         "url": "https://www.npmjs.com/package/@paperinvest/mcp-server",
         "links_back": true
       },
-      "last_commit_days": 405,
+      "last_commit_days": 409,
       "status": "stale"
     },
     "license": "MIT"
@@ -1521,7 +1596,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1540,7 +1615,7 @@
         "stars": 118,
         "archived": false,
         "license": "MIT",
-        "last_commit": "2026-10-21T19:58:31Z"
+        "last_commit": "2026-11-01T14:03:00Z"
       },
       "npm": {
         "name": "dexpaprika-mcp",
@@ -1549,7 +1624,7 @@
         "url": "https://www.npmjs.com/package/dexpaprika-mcp",
         "links_back": true
       },
-      "last_commit_days": 7,
+      "last_commit_days": 0,
       "status": "verified"
     },
     "license": "MIT"
@@ -1575,7 +1650,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1589,7 +1664,7 @@
       ],
       "issues": [
         "pypi name 'mcp-server-ccxt' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 618 days"
+        "No commits for 622 days"
       ],
       "github": {
         "reachable": true,
@@ -1599,7 +1674,7 @@
         "license": "MIT",
         "last_commit": "2025-02-17T18:45:06Z"
       },
-      "last_commit_days": 618,
+      "last_commit_days": 622,
       "status": "stale"
     },
     "license": "MIT"
@@ -1625,7 +1700,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1638,7 +1713,7 @@
         }
       ],
       "issues": [
-        "No commits for 327 days"
+        "No commits for 331 days"
       ],
       "github": {
         "reachable": true,
@@ -1655,7 +1730,7 @@
         "url": "https://www.npmjs.com/package/crypto-indicators-mcp",
         "links_back": true
       },
-      "last_commit_days": 327,
+      "last_commit_days": 331,
       "status": "aging"
     },
     "license": "MIT"
@@ -1681,7 +1756,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1697,10 +1772,10 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/atilaahmettaner/tradingview-mcp",
-        "stars": 5164,
+        "stars": 5190,
         "archived": false,
         "license": "MIT",
-        "last_commit": "2026-10-28T08:29:21Z"
+        "last_commit": "2026-10-29T14:24:40Z"
       },
       "pypi": {
         "name": "tradingview-mcp-server",
@@ -1709,7 +1784,7 @@
         "url": "https://pypi.org/project/tradingview-mcp-server/",
         "links_back": true
       },
-      "last_commit_days": 1,
+      "last_commit_days": 3,
       "status": "verified"
     },
     "license": "MIT"
@@ -1735,7 +1810,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1749,7 +1824,7 @@
       ],
       "issues": [
         "npm name 'binance-mcp' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 561 days"
+        "No commits for 564 days"
       ],
       "github": {
         "reachable": true,
@@ -1759,7 +1834,7 @@
         "license": null,
         "last_commit": "2025-04-16T06:57:55Z"
       },
-      "last_commit_days": 561,
+      "last_commit_days": 564,
       "status": "stale"
     },
     "license": "unknown"
@@ -1785,7 +1860,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1801,12 +1876,12 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/coinbase/agentkit",
-        "stars": 1345,
+        "stars": 1350,
         "archived": false,
         "license": "Apache-2.0",
         "last_commit": "2026-10-14T21:50:54Z"
       },
-      "last_commit_days": 14,
+      "last_commit_days": 18,
       "status": "verified"
     },
     "license": "Apache-2.0"
@@ -1832,7 +1907,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1860,7 +1935,7 @@
         "url": "https://www.npmjs.com/package/@bankless/onchain-mcp",
         "links_back": true
       },
-      "last_commit_days": 177,
+      "last_commit_days": 180,
       "status": "verified"
     },
     "license": "unknown"
@@ -1886,7 +1961,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1899,7 +1974,7 @@
         }
       ],
       "issues": [
-        "No commits for 541 days"
+        "No commits for 544 days"
       ],
       "github": {
         "reachable": true,
@@ -1909,7 +1984,7 @@
         "license": "MIT",
         "last_commit": "2025-05-06T08:53:13Z"
       },
-      "last_commit_days": 541,
+      "last_commit_days": 544,
       "status": "stale"
     },
     "license": "MIT"
@@ -1935,7 +2010,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -1963,7 +2038,7 @@
         "url": "https://www.npmjs.com/package/@bitget-ai/bitget-agent-mcp",
         "links_back": true
       },
-      "last_commit_days": 58,
+      "last_commit_days": 61,
       "status": "verified"
     },
     "license": "MIT"
@@ -1989,7 +2064,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2002,7 +2077,7 @@
         }
       ],
       "issues": [
-        "No commits for 636 days"
+        "No commits for 640 days"
       ],
       "github": {
         "reachable": true,
@@ -2019,7 +2094,7 @@
         "url": "https://www.npmjs.com/package/coincap-mcp",
         "links_back": true
       },
-      "last_commit_days": 636,
+      "last_commit_days": 640,
       "status": "stale"
     },
     "license": "MIT"
@@ -2045,7 +2120,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2058,7 +2133,7 @@
         }
       ],
       "issues": [
-        "No commits for 290 days"
+        "No commits for 293 days"
       ],
       "github": {
         "reachable": true,
@@ -2068,7 +2143,7 @@
         "license": "MIT",
         "last_commit": "2026-01-12T09:58:48Z"
       },
-      "last_commit_days": 290,
+      "last_commit_days": 293,
       "status": "aging"
     },
     "license": "MIT"
@@ -2094,7 +2169,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2143,7 +2218,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2159,12 +2234,12 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/sendaifun/solana-agent-kit",
-        "stars": 1729,
+        "stars": 1732,
         "archived": false,
         "license": "Apache-2.0",
         "last_commit": "2026-05-14T18:46:54Z"
       },
-      "last_commit_days": 167,
+      "last_commit_days": 171,
       "status": "verified"
     },
     "license": "Apache-2.0"
@@ -2190,7 +2265,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2204,7 +2279,7 @@
       ],
       "issues": [
         "npm name 'bitcoin-mcp' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 454 days"
+        "No commits for 457 days"
       ],
       "github": {
         "reachable": true,
@@ -2214,7 +2289,7 @@
         "license": "MIT",
         "last_commit": "2025-08-01T09:38:50Z"
       },
-      "last_commit_days": 454,
+      "last_commit_days": 457,
       "status": "stale"
     },
     "license": "MIT"
@@ -2240,7 +2315,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2256,12 +2331,12 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/coinbase/x402",
-        "stars": 176,
+        "stars": 178,
         "archived": false,
         "license": "Apache-2.0",
         "last_commit": "2026-10-27T22:27:13Z"
       },
-      "last_commit_days": 1,
+      "last_commit_days": 5,
       "status": "verified"
     },
     "license": "Apache-2.0"
@@ -2287,7 +2362,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2303,12 +2378,12 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/intuit/quickbooks-online-mcp-server",
-        "stars": 436,
+        "stars": 440,
         "archived": false,
         "license": "Apache-2.0",
         "last_commit": "2026-09-15T17:56:34Z"
       },
-      "last_commit_days": 43,
+      "last_commit_days": 47,
       "status": "verified"
     },
     "license": "Apache-2.0"
@@ -2334,7 +2409,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2350,7 +2425,7 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/XeroAPI/xero-mcp-server",
-        "stars": 386,
+        "stars": 388,
         "archived": false,
         "license": "MIT",
         "last_commit": "2026-10-26T07:23:13Z"
@@ -2362,7 +2437,7 @@
         "url": "https://www.npmjs.com/package/@xeroapi/xero-mcp-server",
         "links_back": true
       },
-      "last_commit_days": 3,
+      "last_commit_days": 6,
       "status": "verified"
     },
     "license": "MIT"
@@ -2388,7 +2463,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2404,10 +2479,10 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/norman-finance/norman-mcp-server",
-        "stars": 62,
+        "stars": 65,
         "archived": false,
         "license": "MIT",
-        "last_commit": "2026-10-29T12:26:04Z"
+        "last_commit": "2026-11-01T18:11:23Z"
       },
       "pypi": {
         "name": "norman-mcp-server",
@@ -2442,7 +2517,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2465,7 +2540,7 @@
       },
       "claude_marketplace": true,
       "root_skill_md": false,
-      "last_commit_days": 138,
+      "last_commit_days": 141,
       "status": "verified"
     },
     "license": "MIT"
@@ -2491,7 +2566,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2507,14 +2582,14 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/anthropics/financial-services",
-        "stars": 40901,
+        "stars": 40977,
         "archived": false,
         "license": "Apache-2.0",
         "last_commit": "2026-10-28T17:23:24Z"
       },
       "claude_marketplace": true,
       "root_skill_md": false,
-      "last_commit_days": 0,
+      "last_commit_days": 4,
       "status": "verified"
     },
     "license": "Apache-2.0"
@@ -2541,7 +2616,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2554,7 +2629,7 @@
         }
       ],
       "issues": [
-        "No commits for 377 days"
+        "No commits for 380 days"
       ],
       "github": {
         "reachable": true,
@@ -2564,13 +2639,13 @@
         "license": null,
         "last_commit": "2025-10-17T09:09:35Z",
         "collection": true,
-        "collection_stars": 78240,
+        "collection_stars": 78534,
         "subpath": "invoice-organizer",
         "subpath_exists": true
       },
       "claude_marketplace": false,
       "root_skill_md": true,
-      "last_commit_days": 377,
+      "last_commit_days": 380,
       "status": "stale"
     },
     "license": "unknown"
@@ -2596,7 +2671,7 @@
     },
     "remote_mcp_url": "https://mcp.stripe.com",
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2624,10 +2699,10 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/stripe/ai",
-        "stars": 2000,
+        "stars": 2028,
         "archived": false,
         "license": "MIT",
-        "last_commit": "2026-10-29T00:36:05Z"
+        "last_commit": "2026-11-02T00:32:53Z"
       },
       "docs": {
         "url": "https://docs.stripe.com/mcp",
@@ -2670,7 +2745,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2691,7 +2766,7 @@
         "license": "MIT",
         "last_commit": "2026-06-22T17:03:03Z"
       },
-      "last_commit_days": 128,
+      "last_commit_days": 132,
       "status": "verified"
     },
     "license": "MIT"
@@ -2717,7 +2792,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2766,7 +2841,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2794,7 +2869,7 @@
         "url": "https://www.npmjs.com/package/@akutishevsky/lunchmoney-mcp",
         "links_back": true
       },
-      "last_commit_days": 87,
+      "last_commit_days": 90,
       "status": "verified"
     },
     "license": "MIT"
@@ -2820,7 +2895,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2833,7 +2908,7 @@
         }
       ],
       "issues": [
-        "No commits for 508 days"
+        "No commits for 512 days"
       ],
       "github": {
         "reachable": true,
@@ -2843,7 +2918,7 @@
         "license": "MIT",
         "last_commit": "2025-06-08T04:25:30Z"
       },
-      "last_commit_days": 508,
+      "last_commit_days": 512,
       "status": "stale"
     },
     "license": "MIT"
@@ -2869,7 +2944,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2883,7 +2958,7 @@
       ],
       "issues": [
         "npm name 'actual-budget-mcp' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 220 days"
+        "No commits for 223 days"
       ],
       "github": {
         "reachable": true,
@@ -2893,7 +2968,7 @@
         "license": null,
         "last_commit": "2026-03-23T08:00:46Z"
       },
-      "last_commit_days": 220,
+      "last_commit_days": 223,
       "status": "aging"
     },
     "license": "unknown"
@@ -2919,7 +2994,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2938,12 +3013,12 @@
         "stars": 6,
         "archived": false,
         "license": "MIT",
-        "last_commit": "2026-10-28T22:33:48Z"
+        "last_commit": "2026-11-01T16:18:39Z"
       },
       "npm": {
         "name": "optionsahoy-mcp",
-        "version": "1.11.0",
-        "published": "2026-10-07T07:30:14.503Z",
+        "version": "1.11.1",
+        "published": "2026-11-01T16:18:09.683Z",
         "url": "https://www.npmjs.com/package/optionsahoy-mcp",
         "links_back": true
       },
@@ -2973,7 +3048,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -2989,10 +3064,10 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/stefanoamorelli/sec-edgar-mcp",
-        "stars": 380,
+        "stars": 383,
         "archived": false,
         "license": "AGPL-3.0",
-        "last_commit": "2026-10-03T09:11:21Z"
+        "last_commit": "2026-11-01T10:09:28Z"
       },
       "pypi": {
         "name": "sec-edgar-mcp",
@@ -3001,7 +3076,7 @@
         "url": "https://pypi.org/project/sec-edgar-mcp/",
         "links_back": true
       },
-      "last_commit_days": 26,
+      "last_commit_days": 0,
       "status": "verified"
     },
     "license": "AGPL-3.0"
@@ -3028,7 +3103,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3046,15 +3121,14 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/openbq-org/OpenBB",
-        "stars": 74866,
+        "stars": 75010,
         "archived": false,
         "license": "Apache-2.0",
-        "last_commit": "2026-10-24T09:08:28Z",
+        "last_commit": "2026-11-02T04:58:10Z",
         "cross_org_redirect": "https://github.com/openbq-org/OpenBB"
       },
-      "last_commit_days": 5,
-      "status": "unconfirmed",
-      "rechecked": true
+      "last_commit_days": 0,
+      "status": "unconfirmed"
     },
     "license": "Apache-2.0"
   },
@@ -3079,7 +3153,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3100,7 +3174,7 @@
         "license": "MIT",
         "last_commit": "2026-10-19T14:25:03Z"
       },
-      "last_commit_days": 9,
+      "last_commit_days": 13,
       "status": "verified"
     },
     "license": "MIT"
@@ -3126,7 +3200,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3154,7 +3228,7 @@
         "url": "https://www.npmjs.com/package/alphasmo",
         "links_back": true
       },
-      "last_commit_days": 77,
+      "last_commit_days": 81,
       "status": "verified"
     },
     "license": "MIT"
@@ -3180,7 +3254,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3203,7 +3277,7 @@
       },
       "claude_marketplace": false,
       "root_skill_md": false,
-      "last_commit_days": 12,
+      "last_commit_days": 16,
       "status": "verified"
     },
     "license": "MIT-0"
@@ -3229,7 +3303,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3242,7 +3316,7 @@
         }
       ],
       "issues": [
-        "No commits for 573 days"
+        "No commits for 576 days"
       ],
       "github": {
         "reachable": true,
@@ -3252,7 +3326,7 @@
         "license": null,
         "last_commit": "2025-04-04T10:30:18Z"
       },
-      "last_commit_days": 573,
+      "last_commit_days": 576,
       "status": "stale"
     },
     "license": "unknown"
@@ -3278,7 +3352,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3301,7 +3375,7 @@
         "license": "MIT",
         "last_commit": "2026-09-07T14:29:20Z"
       },
-      "last_commit_days": 51,
+      "last_commit_days": 55,
       "status": "verified"
     },
     "license": "MIT"
@@ -3327,7 +3401,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3343,14 +3417,14 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/quant-sentiment-ai/claude-equity-research",
-        "stars": 749,
+        "stars": 751,
         "archived": false,
         "license": "MIT",
-        "last_commit": "2026-10-29T10:56:03Z"
+        "last_commit": "2026-10-31T10:25:51Z"
       },
       "claude_marketplace": true,
       "root_skill_md": false,
-      "last_commit_days": 0,
+      "last_commit_days": 1,
       "status": "verified"
     },
     "license": "MIT"
@@ -3376,7 +3450,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3389,7 +3463,7 @@
         }
       ],
       "issues": [
-        "No commits for 945 days"
+        "No commits for 949 days"
       ],
       "github": {
         "reachable": true,
@@ -3401,7 +3475,7 @@
       },
       "claude_marketplace": false,
       "root_skill_md": false,
-      "last_commit_days": 945,
+      "last_commit_days": 949,
       "status": "stale"
     },
     "license": "MIT"
@@ -3427,7 +3501,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3448,7 +3522,7 @@
         "license": "Apache-2.0",
         "last_commit": "2026-10-26T19:34:55Z"
       },
-      "last_commit_days": 2,
+      "last_commit_days": 6,
       "status": "verified"
     },
     "license": "Apache-2.0"
@@ -3474,7 +3548,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3522,7 +3596,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3550,7 +3624,7 @@
         "url": "https://pypi.org/project/varrd/",
         "links_back": true
       },
-      "last_commit_days": 58,
+      "last_commit_days": 62,
       "status": "verified"
     },
     "license": "MIT"
@@ -3576,7 +3650,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3604,7 +3678,7 @@
         "url": "https://pypi.org/project/chartlibrary-mcp/",
         "links_back": true
       },
-      "last_commit_days": 48,
+      "last_commit_days": 52,
       "status": "verified"
     },
     "license": "MIT"
@@ -3630,7 +3704,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3649,7 +3723,7 @@
         "stars": 420,
         "archived": false,
         "license": null,
-        "last_commit": "2026-10-29T08:19:28Z"
+        "last_commit": "2026-11-01T18:28:01Z"
       },
       "claude_marketplace": true,
       "root_skill_md": false,
@@ -3679,7 +3753,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3695,14 +3769,14 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/tradermonty/claude-trading-skills",
-        "stars": 3421,
+        "stars": 3543,
         "archived": false,
         "license": "MIT",
-        "last_commit": "2026-10-26T18:34:48Z"
+        "last_commit": "2026-11-02T04:30:31Z"
       },
       "claude_marketplace": false,
       "root_skill_md": false,
-      "last_commit_days": 2,
+      "last_commit_days": 0,
       "status": "verified"
     },
     "license": "MIT"
@@ -3728,7 +3802,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3744,14 +3818,14 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/Superior-Trade/superior-skills",
-        "stars": 216,
+        "stars": 218,
         "archived": false,
         "license": "MIT",
         "last_commit": "2026-09-10T03:54:44Z"
       },
       "claude_marketplace": true,
       "root_skill_md": true,
-      "last_commit_days": 49,
+      "last_commit_days": 53,
       "status": "verified"
     },
     "license": "MIT"
@@ -3777,7 +3851,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3790,7 +3864,7 @@
         }
       ],
       "issues": [
-        "No commits for 425 days"
+        "No commits for 429 days"
       ],
       "github": {
         "reachable": true,
@@ -3809,7 +3883,7 @@
         "url": "https://www.npmjs.com/package/@degentic/cc-trading-terminal",
         "links_back": true
       },
-      "last_commit_days": 425,
+      "last_commit_days": 429,
       "status": "stale"
     },
     "license": "unknown"
@@ -3835,7 +3909,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -3856,7 +3930,7 @@
         "license": null,
         "last_commit": "2026-08-07T01:49:29Z"
       },
-      "last_commit_days": 83,
+      "last_commit_days": 87,
       "status": "verified"
     },
     "license": "unknown"
@@ -3882,7 +3956,7 @@
     },
     "remote_mcp_url": "https://mcp.tradingview.com/mcp",
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
@@ -3951,7 +4025,7 @@
     },
     "remote_mcp_url": "https://agent.robinhood.com/mcp/trading",
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
@@ -4020,36 +4094,51 @@
     },
     "remote_mcp_url": "https://financialmodelingprep.com/mcp?apikey=YOUR_FMP_API_KEY",
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "remote MCP endpoint responds",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://site.financialmodelingprep.com/developer/docs/mcp-server",
         "ok": true,
-        "status": 403
+        "status": 200,
+        "result": "ok",
+        "first_status": 403,
+        "retry": "browser-headers"
       },
       "docs": {
         "url": "https://site.financialmodelingprep.com/developer/docs/mcp-server",
         "ok": true,
-        "status": 403
+        "status": 200,
+        "result": "ok",
+        "first_status": 403,
+        "retry": "browser-headers"
       },
       "remote_mcp": {
         "url": "https://financialmodelingprep.com/mcp?apikey=YOUR_FMP_API_KEY",
         "ok": true,
-        "status": 400
+        "status": 200,
+        "result": "ok",
+        "method": "POST",
+        "evidence": "mcp-initialize"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -4077,7 +4166,7 @@
     },
     "remote_mcp_url": "https://mcp.eodhd.com/v2/mcp",
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -4111,7 +4200,7 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/EodHistoricalData/EODHD-MCP-Server",
-        "stars": 23,
+        "stars": 24,
         "archived": false,
         "license": "MIT",
         "last_commit": "2026-10-22T13:32:41Z"
@@ -4137,7 +4226,7 @@
         "evidence": "mcp-oauth",
         "resource_metadata": "https://mcp.eodhd.com/.well-known/oauth-protected-resource/v2/mcp"
       },
-      "last_commit_days": 7,
+      "last_commit_days": 10,
       "status": "verified"
     },
     "license": "MIT"
@@ -4163,7 +4252,7 @@
     },
     "remote_mcp_url": "https://mcp.finnhub.io/mcp",
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
@@ -4233,7 +4322,7 @@
     "remote_mcp_url": "https://mcp.paypal.com/mcp",
     "remote_mcp_url_note": "PayPal's docs list https://mcp.paypal.com/http, which returns 404 (checked 2026-10-29); /mcp is the live endpoint (401 with valid OAuth metadata). /sse also works.",
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -4267,7 +4356,7 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/paypal/agent-toolkit",
-        "stars": 197,
+        "stars": 198,
         "archived": false,
         "license": "Apache-2.0",
         "last_commit": "2026-09-01T04:04:35Z"
@@ -4293,7 +4382,7 @@
         "evidence": "mcp-oauth",
         "resource_metadata": "https://mcp.paypal.com/.well-known/oauth-protected-resource/mcp"
       },
-      "last_commit_days": 58,
+      "last_commit_days": 62,
       "status": "verified"
     },
     "license": "Apache-2.0"
@@ -4319,7 +4408,7 @@
     },
     "remote_mcp_url": "https://mcp.squareup.com/mcp",
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -4381,7 +4470,7 @@
         "evidence": "mcp-oauth",
         "resource_metadata": "https://mcp.squareup.com/.well-known/oauth-protected-resource/mcp"
       },
-      "last_commit_days": 15,
+      "last_commit_days": 18,
       "status": "verified"
     },
     "license": "Apache-2.0"
@@ -4407,7 +4496,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -4420,7 +4509,9 @@
         },
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
@@ -4430,14 +4521,15 @@
         "stars": 27,
         "archived": false,
         "license": "MIT",
-        "last_commit": "2026-10-29T03:34:16Z"
+        "last_commit": "2026-10-31T10:20:49Z"
       },
       "homepage": {
         "url": "https://www.adyen.com/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
-      "last_commit_days": 0,
+      "last_commit_days": 1,
       "status": "verified"
     },
     "license": "MIT"
@@ -4463,7 +4555,7 @@
     },
     "remote_mcp_url": "https://mcp.razorpay.com/mcp",
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -4494,7 +4586,7 @@
         "stars": 231,
         "archived": false,
         "license": "MIT",
-        "last_commit": "2026-10-28T07:09:40Z"
+        "last_commit": "2026-10-30T10:55:34Z"
       },
       "homepage": {
         "url": "https://razorpay.com/",
@@ -4511,7 +4603,7 @@
         "evidence": "mcp-oauth",
         "resource_metadata": "https://mcp.razorpay.com/.well-known/oauth-protected-resource"
       },
-      "last_commit_days": 1,
+      "last_commit_days": 2,
       "status": "verified"
     },
     "license": "MIT"
@@ -4537,7 +4629,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -4550,7 +4642,9 @@
         },
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
@@ -4572,9 +4666,10 @@
       "homepage": {
         "url": "https://www.paddle.com/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
-      "last_commit_days": 31,
+      "last_commit_days": 35,
       "status": "verified"
     },
     "license": "Apache-2.0"
@@ -4600,7 +4695,7 @@
     },
     "remote_mcp_url": "https://mcp.mercury.com/mcp",
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
@@ -4670,27 +4765,33 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/article_3200541651.html",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://docs.oracle.com/en/cloud/saas/netsuite/ns-online-help/section_0714082142.html",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -4718,27 +4819,33 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://www.zoho.com/us/books/help/mcp/zoho-books-mcp.html",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://www.zoho.com/us/books/help/mcp/zoho-books-mcp.html",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -4766,7 +4873,7 @@
     },
     "remote_mcp_url": "https://mcp.avalara.com/avatax",
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
@@ -4835,27 +4942,33 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://api.ynab.com/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://api.ynab.com/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -4883,7 +4996,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -4899,19 +5012,19 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/calebl/ynab-mcp-server",
-        "stars": 160,
+        "stars": 161,
         "archived": false,
         "license": "MIT",
-        "last_commit": "2026-10-28T19:26:18Z"
+        "last_commit": "2026-10-31T18:23:28Z"
       },
       "npm": {
         "name": "ynab-mcp-server",
-        "version": "0.7.1",
-        "published": "2026-10-27T02:17:11.368Z",
+        "version": "0.7.2",
+        "published": "2026-11-01T11:17:21.912Z",
         "url": "https://www.npmjs.com/package/ynab-mcp-server",
         "links_back": true
       },
-      "last_commit_days": 0,
+      "last_commit_days": 1,
       "status": "verified"
     },
     "license": "MIT"
@@ -4937,7 +5050,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -4950,34 +5063,45 @@
         },
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": false,
+          "result": "gated",
+          "note": "403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)]"
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": false,
+          "result": "gated",
+          "note": "403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)]"
         }
       ],
-      "issues": [],
+      "issues": [
+        "Could not confirm: homepage 403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)]; docs 403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)]"
+      ],
       "github": {
         "reachable": true,
         "final_url": "https://github.com/firefly-iii/firefly-iii",
-        "stars": 25026,
+        "stars": 25057,
         "archived": false,
         "license": "AGPL-3.0",
-        "last_commit": "2026-10-29T04:17:08Z"
+        "last_commit": "2026-11-02T03:11:39Z"
       },
       "homepage": {
         "url": "https://www.firefly-iii.org/",
-        "ok": true,
-        "status": 200
+        "ok": false,
+        "status": 403,
+        "result": "gated",
+        "why": "bot challenge page (cf-mitigated)"
       },
       "docs": {
         "url": "https://api-docs.firefly-iii.org/",
-        "ok": true,
-        "status": 200
+        "ok": false,
+        "status": 403,
+        "result": "gated",
+        "why": "bot challenge page (cf-mitigated)"
       },
       "last_commit_days": 0,
-      "status": "verified"
+      "status": "unconfirmed",
+      "rechecked": true
     },
     "license": "AGPL-3.0"
   },
@@ -5002,27 +5126,33 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://www.bls.gov/developers/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://www.bls.gov/developers/api_faqs.htm",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -5050,27 +5180,33 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://apps.bea.gov/api/signup/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://apps.bea.gov/api/signup/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -5098,27 +5234,33 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392-about-the-indicators-api-documentation",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -5146,27 +5288,33 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "homepage": {
         "url": "https://db.nomics.world/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://docs.db.nomics.world/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": null,
       "status": "verified"
@@ -5194,7 +5342,7 @@
     },
     "remote_mcp_url": "https://mcp.frankfurter.dev/",
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -5207,42 +5355,53 @@
         },
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "remote MCP endpoint responds",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "github": {
         "reachable": true,
         "final_url": "https://github.com/lineofflight/frankfurter",
-        "stars": 2045,
+        "stars": 2052,
         "archived": false,
         "license": "MIT",
-        "last_commit": "2026-10-25T21:47:21Z"
+        "last_commit": "2026-10-30T06:35:48Z"
       },
       "homepage": {
         "url": "https://frankfurter.dev/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://frankfurter.dev/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
       "remote_mcp": {
         "url": "https://mcp.frankfurter.dev/",
         "ok": true,
-        "status": 405
+        "status": 200,
+        "result": "ok",
+        "method": "POST",
+        "evidence": "mcp-initialize"
       },
-      "last_commit_days": 3,
+      "last_commit_days": 2,
       "status": "verified"
     },
     "license": "MIT"
@@ -5268,7 +5427,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -5281,7 +5440,9 @@
         },
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
@@ -5303,9 +5464,10 @@
       "homepage": {
         "url": "https://developer.webull.com/apis/home/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
-      "last_commit_days": 3,
+      "last_commit_days": 7,
       "status": "verified"
     },
     "license": "Apache-2.0"
@@ -5331,7 +5493,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -5347,12 +5509,12 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/krakenfx/kraken-cli",
-        "stars": 783,
+        "stars": 792,
         "archived": false,
         "license": "MIT",
         "last_commit": "2026-10-29T10:32:10Z"
       },
-      "last_commit_days": 0,
+      "last_commit_days": 3,
       "status": "verified"
     },
     "license": "MIT"
@@ -5378,7 +5540,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -5394,12 +5556,12 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/jkoelker/schwab-mcp",
-        "stars": 66,
+        "stars": 67,
         "archived": false,
         "license": "MIT",
-        "last_commit": "2026-10-29T09:40:51Z"
+        "last_commit": "2026-10-30T17:15:15Z"
       },
-      "last_commit_days": 0,
+      "last_commit_days": 2,
       "status": "verified"
     },
     "license": "MIT"
@@ -5425,7 +5587,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -5441,14 +5603,14 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/alpacahq/alpaca-skills",
-        "stars": 157,
+        "stars": 158,
         "archived": false,
         "license": "Apache-2.0",
         "last_commit": "2026-10-27T16:44:14Z"
       },
       "claude_marketplace": false,
       "root_skill_md": false,
-      "last_commit_days": 1,
+      "last_commit_days": 5,
       "status": "verified"
     },
     "license": "Apache-2.0"
@@ -5474,7 +5636,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -5487,14 +5649,16 @@
         },
         {
           "check": "homepage alive",
-          "ok": true
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
       "issues": [],
       "github": {
         "reachable": true,
         "final_url": "https://github.com/longbridge/skills",
-        "stars": 67,
+        "stars": 69,
         "archived": false,
         "license": "MIT",
         "last_commit": "2026-10-26T03:18:43Z"
@@ -5504,9 +5668,10 @@
       "homepage": {
         "url": "https://longbridge.com/",
         "ok": true,
-        "status": 200
+        "status": 200,
+        "result": "ok"
       },
-      "last_commit_days": 3,
+      "last_commit_days": 7,
       "status": "verified"
     },
     "license": "MIT"
@@ -5532,7 +5697,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -5555,7 +5720,7 @@
       },
       "claude_marketplace": false,
       "root_skill_md": false,
-      "last_commit_days": 85,
+      "last_commit_days": 89,
       "status": "verified"
     },
     "license": "MIT"
@@ -5581,7 +5746,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-10-29",
+      "checked_at": "2026-11-02",
       "checks": [
         {
           "check": "repo reachable",
@@ -5599,14 +5764,14 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/staskh/trading_skills",
-        "stars": 396,
+        "stars": 399,
         "archived": false,
         "license": "MIT",
-        "last_commit": "2026-10-27T22:12:49Z"
+        "last_commit": "2026-11-01T10:19:34Z"
       },
       "claude_marketplace": false,
       "root_skill_md": false,
-      "last_commit_days": 1,
+      "last_commit_days": 0,
       "status": "verified"
     },
     "license": "MIT"
