@@ -18,6 +18,7 @@
   "rechecked": "Re-checked every week.",
   "directory": "Directory",
   "comparisons": "Comparisons",
+  "guides": "Guides",
   "latestRun": "Latest verification run",
   "makers": "For makers",
   "submitFree": "Submit a tool (free)",
@@ -139,8 +140,8 @@
    "Published free-tier limits and entry prices of the major market-data APIs, each linked to the vendor's pricing page."
   ],
   "best-stock-market-mcp-servers": [
-   "Stock market MCP servers compared",
-   "MCP servers that bring stock and fundamentals data into Claude, Cursor and other AI clients — by maintenance status, stars, license and install method."
+   "Best MCP servers for stock market data (2026)",
+   "Official and community MCP servers for stock prices, fundamentals and news in Claude, ChatGPT and Cursor, compared by data source, free tier and setup."
   ],
   "broker-trading-mcp-servers": [
    "Broker & trading MCP servers compared",
@@ -294,6 +295,7 @@
   "free": "free",
   "notEndorse": "Listing a tool is not an endorsement or investment advice. Test any trading tool in paper mode first.",
   "more": "More in {cat}",
+  "guides": "Guides featuring this tool",
   "pricingDataNote": "Pricing details are quoted in English from the vendor's page."
  },
  "checks": {

@@ -18,6 +18,7 @@
   "rechecked": "Revérifié chaque semaine.",
   "directory": "Annuaire",
   "comparisons": "Comparatifs",
+  "guides": "Guides (en anglais)",
   "latestRun": "Dernière vérification",
   "makers": "Pour les créateurs",
   "submitFree": "Proposer un outil (gratuit)",
@@ -293,6 +294,7 @@
   "free": "gratuit",
   "notEndorse": "Le référencement d'un outil n'est ni une approbation ni un conseil en investissement. Testez d'abord tout outil de trading en mode démo.",
   "more": "Plus dans {cat}",
+  "guides": "Guides sur cet outil (en anglais)",
   "pricingDataNote": "Les détails tarifaires sont cités en anglais depuis la page de l'éditeur."
  },
  "checks": {

@@ -5,8 +5,11 @@ import { useA11yT } from "../i18n/a11y";
 import FeaturedOn from "../components/FeaturedOn.astro";
 import { SITE } from "../config";
 import { LOCALES, CODES, useT, basePath, pathFor, localeOf } from "../i18n";
-interface Props { title: string; description?: string; jsonld?: any[]; noindex?: boolean; og?: string; lang?: string }
-const { title, description, jsonld = [], noindex = false, og = "home", lang = "en" } = Astro.props;
+// `langs`: locales this page exists in (default: all). English-only pages (guides) pass ["en"] so hreflang and the language
+// menu never point at a translation that doesn't exist. `article` adds og:type=article and the published/modified times.
+interface Props { title: string; description?: string; jsonld?: any[]; noindex?: boolean; og?: string; lang?: string; langs?: string[]; article?: { published: string; modified: string } }
+const { title, description, jsonld = [], noindex = false, og = "home", lang = "en", langs, article } = Astro.props;
+const avail = langs ?? CODES;
 const { t, p, dir } = useT(lang);
 const tagline = t("meta.tagline");
 const desc = description ?? t("meta.description");
@@ -36,9 +39,9 @@ const at = useA11yT(lang);
 <meta name="color-scheme" content="light dark" />
 <title>{fullTitle}</title><meta name="description" content={desc} />{!isNotFound && <link rel="canonical" href={canonical} />}
 {noindex && <meta name="robots" content="noindex" />}
-{!noindex && LOCALES.map((l) => <link rel="alternate" hreflang={l.code} href={new URL(pathFor(l.code, base), SITE.url).href} />)}
+{!noindex && LOCALES.filter((l) => avail.includes(l.code)).map((l) => <link rel="alternate" hreflang={l.code} href={new URL(pathFor(l.code, base), SITE.url).href} />)}
 {!noindex && <link rel="alternate" hreflang="x-default" href={new URL(base, SITE.url).href} />}
-<meta property="og:title" content={fullTitle} /><meta property="og:description" content={desc} /><meta property="og:url" content={canonical} /><meta property="og:type" content="website" /><meta property="og:locale" content={cur.og} /><meta property="og:site_name" content={SITE.name} /><meta property="og:image" content={ogUrl} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={fullTitle} /><meta name="twitter:image" content={ogUrl} /><link rel="alternate" type="application/rss+xml" title={`${SITE.name} weekly`} href="/rss.xml" />
+<meta property="og:title" content={fullTitle} /><meta property="og:description" content={desc} /><meta property="og:url" content={canonical} /><meta property="og:type" content={article ? "article" : "website"} />{article && <><meta property="article:published_time" content={article.published} /><meta property="article:modified_time" content={article.modified} /></>}<meta property="og:locale" content={cur.og} /><meta property="og:site_name" content={SITE.name} /><meta property="og:image" content={ogUrl} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={fullTitle} /><meta name="twitter:image" content={ogUrl} /><link rel="alternate" type="application/rss+xml" title={`${SITE.name} weekly`} href="/rss.xml" />
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="sitemap" href="/sitemap-index.xml" />
 <script type="application/ld+json" set:html={JSON.stringify(org)} />
 {jsonld.map((j) => <script type="application/ld+json" set:html={JSON.stringify(j)} />)}
@@ -58,7 +61,7 @@ const at = useA11yT(lang);
   <nav class="main" aria-label={at("w.navMain")}><a href={p("/tools/")}>{t("nav.tools")}</a><a href={p("/categories/")}>{t("nav.categories")}</a><a href={p("/compare/")}>{t("nav.compare")}</a><a href={p("/weekly/")}>{t("nav.weekly")}</a><a href={p("/badges/")}>{t("nav.badges")}</a><a href={p("/about/")}>{t("nav.verify")}</a></nav>
   <div class="hdr-tools">
     <details class="langs"><summary title={t("nav.language")}><span aria-hidden="true">🌐 </span><span class="sr-only">{t("nav.language")}: </span><span>{lang.toUpperCase()}</span></summary>
-      <div class="langmenu">{LOCALES.map((l) => <a href={pathFor(l.code, base)} hreflang={l.code} lang={l.code} dir={l.dir} data-lang={l.code} class={l.code === lang ? "on" : ""}>{l.name}</a>)}</div>
+      <div class="langmenu">{LOCALES.map((l) => <a href={pathFor(l.code, avail.includes(l.code) ? base : "/")} hreflang={l.code} lang={l.code} dir={l.dir} data-lang={l.code} class={l.code === lang ? "on" : ""}>{l.name}</a>)}</div>
     </details>
     <button class="themetoggle" type="button" aria-pressed="false" aria-label={t("nav.theme")} title={t("nav.theme")}><span class="sun">☀️</span><span class="moon">🌙</span></button>
     <a class="btn" href={p("/submit/")}>{t("nav.submit")}</a>
@@ -68,7 +71,7 @@ const at = useA11yT(lang);
 <footer class="site"><div class="wrap">
   <div class="cols">
     <div><div class="logo" dir="ltr">{SITE.name}</div><div>{tagline}. {t("footer.rechecked")}</div></div>
-    <div><b>{t("footer.directory")}</b><br/><a href={p("/tools/")}>{t("nav.tools")}</a><br/><a href={p("/categories/")}>{t("nav.categories")}</a><br/><a href={p("/compare/")}>{t("footer.comparisons")}</a><br/><a href={p("/verification/")}>{t("footer.latestRun")}</a></div>
+    <div><b>{t("footer.directory")}</b><br/><a href={p("/tools/")}>{t("nav.tools")}</a><br/><a href={p("/categories/")}>{t("nav.categories")}</a><br/><a href={p("/compare/")}>{t("footer.comparisons")}</a><br/><a href="/guides/" hreflang={lang === "en" ? undefined : "en"}>{t("footer.guides")}</a><br/><a href={p("/verification/")}>{t("footer.latestRun")}</a></div>
     <div><b>{t("footer.makers")}</b><br/><a href={p("/submit/")}>{t("footer.submitFree")}</a><br/><a href={p("/badges/")}>{t("footer.getBadge")}</a><br/><a href={p("/weekly/")}>{t("nav.weekly")}</a><br/><a href="/rss.xml">RSS</a> · <a href={SITE.githubAwesomeRepo}>{t("footer.awesome")}</a></div>
     <div><b>{t("footer.legal")}</b><br/><a href={p("/disclaimer/")}>{t("footer.nia")}</a><br/><a href={p("/privacy/")}>{t("footer.privacy")}</a><br/><a href={p("/terms/")}>{t("footer.terms")}</a><br/><a href={p("/about/")}>{t("footer.about")}</a><br/><a href={p("/accessibility/")}>{at("w.statement")}</a><br/><a href={p("/advertise/")}>{t("footer.advertise")}</a></div>
   </div>

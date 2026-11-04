@@ -1,0 +1,43 @@
+---
+// One page per src/content/guides/<slug>.md. Guides are English-only: no /<lang>/guides/ routes, hreflang en + x-default
+// only, and the locale sitemaps list only URLs that exist (scripts/locale_sitemaps.mjs). See src/lib/guides.ts.
+import Base from "../../layouts/Base.astro";
+import ToolCard from "../../components/ToolCard.astro";
+import Share from "../../components/Share.astro";
+import Newsletter from "../../components/Newsletter.astro";
+import { SITE } from "../../config";
+import { tools, COMPARISONS } from "../../lib/data";
+import { techArticleLd } from "../../lib/jsonld";
+import { faqLd } from "../../lib/faq";
+import { GUIDES, render, type Guide } from "../../lib/guides";
+export function getStaticPaths() { return GUIDES.map((g) => ({ params: { slug: g.slug }, props: { g } })); }
+const { g } = Astro.props as { g: Guide };
+const { parts, faq } = await render(g.mod, `src/content/guides/${g.slug}.md`, g.tv_cta);
+const html = parts.join("");
+const path = `/guides/${g.slug}/`, url = `${SITE.url}${path}`;
+const fmt = (d: string) => new Date(`${d}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+const ld = [
+  techArticleLd({ url, headline: g.h1, description: g.description, lang: "en", datePublished: g.datePublished, dateModified: g.dateModified, toolIds: g.tools, image: `${SITE.url}/og/guide-${g.slug}.png` }),
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE.url}/` },
+    { "@type": "ListItem", position: 2, name: "Guides", item: `${SITE.url}/guides/` },
+    { "@type": "ListItem", position: 3, name: g.h1, item: url } ] },
+  ...(faq.length ? [faqLd(faq, "en")] : []),
+];
+const featured = g.tools.map((id) => tools.find((t) => t.id === id)!).filter(Boolean);
+const comps = g.compare.map((s) => COMPARISONS.find((c) => c.slug === s)!).filter(Boolean);
+const more = GUIDES.filter((x) => x.slug !== g.slug);
+---
+<Base title={g.title} description={g.description} jsonld={ld} og={`guide-${g.slug}`} lang="en" langs={["en"]} article={{ published: g.datePublished, modified: g.dateModified }}>
+<div class="wrap page">
+  <div class="crumbs"><a href="/">Home</a> / <a href="/guides/">Guides</a></div>
+  <h1>{g.h1}</h1>
+  <p class="guide-meta">Last checked against vendor docs and GitHub: <time datetime={g.dateModified}>{fmt(g.dateModified)}</time> · Not investment advice</p>
+  <Share path={path} text={g.h1} lang="en" />
+  <article class="prose guide" set:html={html} />
+  {featured.length > 0 && <><h2 class="sec">Tools in this guide</h2><div class="grid">{featured.map((t) => <ToolCard t={t} lang="en" />)}</div></>}
+  {comps.length > 0 && <><h2 class="sec">Related comparisons</h2><div class="grid">{comps.map((c) => <a class="card" href={`/compare/${c.slug}/`}><h3>{c.title}</h3><p>{c.intro}</p></a>)}</div></>}
+  {more.length > 0 && <><h2 class="sec">More guides</h2><div class="grid">{more.map((x) => <a class="card" href={`/guides/${x.slug}/`}><h3>{x.h1}</h3><p>{x.summary}</p></a>)}</div></>}
+  <Newsletter lang="en" level={2} />
+</div>
+</Base>

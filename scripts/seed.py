@@ -13,7 +13,7 @@ OSS=lambda extra="": P("open-source","Free (self-hosted)",None,("Open-source; yo
 AV=P("freemium","25 requests/day","$49.99/mo","Premium plans $49.99–$249.99/mo (75–1,200 req/min).","https://www.alphavantage.co/premium/")
 MAS=P("freemium","Stocks Basic: 5 calls/min, EOD, 2 yrs history","$29/mo","Starter $29, Developer $79, Advanced $199 (real-time) per month; individual non-pro use.","https://massive.com/stocks")
 FMP=P("freemium","250 calls/day, EOD","$29/mo","Starter $29, Premium $69, Ultimate $139 per month ($19/$49/$99 billed annually).","https://site.financialmodelingprep.com/pricing-plans")
-FH=P("freemium","60 calls/min, US real-time quotes","$50/mo per market (fundamentals)","Fundamental-1 $50/mo/market, Fundamental-2 $200/mo/market (published). Other plan prices not verified.","https://www.finnhub.io/pricing-fundamental-data")
+FH=P("freemium","Free tier available (see Finnhub pricing)","$50/mo per market (fundamentals)","Fundamental-1 $50/mo/market, Fundamental-2 $200/mo/market (published). Other plan prices not verified.","https://www.finnhub.io/pricing-fundamental-data")
 TD=P("freemium","8 credits/min, 800/day","$29/mo","Grow $29–79, Pro $99–229, Ultra $329–999 per month.","https://twelvedata.com/pricing")
 EOD=P("freemium","20 calls/day, 1 yr EOD","$19.99/mo","EOD $19.99, EOD+Intraday $29.99, Fundamentals $59.99, All-In-One $99.99 per month.","https://eodhd.com/pricing")
 CG=P("freemium","Demo: 10,000 credits/mo, 100 calls/min","$35/mo","Basic $35/mo ($29 annual), Analyst $129/mo.","https://www.coingecko.com/en/api/pricing")

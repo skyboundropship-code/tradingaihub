@@ -18,6 +18,7 @@
   "rechecked": "Verificado novamente toda semana.",
   "directory": "Diretório",
   "comparisons": "Comparativos",
+  "guides": "Guias (em inglês)",
   "latestRun": "Última verificação",
   "makers": "Para criadores",
   "submitFree": "Enviar uma ferramenta (grátis)",
@@ -293,6 +294,7 @@
   "free": "grátis",
   "notEndorse": "Listar uma ferramenta não é endosso nem recomendação de investimento. Teste qualquer ferramenta de trading primeiro em modo de simulação.",
   "more": "Mais em {cat}",
+  "guides": "Guias sobre esta ferramenta (em inglês)",
   "pricingDataNote": "Os detalhes de preços são citados em inglês a partir da página do fornecedor."
  },
  "checks": {
