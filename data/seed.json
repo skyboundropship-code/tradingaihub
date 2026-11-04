@@ -75,7 +75,7 @@
     "official": true,
     "pricing": {
       "model": "freemium",
-      "free_tier": "60 calls/min, US real-time quotes",
+      "free_tier": "Free tier available (see Finnhub pricing)",
       "paid_from": "$50/mo per market (fundamentals)",
       "details": "Fundamental-1 $50/mo/market, Fundamental-2 $200/mo/market (published). Other plan prices not verified.",
       "source": "https://www.finnhub.io/pricing-fundamental-data",
@@ -285,7 +285,7 @@
     "official": false,
     "pricing": {
       "model": "freemium",
-      "free_tier": "60 calls/min, US real-time quotes",
+      "free_tier": "Free tier available (see Finnhub pricing)",
       "paid_from": "$50/mo per market (fundamentals)",
       "details": "Fundamental-1 $50/mo/market, Fundamental-2 $200/mo/market (published). Other plan prices not verified.",
       "source": "https://www.finnhub.io/pricing-fundamental-data",
@@ -1673,7 +1673,7 @@
     "official": true,
     "pricing": {
       "model": "freemium",
-      "free_tier": "60 calls/min, US real-time quotes",
+      "free_tier": "Free tier available (see Finnhub pricing)",
       "paid_from": "$50/mo per market (fundamentals)",
       "details": "No separate MCP fee; dataset access follows your Finnhub plan. Fundamental-1 $50/mo/market, Fundamental-2 $200/mo/market (published).",
       "source": "https://www.finnhub.io/pricing-fundamental-data",

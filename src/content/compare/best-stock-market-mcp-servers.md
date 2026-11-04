@@ -37,7 +37,7 @@ This page compares the stock-data MCP servers we track. **Official vendor server
 | [Maverick MCP](/tools/maverick-mcp/) | Community (wshobson) | Yahoo Finance via `yfinance` | Local (uv) | No key for core tools | n/a | Maintained, MIT |
 | [investor-agent](/tools/investor-agent/) | Community (ferdousbhai) | Mixed public sources | Hosted `https://investor.ferdousbhai.com/mcp` (no auth) or build from source | No key needed | n/a | Maintained, MIT |
 | [Financial Datasets MCP](/tools/financial-datasets-mcp/) | Financial Datasets | Financial Datasets API | Local (uv) | Not verified | Not verified | **Stale** (last commit Jun 2025) |
-| [Stock Market MCP (Finnhub)](/tools/finnhub-mcp-community/) | Community (sverze) | Finnhub API | Local (uv) | Finnhub: 60 calls/min | Varies by plan | **Stale** (last commit May 2025) |
+| [Stock Market MCP (Finnhub)](/tools/finnhub-mcp-community/) | Community (sverze) | Finnhub API | Local (uv) | Free tier available (see [Finnhub pricing](https://finnhub.io/pricing)) | Varies by plan | **Stale** (last commit May 2025) |
 
 "Maintained" means the repo had commits in October 2026 when we checked. "Vendor-hosted" means the data vendor runs the server and documents it, so we check it against the vendor's docs rather than repo activity. Free-tier limits belong to the underlying **data API**, not the MCP server. Many vendors restrict their individual plans to personal or non-professional use, so check the license before using data commercially.
 
@@ -104,7 +104,7 @@ EODHD runs an [official hosted MCP server](/tools/eodhd-mcp/). According to its 
 ### Stale servers (use with care)
 
 - [Financial Datasets MCP](/tools/financial-datasets-mcp/) is popular on GitHub, but it had no commits after June 2025 when we checked. It requires a Financial Datasets API key, and we haven't verified current plan pricing.
-- [Stock Market MCP (Finnhub)](/tools/finnhub-mcp-community/) is a small community server using the Finnhub API, with its last commit in May 2025. Finnhub's free tier is listed at 60 calls per minute. Finnhub's API docs also say Finnhub now offers its own MCP server for ChatGPT, Claude and Gemini Enterprise ([Finnhub MCP (official)](/tools/finnhub-mcp/)), so check that before you rely on this community server.
+- [Stock Market MCP (Finnhub)](/tools/finnhub-mcp-community/) is a small community server using the Finnhub API, with its last commit in May 2025. Finnhub: Free tier available (see [Finnhub pricing](https://finnhub.io/pricing)). Finnhub's API docs also say Finnhub now offers its own MCP server for ChatGPT, Claude and Gemini Enterprise ([Finnhub MCP (official)](/tools/finnhub-mcp/)), so check that before you rely on this community server.
 
 ## How to choose
 
@@ -160,6 +160,6 @@ TradingView and EODHD pricing links marked **Partner** on this page are affiliat
 - investor-agent README (hosted URL, tools, npm warning): https://github.com/ferdousbhai/investor-agent
 - Financial Datasets MCP repo: https://github.com/financial-datasets/mcp-server
 - sverze/stock-market-mcp-server (Finnhub): https://github.com/sverze/stock-market-mcp-server
-- Finnhub API docs (official Finnhub MCP server note; 30 calls/second cap on top of plan limits): https://finnhub.io/docs/api
-- Finnhub free-tier figure (60 calls/min): TradingAIHub tools.json pricing record (source https://www.finnhub.io/pricing-fundamental-data), checked 2026-10-29. Not re-fetched for this draft.
+- Finnhub API docs (official Finnhub MCP server note): https://finnhub.io/docs/api
+- Finnhub pricing (free tier and paid plans): https://finnhub.io/pricing
 - Repo activity (last commit, license, archived flag): GitHub REST API, 29 Oct 2026
