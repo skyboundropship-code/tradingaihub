@@ -3935,11 +3935,7 @@
       "last_commit_days": 436,
       "status": "stale"
     },
-    "license": "unknown",
-    "capabilities": [
-      "live_trading",
-      "moves_funds"
-    ]
+    "license": "unknown"
   },
   {
     "id": "pineify-mcp",

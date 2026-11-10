@@ -1592,11 +1592,7 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null,
-    "capabilities": [
-      "live_trading",
-      "moves_funds"
-    ]
+    "remote_mcp_url": null
   },
   {
     "id": "pineify-mcp",

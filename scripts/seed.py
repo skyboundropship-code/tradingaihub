@@ -112,7 +112,7 @@ T("chart-library-mcp","Chart Library MCP","mcp","quant-backtesting","Historical 
 T("finlab-ai","FinLab AI","skill","quant-backtesting","Quant strategy generation and Taiwan stock market analysis with FinLab and Claude.",repo="https://github.com/koreal6803/finlab-ai",pricing=OSS()),
 T("claude-trading-skills","Claude Trading Skills","skill","quant-backtesting","Claude Code skills for trading analysis, e.g. IBD-style relative strength rating.",repo="https://github.com/tradermonty/claude-trading-skills",pricing=OSS()),
 T("superior-skills","Superior Trade skills","skill","quant-backtesting","Agent skills for strategy authoring, backtesting and deployment on Superior Trade.",repo="https://github.com/Superior-Trade/superior-skills",official=True,pricing=OSS(),capabilities=["live_trading","moves_funds"]),
-T("claude-code-trading-terminal","Claude Code Trading Terminal","skill","quant-backtesting","Agent-native trading terminal with sub-agents for trades, positions and risk.",repo="https://github.com/degentic-tools/claude-code-trading-terminal",pricing=OSS(),capabilities=["live_trading","moves_funds"]),
+T("claude-code-trading-terminal","Claude Code Trading Terminal","skill","quant-backtesting","Agent-native trading terminal with sub-agents for trades, positions and risk.",repo="https://github.com/degentic-tools/claude-code-trading-terminal",pricing=OSS()),
 T("pineify-mcp","Pineify MCP","mcp","quant-backtesting","Trading-code (Pine Script) validation and market intelligence.",repo="https://github.com/pineifyapp/pineify-mcp",official=True,pricing=P("paid API key","unknown",None,"Listed as requiring a paid API key; price not verified.",AFM)),
 ]
 ids=[t["id"] for t in tools]; assert len(ids)==len(set(ids))
