@@ -13,9 +13,35 @@ def stars_of(t):  # None for shared lists/monorepos: their stars belong to the c
     return None if (t.get("repo_is_collection") or g.get("collection")) else g.get("stars")
 ok = {"verified": "✅", "aging": "🟡", "warning": "🟡", "unconfirmed": "🟡", "stale": "🔴", "archived": "🗄️", "unreachable": "❌"}
 date = tools[0]["verification"]["checked_at"]
-L = [f"# Awesome Finance & Trading AI Tools [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)", "",
+badges = (
+    "[![Awesome](https://awesome.re/badge.svg)](https://awesome.re) "
+    "[![MCP Registry](https://img.shields.io/badge/MCP_Registry-com.tradingaihub%2Fdirectory-555)](https://registry.modelcontextprotocol.io/v0/servers?search=tradingaihub) "
+    f"[![Public API](https://img.shields.io/badge/API-public%20%7C%20no%20key-15803d)]({url}/developers/) "
+    "[![License: CC BY 4.0](https://img.shields.io/badge/license-CC%20BY%204.0-lightgrey)](https://creativecommons.org/licenses/by/4.0/) "
+    "[![GitHub stars](https://img.shields.io/github/stars/tradingaihub/awesome-finance-ai-tools?style=social)](https://github.com/tradingaihub/awesome-finance-ai-tools)"
+)
+L = [f"# Awesome Finance & Trading AI Tools {badges}", "",
      f"> A curated, **automatically re-verified** list of MCP servers, agent skills and APIs for finance and trading. Mirror of [{brand}]({url}) — status checked weekly (last: {date}).", "",
-     "Legend: ✅ verified · 🟡 aging (6–12 months without commits) · 🔴 stale (12+ months) · 🗄️ archived. 🟡 also marks entries whose link failed or could not be confirmed. ⭐ = GitHub stars. Not investment advice.", "", "## Contents", ""]
+     "Legend: ✅ verified · 🟡 aging (6–12 months without commits) · 🔴 stale (12+ months) · 🗄️ archived. 🟡 also marks entries whose link failed or could not be confirmed. ⭐ = GitHub stars. Not investment advice.", "",
+     "## Use it from your AI agent", "",
+     f"This list is the markdown mirror of [{brand}]({url}). The same data is available to agents with no API key:", "",
+     f"- Remote MCP server: `{url}/mcp` (Streamable HTTP; tools `search_tools`, `get_tool`, `list_categories`). Official MCP Registry: `com.tradingaihub/directory`.",
+     f"- REST API: `{url}/api/v1/tools` · OpenAPI: `{url}/api/openapi.json` · docs: {url}/developers/",
+     "",
+     "Cursor example (`.cursor/mcp.json`):",
+     "",
+     "```json",
+     "{",
+     '  "mcpServers": {',
+     '    "tradingaihub": {',
+     f'      "url": "{url}/mcp"',
+     "    }",
+     "  }",
+     "}",
+     "```",
+     "",
+     f'Data is CC BY 4.0; attribution is "{brand}, {url}". Not investment advice.',
+     "", "## Contents", ""]
 L += [f"- [{n}](#{re.sub(r'[^a-z0-9 -]', '', n.lower()).strip().replace(' ', '-')})" for s, n, i in cats]
 for s, n, i in cats:
     items = sorted([t for t in tools if t["category"] == s], key=lambda t: -(stars_of(t) or 0))

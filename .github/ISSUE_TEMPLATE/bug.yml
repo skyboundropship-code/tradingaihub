@@ -1,0 +1,51 @@
+name: Bug report
+description: Something is broken on the site, the API or the MCP server.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. GitHub issues are **public** — do not paste API keys, credentials or private data.
+        Tool listings belong on the [submit form](https://tradingaihub.com/submit/), not here.
+  - type: input
+    id: url
+    attributes:
+      label: Page or endpoint URL
+      description: The page, API request or MCP tool that misbehaves.
+      placeholder: https://tradingaihub.com/…
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Website
+        - Public API
+        - MCP server
+        - Verification / listing data
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you saw, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: A short numbered list if you can.
+    validations:
+      required: false
+  - type: input
+    id: locale
+    attributes:
+      label: Language and browser (optional)
+      description: For example “Hebrew, Firefox, mobile” or “English, Chrome, desktop”.
+    validations:
+      required: false
