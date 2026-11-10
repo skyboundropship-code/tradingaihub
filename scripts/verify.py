@@ -472,8 +472,11 @@ def verify(t):
                 res = fn(cand)
                 if res:
                     res.pop("_raw_links_back"); res["links_back"] = f"{owner}/{name}".lower() in res.pop("_lb")
-                if res and res["links_back"]:
+                if res and res["links_back"] and not t.get("install_from_source"):
                     v[kind] = res
+                elif res and t.get("install_from_source"):
+                    if "install from source" not in " ".join(v["issues"]).lower():
+                        v["issues"].append(t.get("install_note") or "Package currently unmaintained on npm; install from source")
                 elif res:
                     v["issues"].append(f"{kind} name '{cand}' exists on the registry but does not link to this repo (not counted)")
             v["checks"].append({"check": "package published", "ok": bool(v.get("npm") or v.get("pypi")),

@@ -900,7 +900,9 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "install_from_source": true,
+    "install_note": "Package currently unmaintained on npm; install from source"
   },
   {
     "id": "x402",

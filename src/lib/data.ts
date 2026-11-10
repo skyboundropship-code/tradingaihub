@@ -29,7 +29,7 @@ export const STATUS: Record<string, { label: string; tone: string; help: string 
   unconfirmed: { label: "Needs review", tone: "warn", help: "Reachable, but a homepage, docs or endpoint link refused our checker (sign-in required, bot block or rate limit), so it could not be fully confirmed. Not counted as verified." },
   unreachable: { label: "Unreachable", tone: "bad", help: "The repository or homepage could not be reached." },
 };
-export const pkgOf = (t: any) => t.verification?.npm || t.verification?.pypi || null;
+export const pkgOf = (t: any) => t.install_from_source ? null : (t.verification?.npm || t.verification?.pypi || null);
 // Stars of a shared list / monorepo (repo_is_collection) belong to the whole collection, not to one entry,
 // so such entries show no stars and are left out of every star ranking.
 export const isCollection = (t: any) => !!(t.repo_is_collection || t.verification?.github?.collection);
@@ -46,7 +46,7 @@ export function snippets(t: any, tr: (k: string, v?: any) => string = useT("en")
   const name = slugName(t);
   const v = t.verification || {};
   const out: { client: string; lang: string; code: string; note?: string }[] = [];
-  const pkg = v.npm ? { cmd: "npx", args: ["-y", v.npm.name] } : v.pypi ? { cmd: "uvx", args: [v.pypi.name] } : null;
+  const pkg = t.install_from_source ? null : (v.npm ? { cmd: "npx", args: ["-y", v.npm.name] } : v.pypi ? { cmd: "uvx", args: [v.pypi.name] } : null);
   const remote = t.remote_mcp_url;
   const keyNote = tr("snip.keyNote");
   if (t.type === "mcp" && pkg) {
@@ -65,7 +65,7 @@ export function snippets(t: any, tr: (k: string, v?: any) => string = useT("en")
     out.push({ client: "Gemini CLI", lang: "json", code: JSON.stringify({ mcpServers: { [name]: { httpUrl: remote } } }, null, 2) });
   }
   if (t.type === "mcp" && !pkg && !remote && t.repo) {
-    out.push({ client: tr("snip.allClients"), lang: "text", code: cloneOf(t), note: tr("snip.fromSource") });
+    out.push({ client: tr("snip.allClients"), lang: "text", code: cloneOf(t), note: t.install_note || tr("snip.fromSource") });
   }
   if (t.type === "mcp" && !pkg && !remote && !t.repo) {
     out.push({ client: tr("snip.allClients"), lang: "text", code: untagUrl(t.docs || t.homepage, "eodhd"), note: tr("snip.accountUrl") });
