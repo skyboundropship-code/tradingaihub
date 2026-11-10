@@ -39,9 +39,15 @@ S.headers.update(UA)
 CACHE_DIR = os.environ.get("SECURITY_SCAN_CACHE") or os.path.join(ROOT, ".cache", "security-scan")
 DEFAULT_OUT = os.path.join(ROOT, "data", "security")
 MAX_FILE_BYTES = 256 * 1024
+MAX_MANIFEST_BYTES = 5 * 1024 * 1024
 MAX_FILES_DEFAULT = 400
 TOOL_DEADLINE = 180.0
 GET_DEADLINE = 25.0
+# Stop starting new GitHub REST work when fewer than this many calls remain.
+RATE_FLOOR = 500
+RATE_REMAINING = None
+RATE_STOP = False
+RATE_LOCK = threading.Lock()
 
 # --- popular package names used only for typo-distance checks (static list; not fetched) -----
 POPULAR_NPM = frozenset("""
@@ -140,8 +146,16 @@ BENIGN_HOOK = re.compile(
 )
 
 CURL_PIPE = re.compile(
-    r"(curl|wget|invoke-webrequest|\biwr\b)\b[^\n|]{0,220}\|\s*(?:sudo\s+)?"
-    r"(?:bash|sh|zsh|fish|python3?|pwsh|powershell|cmd|iex)\b",
+    r"(curl|wget|invoke-webrequest|\biwr\b)\b[^\n|]{0,220}\|\s*"
+    r"(?:sudo(?:\s+-\S+)*\s+)?(?:(?:/usr)?/bin/)?(?:bash|sh|zsh|fish|python3?|pwsh|powershell|cmd|iex)\b",
+    re.I,
+)
+BASE64_PIPE = re.compile(
+    r"base64\s+(?:-d|--decode)[^|\n]*\|\s*(?:sudo(?:\s+-\S+)*\s+)?(?:(?:/usr)?/bin/)?(?:ba)?sh\b",
+    re.I,
+)
+IEX_DOWNLOAD = re.compile(
+    r"\biex\b.{0,80}(?:DownloadString|iwr|Invoke-WebRequest)",
     re.I,
 )
 BASH_FROM_CURL = re.compile(
@@ -175,8 +189,9 @@ SECRET_PATHS = re.compile(
 SEED_ASK = re.compile(
     r"(enter|paste|provide|input|prompt(?:\s+for)?|type(?:\s+in)?|supply|"
     r"ask(?:ing)?\s+for)\b.{0,60}\b(seed\s*phrase|mnemonic(?:\s+phrase)?|"
-    r"recovery\s+phrase|wallet\s+private\s+key|private\s+key(?:\s+wif)?|"
-    r"12[- ]word|24[- ]word|xprv|secret\s+recovery)",
+    r"recovery\s+phrase|wallet\s+private\s+key|"
+    r"(?:wallet|mnemonic|seed|crypto|bitcoin|ethereum)\s+private\s+key|"
+    r"private\s+key\s+wif|12[- ]word|24[- ]word|xprv|secret\s+recovery)",
     re.I,
 )
 HARDCODED_IP = re.compile(r"\b(?:https?://)?(\d{1,3}(?:\.\d{1,3}){3})(?::\d+)?\b")
@@ -245,7 +260,7 @@ SETUP_REMOTE_EXEC = re.compile(
     re.I,
 )
 SETUP_TOPLEVEL_RUN = re.compile(
-    r"(?m)^(?:\s*)(?:os\.system|subprocess\.(?:call|run|Popen|check_output|check_call)|"
+    r"(?:os\.system|os\.popen|subprocess\.(?:call|run|Popen|check_output|check_call)|"
     r"exec\s*\(|eval\s*\(|(?:urllib\.request\.)?urlopen\s*\()",
 )
 
@@ -337,6 +352,26 @@ def _maybe_sleep_rate(resp):
         time.sleep(min(wait, 60))
 
 
+def _note_rate(resp):
+    """Record GitHub remaining quota; trip RATE_STOP below RATE_FLOOR."""
+    global RATE_REMAINING, RATE_STOP
+    if resp is None or isinstance(resp, Exception):
+        return
+    headers = getattr(resp, "headers", None) or {}
+    rem = headers.get("X-RateLimit-Remaining")
+    if rem is None or not str(rem).isdigit():
+        return
+    with RATE_LOCK:
+        RATE_REMAINING = int(rem)
+        if RATE_REMAINING < RATE_FLOOR:
+            RATE_STOP = True
+
+
+def rate_budget_low():
+    with RATE_LOCK:
+        return RATE_STOP or (RATE_REMAINING is not None and RATE_REMAINING < RATE_FLOOR)
+
+
 def _retry_headers(resp):
     """True when a response should be retried (429, rate-limited 403, or 5xx with Retry-After)."""
     if resp is None or isinstance(resp, Exception):
@@ -381,6 +416,7 @@ def gh_api(path, raw=False):
         for attempt in range(4):
             counted("github")
             r = get(url, headers=github_headers())
+            _note_rate(r)
             if _retry_headers(r):
                 _maybe_sleep_rate(r)
                 _backoff(r, attempt)
@@ -430,9 +466,13 @@ def parse_repo(url):
     return m.group(1), m.group(2).removesuffix(".git"), m.group(3), m.group(4)
 
 
-def raw_file(owner, repo, sha, path):
+def raw_file(owner, repo, sha, path, max_bytes=None):
     """Fetch a blob as text. Prefer raw.githubusercontent.com (not REST quota); cache by sha+path.
-    Returns FETCH_FAILED on a network or HTTP error (never cached). Empty string is a real empty blob."""
+    Returns FETCH_FAILED on a network or HTTP error (never cached). Empty string is a real empty blob.
+    Must-scan manifests are read up to MAX_MANIFEST_BYTES (~5 MB); other files up to MAX_FILE_BYTES."""
+    limit = max_bytes if max_bytes is not None else (
+        MAX_MANIFEST_BYTES if is_must_scan(path) else MAX_FILE_BYTES
+    )
     key = f"raw:{owner}/{repo}/{sha}/{path}"
     hit = cache_get(key)
     if hit is not CACHE_MISS:
@@ -452,15 +492,19 @@ def raw_file(owner, repo, sha, path):
         if b"\0" in r.content[:4096]:
             cache_set(key, "")
             return ""
-        text = r.content[:MAX_FILE_BYTES].decode("utf-8", "replace")
+        text = r.content[:limit].decode("utf-8", "replace")
         cache_set(key, text)
         return text
-    # fallback through the API (also uncached on failure)
+    # fallback through the API (also uncached on failure). Skip it when the
+    # remaining GitHub quota is below RATE_FLOOR, so a raw throttle cannot burn
+    # thousands of REST calls.
+    if rate_budget_low():
+        return FETCH_FAILED
     api_path = f"repos/{owner}/{repo}/contents/{enc}?ref={sha}"
     body = gh_api(api_path, raw=True)
     if isinstance(body, str):
-        cache_set(key, body[:MAX_FILE_BYTES])
-        return body[:MAX_FILE_BYTES]
+        cache_set(key, body[:limit])
+        return body[:limit]
     return FETCH_FAILED
 
 def npm_registry(name):
@@ -529,21 +573,25 @@ def osv_query(ecosystem, name, version=None):
     body = {"package": {"name": name, "ecosystem": ecosystem}}
     if version:
         body["version"] = version
-    counted("osv")
-    try:
-        r = S.post("https://api.osv.dev/v1/query", json=body, timeout=20)
-    except requests.RequestException:
-        return OSV_UNAVAILABLE
-    if _retry_headers(r):
-        # one retry on 429 / rate-limited 403 / 5xx+Retry-After; a bare 503 is not retried
-        # so an outage is not counted as multiple calls in tests, and is not cached.
-        _backoff(r, 0)
+    r = None
+    for attempt in range(3):
         counted("osv")
         try:
             r = S.post("https://api.osv.dev/v1/query", json=body, timeout=20)
         except requests.RequestException:
-            return OSV_UNAVAILABLE
-    if r.status_code != 200:
+            if attempt == 2:
+                return OSV_UNAVAILABLE
+            _backoff(None, attempt)
+            continue
+        code = getattr(r, "status_code", None)
+        if code == 200:
+            break
+        # Retry 429, rate-limited 403, and any 5xx (including a bare 500/503).
+        if _retry_headers(r) or (isinstance(code, int) and code >= 500):
+            _backoff(r, attempt)
+            continue
+        return OSV_UNAVAILABLE
+    if r is None or getattr(r, "status_code", None) != 200:
         return OSV_UNAVAILABLE
     try:
         vulns = r.json().get("vulns") or []
@@ -853,10 +901,28 @@ def is_benign_hook(cmd):
     return bool(BENIGN_HOOK.match(cmd.strip()))
 
 
+def _scan_raw_install_hooks(path, text, findings):
+    """Best-effort hunt for install hooks in a raw (possibly invalid) manifest."""
+    for m in re.finditer(r'"(pre|post)?install"\s*:', text):
+        window = text[m.start():m.start() + 400].splitlines()[0]
+        if CURL_PIPE.search(window) or BASH_FROM_CURL.search(window) or BASE64_PIPE.search(window) or IEX_DOWNLOAD.search(window):
+            findings.append(finding(
+                "install-scripts",
+                f"install hook in unparseable manifest: {window[:180]}",
+                "high", file=path, line=line_no(text, m.start()),
+            ))
+
+
 def check_package_json(path, text, findings):
     try:
         j = json.loads(text)
     except ValueError:
+        findings.append(finding(
+            "install-scripts",
+            "unparseable manifest (invalid or truncated JSON)",
+            "medium", file=path,
+        ))
+        _scan_raw_install_hooks(path, text, findings)
         return None
     scripts = j.get("scripts") or {}
     if isinstance(scripts, dict):
@@ -867,7 +933,7 @@ def check_package_json(path, text, findings):
             if is_benign_hook(cmd):
                 continue
             detail = f"{hook} script: {cmd[:240]}"
-            if CURL_PIPE.search(cmd) or BASH_FROM_CURL.search(cmd):
+            if CURL_PIPE.search(cmd) or BASH_FROM_CURL.search(cmd) or BASE64_PIPE.search(cmd) or IEX_DOWNLOAD.search(cmd):
                 host_m = PLAIN_URL.search(cmd)
                 host = (host_m.group(1).lower() if host_m else "")
                 sev = pipe_severity(path, host, cmd)
@@ -905,7 +971,12 @@ def check_setup_py(path, text, findings):
 
 
 def check_shell_and_docker(path, text, findings):
-    for rx, label in ((CURL_PIPE, "pipe-to-shell download"), (BASH_FROM_CURL, "shell process substitution from curl/wget")):
+    for rx, label in (
+        (CURL_PIPE, "pipe-to-shell download"),
+        (BASH_FROM_CURL, "shell process substitution from curl/wget"),
+        (BASE64_PIPE, "base64 decode piped to a shell"),
+        (IEX_DOWNLOAD, "PowerShell IEX of a remote download"),
+    ):
         for m in rx.finditer(text):
             snippet = text[m.start():m.start() + 180].splitlines()[0]
             host_m = PLAIN_URL.search(snippet)
@@ -1128,12 +1199,18 @@ def split_req(dep):
     return name, (rest or None)
 
 
-def extract_pypi_deps(text, kind):
+def extract_pypi_deps(text, kind, findings=None, path=None):
     names = []
     if kind == "pyproject":
         try:
             data = tomllib.loads(text)
         except Exception:
+            if findings is not None:
+                findings.append(finding(
+                    "install-scripts",
+                    "unparseable manifest (invalid or truncated TOML)",
+                    "medium", file=path,
+                ))
             return names
         proj = data.get("project") or {}
         n = proj.get("name")
@@ -1239,24 +1316,28 @@ def parse_semver(s):
     if raw in {"0", "0.0.0"}:
         return SemVer(0, 0, 0)
     raw = raw.lstrip("v=V").strip()
-    # PEP 440 pre: 1.0.0a1 / 1.0.0rc1 -> treat as pre
+    # Build metadata (+build) is not a pre-release; strip it first.
+    if "+" in raw:
+        raw = raw.split("+", 1)[0]
+    # PEP 440 pre without treating unknown -tags as metadata: 1.0.0a1 / 1.0.0-rc.1
     m = re.match(
-        r"^(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:[-._]?(a|b|alpha|beta|rc|preview|dev)[.]?(\d*))?(?:[-+][A-Za-z0-9.-]+)?$",
+        r"^(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:[-._]?(a|b|alpha|beta|rc|preview|dev)[.]?(\d*))?$",
         raw,
         re.I,
     )
-    if not m:
-        m2 = re.match(r"^(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:-([A-Za-z0-9.-]+))?", raw)
-        if not m2:
-            return None
-        pre = tuple(x for x in (m2.group(4) or "").split(".") if x)
-        return SemVer(int(m2.group(1)), int(m2.group(2) or 0), int(m2.group(3) or 0), pre)
-    tag = (m.group(4) or "").lower()
-    pre = ()
-    if tag:
-        num = m.group(5) or "0"
-        pre = (tag, int(num) if num.isdigit() else num)
-    return SemVer(int(m.group(1)), int(m.group(2) or 0), int(m.group(3) or 0), pre)
+    if m:
+        tag = (m.group(4) or "").lower()
+        pre = ()
+        if tag:
+            num = m.group(5) or "0"
+            pre = (tag, int(num) if num.isdigit() else num)
+        return SemVer(int(m.group(1)), int(m.group(2) or 0), int(m.group(3) or 0), pre)
+    # Any other -<ids> is a pre-release tuple (next, canary, -0, ...).
+    m2 = re.match(r"^(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:-([A-Za-z0-9.-]+))?$", raw)
+    if not m2:
+        return None
+    pre = tuple(x for x in (m2.group(4) or "").split(".") if x)
+    return SemVer(int(m2.group(1)), int(m2.group(2) or 0), int(m2.group(3) or 0), pre)
 
 
 def strip_pin(spec):
@@ -1433,6 +1514,41 @@ def spec_admits_affected(spec, exact, ranges):
     return False
 
 
+def range_is_unbounded(intro, fixed, last):
+    """True when a range covers every version (introduced 0, no upper bound)."""
+    intro0 = intro is None or intro == SemVer(0, 0, 0)
+    return intro0 and fixed is None and last is None
+
+
+def registry_latest_version(ecosystem, name):
+    """Published 'latest' from the registry, or None if lookup fails."""
+    try:
+        eco = "npm" if (ecosystem or "").lower() == "npm" else "PyPI"
+        if eco == "npm":
+            reg = npm_registry(name)
+            if not reg or reg is REGISTRY_ERROR:
+                return None
+            latest = (reg.get("dist-tags") or {}).get("latest")
+        else:
+            reg = pypi_registry(name)
+            if not reg or reg is REGISTRY_ERROR:
+                return None
+            latest = ((reg.get("info") or {}).get("version"))
+        return latest if isinstance(latest, str) and latest else None
+    except Exception:
+        return None
+
+
+def unknown_spec_is_affected(ecosystem, name, exact, ranges):
+    """Unknown pins (* / latest / git / file) still install malware when the
+    advisory has no upper bound, or when the registry latest is in range."""
+    if any(range_is_unbounded(intro, fixed, last) for intro, fixed, last in ranges):
+        return True
+    latest = registry_latest_version(ecosystem, name)
+    pin = parse_semver(latest) if latest else None
+    return pin_is_affected(pin, exact, ranges)
+
+
 def is_popular_name(name, popular):
     if not name:
         return False
@@ -1498,12 +1614,15 @@ def check_typos_and_osv(deps, ecosystem, findings, file=None):
             if admitted is False:
                 continue
             if admitted is None:
-                findings.append(finding(
-                    "osv",
-                    f"OSV {vid} for {name}: version unknown, advisory not matched to a pin ({summary})",
-                    "low", file=file,
-                ))
-                continue
+                if unknown_spec_is_affected(ecosystem, name, exact, ranges):
+                    admitted = True
+                else:
+                    findings.append(finding(
+                        "osv",
+                        f"OSV {vid} for {name}: version unknown, advisory not matched to a pin ({summary})",
+                        "low", file=file,
+                    ))
+                    continue
             if is_exact_pin(version or ""):
                 findings.append(finding(
                     "osv",
@@ -1889,31 +2008,35 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
     incomplete = tree_truncated
 
     def scan_one(path, text):
-        nonlocal osv_failed
-        if text is FETCH_FAILED or text is None or (text == "" and is_must_scan(path)):
+        nonlocal osv_failed, incomplete
+        if text is FETCH_FAILED or text is None:
             fetch_failed.append(path)
             findings.append(finding("repo", f"Could not read {path}", "medium", file=path))
             return
-        if text is FETCH_FAILED:
-            return
-        if text == "" and not is_must_scan(path):
-            # genuine empty blob
-            out["files_scanned"] += 1
-            return
         out["files_scanned"] += 1
         base = os.path.basename(path).lower()
+        # A genuine empty blob (e.g. empty requirements.txt) is not a fetch failure.
+        # Empty package.json / pyproject.toml is an unparseable manifest, so keep going.
+        if text == "" and base not in {"package.json", "pyproject.toml"}:
+            return
         if base == "package.json":
+            before = len(findings)
             pkg = check_package_json(path, text, findings)
+            if any("unparseable manifest" in (f.get("detail") or "") for f in findings[before:]):
+                incomplete = True
             if pkg:
                 npm_pkgs.append((path, pkg))
                 for rel in manifest_entries(path, pkg):
                     extra_targets.add(rel)
         if base == "setup.py":
             check_setup_py(path, text, findings)
-            if CURL_PIPE.search(text) or BASH_FROM_CURL.search(text) or BINARY_DL.search(text):
+            if CURL_PIPE.search(text) or BASH_FROM_CURL.search(text) or BASE64_PIPE.search(text) or BINARY_DL.search(text):
                 check_shell_and_docker(path, text, findings)
         if base == "pyproject.toml":
-            pypi_deps.extend([(path, d) for d in extract_pypi_deps(text, "pyproject")])
+            before = len(findings)
+            pypi_deps.extend([(path, d) for d in extract_pypi_deps(text, "pyproject", findings, path)])
+            if any("unparseable manifest" in (f.get("detail") or "") for f in findings[before:]):
+                incomplete = True
         if base.startswith("requirements") and base.endswith(".txt"):
             pypi_deps.extend([(path, d) for d in extract_pypi_deps(text, "requirements")])
         if (
@@ -1923,7 +2046,7 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
         ):
             check_shell_and_docker(path, text, findings)
         else:
-            if CURL_PIPE.search(text) or BASH_FROM_CURL.search(text) or BINARY_DL.search(text):
+            if CURL_PIPE.search(text) or BASH_FROM_CURL.search(text) or BASE64_PIPE.search(text) or IEX_DOWNLOAD.search(text) or BINARY_DL.search(text):
                 check_shell_and_docker(path, text, findings)
         check_obfuscation(path, text, findings)
         check_secrets_and_network(path, text, findings, allow)
@@ -2062,6 +2185,21 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
 
 
 def safe_scan(tool, max_files):
+    if rate_budget_low():
+        return {
+            "id": tool["id"],
+            "name": tool.get("name"),
+            "status": "incomplete",
+            "date": NOW.strftime("%Y-%m-%d"),
+            "repo": tool.get("repo"),
+            "commit": None,
+            "findings": [finding("repo", "Scan skipped: GitHub API remaining calls are below the floor; retry later", "medium")],
+            "files_scanned": 0,
+            "packages": {},
+            "notes": ["github-rate-floor"],
+            "truncated": False,
+            "coverage": {"scanned": 0, "matched": 0, "skipped_large": 0},
+        }
     done, v = _bounded(lambda: scan_tool(tool, max_files=max_files), TOOL_DEADLINE)
     if done and not isinstance(v, BaseException):
         return v

