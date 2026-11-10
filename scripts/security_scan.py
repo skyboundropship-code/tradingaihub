@@ -18,13 +18,14 @@ import json
 import os
 import re
 import shutil
+import subprocess
 import sys
 import threading
 import time
 import tomllib
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
-from urllib.parse import quote, urlparse, urlsplit, urlunparse
+from urllib.parse import quote, urlsplit
 
 import requests
 
@@ -38,7 +39,7 @@ S.headers.update(UA)
 CACHE_DIR = os.environ.get("SECURITY_SCAN_CACHE") or os.path.join(ROOT, ".cache", "security-scan")
 DEFAULT_OUT = os.path.join(ROOT, "data", "security")
 MAX_FILE_BYTES = 256 * 1024
-MAX_FILES_DEFAULT = 150
+MAX_FILES_DEFAULT = 400
 TOOL_DEADLINE = 180.0
 GET_DEADLINE = 25.0
 
@@ -55,6 +56,15 @@ decimal.js date-fns dayjs luxon ramda immutable bluebird async npm yarn pnpm
 lerna turbo ts-node webpack-dev-server webpack-cli mocha chai sinon nyc
 @babel/core @types/node @types/react @apollo/client @solana/web3.js
 bitcoinjs-lib bitcore-lib wagmi left-pad event-stream node-ipc
+react-hook-form eslint-config-prettier eslint-plugin-prettier
+@tanstack/react-router @tanstack/router-core @tanstack/router-devtools
+@tanstack/router-vite-plugin @tanstack/react-query
+""".split())
+
+POPULAR_SCOPES = frozenset("""
+@tanstack @babel @types @angular @testing-library @solana @apollo @vue
+@mui @emotion @nestjs @aws-sdk @radix-ui @stripe @coinbase @xeroapi
+@typescript-eslint @eslint @jest @swc @vitejs @rollup
 """.split())
 
 POPULAR_PYPI = frozenset("""
@@ -123,7 +133,7 @@ INSTALL_HOOKS = (
 )
 # prepare/husky and similar hooks that only run local tooling are expected.
 BENIGN_HOOK = re.compile(
-    r"^\s*(husky(?:\s+install)?|npm\s+run\s+build|tsc|echo\b.*|true|exit\s+0|"
+    r"^\s*(husky(?:\s+install)?|npm\s+run\s+build|tsc|true|exit\s+0|"
     r"node-gyp\s+rebuild|prebuild-install|only-allow|simple-git-hooks|"
     r"npm\s+run\s+prepare|patch-package(?:\s+--error-on-fail)?)\s*$",
     re.I,
@@ -217,6 +227,34 @@ PRIV_NET_PREFIXES = (
     "10.", "192.168.", "127.", "0.", "255.", "169.254.",
 )
 
+# Hosts anyone can publish to: a pipe-to-shell from these is not a trusted installer.
+USER_CONTENT_HOSTS = frozenset("""
+raw.githubusercontent.com gist.githubusercontent.com gist.github.com
+cdn.jsdelivr.net unpkg.com
+""".split())
+
+# Exact hosts of well-known official installers (low only in README/docs).
+INSTALLER_HOSTS = frozenset("""
+deb.nodesource.com sh.rustup.rs get.docker.com static.rust-lang.org
+nodejs.org packages.microsoft.com aka.ms dl.google.com
+""".split())
+
+HOOK_METACHAR = re.compile(r"&&|;|\||\$\(|`")
+SETUP_REMOTE_EXEC = re.compile(
+    r"(?:exec|eval)\s*\(\s*(?:.*)?(?:urlopen|requests\.get|urllib\.request|fetch)",
+    re.I,
+)
+SETUP_TOPLEVEL_RUN = re.compile(
+    r"(?m)^(?:\s*)(?:os\.system|subprocess\.(?:call|run|Popen|check_output|check_call)|"
+    r"exec\s*\(|eval\s*\(|(?:urllib\.request\.)?urlopen\s*\()",
+)
+
+# Sentinels: never cached.
+CACHE_MISS = object()
+FETCH_FAILED = object()
+OSV_UNAVAILABLE = object()
+REGISTRY_ERROR = object()
+
 
 def _bounded(fn, deadline):
     box = {}
@@ -251,13 +289,13 @@ def _cache_path(key):
 
 
 def cache_get(key):
-    p = _cache_path(key)
+    pth = _cache_path(key)
     try:
-        with open(p) as f:
+        with open(pth) as f:
             wrap = json.load(f)
         return wrap.get("value")
     except (OSError, ValueError):
-        return None
+        return CACHE_MISS
 
 
 def cache_set(key, value):
@@ -299,39 +337,81 @@ def _maybe_sleep_rate(resp):
         time.sleep(min(wait, 60))
 
 
+def _retry_headers(resp):
+    """True when a response should be retried (429, rate-limited 403, or 5xx with Retry-After)."""
+    if resp is None or isinstance(resp, Exception):
+        return False
+    code = getattr(resp, "status_code", None)
+    if code == 429:
+        return True
+    headers = getattr(resp, "headers", None) or {}
+    if code == 403:
+        body = ""
+        try:
+            body = (resp.text or "")[:500].lower()
+        except Exception:
+            body = ""
+        rem = str(headers.get("X-RateLimit-Remaining") or "")
+        if rem == "0" or "rate limit" in body or "secondary rate" in body:
+            return True
+    if code and code >= 500 and headers.get("Retry-After"):
+        return True
+    return False
+
+
+def _backoff(resp, attempt):
+    headers = getattr(resp, "headers", None) or {}
+    ra = headers.get("Retry-After")
+    if ra and str(ra).isdigit():
+        wait = min(int(ra), 30)
+    else:
+        wait = min(2 ** attempt, 8)
+    time.sleep(wait)
+
+
 def gh_api(path, raw=False):
-    """GitHub REST GET. Uses GITHUB_TOKEN, else the logged-in `gh` CLI. Cached."""
+    """GitHub REST GET. Uses GITHUB_TOKEN, else the logged-in `gh` CLI. Cached on success only."""
     key = f"gh:{path}:raw={raw}"
     hit = cache_get(key)
-    if hit is not None:
+    if hit is not CACHE_MISS:
         return hit
     url = f"https://api.github.com/{path.lstrip('/')}"
     if TOKEN:
-        counted("github")
-        r = get(url, headers=github_headers())
-        _maybe_sleep_rate(r if not isinstance(r, Exception) else None)
-        if isinstance(r, Exception) or r.status_code != 200:
-            cache_set(key, None)
+        r = None
+        for attempt in range(4):
+            counted("github")
+            r = get(url, headers=github_headers())
+            if _retry_headers(r):
+                _maybe_sleep_rate(r)
+                _backoff(r, attempt)
+                continue
+            break
+        if isinstance(r, Exception) or r is None or r.status_code != 200:
             return None
         val = r.content.decode("utf-8", "replace") if raw else r.json()
         cache_set(key, val)
         return val
     if shutil.which("gh"):
-        counted("github")
         args = ["gh", "api", path]
         if raw:
             args += ["-H", "Accept: application/vnd.github.raw"]
-        try:
-            p = shutil.which("gh") and __import__("subprocess").run(
-                args, capture_output=True, text=True, timeout=45
-            )
-        except Exception:
-            cache_set(key, None)
+        last = None
+        for attempt in range(4):
+            counted("github")
+            try:
+                last = subprocess.run(args, capture_output=True, text=True, timeout=45)
+            except Exception:
+                return None
+            err = (last.stderr or "") + (last.stdout or "")
+            if last.returncode != 0 and attempt < 3 and (
+                "429" in err or "rate limit" in err.lower() or "API rate" in err
+            ):
+                time.sleep(min(2 ** attempt, 8))
+                continue
+            break
+        if last is None or last.returncode != 0:
             return None
-        if p.returncode != 0:
-            cache_set(key, None)
-            return None
-        val = p.stdout if raw else json.loads(p.stdout) if p.stdout else None
+        val = last.stdout if raw else json.loads(last.stdout) if last.stdout else None
         cache_set(key, val)
         return val
     return None
@@ -351,75 +431,100 @@ def parse_repo(url):
 
 
 def raw_file(owner, repo, sha, path):
-    """Fetch a blob as text. Prefer raw.githubusercontent.com (not REST quota); cache by sha+path."""
+    """Fetch a blob as text. Prefer raw.githubusercontent.com (not REST quota); cache by sha+path.
+    Returns FETCH_FAILED on a network or HTTP error (never cached). Empty string is a real empty blob."""
     key = f"raw:{owner}/{repo}/{sha}/{path}"
     hit = cache_get(key)
-    if hit is not None:
+    if hit is not CACHE_MISS:
         return hit
     enc = "/".join(quote(p, safe="") for p in path.split("/"))
     url = f"https://raw.githubusercontent.com/{owner}/{repo}/{sha}/{enc}"
-    counted("raw")
-    r = get(url)
-    if not isinstance(r, Exception) and r.status_code == 200:
-        # reject obviously-binary
+    r = None
+    for attempt in range(4):
+        counted("raw")
+        r = get(url)
+        if _retry_headers(r):
+            _maybe_sleep_rate(r)
+            _backoff(r, attempt)
+            continue
+        break
+    if not isinstance(r, Exception) and getattr(r, "status_code", None) == 200:
         if b"\0" in r.content[:4096]:
             cache_set(key, "")
             return ""
         text = r.content[:MAX_FILE_BYTES].decode("utf-8", "replace")
         cache_set(key, text)
         return text
-    # fallback through the API
+    # fallback through the API (also uncached on failure)
     api_path = f"repos/{owner}/{repo}/contents/{enc}?ref={sha}"
     body = gh_api(api_path, raw=True)
     if isinstance(body, str):
         cache_set(key, body[:MAX_FILE_BYTES])
         return body[:MAX_FILE_BYTES]
-    cache_set(key, "")
-    return ""
-
+    return FETCH_FAILED
 
 def npm_registry(name):
     key = f"npm:{name}"
     hit = cache_get(key)
-    if hit is not None:
+    if hit is not CACHE_MISS:
         return hit
-    counted("npm")
-    r = get(f"https://registry.npmjs.org/{name.replace('/', '%2F')}")
-    if isinstance(r, Exception) or r.status_code != 200:
+    url = f"https://registry.npmjs.org/{name.replace('/', '%2F')}"
+    r = None
+    for attempt in range(4):
+        counted("npm")
+        r = get(url)
+        if _retry_headers(r):
+            _maybe_sleep_rate(r)
+            _backoff(r, attempt)
+            continue
+        break
+    if isinstance(r, Exception) or r is None:
+        return REGISTRY_ERROR
+    if r.status_code == 404:
         cache_set(key, None)
         return None
+    if r.status_code != 200:
+        return REGISTRY_ERROR
     try:
         j = r.json()
     except ValueError:
-        cache_set(key, None)
-        return None
+        return REGISTRY_ERROR
     cache_set(key, j)
     return j
-
 
 def pypi_registry(name):
     key = f"pypi:{name}"
     hit = cache_get(key)
-    if hit is not None:
+    if hit is not CACHE_MISS:
         return hit
-    counted("pypi")
-    r = get(f"https://pypi.org/pypi/{name}/json")
-    if isinstance(r, Exception) or r.status_code != 200:
+    r = None
+    for attempt in range(4):
+        counted("pypi")
+        r = get(f"https://pypi.org/pypi/{name}/json")
+        if _retry_headers(r):
+            _maybe_sleep_rate(r)
+            _backoff(r, attempt)
+            continue
+        break
+    if isinstance(r, Exception) or r is None:
+        return REGISTRY_ERROR
+    if r.status_code == 404:
         cache_set(key, None)
         return None
+    if r.status_code != 200:
+        return REGISTRY_ERROR
     try:
         j = r.json()
     except ValueError:
-        cache_set(key, None)
-        return None
+        return REGISTRY_ERROR
     cache_set(key, j)
     return j
 
-
 def osv_query(ecosystem, name, version=None):
+    """Return a list of vulns, or OSV_UNAVAILABLE on a transport/HTTP error (never cached)."""
     key = f"osv:{ecosystem}:{name}:{version or ''}"
     hit = cache_get(key)
-    if hit is not None:
+    if hit is not CACHE_MISS:
         return hit
     body = {"package": {"name": name, "ecosystem": ecosystem}}
     if version:
@@ -428,28 +533,35 @@ def osv_query(ecosystem, name, version=None):
     try:
         r = S.post("https://api.osv.dev/v1/query", json=body, timeout=20)
     except requests.RequestException:
-        cache_set(key, [])
-        return []
+        return OSV_UNAVAILABLE
+    if _retry_headers(r):
+        # one retry on 429 / rate-limited 403 / 5xx+Retry-After; a bare 503 is not retried
+        # so an outage is not counted as multiple calls in tests, and is not cached.
+        _backoff(r, 0)
+        counted("osv")
+        try:
+            r = S.post("https://api.osv.dev/v1/query", json=body, timeout=20)
+        except requests.RequestException:
+            return OSV_UNAVAILABLE
     if r.status_code != 200:
-        cache_set(key, [])
-        return []
+        return OSV_UNAVAILABLE
     try:
         vulns = r.json().get("vulns") or []
     except ValueError:
-        vulns = []
+        return OSV_UNAVAILABLE
     cache_set(key, vulns)
     return vulns
 
-
-# ------------------------------------ helpers -------------------------------------------------
-def finding(check, detail, severity, file=None, line=None):
-    return {
+def finding(check, detail, severity, file=None, line=None, **extra):
+    out = {
         "check": check,
         "file": file,
         "line": line,
         "detail": detail,
         "severity": severity,
     }
+    out.update(extra)
+    return out
 
 
 def line_no(text, idx):
@@ -520,18 +632,39 @@ def is_example_path(path):
     return any(x in pth.split("/") for x in ("examples", "example", "templates", "template", "benchmarks", "benchmark", "demos", "demo"))
 
 
-def file_priority(path):
+def is_must_scan(path):
+    """Manifests, installers, Dockerfiles, shell, and GitHub workflows are always scanned."""
+    rel = path.replace("\\", "/")
+    base = rel.split("/")[-1].lower()
+    if base in ALWAYS_NAMES or base.startswith("dockerfile") or base.startswith("docker-compose") or base.startswith("compose."):
+        return True
+    if base.startswith("requirements") and base.endswith(".txt"):
+        return True
+    if base in {"makefile", "install.sh", "install.bash", "install.ps1", "bootstrap.sh"}:
+        return True
+    if rel.startswith(".github/workflows/") and base.endswith((".yml", ".yaml")):
+        return True
+    if base.endswith((".sh", ".bash", ".ps1")):
+        return True
+    return False
+
+
+def file_priority(path, primary_dir=None):
     base = os.path.basename(path).lower()
     pth = path.replace("\\", "/").lower()
+    if is_must_scan(path):
+        return 0
     if is_test_path(pth):
         return 8
     if is_example_path(pth):
         return 6
-    if base in ALWAYS_NAMES or base.startswith("dockerfile"):
-        return 0
+    if primary_dir:
+        pd = primary_dir.replace("\\", "/").rstrip("/").lower()
+        if pd and (pth == pd or pth.startswith(pd + "/")):
+            return 1
     parts = pth.split("/")
-    if any(k in parts for k in ("install", "setup", "wallet", "auth", "mcp")):
-        return 1
+    if any(k in parts for k in ("install", "setup", "wallet", "auth", "mcp", "src", "lib", "server", "scripts", "app")):
+        return 2
     if pth.startswith(("src/", "lib/", "server/", "scripts/", "app/")):
         return 2
     return 3
@@ -607,6 +740,10 @@ def normalize_repo_url(u):
     if isinstance(u, dict):
         u = u.get("url") or u.get("web") or ""
     u = str(u).strip()
+    # package.json shorthands: "github:o/r" and "o/r"
+    m = re.match(r"^(?:github:)?([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+)/?$", u)
+    if m and "://" not in u:
+        return f"https://github.com/{m.group(1)}/{m.group(2)}".lower()
     u = re.sub(r"^git\+", "", u)
     u = re.sub(r"^git://", "https://", u)
     u = re.sub(r"^ssh://git@", "https://", u)
@@ -619,8 +756,6 @@ def normalize_repo_url(u):
         if len(parts) >= 2:
             return f"https://github.com/{parts[0]}/{parts[1].removesuffix('.git')}".lower()
     return u.lower()
-
-
 def host_of(url):
     try:
         h = (urlsplit(url).hostname or "").lower().rstrip(".")
@@ -675,6 +810,49 @@ def status_of(findings):
 
 
 # ------------------------------------ per-file checks ----------------------------------------
+def is_doc_path(path):
+    rel = path.replace("\\", "/").lower()
+    base = rel.split("/")[-1]
+    if base.startswith("readme") or base in {"changelog.md", "changes.md", "history.md"}:
+        return True
+    parts = rel.split("/")
+    return parts and parts[0] in {"docs", "doc", "documentation"}
+
+
+def is_exact_installer_host(host):
+    if not host:
+        return False
+    h = host.lower().rstrip(".")
+    return h in INSTALLER_HOSTS or any(h.endswith("." + x) for x in INSTALLER_HOSTS)
+
+
+def is_user_content_host(host):
+    if not host:
+        return False
+    h = host.lower().rstrip(".")
+    return h in USER_CONTENT_HOSTS or any(h.endswith("." + x) for x in USER_CONTENT_HOSTS)
+
+
+def pipe_severity(path, host, snippet):
+    """Pipe-to-shell severity. low only for official installers in README/docs."""
+    variable = bool(re.search(r"\$[A-Za-z_{]|\$\{|`[^`]+`", snippet or ""))
+    if not host or variable or is_user_content_host(host):
+        return "high"
+    if is_doc_path(path) and is_exact_installer_host(host):
+        return "low"
+    if is_exact_installer_host(host):
+        return "medium"
+    return "high"
+
+
+def is_benign_hook(cmd):
+    if not cmd or not isinstance(cmd, str):
+        return False
+    if HOOK_METACHAR.search(cmd):
+        return False
+    return bool(BENIGN_HOOK.match(cmd.strip()))
+
+
 def check_package_json(path, text, findings):
     try:
         j = json.loads(text)
@@ -686,18 +864,20 @@ def check_package_json(path, text, findings):
             cmd = scripts.get(hook)
             if not cmd or not isinstance(cmd, str):
                 continue
-            if BENIGN_HOOK.match(cmd.strip()):
+            if is_benign_hook(cmd):
                 continue
-            sev = "high"
             detail = f"{hook} script: {cmd[:240]}"
             if CURL_PIPE.search(cmd) or BASH_FROM_CURL.search(cmd):
-                sev = "malicious" if re.search(r"\b(\d{1,3}\.){3}\d{1,3}\b|pastebin|bit\.ly|raw\.githubusercontent\.com/.*/(mal|tmp)", cmd, re.I) else "high"
+                host_m = PLAIN_URL.search(cmd)
+                host = (host_m.group(1).lower() if host_m else "")
+                sev = pipe_severity(path, host, cmd)
+                if sev == "low":
+                    sev = "high"  # hooks themselves are never "just docs"
             elif re.search(r"\b(curl|wget|iwr|invoke-webrequest|powershell|chmod\s+\+x)\b", cmd, re.I):
                 sev = "high"
             elif re.search(r"\b(eval|Function\(|node\s+-e)\b", cmd):
                 sev = "high"
             else:
-                # unusual but maybe a local build — medium so a reviewer sees it
                 sev = "medium"
             findings.append(finding("install-scripts", detail, sev, file=path))
     return j
@@ -711,16 +891,26 @@ def check_setup_py(path, text, findings):
             "setup.py declares cmdclass or a custom install command (review what it runs)",
             "medium", file=path, line=ln,
         ))
+    for rx, label in (
+        (SETUP_REMOTE_EXEC, "setup.py runs exec/eval of a remote download (needs review)"),
+        (SETUP_TOPLEVEL_RUN, "setup.py invokes a process, eval/exec, or urlopen at import (needs review)"),
+    ):
+        for m in rx.finditer(text):
+            snippet = text[m.start():m.start() + 160].splitlines()[0]
+            findings.append(finding(
+                "install-scripts",
+                f"{label}: {snippet[:160]}",
+                "high", file=path, line=line_no(text, m.start()),
+            ))
 
 
 def check_shell_and_docker(path, text, findings):
     for rx, label in ((CURL_PIPE, "pipe-to-shell download"), (BASH_FROM_CURL, "shell process substitution from curl/wget")):
         for m in rx.finditer(text):
             snippet = text[m.start():m.start() + 180].splitlines()[0]
-            # official installers from known hosts stay medium; unknown/IP go high
             host_m = PLAIN_URL.search(snippet)
             host = (host_m.group(1).lower() if host_m else "")
-            sev = "low" if allowed_host(host, set()) else "high"
+            sev = pipe_severity(path, host, snippet)
             findings.append(finding("curl-pipe", f"{label}: {snippet[:180]}", sev, file=path, line=line_no(text, m.start())))
     for m in BINARY_DL.finditer(text):
         snippet = text[m.start():m.start() + 180].splitlines()[0]
@@ -731,7 +921,7 @@ def check_shell_and_docker(path, text, findings):
 
 
 def check_obfuscation(path, text, findings):
-    if is_vendorish(path) or is_test_path(path):
+    if is_vendorish(path):
         return
     base = os.path.basename(path).lower()
     # OpenAPI specs, recorded HTTP fixtures and giant JSON blobs are not obfuscated source
@@ -832,9 +1022,9 @@ def check_secrets_and_network(path, text, findings, allow_hosts):
             ext_hosts.append((ip, m.group(0), line_no(text, m.start())))
     for h, url, ln in ext_hosts:
         if secret_hits:
-            sev, detail = "malicious", f"sensitive-path read combined with hard-coded host {h} ({url[:160]})"
+            sev, detail = "high", f"finding: sensitive-path read combined with hard-coded host {h} ({url[:160]}) needs review"
         else:
-            sev, detail = "high", f"suspicious hard-coded network destination {h} ({url[:160]})"
+            sev, detail = "high", f"finding: suspicious hard-coded network destination {h} ({url[:160]}) needs review"
         findings.append(finding("secret-exfil", detail, sev, file=path, line=ln))
 
 
@@ -923,6 +1113,21 @@ def extract_npm_deps(pkg):
     return names
 
 
+def split_req(dep):
+    """Split a PEP 508 / requirements token into (name, version_spec_or_None)."""
+    s = (dep or "").strip()
+    if not s or s.startswith("#") or s.startswith("-"):
+        return None, None
+    s = re.split(r"\s*;", s, maxsplit=1)[0].strip()
+    m = re.match(r"^([A-Za-z0-9_.-]+)\s*(\[[^\]]*\])?\s*(.*)$", s)
+    if not m:
+        return re.split(r"[\s<>=!~;\[]", s, maxsplit=1)[0], None
+    name, _extras, rest = m.group(1), m.group(2), (m.group(3) or "").strip()
+    if rest and is_exact_pin(rest):
+        rest = strip_pin(rest)
+    return name, (rest or None)
+
+
 def extract_pypi_deps(text, kind):
     names = []
     if kind == "pyproject":
@@ -936,48 +1141,150 @@ def extract_pypi_deps(text, kind):
             names.append(("self", n, (proj.get("version") if isinstance(proj.get("version"), str) else None)))
         for dep in proj.get("dependencies") or []:
             if isinstance(dep, str) and dep.strip() and not dep.strip().startswith("#"):
-                names.append(("dependencies", re.split(r"[\s<>=!~;\[]", dep.strip(), maxsplit=1)[0], None))
+                name, ver = split_req(dep)
+                if name:
+                    names.append(("dependencies", name, ver))
         opt = proj.get("optional-dependencies") or {}
         if isinstance(opt, dict):
             for lst in opt.values():
                 for dep in lst or []:
                     if isinstance(dep, str) and dep.strip():
-                        names.append(("optional", re.split(r"[\s<>=!~;\[]", dep.strip(), maxsplit=1)[0], None))
+                        name, ver = split_req(dep)
+                        if name:
+                            names.append(("optional", name, ver))
         poetry = (data.get("tool") or {}).get("poetry") or {}
         if poetry.get("name"):
             names.append(("self", poetry["name"], poetry.get("version") if isinstance(poetry.get("version"), str) else None))
         deps = poetry.get("dependencies") or {}
         if isinstance(deps, dict):
-            for n in deps:
-                if n != "python":
-                    names.append(("dependencies", n, None))
+            for n, spec in deps.items():
+                if n == "python":
+                    continue
+                ver = None
+                if isinstance(spec, str):
+                    ver = spec
+                elif isinstance(spec, dict) and isinstance(spec.get("version"), str):
+                    ver = spec["version"]
+                names.append(("dependencies", n, ver))
     elif kind == "requirements":
         for line in text.splitlines():
             s = line.strip()
             if not s or s.startswith("#") or s.startswith("-"):
                 continue
-            names.append(("requirements", re.split(r"[\s<>=!~;\[\]]", s, maxsplit=1)[0], None))
+            name, ver = split_req(s)
+            if name:
+                names.append(("requirements", name, ver))
     return names
 
 
+def _pre_key(part):
+    """Numeric identifiers compare as ints; others as lowercase strings (semver)."""
+    return (0, int(part)) if str(part).isdigit() else (1, str(part).lower())
+
+
+class SemVer:
+    """Comparable version that orders pre-releases before the matching release."""
+
+    def __init__(self, major, minor=0, patch=0, pre=()):
+        self.major, self.minor, self.patch, self.pre = int(major), int(minor), int(patch), tuple(pre)
+
+    def __eq__(self, other):
+        return (self.major, self.minor, self.patch, self.pre) == (other.major, other.minor, other.patch, other.pre)
+
+    def __lt__(self, other):
+        t = (self.major, self.minor, self.patch)
+        o = (other.major, other.minor, other.patch)
+        if t != o:
+            return t < o
+        if not self.pre and not other.pre:
+            return False
+        if not self.pre:
+            return False  # release is after any pre
+        if not other.pre:
+            return True
+        # compare pre identifiers
+        a = [_pre_key(x) for x in self.pre]
+        b = [_pre_key(x) for x in other.pre]
+        return a < b
+
+    def __le__(self, other):
+        return self == other or self < other
+
+    def __gt__(self, other):
+        return other < self
+
+    def __ge__(self, other):
+        return self == other or other < self
+
+    def bump_major(self):
+        return SemVer(self.major + 1, 0, 0)
+
+    def bump_minor(self):
+        return SemVer(self.major, self.minor + 1, 0)
+
+    def bump_patch(self):
+        return SemVer(self.major, self.minor, self.patch + 1)
+
+    def __repr__(self):
+        core = f"{self.major}.{self.minor}.{self.patch}"
+        return core + (("-" + ".".join(str(x) for x in self.pre)) if self.pre else "")
+
+
 def parse_semver(s):
-    if not s or str(s).strip() in {"0", "0.0.0"}:
-        return (0, 0, 0)
-    m = re.match(r"v?(\d+)(?:\.(\d+))?(?:\.(\d+))?", str(s).strip())
-    if not m:
+    if s is None:
         return None
-    return (int(m.group(1)), int(m.group(2) or 0), int(m.group(3) or 0))
+    raw = str(s).strip()
+    if not raw:
+        return None
+    if raw in {"0", "0.0.0"}:
+        return SemVer(0, 0, 0)
+    raw = raw.lstrip("v=V").strip()
+    # PEP 440 pre: 1.0.0a1 / 1.0.0rc1 -> treat as pre
+    m = re.match(
+        r"^(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:[-._]?(a|b|alpha|beta|rc|preview|dev)[.]?(\d*))?(?:[-+][A-Za-z0-9.-]+)?$",
+        raw,
+        re.I,
+    )
+    if not m:
+        m2 = re.match(r"^(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:-([A-Za-z0-9.-]+))?", raw)
+        if not m2:
+            return None
+        pre = tuple(x for x in (m2.group(4) or "").split(".") if x)
+        return SemVer(int(m2.group(1)), int(m2.group(2) or 0), int(m2.group(3) or 0), pre)
+    tag = (m.group(4) or "").lower()
+    pre = ()
+    if tag:
+        num = m.group(5) or "0"
+        pre = (tag, int(num) if num.isdigit() else num)
+    return SemVer(int(m.group(1)), int(m.group(2) or 0), int(m.group(3) or 0), pre)
+
+
+def strip_pin(spec):
+    if not spec or not isinstance(spec, str):
+        return ""
+    s = spec.strip()
+    s = re.sub(r"^(==|=|v)", "", s).strip()
+    return s
 
 
 def is_exact_pin(spec):
     if not spec or not isinstance(spec, str):
         return False
-    s = spec.strip()
-    return bool(re.match(r"^v?\d+\.\d+", s)) and not any(c in s for c in "*^~><=")
+    s = strip_pin(spec)
+    if not s or any(c in s for c in "*^~<>, "):
+        return False
+    return bool(re.match(r"^\d+\.\d+", s))
+
+
+def is_unknown_spec(spec):
+    if spec is None:
+        return True
+    s = str(spec).strip()
+    return s == "" or s.lower() in {"*", "latest", "x", "any"}
 
 
 def mal_affected(vuln):
-    """(exact versions as tuples, ranges as (introduced, fixed|None), has_a_fixed_event)."""
+    """(exact list of SemVer, ranges as (introduced, fixed_excl|None, last_affected|None), has_fixed)."""
     exact, ranges, has_fixed = [], [], False
     for a in vuln.get("affected") or []:
         for v in a.get("versions") or []:
@@ -987,14 +1294,16 @@ def mal_affected(vuln):
         for r in a.get("ranges") or []:
             if r.get("type") not in ("SEMVER", "ECOSYSTEM"):
                 continue
-            intro, fixed = (0, 0, 0), None
+            intro, fixed, last = SemVer(0, 0, 0), None, None
             for ev in r.get("events") or []:
                 if "introduced" in ev:
-                    intro = parse_semver(ev["introduced"]) or (0, 0, 0)
+                    intro = parse_semver(ev["introduced"]) or SemVer(0, 0, 0)
                 if "fixed" in ev:
                     fixed = parse_semver(ev["fixed"])
                     has_fixed = True
-            ranges.append((intro, fixed))
+                if "last_affected" in ev:
+                    last = parse_semver(ev["last_affected"])
+            ranges.append((intro, fixed, last))
     return exact, ranges, has_fixed
 
 
@@ -1003,24 +1312,143 @@ def pin_is_affected(pin, exact, ranges):
         return False
     if any(pin == ev for _, ev in exact):
         return True
-    for intro, fixed in ranges:
-        if pin >= intro and (fixed is None or pin < fixed):
+    for intro, fixed, last in ranges:
+        if pin >= intro and (fixed is None or pin < fixed) and (last is None or pin <= last):
             return True
     return False
 
 
-def compromised_release(vuln, exact, ranges, has_fixed):
-    """True when the advisory is a short-lived compromise of a real package, not typoquat malware."""
-    if has_fixed:
+def npm_spec_bounds(spec):
+    """(lo inclusive, hi exclusive or None) for a simple npm/PEP specifier. None, None means unknown/unbounded."""
+    s = (spec or "").strip()
+    if is_unknown_spec(s):
+        return SemVer(0, 0, 0), None
+    if is_exact_pin(s):
+        v = parse_semver(strip_pin(s))
+        return (v, v.bump_patch()) if v else (None, None)
+    # take the first clause
+    s = s.split("||")[0].split(",")[0].strip()
+    if s.startswith("^"):
+        base = parse_semver(s[1:])
+        if not base:
+            return None, None
+        # ^0.2.3 => >=0.2.3 <0.3.0; ^1.2.3 => >=1.2.3 <2.0.0
+        hi = base.bump_minor() if base.major == 0 else base.bump_major()
+        return base, hi
+    if s.startswith("~"):
+        base = parse_semver(s[1:].lstrip("="))
+        if not base:
+            return None, None
+        return base, base.bump_minor()
+    m = re.match(r"^(>=|<=|>|<|==|=|~=)\s*(.+)$", s)
+    if m:
+        op, rest = m.group(1), m.group(2)
+        v = parse_semver(rest)
+        if not v:
+            return None, None
+        if op in ("==", "="):
+            return v, v.bump_patch() if not v.pre else v  # exclusive end after this exact
+        if op == ">=":
+            return v, None
+        if op == ">":
+            return v.bump_patch(), None
+        if op == "<=":
+            return SemVer(0, 0, 0), v.bump_patch()
+        if op == "<":
+            return SemVer(0, 0, 0), v
+        if op == "~=":  # PEP 440 compatible: ~=1.4.5 => >=1.4.5 <1.5.0; ~=1.4 => >=1.4 <2
+            parts = [int(x) for x in re.findall(r"\d+", rest)[:3]]
+            if len(parts) <= 2:
+                return v, v.bump_major()
+            return v, v.bump_minor()
+    v = parse_semver(s)
+    if v:
+        return v, v.bump_patch()
+    return None, None
+
+
+def version_satisfies(spec, ver):
+    lo, hi = npm_spec_bounds(spec)
+    if ver is None or lo is None:
+        return False
+    if ver < lo:
+        return False
+    if hi is not None and not ver < hi:
+        return False
+    return True
+
+
+def ranges_overlap(lo, hi, intro, fixed, last):
+    """True if [lo, hi) overlaps the affected interval."""
+    if lo is None:
         return True
-    if 1 <= len(exact) <= 10 and all(fx is not None for _, fx in ranges):
+    aff_lo = intro
+    # exclusive end
+    aff_hi = fixed
+    if last is not None:
+        # inclusive last: exclusive end is just after last, tightened with fixed
+        after_last = last.bump_patch() if not last.pre else last  # pre: treat as <= last only via pin check
+        # better: pin <= last is inclusive; use a high bound just above last
+        after_last = SemVer(last.major, last.minor, last.patch, last.pre + ("~",) if last.pre else ())
+        # simpler inclusive test below
+        aff_hi_incl = last
+        start = lo if lo >= aff_lo else aff_lo
+        if start > aff_hi_incl:
+            return False
+        if hi is not None and not start < hi:
+            return False
+        if fixed is not None and not start < fixed:
+            return False
         return True
+    start = lo if lo >= aff_lo else aff_lo
+    # start must be < aff_hi (if any) and < hi (if any)
+    if fixed is not None and not start < fixed:
+        return False
+    if hi is not None and not start < hi:
+        return False
+    # also lo < fixed and intro < hi
+    if hi is not None and not intro < hi:
+        # unless lo is inside
+        if not (intro < hi):
+            return False
+    return True
+
+
+def spec_admits_affected(spec, exact, ranges):
+    if is_exact_pin(spec or ""):
+        pin = parse_semver(strip_pin(spec))
+        return pin_is_affected(pin, exact, ranges)
+    if is_unknown_spec(spec):
+        return None  # unknown
+    # any exact affected version in the spec?
+    for _, ev in exact:
+        if version_satisfies(spec, ev):
+            return True
+    lo, hi = npm_spec_bounds(spec)
+    if lo is None and hi is None:
+        return None
+    for intro, fixed, last in ranges:
+        if ranges_overlap(lo, hi, intro, fixed, last):
+            return True
+    return False
+
+
+def is_popular_name(name, popular):
+    if not name:
+        return False
+    n = name.lower()
+    if n in popular:
+        return True
+    if name.startswith("@") and "/" in name:
+        if n in popular or name.split("/")[0].lower() in POPULAR_SCOPES:
+            return True
     return False
 
 
 def check_typos_and_osv(deps, ecosystem, findings, file=None):
     popular = POPULAR_NPM if ecosystem == "npm" else POPULAR_PYPI
     seen = set()
+    osv_failed = False
     for origin, name, version in deps:
         if not name or name in seen:
             continue
@@ -1039,8 +1467,16 @@ def check_typos_and_osv(deps, ecosystem, findings, file=None):
         try:
             vulns = osv_query("npm" if ecosystem == "npm" else "PyPI", name, None)
         except Exception:
-            vulns = []
-        pin = parse_semver(version) if is_exact_pin(version or "") else None
+            vulns = OSV_UNAVAILABLE
+        if vulns is OSV_UNAVAILABLE:
+            osv_failed = True
+            findings.append(finding(
+                "osv-unavailable",
+                "OSV.dev did not respond; advisory check incomplete",
+                "info", file=file,
+            ))
+            continue
+        popular_pkg = is_popular_name(name, popular)
         for v in vulns or []:
             vid = v.get("id") or ""
             summary = (v.get("summary") or v.get("details") or vid)[:200]
@@ -1049,41 +1485,86 @@ def check_typos_and_osv(deps, ecosystem, findings, file=None):
                 continue
             exact, ranges, has_fixed = mal_affected(v)
             typo_mal = typo is not None
-            if typo_mal or not compromised_release(v, exact, ranges, has_fixed):
+            admitted = spec_admits_affected(version, exact, ranges)
+            if typo_mal:
+                if admitted is False:
+                    continue
                 findings.append(finding(
                     "osv",
                     f"OSV malicious-package advisory {vid} for {name}: {summary}",
                     "malicious", file=file,
                 ))
                 continue
-            # Compromised release of a known package: only flag an exact pin that is affected.
-            if pin is not None and pin_is_affected(pin, exact, ranges):
+            if admitted is False:
+                continue
+            if admitted is None:
+                findings.append(finding(
+                    "osv",
+                    f"OSV {vid} for {name}: version unknown, advisory not matched to a pin ({summary})",
+                    "low", file=file,
+                ))
+                continue
+            if is_exact_pin(version or ""):
                 findings.append(finding(
                     "osv",
                     f"OSV {vid} lists this exact pin of {name} ({version}) as a compromised release: {summary}",
                     "high", file=file,
                 ))
+                continue
+            if popular_pkg:
+                findings.append(finding(
+                    "osv",
+                    f"range admits a compromised release of {name} listed in {vid}; lockfile not checked",
+                    "medium", file=file,
+                ))
+                continue
+            findings.append(finding(
+                "osv",
+                f"OSV malicious-package advisory {vid} for {name}: {summary}",
+                "malicious", file=file,
+            ))
+    return osv_failed
+
+
+def _names_from(obj):
+    out = []
+    if isinstance(obj, dict) and obj.get("name"):
+        out.append(obj["name"])
+    elif isinstance(obj, str):
+        out.append(obj)
+    return out
 
 
 def repo_from_npm(j):
-    if not j:
+    if not j or j is REGISTRY_ERROR:
         return "", "", []
     latest = (j.get("dist-tags") or {}).get("latest")
     versions = j.get("versions") or {}
     v = versions.get(latest) or {}
     repo = normalize_repo_url(v.get("repository") or j.get("repository"))
     homepage = v.get("homepage") or j.get("homepage") or ""
-    maintainers = []
-    for m in (j.get("maintainers") or v.get("maintainers") or []):
-        if isinstance(m, dict) and m.get("name"):
-            maintainers.append(m["name"])
-        elif isinstance(m, str):
-            maintainers.append(m)
-    return repo, homepage, maintainers
+    publishers = []
+    for src in (
+        v.get("_npmUser"),
+        v.get("maintainers"),
+        j.get("maintainers"),
+    ):
+        if isinstance(src, list):
+            for m in src:
+                publishers.extend(_names_from(m))
+        else:
+            publishers.extend(_names_from(src))
+    # unique, latest user first
+    seen, uniq = set(), []
+    for n in publishers:
+        if n not in seen:
+            seen.add(n)
+            uniq.append(n)
+    return repo, homepage, uniq
 
 
 def repo_from_pypi(j):
-    if not j:
+    if not j or j is REGISTRY_ERROR:
         return "", "", []
     info = j.get("info") or {}
     urls = info.get("project_urls") or {}
@@ -1095,7 +1576,6 @@ def repo_from_pypi(j):
         if n.startswith("https://github.com/") or n.startswith("https://gitlab.com/") or n.startswith("https://bitbucket.org/"):
             repo = n
             break
-    # A pypi.org/project/... page is not a source repository
     authors = []
     for key in ("author", "maintainer"):
         if info.get(key):
@@ -1114,24 +1594,57 @@ def publisher_matches(owner, publishers):
     own = _alnum(owner)
     if not own:
         return True
-    # drop common org suffixes so alpacahq ~ alpaca, OpenBB-finance ~ openbb
     own_stem = re.sub(r"(hq|inc|io|ai|api|app|org|team|official|finance|dev)$", "", own) or own
+    # very short stems ("ai") must not match as a substring of arbitrary names
+    min_len = 3
     for p in publishers:
         s = str(p).lower()
         al = _alnum(s)
-        if own in al or al in own or own_stem and (own_stem in al or al in own_stem):
+        if len(own) >= min_len and (own == al or own in al or al == own):
             return True
-        # email domain: info@alpaca.markets vs alpacahq
+        if len(own_stem) >= min_len and (own_stem == al or own_stem in al or al == own_stem):
+            return True
         m = re.search(r"@([a-z0-9.-]+)", s)
         if m:
             dom = _alnum(m.group(1).split(".")[0])
-            if dom and (dom in own or own_stem in dom or dom in own_stem):
+            if len(dom) >= min_len and (dom in own or own_stem in dom or (len(own_stem) >= min_len and dom in own_stem)):
                 return True
     return False
 
 
-def check_registry_match(listed_repo, owner, pkg_repo, homepage, publishers, findings, kind):
+def npm_held_or_deprecated(j):
+    """True when the published package is held by npm support or marked unsupported."""
+    if not j or j is REGISTRY_ERROR:
+        return False
+    latest = (j.get("dist-tags") or {}).get("latest")
+    v = (j.get("versions") or {}).get(latest) or {}
+    names = []
+    for src in (v.get("maintainers"), j.get("maintainers")):
+        if isinstance(src, list):
+            for m in src:
+                names.extend(n.lower() for n in _names_from(m))
+        elif src:
+            names.extend(n.lower() for n in _names_from(src))
+    # top-level only npm-support (bitcoin-mcp case): even if old versions list another user
+    top = []
+    for m in (j.get("maintainers") or []):
+        top.extend(n.lower() for n in _names_from(m))
+    check = top or names
+    if check and all(n.replace(" ", "-") in {"npm-support", "npmsupport"} for n in check):
+        return True
+    desc = (v.get("description") or j.get("description") or "").lower()
+    if "no longer supported" in desc or "package no longer supported" in desc:
+        return True
+    if v.get("deprecated") or j.get("deprecated"):
+        return True
+    return False
+
+
+def check_registry_match(listed_repo, owner, pkg_repo, homepage, publishers, findings, kind, tool=None):
     listed = normalize_repo_url(listed_repo)
+    typ = (tool or {}).get("type") if isinstance(tool, dict) else None
+    cat = (tool or {}).get("category") if isinstance(tool, dict) else None
+    mcpish = typ == "mcp" or cat in {"trading-brokers", "crypto"} or kind in {"npm", "PyPI"}
     if pkg_repo:
         if listed and pkg_repo != listed and not (
             pkg_repo.startswith(listed + "/") or listed.startswith(pkg_repo + "/")
@@ -1142,22 +1655,26 @@ def check_registry_match(listed_repo, owner, pkg_repo, homepage, publishers, fin
                 "high" if kind in {"npm", "PyPI"} else "medium",
             ))
     else:
+        # Missing VCS URL: medium for npm/PyPI (and for MCP / broker / crypto tools).
+        sev = "medium" if mcpish or kind in {"npm", "PyPI"} else "low"
         findings.append(finding(
             "repo-mismatch",
             f"{kind} package does not declare a repository field that matches the listing",
-            "low",
+            sev,
         ))
-    # publisher vs GitHub owner (soft signal)
     if owner and publishers:
         if not publisher_matches(owner, publishers):
             findings.append(finding(
                 "publisher-mismatch",
-                f"{kind} publishers {publishers[:6]} do not obviously match GitHub owner {owner!r}",
+                "listed GitHub owner does not match the registry publisher",
                 "low",
+                publisher_match=False,
             ))
+        else:
+            # still record the boolean when we bother to check? only on mismatch, as specified
+            pass
 
 
-# ------------------------------------ scan one tool ------------------------------------------
 def package_belongs(name, path, tool, owner, repo):
     """True when a package.json / pyproject is the listed tool (or a same-repo sibling), not an example app."""
     if not name:
@@ -1212,34 +1729,104 @@ def allow_hosts_for(tool, owner):
     return hosts
 
 
+def manifest_entries(path, pkg):
+    """Paths named by package.json main / bin / exports / files / hook scripts."""
+    rel_dir = path.replace("\\", "/").rsplit("/", 1)[0] if "/" in path.replace("\\", "/") else ""
+    out = []
+
+    def add(rel):
+        if not isinstance(rel, str) or not rel or rel.startswith("."):
+            # still allow .rc-like? skip
+            pass
+        if not isinstance(rel, str) or not rel:
+            return
+        rel = rel.split(":", 1)[-1] if rel.startswith("file:") else rel
+        rel = rel.split("*", 1)[0].rstrip("/")
+        if rel.startswith("./"):
+            rel = rel[2:]
+        joined = f"{rel_dir}/{rel}" if rel_dir else rel
+        out.append(joined.lstrip("./"))
+
+    if not isinstance(pkg, dict):
+        return out
+    if isinstance(pkg.get("main"), str):
+        add(pkg["main"])
+    if isinstance(pkg.get("module"), str):
+        add(pkg["module"])
+    bin_ = pkg.get("bin")
+    if isinstance(bin_, str):
+        add(bin_)
+    elif isinstance(bin_, dict):
+        for v in bin_.values():
+            if isinstance(v, str):
+                add(v)
+    exports = pkg.get("exports")
+    def walk_exports(x):
+        if isinstance(x, str):
+            add(x)
+        elif isinstance(x, dict):
+            for v in x.values():
+                walk_exports(v)
+        elif isinstance(x, list):
+            for v in x:
+                walk_exports(v)
+    walk_exports(exports)
+    files = pkg.get("files")
+    if isinstance(files, list):
+        for v in files:
+            if isinstance(v, str) and not any(ch in v for ch in "*?["):
+                add(v)
+    scripts = pkg.get("scripts") or {}
+    if isinstance(scripts, dict):
+        for hook, cmd in scripts.items():
+            if hook not in INSTALL_HOOKS or not isinstance(cmd, str):
+                continue
+            for tok in re.findall(r"(?:node|python3?|bash|sh)\s+([./][\w./-]+)", cmd):
+                add(tok)
+            for tok in re.findall(r"(?:^|\s)(\S+\.(?:js|mjs|cjs|sh|py))\b", cmd):
+                add(tok)
+    return out
+
+
 def list_repo_files(owner, repo, branch=None):
+    """Returns (info, sha, entries|None, truncated). entries is None when the tree could not be fetched."""
     info = gh_api(f"repos/{owner}/{repo}")
     if not info or not isinstance(info, dict):
-        return None, None, [], False
+        return None, None, None, False
     sha = (info.get("default_branch") if not branch else branch) or "HEAD"
-    # resolve to a commit sha when possible
     ref = gh_api(f"repos/{owner}/{repo}/git/ref/heads/{sha}")
     if isinstance(ref, dict) and ref.get("object", {}).get("sha"):
         sha = ref["object"]["sha"]
     elif isinstance(info.get("default_branch"), str) and not branch:
-        # fall back to the branch name in the trees API
         sha = info["default_branch"]
     tree = gh_api(f"repos/{owner}/{repo}/git/trees/{sha}?recursive=1")
     if not tree or not isinstance(tree, dict):
-        return info, sha, []
+        return info, sha, None, False
     entries = []
     for e in tree.get("tree") or []:
         if e.get("type") != "blob":
             continue
         path = e.get("path") or ""
         size = e.get("size") or 0
-        if size > MAX_FILE_BYTES:
-            continue
-        entries.append({"path": path, "size": size, "sha": e.get("sha")})
-    if tree.get("truncated"):
-        # still return what we got; caller notes the cap
-        pass
+        entries.append({"path": path, "size": size, "sha": e.get("sha"), "large": size > MAX_FILE_BYTES})
     return info, (tree.get("sha") or sha), entries, bool(tree.get("truncated"))
+
+
+def finalize_status(out, findings, truncated=False, incomplete=False):
+    uniq, seen = [], set()
+    for f in findings:
+        k = (f["check"], f["file"], f["detail"], f["line"])
+        if k in seen:
+            continue
+        seen.add(k)
+        uniq.append(f)
+    out["findings"] = uniq
+    st = status_of(uniq)
+    if st == "clean" and (truncated or incomplete):
+        st = "incomplete"
+    out["status"] = st
+    out["truncated"] = bool(truncated)
+    return out
 
 
 def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
@@ -1256,118 +1843,222 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
         "files_scanned": 0,
         "packages": {},
         "notes": [],
+        "truncated": False,
+        "coverage": {"scanned": 0, "matched": 0, "skipped_large": 0},
+        "fetch_failed": [],
     }
     parsed = parse_repo(tool.get("repo") or "")
     if not tool.get("repo"):
         findings.append(finding("repo", "No source repository listed; static scan skipped", "info"))
-        out["status"] = status_of(findings)
-        return out
+        return finalize_status(out, findings)
     if not parsed:
         findings.append(finding("repo", f"Repository URL is not a GitHub repo we can list: {tool.get('repo')}", "medium"))
-        out["status"] = status_of(findings)
-        return out
+        return finalize_status(out, findings)
     owner, repo, branch, sub = parsed
     listed = f"https://github.com/{owner}/{repo}"
-    info, sha, entries, truncated = list_repo_files(owner, repo, branch)
-    if info is None:
+    info, sha, entries, tree_truncated = list_repo_files(owner, repo, branch)
+    if info is None or entries is None:
         findings.append(finding("repo", "Repository not reachable via the GitHub API; scan incomplete", "medium"))
-        out["status"] = status_of(findings)
-        return out
+        out["commit"] = sha
+        return finalize_status(out, findings, incomplete=True)
     out["commit"] = sha
-    if truncated:
+    if tree_truncated:
         out["notes"].append("GitHub tree was truncated; some paths may not have been listed")
     allow = allow_hosts_for(tool, owner)
-    # homepage domain often equals the vendor API domain
-    candidates = [e for e in entries if interesting(e["path"], subpath=sub)]
-    candidates.sort(key=lambda e: (file_priority(e["path"]), e["size"], e["path"]))
-    if len(candidates) > max_files:
-        out["notes"].append(f"capped at {max_files} files ({len(candidates)} matched)")
-        candidates = candidates[:max_files]
 
+    interesting_entries = [e for e in entries if interesting(e["path"], subpath=sub) or is_must_scan(e["path"])]
+    path_set = {e["path"] for e in entries}
+    skipped_large = 0
+
+    # Phase 1: always take must-scan files (any size)
+    must, rest = [], []
+    for e in interesting_entries:
+        if is_must_scan(e["path"]):
+            must.append(e)
+        else:
+            rest.append(e)
+
+    # We'll add hook/entry targets after reading manifests
+    candidates = list(must)
+    official = bool(tool.get("official"))
     npm_pkgs = []
     pypi_deps = []
-    official = bool(tool.get("official"))
+    extra_targets = set()
+    fetch_failed = []
+    osv_failed = False
+    incomplete = tree_truncated
 
-    for e in candidates:
-        path = e["path"]
-        text = raw_file(owner, repo, sha, path)
-        if not text:
-            continue
+    def scan_one(path, text):
+        nonlocal osv_failed
+        if text is FETCH_FAILED or text is None or (text == "" and is_must_scan(path)):
+            fetch_failed.append(path)
+            findings.append(finding("repo", f"Could not read {path}", "medium", file=path))
+            return
+        if text is FETCH_FAILED:
+            return
+        if text == "" and not is_must_scan(path):
+            # genuine empty blob
+            out["files_scanned"] += 1
+            return
         out["files_scanned"] += 1
         base = os.path.basename(path).lower()
         if base == "package.json":
             pkg = check_package_json(path, text, findings)
             if pkg:
                 npm_pkgs.append((path, pkg))
+                for rel in manifest_entries(path, pkg):
+                    extra_targets.add(rel)
         if base == "setup.py":
             check_setup_py(path, text, findings)
+            if CURL_PIPE.search(text) or BASH_FROM_CURL.search(text) or BINARY_DL.search(text):
+                check_shell_and_docker(path, text, findings)
         if base == "pyproject.toml":
             pypi_deps.extend([(path, d) for d in extract_pypi_deps(text, "pyproject")])
-            try:
-                n = (tomllib.loads(text).get("project") or {}).get("name") or (
-                    (tomllib.loads(text).get("tool") or {}).get("poetry") or {}
-                ).get("name")
-            except Exception:
-                pass
         if base.startswith("requirements") and base.endswith(".txt"):
             pypi_deps.extend([(path, d) for d in extract_pypi_deps(text, "requirements")])
-        if base.startswith("dockerfile") or base.startswith("docker-compose") or base.startswith("compose.") or base.endswith(".sh") or base.endswith(".ps1") or base == "makefile":
+        if (
+            base.startswith("dockerfile") or base.startswith("docker-compose") or base.startswith("compose.")
+            or base.endswith((".sh", ".ps1", ".bash")) or base == "makefile"
+            or path.replace("\\", "/").startswith(".github/workflows/")
+        ):
             check_shell_and_docker(path, text, findings)
         else:
-            # still catch curl|bash in source
             if CURL_PIPE.search(text) or BASH_FROM_CURL.search(text) or BINARY_DL.search(text):
                 check_shell_and_docker(path, text, findings)
         check_obfuscation(path, text, findings)
         check_secrets_and_network(path, text, findings, allow)
         check_permissions(path, text, findings, official, tool.get("type"), tool.get("category"))
 
+    scanned_paths = set()
+    for e in candidates:
+        path = e["path"]
+        text = raw_file(owner, repo, sha, path)
+        scan_one(path, text)
+        scanned_paths.add(path)
+
+    # hook / main / bin targets from manifests, always, any size
+    by_path = {e["path"]: e for e in entries}
+    for rel in list(extra_targets):
+        if rel in scanned_paths:
+            continue
+        if rel not in path_set:
+            # maybe the target is a directory prefix; skip
+            continue
+        text = raw_file(owner, repo, sha, rel)
+        scan_one(rel, text)
+        scanned_paths.add(rel)
+
+    # primary package dir from manifests we already saw
+    npm_names = [(path, pkg.get("name")) for path, pkg in npm_pkgs if pkg.get("name") and not pkg.get("private")]
+    selfs = [(path, d[1]) for path, d in pypi_deps if d[0] == "self"]
+    prim = primary_package(npm_names + selfs, tool, owner, repo)
+    primary_dir = None
+    if prim:
+        pp = prim[0].replace("\\", "/")
+        primary_dir = pp.rsplit("/", 1)[0] if "/" in pp else ""
+
+    # Phase 2: remaining source, cap, primary dir first, largest first
+    remaining = [e for e in rest if e["path"] not in scanned_paths]
+    remaining.sort(key=lambda e: (file_priority(e["path"], primary_dir), -e["size"], e["path"]))
+    matched = len(interesting_entries) + sum(1 for r in extra_targets if r in path_set and r not in {e["path"] for e in interesting_entries})
+    # unmatched large remaining past the cap
+    cap = max(0, max_files)
+    if len(remaining) > cap:
+        dropped = remaining[cap:]
+        skipped_large = sum(1 for e in dropped if e.get("large") or e["size"] > MAX_FILE_BYTES)
+        # also count large files we never selected
+        remaining = remaining[:cap]
+        incomplete = True
+        out["notes"].append(f"capped at {max_files} extra files ({len(dropped)} more matching paths not read)")
+    else:
+        skipped_large += sum(1 for e in remaining if e.get("large") and e["path"] not in scanned_paths and False)
+        dropped = []
+        skipped_large = sum(1 for e in entries if e.get("large") and e["path"] not in scanned_paths and e not in remaining and not is_must_scan(e["path"]))
+
+    for e in remaining:
+        path = e["path"]
+        text = raw_file(owner, repo, sha, path)
+        scan_one(path, text)
+        scanned_paths.add(path)
+
     # typo / OSV for every package we scanned; registry identity only for the primary package
     for path, pkg in npm_pkgs:
-        check_typos_and_osv(extract_npm_deps(pkg), "npm", findings, file=path)
-    npm_names = [(path, pkg.get("name")) for path, pkg in npm_pkgs if pkg.get("name") and not pkg.get("private")]
-    prim = primary_package(npm_names, tool, owner, repo)
-    if prim:
-        path, name = prim
+        if check_typos_and_osv(extract_npm_deps(pkg), "npm", findings, file=path):
+            osv_failed = True
+    prim_npm = primary_package(npm_names, tool, owner, repo)
+    if prim_npm:
+        path, name = prim_npm
         out["packages"]["npm"] = name
         reg = npm_registry(name)
-        if reg:
+        if reg is REGISTRY_ERROR:
+            incomplete = True
+            out["notes"].append(f"npm registry lookup for {name} failed")
+        elif reg:
             pkg_repo, home, maintainers = repo_from_npm(reg)
-            check_registry_match(listed, owner, pkg_repo, home, maintainers, findings, "npm")
+            check_registry_match(listed, owner, pkg_repo, home, maintainers, findings, "npm", tool=tool)
+            if npm_held_or_deprecated(reg):
+                findings.append(finding(
+                    "publisher-mismatch",
+                    "npm package appears unmaintained or held by the registry",
+                    "medium",
+                ))
+            latest = (reg.get("dist-tags") or {}).get("latest")
+            vers = (reg.get("versions") or {}).get(latest) or {}
+            # published latest install hooks (tarball may differ from the repo)
+            scripts = vers.get("scripts") if isinstance(vers.get("scripts"), dict) else {}
+            if scripts:
+                check_package_json(
+                    f"npm:{name}@{latest}",
+                    json.dumps({"name": name, "scripts": scripts}),
+                    findings,
+                )
+            # OSV against the published latest, not only the repo version
+            if latest:
+                if check_typos_and_osv([("self", name, latest)], "npm", findings, file=f"npm:{name}@{latest}"):
+                    osv_failed = True
         else:
-            out["notes"].append(f"npm package {name!r} was not found on the registry")
+            out["notes"].append(f"npm package {name} was not found on the registry")
 
-    # typo / OSV / registry for python
-    # collapse deps by file for typo checks
     if pypi_deps:
-        # run once per unique file, plus self names
         by_file = {}
         for path, dep in pypi_deps:
             by_file.setdefault(path, []).append(dep)
         for path, deps in by_file.items():
-            check_typos_and_osv(deps, "PyPI", findings, file=path)
-        selfs = [(path, d[1]) for path, d in pypi_deps if d[0] == "self"]
-        prim = primary_package(selfs, tool, owner, repo)
-        if prim:
-            path, name = prim
+            if check_typos_and_osv(deps, "PyPI", findings, file=path):
+                osv_failed = True
+        prim_py = primary_package(selfs, tool, owner, repo)
+        if prim_py:
+            path, name = prim_py
             out["packages"]["pypi"] = name
             reg = pypi_registry(name)
-            if reg:
+            if reg is REGISTRY_ERROR:
+                incomplete = True
+                out["notes"].append(f"PyPI registry lookup for {name} failed")
+            elif reg:
                 pkg_repo, home, authors = repo_from_pypi(reg)
-                check_registry_match(listed, owner, pkg_repo, home, authors, findings, "PyPI")
+                check_registry_match(listed, owner, pkg_repo, home, authors, findings, "PyPI", tool=tool)
+                latest = ((reg.get("info") or {}).get("version"))
+                if latest:
+                    if check_typos_and_osv([("self", name, latest)], "PyPI", findings, file=f"pypi:{name}@{latest}"):
+                        osv_failed = True
             else:
-                out["notes"].append(f"PyPI package {name!r} was not found on the registry")
+                out["notes"].append(f"PyPI package {name} was not found on the registry")
 
-    # de-duplicate identical findings (same check/file/detail)
-    uniq, seen = [], set()
-    for f in findings:
-        k = (f["check"], f["file"], f["detail"], f["line"])
-        if k in seen:
-            continue
-        seen.add(k)
-        uniq.append(f)
-    out["findings"] = uniq
-    out["status"] = status_of(uniq)
-    return out
+    if fetch_failed:
+        incomplete = True
+        out["fetch_failed"] = fetch_failed
+    if osv_failed:
+        incomplete = True
+
+    out["coverage"] = {
+        "scanned": out["files_scanned"],
+        "matched": max(matched, len(interesting_entries)),
+        "skipped_large": skipped_large,
+    }
+    if skipped_large:
+        out["notes"].append(f"{skipped_large} blob(s) over {MAX_FILE_BYTES} bytes were not fully read")
+    truncated = bool(tree_truncated or (out["notes"] and any("capped at" in n for n in out["notes"])))
+    return finalize_status(out, findings, truncated=truncated, incomplete=incomplete)
 
 
 def safe_scan(tool, max_files):
@@ -1378,7 +2069,7 @@ def safe_scan(tool, max_files):
     return {
         "id": tool["id"],
         "name": tool.get("name"),
-        "status": "concerns",
+        "status": "incomplete",
         "date": NOW.strftime("%Y-%m-%d"),
         "repo": tool.get("repo"),
         "commit": None,
@@ -1386,10 +2077,11 @@ def safe_scan(tool, max_files):
         "files_scanned": 0,
         "packages": {},
         "notes": [],
+        "truncated": False,
+        "coverage": {"scanned": 0, "matched": 0, "skipped_large": 0},
     }
 
 
-# ------------------------------------ CLI ----------------------------------------------------
 def parse_args(args, known_ids):
     only, dry, out_dir, jobs, max_files = None, False, DEFAULT_OUT, 4, MAX_FILES_DEFAULT
     i = 0

@@ -27,12 +27,22 @@ Results are informational only. They do not change which tools are listed or bui
   ],
   "files_scanned": 0,
   "packages": {},
-  "notes": []
+  "notes": [],
+  "truncated": false,
+  "coverage": { "scanned": 0, "matched": 0, "skipped_large": 0 },
+  "fetch_failed": []
 }
 ```
 
-`status` is `clean`, `concerns`, or `malicious`, derived from the highest finding severity (`malicious` → `malicious`; `high` or `medium` → `concerns`; otherwise `clean`).
+`status` is `clean`, `concerns`, `malicious`, or `incomplete`:
 
-Checks: `install-scripts`, `curl-pipe`, `obfuscation`, `secret-exfil`, `typosquat`, `osv`, `repo-mismatch`, `publisher-mismatch`, `permissions`, `repo`.
+- `malicious` is used only for a matching OSV `MAL-` advisory
+- `concerns` is used for heuristic findings of severity `high` or `medium`
+- `incomplete` is used when the scan was truncated, a required file could not be read, the tree or a registry/OSV call failed, or coverage was capped — never reported as `clean`
+- otherwise `clean`
+
+Publisher findings store `publisher_match: true/false` only; they do not include names or emails.
+
+Checks: `install-scripts`, `curl-pipe`, `obfuscation`, `secret-exfil`, `typosquat`, `osv`, `osv-unavailable`, `repo-mismatch`, `publisher-mismatch`, `permissions`, `repo`.
 
 Run a subset with `--only=id1,id2`. Write somewhere else with `--out-dir=DIR`. `--dry-run` prints a summary and writes nothing.
