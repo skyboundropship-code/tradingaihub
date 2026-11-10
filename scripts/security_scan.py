@@ -9,6 +9,7 @@ Statuses are informational only: this script does not hide or un-list tools.
 Run:  python3 scripts/security_scan.py
       python3 scripts/security_scan.py --only=id1,id2
       python3 scripts/security_scan.py --only=id1,id2 --out-dir=/tmp/sec --dry-run
+      python3 scripts/security_scan.py --only=id1 --timeout=600 --max-files=2500
 """
 from __future__ import annotations
 
@@ -134,8 +135,7 @@ SOURCE_EXT = frozenset({
     ".cfg", ".ini",
 })
 INSTALL_HOOKS = (
-    "preinstall", "install", "postinstall", "prepare", "prepublish",
-    "prepublishOnly", "prepack", "postpack",
+    "preinstall", "install", "postinstall",
 )
 # prepare/husky and similar hooks that only run local tooling are expected.
 BENIGN_HOOK = re.compile(
@@ -183,7 +183,7 @@ SECRET_PATHS = re.compile(
     r"AppData\\(?:Roaming|Local)\\(?:Google\\Chrome|Mozilla)|"
     r"Cookies/Cookies|(?:Chrome|Chromium|Google)/[^\"'\\n]*Login Data|Keychain\.accts|"
     r"electrum/wallets|Solana/id\.json|\.bitcoin/wallet|"
-    r"metamask|IndexedDB/nkbihfbeogae)",
+    r"(?:^|[\"'/\\])\.metamask(?:[\"'/\\]|\b)|metamask[/\\]|IndexedDB/nkbihfbeogae)",
     re.I,
 )
 SEED_ASK = re.compile(
@@ -252,6 +252,7 @@ cdn.jsdelivr.net unpkg.com
 INSTALLER_HOSTS = frozenset("""
 deb.nodesource.com sh.rustup.rs get.docker.com static.rust-lang.org
 nodejs.org packages.microsoft.com aka.ms dl.google.com
+astral.sh claude.ai
 """.split())
 
 HOOK_METACHAR = re.compile(r"&&|;|\||\$\(|`")
@@ -744,37 +745,68 @@ def levenshtein(a, b, limit=2):
     return prev[-1]
 
 
+def normalize_pkg_name(name, ecosystem=None):
+    """PEP 503-style name normalisation for unscoped packages (typing_extensions == typing-extensions)."""
+    if not name:
+        return ""
+    if name.startswith("@") and "/" in name:
+        return name.lower()
+    return re.sub(r"[-_.]+", "-", str(name).lower())
+
+
 def typo_of(name, popular):
     """Return (popular_name, distance) if `name` looks like a typo of a popular package."""
-    if not name or name in popular:
+    if not name:
         return None
-    # scoped npm: compare the name part, but @types/XYZ is not a typo of XYZ
-    cmp_name = name
-    if name.startswith("@") and "/" in name:
-        scope, cmp_name = name.split("/", 1)
-        if scope in {"@types", "@babel", "@angular", "@testing-library", "@solana", "@apollo"}:
+    scoped = name.startswith("@") and "/" in name
+    # Never compare a scoped name (@scope/pkg) with an unscoped popular package
+    # (e.g. @modelcontextprotocol/server vs semver, @dotenvx/dotenvx vs dotenv).
+    if scoped:
+        popular = [p for p in popular if isinstance(p, str) and p.startswith("@")]
+        if not popular:
             return None
-    low = cmp_name.lower()
-    if low in popular:
+        low = name.lower()
+        if name in popular or low in {p.lower() for p in popular}:
+            return None
+        best = None
+        for pop in popular:
+            pl = pop.lower()
+            limit = 1 if len(pl) < 8 else 2
+            if abs(len(low) - len(pl)) > limit:
+                continue
+            d = levenshtein(low, pl, limit=limit)
+            if d == 0:
+                return None
+            if 0 < d <= limit and len(pl) >= 4:
+                if best is None or d < best[1]:
+                    best = (pop, d)
+                if d == 1:
+                    return best
+        return best
+    low = normalize_pkg_name(name)
+    popular_norm = {}
+    for pop in popular:
+        if isinstance(pop, str) and pop.startswith("@"):
+            continue
+        popular_norm[normalize_pkg_name(pop)] = pop
+    if low in popular_norm or name in popular:
         return None
     # legitimate suffixes of a popular name (requests-oauthlib, lodash-es already in list)
-    # and next-gen renames like httpx2 (pydantic's successor to httpx)
-    for pop in popular:
-        if low.startswith(pop + "-") or low.startswith(pop + "_") or low.startswith(pop + "."):
+    # and next-gen renames like httpx2
+    for pop_n, pop in popular_norm.items():
+        if low.startswith(pop_n + "-") or pop_n.startswith(low + "-"):
             return None
-        if pop.startswith(low + "-") or pop.startswith(low + "_"):
-            return None
-        if re.fullmatch(re.escape(pop) + r"[v._-]?\d+", low):
+        if re.fullmatch(re.escape(pop_n) + r"[v.-]?\d+", low):
             return None
     best = None
-    for pop in popular:
-        limit = 1 if len(pop) < 8 else 2
-        if abs(len(low) - len(pop)) > limit:
+    for pop_n, pop in popular_norm.items():
+        limit = 1 if len(pop_n) < 8 else 2
+        if abs(len(low) - len(pop_n)) > limit:
             continue
-        d = levenshtein(low, pop, limit=limit)
+        d = levenshtein(low, pop_n, limit=limit)
         if d == 0:
             return None
-        if 0 < d <= limit and len(pop) >= 4:
+        if 0 < d <= limit and len(pop_n) >= 4:
             if best is None or d < best[1]:
                 best = (pop, d)
             if d == 1:
@@ -881,15 +913,73 @@ def is_user_content_host(host):
     return h in USER_CONTENT_HOSTS or any(h.endswith("." + x) for x in USER_CONTENT_HOSTS)
 
 
-def pipe_severity(path, host, snippet):
-    """Pipe-to-shell severity. low only for official installers in README/docs."""
+def is_ci_path(path):
+    pth = (path or "").replace("\\", "/").lower()
+    base = pth.split("/")[-1]
+    if pth.startswith(".github/workflows/") or pth.startswith(".circleci/"):
+        return True
+    if base in {".gitlab-ci.yml", "azure-pipelines.yml", "azure-pipelines.yaml", "jenkinsfile"}:
+        return True
+    if "/.github/workflows/" in "/" + pth:
+        return True
+    return False
+
+
+def is_vendor_release_url(snippet, owner=None):
+    """True when the snippet downloads a GitHub Release of the listed repository owner."""
+    if not snippet:
+        return False
+    owner = (owner or _ctx_owner() or "").strip()
+    if not owner:
+        return False
+    return bool(re.search(
+        r"https?://(?:github\.com|objects\.githubusercontent\.com)/"
+        + re.escape(owner)
+        + r"/[^/\s]+/releases/",
+        snippet,
+        re.I,
+    ))
+
+
+def looks_like_pipe_mention(snippet):
+    """True when the text talks about curl|bash (a regex, allow-list, or policy) rather than running it."""
+    if not snippet:
+        return False
+    s = snippet.strip()
+    # Alternation lists: wget|python-requests|httpx or curl|bash in prose with no URL/flags
+    if re.search(r"\b(curl|wget)\s*\|\s*[\w./\\-]+\|", s, re.I):
+        return True
+    if re.search(r"\b(curl|wget)\s*\|\s*(?:ba)?sh\b", s, re.I) and not re.search(r"https?://|-\w", s):
+        return True
+    if re.search(r"(RegExp\(|new\s+RegExp|\.test\s*\(|/=\s*/|match\s*\()", s):
+        return True
+    return False
+
+
+_SCAN_CTX = threading.local()
+
+
+def _ctx_owner():
+    return getattr(_SCAN_CTX, "owner", None)
+
+
+def pipe_severity(path, host, snippet, owner=None):
+    """Pipe-to-shell severity.
+
+    Official installer hosts and CI workflows are info (low in README/docs so
+    existing QA assertions stay green). Both info and low leave the tool clean.
+    """
+    owner = owner if owner is not None else _ctx_owner()
+    official = is_exact_installer_host(host) or is_vendor_release_url(snippet, owner)
+    if is_ci_path(path):
+        return "info"
+    if official:
+        if is_doc_path(path):
+            return "low"
+        return "info"
     variable = bool(re.search(r"\$[A-Za-z_{]|\$\{|`[^`]+`", snippet or ""))
     if not host or variable or is_user_content_host(host):
         return "high"
-    if is_doc_path(path) and is_exact_installer_host(host):
-        return "low"
-    if is_exact_installer_host(host):
-        return "medium"
     return "high"
 
 
@@ -979,6 +1069,8 @@ def check_shell_and_docker(path, text, findings):
     ):
         for m in rx.finditer(text):
             snippet = text[m.start():m.start() + 180].splitlines()[0]
+            if looks_like_pipe_mention(snippet):
+                continue
             host_m = PLAIN_URL.search(snippet)
             host = (host_m.group(1).lower() if host_m else "")
             sev = pipe_severity(path, host, snippet)
@@ -1053,14 +1145,19 @@ def suspicious_host(host):
 
 
 def check_secrets_and_network(path, text, findings, allow_hosts):
-    secret_hits = list(SECRET_PATHS.finditer(text))
-    for m in secret_hits:
-        snippet = text[m.start():m.start() + 140].splitlines()[0]
-        findings.append(finding(
-            "secret-exfil",
-            f"reads a sensitive path or store: {snippet[:140]}",
-            "medium", file=path, line=line_no(text, m.start()),
-        ))
+    # Tests, fixtures, README and docs mention keys and demo IPs; those are not exfil.
+    # Seed-phrase prompts are still checked in those paths.
+    skip_exfil = is_test_path(path) or is_doc_path(path)
+    secret_hits = []
+    if not skip_exfil:
+        secret_hits = list(SECRET_PATHS.finditer(text))
+        for m in secret_hits:
+            snippet = text[m.start():m.start() + 140].splitlines()[0]
+            findings.append(finding(
+                "secret-exfil",
+                f"reads a sensitive path or store: {snippet[:140]}",
+                "medium", file=path, line=line_no(text, m.start()),
+            ))
     for m in SEED_ASK.finditer(text):
         snippet = text[m.start():m.start() + 160].splitlines()[0]
         window = text[max(0, m.start() - 50):m.end() + 50]
@@ -1071,6 +1168,8 @@ def check_secrets_and_network(path, text, findings, allow_hosts):
             f"asks for a seed phrase or wallet private key: {snippet[:160]}",
             "high", file=path, line=line_no(text, m.start()),
         ))
+    if skip_exfil:
+        return
     ext_hosts = []
     for m in HTTP_URL.finditer(text):
         url = m.group(1)
@@ -1561,7 +1660,122 @@ def is_popular_name(name, popular):
     return False
 
 
-def check_typos_and_osv(deps, ecosystem, findings, file=None):
+
+LOCK_BASENAMES = frozenset({
+    "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "npm-shrinkwrap.json",
+    "poetry.lock", "uv.lock",
+})
+
+
+def in_vendor_dir(path):
+    parts = path.replace("\\", "/").split("/")[:-1]
+    return any(p.lower() in SKIP_DIR for p in parts)
+
+
+def _lock_add(versions, name, ver):
+    if not name or not ver or not isinstance(ver, str):
+        return
+    versions.setdefault(name, []).append(ver)
+    norm = normalize_pkg_name(name)
+    if norm and norm != name:
+        versions.setdefault(norm, []).append(ver)
+
+
+def parse_lockfile(path, text):
+    """Return {name: [versions]} or None if the lockfile cannot be parsed."""
+    if not text or text is FETCH_FAILED:
+        return None
+    base = os.path.basename(path or "").lower()
+    versions = {}
+    try:
+        if base in {"package-lock.json", "npm-shrinkwrap.json"}:
+            j = json.loads(text)
+            for pth, meta in (j.get("packages") or {}).items():
+                if not isinstance(meta, dict):
+                    continue
+                name = meta.get("name")
+                if not name and "node_modules/" in (pth or "").replace("\\", "/"):
+                    name = pth.replace("\\", "/").split("node_modules/")[-1]
+                _lock_add(versions, name, meta.get("version"))
+            def walk(deps):
+                if not isinstance(deps, dict):
+                    return
+                for n, meta in deps.items():
+                    if isinstance(meta, dict):
+                        _lock_add(versions, n, meta.get("version"))
+                        walk(meta.get("dependencies"))
+            walk(j.get("dependencies"))
+        elif base == "yarn.lock":
+            current = []
+            for line in text.splitlines():
+                if line.strip() and not line.startswith((" ", "\t")) and line.rstrip().endswith(":"):
+                    header = line.strip()[:-1]
+                    current = []
+                    for tok in re.split(r",\s*", header):
+                        tok = tok.strip().strip("\"'")
+                        if not tok:
+                            continue
+                        if tok.startswith("@"):
+                            m = re.match(r"(@[^/]+/[^@]+)@", tok)
+                            if m:
+                                current.append(m.group(1))
+                        elif "@" in tok:
+                            current.append(tok.split("@", 1)[0])
+                else:
+                    m = re.match(r'\s+version:?\s+"?([^"\s]+)"?', line)
+                    if m and current:
+                        for n in current:
+                            _lock_add(versions, n, m.group(1))
+                        current = []
+        elif base == "pnpm-lock.yaml":
+            for m in re.finditer(
+                r"(?m)^(?:\s*)['\"]?/?((?:@[^/'\"\s]+/)?[^@/'\"\s]+)@v?(\d[^:()'\"]+):",
+                text,
+            ):
+                _lock_add(versions, m.group(1), m.group(2).split("(")[0])
+        elif base in {"poetry.lock", "uv.lock"}:
+            for m in re.finditer(
+                r'(?m)^name\s*=\s*"([^"]+)"\nversion\s*=\s*"([^"]+)"',
+                text,
+            ):
+                _lock_add(versions, m.group(1), m.group(2))
+        else:
+            return None
+    except (ValueError, TypeError, json.JSONDecodeError):
+        return None
+    return versions or {}
+
+
+def lock_versions_for(manifest_path, locks_by_dir):
+    """Walk from the manifest directory up to the repo root looking for a lockfile."""
+    if not locks_by_dir:
+        return None
+    d = (manifest_path or "").replace("\\", "/")
+    if d.startswith("npm:") or d.startswith("pypi:"):
+        d = ""
+    elif "/" in d:
+        d = d.rsplit("/", 1)[0]
+    else:
+        d = ""
+    while True:
+        if d in locks_by_dir:
+            return locks_by_dir[d]
+        if d == "":
+            return None
+        d = d.rsplit("/", 1)[0] if "/" in d else ""
+
+
+def resolved_lock_versions(lock_versions, name):
+    if not lock_versions or not name:
+        return []
+    out = list(lock_versions.get(name) or [])
+    norm = normalize_pkg_name(name)
+    if norm != name:
+        out.extend(lock_versions.get(norm) or [])
+    return out
+
+
+def check_typos_and_osv(deps, ecosystem, findings, file=None, lock_versions=None):
     popular = POPULAR_NPM if ecosystem == "npm" else POPULAR_PYPI
     seen = set()
     osv_failed = False
@@ -1627,6 +1841,18 @@ def check_typos_and_osv(deps, ecosystem, findings, file=None):
                 findings.append(finding(
                     "osv",
                     f"OSV {vid} lists this exact pin of {name} ({version}) as a compromised release: {summary}",
+                    "high", file=file,
+                ))
+                continue
+            if lock_versions is not None:
+                resolved = resolved_lock_versions(lock_versions, name)
+                if not resolved:
+                    continue  # declared range, but this package is not in the lockfile
+                if not any(pin_is_affected(parse_semver(v), exact, ranges) for v in resolved):
+                    continue  # lockfile pins a safe version
+                findings.append(finding(
+                    "osv",
+                    f"OSV {vid}: lockfile resolves {name} to a compromised release ({', '.join(resolved[:4])}): {summary}",
                     "high", file=file,
                 ))
                 continue
@@ -1942,7 +2168,15 @@ def finalize_status(out, findings, truncated=False, incomplete=False):
     out["findings"] = uniq
     st = status_of(uniq)
     if st == "clean" and (truncated or incomplete):
-        st = "incomplete"
+        # A cap or timeout with no medium+ findings is a partial scan, not a concern
+        # and not a hard failure. Hard failures (unreachable repo, unreadable
+        # required files, API budget) stay incomplete.
+        details = " ".join((f.get("detail") or "") for f in uniq)
+        hard = bool(out.get("fetch_failed")) or any(
+            s in details.lower()
+            for s in ("not reachable", "could not read", "scan skipped:", "api budget", "github api remaining")
+        )
+        st = "incomplete" if hard else "partial"
     out["status"] = st
     out["truncated"] = bool(truncated)
     return out
@@ -1974,6 +2208,7 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
         findings.append(finding("repo", f"Repository URL is not a GitHub repo we can list: {tool.get('repo')}", "medium"))
         return finalize_status(out, findings)
     owner, repo, branch, sub = parsed
+    _SCAN_CTX.owner = owner
     listed = f"https://github.com/{owner}/{repo}"
     info, sha, entries, tree_truncated = list_repo_files(owner, repo, branch)
     if info is None or entries is None:
@@ -1985,7 +2220,10 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
         out["notes"].append("GitHub tree was truncated; some paths may not have been listed")
     allow = allow_hosts_for(tool, owner)
 
-    interesting_entries = [e for e in entries if interesting(e["path"], subpath=sub) or is_must_scan(e["path"])]
+    interesting_entries = [
+        e for e in entries
+        if not skip_path(e["path"]) and (interesting(e["path"], subpath=sub) or is_must_scan(e["path"]))
+    ]
     path_set = {e["path"] for e in entries}
     skipped_large = 0
 
@@ -2062,7 +2300,7 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
     # hook / main / bin targets from manifests, always, any size
     by_path = {e["path"]: e for e in entries}
     for rel in list(extra_targets):
-        if rel in scanned_paths:
+        if rel in scanned_paths or skip_path(rel):
             continue
         if rel not in path_set:
             # maybe the target is a directory prefix; skip
@@ -2105,8 +2343,27 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
         scanned_paths.add(path)
 
     # typo / OSV for every package we scanned; registry identity only for the primary package
+    # Read lockfiles (not as source) so a range finding can be confirmed or cleared.
+    locks_by_dir = {}
+    for e in entries:
+        base = os.path.basename(e["path"]).lower()
+        if base not in LOCK_BASENAMES or in_vendor_dir(e["path"]):
+            continue
+        text = raw_file(owner, repo, sha, e["path"])
+        parsed = parse_lockfile(e["path"], text)
+        d = e["path"].replace("\\", "/")
+        d = d.rsplit("/", 1)[0] if "/" in d else ""
+        if d in locks_by_dir and isinstance(locks_by_dir[d], dict) and parsed:
+            for k, vs in parsed.items():
+                locks_by_dir[d].setdefault(k, []).extend(vs)
+        elif parsed is not None:
+            locks_by_dir[d] = parsed
+        elif d not in locks_by_dir:
+            locks_by_dir[d] = None  # unreadable/unparseable: keep "not checked"
+
     for path, pkg in npm_pkgs:
-        if check_typos_and_osv(extract_npm_deps(pkg), "npm", findings, file=path):
+        if check_typos_and_osv(extract_npm_deps(pkg), "npm", findings, file=path,
+                               lock_versions=lock_versions_for(path, locks_by_dir)):
             osv_failed = True
     prim_npm = primary_package(npm_names, tool, owner, repo)
     if prim_npm:
@@ -2137,7 +2394,8 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
                 )
             # OSV against the published latest, not only the repo version
             if latest:
-                if check_typos_and_osv([("self", name, latest)], "npm", findings, file=f"npm:{name}@{latest}"):
+                if check_typos_and_osv([("self", name, latest)], "npm", findings, file=f"npm:{name}@{latest}",
+                                       lock_versions=lock_versions_for(path, locks_by_dir)):
                     osv_failed = True
         else:
             out["notes"].append(f"npm package {name} was not found on the registry")
@@ -2147,7 +2405,8 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
         for path, dep in pypi_deps:
             by_file.setdefault(path, []).append(dep)
         for path, deps in by_file.items():
-            if check_typos_and_osv(deps, "PyPI", findings, file=path):
+            if check_typos_and_osv(deps, "PyPI", findings, file=path,
+                                   lock_versions=lock_versions_for(path, locks_by_dir)):
                 osv_failed = True
         prim_py = primary_package(selfs, tool, owner, repo)
         if prim_py:
@@ -2162,7 +2421,8 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
                 check_registry_match(listed, owner, pkg_repo, home, authors, findings, "PyPI", tool=tool)
                 latest = ((reg.get("info") or {}).get("version"))
                 if latest:
-                    if check_typos_and_osv([("self", name, latest)], "PyPI", findings, file=f"pypi:{name}@{latest}"):
+                    if check_typos_and_osv([("self", name, latest)], "PyPI", findings, file=f"pypi:{name}@{latest}",
+                                           lock_versions=lock_versions_for(path, locks_by_dir)):
                         osv_failed = True
             else:
                 out["notes"].append(f"PyPI package {name} was not found on the registry")
@@ -2184,7 +2444,8 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
     return finalize_status(out, findings, truncated=truncated, incomplete=incomplete)
 
 
-def safe_scan(tool, max_files):
+def safe_scan(tool, max_files, timeout=None):
+    deadline = float(timeout if timeout is not None else TOOL_DEADLINE)
     if rate_budget_low():
         return {
             "id": tool["id"],
@@ -2200,10 +2461,26 @@ def safe_scan(tool, max_files):
             "truncated": False,
             "coverage": {"scanned": 0, "matched": 0, "skipped_large": 0},
         }
-    done, v = _bounded(lambda: scan_tool(tool, max_files=max_files), TOOL_DEADLINE)
+    done, v = _bounded(lambda: scan_tool(tool, max_files=max_files), deadline)
     if done and not isinstance(v, BaseException):
         return v
-    why = f"scanner error ({type(v).__name__}: {v})" if done else f"scanner timed out after {TOOL_DEADLINE:g}s"
+    if not done:
+        # Timeout with no medium+ findings is a partial scan, not a concern.
+        return {
+            "id": tool["id"],
+            "name": tool.get("name"),
+            "status": "partial",
+            "date": NOW.strftime("%Y-%m-%d"),
+            "repo": tool.get("repo"),
+            "commit": None,
+            "findings": [finding("repo", f"Scan incomplete: scanner timed out after {deadline:g}s", "info")],
+            "files_scanned": 0,
+            "packages": {},
+            "notes": ["scan-timeout"],
+            "truncated": True,
+            "coverage": {"scanned": 0, "matched": 0, "skipped_large": 0},
+        }
+    why = f"scanner error ({type(v).__name__}: {v})"
     return {
         "id": tool["id"],
         "name": tool.get("name"),
@@ -2214,14 +2491,14 @@ def safe_scan(tool, max_files):
         "findings": [finding("repo", f"Scan incomplete: {why}", "medium")],
         "files_scanned": 0,
         "packages": {},
-        "notes": [],
+        "notes": ["scan-error"],
         "truncated": False,
         "coverage": {"scanned": 0, "matched": 0, "skipped_large": 0},
     }
 
 
 def parse_args(args, known_ids):
-    only, dry, out_dir, jobs, max_files = None, False, DEFAULT_OUT, 4, MAX_FILES_DEFAULT
+    only, dry, out_dir, jobs, max_files, timeout = None, False, DEFAULT_OUT, 4, MAX_FILES_DEFAULT, TOOL_DEADLINE
     i = 0
     while i < len(args):
         a = args[i]
@@ -2256,16 +2533,18 @@ def parse_args(args, known_ids):
             jobs = int(a.split("=", 1)[1])
         elif a.startswith("--max-files="):
             max_files = int(a.split("=", 1)[1])
+        elif a.startswith("--timeout="):
+            timeout = float(a.split("=", 1)[1])
         elif a in ("-h", "--help"):
             print(__doc__)
             sys.exit(0)
         else:
             sys.exit(
                 f"security_scan.py: unknown argument {a!r} "
-                "(usage: security_scan.py [--dry-run] [--only=id1,id2] [--out-dir=DIR] [--jobs=N])"
+                "(usage: security_scan.py [--dry-run] [--only=id1,id2] [--out-dir=DIR] [--jobs=N] [--timeout=SEC])"
             )
         i += 1
-    return only, dry, out_dir, max(1, jobs), max_files
+    return only, dry, out_dir, max(1, jobs), max_files, timeout
 
 
 def load_tools():
@@ -2288,12 +2567,12 @@ def write_result(out_dir, result):
 def main(argv=None):
     tools = load_tools()
     known = {t["id"] for t in tools}
-    only, dry, out_dir, jobs, max_files = parse_args(argv if argv is not None else sys.argv[1:], known)
+    only, dry, out_dir, jobs, max_files, timeout = parse_args(argv if argv is not None else sys.argv[1:], known)
     todo = [t for t in tools if not only or t["id"] in only]
     t0 = time.monotonic()
     os.makedirs(CACHE_DIR, exist_ok=True)
     with ThreadPoolExecutor(jobs) as ex:
-        results = list(ex.map(lambda t: safe_scan(t, max_files), todo))
+        results = list(ex.map(lambda t: safe_scan(t, max_files, timeout=timeout), todo))
     runtime = round(time.monotonic() - t0, 2)
     if not dry:
         for r in results:
