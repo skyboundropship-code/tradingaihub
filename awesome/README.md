@@ -1,8 +1,29 @@
-# Awesome Finance & Trading AI Tools [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
+# Awesome Finance & Trading AI Tools [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![MCP Registry](https://img.shields.io/badge/MCP_Registry-com.tradingaihub%2Fdirectory-555)](https://registry.modelcontextprotocol.io/v0/servers?search=tradingaihub) [![Public API](https://img.shields.io/badge/API-public%20%7C%20no%20key-15803d)](https://tradingaihub.com/developers/) [![License: CC BY 4.0](https://img.shields.io/badge/license-CC%20BY%204.0-lightgrey)](https://creativecommons.org/licenses/by/4.0/) [![GitHub stars](https://img.shields.io/github/stars/tradingaihub/awesome-finance-ai-tools?style=social)](https://github.com/tradingaihub/awesome-finance-ai-tools)
 
 > A curated, **automatically re-verified** list of MCP servers, agent skills and APIs for finance and trading. Mirror of [TradingAIHub](https://tradingaihub.com) — status checked weekly (last: 2026-11-09).
 
 Legend: ✅ verified · 🟡 aging (6–12 months without commits) · 🔴 stale (12+ months) · 🗄️ archived. 🟡 also marks entries whose link failed or could not be confirmed. ⭐ = GitHub stars. Not investment advice.
+
+## Use it from your AI agent
+
+This list is the markdown mirror of [TradingAIHub](https://tradingaihub.com). The same data is available to agents with no API key:
+
+- Remote MCP server: `https://tradingaihub.com/mcp` (Streamable HTTP; tools `search_tools`, `get_tool`, `list_categories`). Official MCP Registry: `com.tradingaihub/directory`.
+- REST API: `https://tradingaihub.com/api/v1/tools` · OpenAPI: `https://tradingaihub.com/api/openapi.json` · docs: https://tradingaihub.com/developers/
+
+Cursor example (`.cursor/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "tradingaihub": {
+      "url": "https://tradingaihub.com/mcp"
+    }
+  }
+}
+```
+
+Data is CC BY 4.0; attribution is "TradingAIHub, https://tradingaihub.com". Not investment advice.
 
 ## Contents
 
