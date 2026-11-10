@@ -136,10 +136,13 @@ SOURCE_EXT = frozenset({
 })
 INSTALL_HOOKS = (
     "preinstall", "install", "postinstall",
+    "prepare", "preprepare", "postprepare", "prepack",
 )
+# prepublish, prepublishOnly and postpack are publish-only and are ignored.
 # prepare/husky and similar hooks that only run local tooling are expected.
 BENIGN_HOOK = re.compile(
-    r"^\s*(husky(?:\s+install)?|npm\s+run\s+build|tsc|true|exit\s+0|"
+    r"^\s*(husky(?:\s+install)?|npm\s+run\s+build|pnpm\s+run\s+build|"
+    r"yarn\s+build|tsc|true|exit\s+0|"
     r"node-gyp\s+rebuild|prebuild-install|only-allow|simple-git-hooks|"
     r"npm\s+run\s+prepare|patch-package(?:\s+--error-on-fail)?)\s*$",
     re.I,
@@ -759,17 +762,20 @@ def typo_of(name, popular):
     if not name:
         return None
     scoped = name.startswith("@") and "/" in name
-    # Never compare a scoped name (@scope/pkg) with an unscoped popular package
-    # (e.g. @modelcontextprotocol/server vs semver, @dotenvx/dotenvx vs dotenv).
-    if scoped:
-        popular = [p for p in popular if isinstance(p, str) and p.startswith("@")]
-        if not popular:
+    popular = [p for p in popular if isinstance(p, str)]
+    # Exact popular name is never a typo of itself.
+    if name in popular or name.lower() in {p.lower() for p in popular}:
+        return None
+
+    def typo_scoped_vs_scoped():
+        # Never compare a scoped name with an unscoped popular package here
+        # (e.g. @modelcontextprotocol/server vs semver, @dotenvx/dotenvx vs dotenv).
+        scoped_pops = [p for p in popular if p.startswith("@")]
+        if not scoped or not scoped_pops:
             return None
         low = name.lower()
-        if name in popular or low in {p.lower() for p in popular}:
-            return None
         best = None
-        for pop in popular:
+        for pop in scoped_pops:
             pl = pop.lower()
             limit = 1 if len(pl) < 8 else 2
             if abs(len(low) - len(pl)) > limit:
@@ -783,35 +789,86 @@ def typo_of(name, popular):
                 if d == 1:
                     return best
         return best
-    low = normalize_pkg_name(name)
-    popular_norm = {}
-    for pop in popular:
-        if isinstance(pop, str) and pop.startswith("@"):
-            continue
-        popular_norm[normalize_pkg_name(pop)] = pop
-    if low in popular_norm or name in popular:
+
+    def typo_unscoped_vs_unscoped():
+        if scoped:
+            return None
+        low = normalize_pkg_name(name)
+        popular_norm = {}
+        for pop in popular:
+            if pop.startswith("@"):
+                continue
+            popular_norm[normalize_pkg_name(pop)] = pop
+        if low in popular_norm:
+            return None
+        for pop_n, pop in popular_norm.items():
+            if low.startswith(pop_n + "-") or pop_n.startswith(low + "-"):
+                return None
+            if re.fullmatch(re.escape(pop_n) + r"[v.-]?\d+", low):
+                return None
+        best = None
+        for pop_n, pop in popular_norm.items():
+            limit = 1 if len(pop_n) < 8 else 2
+            if abs(len(low) - len(pop_n)) > limit:
+                continue
+            d = levenshtein(low, pop_n, limit=limit)
+            if d == 0:
+                return None
+            if 0 < d <= limit and len(pop_n) >= 4:
+                if best is None or d < best[1]:
+                    best = (pop, d)
+                if d == 1:
+                    return best
+        return best
+
+    def typo_scoped_impostor_of_unscoped():
+        # @lodash/lodash or @expres/express: name part exactly matches a popular
+        # unscoped package, and the scope is the same name or a 1-edit typo of it.
+        if not scoped or "/" not in name:
+            return None
+        scope, _, pkg = name[1:].partition("/")
+        if not pkg:
+            return None
+        unscoped = {normalize_pkg_name(p): p for p in popular if not p.startswith("@")}
+        pkg_n = normalize_pkg_name(pkg)
+        if pkg_n not in unscoped:
+            return None
+        scope_l, pkg_l = scope.lower(), pkg.lower()
+        if scope_l == pkg_l:
+            return (unscoped[pkg_n], 1)
+        if 0 < levenshtein(scope_l, pkg_l, limit=1) <= 1:
+            return (unscoped[pkg_n], 1)
         return None
-    # legitimate suffixes of a popular name (requests-oauthlib, lodash-es already in list)
-    # and next-gen renames like httpx2
-    for pop_n, pop in popular_norm.items():
-        if low.startswith(pop_n + "-") or pop_n.startswith(low + "-"):
+
+    def typo_unscoped_impostor_of_scoped():
+        # solana-web3.js / modelcontextprotocol-sdk look-alikes of @scope/name.
+        if scoped:
             return None
-        if re.fullmatch(re.escape(pop_n) + r"[v.-]?\d+", low):
-            return None
-    best = None
-    for pop_n, pop in popular_norm.items():
-        limit = 1 if len(pop_n) < 8 else 2
-        if abs(len(low) - len(pop_n)) > limit:
-            continue
-        d = levenshtein(low, pop_n, limit=limit)
-        if d == 0:
-            return None
-        if 0 < d <= limit and len(pop_n) >= 4:
-            if best is None or d < best[1]:
-                best = (pop, d)
-            if d == 1:
-                return best
-    return best
+        low = normalize_pkg_name(name)
+        raw = name.lower()
+        for pop in popular:
+            if not (pop.startswith("@") and "/" in pop):
+                continue
+            scope, _, pkg = pop[1:].partition("/")
+            forms = {
+                f"{scope}-{pkg}",
+                f"{scope}{pkg}",
+                f"{scope}-{pkg.replace('.', '')}",
+                f"{scope}{pkg.replace('.', '')}",
+                f"{scope}-{pkg.replace('.', '-')}",
+            }
+            if raw in {f.lower() for f in forms}:
+                return (pop, 1)
+            if low in {normalize_pkg_name(f) for f in forms}:
+                return (pop, 1)
+        return None
+
+    return (
+        typo_scoped_vs_scoped()
+        or typo_unscoped_vs_unscoped()
+        or typo_scoped_impostor_of_unscoped()
+        or typo_unscoped_impostor_of_scoped()
+    )
 
 
 def normalize_repo_url(u):
@@ -893,6 +950,9 @@ def status_of(findings):
 def is_doc_path(path):
     rel = path.replace("\\", "/").lower()
     base = rel.split("/")[-1]
+    ext = os.path.splitext(base)[1]
+    if ext not in {".md", ".rst", ".txt"}:
+        return False
     if base.startswith("readme") or base in {"changelog.md", "changes.md", "history.md"}:
         return True
     parts = rel.split("/")
@@ -941,6 +1001,124 @@ def is_vendor_release_url(snippet, owner=None):
     ))
 
 
+def strip_shell_comments(text):
+    """Cut `#` and `//` comments, leaving `://` in URLs alone."""
+    if not text:
+        return text
+    out = []
+    i, n = 0, len(text)
+    in_s = in_d = False
+    while i < n:
+        ch = text[i]
+        nxt = text[i + 1] if i + 1 < n else ""
+        if ch == "'" and not in_d:
+            in_s = not in_s
+            out.append(ch); i += 1; continue
+        if ch == '"' and not in_s:
+            in_d = not in_d
+            out.append(ch); i += 1; continue
+        if not in_s and not in_d:
+            if ch == "#":
+                break
+            if ch == "/" and nxt == "/" and not (out and out[-1] == ":"):
+                break
+        out.append(ch); i += 1
+    return "".join(out)
+
+
+_CURL_FLAG_ARGS = frozenset({
+    "-o", "-O", "-C", "-Q", "-d", "-T", "-H", "-e", "-A", "-u", "-U", "-b", "-c",
+    "-w", "-m", "-y", "-Y", "-P", "-x", "-X", "-E", "-F",
+    "--output", "--header", "--url", "--user", "--data", "--data-raw",
+    "--data-binary", "--referer", "--user-agent", "--connect-timeout",
+    "--max-time", "--retry", "--proxy", "--config", "--cacert", "--cert",
+    "--key", "--form", "--upload-file", "--output-document", "--user-agent",
+})
+
+
+
+def _shell_tokens(s):
+    out, cur, q = [], [], None
+    i, n = 0, len(s)
+    while i < n:
+        ch = s[i]
+        if q:
+            if ch == q:
+                q = None
+            elif ch == "\\" and i + 1 < n:
+                cur.append(s[i + 1]); i += 2; continue
+            else:
+                cur.append(ch)
+            i += 1
+            continue
+        if ch.isspace():
+            if cur:
+                out.append("".join(cur)); cur = []
+            i += 1
+            continue
+        if ch in ("'", '"'):
+            q = ch; i += 1; continue
+        cur.append(ch); i += 1
+    if cur:
+        out.append("".join(cur))
+    return out
+
+
+def curl_pipe_segment(snippet):
+    """The curl/wget text up to the first pipe, comments already stripped."""
+    if not snippet:
+        return ""
+    s = strip_shell_comments(snippet)
+    m = re.search(r"\b(?:curl|wget|invoke-webrequest|\biwr\b)\b", s, re.I)
+    if not m:
+        return s.strip()
+    rest = s[m.start():]
+    # cut at the pipe that feeds a shell, not at `||`
+    cut = re.search(r"(?<!\|)\|(?!\|)", rest)
+    return (rest[:cut.start()] if cut else rest).strip()
+
+
+def urls_in_text(s):
+    return re.findall(r"https?://[^\s'\"\\]+", s or "", flags=re.I)
+
+
+def curl_fetch_url(snippet):
+    """URL curl/wget actually fetches: last non-flag token before `|`."""
+    segment = curl_pipe_segment(snippet)
+    tokens = _shell_tokens(segment)
+    skip_next = False
+    candidates = []
+    for tok in tokens[1:]:  # drop the curl/wget verb
+        if skip_next:
+            skip_next = False
+            continue
+        if tok.startswith("-"):
+            name = tok.split("=", 1)[0]
+            if name in _CURL_FLAG_ARGS and "=" not in tok:
+                skip_next = True
+            continue
+        candidates.append(tok)
+    for tok in reversed(candidates):
+        if re.match(r"https?://", tok, re.I) or "://" in tok or "." in tok:
+            if not re.match(r"https?://", tok, re.I) and "://" not in tok:
+                tok = "https://" + tok.lstrip("/")
+            return tok
+    urls = urls_in_text(segment)
+    return urls[-1] if urls else ""
+
+
+def pipe_url_analysis(snippet):
+    """Return (fetch_url, fetch_host, all_urls) after stripping comments."""
+    clean = strip_shell_comments(snippet or "")
+    segment = curl_pipe_segment(clean)
+    fetch = curl_fetch_url(clean)
+    urls = urls_in_text(segment)
+    if fetch and fetch not in urls:
+        urls = urls + [fetch]
+    host = host_of(fetch) if fetch else ""
+    return fetch, host, urls
+
+
 def looks_like_pipe_mention(snippet):
     """True when the text talks about curl|bash (a regex, allow-list, or policy) rather than running it."""
     if not snippet:
@@ -966,20 +1144,22 @@ def _ctx_owner():
 def pipe_severity(path, host, snippet, owner=None):
     """Pipe-to-shell severity.
 
-    Official installer hosts and CI workflows are info (low in README/docs so
-    existing QA assertions stay green). Both info and low leave the tool clean.
+    Official installer hosts are info (low in README/docs so existing QA
+    assertions stay green). CI pipes from a non-installer host are low.
+    Both info and low leave the tool clean. Hook pipes are handled
+    separately and are always high.
     """
     owner = owner if owner is not None else _ctx_owner()
-    official = is_exact_installer_host(host) or is_vendor_release_url(snippet, owner)
+    fetch_url, fetch_host, urls = pipe_url_analysis(snippet)
+    host = fetch_host or (host or "")
+    every_official = bool(urls) and all(is_exact_installer_host(host_of(u)) for u in urls)
+    official = every_official or is_vendor_release_url(fetch_url or "", owner)
     if is_ci_path(path):
-        return "info"
+        return "info" if official else "low"
     if official:
         if is_doc_path(path):
             return "low"
         return "info"
-    variable = bool(re.search(r"\$[A-Za-z_{]|\$\{|`[^`]+`", snippet or ""))
-    if not host or variable or is_user_content_host(host):
-        return "high"
     return "high"
 
 
@@ -1024,11 +1204,9 @@ def check_package_json(path, text, findings):
                 continue
             detail = f"{hook} script: {cmd[:240]}"
             if CURL_PIPE.search(cmd) or BASH_FROM_CURL.search(cmd) or BASE64_PIPE.search(cmd) or IEX_DOWNLOAD.search(cmd):
-                host_m = PLAIN_URL.search(cmd)
-                host = (host_m.group(1).lower() if host_m else "")
-                sev = pipe_severity(path, host, cmd)
-                if sev == "low":
-                    sev = "high"  # hooks themselves are never "just docs"
+                # A curl|bash inside an install hook is always high, even on an
+                # official installer host or the owner's GitHub releases URL.
+                sev = "high"
             elif re.search(r"\b(curl|wget|iwr|invoke-webrequest|powershell|chmod\s+\+x)\b", cmd, re.I):
                 sev = "high"
             elif re.search(r"\b(eval|Function\(|node\s+-e)\b", cmd):
@@ -1071,8 +1249,7 @@ def check_shell_and_docker(path, text, findings):
             snippet = text[m.start():m.start() + 180].splitlines()[0]
             if looks_like_pipe_mention(snippet):
                 continue
-            host_m = PLAIN_URL.search(snippet)
-            host = (host_m.group(1).lower() if host_m else "")
+            _fetch, host, _urls = pipe_url_analysis(snippet)
             sev = pipe_severity(path, host, snippet)
             findings.append(finding("curl-pipe", f"{label}: {snippet[:180]}", sev, file=path, line=line_no(text, m.start())))
     for m in BINARY_DL.finditer(text):
@@ -1083,8 +1260,8 @@ def check_shell_and_docker(path, text, findings):
         ))
 
 
-def check_obfuscation(path, text, findings):
-    if is_vendorish(path):
+def check_obfuscation(path, text, findings, reachable=False):
+    if is_vendorish(path) and not reachable:
         return
     base = os.path.basename(path).lower()
     # OpenAPI specs, recorded HTTP fixtures and giant JSON blobs are not obfuscated source
@@ -1144,10 +1321,11 @@ def suspicious_host(host):
     return any(h == s or h.endswith("." + s) for s in suffixes)
 
 
-def check_secrets_and_network(path, text, findings, allow_hosts):
+def check_secrets_and_network(path, text, findings, allow_hosts, reachable=False):
     # Tests, fixtures, README and docs mention keys and demo IPs; those are not exfil.
     # Seed-phrase prompts are still checked in those paths.
-    skip_exfil = is_test_path(path) or is_doc_path(path)
+    # Reachable entry points (main/bin/exports/hooks) are always checked.
+    skip_exfil = (not reachable) and (is_test_path(path) or is_doc_path(path))
     secret_hits = []
     if not skip_exfil:
         secret_hits = list(SECRET_PATHS.finditer(text))
@@ -1200,10 +1378,10 @@ def check_secrets_and_network(path, text, findings, allow_hosts):
 
 
 
-def check_permissions(path, text, findings, official, tool_type=None, category=None):
+def check_permissions(path, text, findings, official, tool_type=None, category=None, reachable=False):
     # MCP live-trading / withdrawal tools: only look at definitions, and only on
     # MCP servers or broker/crypto tools. Accounting "withdrawal" transaction types are ignored.
-    if is_vendorish(path) or is_test_path(path):
+    if not reachable and (is_vendorish(path) or is_test_path(path)):
         return
     if tool_type != "mcp" and category not in {"trading-brokers", "crypto"}:
         # still flag broad OAuth scopes everywhere
@@ -1706,6 +1884,9 @@ def parse_lockfile(path, text):
                         walk(meta.get("dependencies"))
             walk(j.get("dependencies"))
         elif base == "yarn.lock":
+            header_ok = bool(re.search(r"(?m)^# yarn lockfile v1\b|^__metadata:\s*$", text))
+            if not header_ok:
+                return None
             current = []
             for line in text.splitlines():
                 if line.strip() and not line.startswith((" ", "\t")) and line.rstrip().endswith(":"):
@@ -1728,6 +1909,10 @@ def parse_lockfile(path, text):
                             _lock_add(versions, n, m.group(1))
                         current = []
         elif base == "pnpm-lock.yaml":
+            if not re.search(r"(?m)^lockfileVersion:", text):
+                return None
+            if not re.search(r"(?m)^(packages|importers):", text):
+                return None
             for m in re.finditer(
                 r"(?m)^(?:\s*)['\"]?/?((?:@[^/'\"\s]+/)?[^@/'\"\s]+)@v?(\d[^:()'\"]+):",
                 text,
@@ -1743,7 +1928,9 @@ def parse_lockfile(path, text):
             return None
     except (ValueError, TypeError, json.JSONDecodeError):
         return None
-    return versions or {}
+    # Nothing parsed from a present file is not a usable lock: callers fall back
+    # to "lockfile not checked" instead of treating it as an empty (safe) pin set.
+    return versions or None
 
 
 def lock_versions_for(manifest_path, locks_by_dir):
@@ -1847,15 +2034,22 @@ def check_typos_and_osv(deps, ecosystem, findings, file=None, lock_versions=None
             if lock_versions is not None:
                 resolved = resolved_lock_versions(lock_versions, name)
                 if not resolved:
-                    continue  # declared range, but this package is not in the lockfile
-                if not any(pin_is_affected(parse_semver(v), exact, ranges) for v in resolved):
-                    continue  # lockfile pins a safe version
-                findings.append(finding(
-                    "osv",
-                    f"OSV {vid}: lockfile resolves {name} to a compromised release ({', '.join(resolved[:4])}): {summary}",
-                    "high", file=file,
-                ))
-                continue
+                    pass  # stale / other-workspace lock: fall through to "not checked"
+                elif not any(pin_is_affected(parse_semver(v), exact, ranges) for v in resolved):
+                    findings.append(finding(
+                        "osv",
+                        f"range admits a compromised release of {name} listed in {vid}; "
+                        f"repo lockfile pins {', '.join(resolved[:4])}; npx installs resolve fresh",
+                        "low", file=file,
+                    ))
+                    continue
+                else:
+                    findings.append(finding(
+                        "osv",
+                        f"OSV {vid}: lockfile resolves {name} to a compromised release ({', '.join(resolved[:4])}): {summary}",
+                        "high", file=file,
+                    ))
+                    continue
             if popular_pkg:
                 findings.append(finding(
                     "osv",
@@ -2168,15 +2362,20 @@ def finalize_status(out, findings, truncated=False, incomplete=False):
     out["findings"] = uniq
     st = status_of(uniq)
     if st == "clean" and (truncated or incomplete):
-        # A cap or timeout with no medium+ findings is a partial scan, not a concern
-        # and not a hard failure. Hard failures (unreachable repo, unreadable
-        # required files, API budget) stay incomplete.
+        # A cap with no medium+ findings is a partial scan, not a concern.
+        # Hard failures and a timeout/cap that never read a file stay incomplete.
         details = " ".join((f.get("detail") or "") for f in uniq)
         hard = bool(out.get("fetch_failed")) or any(
             s in details.lower()
             for s in ("not reachable", "could not read", "scan skipped:", "api budget", "github api remaining")
         )
-        st = "incomplete" if hard else "partial"
+        scanned = int(out.get("files_scanned") or 0)
+        # A max-files cap is partial (some files were considered). A timeout
+        # or incomplete flag with nothing actually scanned is incomplete.
+        if hard or (incomplete and scanned <= 0):
+            st = "incomplete"
+        else:
+            st = "partial"
     out["status"] = st
     out["truncated"] = bool(truncated)
     return out
@@ -2245,7 +2444,7 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
     osv_failed = False
     incomplete = tree_truncated
 
-    def scan_one(path, text):
+    def scan_one(path, text, reachable=False):
         nonlocal osv_failed, incomplete
         if text is FETCH_FAILED or text is None:
             fetch_failed.append(path)
@@ -2286,9 +2485,9 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
         else:
             if CURL_PIPE.search(text) or BASH_FROM_CURL.search(text) or BASE64_PIPE.search(text) or IEX_DOWNLOAD.search(text) or BINARY_DL.search(text):
                 check_shell_and_docker(path, text, findings)
-        check_obfuscation(path, text, findings)
-        check_secrets_and_network(path, text, findings, allow)
-        check_permissions(path, text, findings, official, tool.get("type"), tool.get("category"))
+        check_obfuscation(path, text, findings, reachable=reachable)
+        check_secrets_and_network(path, text, findings, allow, reachable=reachable)
+        check_permissions(path, text, findings, official, tool.get("type"), tool.get("category"), reachable=reachable)
 
     scanned_paths = set()
     for e in candidates:
@@ -2300,13 +2499,15 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
     # hook / main / bin targets from manifests, always, any size
     by_path = {e["path"]: e for e in entries}
     for rel in list(extra_targets):
-        if rel in scanned_paths or skip_path(rel):
+        if rel in scanned_paths:
             continue
         if rel not in path_set:
             # maybe the target is a directory prefix; skip
             continue
         text = raw_file(owner, repo, sha, rel)
-        scan_one(rel, text)
+        # Manifest main/bin/exports/hook targets are reachable even under
+        # skipped dirs (dist/, build/, vendor/, test/, …).
+        scan_one(rel, text, reachable=True)
         scanned_paths.add(rel)
 
     # primary package dir from manifests we already saw
@@ -2465,11 +2666,12 @@ def safe_scan(tool, max_files, timeout=None):
     if done and not isinstance(v, BaseException):
         return v
     if not done:
-        # Timeout with no medium+ findings is a partial scan, not a concern.
+        # A timeout that produced no scan result (0 files) is incomplete, not
+        # a partial scan: nothing is known yet.
         return {
             "id": tool["id"],
             "name": tool.get("name"),
-            "status": "partial",
+            "status": "incomplete",
             "date": NOW.strftime("%Y-%m-%d"),
             "repo": tool.get("repo"),
             "commit": None,

