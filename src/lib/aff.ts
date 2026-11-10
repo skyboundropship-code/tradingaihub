@@ -34,7 +34,7 @@ export function untagUrl(url: string | null | undefined, program: keyof typeof A
   } catch { return url; }
 }
 /** True for any URL that is (or affUrl would make) an affiliate link: on an affiliate host and, for programs with a path
- *  allowlist, on a tracked path. Untracked EODHD pages (e.g. /financial-apis/) are not affiliate links. */
+ *  allowlist, on a tracked path. Untracked EODHD pages (e.g. /pricing/extra) are not affiliate links. */
 export const isAff = (url?: string | null) => {
   if (!url) return false;
   try {
