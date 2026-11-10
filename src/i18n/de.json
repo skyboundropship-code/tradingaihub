@@ -294,6 +294,8 @@
   "sendCorrection": "Korrektur senden",
   "free": "kostenlos",
   "notEndorse": "Ein Eintrag ist weder eine Empfehlung noch Anlageberatung. Testen Sie jedes Trading-Tool zuerst im Demomodus.",
+  "liveFundsNote": "Kann Live-Trades ausführen / Gelder bewegen — nutzen Sie den Paper-Modus oder Schlüssel mit eingeschränkten Rechten",
+  "deprecatedNote": "Vom Anbieter als veraltet gekennzeichnet. Siehe die Ersatzdokumentation.",
   "more": "Mehr in {cat}",
   "pricingDataNote": "Preisdetails werden auf Englisch von der Anbieterseite zitiert."
  },

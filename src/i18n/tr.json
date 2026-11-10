@@ -294,6 +294,8 @@
   "sendCorrection": "Düzeltme gönder",
   "free": "Ücretsiz",
   "notEndorse": "Listelenmek onay veya yatırım tavsiyesi anlamına gelmez. Her trading aracını önce paper modunda test edin.",
+  "liveFundsNote": "Canlı işlem açabilir / fon taşıyabilir — kâğıt modunu veya kapsamı sınırlı anahtarları kullanın.",
+  "deprecatedNote": "Sağlayıcı tarafından kullanımdan kaldırıldı. Yerine geçen belgelere bakın.",
   "more": "{cat} kategorisinde diğer araçlar",
   "pricingDataNote": "Fiyat ayrıntıları sağlayıcı sayfasından İngilizce olarak alıntılanmıştır."
  },

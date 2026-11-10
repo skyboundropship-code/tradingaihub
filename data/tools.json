@@ -14,7 +14,7 @@
       "model": "freemium",
       "free_tier": "25 requests/day",
       "paid_from": "$49.99/mo",
-      "details": "Premium plans $49.99\u2013$249.99/mo (75\u20131,200 req/min).",
+      "details": "Premium plans $49.99–$249.99/mo (75–1,200 req/min).",
       "source": "https://www.alphavantage.co/premium/",
       "checked": "2026-10-29"
     },
@@ -234,7 +234,7 @@
       "model": "freemium",
       "free_tier": "8 credits/min, 800/day",
       "paid_from": "$29/mo",
-      "details": "Grow $29\u201379, Pro $99\u2013229, Ultra $329\u2013999 per month.",
+      "details": "Grow $29–79, Pro $99–229, Ultra $329–999 per month.",
       "source": "https://twelvedata.com/pricing",
       "checked": "2026-10-29"
     },
@@ -558,7 +558,7 @@
       "model": "freemium",
       "free_tier": "25 requests/day",
       "paid_from": "$49.99/mo",
-      "details": "Premium plans $49.99\u2013$249.99/mo (75\u20131,200 req/min).",
+      "details": "Premium plans $49.99–$249.99/mo (75–1,200 req/min).",
       "source": "https://www.alphavantage.co/premium/",
       "checked": "2026-10-29"
     },
@@ -1517,7 +1517,10 @@
       "last_commit_days": 225,
       "status": "aging"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "paper-mcp",
@@ -1884,7 +1887,11 @@
       "last_commit_days": 25,
       "status": "verified"
     },
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "bankless-onchain-mcp",
@@ -2158,8 +2165,8 @@
     "category": "crypto",
     "description": "Onchain tools for the Base network.",
     "repo": "https://github.com/base/base-mcp-legacy",
-    "homepage": null,
-    "docs": null,
+    "homepage": "https://docs.base.org/ai-agents",
+    "docs": "https://docs.base.org/ai-agents",
     "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
     "official": true,
     "pricing": {
@@ -2198,7 +2205,8 @@
       },
       "status": "archived"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "deprecated": true
   },
   {
     "id": "solana-agent-kit",
@@ -2245,7 +2253,11 @@
       "last_commit_days": 178,
       "status": "verified"
     },
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "bitcoin-mcp",
@@ -2927,10 +2939,10 @@
     "type": "mcp",
     "category": "personal-finance",
     "description": "MCP server for the open-source Actual Budget app.",
-    "repo": "https://github.com/Jacob-Tate/actual-budget-mcp",
-    "homepage": null,
+    "repo": "https://github.com/henfrydls/actual-budget-mcp",
+    "homepage": "https://actual-mcp.henfrydls.com/",
     "docs": null,
-    "source_url": "https://github.com/Jacob-Tate/actual-budget-mcp",
+    "source_url": "https://github.com/henfrydls/actual-budget-mcp",
     "official": false,
     "pricing": {
       "model": "open-source",
@@ -2942,7 +2954,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-11-09",
+      "checked_at": "2026-11-10",
       "checks": [
         {
           "check": "repo reachable",
@@ -2950,26 +2962,42 @@
         },
         {
           "check": "package published",
-          "ok": false,
-          "note": "no npm/PyPI package detected at repo root"
+          "ok": true,
+          "note": null
+        },
+        {
+          "check": "homepage alive",
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
-      "issues": [
-        "npm name 'actual-budget-mcp' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 230 days"
-      ],
+      "issues": [],
       "github": {
         "reachable": true,
-        "final_url": "https://github.com/Jacob-Tate/actual-budget-mcp",
-        "stars": 2,
+        "final_url": "https://github.com/henfrydls/actual-budget-mcp",
+        "stars": 20,
         "archived": false,
-        "license": null,
-        "last_commit": "2026-03-23T08:00:46Z"
+        "license": "MIT",
+        "last_commit": "2026-11-04T23:14:43Z"
       },
-      "last_commit_days": 230,
-      "status": "aging"
+      "homepage": {
+        "url": "https://actual-mcp.henfrydls.com/",
+        "ok": true,
+        "status": 200,
+        "result": "ok"
+      },
+      "npm": {
+        "name": "actual-budget-mcp",
+        "version": "0.12.0",
+        "published": "2026-11-04T11:49:35.332Z",
+        "url": "https://www.npmjs.com/package/actual-budget-mcp",
+        "links_back": true
+      },
+      "last_commit_days": 5,
+      "status": "verified"
     },
-    "license": "unknown"
+    "license": "MIT"
   },
   {
     "id": "optionsahoy-mcp",
@@ -4381,7 +4409,10 @@
       "last_commit_days": 69,
       "status": "verified"
     },
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "square-mcp",
@@ -4618,8 +4649,8 @@
     "pricing": {
       "model": "usage-based",
       "free_tier": "No monthly fee",
-      "paid_from": "5% + 50\u00a2 per checkout transaction",
-      "details": "No separate MCP fee found; Paddle charges 5% + 50\u00a2 per checkout transaction (custom pricing available).",
+      "paid_from": "5% + 50¢ per checkout transaction",
+      "details": "No separate MCP fee found; Paddle charges 5% + 50¢ per checkout transaction (custom pricing available).",
       "source": "https://www.paddle.com/pricing",
       "checked": "2026-10-29"
     },
@@ -5559,7 +5590,10 @@
       "last_commit_days": 4,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "alpaca-skills",

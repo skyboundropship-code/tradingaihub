@@ -62,6 +62,8 @@ export function publicTool(t: any) {
     languages: pkgOf(t) ? languagesOf(v) : [],
     packages: { npm: pkgOf(t) ? pkg(v.npm) : null, pypi: pkgOf(t) ? pkg(v.pypi) : null },
     install: t.install_from_source ? { from_source: true, note: "The published package is currently unmaintained, so don't install it from the registry. Clone the repository, follow its README to run it locally, then register the start command as a stdio MCP server in your client." } : null,
+    capabilities: Array.isArray(t.capabilities) ? t.capabilities : [],
+    deprecated: !!t.deprecated,
     status: v.status,
     status_label: STATUS[v.status]?.label ?? v.status,
     verified: v.status === "verified",
