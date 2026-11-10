@@ -9,7 +9,7 @@ export const SITE = {
   contactEmail: "hello@tradingaihub.com", // Cloudflare Email Routing → TradingAIHub team inbox
   showAdPricing: false,               // launch = 100% free feel: hide paid tiers until traffic exists
   newsletterLive: true,                // form POSTs to functions/api/subscribe.js (needs KV binding NEWSLETTER)
-  githubAwesomeRepo: "https://github.com/skyboundropship-code/awesome-finance-ai-tools",
+  githubAwesomeRepo: "https://github.com/tradingaihub/awesome-finance-ai-tools",
   checkoutLive: false,                 // featured-listing checkout is NOT live
   checkoutUrl: "#checkout-not-live",   // replace with Polar / Lemon Squeezy link after approval
 };
