@@ -4,12 +4,12 @@
 
 Every tool is re-checked weekly by a script: the repo is reachable, recent commits, stars, whether its npm/PyPI package links back to the repo, and whether hosted endpoints respond. Broken or archived tools are marked, not quietly kept. How it works: [verification methodology](https://tradingaihub.com/verification/).
 
-- ⭐ The open list: [skyboundropship-code/awesome-finance-ai-tools](https://github.com/skyboundropship-code/awesome-finance-ai-tools)
+- ⭐ The open list: [tradingaihub/awesome-finance-ai-tools](https://github.com/tradingaihub/awesome-finance-ai-tools)
 - Full data dump: [tradingaihub.com/tools.json](https://tradingaihub.com/tools.json) · [llms.txt](https://tradingaihub.com/llms.txt)
 - Free public API and MCP server: coming soon
 
 ## Submit a tool
-Use the [submit form](https://tradingaihub.com/submit/) or open an issue / PR on the [awesome list](https://github.com/skyboundropship-code/awesome-finance-ai-tools). Tools must be finance-relevant, have a public repo or official docs, and be actively maintained. Listing is free; paid placements, if any, are clearly labelled as sponsored and never affect verification.
+Use the [submit form](https://tradingaihub.com/submit/) or open an issue / PR on the [awesome list](https://github.com/tradingaihub/awesome-finance-ai-tools). Tools must be finance-relevant, have a public repo or official docs, and be actively maintained. Listing is free; paid placements, if any, are clearly labelled as sponsored and never affect verification.
 
 ## Development
 Static [Astro](https://astro.build) site + weekly verifier. Brand settings live in `src/config.ts`.
