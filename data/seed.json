@@ -522,7 +522,10 @@
       "source": "https://docs.alpaca.markets/us/docs/about-market-data-api",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "ibkr-mcp",
@@ -543,7 +546,10 @@
       "source": "https://www.interactivebrokers.com/en/trading/ai-integrations.php",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": "https://api.ibkr.com/v1/api/mcp-public"
+    "remote_mcp_url": "https://api.ibkr.com/v1/api/mcp-public",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "tasty-agent",
@@ -564,7 +570,10 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "metatrader-mcp",
@@ -714,7 +723,10 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "coinbase-agentkit",
@@ -802,7 +814,10 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "coincap-mcp",
@@ -918,7 +933,7 @@
   },
   {
     "id": "x402",
-    "name": "x402 (Coinbase)",
+    "name": "x402 (x402 Foundation)",
     "type": "mcp",
     "category": "payments-banking",
     "description": "Open protocol for HTTP-native stablecoin payments by agents.",
@@ -935,7 +950,10 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "quickbooks-mcp",
@@ -1083,7 +1101,10 @@
       "source": "https://docs.stripe.com/mcp",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": "https://mcp.stripe.com"
+    "remote_mcp_url": "https://mcp.stripe.com",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "qonto-mcp",
@@ -1546,7 +1567,11 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "claude-code-trading-terminal",
@@ -1567,7 +1592,11 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "pineify-mcp",
@@ -1630,7 +1659,10 @@
       "source": "https://robinhood.com/us/en/support/articles/trading-fees-on-robinhood/",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": "https://agent.robinhood.com/mcp/trading"
+    "remote_mcp_url": "https://agent.robinhood.com/mcp/trading",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "fmp-mcp",
@@ -1739,7 +1771,10 @@
       "source": "https://squareup.com/us/en/pricing",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": "https://mcp.squareup.com/mcp"
+    "remote_mcp_url": "https://mcp.squareup.com/mcp",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "adyen-mcp",
@@ -1760,7 +1795,10 @@
       "source": "https://www.adyen.com/pricing",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "razorpay-mcp",
@@ -1781,7 +1819,10 @@
       "source": "https://razorpay.com/pricing/",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": "https://mcp.razorpay.com/mcp"
+    "remote_mcp_url": "https://mcp.razorpay.com/mcp",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "paddle-mcp",
@@ -1823,7 +1864,10 @@
       "source": "https://docs.mercury.com/docs/what-is-mercury-mcp",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": "https://mcp.mercury.com/mcp"
+    "remote_mcp_url": "https://mcp.mercury.com/mcp",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "netsuite-ai-connector",
@@ -2075,7 +2119,10 @@
       "source": "https://github.com/webull-inc/webull-openapi-mcp",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "kraken-cli",
@@ -2096,7 +2143,10 @@
       "source": "https://github.com/krakenfx/kraken-cli",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "schwab-mcp",
@@ -2141,7 +2191,11 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "longbridge-skills",
@@ -2183,7 +2237,11 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "options-trading-skills",
@@ -2204,6 +2262,9 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading"
+    ]
   }
 ]

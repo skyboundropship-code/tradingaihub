@@ -1338,7 +1338,10 @@
       "last_commit_days": 4,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "ibkr-mcp",
@@ -1407,7 +1410,10 @@
       "last_commit_days": null,
       "status": "verified"
     },
-    "license": "Proprietary / ToS"
+    "license": "Proprietary / ToS",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "tasty-agent",
@@ -1461,7 +1467,10 @@
       "last_commit_days": 35,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "metatrader-mcp",
@@ -1840,7 +1849,10 @@
       "last_commit_days": 571,
       "status": "stale"
     },
-    "license": "unknown"
+    "license": "unknown",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "coinbase-agentkit",
@@ -2051,7 +2063,10 @@
       "last_commit_days": 68,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "coincap-mcp",
@@ -2313,7 +2328,7 @@
   },
   {
     "id": "x402",
-    "name": "x402 (Coinbase)",
+    "name": "x402 (x402 Foundation)",
     "type": "mcp",
     "category": "payments-banking",
     "description": "Open protocol for HTTP-native stablecoin payments by agents.",
@@ -2356,7 +2371,10 @@
       "last_commit_days": 0,
       "status": "verified"
     },
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "quickbooks-mcp",
@@ -2732,7 +2750,10 @@
       "last_commit_days": 0,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "qonto-mcp",
@@ -3852,7 +3873,11 @@
       "last_commit_days": 60,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "claude-code-trading-terminal",
@@ -3910,7 +3935,11 @@
       "last_commit_days": 436,
       "status": "stale"
     },
-    "license": "unknown"
+    "license": "unknown",
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "pineify-mcp",
@@ -4095,7 +4124,10 @@
       "last_commit_days": null,
       "status": "verified"
     },
-    "license": "Proprietary / ToS"
+    "license": "Proprietary / ToS",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "fmp-mcp",
@@ -4500,7 +4532,10 @@
       "last_commit_days": 25,
       "status": "verified"
     },
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "adyen-mcp",
@@ -4559,7 +4594,10 @@
       "last_commit_days": 2,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "razorpay-mcp",
@@ -4633,7 +4671,10 @@
       "last_commit_days": 5,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "paddle-mcp",
@@ -4769,7 +4810,10 @@
       "last_commit_days": null,
       "status": "unconfirmed"
     },
-    "license": "Proprietary / ToS"
+    "license": "Proprietary / ToS",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "netsuite-ai-connector",
@@ -5496,7 +5540,10 @@
       "last_commit_days": 14,
       "status": "verified"
     },
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "kraken-cli",
@@ -5543,7 +5590,10 @@
       "last_commit_days": 10,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "schwab-mcp",
@@ -5642,7 +5692,11 @@
       "last_commit_days": 2,
       "status": "verified"
     },
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "longbridge-skills",
@@ -5752,7 +5806,11 @@
       "last_commit_days": 96,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "options-trading-skills",
@@ -5803,6 +5861,9 @@
       "last_commit_days": 0,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading"
+    ]
   }
 ]

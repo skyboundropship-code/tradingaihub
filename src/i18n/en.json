@@ -296,6 +296,8 @@
   "free": "free",
   "notEndorse": "Listing a tool is not an endorsement or investment advice. Test any trading tool in paper mode first.",
   "liveFundsNote": "Can place live trades / move funds — use paper mode or scoped keys",
+  "liveTradingNote": "Can place live trades — use paper mode or scoped keys",
+  "movesFundsNote": "Can move funds — use sandbox mode or scoped keys",
   "deprecatedNote": "Deprecated by the vendor. See the replacement docs.",
   "more": "More in {cat}",
   "pricingDataNote": "Pricing details are quoted in English from the vendor's page."
