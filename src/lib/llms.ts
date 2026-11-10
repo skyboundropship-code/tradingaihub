@@ -85,7 +85,7 @@ export function llmsFullTxt(): string {
   const L = [
     ...header(),
     "",
-    `Short index: ${u("/llms.txt")}. JSON: ${u("/tools.json")}.`,
+    `Short index: ${u("/llms.txt")}. JSON: ${u("/tools.json")}. Developer API & MCP docs: ${u("/developers/")}. Tools API: ${u("/api/v1/tools")}. Remote MCP: ${u("/mcp")}.`,
     "",
     "## Verification statuses",
     "",
