@@ -65,7 +65,7 @@ export function snippets(t: any, tr: (k: string, v?: any) => string = useT("en")
     out.push({ client: "Gemini CLI", lang: "json", code: JSON.stringify({ mcpServers: { [name]: { httpUrl: remote } } }, null, 2) });
   }
   if (t.type === "mcp" && !pkg && !remote && t.repo) {
-    out.push({ client: tr("snip.allClients"), lang: "text", code: cloneOf(t), note: t.install_note || tr("snip.fromSource") });
+    out.push({ client: tr("snip.allClients"), lang: "text", code: cloneOf(t), note: t.install_from_source ? tr("snip.npmUnmaintained") : tr("snip.fromSource") });
   }
   if (t.type === "mcp" && !pkg && !remote && !t.repo) {
     out.push({ client: tr("snip.allClients"), lang: "text", code: untagUrl(t.docs || t.homepage, "eodhd"), note: tr("snip.accountUrl") });

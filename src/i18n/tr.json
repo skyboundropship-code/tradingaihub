@@ -318,6 +318,7 @@
   "chatgpt": "ChatGPT → Settings → Apps & Connectors (geliştirici modu) → Create, ardından bu URL'yi yapıştırın.",
   "grok": "Uzak MCP araçlarını xAI API isteklerinde kullanın; kimlik doğrulama başlıkları için docs.x.ai'ye bakın.",
   "fromSource": "Denetleyicimiz yayımlanmış bir npm/PyPI paketi veya barındırılan uç nokta tespit etmedi. README'ye göre yerel olarak çalıştırın, ardından başlatma komutunu istemcinize stdio MCP sunucusu olarak kaydedin.",
+  "npmUnmaintained": "npm paketi şu anda bakımsız ve npm tarafından tutuluyor, bu yüzden npm'den yüklemeyin. Depoyu klonlayın, yerel olarak çalıştırmak için README'yi izleyin, ardından başlatma komutunu istemcinize stdio MCP sunucusu olarak kaydedin.",
   "needsRemote": "Uzak MCP URL'si (HTTPS) gerekir",
   "stdioOnly": "Bu sunucu stdio üzerinden yerel olarak çalışır. ChatGPT bağlayıcıları ve Grok API, bu projenin sağlamadığı barındırılan bir HTTPS uç noktası gerektirir.",
   "marketplace": "Ardından eklentilerine/becerilerine göz atıp kurmak için /plugin çalıştırın.",

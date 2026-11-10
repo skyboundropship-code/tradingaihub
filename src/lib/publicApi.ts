@@ -10,7 +10,7 @@
 import raw from "../../data/tools.json";
 import { AFFILIATES, SITE } from "../config";
 import { affUrl, isAff, untagUrl } from "./aff";
-import { tools as siteTools, CATEGORIES, STATUS, TYPE_LABEL, starsOf, lastCommit, isCollection } from "./data";
+import { tools as siteTools, CATEGORIES, STATUS, TYPE_LABEL, starsOf, lastCommit, isCollection, pkgOf } from "./data";
 
 export const API_VERSION = "1.0.0";
 export const MCP_URL = `${SITE.url}/mcp`;
@@ -59,8 +59,9 @@ export function publicTool(t: any) {
     remote_mcp_url: plain(t.remote_mcp_url),
     license: known(t.license),
     pricing: t.pricing ? { model: t.pricing.model ?? null, free_tier: known(t.pricing.free_tier), paid_from: known(t.pricing.paid_from), details: known(t.pricing.details), source: plain(t.pricing.source), checked: t.pricing.checked ?? null } : null,
-    languages: languagesOf(v),
-    packages: { npm: pkg(v.npm), pypi: pkg(v.pypi) },
+    languages: pkgOf(t) ? languagesOf(v) : [],
+    packages: { npm: pkgOf(t) ? pkg(v.npm) : null, pypi: pkgOf(t) ? pkg(v.pypi) : null },
+    install: t.install_from_source ? { from_source: true, note: "The published package is currently unmaintained, so don't install it from the registry. Clone the repository, follow its README to run it locally, then register the start command as a stdio MCP server in your client." } : null,
     status: v.status,
     status_label: STATUS[v.status]?.label ?? v.status,
     verified: v.status === "verified",

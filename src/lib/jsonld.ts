@@ -3,7 +3,7 @@
 import raw from "../../data/tools.json";
 import { SITE } from "../config";
 import { untagUrl } from "./aff";
-import { TYPE_LABEL } from "./data";
+import { TYPE_LABEL, pkgOf } from "./data";
 
 const rawById: Record<string, any> = Object.fromEntries((raw as any[]).map((t) => [t.id, t]));
 export const ORG_ID = `${SITE.url}/#organization`;
@@ -17,7 +17,7 @@ const clean = (u: any) => { if (typeof u !== "string") return null; const x = un
 
 export function softwareLd(id: string, page: { name: string; description: string; url: string; lang: string }) {
   const t = rawById[id]; if (!t) throw new Error(`softwareLd: unknown tool ${id}`);
-  const v = t.verification || {}; const pkg = v.npm || v.pypi || null; const pr = t.pricing || {};
+  const v = t.verification || {}; const pkg = pkgOf(t); const pr = t.pricing || {};
   const free = FREE_MODELS.has(pr.model);
   const offerDesc = [known(pr.free_tier) && `Free tier: ${pr.free_tier}`, known(pr.paid_from) && `Paid from ${pr.paid_from}`].filter(Boolean).join(". ");
   const sameAs = [...new Set([clean(t.repo), clean(t.homepage), clean(pkg?.url)].filter(Boolean))];
