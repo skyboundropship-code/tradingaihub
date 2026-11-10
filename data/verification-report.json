@@ -1,14 +1,14 @@
 {
-  "checked_at": "2026-11-09T05:50:17.461442+00:00",
+  "checked_at": "2026-11-10T18:12:15.095071+00:00",
   "total": 104,
   "by_status": {
-    "verified": 81,
+    "verified": 82,
     "stale": 12,
-    "aging": 5,
+    "aging": 4,
     "archived": 3,
     "unconfirmed": 3
   },
-  "with_package": 27,
+  "with_package": 28,
   "issues": [
     {
       "id": "finnhub-mcp-community",
@@ -126,14 +126,6 @@
       "status": "stale",
       "issues": [
         "No commits for 519 days"
-      ]
-    },
-    {
-      "id": "actual-budget-mcp",
-      "status": "aging",
-      "issues": [
-        "npm name 'actual-budget-mcp' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 230 days"
       ]
     },
     {

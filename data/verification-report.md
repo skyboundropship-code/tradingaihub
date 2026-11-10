@@ -1,14 +1,14 @@
-# Verification report — 2026-11-09 05:50 UTC
+# Verification report — 2026-11-10 18:12 UTC
 
 Total entries: 104
 
-- verified: 81
+- verified: 82
 - stale: 12
-- aging: 5
+- aging: 4
 - archived: 3
 - unconfirmed: 3
 
-Entries with a published npm/PyPI package: 27
+Entries with a published npm/PyPI package: 28
 
 | id | status | stars | last commit | license | package | issues |
 |---|---|---|---|---|---|---|
@@ -55,7 +55,7 @@ Entries with a published npm/PyPI package: 27
 | base-mcp | archived | 351 | 2026-05-13 | MIT |  | npm name 'base-mcp' exists on the registry but does not link to this repo (not counted); Repository is archived |
 | solana-agent-kit | verified | 1744 | 2026-05-14 | Apache-2.0 |  |  |
 | bitcoin-mcp | stale | 77 | 2025-08-01 | MIT |  | npm name 'bitcoin-mcp' exists on the registry but does not link to this repo (not counted); No commits for 464 days |
-| x402 | verified | 182 | 2026-11-06 | Apache-2.0 |  |  |
+| x402 | verified | 6795 | 2026-11-10 | Apache-2.0 |  |  |
 | quickbooks-mcp | verified | 447 | 2026-09-15 | Apache-2.0 |  |  |
 | xero-mcp | verified | 390 | 2026-11-09 | MIT | @xeroapi/xero-mcp-server@0.0.17 |  |
 | norman-finance-mcp | verified | 65 | 2026-11-02 | MIT |  |  |
@@ -67,7 +67,7 @@ Entries with a published npm/PyPI package: 27
 | ramp-mcp | archived | 34 | 2025-03-20 | MIT |  | pypi name 'ramp-mcp' exists on the registry but does not link to this repo (not counted); Repository is archived |
 | lunchmoney-mcp | verified | 113 | 2026-11-08 | MIT | @akutishevsky/lunchmoney-mcp@4.0.1 |  |
 | monarch-mcp | stale | 4 | 2025-06-08 | MIT |  | No commits for 519 days |
-| actual-budget-mcp | aging | 2 | 2026-03-23 | unknown |  | npm name 'actual-budget-mcp' exists on the registry but does not link to this repo (not counted); No commits for 230 days |
+| actual-budget-mcp | verified | 20 | 2026-11-04 | MIT | actual-budget-mcp@0.12.0 |  |
 | optionsahoy-mcp | verified | 6 | 2026-11-08 | MIT | optionsahoy-mcp@1.11.1 |  |
 | sec-edgar-mcp | verified | 386 | 2026-11-01 | AGPL-3.0 | sec-edgar-mcp@1.1.0 |  |
 | openbb | unconfirmed | 75252 | 2026-11-07 | Apache-2.0 |  | Repository redirects to another owner (https://github.com/openbq-org/OpenBB); stored link not updated |

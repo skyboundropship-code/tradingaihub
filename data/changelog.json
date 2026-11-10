@@ -1,5 +1,22 @@
 [
   {
+    "date": "2026-11-10",
+    "counts": {
+      "verified": 82,
+      "stale": 12,
+      "aging": 4,
+      "archived": 3,
+      "unconfirmed": 3
+    },
+    "changes": [
+      {
+        "kind": "status",
+        "id": "actual-budget-mcp",
+        "text": "Actual Budget MCP: aging \u2192 verified"
+      }
+    ]
+  },
+  {
     "date": "2026-11-09",
     "counts": {
       "verified": 81,

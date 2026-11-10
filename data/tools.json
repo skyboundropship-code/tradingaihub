@@ -14,7 +14,7 @@
       "model": "freemium",
       "free_tier": "25 requests/day",
       "paid_from": "$49.99/mo",
-      "details": "Premium plans $49.99–$249.99/mo (75–1,200 req/min).",
+      "details": "Premium plans $49.99\u2013$249.99/mo (75\u20131,200 req/min).",
       "source": "https://www.alphavantage.co/premium/",
       "checked": "2026-10-29"
     },
@@ -234,7 +234,7 @@
       "model": "freemium",
       "free_tier": "8 credits/min, 800/day",
       "paid_from": "$29/mo",
-      "details": "Grow $29–79, Pro $99–229, Ultra $329–999 per month.",
+      "details": "Grow $29\u201379, Pro $99\u2013229, Ultra $329\u2013999 per month.",
       "source": "https://twelvedata.com/pricing",
       "checked": "2026-10-29"
     },
@@ -558,7 +558,7 @@
       "model": "freemium",
       "free_tier": "25 requests/day",
       "paid_from": "$49.99/mo",
-      "details": "Premium plans $49.99–$249.99/mo (75–1,200 req/min).",
+      "details": "Premium plans $49.99\u2013$249.99/mo (75\u20131,200 req/min).",
       "source": "https://www.alphavantage.co/premium/",
       "checked": "2026-10-29"
     },
@@ -2317,7 +2317,7 @@
     "type": "mcp",
     "category": "payments-banking",
     "description": "Open protocol for HTTP-native stablecoin payments by agents.",
-    "repo": "https://github.com/coinbase/x402",
+    "repo": "https://github.com/x402-foundation/x402",
     "homepage": null,
     "docs": null,
     "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
@@ -2332,7 +2332,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-11-09",
+      "checked_at": "2026-11-10",
       "checks": [
         {
           "check": "repo reachable",
@@ -2347,13 +2347,13 @@
       "issues": [],
       "github": {
         "reachable": true,
-        "final_url": "https://github.com/coinbase/x402",
-        "stars": 182,
+        "final_url": "https://github.com/x402-foundation/x402",
+        "stars": 6795,
         "archived": false,
         "license": "Apache-2.0",
-        "last_commit": "2026-11-06T00:09:13Z"
+        "last_commit": "2026-11-10T17:05:53Z"
       },
-      "last_commit_days": 3,
+      "last_commit_days": 0,
       "status": "verified"
     },
     "license": "Apache-2.0"
@@ -4649,8 +4649,8 @@
     "pricing": {
       "model": "usage-based",
       "free_tier": "No monthly fee",
-      "paid_from": "5% + 50¢ per checkout transaction",
-      "details": "No separate MCP fee found; Paddle charges 5% + 50¢ per checkout transaction (custom pricing available).",
+      "paid_from": "5% + 50\u00a2 per checkout transaction",
+      "details": "No separate MCP fee found; Paddle charges 5% + 50\u00a2 per checkout transaction (custom pricing available).",
       "source": "https://www.paddle.com/pricing",
       "checked": "2026-10-29"
     },

@@ -922,7 +922,7 @@
     "type": "mcp",
     "category": "payments-banking",
     "description": "Open protocol for HTTP-native stablecoin payments by agents.",
-    "repo": "https://github.com/coinbase/x402",
+    "repo": "https://github.com/x402-foundation/x402",
     "homepage": null,
     "docs": null,
     "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
