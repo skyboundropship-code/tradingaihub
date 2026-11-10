@@ -1320,23 +1320,85 @@ def pipe_severity(path, host, snippet, owner=None):
     return "high"
 
 
+def _ok_rel_path(path):
+    """True for a repo-relative path or glob with no '..' and no absolute/home path."""
+    if not path or not isinstance(path, str):
+        return False
+    p = path.strip()
+    if not p or ".." in p:
+        return False
+    if p.startswith(("/", "~", "\\")) or (len(p) >= 2 and p[1] == ":"):
+        return False
+    return True
+
+
+# node -e that only does fs.chmodSync on a fixed relative path with mode 7xx.
+_NODE_E_CHMOD = re.compile(
+    r"""
+    ^\s*node\s+-e\s+
+    (?P<outer>["'])
+    \s*
+    (?:
+        require\(\s*(?P<qfs>["'])fs(?P=qfs)\s*\)\s*\.\s*chmodSync
+      | \(\s*await\s+import\(\s*(?P<qim>["'])fs(?P=qim)\s*\)\s*\)\s*\.\s*chmodSync
+      | import\(\s*(?P<qim2>["'])fs(?P=qim2)\s*\)\s*\.\s*then\(\s*\w+\s*=>\s*\w+\.chmodSync
+    )
+    \s*\(\s*(?P<qp>["'])(?P<path>[^'"]+)(?P=qp)\s*,\s*(?P<qm>["'])(?P<mode>7[0-7]{2})(?P=qm)\s*\)
+    \s*\)?    # optional closer for .then(
+    \s*;?\s*
+    (?P=outer)
+    \s*$
+    """,
+    re.I | re.X,
+)
+
+
+def _is_benign_hook_part(part):
+    """A single &&-separated hook segment. Hostile tokens already rejected by the caller."""
+    part = (part or "").strip()
+    if not part:
+        return False
+    if ";" in part or "|" in part or "$(" in part or "`" in part:
+        return False
+    # chmod / shx chmod: validate paths even if the older BENIGN_HOOK pattern would match.
+    m = re.match(r"^(?:shx\s+)?chmod\s+\+x\s+(.+)$", part, re.I)
+    if m:
+        paths = _shell_tokens(m.group(1))
+        return bool(paths) and all(_ok_rel_path(p) for p in paths)
+    if BENIGN_HOOK.match(part):
+        return True
+    # tsc with flags (no metacharacters; those already rejected above).
+    if re.match(r"^tsc(?:\s+\S+)*$", part, re.I):
+        return True
+    m = re.match(r"^mkdir\s+-p\s+(.+)$", part, re.I)
+    if m:
+        paths = _shell_tokens(m.group(1))
+        return bool(paths) and all(_ok_rel_path(p) for p in paths)
+    m = re.match(r"^cp\s+-[rR]\s+(.+)$", part, re.I)
+    if m:
+        paths = _shell_tokens(m.group(1))
+        return len(paths) >= 2 and all(_ok_rel_path(p) for p in paths)
+    m = _NODE_E_CHMOD.match(part)
+    if m and _ok_rel_path(m.group("path")):
+        return True
+    return False
+
+
 def is_benign_hook(cmd):
     if not cmd or not isinstance(cmd, str):
         return False
     # Always-hostile tokens are never benign, even when chained with tsc/build.
     if re.search(r"\b(curl|wget|iwr|invoke-webrequest)\b", cmd, re.I):
         return False
-    if re.search(r"\bnode\s+-e\b|\beval\b|Function\(|\$\(|`", cmd, re.I):
+    if re.search(r"\beval\b|Function\(|\$\(|`", cmd, re.I):
         return False
-    parts = [p.strip() for p in re.split(r"\s*(?:&&|;)\s*", cmd.strip()) if p.strip()]
+    # ';' is not a benign separator (a second command can hide a download).
+    if ";" in cmd or "|" in cmd:
+        return False
+    parts = [p.strip() for p in re.split(r"\s*&&\s*", cmd.strip()) if p.strip()]
     if not parts:
         return False
-    for part in parts:
-        if "|" in part or "$(" in part or "`" in part:
-            return False
-        if not BENIGN_HOOK.match(part):
-            return False
-    return True
+    return all(_is_benign_hook_part(part) for part in parts)
 
 
 # Package-manager verbs that are not script names when `run` is omitted.

