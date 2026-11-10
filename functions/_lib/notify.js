@@ -5,13 +5,13 @@
 //   NTFY_TOKEN   optional ntfy access token (Bearer), only if an account is ever needed
 //   NTFY_TITLE_PREFIX optional plain var, "[TEST] " on preview (wrangler.toml [env.preview.vars])
 // Every send is fire-and-forget through context.waitUntil with a short timeout; errors are swallowed, so an alert
-// can never block or break the user-facing response. No IPs are ever sent; emails are masked (l***@gmail.com).
+// can never block or break the user-facing response. No IPs are ever sent; emails are masked (u***@example.com).
 
 export const NTFY_TIMEOUT = 4000; // ms
 const DEFAULT_SERVER = "https://ntfy.sh";
 
 // One entry per event type: title, ntfy tags (first tag that matches an emoji shortcode is shown as the emoji),
-// priority 1-5 (5 = urgent -> Time Sensitive on iOS, 4 = high, 3 = default). Different tags/priorities let Liran pick
+// priority 1-5 (5 = urgent -> Time Sensitive on iOS, 4 = high, 3 = default). Different tags/priorities let the owner pick
 // a different sound per event in the ntfy app.
 export const EVENTS = {
   purchase:        { title: "New purchase",          tags: ["moneybag"],            priority: 5 },
@@ -25,7 +25,7 @@ export const EVENTS = {
   daily:           { title: "Daily summary",         tags: ["bar_chart"],           priority: 3 },
 };
 
-/** l***@gmail.com  (first character of the local part, then ***). Anything that isn't an email becomes "***". */
+/** u***@example.com  (first character of the local part, then ***). Anything that isn't an email becomes "***". */
 export function maskEmail(email) {
   const s = String(email ?? "").trim();
   const at = s.lastIndexOf("@");

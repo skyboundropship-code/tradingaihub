@@ -42,7 +42,7 @@ async function callWebhook(body, headers, env) {
 }
 const ORDER = (over = {}) => JSON.stringify({ type: "order.paid", timestamp: "2026-11-04T16:00:00Z", data: {
   id: "ord_1", total_amount: 2900, currency: "usd", billing_reason: "purchase",
-  product: { name: "Category Featured" }, customer: { email: "liran.test@gmail.com", name: "Secret Name" }, ...over } });
+  product: { name: "Category Featured" }, customer: { email: "user.test@example.com", name: "Secret Name" }, ...over } });
 
 // ---- notify helper ----
 test("event table: titles, tags, priorities", () => {
@@ -81,7 +81,7 @@ test("buildNtfyRequest: headers per event, preview prefix, server default, no to
 });
 
 test("maskEmail / formatAmount: no PII beyond a masked email", () => {
-  assert.equal(maskEmail("liran@gmail.com"), "l***@gmail.com");
+  assert.equal(maskEmail("user@example.com"), "u***@example.com");
   assert.equal(maskEmail("A.User@Example.COM"), "A***@example.com");
   assert.equal(maskEmail(""), "***"); assert.equal(maskEmail("nope"), "***"); assert.equal(maskEmail(undefined), "***");
   assert.equal(formatAmount(2900, "usd"), "$29.00"); assert.equal(formatAmount(9900, "eur"), "99.00 EUR");
@@ -178,8 +178,8 @@ test("webhook: order.paid purchase -> priority 5 'New purchase' with product + a
   const h = calls[0].init.headers;
   assert.equal(h.title, "New purchase"); assert.equal(h.priority, "5"); assert.equal(h.tags, "moneybag");
   assert.match(calls[0].init.body, /Category Featured - \$29\.00/);
-  assert.match(calls[0].init.body, /l\*\*\*@gmail\.com/);
-  assert.ok(!calls[0].init.body.includes("liran.test"), "no full email");
+  assert.match(calls[0].init.body, /u\*\*\*@example\.com/);
+  assert.ok(!calls[0].init.body.includes("user.test"), "no full email");
   assert.ok(!calls[0].init.body.includes("Secret Name"), "no name");
   assert.deepEqual(kv.meta.get("pw:msg_A"), { k: "purchase", a: 2900, c: "usd", ts: kv.meta.get("pw:msg_A").ts });
 });
@@ -233,15 +233,15 @@ async function runSub(email, env, impl) {
 
 test("subscribe: new signup -> one 'New subscriber' alert (masked, no IP); duplicate -> no alert", async () => {
   const kv = makeKV(); const env = { NEWSLETTER: kv, RL_SALT: "x".repeat(32), NTFY_TOPIC: TOPIC };
-  const a = await runSub("Liran@Gmail.com", env, ok200);
+  const a = await runSub("User@Example.com", env, ok200);
   assert.equal(a.res.status, 200);
   const ntfy = a.calls.filter((c) => c.url.startsWith("https://ntfy.sh/"));
   assert.equal(ntfy.length, 1);
   assert.equal(ntfy[0].init.headers.title, "New subscriber"); assert.equal(ntfy[0].init.headers.priority, "3"); assert.equal(ntfy[0].init.headers.tags, "envelope_with_arrow");
-  assert.equal(ntfy[0].init.body, "L***@gmail.com (he)");
+  assert.equal(ntfy[0].init.body, "U***@example.com (he)");
   assert.ok(!JSON.stringify(ntfy[0].init).includes("9.9.9.9"));
-  assert.ok(kv.meta.get("sub:liran@gmail.com").ts, "metadata ts for the daily summary");
-  const b = await runSub("liran@gmail.com", env, ok200);
+  assert.ok(kv.meta.get("sub:user@example.com").ts, "metadata ts for the daily summary");
+  const b = await runSub("user@example.com", env, ok200);
   assert.equal(b.res.status, 200); assert.equal(b.calls.length, 0, "duplicate: no alert");
 });
 
