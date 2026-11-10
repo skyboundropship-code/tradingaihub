@@ -106,7 +106,7 @@
   },
   {
     "id": "eodhd-api",
-    "name": "EODHD API",
+    "name": "EODHD APIs",
     "type": "api",
     "category": "market-data",
     "description": "End-of-day, intraday, fundamentals and news for 70+ exchanges; ships an MCP server.",
