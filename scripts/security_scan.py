@@ -39,6 +39,29 @@ S.headers.update(UA)
 
 CACHE_DIR = os.environ.get("SECURITY_SCAN_CACHE") or os.path.join(ROOT, ".cache", "security-scan")
 DEFAULT_OUT = os.path.join(ROOT, "data", "security")
+RULES_VERSION = "4"
+
+def _scanner_commit():
+    try:
+        proc = subprocess.run(
+            ["git", "-C", ROOT, "rev-parse", "HEAD"],
+            capture_output=True, text=True, timeout=5, check=False,
+        )
+        sha = (proc.stdout or "").strip()
+        if proc.returncode == 0 and re.fullmatch(r"[0-9a-f]{40}", sha):
+            return sha
+    except Exception:
+        pass
+    return None
+
+SCANNER_COMMIT = _scanner_commit()
+
+def stamp_result(out):
+    if isinstance(out, dict):
+        out["scanner_commit"] = SCANNER_COMMIT
+        out["rules_version"] = RULES_VERSION
+    return out
+
 MAX_FILE_BYTES = 256 * 1024
 MAX_MANIFEST_BYTES = 5 * 1024 * 1024
 MAX_FILES_DEFAULT = 400
@@ -141,10 +164,12 @@ INSTALL_HOOKS = (
 # prepublish, prepublishOnly and postpack are publish-only and are ignored.
 # prepare/husky and similar hooks that only run local tooling are expected.
 BENIGN_HOOK = re.compile(
-    r"^\s*(husky(?:\s+install)?|npm\s+run\s+build|pnpm\s+run\s+build|"
-    r"yarn\s+build|tsc|true|exit\s+0|"
+    r"^\s*(husky(?:\s+install)?|"
+    r"(?:npm|pnpm|yarn)(?:\s+run)?\s+build(?::\w+)?|"
+    r"tsc|true|exit\s+0|"
     r"node-gyp\s+rebuild|prebuild-install|only-allow|simple-git-hooks|"
-    r"npm\s+run\s+prepare|patch-package(?:\s+--error-on-fail)?)\s*$",
+    r"npm\s+run\s+prepare|patch-package(?:\s+--error-on-fail)?|"
+    r"chmod\s+\+x\s+(?:\./)?[\w./+-]+)\s*$",
     re.I,
 )
 
@@ -477,10 +502,23 @@ def raw_file(owner, repo, sha, path, max_bytes=None):
     limit = max_bytes if max_bytes is not None else (
         MAX_MANIFEST_BYTES if is_must_scan(path) else MAX_FILE_BYTES
     )
-    key = f"raw:{owner}/{repo}/{sha}/{path}"
+    key = f"raw:{owner}/{repo}/{sha}/{path}:{limit}"
     hit = cache_get(key)
     if hit is not CACHE_MISS:
         return hit
+    # Legacy entries were keyed without the limit. Reuse them only when the
+    # stored blob is not a truncated slice that is smaller than we now need.
+    legacy = cache_get(f"raw:{owner}/{repo}/{sha}/{path}")
+    if legacy is not CACHE_MISS:
+        if not isinstance(legacy, str):
+            return legacy
+        stored = len(legacy.encode("utf-8"))
+        if stored in (MAX_FILE_BYTES, MAX_MANIFEST_BYTES) and stored < limit:
+            pass  # likely truncated; refetch at the larger limit
+        elif stored <= limit:
+            return legacy
+        else:
+            return legacy.encode("utf-8")[:limit].decode("utf-8", "replace")
     enc = "/".join(quote(p, safe="") for p in path.split("/"))
     url = f"https://raw.githubusercontent.com/{owner}/{repo}/{sha}/{enc}"
     r = None
@@ -1001,10 +1039,13 @@ def is_vendor_release_url(snippet, owner=None):
     ))
 
 
-def strip_shell_comments(text):
-    """Cut `#` and `//` comments, leaving `://` in URLs alone."""
+def strip_shell_comments(text, path=None):
+    """Cut comments. `#` is a comment only at line start or after whitespace, `;`, `|` or `&`.
+    `//` is stripped only in JS/TS; it is never a shell/Dockerfile comment."""
     if not text:
         return text
+    base = os.path.basename((path or "").replace("\\", "/")).lower()
+    strip_slash = base.endswith((".js", ".ts", ".mjs", ".cjs", ".jsx", ".tsx"))
     out = []
     i, n = 0, len(text)
     in_s = in_d = False
@@ -1019,8 +1060,10 @@ def strip_shell_comments(text):
             out.append(ch); i += 1; continue
         if not in_s and not in_d:
             if ch == "#":
-                break
-            if ch == "/" and nxt == "/" and not (out and out[-1] == ":"):
+                prev = out[-1] if out else None
+                if prev is None or prev in " \t\r\n;|&":
+                    break
+            if strip_slash and ch == "/" and nxt == "/" and not (out and out[-1] == ":"):
                 break
         out.append(ch); i += 1
     return "".join(out)
@@ -1028,13 +1071,21 @@ def strip_shell_comments(text):
 
 _CURL_FLAG_ARGS = frozenset({
     "-o", "-O", "-C", "-Q", "-d", "-T", "-H", "-e", "-A", "-u", "-U", "-b", "-c",
-    "-w", "-m", "-y", "-Y", "-P", "-x", "-X", "-E", "-F",
+    "-w", "-m", "-y", "-Y", "-P", "-x", "-X", "-E", "-F", "-K",
     "--output", "--header", "--url", "--user", "--data", "--data-raw",
     "--data-binary", "--referer", "--user-agent", "--connect-timeout",
     "--max-time", "--retry", "--proxy", "--config", "--cacert", "--cert",
-    "--key", "--form", "--upload-file", "--output-document", "--user-agent",
+    "--key", "--form", "--upload-file", "--output-document",
+    "--proto", "--tlsv1", "--resolve", "--connect-to", "--doh-url",
+    "--interface", "--max-redirs", "--retry-delay", "--retry-max-time",
+    "--cookie", "--cookie-jar", "--dump-header", "--write-out", "--stderr",
 })
-
+# Short options whose last letter takes an argument (for clusters like -fsSo).
+_CURL_SHORT_ARG = frozenset("oOCQdTeAuUbchwmYyPxXEFK")
+_CURL_REDIRECT_FLAGS = frozenset({
+    "--url", "-K", "--config", "--resolve", "--connect-to",
+    "-x", "--proxy", "--doh-url",
+})
 
 
 def _shell_tokens(s):
@@ -1064,16 +1115,15 @@ def _shell_tokens(s):
     return out
 
 
-def curl_pipe_segment(snippet):
+def curl_pipe_segment(snippet, path=None):
     """The curl/wget text up to the first pipe, comments already stripped."""
     if not snippet:
         return ""
-    s = strip_shell_comments(snippet)
+    s = strip_shell_comments(snippet, path=path)
     m = re.search(r"\b(?:curl|wget|invoke-webrequest|\biwr\b)\b", s, re.I)
     if not m:
         return s.strip()
     rest = s[m.start():]
-    # cut at the pipe that feeds a shell, not at `||`
     cut = re.search(r"(?<!\|)\|(?!\|)", rest)
     return (rest[:cut.start()] if cut else rest).strip()
 
@@ -1082,23 +1132,55 @@ def urls_in_text(s):
     return re.findall(r"https?://[^\s'\"\\]+", s or "", flags=re.I)
 
 
-def curl_fetch_url(snippet):
-    """URL curl/wget actually fetches: last non-flag token before `|`."""
-    segment = curl_pipe_segment(snippet)
+def _curl_flag_name(tok):
+    if not tok.startswith("-"):
+        return ""
+    if tok.startswith("--"):
+        return tok.split("=", 1)[0]
+    # short cluster: -fsSL or -K
+    return tok
+
+
+def _curl_flag_takes_arg(tok):
+    if tok.startswith("--"):
+        name = tok.split("=", 1)[0]
+        return name in _CURL_FLAG_ARGS and "=" not in tok
+    if tok.startswith("-") and len(tok) >= 2:
+        return tok[-1] in _CURL_SHORT_ARG and not tok.startswith("--")
+    return False
+
+
+def curl_positional_tokens(segment):
+    """Non-flag tokens of a curl/wget invocation (arguments already consumed)."""
     tokens = _shell_tokens(segment)
+    if not tokens:
+        return [], set()
     skip_next = False
-    candidates = []
-    for tok in tokens[1:]:  # drop the curl/wget verb
+    positionals = []
+    flags = set()
+    for tok in tokens[1:]:
         if skip_next:
             skip_next = False
             continue
         if tok.startswith("-"):
             name = tok.split("=", 1)[0]
-            if name in _CURL_FLAG_ARGS and "=" not in tok:
+            flags.add(name)
+            # also record the short last letter as a flag (e.g. -K from -K)
+            if not tok.startswith("--") and len(tok) >= 2:
+                flags.add("-" + tok[-1])
+                flags.add(tok)
+            if _curl_flag_takes_arg(tok):
                 skip_next = True
             continue
-        candidates.append(tok)
-    for tok in reversed(candidates):
+        positionals.append(tok)
+    return positionals, flags
+
+
+def curl_fetch_url(snippet, path=None):
+    """URL curl/wget actually fetches: last non-flag token before `|`."""
+    segment = curl_pipe_segment(snippet, path=path)
+    positionals, _flags = curl_positional_tokens(segment)
+    for tok in reversed(positionals):
         if re.match(r"https?://", tok, re.I) or "://" in tok or "." in tok:
             if not re.match(r"https?://", tok, re.I) and "://" not in tok:
                 tok = "https://" + tok.lstrip("/")
@@ -1107,16 +1189,24 @@ def curl_fetch_url(snippet):
     return urls[-1] if urls else ""
 
 
-def pipe_url_analysis(snippet):
+def pipe_url_analysis(snippet, path=None):
     """Return (fetch_url, fetch_host, all_urls) after stripping comments."""
-    clean = strip_shell_comments(snippet or "")
-    segment = curl_pipe_segment(clean)
-    fetch = curl_fetch_url(clean)
+    clean = strip_shell_comments(snippet or "", path=path)
+    segment = curl_pipe_segment(clean, path=path)
+    fetch = curl_fetch_url(clean, path=path)
     urls = urls_in_text(segment)
     if fetch and fetch not in urls:
         urls = urls + [fetch]
     host = host_of(fetch) if fetch else ""
     return fetch, host, urls
+
+
+def _raw_text_before_pipe(snippet, path=None):
+    s = strip_shell_comments(snippet or "", path=path)
+    m = re.search(r"\b(?:curl|wget|invoke-webrequest|\biwr\b)\b", s, re.I)
+    rest = s[m.start():] if m else s
+    cut = re.search(r"(?<!\|)\|(?!\|)", rest)
+    return (rest[:cut.start()] if cut else rest)
 
 
 def looks_like_pipe_mention(snippet):
@@ -1148,12 +1238,34 @@ def pipe_severity(path, host, snippet, owner=None):
     assertions stay green). CI pipes from a non-installer host are low.
     Both info and low leave the tool clean. Hook pipes are handled
     separately and are always high.
+
+    Official downgrade only when the curl/wget segment has exactly one
+    positional https URL on an installer (or owner-release) host, none of
+    the redirect/config flags, and no `;`, `&&`, `||`, `$(` or backtick
+    in the text before the pipe.
     """
     owner = owner if owner is not None else _ctx_owner()
-    fetch_url, fetch_host, urls = pipe_url_analysis(snippet)
+    fetch_url, fetch_host, urls = pipe_url_analysis(snippet, path=path)
     host = fetch_host or (host or "")
-    every_official = bool(urls) and all(is_exact_installer_host(host_of(u)) for u in urls)
-    official = every_official or is_vendor_release_url(fetch_url or "", owner)
+    segment = curl_pipe_segment(snippet, path=path)
+    positionals, flags = curl_positional_tokens(segment)
+    raw_left = _raw_text_before_pipe(snippet, path=path)
+    has_redirect = any(f in _CURL_REDIRECT_FLAGS for f in flags)
+    has_meta = bool(re.search(r";|&&|\|\||\$\(|`", raw_left))
+    one_https = (
+        len(positionals) == 1
+        and bool(re.match(r"https://", positionals[0], re.I))
+    )
+    pos_url = positionals[0] if one_https else (fetch_url or "")
+    official = (
+        one_https
+        and not has_redirect
+        and not has_meta
+        and (
+            is_exact_installer_host(host_of(pos_url))
+            or is_vendor_release_url(pos_url, owner)
+        )
+    )
     if is_ci_path(path):
         return "info" if official else "low"
     if official:
@@ -1166,9 +1278,20 @@ def pipe_severity(path, host, snippet, owner=None):
 def is_benign_hook(cmd):
     if not cmd or not isinstance(cmd, str):
         return False
-    if HOOK_METACHAR.search(cmd):
+    # Always-hostile tokens are never benign, even when chained with tsc/build.
+    if re.search(r"\b(curl|wget|iwr|invoke-webrequest)\b", cmd, re.I):
         return False
-    return bool(BENIGN_HOOK.match(cmd.strip()))
+    if re.search(r"\bnode\s+-e\b|\beval\b|Function\(|\$\(|`", cmd, re.I):
+        return False
+    parts = [p.strip() for p in re.split(r"\s*(?:&&|;)\s*", cmd.strip()) if p.strip()]
+    if not parts:
+        return False
+    for part in parts:
+        if "|" in part or "$(" in part or "`" in part:
+            return False
+        if not BENIGN_HOOK.match(part):
+            return False
+    return True
 
 
 def _scan_raw_install_hooks(path, text, findings):
@@ -1249,7 +1372,7 @@ def check_shell_and_docker(path, text, findings):
             snippet = text[m.start():m.start() + 180].splitlines()[0]
             if looks_like_pipe_mention(snippet):
                 continue
-            _fetch, host, _urls = pipe_url_analysis(snippet)
+            _fetch, host, _urls = pipe_url_analysis(snippet, path=path)
             sev = pipe_severity(path, host, snippet)
             findings.append(finding("curl-pipe", f"{label}: {snippet[:180]}", sev, file=path, line=line_no(text, m.start())))
     for m in BINARY_DL.finditer(text):
@@ -2003,6 +2126,17 @@ def check_typos_and_osv(deps, ecosystem, findings, file=None, lock_versions=None
             exact, ranges, has_fixed = mal_affected(v)
             typo_mal = typo is not None
             admitted = spec_admits_affected(version, exact, ranges)
+            if origin == "self":
+                # Name-squat / dependency confusion: a MAL advisory on this
+                # manifest's own name is not evidence the repo shipped malware.
+                eco = "npm" if ecosystem == "npm" else "PyPI"
+                findings.append(finding(
+                    "name-squat",
+                    f"{eco} name of this repo's unpublished example package is taken by a "
+                    f"malicious package ({vid}); the repo code is not affected; mark it `private: true`.",
+                    "medium", file=file,
+                ))
+                continue
             if typo_mal:
                 if admitted is False:
                     continue
@@ -2039,14 +2173,14 @@ def check_typos_and_osv(deps, ecosystem, findings, file=None, lock_versions=None
                     findings.append(finding(
                         "osv",
                         f"range admits a compromised release of {name} listed in {vid}; "
-                        f"repo lockfile pins {', '.join(resolved[:4])}; npx installs resolve fresh",
+                        f"repo lockfile pins {', '.join(sorted(set(resolved)))}; npx installs resolve fresh",
                         "low", file=file,
                     ))
                     continue
                 else:
                     findings.append(finding(
                         "osv",
-                        f"OSV {vid}: lockfile resolves {name} to a compromised release ({', '.join(resolved[:4])}): {summary}",
+                        f"OSV {vid}: lockfile resolves {name} to a compromised release ({', '.join(sorted(set(resolved)))}): {summary}",
                         "high", file=file,
                     ))
                     continue
@@ -2268,15 +2402,97 @@ def allow_hosts_for(tool, owner):
     return hosts
 
 
+def resolve_entry(rel, path_set):
+    """Resolve a package main/bin/hook target the way Node does.
+
+    Try the path as written, then common source extensions, then the
+    directory's index.*, then a directory package.json (caller may follow
+    its main). Returns the first path that exists in path_set, or None.
+    """
+    if not rel or not path_set:
+        return None
+    rel = rel.replace("\\", "/").lstrip("./")
+    if not rel:
+        return "index.js" if "index.js" in path_set else None
+    cands = [rel]
+    ext = os.path.splitext(rel)[1]
+    if not ext:
+        for e in (".js", ".mjs", ".cjs", ".ts", ".json", ".node"):
+            cands.append(rel + e)
+    base = rel.rstrip("/")
+    for e in (".js", ".mjs", ".cjs", ".ts"):
+        cands.append(f"{base}/index{e}")
+    cands.append(f"{base}/package.json")
+    seen = set()
+    for c in cands:
+        if c in seen:
+            continue
+        seen.add(c)
+        if c in path_set:
+            return c
+    return None
+
+
+def hook_file_targets(cmd):
+    """Files referenced by an install hook (`node dist/setup`, `python -m pkg.mod`, `sh scripts/x.sh`)."""
+    out = []
+    if not cmd or not isinstance(cmd, str):
+        return out
+    chunks = re.split(r"\s*(?:&&|;|(?<!\|)\|(?!\|))\s*", cmd)
+    for chunk in chunks:
+        toks = _shell_tokens(chunk)
+        if not toks:
+            continue
+        i = 0
+        while i < len(toks):
+            low = toks[i].lower()
+            if low in {"python", "python3", "py"}:
+                j = i + 1
+                while j < len(toks) and toks[j].startswith("-") and toks[j] not in {"-m", "-c", "--module"}:
+                    name = toks[j].split("=", 1)[0]
+                    if name in {"-W", "-X", "--check-hash-based-pycs"} and "=" not in toks[j]:
+                        j += 2
+                        continue
+                    j += 1
+                if j < len(toks) and toks[j] in {"-m", "--module"} and j + 1 < len(toks):
+                    path = toks[j + 1].replace(".", "/")
+                    out.extend([path + ".py", path + "/__main__.py", path + "/__init__.py"])
+                elif j < len(toks) and not toks[j].startswith("-"):
+                    out.append(toks[j])
+                break
+            if low in {"sh", "bash", "zsh", "dash", "ash"}:
+                j = i + 1
+                while j < len(toks) and toks[j].startswith("-") and toks[j] != "-c":
+                    j += 1
+                if j < len(toks) and toks[j] != "-c" and not toks[j].startswith("-"):
+                    out.append(toks[j])
+                break
+            if low in {"node", "tsx", "ts-node", "bun", "deno"}:
+                j = i + 1
+                if low in {"deno", "bun"} and j < len(toks) and toks[j].lower() == "run":
+                    j += 1
+                while j < len(toks) and toks[j].startswith("-"):
+                    name = toks[j].split("=", 1)[0]
+                    if name in {"-e", "-p", "-c", "--eval", "--print", "--require", "-r"} and "=" not in toks[j]:
+                        j += 2
+                        continue
+                    j += 1
+                if j < len(toks) and not toks[j].startswith("-"):
+                    out.append(toks[j])
+                break
+            i += 1
+        for tok in re.findall(r"(?:^|\s)(\S+\.(?:js|mjs|cjs|ts|sh|py|bash))\b", chunk):
+            if not tok.startswith("-"):
+                out.append(tok.lstrip("./"))
+    return out
+
+
 def manifest_entries(path, pkg):
     """Paths named by package.json main / bin / exports / files / hook scripts."""
     rel_dir = path.replace("\\", "/").rsplit("/", 1)[0] if "/" in path.replace("\\", "/") else ""
     out = []
 
     def add(rel):
-        if not isinstance(rel, str) or not rel or rel.startswith("."):
-            # still allow .rc-like? skip
-            pass
         if not isinstance(rel, str) or not rel:
             return
         rel = rel.split(":", 1)[-1] if rel.startswith("file:") else rel
@@ -2290,6 +2506,8 @@ def manifest_entries(path, pkg):
         return out
     if isinstance(pkg.get("main"), str):
         add(pkg["main"])
+    else:
+        add("index.js")
     if isinstance(pkg.get("module"), str):
         add(pkg["module"])
     bin_ = pkg.get("bin")
@@ -2320,9 +2538,7 @@ def manifest_entries(path, pkg):
         for hook, cmd in scripts.items():
             if hook not in INSTALL_HOOKS or not isinstance(cmd, str):
                 continue
-            for tok in re.findall(r"(?:node|python3?|bash|sh)\s+([./][\w./-]+)", cmd):
-                add(tok)
-            for tok in re.findall(r"(?:^|\s)(\S+\.(?:js|mjs|cjs|sh|py))\b", cmd):
+            for tok in hook_file_targets(cmd):
                 add(tok)
     return out
 
@@ -2378,7 +2594,7 @@ def finalize_status(out, findings, truncated=False, incomplete=False):
             st = "partial"
     out["status"] = st
     out["truncated"] = bool(truncated)
-    return out
+    return stamp_result(out)
 
 
 def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
@@ -2490,25 +2706,44 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
         check_permissions(path, text, findings, official, tool.get("type"), tool.get("category"), reachable=reachable)
 
     scanned_paths = set()
+    scanned_reachable = set()
     for e in candidates:
         path = e["path"]
         text = raw_file(owner, repo, sha, path)
         scan_one(path, text)
         scanned_paths.add(path)
 
-    # hook / main / bin targets from manifests, always, any size
-    by_path = {e["path"]: e for e in entries}
+    # hook / main / bin targets from manifests, always, any size.
+    # Resolve extension-less and directory mains the way Node does.
+    resolved_targets = []
+    seen_t = set()
     for rel in list(extra_targets):
+        hit = resolve_entry(rel, path_set) or (rel if rel in path_set else None)
+        if hit and hit not in seen_t:
+            resolved_targets.append(hit)
+            seen_t.add(hit)
+
+    by_path = {e["path"]: e for e in entries}
+    for rel in resolved_targets:
         if rel in scanned_paths:
+            if rel not in scanned_reachable:
+                # First pass may have treated a test/doc path as unreachable
+                # (e.g. bin → test/run.sh is must-scan). Re-check as reachable.
+                text = raw_file(owner, repo, sha, rel)
+                if text is not FETCH_FAILED and text is not None:
+                    check_obfuscation(rel, text, findings, reachable=True)
+                    check_secrets_and_network(rel, text, findings, allow, reachable=True)
+                    check_permissions(rel, text, findings, official, tool.get("type"), tool.get("category"), reachable=True)
+                scanned_reachable.add(rel)
             continue
         if rel not in path_set:
-            # maybe the target is a directory prefix; skip
             continue
         text = raw_file(owner, repo, sha, rel)
         # Manifest main/bin/exports/hook targets are reachable even under
         # skipped dirs (dist/, build/, vendor/, test/, …).
         scan_one(rel, text, reachable=True)
         scanned_paths.add(rel)
+        scanned_reachable.add(rel)
 
     # primary package dir from manifests we already saw
     npm_names = [(path, pkg.get("name")) for path, pkg in npm_pkgs if pkg.get("name") and not pkg.get("private")]
@@ -2648,7 +2883,7 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
 def safe_scan(tool, max_files, timeout=None):
     deadline = float(timeout if timeout is not None else TOOL_DEADLINE)
     if rate_budget_low():
-        return {
+        return stamp_result({
             "id": tool["id"],
             "name": tool.get("name"),
             "status": "incomplete",
@@ -2661,14 +2896,14 @@ def safe_scan(tool, max_files, timeout=None):
             "notes": ["github-rate-floor"],
             "truncated": False,
             "coverage": {"scanned": 0, "matched": 0, "skipped_large": 0},
-        }
+        })
     done, v = _bounded(lambda: scan_tool(tool, max_files=max_files), deadline)
     if done and not isinstance(v, BaseException):
         return v
     if not done:
         # A timeout that produced no scan result (0 files) is incomplete, not
         # a partial scan: nothing is known yet.
-        return {
+        return stamp_result({
             "id": tool["id"],
             "name": tool.get("name"),
             "status": "incomplete",
@@ -2681,9 +2916,9 @@ def safe_scan(tool, max_files, timeout=None):
             "notes": ["scan-timeout"],
             "truncated": True,
             "coverage": {"scanned": 0, "matched": 0, "skipped_large": 0},
-        }
+        })
     why = f"scanner error ({type(v).__name__}: {v})"
-    return {
+    return stamp_result({
         "id": tool["id"],
         "name": tool.get("name"),
         "status": "incomplete",
@@ -2696,7 +2931,8 @@ def safe_scan(tool, max_files, timeout=None):
         "notes": ["scan-error"],
         "truncated": False,
         "coverage": {"scanned": 0, "matched": 0, "skipped_large": 0},
-    }
+    })
+
 
 
 def parse_args(args, known_ids):
@@ -2782,6 +3018,8 @@ def main(argv=None):
     by = Counter(r["status"] for r in results)
     summary = {
         "checked_at": NOW.isoformat(),
+        "scanner_commit": SCANNER_COMMIT,
+        "rules_version": RULES_VERSION,
         "total": len(results),
         "by_status": dict(by),
         "runtime_seconds": runtime,
