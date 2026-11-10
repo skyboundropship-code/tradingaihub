@@ -109,10 +109,10 @@ Data is CC BY 4.0; attribution is "TradingAIHub, https://tradingaihub.com". Not 
 
 ## Payments & business banking
 
+- ✅ [x402 (x402 Foundation)](https://github.com/x402-foundation/x402) *(official)* — Open protocol for HTTP-native stablecoin payments by agents. ⭐ 6,795 · [details](https://tradingaihub.com/tools/x402/)
 - ✅ [Stripe Agent Toolkit & MCP](https://github.com/stripe/ai) *(official)* — Stripe's official agent toolkit and hosted MCP for payments, customers and billing. ⭐ 2,051 · [details](https://tradingaihub.com/tools/stripe-ai/)
 - ✅ [Razorpay MCP Server](https://github.com/razorpay/razorpay-mcp-server) *(official)* — Official Razorpay MCP server for payments, orders, refunds, payment links, QR codes, settlements and payouts; hosted or local. ⭐ 231 · [details](https://tradingaihub.com/tools/razorpay-mcp/)
 - ✅ [PayPal MCP Server](https://github.com/paypal/agent-toolkit) *(official)* — Official PayPal MCP server and agent toolkit: invoices, orders, payments, refunds, subscriptions and disputes; sandbox supported. ⭐ 198 · [details](https://tradingaihub.com/tools/paypal-mcp/)
-- ✅ [x402 (Coinbase)](https://github.com/x402-foundation/x402) *(official)* — Open protocol for HTTP-native stablecoin payments by agents. ⭐ 6795 · [details](https://tradingaihub.com/tools/x402/)
 - ✅ [Square MCP Server](https://github.com/square/square-mcp-server) *(official)* — Official Square (Block) MCP server (beta) exposing Square APIs: payments, orders, catalog, customers, inventory and more. ⭐ 109 · [details](https://tradingaihub.com/tools/square-mcp/)
 - ✅ [Paddle MCP Server](https://github.com/PaddleHQ/paddle-mcp-server) *(official)* — Official Paddle Billing MCP server: products, prices, customers, subscriptions, transactions and reports; sandbox supported. ⭐ 50 · [details](https://tradingaihub.com/tools/paddle-mcp/)
 - ✅ [Qonto MCP](https://github.com/qonto/qonto-mcp-server) *(official)* — Official MCP server for Qonto business banking. ⭐ 42 · [details](https://tradingaihub.com/tools/qonto-mcp/)
@@ -125,9 +125,9 @@ Data is CC BY 4.0; attribution is "TradingAIHub, https://tradingaihub.com". Not 
 - 🟡 [Firefly III API](https://github.com/firefly-iii/firefly-iii) *(official)* — REST API of Firefly III, the self-hosted open-source personal finance manager: accounts, transactions, budgets and rules. ⭐ 25,179 · [details](https://tradingaihub.com/tools/firefly-iii-api/)
 - ✅ [YNAB MCP Server (community)](https://github.com/calebl/ynab-mcp-server) — Community MCP server for YNAB built on the official SDK: budgets, transactions and approvals, with an optional read-only mode. ⭐ 164 · [details](https://tradingaihub.com/tools/ynab-mcp/)
 - ✅ [Lunch Money MCP](https://github.com/akutishevsky/lunchmoney-mcp) — MCP server for Lunch Money budgeting data. ⭐ 113 · [details](https://tradingaihub.com/tools/lunchmoney-mcp/)
+- ✅ [Actual Budget MCP](https://github.com/henfrydls/actual-budget-mcp) — MCP server for the open-source Actual Budget app. ⭐ 20 · [details](https://tradingaihub.com/tools/actual-budget-mcp/)
 - ✅ [OptionsAhoy MCP](https://github.com/AlvisoOculus/optionsahoy-mcp) — Equity-compensation tax optimizer for ISO, NSO, RSU and QSBS scenarios. ⭐ 6 · [details](https://tradingaihub.com/tools/optionsahoy-mcp/)
 - 🔴 [Monarch Money MCP](https://github.com/carsol/monarch-mcp-server) — Community MCP server for Monarch Money accounts, transactions and budgets. ⭐ 4 · [details](https://tradingaihub.com/tools/monarch-mcp/)
-- 🟡 [Actual Budget MCP](https://github.com/Jacob-Tate/actual-budget-mcp) — MCP server for the open-source Actual Budget app. ⭐ 2 · [details](https://tradingaihub.com/tools/actual-budget-mcp/)
 - ✅ [YNAB API](https://api.ynab.com/) *(official)* — Official REST API for YNAB budgets, accounts, categories, payees and transactions; personal access token or OAuth. · [details](https://tradingaihub.com/tools/ynab-api/)
 
 ## Research & SEC filings
