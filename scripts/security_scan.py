@@ -17,6 +17,7 @@ import datetime as dt
 import hashlib
 import json
 import os
+import posixpath
 import re
 import shutil
 import subprocess
@@ -39,7 +40,7 @@ S.headers.update(UA)
 
 CACHE_DIR = os.environ.get("SECURITY_SCAN_CACHE") or os.path.join(ROOT, ".cache", "security-scan")
 DEFAULT_OUT = os.path.join(ROOT, "data", "security")
-RULES_VERSION = "4"
+RULES_VERSION = "5"
 
 def _scanner_commit():
     try:
@@ -187,7 +188,10 @@ IEX_DOWNLOAD = re.compile(
     re.I,
 )
 BASH_FROM_CURL = re.compile(
-    r"(?:bash|sh)\s+<\(\s*(curl|wget)\b|(?:bash|sh)\s+-c\s+[\"']?\$\(?(curl|wget)\b",
+    r"(?:bash|sh)\s+<\(\s*(curl|wget)\b"
+    r"|(?:bash|sh)\s+-c\s+[\"']?\$\(?(curl|wget)\b"
+    r"|\beval\s+[\"']?\$\(\s*(?:curl|wget)\b"
+    r"|\beval\s+[\"']?`\s*(?:curl|wget)\b",
     re.I,
 )
 BINARY_DL = re.compile(
@@ -1086,6 +1090,12 @@ _CURL_REDIRECT_FLAGS = frozenset({
     "--url", "-K", "--config", "--resolve", "--connect-to",
     "-x", "--proxy", "--doh-url",
 })
+_WGET_REDIRECT_FLAGS = frozenset({
+    "-i", "--input-file", "-e", "--execute", "--config",
+    "-B", "--base",
+})
+# wget short options that consume an argument (including attached: -i./list.txt).
+_WGET_SHORT_ARG = frozenset("oOiIeEBPtTwUuF")
 
 
 def _shell_tokens(s):
@@ -1132,21 +1142,38 @@ def urls_in_text(s):
     return re.findall(r"https?://[^\s'\"\\]+", s or "", flags=re.I)
 
 
-def _curl_flag_name(tok):
-    if not tok.startswith("-"):
-        return ""
-    if tok.startswith("--"):
-        return tok.split("=", 1)[0]
-    # short cluster: -fsSL or -K
-    return tok
+def _curl_or_wget_verb(segment):
+    """The curl/wget verb in a command segment, ignoring ENV= assignments."""
+    for tok in _shell_tokens(segment or ""):
+        base = tok.lower().rsplit("/", 1)[-1]
+        if base in {"curl", "wget"}:
+            return base
+    return ""
 
 
-def _curl_flag_takes_arg(tok):
+def _curl_flag_takes_arg(tok, short_arg=None):
     if tok.startswith("--"):
         name = tok.split("=", 1)[0]
-        return name in _CURL_FLAG_ARGS and "=" not in tok
-    if tok.startswith("-") and len(tok) >= 2:
-        return tok[-1] in _CURL_SHORT_ARG and not tok.startswith("--")
+        extra = {"--input-file", "--execute", "--base"}
+        return (name in _CURL_FLAG_ARGS or name in extra) and "=" not in tok
+    return False
+
+
+def _walk_short_cluster(tok, flags, short_arg):
+    """Record each letter of a short cluster; first arg-taking letter consumes the rest.
+
+    Returns True when the next token is the flag's argument (no attached value).
+    """
+    body = tok[1:]
+    i = 0
+    while i < len(body):
+        ch = body[i]
+        flags.add("-" + ch)
+        if ch in short_arg:
+            # attached argument (possibly empty) is the rest of this token
+            return (i + 1) == len(body)
+        i += 1
+    flags.add(tok)
     return False
 
 
@@ -1155,21 +1182,29 @@ def curl_positional_tokens(segment):
     tokens = _shell_tokens(segment)
     if not tokens:
         return [], set()
+    verb = _curl_or_wget_verb(segment)
+    short_arg = _WGET_SHORT_ARG if verb == "wget" else _CURL_SHORT_ARG
+    # start after the verb (skip leading ENV= / env)
+    start = 0
+    for i, tok in enumerate(tokens):
+        if tok.lower().rsplit("/", 1)[-1] in {"curl", "wget"}:
+            start = i + 1
+            break
     skip_next = False
     positionals = []
     flags = set()
-    for tok in tokens[1:]:
+    for tok in tokens[start:]:
         if skip_next:
             skip_next = False
             continue
-        if tok.startswith("-"):
+        if tok.startswith("--"):
             name = tok.split("=", 1)[0]
             flags.add(name)
-            # also record the short last letter as a flag (e.g. -K from -K)
-            if not tok.startswith("--") and len(tok) >= 2:
-                flags.add("-" + tok[-1])
-                flags.add(tok)
             if _curl_flag_takes_arg(tok):
+                skip_next = True
+            continue
+        if tok.startswith("-") and len(tok) >= 2:
+            if _walk_short_cluster(tok, flags, short_arg):
                 skip_next = True
             continue
         positionals.append(tok)
@@ -1250,7 +1285,17 @@ def pipe_severity(path, host, snippet, owner=None):
     segment = curl_pipe_segment(snippet, path=path)
     positionals, flags = curl_positional_tokens(segment)
     raw_left = _raw_text_before_pipe(snippet, path=path)
-    has_redirect = any(f in _CURL_REDIRECT_FLAGS for f in flags)
+    verb = _curl_or_wget_verb(segment)
+    redirect = set(_CURL_REDIRECT_FLAGS)
+    if verb == "wget":
+        redirect |= _WGET_REDIRECT_FLAGS
+    has_redirect = any(f in redirect for f in flags)
+    # .curlrc / CURL_HOME can inject extra urls or a config (N14).
+    # Look at the whole (comment-stripped) snippet so an env prefix
+    # before the verb still counts.
+    cleaned = strip_shell_comments(snippet or "", path=path)
+    if re.search(r"\bCURL_HOME\b|\.curlrc\b", cleaned):
+        has_redirect = True
     has_meta = bool(re.search(r";|&&|\|\||\$\(|`", raw_left))
     one_https = (
         len(positionals) == 1
@@ -1294,6 +1339,64 @@ def is_benign_hook(cmd):
     return True
 
 
+# Package-manager verbs that are not script names when `run` is omitted.
+_PM_VERBS = frozenset({
+    "install", "ci", "add", "remove", "uninstall", "update", "upgrade", "outdated",
+    "audit", "init", "publish", "pack", "link", "unlink", "login", "logout",
+    "cache", "config", "help", "version", "why", "exec", "dlx", "node", "global",
+    "workspace", "workspaces", "plugin", "set", "up", "info", "dedupe", "explain",
+    "rebuild", "run", "create", "dlx", "pkg", "why",
+})
+_NPM_RUN_RE = re.compile(
+    r"\b(?P<pm>npm|pnpm|yarn)(?P<run>\s+run(?:-script)?)?(?:\s+(?P<name>\S+))?",
+    re.I,
+)
+
+
+def script_names_in_hook(cmd):
+    """Script names a hook reaches via npm/pnpm/yarn run X, or yarn/pnpm X."""
+    names = []
+    if not cmd or not isinstance(cmd, str):
+        return names
+    for m in _NPM_RUN_RE.finditer(cmd):
+        name = (m.group("name") or "").strip().strip("'\"")
+        if not name or name.startswith("-"):
+            continue
+        pm = (m.group("pm") or "").lower()
+        has_run = bool(m.group("run"))
+        if not has_run:
+            if pm == "npm" and name.lower() not in {"start", "test", "stop", "restart"}:
+                continue
+            if pm in {"yarn", "pnpm"} and name.lower() in _PM_VERBS:
+                continue
+        names.append(name)
+    return names
+
+
+def iter_hook_cmds(scripts, cmd, depth=0, seen=None, label=None):
+    """Yield (script_name_or_None, command) for a hook and npm-run targets.
+
+    Follows scripts[X], preX and postX. Stops at depth 4 and skips cycles.
+    A missing script is omitted (stays benign).
+    """
+    if seen is None:
+        seen = set()
+    if not cmd or not isinstance(cmd, str):
+        return
+    yield label, cmd
+    if depth >= 4 or not isinstance(scripts, dict):
+        return
+    for name in script_names_in_hook(cmd):
+        for rel in (name, f"pre{name}", f"post{name}"):
+            if rel in seen:
+                continue
+            seen.add(rel)
+            body = scripts.get(rel)
+            if not body or not isinstance(body, str):
+                continue
+            yield from iter_hook_cmds(scripts, body, depth + 1, seen, label=rel)
+
+
 def _scan_raw_install_hooks(path, text, findings):
     """Best-effort hunt for install hooks in a raw (possibly invalid) manifest."""
     for m in re.finditer(r'"(pre|post)?install"\s*:', text):
@@ -1319,24 +1422,31 @@ def check_package_json(path, text, findings):
         return None
     scripts = j.get("scripts") or {}
     if isinstance(scripts, dict):
+        flagged = set()
         for hook in INSTALL_HOOKS:
             cmd = scripts.get(hook)
             if not cmd or not isinstance(cmd, str):
                 continue
-            if is_benign_hook(cmd):
-                continue
-            detail = f"{hook} script: {cmd[:240]}"
-            if CURL_PIPE.search(cmd) or BASH_FROM_CURL.search(cmd) or BASE64_PIPE.search(cmd) or IEX_DOWNLOAD.search(cmd):
-                # A curl|bash inside an install hook is always high, even on an
-                # official installer host or the owner's GitHub releases URL.
-                sev = "high"
-            elif re.search(r"\b(curl|wget|iwr|invoke-webrequest|powershell|chmod\s+\+x)\b", cmd, re.I):
-                sev = "high"
-            elif re.search(r"\b(eval|Function\(|node\s+-e)\b", cmd):
-                sev = "high"
-            else:
-                sev = "medium"
-            findings.append(finding("install-scripts", detail, sev, file=path))
+            for name, sub in iter_hook_cmds(scripts, cmd, seen={hook}):
+                if is_benign_hook(sub):
+                    continue
+                key = (name or hook, sub)
+                if key in flagged:
+                    continue
+                flagged.add(key)
+                label = hook if not name else f"{hook} → {name}"
+                detail = f"{label} script: {sub[:240]}"
+                if CURL_PIPE.search(sub) or BASH_FROM_CURL.search(sub) or BASE64_PIPE.search(sub) or IEX_DOWNLOAD.search(sub):
+                    # A curl|bash inside an install hook is always high, even on an
+                    # official installer host or the owner's GitHub releases URL.
+                    sev = "high"
+                elif re.search(r"\b(curl|wget|iwr|invoke-webrequest|powershell|chmod\s+\+x)\b", sub, re.I):
+                    sev = "high"
+                elif re.search(r"\b(eval|Function\(|node\s+-e)\b", sub):
+                    sev = "high"
+                else:
+                    sev = "medium"
+                findings.append(finding("install-scripts", detail, sev, file=path))
     return j
 
 
@@ -1374,6 +1484,12 @@ def check_shell_and_docker(path, text, findings):
                 continue
             _fetch, host, _urls = pipe_url_analysis(snippet, path=path)
             sev = pipe_severity(path, host, snippet)
+            # Env prefixes live before the verb, so also look at the rest of this line.
+            if sev in {"info", "low"}:
+                line_start = text.rfind("\n", 0, m.start()) + 1
+                prefix = text[line_start:m.start()] + snippet
+                if re.search(r"\bCURL_HOME\b|\.curlrc\b", prefix):
+                    sev = "high"
             findings.append(finding("curl-pipe", f"{label}: {snippet[:180]}", sev, file=path, line=line_no(text, m.start())))
     for m in BINARY_DL.finditer(text):
         snippet = text[m.start():m.start() + 180].splitlines()[0]
@@ -2132,8 +2248,9 @@ def check_typos_and_osv(deps, ecosystem, findings, file=None, lock_versions=None
                 eco = "npm" if ecosystem == "npm" else "PyPI"
                 findings.append(finding(
                     "name-squat",
-                    f"{eco} name of this repo's unpublished example package is taken by a "
-                    f"malicious package ({vid}); the repo code is not affected; mark it `private: true`.",
+                    f"this repo's example package name is registered on "
+                    f"{'npm' if eco == 'npm' else 'PyPI'} by a malicious package ({vid}); "
+                    f"the repo code is not affected; mark it `private: true`.",
                     "medium", file=file,
                 ))
                 continue
@@ -2402,6 +2519,40 @@ def allow_hosts_for(tool, owner):
     return hosts
 
 
+def normalize_repo_rel(rel):
+    """Repo-relative path: strip a './' prefix only (not a leading dot), then normpath.
+
+    Returns None for paths that escape the tree (`../` or absolute).
+    """
+    if not rel or not isinstance(rel, str):
+        return None
+    rel = rel.replace("\\", "/").strip()
+    if rel.startswith("file:"):
+        rel = rel.split(":", 1)[-1]
+    if rel.startswith("./"):
+        rel = rel[2:]
+    rel = posixpath.normpath(rel)
+    if rel in {".", ""}:
+        return ""
+    if rel == ".." or rel.startswith("../") or rel.startswith("/"):
+        return None
+    return rel
+
+
+def join_repo_rel(rel_dir, rel):
+    """Join a repo-relative directory with a (possibly relative) path; drop escapes."""
+    if not isinstance(rel, str):
+        return None
+    rel = rel.replace("\\", "/").strip()
+    if rel.startswith("./"):
+        rel = rel[2:]
+    rel_dir = (rel_dir or "").replace("\\", "/").strip()
+    if rel_dir.startswith("./"):
+        rel_dir = rel_dir[2:]
+    joined = f"{rel_dir}/{rel}" if rel_dir else rel
+    return normalize_repo_rel(joined if joined else ".")
+
+
 def resolve_entry(rel, path_set):
     """Resolve a package main/bin/hook target the way Node does.
 
@@ -2411,7 +2562,9 @@ def resolve_entry(rel, path_set):
     """
     if not rel or not path_set:
         return None
-    rel = rel.replace("\\", "/").lstrip("./")
+    rel = normalize_repo_rel(rel)
+    if rel is None:
+        return None
     if not rel:
         return "index.js" if "index.js" in path_set else None
     cands = [rel]
@@ -2483,7 +2636,9 @@ def hook_file_targets(cmd):
             i += 1
         for tok in re.findall(r"(?:^|\s)(\S+\.(?:js|mjs|cjs|ts|sh|py|bash))\b", chunk):
             if not tok.startswith("-"):
-                out.append(tok.lstrip("./"))
+                norm = normalize_repo_rel(tok)
+                if norm:
+                    out.append(norm)
     return out
 
 
@@ -2497,10 +2652,9 @@ def manifest_entries(path, pkg):
             return
         rel = rel.split(":", 1)[-1] if rel.startswith("file:") else rel
         rel = rel.split("*", 1)[0].rstrip("/")
-        if rel.startswith("./"):
-            rel = rel[2:]
-        joined = f"{rel_dir}/{rel}" if rel_dir else rel
-        out.append(joined.lstrip("./"))
+        joined = join_repo_rel(rel_dir, rel)
+        if joined:
+            out.append(joined)
 
     if not isinstance(pkg, dict):
         return out
@@ -2538,8 +2692,9 @@ def manifest_entries(path, pkg):
         for hook, cmd in scripts.items():
             if hook not in INSTALL_HOOKS or not isinstance(cmd, str):
                 continue
-            for tok in hook_file_targets(cmd):
-                add(tok)
+            for _name, sub in iter_hook_cmds(scripts, cmd, seen={hook}):
+                for tok in hook_file_targets(sub):
+                    add(tok)
     return out
 
 
@@ -2717,11 +2872,36 @@ def scan_tool(tool, max_files=MAX_FILES_DEFAULT):
     # Resolve extension-less and directory mains the way Node does.
     resolved_targets = []
     seen_t = set()
+    followed_pkg = set()
+
+    def follow_pkg_main(hit):
+        """If resolve_entry landed on a package.json, follow its main one level."""
+        if posixpath.basename(hit).lower() != "package.json" or hit in followed_pkg:
+            return None
+        followed_pkg.add(hit)
+        text = raw_file(owner, repo, sha, hit)
+        if text is FETCH_FAILED or not text:
+            return None
+        try:
+            pkg = json.loads(text)
+        except ValueError:
+            return None
+        rel_dir = posixpath.dirname(hit.replace("\\", "/"))
+        main = pkg.get("main") if isinstance(pkg, dict) and isinstance(pkg.get("main"), str) else "index.js"
+        joined = join_repo_rel(rel_dir, main)
+        if not joined:
+            return None
+        return resolve_entry(joined, path_set) or (joined if joined in path_set else None)
+
     for rel in list(extra_targets):
         hit = resolve_entry(rel, path_set) or (rel if rel in path_set else None)
-        if hit and hit not in seen_t:
-            resolved_targets.append(hit)
-            seen_t.add(hit)
+        if not hit:
+            continue
+        followed = follow_pkg_main(hit)
+        for cand in (hit, followed):
+            if cand and cand not in seen_t:
+                resolved_targets.append(cand)
+                seen_t.add(cand)
 
     by_path = {e["path"]: e for e in entries}
     for rel in resolved_targets:

