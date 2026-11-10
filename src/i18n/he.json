@@ -318,6 +318,7 @@
   "chatgpt": "ChatGPT ← Settings ← Apps & Connectors (מצב מפתחים) ← Create, והדביקו את הכתובת.",
   "grok": "כלי MCP מרוחק בבקשת xAI API; כותרות האימות מפורטות ב-docs.x.ai.",
   "fromSource": "הבודק שלנו לא זיהה חבילת npm/PyPI שפורסמה או endpoint מתארח. הריצו מקומית לפי ה-README, ואז רשמו את פקודת ההפעלה כשרת MCP מסוג stdio בלקוח שלכם.",
+  "npmUnmaintained": "חבילת npm אינה מתוחזקת כעת והיא מוחזקת בידי npm, לכן אל תתקינו אותה מ-npm. שכפלו את המאגר, עקבו אחר ה-README כדי להריץ אותה מקומית, ואז רשמו את פקודת ההפעלה כשרת MCP מסוג stdio בלקוח שלכם.",
   "needsRemote": "נדרשת כתובת MCP מרוחקת (HTTPS)",
   "stdioOnly": "השרת רץ מקומית דרך stdio. ה-connectors של ChatGPT וה-API של Grok דורשים endpoint מתארח ב-HTTPS, והפרויקט לא מפרסם כזה.",
   "marketplace": "אחר כך הריצו /plugin כדי לעיין בתוספים ובסקילים ולהתקין אותם.",

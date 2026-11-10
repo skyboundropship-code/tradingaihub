@@ -319,6 +319,7 @@
   "chatgpt": "ChatGPT → Settings → Apps & Connectors (developer mode) → Create, paste this URL.",
   "grok": "Remote MCP tool in an xAI API request; see docs.x.ai for auth headers.",
   "fromSource": "No published npm/PyPI package or hosted endpoint was detected by our verifier. Follow the README to run it locally, then register the start command as a stdio MCP server in your client.",
+  "npmUnmaintained": "The npm package is currently unmaintained and held by npm, so don't install it from npm. Clone the repository, follow its README to run it locally, then register the start command as a stdio MCP server in your client.",
   "needsRemote": "Requires a remote (HTTPS) MCP URL",
   "stdioOnly": "This server runs locally over stdio. ChatGPT connectors and the Grok API need a hosted HTTPS endpoint, which this project does not publish.",
   "marketplace": "Then run /plugin to browse and install its plugins/skills.",

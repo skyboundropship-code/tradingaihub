@@ -2295,7 +2295,9 @@
       "last_commit_days": 464,
       "status": "stale"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "install_from_source": true,
+    "install_note": "Package currently unmaintained on npm; install from source"
   },
   {
     "id": "x402",

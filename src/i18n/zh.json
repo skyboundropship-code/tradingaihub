@@ -318,6 +318,7 @@
   "chatgpt": "ChatGPT → Settings → Apps & Connectors（开发者模式）→ Create，然后粘贴此 URL。",
   "grok": "在 xAI API 请求中使用远程 MCP 工具；认证请求头请参阅 docs.x.ai。",
   "fromSource": "我们的检查器未检测到已发布的 npm/PyPI 软件包或托管端点。请按照 README 在本地运行，并将启动命令作为 stdio MCP 服务器注册到客户端中。",
+  "npmUnmaintained": "该 npm 软件包目前已停止维护并由 npm 持有，因此请勿从 npm 安装。请克隆仓库，按照 README 在本地运行，并将启动命令作为 stdio MCP 服务器注册到客户端中。",
   "needsRemote": "需要远程 MCP URL（HTTPS）",
   "stdioOnly": "该服务器通过 stdio 在本地运行。ChatGPT 连接器和 Grok API 需要托管的 HTTPS 端点，而该项目未提供。",
   "marketplace": "然后运行 /plugin 浏览并安装其插件/技能。",

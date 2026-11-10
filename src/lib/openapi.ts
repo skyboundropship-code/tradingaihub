@@ -98,6 +98,7 @@ export const openapi = {
         pricing: { type: ["object", "null"], properties: { model: nstr, free_tier: nstr, paid_from: nstr, details: nstr, source: nurl, checked: nstr } },
         languages: { type: "array", items: { type: "string", enum: FILTERS.language } },
         packages: { type: "object", properties: { npm: pkg, pypi: pkg } },
+        install: { type: ["object", "null"], description: "Set when the published package should not be used; clone the repo and run it from source.", properties: { from_source: { type: "boolean" }, note: { type: "string" } } },
         status: { type: "string", enum: FILTERS.status }, status_label: str, verified: { type: "boolean" }, checked_at: nstr,
         github: { type: ["object", "null"], properties: { stars: { type: ["integer", "null"], description: "null for shared collection repos" }, last_commit: nstr, archived: { type: "boolean" }, collection: { type: "boolean" } } },
       } },

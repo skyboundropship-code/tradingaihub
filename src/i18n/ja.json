@@ -318,6 +318,7 @@
   "chatgpt": "ChatGPT → Settings → Apps & Connectors（開発者モード）→ Create を開き、このURLを貼り付けます。",
   "grok": "xAI APIリクエスト内のリモートMCPツール。認証ヘッダーはdocs.x.aiを参照してください。",
   "fromSource": "公開済みのnpm/PyPIパッケージやホスト型エンドポイントは検出されませんでした。READMEに従ってローカルで実行し、起動コマンドをstdio MCPサーバーとしてクライアントに登録してください。",
+  "npmUnmaintained": "npmパッケージは現在メンテナンスされておらず、npmが保持しているため、npmからインストールしないでください。リポジトリをクローンし、READMEに従ってローカルで実行したうえで、起動コマンドをstdio MCPサーバーとしてクライアントに登録してください。",
   "needsRemote": "リモートMCP URL（HTTPS）が必要です",
   "stdioOnly": "このサーバーはstdio経由でローカル実行されます。ChatGPTのコネクタとGrok APIにはホスト型HTTPSエンドポイントが必要ですが、このプロジェクトは提供していません。",
   "marketplace": "その後 /plugin を実行して、プラグイン/スキルを閲覧・インストールします。",

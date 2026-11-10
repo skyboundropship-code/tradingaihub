@@ -2,11 +2,16 @@
 Fields left None are unknown and get filled (or stay 'unknown') by verify.py."""
 import json
 AFM="https://github.com/BlockRunAI/awesome-finance-mcp"
-def T(id,name,type,cat,desc,repo=None,homepage=None,source=AFM,official=False,pricing=None,remote=None,docs=None):
-    return dict(id=id,name=name,type=type,category=cat,description=desc,repo=repo,homepage=homepage,
+def T(id,name,type,cat,desc,repo=None,homepage=None,source=AFM,official=False,pricing=None,remote=None,docs=None,install_from_source=False,install_note=None):
+    d = dict(id=id,name=name,type=type,category=cat,description=desc,repo=repo,homepage=homepage,
                 docs=docs or homepage,source_url=source,official=official,
                 pricing=pricing or {"model":"unknown","free_tier":"unknown","paid_from":None,"details":"Not yet checked against a vendor pricing page.","source":None,"checked":None},
                 remote_mcp_url=remote)
+    if install_from_source:
+        d["install_from_source"] = True
+    if install_note:
+        d["install_note"] = install_note
+    return d
 def P(model,free,paid,details,src,checked="2026-10-29"):
     return {"model":model,"free_tier":free,"paid_from":paid,"details":details,"source":src,"checked":checked}
 OSS=lambda extra="": P("open-source","Free (self-hosted)",None,("Open-source; you supply any upstream API keys. "+extra).strip(),None)
@@ -67,7 +72,7 @@ T("coincap-mcp","CoinCap MCP","mcp","crypto","Crypto market data from the CoinCa
 T("dexscreener-trending-mcp","DexScreener Trending MCP","mcp","crypto","Trending tokens from DexScreener.",repo="https://github.com/kukapay/dexscreener-trending-mcp",pricing=OSS()),
 T("base-mcp","Base MCP","mcp","crypto","Onchain tools for the Base network.",repo="https://github.com/base/base-mcp",official=True,pricing=OSS()),
 T("solana-agent-kit","Solana Agent Kit","mcp","crypto","Toolkit connecting AI agents to Solana protocols, with MCP adapter.",repo="https://github.com/sendaifun/solana-agent-kit",pricing=OSS()),
-T("bitcoin-mcp","Bitcoin & Lightning MCP","mcp","crypto","Bitcoin and Lightning Network tools for agents.",repo="https://github.com/AbdelStark/bitcoin-mcp",pricing=OSS()),
+T("bitcoin-mcp","Bitcoin & Lightning MCP","mcp","crypto","Bitcoin and Lightning Network tools for agents.",repo="https://github.com/AbdelStark/bitcoin-mcp",pricing=OSS(),install_from_source=True,install_note="Package currently unmaintained on npm; install from source"),
 T("x402","x402 (Coinbase)","mcp","payments-banking","Open protocol for HTTP-native stablecoin payments by agents.",repo="https://github.com/coinbase/x402",official=True,pricing=OSS()),
 # ---------- Accounting / bookkeeping ----------
 T("quickbooks-mcp","QuickBooks Online MCP","mcp","accounting","Official Intuit MCP server exposing QuickBooks Online entities and reports.",repo="https://github.com/intuit/quickbooks-online-mcp-server",source="https://github.com/intuit/quickbooks-online-mcp-server",official=True,pricing=OSS("Requires a QuickBooks Online subscription.")),
