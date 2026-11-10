@@ -40,7 +40,7 @@ S.headers.update(UA)
 
 CACHE_DIR = os.environ.get("SECURITY_SCAN_CACHE") or os.path.join(ROOT, ".cache", "security-scan")
 DEFAULT_OUT = os.path.join(ROOT, "data", "security")
-RULES_VERSION = "5"
+RULES_VERSION = "6"
 
 def _scanner_commit():
     try:
@@ -1321,7 +1321,7 @@ def pipe_severity(path, host, snippet, owner=None):
 
 
 def _ok_rel_path(path):
-    """True for a repo-relative path or glob with no '..' and no absolute/home path."""
+    """True for a repo-relative path or glob (word chars, dots, slashes, stars, dashes); no '..', no absolute path."""
     if not path or not isinstance(path, str):
         return False
     p = path.strip()
@@ -1329,8 +1329,37 @@ def _ok_rel_path(path):
         return False
     if p.startswith(("/", "~", "\\")) or (len(p) >= 2 and p[1] == ":"):
         return False
+    body = p[2:] if p.startswith("./") else p
+    if not body or not re.fullmatch(r"[\w./*-]+", body):
+        return False
     return True
 
+
+def _is_modules_or_bin_target(path):
+    """True if a hook path plants into node_modules/ or .bin (N15)."""
+    if not path or not isinstance(path, str):
+        return False
+    p = path.replace("\\", "/").strip()
+    if p.startswith("./"):
+        p = p[2:]
+    parts = [x for x in p.split("/") if x and x != "."]
+    return any(part in {"node_modules", ".bin"} for part in parts)
+
+
+# Flag-like tsc arguments only (no bare words, no redirects).
+_TSC_PART = re.compile(r"^tsc(?:\s+-{1,2}[\w-]+(?:[ =][\w./-]+)?)*$", re.I)
+_CHMOD_PART = re.compile(
+    r"^(?:shx\s+)?chmod\s+\+x\s+(?:(?:\./)?[\w./*-]+(?:\s+(?:\./)?[\w./*-]+)*)$",
+    re.I,
+)
+_MKDIR_PART = re.compile(
+    r"^mkdir\s+-p\s+(?:(?:\./)?[\w./*-]+(?:\s+(?:\./)?[\w./*-]+)*)$",
+    re.I,
+)
+_CP_PART = re.compile(
+    r"^cp\s+-[rR]\s+(?:(?:\./)?[\w./*-]+)(?:\s+(?:\./)?[\w./*-]+)+$",
+    re.I,
+)
 
 # node -e that only does fs.chmodSync on a fixed relative path with mode 7xx.
 _NODE_E_CHMOD = re.compile(
@@ -1358,28 +1387,33 @@ def _is_benign_hook_part(part):
     part = (part or "").strip()
     if not part:
         return False
-    if ";" in part or "|" in part or "$(" in part or "`" in part:
+    if any(ch in part for ch in "&|;<>`$") or "\n" in part or "\r" in part:
         return False
-    # chmod / shx chmod: validate paths even if the older BENIGN_HOOK pattern would match.
-    m = re.match(r"^(?:shx\s+)?chmod\s+\+x\s+(.+)$", part, re.I)
-    if m:
+    if _CHMOD_PART.match(part):
+        m = re.match(r"^(?:shx\s+)?chmod\s+\+x\s+(.+)$", part, re.I)
         paths = _shell_tokens(m.group(1))
-        return bool(paths) and all(_ok_rel_path(p) for p in paths)
+        return bool(paths) and all(_ok_rel_path(p) for p in paths) and not any(
+            _is_modules_or_bin_target(p) for p in paths
+        )
     if BENIGN_HOOK.match(part):
         return True
-    # tsc with flags (no metacharacters; those already rejected above).
-    if re.match(r"^tsc(?:\s+\S+)*$", part, re.I):
+    if _TSC_PART.match(part):
         return True
-    m = re.match(r"^mkdir\s+-p\s+(.+)$", part, re.I)
+    m = _MKDIR_PART.match(part)
     if m:
-        paths = _shell_tokens(m.group(1))
+        rest = re.match(r"^mkdir\s+-p\s+(.+)$", part, re.I)
+        paths = _shell_tokens(rest.group(1))
         return bool(paths) and all(_ok_rel_path(p) for p in paths)
-    m = re.match(r"^cp\s+-[rR]\s+(.+)$", part, re.I)
+    m = _CP_PART.match(part)
     if m:
-        paths = _shell_tokens(m.group(1))
-        return len(paths) >= 2 and all(_ok_rel_path(p) for p in paths)
+        rest = re.match(r"^cp\s+-[rR]\s+(.+)$", part, re.I)
+        paths = _shell_tokens(rest.group(1))
+        if len(paths) < 2 or not all(_ok_rel_path(p) for p in paths):
+            return False
+        # N15: destination (last arg) must not be under node_modules/ or .bin.
+        return not _is_modules_or_bin_target(paths[-1])
     m = _NODE_E_CHMOD.match(part)
-    if m and _ok_rel_path(m.group("path")):
+    if m and _ok_rel_path(m.group("path")) and not _is_modules_or_bin_target(m.group("path")):
         return True
     return False
 
@@ -1390,10 +1424,11 @@ def is_benign_hook(cmd):
     # Always-hostile tokens are never benign, even when chained with tsc/build.
     if re.search(r"\b(curl|wget|iwr|invoke-webrequest)\b", cmd, re.I):
         return False
-    if re.search(r"\beval\b|Function\(|\$\(|`", cmd, re.I):
+    if re.search(r"\beval\b|Function\(", cmd, re.I):
         return False
-    # ';' is not a benign separator (a second command can hide a download).
-    if ";" in cmd or "|" in cmd:
+    # After removing every &&, none of & | ; < > ` $ or a newline may remain.
+    remainder = cmd.replace("&&", "")
+    if any(ch in remainder for ch in "&|;<>`$") or "\n" in remainder or "\r" in remainder:
         return False
     parts = [p.strip() for p in re.split(r"\s*&&\s*", cmd.strip()) if p.strip()]
     if not parts:
