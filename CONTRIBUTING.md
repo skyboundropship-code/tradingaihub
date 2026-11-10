@@ -8,7 +8,7 @@ Questions and ideas that are not a bug or a tool submission belong in [Discussio
 
 ## How we review inbound work
 
-- First team reply within 2 business days.
+- We aim to reply within 2 business days.
 - Tool submissions are labelled `under-review` while we check them, and `needs-info` if we need more from you (license, pricing, broker access, docs).
 - Tools that can connect to or trade through a broker or exchange account are labelled `broker-access`.
 - We will not merge or list anything until the review is done. A reply is not a promise that the tool will be listed.

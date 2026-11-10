@@ -12,7 +12,7 @@ Every tool is re-checked weekly by a script: the repo is reachable, recent commi
 
 - ⭐ The open list: [tradingaihub/awesome-finance-ai-tools](https://github.com/tradingaihub/awesome-finance-ai-tools)
 - Full data dump: [tradingaihub.com/tools.json](https://tradingaihub.com/tools.json) · [/api/v1/tools.json](https://tradingaihub.com/api/v1/tools.json) · [llms.txt](https://tradingaihub.com/llms.txt)
-- Free public API and MCP server (no key): [docs](https://tradingaihub.com/developers/) · [REST](https://tradingaihub.com/api/v1/tools) · [OpenAPI](https://tradingaihub.com/api/openapi.json) · [MCP](https://tradingaihub.com/mcp) · official registry `com.tradingaihub/directory`
+- Free public API and MCP server (no key): [docs](https://tradingaihub.com/developers/) · [REST](https://tradingaihub.com/api/v1/tools) · [OpenAPI](https://tradingaihub.com/api/openapi.json) · [MCP](https://tradingaihub.com/developers/) · official registry `com.tradingaihub/directory`
 
 ## Use it from your AI agent
 
