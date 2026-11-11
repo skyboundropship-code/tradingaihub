@@ -581,7 +581,9 @@
   "alpaca-skills": "Trading APIとBroker API向けのAlpaca公式エージェントスキル：バックテスト、注文、口座開設、資金移動、イベント。",
   "longbridge-skills": "Longbridge公式エージェントスキル：香港・米国・A株・シンガポール市場の株価、テクニカル、デリバティブ、ファンダメンタルズ、ポートフォリオ、ウォッチリスト。",
   "coinbase-agentic-wallet-skills": "エージェントウォレット向けCoinbase公式スキル：残高確認、USDC送金、トークンスワップ、入金、x402 APIへの支払い（Base、Polygon、Solana）。",
-  "options-trading-skills": "オプショントレーダー向けコミュニティClaudeスキル：スキャナー、グリークス、スプレッド、PMCCスクリーニング、相関、IBKRポートフォリオレポート。"
+  "options-trading-skills": "オプショントレーダー向けコミュニティClaudeスキル：スキャナー、グリークス、スプレッド、PMCCスクリーニング、相関、IBKRポートフォリオレポート。",
+  "sure": "セルフホスト型の家計管理アプリ（we-promiseによるMaybe Financeのコミュニティ維持フォーク）：口座、取引、予算、純資産。専用のMCPサーバーとREST APIを備える。",
+  "coinboss-api": "暗号資産デリバティブと市場データの公式REST API：清算、建玉、ファンディングレート、ロング/ショート比率、ETFフロー。市場データのみ。現在は無料。"
  },
  "faq": {
   "title": "よくある質問",

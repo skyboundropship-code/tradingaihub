@@ -581,7 +581,9 @@
   "alpaca-skills": "Alpaca 官方智能体技能，适用于 Trading 和 Broker API：回测、下单、开户、资金划转和事件。",
   "longbridge-skills": "Longbridge 官方智能体技能：覆盖港股、美股、A 股和新加坡市场的行情、技术分析、衍生品、基本面、持仓和自选列表。",
   "coinbase-agentic-wallet-skills": "Coinbase 官方智能体钱包技能：查询余额、发送 USDC、兑换代币、入金，并在 Base、Polygon 和 Solana 上支付 x402 API。",
-  "options-trading-skills": "面向期权交易者的社区 Claude 技能：扫描器、希腊值、价差、PMCC 筛选、相关性和 IBKR 持仓报告。"
+  "options-trading-skills": "面向期权交易者的社区 Claude 技能：扫描器、希腊值、价差、PMCC 筛选、相关性和 IBKR 持仓报告。",
+  "sure": "自托管个人理财应用（we-promise 维护的 Maybe Finance 社区分支）：账户、交易、预算和净资产，并提供官方 MCP 服务器和 REST API。",
+  "coinboss-api": "官方加密衍生品与市场数据 REST API：清算、未平仓合约、资金费率、多空比和 ETF 资金流。仅提供市场数据；目前免费。"
  },
  "faq": {
   "title": "常见问题",

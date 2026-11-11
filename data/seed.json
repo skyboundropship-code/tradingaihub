@@ -168,6 +168,27 @@
     "remote_mcp_url": null
   },
   {
+    "id": "coinboss-api",
+    "name": "CoinBoss API",
+    "type": "api",
+    "category": "crypto",
+    "description": "Official REST API for aggregated crypto derivatives and market data: liquidations, open interest, funding rates, long/short ratios and ETF flows. Market data only; currently free.",
+    "repo": null,
+    "homepage": "https://www.coinboss.com",
+    "docs": "https://www.coinboss.com/api-docs",
+    "source_url": "https://www.coinboss.com/pricing",
+    "official": true,
+    "pricing": {
+      "model": "free",
+      "free_tier": "Currently free (1,200 req/min)",
+      "paid_from": null,
+      "details": "Currently free, including a Professional cap of 1,200 requests/min. Paid Hobbyist $19 / Startup $49 / Standard $199 / Professional $499 plans are listed as coming soon. Market data only.",
+      "source": "https://www.coinboss.com/pricing",
+      "checked": "2026-11-11"
+    },
+    "remote_mcp_url": null
+  },
+  {
     "id": "fred-api",
     "name": "FRED API (St. Louis Fed)",
     "type": "api",
@@ -816,7 +837,8 @@
     },
     "remote_mcp_url": null,
     "capabilities": [
-      "live_trading"
+      "live_trading",
+      "moves_funds"
     ]
   },
   {
@@ -929,7 +951,10 @@
     },
     "remote_mcp_url": null,
     "install_from_source": true,
-    "install_note": "Package currently unmaintained on npm; install from source"
+    "install_note": "Package currently unmaintained on npm; install from source",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "x402",
@@ -1839,7 +1864,10 @@
       "source": "https://www.paddle.com/pricing",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "mercury-mcp",
@@ -1988,6 +2016,27 @@
       "details": "AGPL-3.0; self-host on your own server.",
       "source": null,
       "checked": "2026-10-29"
+    },
+    "remote_mcp_url": null
+  },
+  {
+    "id": "sure",
+    "name": "Sure",
+    "type": "mcp",
+    "category": "personal-finance",
+    "description": "Self-hosted personal finance app (community-maintained fork of Maybe Finance by we-promise): accounts, transactions, budgets and net worth, with a first-party MCP server and REST API.",
+    "repo": "https://github.com/we-promise/sure",
+    "homepage": "https://sure.am",
+    "docs": "https://docs.sure.am/development/mcp",
+    "source_url": "https://github.com/we-promise/sure",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "AGPL-3.0; self-host on your own server.",
+      "source": null,
+      "checked": "2026-11-11"
     },
     "remote_mcp_url": null
   },
