@@ -638,5 +638,10 @@
   "badgeAria": "Sicherheitsprüfung: keine Auffälligkeiten gefunden am {date}. Statische Code- und Abhängigkeitsprüfung. Scanner {commit}, Regeln {rules}. Öffnet die Methodik-Seite.",
   "cardAria": "Sicherheitsprüfung: keine Auffälligkeiten gefunden am {date}. Scanner {commit}, Regeln {rules}.",
   "vt": "VirusTotal-Bericht"
+ },
+ "secnote": {
+  "label": "Nicht sicher, Klärung ausstehend",
+  "short": "Nicht sicher (offen)",
+  "text": "Grund: Der Code des Tools sendet Ihre Wallet-Adresse und signierte Swap-Aufträge über unverschlüsseltes HTTP an einen nicht dokumentierten Server unter einer nackten IP-Adresse und empfängt Ihre Guthaben und Ihren Transaktionsverlauf auf demselben Weg. Wir klären das mit dem Entwickler (degentic-tools)."
  }
 }

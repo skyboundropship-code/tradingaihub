@@ -638,5 +638,10 @@
   "badgeAria": "Güvenlik taraması: {date} tarihinde sorun bulunamadı. Statik kod ve bağımlılık kontrolü. Tarayıcı {commit}, kurallar {rules}. Yöntem sayfasını açar.",
   "cardAria": "Güvenlik taraması: {date} tarihinde sorun bulunamadı. Tarayıcı {commit}, kurallar {rules}.",
   "vt": "VirusTotal raporu"
+ },
+ "secnote": {
+  "label": "Güvenli değil, açıklama bekleniyor",
+  "short": "Güvenli değil (beklemede)",
+  "text": "Neden: Aracın kodu, cüzdan adresinizi ve imzalı swap emirlerini şifrelenmemiş HTTP üzerinden, yalnızca IP adresiyle belirtilen ve belgelenmemiş bir sunucuya gönderiyor; bakiyelerinizi ve işlem geçmişinizi de aynı yolla alıyor. Konuyu geliştiriciyle (degentic-tools) netleştiriyoruz."
  }
 }

@@ -183,7 +183,7 @@ test("built dump: no internals, affiliate contract", { skip: !existsSync(DIST) &
   for (const k of ["checks", "issues", "repo_keep", "source_url", "_note", "verification", "partner", "aff_id", "param"]) assert.ok(!text.includes(`"${k}"`), k);
   const dump = JSON.parse(text);
   assert.ok(dump.tools.length >= 100);
-  const keys = ["slug", "name", "type", "type_label", "category", "category_name", "description", "official", "url", "website_url", "vendor_url", "affiliate", "disclosure", "homepage", "docs", "repo", "remote_mcp_url", "license", "pricing", "languages", "packages", "install", "capabilities", "deprecated", "status", "status_label", "verified", "checked_at", "github", "security"];
+  const keys = ["slug", "name", "type", "type_label", "category", "category_name", "description", "official", "url", "website_url", "vendor_url", "affiliate", "disclosure", "homepage", "docs", "repo", "remote_mcp_url", "license", "pricing", "languages", "packages", "install", "capabilities", "deprecated", "status", "status_label", "verified", "checked_at", "github", "security", "security_note"];
   let nAff = 0;
   for (const t of dump.tools) {
     assert.deepEqual(Object.keys(t), keys, t.slug);

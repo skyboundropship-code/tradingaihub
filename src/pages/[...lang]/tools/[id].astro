@@ -6,6 +6,7 @@ import AffTag from "../../../components/AffTag.astro";
 import Base from "../../../layouts/Base.astro";
 import Status from "../../../components/Status.astro";
 import SecurityBadge from "../../../components/SecurityBadge.astro";
+import SecurityNote from "../../../components/SecurityNote.astro";
 import ToolCard from "../../../components/ToolCard.astro";
 import Share from "../../../components/Share.astro";
 import DateInText from "../../../components/DateInText.astro";
@@ -45,6 +46,7 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
   <h1 class="tool-title" style="margin:6px 0 6px" title={tool.name}><TitleText text={tool.name} bdi /></h1>
   <p style="color:var(--muted);font-size:1.125rem;margin-top:0">{desc}</p>
   <SecurityBadge tool={tool} lang={lang} variant="page" />
+  <SecurityNote tool={tool} lang={lang} variant="page" />
   {capNote && (
     <p class="note" dir="auto">{t(capNote)}</p>
   )}

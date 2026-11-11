@@ -638,5 +638,10 @@
   "badgeAria": "安全扫描：在 {date} 未发现问题。静态代码与依赖检查。扫描器 {commit}，规则 {rules}。打开方法说明页面。",
   "cardAria": "安全扫描：在 {date} 未发现问题。扫描器 {commit}，规则 {rules}。",
   "vt": "VirusTotal 报告"
+ },
+ "secnote": {
+  "label": "不安全，待澄清",
+  "short": "不安全，待澄清",
+  "text": "原因：该工具的代码通过未加密的 HTTP，将您的钱包地址和已签名的兑换（swap）订单发送到一个仅以 IP 地址标识、未公开说明的服务器，并以同样方式接收您的余额和交易记录。我们正在向开发者（degentic-tools）核实。"
  }
 }

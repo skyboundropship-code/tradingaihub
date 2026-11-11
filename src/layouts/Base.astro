@@ -107,6 +107,13 @@ document.querySelectorAll(".themetoggle").forEach(function(b){var d=document.doc
 document.addEventListener("click",function(e){document.querySelectorAll("details.langs[open],details.nav-mobile[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});
 </script>
 <script is:inline>
+// Security note toggle (src/components/SecurityNote.astro): tap/click shows or hides the explanation.
+// On a card the badge sits inside the card link, so the tap toggles the note instead of navigating.
+document.addEventListener("click",function(e){var b=e.target&&e.target.closest?e.target.closest("[data-secnote-toggle]"):null;if(!b)return;
+  var card=b.closest(".card"),tip=card?card.querySelector(".secnote-card-tip"):document.getElementById(b.getAttribute("aria-controls"));if(!tip)return;
+  e.preventDefault();e.stopPropagation();var open=!tip.classList.contains("open");tip.classList.toggle("open",open);tip.hidden=!open;if(b.hasAttribute("aria-expanded"))b.setAttribute("aria-expanded",open?"true":"false");},true);
+</script>
+<script is:inline>
 // Anonymous outbound-click counts (functions/api/click.js). Links are never rewritten; nothing is stored in the browser,
 // and only {tool, target host, link kind, page path, locale, referrer host} is sent.
 (function(){
