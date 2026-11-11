@@ -1,0 +1,480 @@
+{
+  "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+  "rules_version": "6",
+  "tools": {
+    "adyen-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "alpaca-market-data-api": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "alpaca-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "alpaca-skills": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "alpha-vantage-api": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "alphasmo": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "anthropic-financial-services": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "avalara-avatax-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "bea-api": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "bitget-agent-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "bls-api": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "chart-library-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "claude-equity-research": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "claude-investor": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "claude-trading-skills": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "coinbase-agentic-wallet-skills": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "coincap-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "coingecko-api": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "coingecko-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "crypto-liquidations-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "dbnomics-api": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "dexpaprika-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "dexscreener-trending-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "edgrapi-skills": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "eodhd-api": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "eodhd-claude-skills": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "eodhd-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "equibles": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "finlab-ai": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "finnhub-api": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "finnhub-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "finnhub-mcp-community": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "firefly-iii-api": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "fmp-api": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "fmp-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "fmp-mcp-community": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "frankfurter": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "fred-api": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "fred-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "fxmacrodata-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "ibkr-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "investor-agent": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "invoice-organizer-skill": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "kospi-kosdaq-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "kraken-cli": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "lunchmoney-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "massive-api": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "massive-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "maverick-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "mcp-trader": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "mercury-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "monarch-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "netsuite-ai-connector": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "norman-finance-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "optionsahoy-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "paddle-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "paper-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "pineify-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "qonto-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "quantconnect-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "razorpay-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "robinhood-trading-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "sec-edgar-api": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "sec-edgar-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "stripe-ai": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "superior-skills": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "tasty-agent": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "tradingview-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "tradingview-official-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "twelve-data-api": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "valyu-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "varrd": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "webull-openapi-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "world-bank-api": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "xero-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "yahoo-finance-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "ynab-api": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "ynab-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    },
+    "zoho-books-mcp": {
+      "status": "clean",
+      "date": "2026-11-10",
+      "scanner_commit": "bce7a11c941714db3fd7fd0ef935bcd2ad4bb327",
+      "rules_version": "6"
+    }
+  }
+}

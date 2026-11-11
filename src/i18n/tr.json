@@ -19,6 +19,7 @@
   "directory": "Dizin",
   "comparisons": "Karşılaştırmalar",
   "latestRun": "Son doğrulama",
+  "security": "Güvenlik taraması",
   "makers": "Geliştiriciler için",
   "submitFree": "Araç ekle (ücretsiz)",
   "getBadge": "Doğrulama rozeti al",
@@ -81,7 +82,7 @@
    "Bağlantı kontrol edilmeli",
    "Son kontrolde web sitesi, doküman veya uç nokta bağlantısı başarısız oldu."
   ],
-  "unconfirmed": ["İnceleme gerekli", "Erişilebilir, ancak bir ana sayfa, doküman veya uç nokta bağlantısı denetleyicimizi reddetti (giriş gerekli, bot engeli veya hız sınırı), bu yüzden tam olarak doğrulanamadı. Doğrulanmış sayılmaz."],
+  "unconfirmed": ["Bağlantı kontrolü bekleniyor", "Erişilebilir, ancak bir ana sayfa, doküman veya uç nokta bağlantısı denetleyicimizi reddetti (giriş gerekli, bot engeli veya hız sınırı), bu yüzden tam olarak doğrulanamadı. Doğrulanmış sayılmaz."],
   "unreachable": [
    "Erişilemiyor",
    "Depoya veya web sitesine ulaşılamadı."
@@ -601,5 +602,35 @@
   "ca2": "GitHub yıldızlarına göre bu kategorideki en popüler doğrulanmış araçlar: {list}.",
   "cq3": "“{name}” kategorisindeki araçlar resmî mi?",
   "ca3": "Sağlayıcının kendisi tarafından yayımlanan resmî araçlar: {n} araçtan {o} tanesi. Topluluk projeleri: {c}. Resmî araçlarda “{badge}” rozeti bulunur."
+ },
+ "sec": {
+  "title": "Güvenlik taraması",
+  "desc": "TradingAIHub’ın listelenen araçları nasıl taradığı: kurulum kancaları, bağımlılıklar ve yaygın zararlı yazılım kalıplarına yönelik statik bir kontrol. Bu bir güvence veya tavsiye değildir.",
+  "h1": "Listelenen araçları nasıl tarıyoruz",
+  "intro": "Bu dizindeki bazı araçlarda kısa bir “güvenlik taraması” notu bulunur. Bu not, statik tarayıcımızın son çalıştırmasında aşağıdaki kontrollerde sorun bulmadığı anlamına gelir. Belirli bir andaki bir rapordur; bir güvence, belgelendirme veya aracın tavsiye edilmesi değildir.",
+  "whatH": "Tarama neleri kontrol eder",
+  "whatIntro": "Tarayıcı yayımlanmış paketi ve, bir depo varsa, kaynağını inceler. Şunları arar:",
+  "c1": "Kurulum kancaları (örneğin npm preinstall, install ve postinstall betikleri) ve çalıştırdıkları komutlar.",
+  "c2": "Bir kabuğa borulanan indirmeler (curl veya wget çıktısının sh veya bash’e aktarılması) ve bu kalıbı gizlemenin diğer yolları.",
+  "c3": "Sızdırma kalıpları — yerel dosyaları, ortam değişkenlerini veya sırları beklenmeyen bir hedefe gönderen kod.",
+  "c4": "Paket adları etrafındaki typosquat ve ad karışıklığı riskleri.",
+  "c5": "Çözümlenmiş kilit dosyasındaki, OSV veritabanından bilinen güvenlik açıkları ve zararlı yazılım uyarıları; MAL (zararlı paket) kayıtları dahil.",
+  "c6": "Giriş noktaları: bir paketin kurulurken veya başlatılırken gerçekten çalıştırdığı dosyalar.",
+  "staticH": "Bu statik bir kontroldür",
+  "staticP": "Üçüncü taraf kodu çalıştırılmaz. Tarayıcı paket üst verilerini, kilit dosyalarını ve kaynak metnini okur. Aracı kurmaz, kurulum kancalarını yürütmez ve onu bir çalışma ortamına yüklemez.",
+  "notH": "Güvence veya tavsiye değildir",
+  "notP": "“Sorun bulunamadı” notu bir güvenlik belgelendirmesi, garanti veya aracı kurup kullanmaya yönelik bir tavsiye değildir. Statik analiz bazı şeyleri kaçırabilir ve bir proje tarama tarihinden sonra değişebilir. Çalıştırmadan önce, özellikle işlem yapabilen veya para taşıyabilen bir araçsa, aracı kendiniz de gözden geçirmelisiniz.",
+  "updateH": "Tarama ne zaman güncellenir",
+  "updateP": "Tarama, dizini yeniden doğruladığımızda güncellenir. Sonraki bir tarama incelenmesi gereken konular bulursa not, o aracın sayfasından ve kartlarından kaldırılır. Temiz olmayan veya taranmayan araçlar için bir uyarı etiketi yayımlamayız.",
+  "badgeH": "Not ne yazar",
+  "badgeP": "Bir araç sayfasındaki not şöyledir: “Güvenlik taraması: sorun bulunamadı · statik kod ve bağımlılık kontrolü · {date}”. Buraya bağlanır. Dizin kartlarında aynı anlama gelen küçük bir kalkan simgesi gösterilir.",
+  "stamp": "Son tarama: {date}. Tarayıcı commit {commit}, kural sürümü {rules}.",
+  "vtP": "Yayımlanmış bir dosya için VirusTotal raporu varsa, araç sayfası buna da bağlanır. Asla uydurma bir VirusTotal bağlantısı koymayız.",
+  "reportH": "Bir sorunu bildirin",
+  "reportP": "Bir tarama sonucunun yanlış olduğunu düşünüyorsanız veya listelenen bir araç hakkında güvenlik kaygınız varsa {email} adresine e-posta gönderin.",
+  "badge": "Güvenlik taraması: sorun bulunamadı · statik kod ve bağımlılık kontrolü · {date}",
+  "badgeAria": "Güvenlik taraması: {date} tarihinde sorun bulunamadı. Statik kod ve bağımlılık kontrolü. Tarayıcı {commit}, kurallar {rules}. Yöntem sayfasını açar.",
+  "cardAria": "Güvenlik taraması: {date} tarihinde sorun bulunamadı. Tarayıcı {commit}, kurallar {rules}.",
+  "vt": "VirusTotal raporu"
  }
 }

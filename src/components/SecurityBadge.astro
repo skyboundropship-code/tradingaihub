@@ -1,0 +1,25 @@
+---
+import { securityOf, vtUrl } from "../lib/data";
+import { useT } from "../i18n";
+const { tool, lang = "en", variant = "page" } = Astro.props;
+const scan = securityOf(tool);
+const { t, p } = useT(lang);
+const vt = scan ? vtUrl(scan.vt) : null;
+const vars = scan ? { date: scan.date, commit: scan.scanner_commit.slice(0, 7), rules: String(scan.rules_version) } : null;
+const title = vars ? t("sec.badgeAria", vars) : "";
+const cardLabel = vars ? t("sec.cardAria", vars) : "";
+---
+{scan && variant === "page" && (
+  <p class="sec-badge-row">
+    <a class="sec-badge" href={p("/security/")} title={title}>{t("sec.badge", { date: scan.date })}</a>
+    {vt && <a class="sec-vt" href={vt} rel="noopener" target="_blank">{t("sec.vt")}</a>}
+  </p>
+)}
+{scan && variant === "card" && (
+  <span class="sec-card" title={cardLabel}>
+    <svg class="sec-shield" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false">
+      <path fill="currentColor" d="M8 1.15 13.25 3.1v4.15c0 3.22-2.16 6.12-5.25 6.9-3.09-.78-5.25-3.68-5.25-6.9V3.1L8 1.15z"/>
+    </svg>
+    <span class="sr-only">{cardLabel}</span>
+  </span>
+)}

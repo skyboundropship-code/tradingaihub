@@ -14,7 +14,7 @@ const cats = [...lib.matchAll(/slug: "([^"]+)", name: "([^"]+)", short: "[^"]+",
 const comps = [...lib.matchAll(/slug: "([^"]+)", title: "([^"]+)"/g)].map((m) => ({ slug: m[1], title: m[2] }));
 // Friendly status names ("Needs review", not "unconfirmed"), taken from the site's STATUS map in src/lib/data.ts.
 const STATUS_LABEL = Object.fromEntries([...lib.matchAll(/^\s+(\w+): \{ label: "([^"]+)"/gm)].map((m) => [m[1], m[2]]));
-const statusLabel = (s) => STATUS_LABEL[s] || s;
+const statusLabel = (s) => (s === "unconfirmed" ? "Link check pending" : STATUS_LABEL[s] || s);
 const verified = tools.filter((t) => t.verification.status === "verified").length;
 // "This week" = the check is less than 7 days old (age < 7 days, i.e. checked_at > build date − 7 days), using UTC dates.
 // It is only claimed when the latest verification run is that fresh; otherwise the cards name the date of the last check,
@@ -49,7 +49,7 @@ const BADGE = {
   stale: (d) => ({ text: `⚠ Stale${lc(d)}`, color: "#b45309" }),
   archived: () => ({ text: "Archived by owner", color: "#b91c1c" }),
   warning: (d) => ({ text: `⚠ Check links${lc(d)}`, color: "#b45309" }),
-  unconfirmed: (d) => ({ text: `Needs review${lc(d)}`, color: "#b45309" }),
+  unconfirmed: (d) => ({ text: `Link check pending${lc(d)}`, color: "#4b5a70" }),
   unreachable: (d) => ({ text: `⚠ Unreachable${lc(d)}`, color: "#b91c1c" }),
 };
 const toolBadge = (t) => (BADGE[t.verification.status] || ((d) => ({ text: d ? `Last checked ${d}` : "Not checked yet", color: "#475569" })))(checkedAt(t));

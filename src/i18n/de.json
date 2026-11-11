@@ -19,6 +19,7 @@
   "directory": "Verzeichnis",
   "comparisons": "Vergleiche",
   "latestRun": "Letzte Prüfung",
+  "security": "Sicherheitsprüfung",
   "makers": "Für Entwickler",
   "submitFree": "Tool einreichen (kostenlos)",
   "getBadge": "Holen Sie sich Ihr Prüf-Badge",
@@ -81,7 +82,7 @@
    "Links prüfen",
    "Ein Website-, Doku- oder Endpoint-Link ist bei der letzten Prüfung fehlgeschlagen."
   ],
-  "unconfirmed": ["Prüfung nötig", "Erreichbar, aber ein Link zu Website, Doku oder Endpunkt hat unseren Prüfer abgewiesen (Anmeldung nötig, Bot-Sperre oder Ratenlimit), daher nicht vollständig bestätigt. Zählt nicht als verifiziert."],
+  "unconfirmed": ["Linkprüfung ausstehend", "Erreichbar, aber ein Link zu Website, Doku oder Endpunkt hat unseren Prüfer abgewiesen (Anmeldung nötig, Bot-Sperre oder Ratenlimit), daher nicht vollständig bestätigt. Zählt nicht als verifiziert."],
   "unreachable": [
    "Nicht erreichbar",
    "Repository oder Website konnten nicht erreicht werden."
@@ -601,5 +602,35 @@
   "ca2": "Nach GitHub-Sternen sind die beliebtesten geprüften Tools dieser Kategorie {list}.",
   "cq3": "Sind die Tools in „{name}“ offiziell?",
   "ca3": "Offizielle Tools, vom Anbieter selbst veröffentlicht: {o} von {n}. Community-Projekte: {c}. Offizielle Tools tragen das Badge „{badge}“."
+ },
+ "sec": {
+  "title": "Sicherheitsprüfung",
+  "desc": "So prüft TradingAIHub gelistete Tools: eine statische Kontrolle von Installations-Hooks, Abhängigkeiten und gängigen Malware-Mustern. Das ist keine Garantie und keine Empfehlung.",
+  "h1": "So prüfen wir gelistete Tools",
+  "intro": "Einige Tools in diesem Verzeichnis tragen einen kurzen Hinweis „Sicherheitsprüfung“. Dieser Hinweis bedeutet, dass unser statischer Scanner beim letzten Lauf in den unten beschriebenen Prüfungen keine Auffälligkeiten gefunden hat. Es ist ein Bericht zu einem bestimmten Zeitpunkt, keine Garantie, keine Zertifizierung und keine Empfehlung des Tools.",
+  "whatH": "Was die Prüfung kontrolliert",
+  "whatIntro": "Der Scanner untersucht das veröffentlichte Paket und, sofern ein Repository vorhanden ist, dessen Quellcode. Er sucht nach:",
+  "c1": "Installations-Hooks (zum Beispiel npm-Scripts preinstall, install und postinstall) und den Befehlen, die sie ausführen.",
+  "c2": "Downloads, die an eine Shell weitergeleitet werden (curl oder wget nach sh oder bash), und andere Verschleierungen dieses Musters.",
+  "c3": "Exfiltrationsmuster — Code, der lokale Dateien, Umgebungsvariablen oder Geheimnisse an ein unerwartetes Ziel sendet.",
+  "c4": "Typosquat- und Namensverwechslungsrisiken rund um Paketnamen.",
+  "c5": "Bekannte Schwachstellen und Malware-Hinweise aus der OSV-Datenbank, einschließlich MAL-Einträgen (bösartiges Paket), in der aufgelösten Lockdatei.",
+  "c6": "Einstiegspunkte: die Dateien, die ein Paket beim Installieren oder Starten tatsächlich ausführt.",
+  "staticH": "Es ist eine statische Prüfung",
+  "staticP": "Es wird kein Code Dritter ausgeführt. Der Scanner liest Paketmetadaten, Lockdateien und Quelltext. Er installiert das Tool nicht, führt dessen Installations-Hooks nicht aus und lädt es nicht in eine Laufzeitumgebung.",
+  "notH": "Keine Garantie und keine Empfehlung",
+  "notP": "Ein Hinweis „keine Auffälligkeiten gefunden“ ist keine Sicherheitszertifizierung, keine Gewährleistung und keine Empfehlung, das Tool zu installieren oder zu nutzen. Statische Analysen können Dinge übersehen, und ein Projekt kann sich nach dem Prüfdatum ändern. Prüfen Sie ein Tool trotzdem selbst, bevor Sie es ausführen, besonders wenn es handeln oder Geld bewegen kann.",
+  "updateH": "Wann die Prüfung aktualisiert wird",
+  "updateP": "Die Prüfung wird aktualisiert, wenn wir das Verzeichnis erneut verifizieren. Findet eine spätere Prüfung Auffälligkeiten, wird der Hinweis von der Seite und den Karten dieses Tools entfernt. Wir veröffentlichen kein Warnlabel für Tools, die nicht unauffällig waren oder nicht geprüft wurden.",
+  "badgeH": "Was der Hinweis sagt",
+  "badgeP": "Auf einer Tool-Seite lautet der Hinweis: „Sicherheitsprüfung: keine Auffälligkeiten gefunden · statische Code- und Abhängigkeitsprüfung · {date}“. Er verweist hierher. Verzeichniskarten zeigen ein kleines Schild-Symbol mit derselben Bedeutung.",
+  "stamp": "Letzte Prüfung: {date}. Scanner-Commit {commit}, Regelversion {rules}.",
+  "vtP": "Wenn ein VirusTotal-Bericht zu einer veröffentlichten Datei vorliegt, verlinkt die Tool-Seite zusätzlich darauf. Wir erfinden niemals einen VirusTotal-Link.",
+  "reportH": "Ein Problem melden",
+  "reportP": "Wenn Sie denken, dass ein Prüfergebnis falsch ist, oder ein Sicherheitsbedenken zu einem gelisteten Tool haben, schreiben Sie an {email}.",
+  "badge": "Sicherheitsprüfung: keine Auffälligkeiten gefunden · statische Code- und Abhängigkeitsprüfung · {date}",
+  "badgeAria": "Sicherheitsprüfung: keine Auffälligkeiten gefunden am {date}. Statische Code- und Abhängigkeitsprüfung. Scanner {commit}, Regeln {rules}. Öffnet die Methodik-Seite.",
+  "cardAria": "Sicherheitsprüfung: keine Auffälligkeiten gefunden am {date}. Scanner {commit}, Regeln {rules}.",
+  "vt": "VirusTotal-Bericht"
  }
 }

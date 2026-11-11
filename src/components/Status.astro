@@ -4,5 +4,8 @@ import { useT } from "../i18n";
 const { status, lang = "en" } = Astro.props; const { t } = useT(lang);
 const s = STATUS[status] || { label: status, tone: "warn", help: "" };
 const tr = t(`status.${status}`); const label = Array.isArray(tr) ? tr[0] : s.label; const help = Array.isArray(tr) ? tr[1] : s.help;
+// Display only: "unconfirmed" stays the API/status value, but the chip is a calm muted label with no "!".
+const tone = status === "unconfirmed" ? "muted" : s.tone;
+const mark = tone === "good" ? "✓ " : tone === "muted" ? "" : "! ";
 ---
-<span class={`badge ${s.tone}`} title={help}>{s.tone === "good" ? "✓" : "!"} {label}</span>
+<span class={`badge ${tone}`} title={help}>{mark}{label}</span>
