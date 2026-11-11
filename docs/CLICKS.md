@@ -10,6 +10,7 @@
 - Bot / own traffic is written with is_bot=1 and excluded by reports:
   - UA matching the bot regex (crawlers, headless, curl, wget, python, puppeteer/playwright/selenium, …), missing UA, Cloudflare verified bots;
   - **QA: our QA and test scripts must send the header `x-tah-qa: 1`** on every request to /api/click (and may send it site-wide).
+- Abuse cap: max 120 accepted datapoints per minute per isolate (no client key), then 429; body max 1 KB.
 - Report: `npm run clicks [-- --env preview] [--json]` — per-affiliate, per-tool and total human clicks for 1/7/30 days via the
   AE SQL API. Needs `CLOUDFLARE_API_TOKEN` with **Account Analytics: Read** (+ `CLOUDFLARE_ACCOUNT_ID`, optional if the token sees one account).
   The token is never printed; if it lacks the permission the report says so.

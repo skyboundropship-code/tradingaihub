@@ -21,6 +21,17 @@ import tools from "../../data/tools.json" with { type: "json" };
 const LOCALES = ["en", "he", "es", "pt", "de", "fr", "ja", "ko", "zh", "hi", "tr", "ar", "ru"];
 const KINDS = ["affiliate", "partner", "plain"];
 const MAX_BODY = 1024;       // bytes
+// Write cap per isolate (no IP or client key is ever used): at most RATE_MAX accepted datapoints per RATE_WINDOW_MS.
+// Over the cap the beacon gets 429 and nothing is written. Bounds abuse of the AE free tier (100k datapoints/day).
+export const RATE_MAX = 120;
+export const RATE_WINDOW_MS = 60_000;
+let rateStart = 0, rateCount = 0;
+export function _resetRate() { rateStart = 0; rateCount = 0; }
+function rateOk(now = Date.now()) {
+  if (now - rateStart >= RATE_WINDOW_MS) { rateStart = now; rateCount = 0; }
+  if (rateCount >= RATE_MAX) return false;
+  rateCount++; return true;
+}
 // Affiliate / partner program ids by target host (without "www.").
 export const AFFILIATES = { "tradingview.com": "tradingview", "eodhd.com": "eodhd", "buy.polar.sh": "polar" };
 // Outbound hosts that appear on the site but not in data/tools.json (share buttons, featured-on badges, package registries,
@@ -120,6 +131,7 @@ export async function onRequest(context) {
 
   const ae = env.CLICKS;
   if (!ae || typeof ae.writeDataPoint !== "function") return res(204); // not configured: accept and drop
+  if (!rateOk()) return res(429, "rate_limited");
   try { ae.writeDataPoint(datapoint(ev, classify(request))); } catch {} // non-blocking; never surfaces as an error
   return res(204);
 }

@@ -2,7 +2,7 @@
 // QA scripts must send the header `x-tah-qa: 1` so their clicks are tagged is_bot=1 and excluded from reports.
 import test from "node:test";
 import assert from "node:assert/strict";
-import { onRequest, parseEvent, HOSTS, TOOL_IDS, classify } from "../functions/api/click.js";
+import { onRequest, parseEvent, HOSTS, TOOL_IDS, classify, RATE_MAX, _resetRate } from "../functions/api/click.js";
 
 const ORIGIN = "https://tradingaihub.com";
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36";
@@ -97,4 +97,23 @@ test("host allowlist covers share/featured/registry/affiliate hosts and www-norm
   assert.equal(parseEvent(JSON.stringify(ev({ h: "tradingview.com.evil.example" }))), null);
   assert.equal(parseEvent(JSON.stringify(ev({ h: "eviltradingview.com" }))), null);
   assert.ok(TOOL_IDS.size > 50);
+});
+
+test("per-isolate write cap: over RATE_MAX in one window returns 429 and writes nothing more", async () => {
+  _resetRate();
+  const ae = makeAE();
+  for (let i = 0; i < RATE_MAX; i++) assert.equal((await call(req(ev()), { CLICKS: ae })).status, 204);
+  assert.equal((await call(req(ev()), { CLICKS: ae })).status, 429);
+  assert.equal(ae.points.length, RATE_MAX);
+  _resetRate();
+});
+
+test("datapoint holds only allowlisted dimensions: exactly 9 blobs, 1 index, 1 double; extra body fields ignored", async () => {
+  _resetRate();
+  const ae = makeAE();
+  await call(req({ ...ev(), ip: "9.9.9.9", ua: "SecretUA", email: "a@b.c", cookie: "sid=1" }), { CLICKS: ae });
+  const p = ae.points[0];
+  assert.equal(p.blobs.length, 9); assert.equal(p.indexes.length, 1); assert.deepEqual(p.doubles, [1]);
+  const s = JSON.stringify(p);
+  for (const x of ["9.9.9.9", "SecretUA", "a@b.c", "sid=1"]) assert.ok(!s.includes(x), x);
 });
