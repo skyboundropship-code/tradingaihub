@@ -19,6 +19,7 @@
   "directory": "Diretório",
   "comparisons": "Comparativos",
   "latestRun": "Última verificação",
+  "security": "Análise de segurança",
   "makers": "Para criadores",
   "submitFree": "Enviar uma ferramenta (grátis)",
   "getBadge": "Obtenha seu selo verificado",
@@ -81,7 +82,7 @@
    "Verificar links",
    "Um link do site, da documentação ou do endpoint falhou na última verificação."
   ],
-  "unconfirmed": ["Requer revisão", "Acessível, mas um link do site, da documentação ou do endpoint recusou nosso verificador (login obrigatório, bloqueio de bots ou limite de requisições), então não foi possível confirmá-lo totalmente. Não conta como verificado."],
+  "unconfirmed": ["Verificação de ligação pendente", "Acessível, mas um link do site, da documentação ou do endpoint recusou nosso verificador (login obrigatório, bloqueio de bots ou limite de requisições), então não foi possível confirmá-lo totalmente. Não conta como verificado."],
   "unreachable": [
    "Inacessível",
    "Não foi possível acessar o repositório ou o site."
@@ -601,5 +602,35 @@
   "ca2": "Por estrelas no GitHub, as ferramentas verificadas mais populares desta categoria são {list}.",
   "cq3": "As ferramentas em “{name}” são oficiais?",
   "ca3": "Ferramentas oficiais, publicadas pelo próprio fornecedor: {o} de {n}. Projetos da comunidade: {c}. As ferramentas oficiais têm o selo “{badge}”."
+ },
+ "sec": {
+  "title": "Análise de segurança",
+  "desc": "Como o TradingAIHub analisa as ferramentas listadas: uma verificação estática de ganchos de instalação, dependências e padrões comuns de malware. Não é uma garantia nem um endosso.",
+  "h1": "Como analisamos as ferramentas listadas",
+  "intro": "Algumas ferramentas deste diretório trazem uma nota curta de “análise de segurança”. Essa nota significa que, na última execução, o nosso analisador estático não encontrou problemas nas verificações abaixo. É um relatório num momento específico, não uma garantia, uma certificação nem um endosso da ferramenta.",
+  "whatH": "O que a análise verifica",
+  "whatIntro": "O analisador inspeciona o pacote publicado e, quando há um repositório, o respectivo código-fonte. Procura:",
+  "c1": "Ganchos de instalação (por exemplo, scripts preinstall, install e postinstall do npm) e os comandos que eles executam.",
+  "c2": "Transferências encaminhadas para uma consola (curl ou wget encadeados com sh ou bash) e outras formas de disfarçar esse padrão.",
+  "c3": "Padrões de exfiltração — código que envia ficheiros locais, variáveis de ambiente ou segredos para um destino inesperado.",
+  "c4": "Riscos de typosquat e de confusão de nomes em torno dos nomes dos pacotes.",
+  "c5": "Vulnerabilidades conhecidas e avisos de malware da base de dados OSV, incluindo registos MAL (pacote malicioso), no lockfile resolvido.",
+  "c6": "Pontos de entrada: os ficheiros que um pacote realmente executa quando é instalado ou iniciado.",
+  "staticH": "É uma verificação estática",
+  "staticP": "Nenhum código de terceiros é executado. O analisador lê metadados do pacote, lockfiles e o texto do código-fonte. Não instala a ferramenta, não executa os respetivos ganchos de instalação nem a carrega num ambiente de execução.",
+  "notH": "Não é uma garantia nem um endosso",
+  "notP": "Uma nota de “não foram encontrados problemas” não é uma certificação de segurança, uma garantia nem uma recomendação para instalar ou usar a ferramenta. A análise estática pode falhar coisas, e um projeto pode mudar depois da data da análise. Continua a ser importante rever a ferramenta antes de a executar, sobretudo se puder negociar ou mover dinheiro.",
+  "updateH": "Quando a análise é atualizada",
+  "updateP": "A análise é atualizada quando voltamos a verificar o diretório. Se uma análise posterior encontrar indícios a rever, a nota é retirada da página e dos cartões dessa ferramenta. Não publicamos um rótulo de aviso para ferramentas que não ficaram limpas ou que não foram analisadas.",
+  "badgeH": "O que a nota diz",
+  "badgeP": "Na página de uma ferramenta, a nota diz: “Análise de segurança: não foram encontrados problemas · verificação estática de código e dependências · {date}”. Liga para aqui. Os cartões do diretório mostram um ícone pequeno de escudo com o mesmo significado.",
+  "stamp": "Última análise: {date}. Commit do analisador {commit}, versão das regras {rules}.",
+  "vtP": "Quando existe um relatório VirusTotal de um ficheiro publicado, a página da ferramenta também liga para ele. Nunca inventamos uma ligação VirusTotal.",
+  "reportH": "Comunicar um problema",
+  "reportP": "Se achar que um resultado da análise está errado, ou tiver uma preocupação de segurança sobre uma ferramenta listada, envie um e-mail para {email}.",
+  "badge": "Análise de segurança: não foram encontrados problemas · verificação estática de código e dependências · {date}",
+  "badgeAria": "Análise de segurança: não foram encontrados problemas em {date}. Verificação estática de código e dependências. Analisador {commit}, regras {rules}. Abre a página de metodologia.",
+  "cardAria": "Análise de segurança: não foram encontrados problemas em {date}. Analisador {commit}, regras {rules}.",
+  "vt": "Relatório VirusTotal"
  }
 }

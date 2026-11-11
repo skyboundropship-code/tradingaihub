@@ -103,6 +103,7 @@ export const openapi = {
         deprecated: { type: "boolean", description: "true when the vendor has deprecated this listing or its package." },
         status: { type: "string", enum: FILTERS.status }, status_label: str, verified: { type: "boolean" }, checked_at: nstr,
         github: { type: ["object", "null"], properties: { stars: { type: ["integer", "null"], description: "null for shared collection repos" }, last_commit: nstr, archived: { type: "boolean" }, collection: { type: "boolean" } } },
+        security: { type: ["object", "null"], description: "Set when the latest static security scan found no issues ({ status: \"clean\", date }). Null if the tool was not scanned or was not clean; non-clean results are not published.", properties: { status: { type: "string", const: "clean" }, date: { type: "string", format: "date" } }, required: ["status", "date"] },
       } },
       ToolList: { type: "object", required: ["total", "count", "limit", "offset", "tools"], properties: { ...lic, total: { type: "integer" }, count: { type: "integer" }, limit: { type: "integer" }, offset: { type: "integer" }, next: { type: ["string", "null"], description: "URL of the next page, or null." }, tools: { type: "array", items: { $ref: "#/components/schemas/Tool" } } } },
       SearchResult: { type: "object", required: ["query", "count", "tools"], properties: { ...lic, query: str, count: { type: "integer" }, tools: { type: "array", items: { $ref: "#/components/schemas/Tool" } } } },

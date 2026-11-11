@@ -10,7 +10,7 @@
 import raw from "../../data/tools.json";
 import { AFFILIATES, SITE } from "../config";
 import { affUrl, isAff, untagUrl } from "./aff";
-import { tools as siteTools, CATEGORIES, STATUS, TYPE_LABEL, starsOf, lastCommit, isCollection, pkgOf } from "./data";
+import { tools as siteTools, CATEGORIES, STATUS, TYPE_LABEL, starsOf, lastCommit, isCollection, pkgOf, securityOf } from "./data";
 
 export const API_VERSION = "1.0.0";
 export const MCP_URL = `${SITE.url}/mcp`;
@@ -69,6 +69,8 @@ export function publicTool(t: any) {
     verified: v.status === "verified",
     checked_at: v.checked_at ?? null,
     github: v.github ? { stars: starsOf(t), last_commit: lastCommit(t), archived: !!v.github.archived, collection: isCollection(t) } : null,
+    // Public only for clean tools: { status, date }. Other scan outcomes are omitted (null), matching the site.
+    security: (() => { const s = securityOf(t); return s ? { status: s.status, date: s.date } : null; })(),
   };
 }
 

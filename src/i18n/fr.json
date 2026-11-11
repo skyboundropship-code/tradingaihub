@@ -19,6 +19,7 @@
   "directory": "Annuaire",
   "comparisons": "Comparatifs",
   "latestRun": "Dernière vérification",
+  "security": "Analyse de sécurité",
   "makers": "Pour les créateurs",
   "submitFree": "Proposer un outil (gratuit)",
   "getBadge": "Obtenez votre badge vérifié",
@@ -81,7 +82,7 @@
    "Liens à vérifier",
    "Un lien vers le site, la documentation ou l'endpoint a échoué lors de la dernière vérification."
   ],
-  "unconfirmed": ["À vérifier", "Accessible, mais un lien vers le site, la documentation ou l’endpoint a refusé notre vérificateur (connexion requise, blocage des robots ou limite de requêtes) : il n’a pas pu être entièrement confirmé. Non compté comme vérifié."],
+  "unconfirmed": ["Vérification du lien en attente", "Accessible, mais un lien vers le site, la documentation ou l’endpoint a refusé notre vérificateur (connexion requise, blocage des robots ou limite de requêtes) : il n’a pas pu être entièrement confirmé. Non compté comme vérifié."],
   "unreachable": [
    "Inaccessible",
    "Impossible d'accéder au dépôt ou au site."
@@ -601,5 +602,35 @@
   "ca2": "D'après les étoiles GitHub, les outils vérifiés les plus populaires de cette catégorie sont {list}.",
   "cq3": "Les outils de « {name} » sont-ils officiels ?",
   "ca3": "Outils officiels, publiés par l'éditeur lui-même : {o} sur {n}. Projets communautaires : {c}. Les outils officiels portent le badge « {badge} »."
+ },
+ "sec": {
+  "title": "Analyse de sécurité",
+  "desc": "Comment TradingAIHub analyse les outils listés : un contrôle statique des crochets d’installation, des dépendances et de schémas courants de logiciels malveillants. Ce n’est ni une garantie ni une recommandation.",
+  "h1": "Comment nous analysons les outils listés",
+  "intro": "Certains outils de cet annuaire portent une courte mention « analyse de sécurité ». Cette mention signifie que, lors de sa dernière exécution, notre analyseur statique n’a trouvé aucun problème dans les contrôles ci-dessous. Il s’agit d’un rapport à un instant donné, pas d’une garantie, d’une certification ni d’une recommandation de l’outil.",
+  "whatH": "Ce que l’analyse vérifie",
+  "whatIntro": "L’analyseur inspecte le paquet publié et, lorsqu’il existe un dépôt, son code source. Il recherche :",
+  "c1": "Les crochets d’installation (par exemple les scripts npm preinstall, install et postinstall) et les commandes qu’ils exécutent.",
+  "c2": "Les téléchargements envoyés vers un interpréteur (curl ou wget enchaînés à sh ou bash) et d’autres façons de dissimuler ce schéma.",
+  "c3": "Les schémas d’exfiltration — du code qui envoie des fichiers locaux, des variables d’environnement ou des secrets vers une destination inattendue.",
+  "c4": "Les risques de typosquat et de confusion de noms autour des noms de paquets.",
+  "c5": "Les vulnérabilités connues et les avis de logiciels malveillants de la base OSV, y compris les enregistrements MAL (paquet malveillant), dans le fichier de verrouillage résolu.",
+  "c6": "Les points d’entrée : les fichiers qu’un paquet exécute réellement lorsqu’il est installé ou démarré.",
+  "staticH": "C’est un contrôle statique",
+  "staticP": "Aucun code tiers n’est exécuté. L’analyseur lit les métadonnées des paquets, les fichiers de verrouillage et le texte du code source. Il n’installe pas l’outil, n’exécute pas ses crochets d’installation et ne le charge pas dans un environnement d’exécution.",
+  "notH": "Ni une garantie ni une recommandation",
+  "notP": "Une mention « aucun problème trouvé » n’est pas une certification de sécurité, une garantie ni une recommandation d’installer ou d’utiliser l’outil. L’analyse statique peut manquer des éléments, et un projet peut changer après la date de l’analyse. Il reste prudent d’examiner un outil soi-même avant de l’exécuter, surtout s’il peut négocier ou déplacer de l’argent.",
+  "updateH": "Quand l’analyse est mise à jour",
+  "updateP": "L’analyse est mise à jour lorsque nous revérifions l’annuaire. Si une analyse ultérieure trouve des points à examiner, la mention est retirée de la page et des cartes de cet outil. Nous ne publions pas d’étiquette d’avertissement pour les outils qui n’étaient pas sains ou qui n’ont pas été analysés.",
+  "badgeH": "Ce que dit la mention",
+  "badgeP": "Sur la page d’un outil, la mention est : « Analyse de sécurité : aucun problème trouvé · contrôle statique du code et des dépendances · {date} ». Elle renvoie ici. Les cartes de l’annuaire affichent une petite icône de bouclier avec le même sens.",
+  "stamp": "Dernière analyse : {date}. Commit de l’analyseur {commit}, version des règles {rules}.",
+  "vtP": "Lorsqu’un rapport VirusTotal est disponible pour un fichier publié, la page de l’outil y renvoie aussi. Nous n’inventons jamais de lien VirusTotal.",
+  "reportH": "Signaler un problème",
+  "reportP": "Si vous pensez qu’un résultat d’analyse est incorrect, ou si vous avez une préoccupation de sécurité concernant un outil listé, écrivez à {email}.",
+  "badge": "Analyse de sécurité : aucun problème trouvé · contrôle statique du code et des dépendances · {date}",
+  "badgeAria": "Analyse de sécurité : aucun problème trouvé le {date}. Contrôle statique du code et des dépendances. Analyseur {commit}, règles {rules}. Ouvre la page de méthodologie.",
+  "cardAria": "Analyse de sécurité : aucun problème trouvé le {date}. Analyseur {commit}, règles {rules}.",
+  "vt": "Rapport VirusTotal"
  }
 }

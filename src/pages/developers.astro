@@ -17,7 +17,7 @@ const ld = [
     { "@type": "ListItem", position: 2, name: title, item: url } ] },
 ];
 const ex = publicTools.find((t) => t.slug === "alpha-vantage-mcp") ?? publicTools[0];
-const sample = JSON.stringify({ tool: { slug: ex.slug, name: ex.name, type: ex.type, category: ex.category, description: ex.description, url: ex.url, website_url: ex.website_url, vendor_url: ex.vendor_url, affiliate: ex.affiliate, disclosure: ex.disclosure, homepage: ex.homepage, remote_mcp_url: ex.remote_mcp_url, license: ex.license, pricing: ex.pricing ? { model: ex.pricing.model, free_tier: ex.pricing.free_tier } : null, languages: ex.languages, status: ex.status, verified: ex.verified, checked_at: ex.checked_at, "…": "…" } }, null, 2);
+const sample = JSON.stringify({ tool: { slug: ex.slug, name: ex.name, type: ex.type, category: ex.category, description: ex.description, url: ex.url, website_url: ex.website_url, vendor_url: ex.vendor_url, affiliate: ex.affiliate, disclosure: ex.disclosure, homepage: ex.homepage, remote_mcp_url: ex.remote_mcp_url, license: ex.license, pricing: ex.pricing ? { model: ex.pricing.model, free_tier: ex.pricing.free_tier } : null, languages: ex.languages, status: ex.status, verified: ex.verified, checked_at: ex.checked_at, security: ex.security, "…": "…" } }, null, 2);
 const B = SITE.url;
 const curl = `# Every verified market-data MCP server
 curl -s "${B}/api/v1/tools?category=market-data&type=mcp&verified=true"
@@ -69,7 +69,7 @@ const endpoints = [
 <div class="wrap page prose">
   <div class="crumbs"><a href="/">Home</a> / {title}</div>
   <h1>{title}</h1>
-  <p>{desc} The data is the same as on the site: every MCP server, agent skill and API we list, with pricing, license, published packages and the result of our weekly verification. These docs are in English.</p>
+  <p>{desc} The data is the same as on the site: every MCP server, agent skill and API we list, with pricing, license, published packages and the result of our weekly verification. <code>security</code> is <code>{'{ status: "clean", date }'}</code> only when our static security scan found no issues; otherwise it is <code>null</code> (we do not publish other scan outcomes). These docs are in English.</p>
   <p class="callout">Information only, not investment advice. Affiliate disclosure: for partner tools (currently TradingView and EODHD), <code>website_url</code> is the same affiliate link the site uses, marked <code>affiliate: true</code> with a <code>disclosure</code>; <code>vendor_url</code> is always the plain link. TradingAIHub may earn a commission, and listings never depend on payment. See the <a href="/disclaimer/">disclaimer</a>, <a href="/terms/">terms</a> and <a href="/about/">how we verify</a>.</p>
 
   <h2 id="rest">REST API</h2>
