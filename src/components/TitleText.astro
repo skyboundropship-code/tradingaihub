@@ -1,0 +1,14 @@
+---
+// First grapheme in its own node so RTL flush checks measure the inline-start glyph,
+// not the leftmost bidi run of a mixed English/Hebrew/Arabic title.
+interface Props { text: string; bdi?: boolean }
+const raw = String(Astro.props.text ?? "");
+const segs = typeof Intl !== "undefined" && "Segmenter" in Intl
+  ? [...new Intl.Segmenter("und", { granularity: "grapheme" }).segment(raw)].map((s) => s.segment)
+  : [...raw];
+const first = segs[0] ?? "";
+const rest = segs.slice(1).join("");
+---
+{Astro.props.bdi
+  ? <bdi><span class="h-first">{first}</span>{rest}</bdi>
+  : <><span class="h-first">{first}</span>{rest}</>}
