@@ -61,6 +61,8 @@ const jobs = [["home", card("Free directory", "AI tools for finance & trading", 
   ["weekly", card("Weekly leaderboard", "State of finance AI tools", weeklySub)],
   ...cats.map((c) => [`category-${c.slug}`, card("Category", `${c.icon} ${c.name}`, `${tools.filter((t) => t.category === c.slug).length} tools · free${fresh ? " · verified weekly" : ""}`)]),
   ...comps.map((c) => [`compare-${c.slug}`, card("Comparison", c.title, "Pricing, status, stars & install — side by side")]),
+  ["compare-best-ai-tools-for-stock-analysis", card("Comparison", "Best AI tools for stock analysis and research (2026)", "Verified MCP servers, skills and APIs — official vendors first")],
+  ["compare-best-ai-tools-for-options-trading", card("Comparison", "Best AI tools for options data and options trading (2026)", "Options data first, then broker-connected tools")],
   ...tools.map((t) => [`tool-${t.id}`, card(t.type === "mcp" ? "MCP server" : t.type === "skill" ? "Agent skill" : "API", t.name, `Status: ${statusLabel(t.verification.status)}${checkedAt(t) ? ` · checked ${checkedAt(t)}` : ""}`, toolBadge(t))])];
 fs.mkdirSync("public/og", { recursive: true });
 // Render-side inputs. Bump RENDER_VERSION for any render change the key below can't see.

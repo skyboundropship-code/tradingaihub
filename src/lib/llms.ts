@@ -3,6 +3,7 @@
 import { SITE } from "../config";
 import { LOCALES, useT } from "../i18n";
 import { tools, CATEGORIES, COMPARISONS, STATUS, TYPE_LABEL, byStars, verificationReport } from "./data";
+import { EDITORIAL_COMPARES } from "./bestPages";
 // Outbound vendor URLs (repo, homepage, pricing source, remote MCP) come from RAW data/tools.json: data.ts runs them through
 // affUrl(), and affiliate IDs must never reach LLM context files. Internal URLs come from the ids.
 import raw from "../../data/tools.json";
@@ -57,6 +58,7 @@ export function llmsTxt(): string {
     "## Comparisons",
     "",
     ...COMPARISONS.map((c) => `- [${md(c.title)}](${u(`/compare/${c.slug}/`)}): ${md(c.intro)}`),
+    ...EDITORIAL_COMPARES.map((c) => `- [${md(c.h1)}](${u(`/compare/${c.slug}/`)}): ${md(c.description)}`),
     "",
     "## Machine-readable data",
     "",
