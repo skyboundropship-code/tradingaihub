@@ -1,0 +1,8 @@
+---
+// Keep ISO dates and other numeric tokens on one line, as an LTR island.
+interface Props { text: string; date: string }
+const { text, date } = Astro.props;
+const d = String(date);
+const i = d ? text.indexOf(d) : -1;
+---
+{i >= 0 ? <>{text.slice(0, i)}<span class="date-ltr" dir="ltr">{d}</span>{text.slice(i + d.length)}</> : text}

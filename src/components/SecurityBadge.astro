@@ -11,7 +11,7 @@ const cardLabel = vars ? t("sec.cardAria", vars) : "";
 ---
 {scan && variant === "page" && (
   <p class="sec-badge-row">
-    <a class="sec-badge" href={p("/security/")} title={title}>{t("sec.badge", { date: scan.date })}</a>
+    <a class="sec-badge" href={p("/security/")} title={title} aria-label={title}>{t("sec.badgeShort")}</a>
     {vt && <a class="sec-vt" href={vt} rel="noopener" target="_blank">{t("sec.vt")}</a>}
   </p>
 )}

@@ -12,7 +12,8 @@
   "verify": "Como verificamos",
   "submit": "Enviar uma ferramenta — grátis",
   "language": "Idioma",
-  "theme": "Alternar tema claro/escuro"
+  "theme": "Alternar tema claro/escuro",
+    "menu": "Menu"
  },
  "footer": {
   "rechecked": "Verificado novamente toda semana.",
@@ -632,6 +633,7 @@
   "reportH": "Comunicar um problema",
   "reportP": "Se achar que um resultado da análise está errado, ou tiver uma preocupação de segurança sobre uma ferramenta listada, envie um e-mail para {email}.",
   "badge": "Análise de segurança: não foram encontrados problemas · verificação estática de código e dependências · {date}",
+    "badgeShort": "Analisado: sem problemas",
   "badgeAria": "Análise de segurança: não foram encontrados problemas em {date}. Verificação estática de código e dependências. Analisador {commit}, regras {rules}. Abre a página de metodologia.",
   "cardAria": "Análise de segurança: não foram encontrados problemas em {date}. Analisador {commit}, regras {rules}.",
   "vt": "Relatório VirusTotal"

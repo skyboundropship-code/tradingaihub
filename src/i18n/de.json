@@ -12,7 +12,8 @@
   "verify": "So prüfen wir",
   "submit": "Tool einreichen – kostenlos",
   "language": "Sprache",
-  "theme": "Hell/Dunkel umschalten"
+  "theme": "Hell/Dunkel umschalten",
+    "menu": "Menü"
  },
  "footer": {
   "rechecked": "Jede Woche neu geprüft.",
@@ -632,6 +633,7 @@
   "reportH": "Ein Problem melden",
   "reportP": "Wenn Sie denken, dass ein Prüfergebnis falsch ist, oder ein Sicherheitsbedenken zu einem gelisteten Tool haben, schreiben Sie an {email}.",
   "badge": "Sicherheitsprüfung: keine Auffälligkeiten gefunden · statische Code- und Abhängigkeitsprüfung · {date}",
+    "badgeShort": "Gescannt: keine Auffälligkeiten",
   "badgeAria": "Sicherheitsprüfung: keine Auffälligkeiten gefunden am {date}. Statische Code- und Abhängigkeitsprüfung. Scanner {commit}, Regeln {rules}. Öffnet die Methodik-Seite.",
   "cardAria": "Sicherheitsprüfung: keine Auffälligkeiten gefunden am {date}. Scanner {commit}, Regeln {rules}.",
   "vt": "VirusTotal-Bericht"
