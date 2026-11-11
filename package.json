@@ -16,7 +16,9 @@
     "test:functions": "node --test tests/*.test.mjs",
     "deploy": "npm run build && wrangler pages deploy dist --project-name=tradingaihub --branch=main --commit-dirty=true",
     "weekly:publish": "npm run weekly && npm run deploy && npm run indexnow",
-    "test:aff": "node --test scripts/aff.test.mjs"
+    "test:aff": "node --test scripts/aff.test.mjs",
+    "security-scan": "python3 scripts/security_scan.py",
+    "test:security-scan": "python3 -m unittest discover -s tests -p 'test_security_scan.py'"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
