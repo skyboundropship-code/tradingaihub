@@ -10,7 +10,7 @@ const list = POSTS.filter((p) => p.tags.includes(tag));
 const name = `Tag: ${tag}`;
 const ld = [crumbsLd([["Home", "/"], ["Blog", "/blog/"], [name, `/blog/tag/${tag}/`]])];
 ---
-<Base title={`${name} | Blog`} description={`TradingAIHub blog posts tagged ${tag}.`} jsonld={ld} og="blog" lang="en" langs={["en"]} noindex={list.every((p) => p.draft)}>
+<Base title={`${name} | Blog`} description={`TradingAIHub blog posts tagged ${tag}.`} jsonld={ld} og="blog" lang="en" langs={["en"]} langFallback="/blog/" noindex={list.every((p) => p.draft)}>
 <div class="wrap page">
   <div class="crumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a> / {name}</div>
   <h1>{name}</h1>

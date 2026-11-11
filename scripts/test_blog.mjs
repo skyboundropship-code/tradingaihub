@@ -30,7 +30,8 @@ try {
   ok(!read(out, "blog/rss.xml").includes(SLUG), "draft not in RSS");
   ok(!read(out, "sitemap-0.xml").includes(`/blog/${SLUG}/`), "draft not in sitemap-0.xml");
   ok(!read(out, "llms.txt").includes(SLUG) && !read(out, "llms-full.txt").includes(SLUG), "draft not in llms.txt / llms-full.txt");
-  ok(!fs.existsSync(path.join(out, "he/blog")), "no translated blog pages");
+  // Articles are English-only; the index exists in all 13 locales (localized chrome, English post titles marked lang="en").
+  ok(fs.existsSync(path.join(out, "he/blog/index.html")) && !fs.existsSync(path.join(out, `he/blog/${SLUG}`)), "localized index /he/blog/ built, no translated article pages");
 } finally { fs.rmSync(out, { recursive: true, force: true }); }
 if (fs.existsSync("dist/index.html")) {
   ok(!fs.existsSync(`dist/blog/${SLUG}`), "production dist: draft page not built");

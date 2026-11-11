@@ -11,6 +11,8 @@
 //   draft        boolean, optional. true = not built at all in production: no page, not in the index, tags, RSS,
 //                sitemap or llms.txt. Set BLOG_DRAFTS=1 at build time (preview deploys only) to render drafts as noindex
 //                pages, listed on /blog/ with a "Draft" badge; they still stay out of RSS, sitemaps and llms.txt.
+//   canonical    optional absolute https URL, only when the article was first published elsewhere (rel=canonical,
+//                og:url and JSON-LD url point there). Default: the post's own /blog/<slug>/ URL.
 //   ogImage      optional path under public/ (e.g. /og/custom.png). Default: the generated card /og/blog-<slug>.png.
 //   tools        optional tool ids (data/tools.json) for the "Tools mentioned" block
 //   guides       optional guide slugs (src/content/guides/) for "Related guides"
@@ -31,7 +33,7 @@ export const SHOW_DRAFTS = /^(1|true|yes)$/i.test(String(process.env.BLOG_DRAFTS
 
 export type Post = {
   slug: string; title: string; description: string; date: string; updated: string; tags: string[]; draft: boolean;
-  ogImage: string; tools: string[]; guides: string[]; mod: any;
+  ogImage: string; canonical?: string; tools: string[]; guides: string[]; mod: any;
 };
 
 const iso = (v: any, where: string, key: string) => {
@@ -43,7 +45,7 @@ const iso = (v: any, where: string, key: string) => {
 const str = (fm: any, key: string, where: string) => {
   const v = fm[key]; if (typeof v !== "string" || !v.trim()) throw new Error(`${where}: frontmatter ${key} is required`); return v.trim();
 };
-const KNOWN = new Set(["title", "description", "date", "updated", "tags", "draft", "ogImage", "tools", "guides"]);
+const KNOWN = new Set(["title", "description", "date", "updated", "tags", "draft", "ogImage", "canonical", "tools", "guides"]);
 const toolIds = new Set(tools.map((t) => t.id));
 const guideMods = import.meta.glob("../content/guides/*.md", { eager: true }) as Record<string, any>;
 const guideSlugs = new Set(Object.keys(guideMods).map((f) => f.split("/").pop()!.slice(0, -3)));
@@ -60,9 +62,10 @@ export const ALL_POSTS: Post[] = Object.entries(mods)
     if (fm.draft != null && typeof fm.draft !== "boolean") throw new Error(`${where}: draft must be true or false`);
     const og = fm.ogImage == null ? `/og/blog-${slug}.png` : String(fm.ogImage);
     if (!/^\/[\w./-]+\.(png|jpe?g|webp)$/.test(og)) throw new Error(`${where}: ogImage must be a site path like /og/name.png`);
+    if (fm.canonical != null && !/^https:\/\/[^\s"<>]+$/.test(String(fm.canonical))) throw new Error(`${where}: canonical must be an absolute https URL`);
     const p: Post = {
       slug, title: str(fm, "title", where), description: str(fm, "description", where), date: iso(fm.date, where, "date"),
-      updated: iso(fm.updated ?? fm.date, where, "updated"), tags: [...new Set(tags as string[])], draft: fm.draft === true, ogImage: og,
+      updated: iso(fm.updated ?? fm.date, where, "updated"), tags: [...new Set(tags as string[])], draft: fm.draft === true, ogImage: og, canonical: fm.canonical == null ? undefined : String(fm.canonical),
       tools: fm.tools ?? [], guides: fm.guides ?? [], mod,
     };
     if (p.description.length > 160) throw new Error(`${where}: description is ${p.description.length} chars (max 160)`);
@@ -79,9 +82,13 @@ export const PUBLISHED = ALL_POSTS.filter((p) => !p.draft);
 export const TAGS = [...new Set(POSTS.flatMap((p) => p.tags))].sort();
 export const pageCount = Math.max(1, Math.ceil(POSTS.length / PER_PAGE));
 export const fmtDate = (d: string) => new Date(`${d}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+/** The post's own URL on this site (RSS link/guid, sitemap). */
 export const postUrl = (p: Post) => `${SITE.url}/blog/${p.slug}/`;
+/** rel=canonical for the post: its own URL unless frontmatter canonical says it was first published elsewhere. */
+export const canonicalOf = (p: Post) => p.canonical ?? postUrl(p);
 
-const STATIC = ["/", "/tools/", "/categories/", "/compare/", "/blog/", "/about/", "/disclaimer/", "/privacy/", "/terms/", "/weekly/", "/badges/", "/verification/", "/submit/", "/accessibility/", "/advertise/"];
+const STATIC = ["/", "/tools/", "/categories/", "/compare/", "/blog/", "/about/", "/disclaimer/", "/privacy/", "/terms/", "/weekly/", "/badges/", "/verification/", "/submit/", "/accessibility/", "/advertise/", "/security/", "/developers/",
+  "/compare/best-ai-tools-for-stock-analysis/", "/compare/best-ai-tools-for-options-trading/"];
 const PAGES = new Set([
   ...STATIC, ...tools.map((t) => `/tools/${t.id}/`), ...CATEGORIES.map((c) => `/category/${c.slug}/`), ...COMPARISONS.map((c) => `/compare/${c.slug}/`),
   ...[...guideSlugs].map((g) => `/guides/${g}/`), ...(guideSlugs.size ? ["/guides/"] : []), ...PUBLISHED.map((p) => `/blog/${p.slug}/`),
@@ -125,12 +132,12 @@ export async function render(p: Post) {
 
 /** BlogPosting JSON-LD. URLs are internal or the OG image, so no affiliate parameter can reach it. */
 export function blogPostingLd(p: Post) {
-  const url = postUrl(p);
+  const url = canonicalOf(p);
   return {
     "@context": "https://schema.org", "@type": "BlogPosting", headline: p.title, description: p.description, url, mainEntityOfPage: { "@type": "WebPage", "@id": url },
     inLanguage: "en", datePublished: p.date, dateModified: p.updated,
     author: { "@type": "Organization", name: BYLINE, url: `${SITE.url}/about/` },
-    publisher: { "@id": `${SITE.url}/#organization` }, isPartOf: { "@type": "Blog", "@id": `${SITE.url}/blog/#blog`, name: `${SITE.name} Blog` },
+    publisher: { "@type": "Organization", "@id": `${SITE.url}/#organization`, name: SITE.name, url: `${SITE.url}/` }, isPartOf: { "@type": "Blog", "@id": `${SITE.url}/blog/#blog`, name: `${SITE.name} Blog` },
     image: new URL(p.ogImage, SITE.url).href, ...(p.tags.length ? { keywords: p.tags.join(", ") } : {}),
   };
 }

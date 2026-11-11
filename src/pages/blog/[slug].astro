@@ -6,7 +6,8 @@ import ToolCard from "../../components/ToolCard.astro";
 import Share from "../../components/Share.astro";
 import Newsletter from "../../components/Newsletter.astro";
 import { tools } from "../../lib/data";
-import { POSTS, PUBLISHED, BYLINE, AFF_NOTE, render, blogPostingLd, crumbsLd, fmtDate, guideTitle, type Post } from "../../lib/blog";
+import Comments from "../../components/Comments.astro";
+import { POSTS, PUBLISHED, BYLINE, AFF_NOTE, render, blogPostingLd, crumbsLd, fmtDate, guideTitle, canonicalOf, type Post } from "../../lib/blog";
 export function getStaticPaths() { return POSTS.map((p) => ({ params: { slug: p.slug }, props: { p } })); }
 const { p } = Astro.props as { p: Post };
 const r = await render(p);
@@ -16,7 +17,7 @@ const showToc = r.toc.filter((h) => h.depth === 2).length >= 3 || r.words > 1200
 const featured = p.tools.map((id) => tools.find((t) => t.id === id)!).filter(Boolean);
 const more = PUBLISHED.filter((x) => x.slug !== p.slug && x.tags.some((t) => p.tags.includes(t))).slice(0, 3);
 ---
-<Base title={p.title} description={p.description} jsonld={ld} og={`blog-${p.slug}`} ogImage={p.ogImage} lang="en" langs={["en"]} noindex={p.draft} article={{ published: p.date, modified: p.updated }}>
+<Base title={p.title} description={p.description} jsonld={ld} og={`blog-${p.slug}`} ogImage={p.ogImage} lang="en" langs={["en"]} noindex={p.draft} canonical={canonicalOf(p)} langFallback="/blog/" article={{ published: p.date, modified: p.updated }}>
 <div class="wrap page">
   <div class="crumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a></div>
   <article class="post">
@@ -31,6 +32,7 @@ const more = PUBLISHED.filter((x) => x.slug !== p.slug && x.tags.some((t) => p.t
     {r.partner && <Fragment set:html={AFF_NOTE} />}
   </article>
   <Share path={path} text={p.title} lang="en" />
+  {!p.draft && <Comments slug={p.slug} lang="en" />}
   {featured.length > 0 && <><h2 class="sec">Tools mentioned</h2><div class="grid">{featured.map((t) => <ToolCard t={t} lang="en" />)}</div></>}
   {p.guides.length > 0 && <><h2 class="sec">Related guides</h2><div class="grid">{p.guides.map((g) => <a class="card" href={`/guides/${g}/`}><h3>{guideTitle(g)}</h3></a>)}</div></>}
   {more.length > 0 && <><h2 class="sec">More from the blog</h2><div class="grid">{more.map((x) => <a class="card" href={`/blog/${x.slug}/`}><h3>{x.title}</h3><p>{x.description}</p></a>)}</div></>}

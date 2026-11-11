@@ -9,8 +9,10 @@ import { LOCALES, CODES, useT, basePath, pathFor, localeOf } from "../i18n";
 // `langs`: locales this page exists in (default: all). English-only pages (blog posts) pass ["en"] so hreflang and the language
 // menu never point at a translation that doesn't exist. `article` adds og:type=article and the published/modified times.
 // `ogImage`: a site path to use instead of /og/<og>.png (blog posts with a custom image).
-interface Props { title: string; description?: string; jsonld?: any[]; noindex?: boolean; og?: string; ogImage?: string; lang?: string; langs?: string[]; article?: { published: string; modified: string } }
-const { title, description, jsonld = [], noindex = false, og = "home", ogImage, lang = "en", langs, article } = Astro.props;
+// `canonical`: absolute URL overriding rel=canonical/og:url (a blog post first published elsewhere). `langFallback`: where the
+// language menu sends a locale this page doesn't exist in (default: that locale's home; blog posts use its /blog/ index).
+interface Props { title: string; description?: string; jsonld?: any[]; noindex?: boolean; og?: string; ogImage?: string; lang?: string; langs?: string[]; article?: { published: string; modified: string }; canonical?: string; langFallback?: string }
+const { title, description, jsonld = [], noindex = false, og = "home", ogImage, canonical: canonicalUrl, langFallback = "/", lang = "en", langs, article } = Astro.props;
 const avail = langs ?? CODES;
 const { t, p, dir } = useT(lang);
 const tagline = t("meta.tagline");
@@ -18,7 +20,7 @@ const desc = description ?? t("meta.description");
 const ogUrl = new URL(ogImage ?? `/og/${og}.png`, SITE.url).href;
 const isNotFound = /\/404(\.html|\/)?$/.test(Astro.url.pathname);
 const base = isNotFound ? "/" : basePath(Astro.url.pathname);
-const canonical = new URL(pathFor(lang, base), SITE.url).href;
+const canonical = canonicalUrl ?? new URL(pathFor(lang, base), SITE.url).href;
 const fullTitle = title === SITE.name ? `${SITE.name} — ${tagline}` : `${title} | ${SITE.name}`;
 // Sitewide entity graph, identical on every page and locale (stable @ids), so Organization/WebSite are never duplicated.
 // No SearchAction: Google retired the sitelinks search box. logo-512.png is the 512px "Verified t" app icon (logo 6, from public/brand/).
@@ -50,7 +52,7 @@ const at = useA11yT(lang);
 {noindex && <meta name="robots" content="noindex" />}
 {!noindex && LOCALES.filter((l) => avail.includes(l.code)).map((l) => <link rel="alternate" hreflang={l.code} href={new URL(pathFor(l.code, base), SITE.url).href} />)}
 {!noindex && <link rel="alternate" hreflang="x-default" href={new URL(base, SITE.url).href} />}
-<meta property="og:title" content={fullTitle} /><meta property="og:description" content={desc} /><meta property="og:url" content={canonical} /><meta property="og:type" content={article ? "article" : "website"} />{article && <><meta property="article:published_time" content={article.published} /><meta property="article:modified_time" content={article.modified} /></>}<meta property="og:locale" content={cur.og} /><meta property="og:site_name" content={SITE.name} /><meta property="og:image" content={ogUrl} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={fullTitle} /><meta name="twitter:image" content={ogUrl} /><link rel="alternate" type="application/rss+xml" title={`${SITE.name} weekly`} href="/rss.xml" />
+<meta property="og:title" content={fullTitle} /><meta property="og:description" content={desc} /><meta property="og:url" content={canonical} /><meta property="og:type" content={article ? "article" : "website"} />{article && <><meta property="article:published_time" content={article.published} /><meta property="article:modified_time" content={article.modified} /></>}<meta property="og:locale" content={cur.og} /><meta property="og:site_name" content={SITE.name} /><meta property="og:image" content={ogUrl} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={fullTitle} /><meta name="twitter:image" content={ogUrl} /><link rel="alternate" type="application/rss+xml" title={`${SITE.name} weekly`} href="/rss.xml" /><link rel="alternate" type="application/rss+xml" title={`${SITE.name} blog`} href="/blog/rss.xml" />
 <link rel="icon" href="/favicon.ico" sizes="48x48" /><link rel="icon" href="/favicon.svg" type="image/svg+xml" /><link rel="apple-touch-icon" href="/apple-touch-icon.png" /><link rel="manifest" href="/site.webmanifest" /><meta name="theme-color" content="#f7f9fc" media="(prefers-color-scheme: light)" /><meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)" /><link rel="sitemap" href="/sitemap-index.xml" />
 <script type="application/ld+json" set:html={JSON.stringify(org)} />
 {jsonld.map((j) => <script type="application/ld+json" set:html={JSON.stringify(j)} />)}
@@ -70,7 +72,7 @@ const at = useA11yT(lang);
   <nav class="main" aria-label={at("w.navMain")}><a href={p("/tools/")}>{t("nav.tools")}</a><a href={p("/categories/")}>{t("nav.categories")}</a><a href={p("/compare/")}>{t("nav.compare")}</a><a href={p("/weekly/")}>{t("nav.weekly")}</a><a href={p("/blog/")}>{t("nav.blog")}</a><a href={p("/badges/")}>{t("nav.badges")}</a><a href={p("/about/")}>{t("nav.verify")}</a></nav>
   <div class="hdr-tools">
     <details class="langs"><summary title={t("nav.language")}><span aria-hidden="true">🌐 </span><span class="sr-only">{t("nav.language")}: </span><span>{lang.toUpperCase()}</span></summary>
-      <div class="langmenu">{LOCALES.map((l) => <a href={pathFor(l.code, avail.includes(l.code) ? base : "/")} hreflang={l.code} lang={l.code} dir={l.dir} data-lang={l.code} class={l.code === lang ? "on" : ""}>{l.name}</a>)}</div>
+      <div class="langmenu">{LOCALES.map((l) => <a href={pathFor(l.code, avail.includes(l.code) ? base : langFallback)} hreflang={l.code} lang={l.code} dir={l.dir} data-lang={l.code} class={l.code === lang ? "on" : ""}>{l.name}</a>)}</div>
     </details>
     <button class="themetoggle" type="button" aria-pressed="false" aria-label={t("nav.theme")} title={t("nav.theme")}><span class="sun">☀️</span><span class="moon">🌙</span></button>
     <a class="btn hdr-submit" href={p("/submit/")}>{t("nav.submit")}</a>

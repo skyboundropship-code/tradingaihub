@@ -18,4 +18,4 @@ if (missing.length || notInDist.length) {
   if (notInDist.length) console.error(`OG images missing in dist/og (${notInDist.length}): ${notInDist.join(", ")}`);
   process.exit(1);
 }
-console.log(`OG images: ${tools.length}/${tools.length} tools ok; all ${names.length} cards ok (home, weekly, ${cats.length} categories, ${comps.length} comparisons, blog + ${blogPosts.length} posts, ${guides.length} guides, blog + ${blogPosts.length} posts, ${tools.length} tools)`);
+console.log(`OG images: ${tools.length}/${tools.length} tools ok; all ${names.length} cards ok (home, weekly, ${cats.length} categories, ${comps.length} comparisons, blog + ${blogPosts.length} posts, ${tools.length} tools)`);

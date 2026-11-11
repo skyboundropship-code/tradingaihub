@@ -457,7 +457,8 @@
   "c3": "Bülten: Abone olursanız e-posta adresinizi, dilinizi, kayıt zamanınızı ve onay kaydınızı yalnızca bülteni yürütmek için saklarız. Bu kayıt, posta listesinin yedek kopyası olarak Cloudflare Workers KV depomuzda, silinmesini talep edene kadar tutulur (aboneliğinizi hiç onaylamasanız da). Kötüye kullanımı sınırlamak için her kayıt denemesi, IP adresinizin tek yönlü hash'inden geçici bir hız sınırı anahtarı da oluşturur (IP adresinin kendisi asla saklanmaz); bu anahtar 1 saat sonra otomatik olarak silinir.",
   "c4": "E-posta gönderimi: Bülten, verileri bizim adımıza işleyen e-posta hizmet sağlayıcımız MailerLite üzerinden gönderilir. MailerLite ile yalnızca e-posta adresinizi paylaşırız. Hesabımız için hizmeti MailerLite, Inc. (ABD) sağlar; MailerLite verileri AB'deki Google veri merkezlerinde saklar ve e-posta adresiniz, MailerLite'ın güvenceleri kapsamında ABD'ye aktarılır; bunlar arasında AB-ABD Veri Gizliliği Çerçevesi (Birleşik Krallık uzantısıyla birlikte), İsviçre-ABD Veri Gizliliği Çerçevesi ve standart sözleşme maddeleri yer alır.",
   "c5": "Çift onay (double opt-in): Kaydolduktan sonra MailerLite size bir onay e-postası gönderir ve aboneliğiniz ancak içindeki bağlantıya tıkladığınızda başlar. Her bülten e-postasında abonelikten çıkma bağlantısı bulunur. Verilerinizi hem MailerLite'tan hem de KV depomuzdan sildirmek için {email} adresine yazın.",
-  "c6": "Anonim tıklama sayımı: Başka bir siteye giden bir bağlantıya tıkladığınızda, Cloudflare Workers Analytics Engine ile tek bir anonim sayım kaydederiz. Yalnızca araç, ortaklık programı (varsa), hedef site, bağlantı türü, sayfa, dil, sizi yönlendiren sitenin alan adı, otomatik trafik işareti (botlar ve kendi testlerimiz) ve tıklama kaynağı (insan, bot veya test) saklanır. Çerez kullanılmaz; IP adresinizi, tarayıcı bilgilerinizi veya başka herhangi bir kişisel veriyi saklamayız."
+  "c6": "Anonim tıklama sayımı: Başka bir siteye giden bir bağlantıya tıkladığınızda, Cloudflare Workers Analytics Engine ile tek bir anonim sayım kaydederiz. Yalnızca araç, ortaklık programı (varsa), hedef site, bağlantı türü, sayfa, dil, sizi yönlendiren sitenin alan adı, otomatik trafik işareti (botlar ve kendi testlerimiz) ve tıklama kaynağı (insan, bot veya test) saklanır. Çerez kullanılmaz; IP adresinizi, tarayıcı bilgilerinizi veya başka herhangi bir kişisel veriyi saklamayız.",
+  "c7": "Blog yorumları: Yazılara yapılan yorumlar GitHub Discussions'ta (tradingaihub/community deposu) saklanır ve giscus ile gösterilir. “Yorumları yükle”ye tıklayana kadar GitHub'dan veya giscus'tan hiçbir şey yüklenmez. Yorum yapmak için GitHub hesabınızla oturum açarsınız; paylaştıklarınız GitHub gizlilik bildirimi kapsamında GitHub'da herkese açıktır. GitHub parolanızı veya e-posta adresinizi almayız."
  },
  "terms": {
   "title": "Kullanım koşulları",
@@ -644,5 +645,21 @@
   "label": "Güvenli değil, açıklama bekleniyor",
   "short": "Güvenli değil (beklemede)",
   "text": "Neden: Aracın kodu, cüzdan adresinizi ve imzalı swap emirlerini şifrelenmemiş HTTP üzerinden, yalnızca IP adresiyle belirtilen ve belgelenmemiş bir sunucuya gönderiyor; bakiyelerinizi ve işlem geçmişinizi de aynı yolla alıyor. Konuyu geliştiriciyle (degentic-tools) netleştiriyoruz."
+ },
+ "blog": {
+  "title": "Blog",
+  "desc": "TradingAIHub Editorial'dan finans ve trading için yapay zekâ araçları üzerine yazılar: MCP sunucuları, ajan becerileri, piyasa verisi API'leri ve bunları güvenle kullanmanın yolları.",
+  "inEnglish": "Yazılar İngilizcedir.",
+  "nia": "Yatırım tavsiyesi değildir.",
+  "rss": "RSS akışı",
+  "tags": "Etiketler",
+  "empty": "Henüz yazı yok.",
+  "newer": "← Daha yeni",
+  "older": "Daha eski →",
+  "pageOf": "Sayfa {n} / {total}",
+  "pages": "Blog sayfaları",
+  "community": "Topluluk",
+  "communityP": "Sorular, araç istekleri ve yazılara yorumlar GitHub topluluğumuzda.",
+  "communityLink": "Tartışmaya katıl"
  }
 }

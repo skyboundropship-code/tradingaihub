@@ -1,0 +1,29 @@
+---
+// Comments under a blog post (src/lib/giscus.ts). Click-to-load: no request to giscus.app or GitHub until the reader clicks.
+// The "Discuss on GitHub" link to the community Discussions is always shown; the comment box only when GISCUS.ENABLED.
+// Theme follows the site (html[data-theme]) and updates live when the reader toggles it.
+import { GISCUS, giscusLang } from "../lib/giscus";
+interface Props { slug: string; lang?: string }
+const { slug, lang = "en" } = Astro.props;
+---
+<section class="comments" id="comments" aria-labelledby="comments-h">
+  <h2 class="sec" id="comments-h">Comments</h2>
+  {GISCUS.ENABLED ? <>
+    <p class="comments-note">Comments are GitHub Discussions in <a href={GISCUS.discussions} target="_blank" rel="noopener">tradingaihub/community</a>, shown with giscus. Nothing loads from GitHub until you click. To comment, sign in with GitHub; your comment is public there. <a href="/privacy/">Privacy</a></p>
+    <p class="comments-act"><button type="button" class="btn ghost giscus-load">Load comments</button> <a class="comments-discuss" href={GISCUS.discussions} target="_blank" rel="noopener">Discuss on GitHub ↗</a></p>
+    <div class="giscus" data-repo={GISCUS.repo} data-repo-id={GISCUS.repoId} data-category={GISCUS.category} data-category-id={GISCUS.categoryId}
+      data-term={slug} data-lang={giscusLang(lang)}></div>
+  </> : <p class="comments-act"><a class="comments-discuss" href={GISCUS.discussions} target="_blank" rel="noopener">Discuss this article on GitHub ↗</a></p>}
+</section>
+{GISCUS.ENABLED && <script is:inline>(function(){
+  var box=document.querySelector(".comments .giscus"),btn=document.querySelector(".giscus-load");if(!box||!btn)return;
+  var th=function(){return document.documentElement.dataset.theme==="dark"?"dark":"light"};
+  btn.addEventListener("click",function(){
+    var s=document.createElement("script"),d=box.dataset,a={"data-repo":d.repo,"data-repo-id":d.repoId,"data-category":d.category,"data-category-id":d.categoryId,
+      "data-mapping":"specific","data-term":d.term,"data-strict":"1","data-reactions-enabled":"1","data-emit-metadata":"0","data-input-position":"top",
+      "data-theme":th(),"data-lang":d.lang,"data-loading":"lazy","crossorigin":"anonymous"};
+    s.src="https://giscus.app/client.js";s.async=true;for(var k in a)s.setAttribute(k,a[k]);document.body.appendChild(s);box.setAttribute("tabindex","-1");btn.remove();box.focus();
+    new MutationObserver(function(){var f=box.querySelector("iframe.giscus-frame");if(f&&f.contentWindow)f.contentWindow.postMessage({giscus:{setConfig:{theme:th()}}},"https://giscus.app")})
+      .observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+  });
+})()</script>}

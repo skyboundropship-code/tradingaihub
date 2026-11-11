@@ -16,6 +16,7 @@ For Growth and anyone else writing posts. **Every post goes through a pull reque
 | `updated` | no | `YYYY-MM-DD`, only after a real content change. Must not be earlier than `date`. |
 | `tags` | no | e.g. `[mcp, market-data]`. Lowercase and hyphenated. Each tag gets a `/blog/tag/<tag>/` page. |
 | `draft` | no | `true` keeps the post out of the production build, the index, RSS, the sitemap and llms.txt. |
+| `canonical` | no | Absolute `https://` URL, **only** if the article was first published on another site. It sets rel=canonical, og:url and the JSON-LD url. Leave it out for original posts. Cross-posts on dev.to, Hashnode or Medium should point *their* canonical at `https://tradingaihub.com/blog/<slug>/`. |
 | `ogImage` | no | A site path such as `/og/my-image.png`. By default the build generates `/og/blog-<slug>.png`. |
 | `tools` | no | Tool ids from `data/tools.json`, shown as "Tools mentioned" cards. |
 | `guides` | no | Guide slugs from `src/content/guides/`, shown as "Related guides". |
@@ -28,7 +29,7 @@ No other keys are allowed. The byline is fixed as **TradingAIHub Editorial**, so
 - Link internal pages with site paths, such as `/tools/tradingview-mcp/`. The build fails on a link to a page that doesn't exist.
 - Use `https://` for every external link. The build rejects `http://`.
 - **Partner links:** paste the plain vendor URL (for example `https://www.tradingview.com/`). Never add `aff_id=`, `_go=`, `via=` or any other tracking parameter yourself. The build tags the link, adds `rel="sponsored"` and the Partner label, and shows the disclosure note. `check_aff` then verifies it like every other affiliate link on the site.
-- Posts are English-only. Don't make up numbers, and add "Not investment advice" where relevant.
+- Posts are English-only (the `/blog/` index is localized in all 13 languages; see docs/BLOG.md). Don't make up numbers, and add "Not investment advice" where relevant.
 
 ## 3. Preview
 

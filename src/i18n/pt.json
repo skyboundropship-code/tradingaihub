@@ -457,7 +457,8 @@
   "c3": "Newsletter: se você se inscrever, guardamos seu e-mail, idioma, data de inscrição e um registro do seu consentimento, apenas para operar a newsletter. Esse registro fica em nosso armazenamento Cloudflare Workers KV como cópia de segurança da lista até que você peça a exclusão (inclusive se nunca confirmar). Para limitar abusos, cada tentativa de inscrição também cria uma chave temporária de limite de tentativas a partir de um hash irreversível do seu endereço IP (o IP em si nunca é armazenado); ela é apagada automaticamente após 1 hora.",
   "c4": "Envio de e-mails: a newsletter é enviada pelo MailerLite, nosso provedor de e-mail, que trata os dados em nosso nome. Compartilhamos com o MailerLite apenas o seu endereço de e-mail. Para a nossa conta, o serviço é prestado pela MailerLite, Inc. (Estados Unidos); o MailerLite armazena os dados em data centers do Google na UE, e seu e-mail é transferido para os Estados Unidos com base nas salvaguardas do MailerLite, entre elas o EU-U.S. Data Privacy Framework (com sua extensão para o Reino Unido), o Swiss-U.S. Data Privacy Framework e cláusulas contratuais padrão.",
   "c5": "Confirmação dupla (double opt-in): depois da inscrição, o MailerLite envia um e-mail de confirmação, e você só passa a ser assinante depois de clicar no link. Todo e-mail da newsletter tem um link para cancelar a inscrição. Para excluir seus dados do MailerLite e do nosso armazenamento KV, escreva para {email}.",
-  "c6": "Contagem anônima de cliques: quando você clica em um link para outro site, registramos uma contagem anônima com o Cloudflare Workers Analytics Engine. Ela guarda apenas a ferramenta, o programa de afiliados (se houver), o site de destino, o tipo de link, a página, o idioma, o domínio do site que o indicou, uma marcação de tráfego automatizado (bots e nossos testes) e a origem do clique (pessoa, bot ou teste). Não usamos cookies e não armazenamos seu endereço IP, dados do navegador nem qualquer outro dado pessoal."
+  "c6": "Contagem anônima de cliques: quando você clica em um link para outro site, registramos uma contagem anônima com o Cloudflare Workers Analytics Engine. Ela guarda apenas a ferramenta, o programa de afiliados (se houver), o site de destino, o tipo de link, a página, o idioma, o domínio do site que o indicou, uma marcação de tráfego automatizado (bots e nossos testes) e a origem do clique (pessoa, bot ou teste). Não usamos cookies e não armazenamos seu endereço IP, dados do navegador nem qualquer outro dado pessoal.",
+  "c7": "Comentários do blog: os comentários dos artigos ficam armazenados no GitHub Discussions (repositório tradingaihub/community) e são exibidos via giscus. Nada é carregado do GitHub ou do giscus até você clicar em “Carregar comentários”. Para comentar, você entra com sua conta do GitHub, e o que publicar fica público no GitHub, sob a declaração de privacidade do GitHub. Não recebemos sua senha nem seu e-mail do GitHub."
  },
  "terms": {
   "title": "Termos de uso",
@@ -644,5 +645,21 @@
   "label": "Não seguro, aguardando esclarecimento",
   "short": "Não seguro (pendente)",
   "text": "Motivo: o código da ferramenta envia o endereço da sua carteira e ordens de swap assinadas por HTTP sem criptografia para um servidor não documentado em um endereço IP direto, e recebe seus saldos e histórico de transações da mesma forma. Estamos verificando com o desenvolvedor (degentic-tools)."
+ },
+ "blog": {
+  "title": "Blog",
+  "desc": "Artigos da TradingAIHub Editorial sobre ferramentas de IA para finanças e trading: servidores MCP, skills para agentes, APIs de dados de mercado e como usá-los com segurança.",
+  "inEnglish": "Os artigos são escritos em inglês.",
+  "nia": "Não é aconselhamento de investimento.",
+  "rss": "Feed RSS",
+  "tags": "Tags",
+  "empty": "Ainda não há artigos.",
+  "newer": "← Mais recentes",
+  "older": "Mais antigos →",
+  "pageOf": "Página {n} de {total}",
+  "pages": "Páginas do blog",
+  "community": "Comunidade",
+  "communityP": "Perguntas, pedidos de ferramentas e comentários sobre os artigos ficam na nossa comunidade no GitHub.",
+  "communityLink": "Participe da conversa"
  }
 }

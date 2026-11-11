@@ -1,36 +1,47 @@
 ---
-// Shared body of /blog/ and /blog/page/<n>/. English-only (hreflang en + x-default), like the guides.
+// Shared body of /blog/ (all 13 locales: /blog/, /he/blog/ …) and /blog/page/<n>/ (English-only). Posts are English;
+// the chrome (heading, lede, pager, community box) is localized from the "blog" block in src/i18n/<lang>.json.
 import Base from "../layouts/Base.astro";
 import BlogList from "./BlogList.astro";
 import Newsletter from "./Newsletter.astro";
 import { SITE } from "../config";
-import { POSTS, PUBLISHED, PER_PAGE, TAGS, pageCount, crumbsLd } from "../lib/blog";
-interface Props { page: number }
-const { page } = Astro.props;
+import { useT } from "../i18n";
+import { GISCUS } from "../lib/giscus";
+import { POSTS, PER_PAGE, TAGS, pageCount, crumbsLd } from "../lib/blog";
+interface Props { page: number; lang?: string }
+const { page, lang = "en" } = Astro.props;
+const { t, p } = useT(lang);
 const list = POSTS.slice((page - 1) * PER_PAGE, page * PER_PAGE);
-const path = page === 1 ? "/blog/" : `/blog/page/${page}/`, url = `${SITE.url}${path}`;
-const desc = "Articles from TradingAIHub Editorial on AI tools for finance and trading: MCP servers, agent skills, market-data APIs and how to use them safely.";
-const pub = list.filter((p) => !p.draft);
-const crumbs: [string, string][] = [["Home", "/"], ["Blog", "/blog/"], ...(page > 1 ? [[`Page ${page}`, path] as [string, string]] : [])];
+const path = page === 1 ? p("/blog/") : `/blog/page/${page}/`;
+const plain = (s: string) => s.replace(/<[^>]+>/g, "");
+const title = t("blog.title"), desc = plain(t("blog.desc"));
+const pub = list.filter((x) => !x.draft);
+const crumbs: [string, string][] = [[t("common.home"), p("/")], [title, p("/blog/")], ...(page > 1 ? [[`Page ${page}`, path] as [string, string]] : [])];
+// The Blog entity (@id /blog/#blog) is described once, on the English index; localized indexes carry only their breadcrumb.
 const ld = [
-  { "@context": "https://schema.org", "@type": "Blog", "@id": `${SITE.url}/blog/#blog`, name: `${SITE.name} Blog`, url: `${SITE.url}/blog/`, inLanguage: "en", description: desc,
-    publisher: { "@id": `${SITE.url}/#organization` },
-    blogPost: pub.map((p) => ({ "@type": "BlogPosting", headline: p.title, url: `${SITE.url}/blog/${p.slug}/`, datePublished: p.date })) },
+  ...(lang !== "en" ? [] : [{ "@context": "https://schema.org", "@type": "Blog", "@id": `${SITE.url}/blog/#blog`, name: `${SITE.name} Blog`, url: `${SITE.url}/blog/`, inLanguage: "en", description: plain(useT("en").t("blog.desc")),
+    publisher: { "@type": "Organization", "@id": `${SITE.url}/#organization`, name: SITE.name, url: `${SITE.url}/` },
+    blogPost: pub.map((x) => ({ "@type": "BlogPosting", headline: x.title, url: `${SITE.url}/blog/${x.slug}/`, datePublished: x.date, inLanguage: "en" })) }]),
   crumbsLd(crumbs),
 ];
+const pageOf = t("blog.pageOf", { n: page, total: pageCount });
 ---
-<Base title={page === 1 ? "Blog" : `Blog: Page ${page}`} description={desc} jsonld={ld} og="blog" lang="en" langs={["en"]}>
+<Base title={page === 1 ? title : `${title}: Page ${page}`} description={desc} jsonld={ld} og="blog" lang={lang} langs={page === 1 ? undefined : ["en"]}>
 <div class="wrap page">
-  <div class="crumbs"><a href="/">Home</a> / {page === 1 ? "Blog" : <><a href="/blog/">Blog</a> / Page {page}</>}</div>
-  <h1>{page === 1 ? "Blog" : `Blog: Page ${page}`}</h1>
-  <p class="blog-lede">{desc} Posts are in English. Not investment advice. <a href="/blog/rss.xml">RSS feed</a></p>
-  {TAGS.length > 0 && <p class="blog-tags" aria-label="Tags">{TAGS.map((t) => <a class="chip" href={`/blog/tag/${t}/`}>#{t}</a>)}</p>}
-  <BlogList posts={list} />
-  {pageCount > 1 && <nav class="pager" aria-label="Blog pages">
-    {page > 1 && <a rel="prev" href={page === 2 ? "/blog/" : `/blog/page/${page - 1}/`}>← Newer</a>}
-    <span>Page {page} of {pageCount}</span>
-    {page < pageCount && <a rel="next" href={`/blog/page/${page + 1}/`}>Older →</a>}
+  <div class="crumbs"><a href={p("/")}>{crumbs[0][0]}</a> / {page === 1 ? title : <><a href="/blog/">{title}</a> / Page {page}</>}</div>
+  <h1>{page === 1 ? title : `${title}: Page ${page}`}</h1>
+  <p class="blog-lede"><Fragment set:html={t("blog.desc")} /> {t("blog.inEnglish")} {t("blog.nia")} <a href="/blog/rss.xml" type="application/rss+xml"><Fragment set:html={t("blog.rss")} /></a></p>
+  {TAGS.length > 0 && <p class="blog-tags" aria-label={t("blog.tags")}>{TAGS.map((x) => <a class="chip" href={`/blog/tag/${x}/`} hreflang={lang === "en" ? undefined : "en"} dir="ltr">#{x}</a>)}</p>}
+  <BlogList posts={list} lang={lang} />
+  {pageCount > 1 && <nav class="pager" aria-label={t("blog.pages")}>
+    {page > 1 && <a rel="prev" href={page === 2 ? p("/blog/") : `/blog/page/${page - 1}/`}>{t("blog.newer")}</a>}
+    <span>{pageOf}</span>
+    {page < pageCount && <a rel="next" href={`/blog/page/${page + 1}/`}>{t("blog.older")}</a>}
   </nav>}
-  <Newsletter lang="en" level={2} />
+  <aside class="blog-community" aria-labelledby="blog-community-h">
+    <h2 id="blog-community-h">{t("blog.community")}</h2>
+    <p><Fragment set:html={t("blog.communityP")} /> <a href={GISCUS.discussions} target="_blank" rel="noopener">{t("blog.communityLink")} ↗</a></p>
+  </aside>
+  <Newsletter lang={lang} level={2} />
 </div>
 </Base>
