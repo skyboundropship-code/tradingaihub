@@ -1398,6 +1398,13 @@ def _is_benign_hook_part(part):
     if BENIGN_HOOK.match(part):
         return True
     if _TSC_PART.match(part):
+        # N16: flag values such as --outDir ../../x must be repo-relative.
+        for raw in re.findall(r"-(?:-)?[\w-]+([ =][\w./-]+)?", part):
+            if not raw:
+                continue
+            val = raw.strip().lstrip("=").strip()
+            if val and not _ok_rel_path(val):
+                return False
         return True
     m = _MKDIR_PART.match(part)
     if m:

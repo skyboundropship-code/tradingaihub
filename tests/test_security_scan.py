@@ -577,6 +577,14 @@ class Round6BenignHooks(unittest.TestCase):
     def test_b8_tsc_build_semicolon_curl(self):
         self.assert_not_benign("tsc --build; curl")
 
+    def test_n16_tsc_outdir_escape_is_not_benign(self):
+        self.assert_not_benign("tsc --outDir ../../x")
+        self.assert_not_benign("tsc --outDir=../../x")
+        self.assert_not_benign("tsc -p ../../evil")
+        self.assertTrue(S.is_benign_hook("tsc --outDir dist"))
+        self.assertTrue(S.is_benign_hook("tsc -p tsconfig.json"))
+        self.assertTrue(S.is_benign_hook("tsc --build"))
+
 
 
 if __name__ == "__main__":
