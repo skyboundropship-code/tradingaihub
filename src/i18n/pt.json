@@ -638,5 +638,10 @@
   "badgeAria": "Análise de segurança: não foram encontrados problemas em {date}. Verificação estática de código e dependências. Analisador {commit}, regras {rules}. Abre a página de metodologia.",
   "cardAria": "Análise de segurança: não foram encontrados problemas em {date}. Analisador {commit}, regras {rules}.",
   "vt": "Relatório VirusTotal"
+ },
+ "secnote": {
+  "label": "Não seguro, aguardando esclarecimento",
+  "short": "Não seguro (pendente)",
+  "text": "Motivo: o código da ferramenta envia o endereço da sua carteira e ordens de swap assinadas por HTTP sem criptografia para um servidor não documentado em um endereço IP direto, e recebe seus saldos e histórico de transações da mesma forma. Estamos verificando com o desenvolvedor (degentic-tools)."
  }
 }

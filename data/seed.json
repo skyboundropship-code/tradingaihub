@@ -1622,7 +1622,13 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "security_note": {
+      "status": "not_safe_pending_clarification",
+      "since": "2026-11-11",
+      "label_en": "Not safe, pending clarification",
+      "text_en": "Why: the tool's code sends your wallet address and signed swap orders over unencrypted HTTP to an undocumented server at a bare IP address, and receives your balances and transaction history the same way. We're checking with the developer (degentic-tools)."
+    }
   },
   {
     "id": "pineify-mcp",

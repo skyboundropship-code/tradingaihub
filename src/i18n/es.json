@@ -638,5 +638,10 @@
   "badgeAria": "Análisis de seguridad: no se han encontrado problemas el {date}. Comprobación estática de código y dependencias. Analizador {commit}, reglas {rules}. Abre la página de metodología.",
   "cardAria": "Análisis de seguridad: no se han encontrado problemas el {date}. Analizador {commit}, reglas {rules}.",
   "vt": "Informe de VirusTotal"
+ },
+ "secnote": {
+  "label": "No seguro, pendiente de aclaración",
+  "short": "No seguro (pendiente)",
+  "text": "Motivo: el código de la herramienta envía la dirección de tu billetera y órdenes de intercambio firmadas por HTTP sin cifrar a un servidor no documentado en una dirección IP directa, y recibe tus saldos e historial de transacciones de la misma forma. Lo estamos consultando con el desarrollador (degentic-tools)."
  }
 }

@@ -639,5 +639,10 @@
   "badgeAria": "Security scan: no issues found on {date}. Static code and dependency check. Scanner {commit}, rules {rules}. Opens the methodology page.",
   "cardAria": "Security scan: no issues found on {date}. Scanner {commit}, rules {rules}.",
   "vt": "VirusTotal report"
+ },
+ "secnote": {
+  "label": "Not safe, pending clarification",
+  "short": "Not safe (pending)",
+  "text": "Why: the tool's code sends your wallet address and signed swap orders over unencrypted HTTP to an undocumented server at a bare IP address, and receives your balances and transaction history the same way. We're checking with the developer (degentic-tools)."
  }
 }

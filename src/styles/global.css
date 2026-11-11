@@ -90,6 +90,17 @@ pre,code{direction:ltr;text-align:left;unicode-bidi:isolate}
 .sec-vt{font-size:12px;font-weight:600}
 .sec-card{display:inline-flex;align-items:center;justify-content:center;color:var(--t-fg);line-height:1;flex:0 0 auto}
 .sec-shield{display:block;flex:0 0 auto}
+/* Security note (data.security_note): solid red pill, white text = 6.5:1 in both themes (WCAG AA). One line, never wraps. */
+.badge.secnote{color:#fff;background:#b91c1c;border-color:#b91c1c;white-space:nowrap;flex:0 0 auto;font:inherit;font-size:12px;font-weight:700;line-height:inherit;cursor:pointer}
+button.badge.secnote{padding:0 10px;line-height:24px;margin:0}
+.badge.secnote:focus-visible{outline:2px solid var(--text);outline-offset:2px}
+.secnote-wrap{margin:0 0 12px}.secnote-row{display:flex;flex-wrap:nowrap;align-items:center;gap:8px;margin:0;overflow-x:auto;min-width:0}
+.secnote-tip{margin:8px 0 0;padding:10px 12px;border:1px solid var(--b-bd);background:var(--b-bg);color:var(--text);border-radius:10px;font-size:13.5px;line-height:1.55;max-width:60ch;overflow-wrap:anywhere}
+.secnote-tip[hidden]{display:none}
+.secnote-wrap:has(.secnote:hover) .secnote-tip,.secnote-wrap:has(.secnote:focus-visible) .secnote-tip,.secnote-tip.open,
+.card:has(.secnote:hover) .secnote-card-tip,.card:focus-visible .secnote-card-tip{display:block}
+.secnote-card-tip{font-size:12.5px;margin:6px 0 0}
+.secnote-line{margin-top:6px}
 
 .date-ltr{white-space:nowrap;unicode-bidi:isolate;direction:ltr}
 .pill{white-space:nowrap;flex:0 0 auto}

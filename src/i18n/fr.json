@@ -638,5 +638,10 @@
   "badgeAria": "Analyse de sécurité : aucun problème trouvé le {date}. Contrôle statique du code et des dépendances. Analyseur {commit}, règles {rules}. Ouvre la page de méthodologie.",
   "cardAria": "Analyse de sécurité : aucun problème trouvé le {date}. Analyseur {commit}, règles {rules}.",
   "vt": "Rapport VirusTotal"
+ },
+ "secnote": {
+  "label": "Non sûr, en attente de clarification",
+  "short": "Non sûr (en attente)",
+  "text": "Pourquoi : le code de l'outil envoie l'adresse de votre portefeuille et des ordres de swap signés en HTTP non chiffré vers un serveur non documenté à une simple adresse IP, et reçoit vos soldes et votre historique de transactions par le même canal. Nous vérifions auprès du développeur (degentic-tools)."
  }
 }

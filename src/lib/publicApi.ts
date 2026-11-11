@@ -71,6 +71,8 @@ export function publicTool(t: any) {
     github: v.github ? { stars: starsOf(t), last_commit: lastCommit(t), archived: !!v.github.archived, collection: isCollection(t) } : null,
     // Public only for clean tools: { status, date }. Other scan outcomes are omitted (null), matching the site.
     security: (() => { const s = securityOf(t); return s ? { status: s.status, date: s.date } : null; })(),
+    // Data-driven security note (data.security_note), null for every other tool. Removable by deleting the field.
+    security_note: t.security_note ? { status: t.security_note.status, label_en: t.security_note.label_en, text_en: t.security_note.text_en, since: t.security_note.since } : null,
   };
 }
 
