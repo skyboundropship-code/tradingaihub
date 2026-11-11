@@ -6,7 +6,8 @@
 // every explained badge on tool pages opens (aria-expanded=true); a tap outside closes; the Partner pill in the
 // TradingView banner opens its explanation, and a tap on the banner body opens the partner link (stretched link).
 // Also asserts that every visible badge's bounding box sits fully inside its row and the viewport, and the page is
-// not horizontally overflowed (scrollWidth <= clientWidth).
+// not horizontally overflowed (scrollWidth <= clientWidth). An open tip must stay inside the viewport vertically
+// too (top >= 0, bottom <= vh), including when its badge is parked near the bottom of the 375x667 viewport.
 // Network: /api/click and tradingview.com are aborted (no beacons, no partner hits). Exit code 1 on any failure.
 const PW = process.env.PW_CORE || "/workspace/qa/visual-2026-11-11/node_modules/playwright-core/index.mjs";
 const { chromium } = await import(PW);
@@ -31,9 +32,29 @@ async function tapEl(page, loc) {
   await page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2); await page.waitForTimeout(350);
 }
 const tipOpen = (loc) => loc.evaluate((t) => t.classList.contains("open") && t.getBoundingClientRect().height > 8 && getComputedStyle(t).clip !== "rect(0px, 0px, 0px, 0px)");
-// An open explanation must sit inside the 375 viewport and must not widen the page (no horizontal scroll / zoom-out).
-const tipInView = async (loc) => { const v = await loc.evaluate((t) => { const r = t.getBoundingClientRect(), vw = document.documentElement.clientWidth; return { l: Math.round(r.left), r: Math.round(r.right), vw, sw: document.documentElement.scrollWidth }; });
-  const good = v.l >= 0 && v.r <= v.vw && v.sw <= v.vw; if (!good) console.log("  tip box", JSON.stringify(v)); return good; };
+// An open explanation must sit inside the 375 viewport (horizontally and vertically) and must not widen the page.
+const tipInView = async (loc) => { const v = await loc.evaluate((t) => { const r = t.getBoundingClientRect(), vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight; return { l: Math.round(r.left), r: Math.round(r.right), t: Math.round(r.top), b: Math.round(r.bottom), vw, vh, sw: document.documentElement.scrollWidth }; });
+  const good = v.l >= 0 && v.r <= v.vw && v.t >= 0 && v.b <= v.vh && v.sw <= v.vw; if (!good) console.log("  tip box", JSON.stringify(v)); return good; };
+
+// Park a badge near the bottom of the viewport, tap it, and assert the open tip stays fully on screen.
+async function assertTipAtBottom(page, badge, tipLoc, label) {
+  await badge.scrollIntoViewIfNeeded();
+  await page.evaluate((el) => {
+    const r = el.getBoundingClientRect(), vh = document.documentElement.clientHeight;
+    window.scrollBy(0, r.bottom - (vh - 8));
+  }, await badge.elementHandle());
+  await page.waitForTimeout(80);
+  const box = await badge.boundingBox();
+  // A badge near the top of the document cannot be scrolled to the bottom of the viewport; skip that case.
+  if (!box || box.y + box.height < 667 - 80) {
+    console.log(`  skip park ${label}: badge bottom ${box ? Math.round(box.y + box.height) : "none"}`);
+    return;
+  }
+  await page.touchscreen.tap(box.x + box.width / 2, box.y + box.height / 2);
+  await page.waitForTimeout(350);
+  ok(await tipOpen(tipLoc), `${label}: explanation not open after bottom tap`);
+  ok(await tipInView(tipLoc), `${label}: explanation not inside the viewport (vertical)`);
+}
 
 // Every visible badge must sit fully inside its row and the viewport; the page must not be horizontally overflowed.
 async function assertBadgesFit(page, label) {
@@ -81,6 +102,14 @@ for (const l of LOCALES) {
   await Promise.all([page.waitForURL((u) => u.pathname === href, { timeout: 8000 }).catch(() => {}), tapEl(page, card.locator("h3, .card-t").first())]);
   ok(new URL(page.url()).pathname === href, `${l} card body tap did not navigate (at ${page.url()}, want ${href})`);
 
+  // Card badge parked near the bottom of the 375x667 viewport: the tip must flip/shift to stay on screen.
+  await page.goto(listUrl, { waitUntil: "domcontentloaded" });
+  {
+    const bottomCard = page.locator(".card:has([data-xp-toggle][data-xp=\"status\"])").nth(20);
+    const bottomBadge = bottomCard.locator("[data-xp-toggle][data-xp=\"status\"]").first();
+    await assertTipAtBottom(page, bottomBadge, bottomCard.locator('.xp-tip[data-xp="status"]'), `${l} card status at bottom`);
+  }
+
   // Tool pages: CCTT (stale, secnote), an official clean API, and an official+verified+scan head (alpaca-skills).
   for (const slug of TOOL_PAGES) {
     const url = `${BASE}${pre(l)}/tools/${slug}/`;
@@ -114,6 +143,9 @@ for (const l of LOCALES) {
       if (p2 && purl === "about:blank") { await p2.waitForURL(/./, { timeout: 2000 }).catch(() => {}); purl = p2.url(); }
       ok(!!p2, `${l} ${slug} partner banner body: tap did not open the partner link`);
       if (p2) { ok(/tradingview\.com/.test(purl) || purl.startsWith("chrome-error") || purl === "about:blank", `${l} ${slug} partner banner opened ${purl}`); await p2.close(); }
+      // Partner pill parked near the bottom of the viewport (the known overflow case on long-locale tool pages).
+      await page.goto(url, { waitUntil: "domcontentloaded" });
+      await assertTipAtBottom(page, aside.locator(".partner-tag"), aside.locator('.xp-tip[data-xp="partner"]'), `${l} ${slug} partner pill at bottom`);
     }
   }
   await c.close();
