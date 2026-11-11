@@ -77,9 +77,9 @@ class SecurityBadgeData(unittest.TestCase):
         self.assertEqual(str(self.public.get("rules_version")), "6")
 
     def test_api_status_values_unchanged(self):
-        # Display copy changed; the API still exposes status=unconfirmed and status_label="Needs review".
+        # Display copy changed; the API still exposes status=unconfirmed; status_label is now "Link check pending".
         src = (ROOT / "src" / "lib" / "data.ts").read_text()
-        self.assertIn('unconfirmed: { label: "Needs review", tone: "warn"', src)
+        self.assertIn('unconfirmed: { label: "Link check pending", tone: "warn"', src)
         api = (ROOT / "src" / "lib" / "publicApi.ts").read_text()
         self.assertIn("status_label: STATUS[v.status]?.label ?? v.status", api)
 
@@ -145,7 +145,7 @@ class SecurityBadgeDist(unittest.TestCase):
         self.assertIn("2026-11-10", page)
 
         # Display-only: unconfirmed chips are muted, have no "!", and do not use the warning tone.
-        # API status_label stays "Needs review" (checked in the public-api dump test).
+        # API status_label is "Link check pending" (checked in the public-api dump test).
         for tid in ("firefly-iii-api", "openbb", "mercury-mcp"):
             html = (self.dist / "tools" / tid / "index.html").read_text()
             self.assertRegex(html, r'class="badge muted"', f"{tid} missing muted chip")

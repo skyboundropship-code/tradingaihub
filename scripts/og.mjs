@@ -12,7 +12,7 @@ const cfg = fs.readFileSync("src/config.ts", "utf8"); const brand = cfg.match(/n
 const lib = fs.readFileSync("src/lib/data.ts", "utf8");
 const cats = [...lib.matchAll(/slug: "([^"]+)", name: "([^"]+)", short: "[^"]+", icon: "([^"]+)"/g)].map((m) => ({ slug: m[1], name: m[2], icon: m[3] }));
 const comps = [...lib.matchAll(/slug: "([^"]+)", title: "([^"]+)"/g)].map((m) => ({ slug: m[1], title: m[2] }));
-// Friendly status names ("Needs review", not "unconfirmed"), taken from the site's STATUS map in src/lib/data.ts.
+// Friendly status names ("Link check pending", not "unconfirmed"), taken from the site's STATUS map in src/lib/data.ts.
 const STATUS_LABEL = Object.fromEntries([...lib.matchAll(/^\s+(\w+): \{ label: "([^"]+)"/gm)].map((m) => [m[1], m[2]]));
 const statusLabel = (s) => (s === "unconfirmed" ? "Link check pending" : STATUS_LABEL[s] || s);
 const verified = tools.filter((t) => t.verification.status === "verified").length;

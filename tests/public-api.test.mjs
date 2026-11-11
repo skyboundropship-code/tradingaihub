@@ -200,7 +200,7 @@ test("built dump: no internals, affiliate contract", { skip: !existsSync(DIST) &
       if (tagged) nAff++;
     }
     for (const l of t.languages) assert.ok(["javascript", "python"].includes(l));
-    if (t.status === "unconfirmed") assert.equal(t.status_label, "Needs review", t.slug);
+    if (t.status === "unconfirmed") assert.equal(t.status_label, "Link check pending", t.slug);
     if (t.security === null) {
       /* not clean / not scanned: no public security object */
     } else {
