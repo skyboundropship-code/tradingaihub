@@ -22,6 +22,6 @@ const ld = [datasetLd({ url: pageUrl, lang }), breadcrumbLd([
   <h1><DateInText text={h1} date={date} /></h1>
   <p class="meta">{Object.entries(r.by_status).map(([k, n]) => <span><Status status={k} lang={lang} /> {n as number}</span>)}</p>
   <div class="tablewrap"><table><thead><tr><th>{t("th.tool")}</th><th>{t("th.status")}</th><th>{t("th.stars")}</th><th>{t("th.lastCommit")}</th><th>{t("th.issues")}</th></tr></thead>
-  <tbody>{tools.map((x) => <tr><td><a href={p(`/tools/${x.id}/`)}>{x.name}</a></td><td><Status status={x.verification.status} lang={lang} /></td><td>{fmtStars(starsOf(x))}</td><td dir="ltr">{lastCommit(x) ?? "—"}</td><td class="note" dir="ltr">{x.verification.issues.join("; ")}</td></tr>)}</tbody></table></div>
+  <tbody>{tools.map((x) => <tr><td><a href={p(`/tools/${x.id}/`)}>{x.name}</a></td><td><Status status={x.verification.status} lang={lang} /></td><td>{fmtStars(starsOf(x))}</td><td class="ltr" dir="ltr">{lastCommit(x) ?? "—"}</td><td class="note ltr" dir="ltr">{x.verification.issues.join("; ")}</td></tr>)}</tbody></table></div>
 </div>
 </Base>

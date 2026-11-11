@@ -45,9 +45,9 @@ const typeLabel: Record<string, string> = { mcp: "MCP", api: "API", skill: "Skil
             <td>{x.official ? "Official" : "Community"}</td>
             <td>{typeLabel[x.type] ?? x.type}</td>
             <td>{STOCK_FETCH[x.id]}</td>
-            <td><bdi>{x.pricing.free_tier}</bdi></td>
-            <td><bdi>{paidFrom(x)}</bdi></td>
-            <td dir="ltr">{x.license}</td>
+            <td class="ltr" dir="ltr"><bdi dir="ltr">{x.pricing.free_tier}</bdi></td>
+            <td class="ltr" dir="ltr"><bdi dir="ltr">{paidFrom(x)}</bdi></td>
+            <td class="ltr" dir="ltr">{x.license}</td>
           </tr>
         ))}
       </tbody>

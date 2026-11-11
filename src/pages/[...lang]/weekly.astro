@@ -37,7 +37,7 @@ const ld = [datasetLd({ url: pageUrl, lang }), breadcrumbLd([
   <ul lang="en" dir="ltr">{week.changes.map((c: any) => <li>{c.id ? <a href={p(`/tools/${c.id}/`)}>{c.text}</a> : c.text}</li>)}</ul>
   <h2 class="sec">{t("weekly.board")}</h2>
   <div class="tablewrap"><table><thead><tr><th>#</th><th>{t("th.tool")}</th><th>{t("th.type")}</th><th>{t("th.category")}</th><th>{t("th.stars")}</th><th>{t("th.lastCommit")}</th></tr></thead>
-  <tbody>{board.map((x, i) => <tr><td>{i + 1}</td><td><a href={p(`/tools/${x.id}/`)}>{x.name}</a></td><td>{t(`type.${x.type}`)}</td><td>{t(`cat.${x.category}`)[1]}</td><td>★ {fmtStars(starsOf(x))}</td><td dir="ltr">{lastCommit(x)}</td></tr>)}</tbody></table></div>
+  <tbody>{board.map((x, i) => <tr><td>{i + 1}</td><td><a href={p(`/tools/${x.id}/`)}>{x.name}</a></td><td>{t(`type.${x.type}`)}</td><td>{t(`cat.${x.category}`)[1]}</td><td>★ {fmtStars(starsOf(x))}</td><td class="ltr" dir="ltr">{lastCommit(x)}</td></tr>)}</tbody></table></div>
   <h2 class="sec">{t("weekly.shipped")}</h2>
   <ul>{fresh.map((x) => <li><a href={p(`/tools/${x.id}/`)}>{x.name}</a> — {t("weekly.lastCommit", { date: lastCommit(x) })}</li>)}</ul>
   <h2 class="sec">{t("weekly.love", { n: needsLove.length })}</h2>
