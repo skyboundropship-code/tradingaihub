@@ -146,12 +146,20 @@ class SecurityBadgeDist(unittest.TestCase):
 
         # Display-only: unconfirmed chips are muted, have no "!", and do not use the warning tone.
         # API status_label is "Link check pending" (checked in the public-api dump test).
-        for tid in ("firefly-iii-api", "openbb", "mercury-mcp"):
+        status_src = (ROOT / "src" / "components" / "Status.astro").read_text()
+        self.assertIn('status === "unconfirmed" ? "muted"', status_src)
+        unconfirmed = [t["id"] for t in _load(TOOLS) if (t.get("verification") or {}).get("status") == "unconfirmed"]
+        for tid in unconfirmed:
             html = (self.dist / "tools" / tid / "index.html").read_text()
             self.assertRegex(html, r'class="badge muted"', f"{tid} missing muted chip")
             self.assertNotRegex(html, r'class="badge warn"[^>]*>!\s', f"{tid} still has a warning bang chip")
             self.assertIn("Link check pending", html)
             self.assertNotRegex(html, r">!\s*Link check pending")
+        # These three were the last unconfirmed listings; they are now verified.
+        for tid in ("firefly-iii-api", "openbb", "mercury-mcp"):
+            html = (self.dist / "tools" / tid / "index.html").read_text()
+            self.assertNotIn("Link check pending", html, tid)
+            self.assertIn("✓ Verified", html, f"{tid} missing Verified chip")
 
         # Directory cards: a concerns tool must not carry a shield on listing pages
         # (home / tools index). Check the English tools index as a representative crawl.

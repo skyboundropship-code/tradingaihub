@@ -281,6 +281,7 @@
   "pricesChange": "Les prix changent : confirmez toujours sur la page de l'éditeur avant d'acheter.",
   "verification": "Vérification",
   "autoCheck": "Vérification automatique du {date}.",
+  "manualCheck": "Vérification manuelle du {date}.",
   "repository": "Dépôt",
   "homepage": "Site",
   "docs": "Documentation",

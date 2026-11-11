@@ -281,6 +281,7 @@
   "pricesChange": "가격은 변경됩니다. 구매 전에 항상 제공사 페이지에서 확인하세요.",
   "verification": "검증",
   "autoCheck": "{date} 자동 검사.",
+  "manualCheck": "{date} 수동 검사.",
   "repository": "저장소",
   "homepage": "웹사이트",
   "docs": "문서",

@@ -281,6 +281,7 @@
   "pricesChange": "价格会变动——购买前请务必在厂商页面确认。",
   "verification": "验证",
   "autoCheck": "{date} 自动检查。",
+  "manualCheck": "{date} 手动检查。",
   "repository": "代码仓库",
   "homepage": "官网",
   "docs": "文档",

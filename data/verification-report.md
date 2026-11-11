@@ -1,12 +1,14 @@
-# Verification report — 2026-11-11 11:25 UTC
+# Verification report — 2026-11-11 12:51 UTC
 
 Total entries: 106
 
-- verified: 84
+- verified: 87
 - stale: 12
 - aging: 4
 - archived: 3
-- unconfirmed: 3
+
+Manual checks:
+- openbb: Manually checked on 2026-11-11
 
 Entries with a published npm/PyPI package: 28
 
@@ -71,7 +73,7 @@ Entries with a published npm/PyPI package: 28
 | actual-budget-mcp | verified | 20 | 2026-11-04 | MIT | actual-budget-mcp@0.12.0 |  |
 | optionsahoy-mcp | verified | 6 | 2026-11-08 | MIT | optionsahoy-mcp@1.11.1 |  |
 | sec-edgar-mcp | verified | 386 | 2026-11-01 | AGPL-3.0 | sec-edgar-mcp@1.1.0 |  |
-| openbb | unconfirmed | 75252 | 2026-11-07 | Apache-2.0 |  | Repository redirects to another owner (https://github.com/openbq-org/OpenBB); stored link not updated |
+| openbb | verified | 75327 | 2026-11-11 | Apache-2.0 |  | Repository redirects to another owner (https://github.com/openbq-org/OpenBB); stored link not updated; Manually checked on 2026-11-11 |
 | equibles | verified | 7 | 2026-10-19 | MIT |  |  |
 | alphasmo | verified | 2 | 2026-08-12 | MIT | alphasmo@0.2.1 |  |
 | edgrapi-skills | verified | 1 | 2026-10-16 | MIT-0 |  |  |
@@ -98,13 +100,13 @@ Entries with a published npm/PyPI package: 28
 | adyen-mcp | verified | 27 | 2026-11-06 | MIT |  |  |
 | razorpay-mcp | verified | 231 | 2026-11-03 | MIT |  |  |
 | paddle-mcp | verified | 50 | 2026-09-27 | Apache-2.0 | @paddle/paddle-mcp@0.1.6 |  |
-| mercury-mcp | unconfirmed |  |  | Proprietary / ToS |  | Could not confirm: MCP endpoint 401: answered but refused our checker (sign-in required, bot block or rate limit) [no resource_metadata in WWW-Authenticate] |
+| mercury-mcp | verified |  |  | Proprietary / ToS |  |  |
 | netsuite-ai-connector | verified |  |  | Proprietary / ToS |  |  |
 | zoho-books-mcp | verified |  |  | Proprietary / ToS |  |  |
 | avalara-avatax-mcp | verified |  |  | Proprietary / ToS |  |  |
 | ynab-api | verified |  |  | Proprietary / ToS |  |  |
 | ynab-mcp | verified | 164 | 2026-11-07 | MIT | ynab-mcp-server@0.8.0 |  |
-| firefly-iii-api | unconfirmed | 25179 | 2026-11-09 | AGPL-3.0 |  | Could not confirm: homepage 403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)]; docs 403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)] |
+| firefly-iii-api | verified | 25208 | 2026-11-11 | AGPL-3.0 |  |  |
 | sure | verified | 12460 | 2026-11-11 | AGPL-3.0 |  | npm name 'sure' exists on the registry but does not link to this repo (not counted) |
 | bls-api | verified |  |  | Proprietary / ToS |  |  |
 | bea-api | verified |  |  | Proprietary / ToS |  |  |

@@ -1,14 +1,20 @@
 {
-  "checked_at": "2026-11-11T11:25:39.197373+00:00",
+  "checked_at": "2026-11-11T12:51:48.507634+00:00",
   "total": 106,
   "by_status": {
-    "verified": 84,
+    "verified": 87,
     "stale": 12,
     "aging": 4,
-    "archived": 3,
-    "unconfirmed": 3
+    "archived": 3
   },
   "with_package": 28,
+  "manual_checks": [
+    {
+      "id": "openbb",
+      "date": "2026-11-11",
+      "label": "Manually checked on 2026-11-11"
+    }
+  ],
   "issues": [
     {
       "id": "finnhub-mcp-community",
@@ -130,10 +136,11 @@
     },
     {
       "id": "openbb",
-      "status": "unconfirmed",
+      "status": "verified",
       "issues": [
         "Repository redirects to another owner (https://github.com/openbq-org/OpenBB); stored link not updated"
-      ]
+      ],
+      "manual": "Manually checked on 2026-11-11"
     },
     {
       "id": "finbrain-mcp",
@@ -168,20 +175,6 @@
       "status": "verified",
       "issues": [
         "npm name 'square-mcp-server' exists on the registry but does not link to this repo (not counted)"
-      ]
-    },
-    {
-      "id": "mercury-mcp",
-      "status": "unconfirmed",
-      "issues": [
-        "Could not confirm: MCP endpoint 401: answered but refused our checker (sign-in required, bot block or rate limit) [no resource_metadata in WWW-Authenticate]"
-      ]
-    },
-    {
-      "id": "firefly-iii-api",
-      "status": "unconfirmed",
-      "issues": [
-        "Could not confirm: homepage 403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)]; docs 403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)]"
       ]
     },
     {

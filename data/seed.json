@@ -1298,7 +1298,12 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "manual_check": {
+      "method": "manual",
+      "date": "2026-11-11",
+      "note": "GitHub 200, a legitimate redirect to openbq-org, same repo id 323048702"
+    }
   },
   {
     "id": "equibles",

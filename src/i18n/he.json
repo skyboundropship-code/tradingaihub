@@ -281,6 +281,7 @@
   "pricesChange": "מחירים משתנים — תמיד ודאו בדף של הספק לפני רכישה.",
   "verification": "אימות",
   "autoCheck": "בדיקה אוטומטית ב-{date}.",
+  "manualCheck": "בדיקה ידנית ב-{date}.",
   "repository": "מאגר",
   "homepage": "דף הבית",
   "docs": "תיעוד",
