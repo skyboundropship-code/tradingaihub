@@ -14,7 +14,7 @@
   "submit": "Enviar uma ferramenta — grátis",
   "language": "Idioma",
   "theme": "Alternar tema claro/escuro",
-    "menu": "Menu"
+  "menu": "Menu"
  },
  "footer": {
   "rechecked": "Verificado novamente toda semana.",
@@ -84,7 +84,10 @@
    "Verificar links",
    "Um link do site, da documentação ou do endpoint falhou na última verificação."
   ],
-  "unconfirmed": ["Verificação de ligação pendente", "Acessível, mas um link do site, da documentação ou do endpoint recusou nosso verificador (login obrigatório, bloqueio de bots ou limite de requisições), então não foi possível confirmá-lo totalmente. Não conta como verificado."],
+  "unconfirmed": [
+   "Verificação de ligação pendente",
+   "Acessível, mas um link do site, da documentação ou do endpoint recusou nosso verificador (login obrigatório, bloqueio de bots ou limite de requisições), então não foi possível confirmá-lo totalmente. Não conta como verificado."
+  ],
   "unreachable": [
    "Inacessível",
    "Não foi possível acessar o repositório ou o site."
@@ -636,7 +639,7 @@
   "reportH": "Comunicar um problema",
   "reportP": "Se achar que um resultado da análise está errado, ou tiver uma preocupação de segurança sobre uma ferramenta listada, envie um e-mail para {email}.",
   "badge": "Análise de segurança: não foram encontrados problemas · verificação estática de código e dependências · {date}",
-    "badgeShort": "Analisado: sem problemas",
+  "badgeShort": "Analisado: sem problemas",
   "badgeAria": "Análise de segurança: não foram encontrados problemas em {date}. Verificação estática de código e dependências. Analisador {commit}, regras {rules}. Abre a página de metodologia.",
   "cardAria": "Análise de segurança: não foram encontrados problemas em {date}. Analisador {commit}, regras {rules}.",
   "vt": "Relatório VirusTotal"
@@ -661,5 +664,26 @@
   "community": "Comunidade",
   "communityP": "Perguntas, pedidos de ferramentas e comentários sobre os artigos ficam na nossa comunidade no GitHub.",
   "communityLink": "Participe da conversa"
+ },
+ "xp": {
+  "type_mcp": "Servidor MCP: conecta clientes de IA como Claude ou Cursor a este serviço pelo Model Context Protocol.",
+  "type_skill": "Skill de agente: instruções e scripts que um agente de IA carrega para fazer uma tarefa específica.",
+  "type_api": "API: uma API web que você chama com a sua própria chave, por código ou por um wrapper MCP.",
+  "official": "Oficial: publicado pelo fornecedor do produto ao qual se conecta, não por terceiros.",
+  "verified": "Verificado: acessível e com links funcionando na verificação de {checked}; último commit {commit}, dentro do limite de 180 dias.",
+  "verifiedNoRepo": "Verificado: acessível e com links funcionando na verificação de {checked}.",
+  "aging": "Envelhecendo: o último commit foi há {days} dias ({commit}). De 181 a 365 dias sem commit conta como envelhecendo. Verificado em {checked}.",
+  "stale": "Sem manutenção: o último commit foi há {days} dias ({commit}). Mais de 365 dias sem commit conta como sem manutenção; teste antes de confiar nele. Verificado em {checked}.",
+  "archived": "Arquivado: o dono arquivou o repositório, então ele não recebe mais atualizações. Verificado em {checked}.",
+  "warning": "Verificar links: um link da página inicial, da documentação ou de um endpoint falhou na verificação de {checked}.",
+  "unconfirmed": "Verificação pendente: acessível, mas um link recusou nosso verificador (login, bloqueio de bots ou limite de requisições) em {checked}, então não conta como verificado.",
+  "unreachable": "Inacessível: não foi possível acessar o repositório ou a página inicial na verificação de {checked}.",
+  "manual": "Verificado manualmente em {date}.",
+  "checked": "Última verificação: data da última verificação automática do repositório e dos links da ferramenta. Todo o diretório é verificado de novo toda semana.",
+  "scan": "Verificação de segurança: nenhum problema em {date} (análise estática de código e dependências, scanner {commit}, regras {rules}). Não é uma garantia.",
+  "pricing": "Preço conforme a página do fornecedor: plano gratuito {free}; pago a partir de {paid}. Verificado em {date}.",
+  "pricingNoDate": "Preço conforme o fornecedor: plano gratuito {free}; pago a partir de {paid}.",
+  "pricingUnknown": "Não conseguimos confirmar o preço desta ferramenta em uma página do fornecedor.",
+  "stars": "Estrelas no GitHub: {stars} em {checked}."
  }
 }

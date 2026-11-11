@@ -14,7 +14,7 @@
   "submit": "Enviar una herramienta — gratis",
   "language": "Idioma",
   "theme": "Cambiar tema claro/oscuro",
-    "menu": "Menú"
+  "menu": "Menú"
  },
  "footer": {
   "rechecked": "Revisado cada semana.",
@@ -84,7 +84,10 @@
    "Revisar enlaces",
    "Un enlace a la web, la documentación o el endpoint falló en la última revisión."
   ],
-  "unconfirmed": ["Comprobación de enlace pendiente", "Accesible, pero un enlace de la web, la documentación o el endpoint rechazó a nuestro verificador (requiere inicio de sesión, bloqueo de bots o límite de solicitudes), así que no se pudo confirmar del todo. No cuenta como verificado."],
+  "unconfirmed": [
+   "Comprobación de enlace pendiente",
+   "Accesible, pero un enlace de la web, la documentación o el endpoint rechazó a nuestro verificador (requiere inicio de sesión, bloqueo de bots o límite de solicitudes), así que no se pudo confirmar del todo. No cuenta como verificado."
+  ],
   "unreachable": [
    "Inaccesible",
    "No se pudo acceder al repositorio ni a la web."
@@ -636,7 +639,7 @@
   "reportH": "Informar de un problema",
   "reportP": "Si cree que un resultado del análisis es incorrecto, o tiene una inquietud de seguridad sobre una herramienta listada, escriba a {email}.",
   "badge": "Análisis de seguridad: no se han encontrado problemas · comprobación estática de código y dependencias · {date}",
-    "badgeShort": "Analizado: sin problemas",
+  "badgeShort": "Analizado: sin problemas",
   "badgeAria": "Análisis de seguridad: no se han encontrado problemas el {date}. Comprobación estática de código y dependencias. Analizador {commit}, reglas {rules}. Abre la página de metodología.",
   "cardAria": "Análisis de seguridad: no se han encontrado problemas el {date}. Analizador {commit}, reglas {rules}.",
   "vt": "Informe de VirusTotal"
@@ -661,5 +664,26 @@
   "community": "Comunidad",
   "communityP": "Las preguntas, las solicitudes de herramientas y los comentarios sobre los artículos están en nuestra comunidad de GitHub.",
   "communityLink": "Únete a la conversación"
+ },
+ "xp": {
+  "type_mcp": "Servidor MCP: conecta clientes de IA como Claude o Cursor con este servicio mediante el Model Context Protocol.",
+  "type_skill": "Skill de agente: instrucciones y scripts que un agente de IA carga para hacer una tarea concreta.",
+  "type_api": "API: una API web que llamas con tu propia clave, desde código o mediante un envoltorio MCP.",
+  "official": "Oficial: publicado por el proveedor del producto al que se conecta, no por un tercero.",
+  "verified": "Verificado: accesible y con enlaces funcionando en la comprobación del {checked}; último commit {commit}, dentro del límite de 180 días.",
+  "verifiedNoRepo": "Verificado: accesible y con enlaces funcionando en la comprobación del {checked}.",
+  "aging": "Envejeciendo: el último commit fue hace {days} días ({commit}). De 181 a 365 días sin commits cuenta como envejeciendo. Comprobado el {checked}.",
+  "stale": "Sin mantenimiento: el último commit fue hace {days} días ({commit}). Más de 365 días sin commits cuenta como sin mantenimiento; pruébalo antes de confiar en él. Comprobado el {checked}.",
+  "archived": "Archivado: el propietario archivó el repositorio, así que ya no recibe actualizaciones. Comprobado el {checked}.",
+  "warning": "Revisar enlaces: un enlace de la página principal, la documentación o un endpoint falló en la comprobación del {checked}.",
+  "unconfirmed": "Comprobación pendiente: accesible, pero un enlace rechazó nuestro verificador (inicio de sesión, bloqueo de bots o límite de peticiones) el {checked}, así que no cuenta como verificado.",
+  "unreachable": "Inaccesible: no se pudo acceder al repositorio o a la página principal en la comprobación del {checked}.",
+  "manual": "Comprobado manualmente el {date}.",
+  "checked": "Última comprobación: fecha de la última comprobación automática del repositorio y los enlaces de la herramienta. Todo el directorio se vuelve a comprobar cada semana.",
+  "scan": "Análisis de seguridad: sin problemas el {date} (revisión estática de código y dependencias, escáner {commit}, reglas {rules}). No es una garantía.",
+  "pricing": "Precio según la página del proveedor: plan gratuito {free}; de pago desde {paid}. Comprobado el {date}.",
+  "pricingNoDate": "Precio según el proveedor: plan gratuito {free}; de pago desde {paid}.",
+  "pricingUnknown": "No pudimos confirmar el precio de esta herramienta en una página del proveedor.",
+  "stars": "Estrellas en GitHub: {stars} el {checked}."
  }
 }

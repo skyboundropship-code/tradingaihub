@@ -14,7 +14,7 @@
   "submit": "Tool einreichen – kostenlos",
   "language": "Sprache",
   "theme": "Hell/Dunkel umschalten",
-    "menu": "Menü"
+  "menu": "Menü"
  },
  "footer": {
   "rechecked": "Jede Woche neu geprüft.",
@@ -84,7 +84,10 @@
    "Links prüfen",
    "Ein Website-, Doku- oder Endpoint-Link ist bei der letzten Prüfung fehlgeschlagen."
   ],
-  "unconfirmed": ["Linkprüfung ausstehend", "Erreichbar, aber ein Link zu Website, Doku oder Endpunkt hat unseren Prüfer abgewiesen (Anmeldung nötig, Bot-Sperre oder Ratenlimit), daher nicht vollständig bestätigt. Zählt nicht als verifiziert."],
+  "unconfirmed": [
+   "Linkprüfung ausstehend",
+   "Erreichbar, aber ein Link zu Website, Doku oder Endpunkt hat unseren Prüfer abgewiesen (Anmeldung nötig, Bot-Sperre oder Ratenlimit), daher nicht vollständig bestätigt. Zählt nicht als verifiziert."
+  ],
   "unreachable": [
    "Nicht erreichbar",
    "Repository oder Website konnten nicht erreicht werden."
@@ -636,7 +639,7 @@
   "reportH": "Ein Problem melden",
   "reportP": "Wenn Sie denken, dass ein Prüfergebnis falsch ist, oder ein Sicherheitsbedenken zu einem gelisteten Tool haben, schreiben Sie an {email}.",
   "badge": "Sicherheitsprüfung: keine Auffälligkeiten gefunden · statische Code- und Abhängigkeitsprüfung · {date}",
-    "badgeShort": "Gescannt: keine Auffälligkeiten",
+  "badgeShort": "Gescannt: keine Auffälligkeiten",
   "badgeAria": "Sicherheitsprüfung: keine Auffälligkeiten gefunden am {date}. Statische Code- und Abhängigkeitsprüfung. Scanner {commit}, Regeln {rules}. Öffnet die Methodik-Seite.",
   "cardAria": "Sicherheitsprüfung: keine Auffälligkeiten gefunden am {date}. Scanner {commit}, Regeln {rules}.",
   "vt": "VirusTotal-Bericht"
@@ -661,5 +664,26 @@
   "community": "Community",
   "communityP": "Fragen, Tool-Wünsche und Kommentare zu Artikeln findest du in unserer GitHub-Community.",
   "communityLink": "Mitdiskutieren"
+ },
+ "xp": {
+  "type_mcp": "MCP-Server: verbindet KI-Clients wie Claude oder Cursor über das Model Context Protocol mit diesem Dienst.",
+  "type_skill": "Agent-Skill: Anweisungen und Skripte, die ein KI-Agent lädt, um eine bestimmte Aufgabe zu erledigen.",
+  "type_api": "API: eine Web-API, die Sie mit Ihrem eigenen Schlüssel aufrufen, per Code oder über einen MCP-Wrapper.",
+  "official": "Offiziell: vom Anbieter des angebundenen Produkts veröffentlicht, nicht von Dritten.",
+  "verified": "Verifiziert: erreichbar und Links funktionieren in der Prüfung vom {checked}; letzter Commit {commit}, innerhalb der 180-Tage-Grenze.",
+  "verifiedNoRepo": "Verifiziert: erreichbar und Links funktionieren in der Prüfung vom {checked}.",
+  "aging": "Alternd: Der letzte Commit war vor {days} Tagen ({commit}). 181 bis 365 Tage ohne Commit gelten als alternd. Geprüft am {checked}.",
+  "stale": "Veraltet: Der letzte Commit war vor {days} Tagen ({commit}). Mehr als 365 Tage ohne Commit gelten als veraltet, also vor dem Einsatz testen. Geprüft am {checked}.",
+  "archived": "Archiviert: Der Inhaber hat das Repository archiviert, es erhält keine Updates mehr. Geprüft am {checked}.",
+  "warning": "Links prüfen: Ein Homepage-, Doku- oder Endpoint-Link ist in der Prüfung vom {checked} fehlgeschlagen.",
+  "unconfirmed": "Linkprüfung ausstehend: erreichbar, aber ein Link hat unseren Checker am {checked} abgewiesen (Anmeldung, Bot-Sperre oder Rate-Limit), daher nicht als verifiziert gezählt.",
+  "unreachable": "Nicht erreichbar: Repository oder Homepage waren in der Prüfung vom {checked} nicht erreichbar.",
+  "manual": "Manuell geprüft am {date}.",
+  "checked": "Zuletzt geprüft: Datum der letzten automatischen Prüfung von Repository und Links dieses Tools. Jeder Eintrag wird wöchentlich neu geprüft.",
+  "scan": "Sicherheitsscan: keine Probleme am {date} (statische Code- und Abhängigkeitsprüfung, Scanner {commit}, Regeln {rules}). Keine Garantie.",
+  "pricing": "Preise laut Anbieterseite: kostenlose Stufe {free}; kostenpflichtig ab {paid}. Geprüft am {date}.",
+  "pricingNoDate": "Preise laut Anbieter: kostenlose Stufe {free}; kostenpflichtig ab {paid}.",
+  "pricingUnknown": "Wir konnten die Preise dieses Tools auf keiner Anbieterseite bestätigen.",
+  "stars": "GitHub-Sterne: {stars} am {checked}."
  }
 }

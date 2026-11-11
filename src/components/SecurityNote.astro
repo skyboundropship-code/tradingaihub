@@ -1,23 +1,23 @@
 ---
-// Red "not safe, pending clarification" note for a tool with data.security_note (data/seed.json -> data/tools.json).
+// Red "not safe, pending clarification" note for a tool with data.security_note (data/tools.json).
 // Data-driven and removable: delete the tool's security_note field and the badge disappears everywhere (site + API).
-// Card variant: the whole card is a link, so the badge is not a separate control. The explanation is a sibling note
-// that the card link references via aria-describedby (screen readers), shown on hover/keyboard focus via CSS and on tap
-// via the small script in Base.astro ([data-secnote-toggle]). Page variant: a real <button> toggles the note.
+// Uses the generic badge explanation pattern (XpTip.astro + src/lib/explain.ts + the [data-xp-toggle] script in Base.astro).
 import { useT } from "../i18n";
+import XpTip from "./XpTip.astro";
+import { explain } from "../lib/explain";
 const { tool, lang = "en", variant = "page", id } = Astro.props;
 const note = tool && tool.security_note;
 const { t } = useT(lang);
-const tipId = id || `secnote-${tool?.id}`;
+const tipId = id || "xp-secnote";
 ---
 {note && variant === "page" && (
-  <div class="secnote-wrap">
+  <div class="xp-scope secnote-wrap">
     <p class="secnote-row">
-      <button type="button" class="badge secnote" data-secnote-toggle aria-expanded="false" aria-controls={tipId} aria-describedby={tipId}><span aria-hidden="true">⚠</span> {t("secnote.label")}</button>
+      <button type="button" class="badge secnote" data-xp-toggle data-xp="secnote" aria-expanded="false" aria-controls={tipId} aria-describedby={tipId}><span aria-hidden="true">⚠</span> {t("secnote.label")}</button>
     </p>
-    <p class="secnote-tip" id={tipId} role="note" hidden set:html={t("secnote.text")} />
+    <XpTip k="secnote" id={tipId} html={explain(tool, "secnote", lang)} />
   </div>
 )}
 {note && variant === "card" && (
-  <span class="badge secnote" data-secnote-toggle aria-hidden="true"><span>⚠</span> {t("secnote.short")}</span>
+  <button type="button" class="badge secnote" data-xp-toggle data-xp="secnote" aria-expanded="false" aria-controls={tipId} aria-describedby={tipId}><span aria-hidden="true">⚠</span> {t("secnote.short")}</button>
 )}
