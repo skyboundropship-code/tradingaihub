@@ -118,7 +118,14 @@ document.addEventListener("click",function(e){document.querySelectorAll("details
     document.querySelectorAll('[data-xp-toggle][aria-expanded="true"]').forEach(function(x){if(!except||x.getAttribute("aria-controls")!==except.id)x.setAttribute("aria-expanded","false")})}
   function toggle(b){var sc=scopeOf(b),k=b.getAttribute("data-xp"),tip=sc?sc.querySelector('.xp-tip[data-xp="'+k+'"]'):null;if(!tip)return;
     sc.classList.remove("xp-x");var open=!tip.classList.contains("open");closeAll();
-    if(open){tip.classList.add("open");if(b.hasAttribute("aria-expanded"))b.setAttribute("aria-expanded","true")}}
+    if(open){tip.classList.add("open");fit(tip);if(b.hasAttribute("aria-expanded"))b.setAttribute("aria-expanded","true")}}
+  // Keep an open explanation inside the viewport (its static position can start near an edge, e.g. RTL or a right-hand badge).
+  function fit(tip){if(!tip)return;tip.style.transform="";var r=tip.getBoundingClientRect();if(r.width<4)return;var vw=document.documentElement.clientWidth,dx=0;
+    if(r.right>vw-12)dx=vw-12-r.right;if(r.left+dx<12)dx=12-r.left;if(dx)tip.style.transform="translateX("+Math.round(dx)+"px)"}
+  function tipFor(b){var sc=scopeOf(b);return sc?sc.querySelector('.xp-tip[data-xp="'+b.getAttribute("data-xp")+'"]'):null}
+  function fitSoon(b){requestAnimationFrame(function(){fit(tipFor(b))})}
+  document.addEventListener("mouseover",function(e){var b=trig(e);if(b)fitSoon(b)});
+  document.addEventListener("focusin",function(e){var b=trig(e);if(b)fitSoon(b);else if(e.target&&e.target.matches&&e.target.matches(".card"))e.target.querySelectorAll(".xp-tip").forEach(function(t){requestAnimationFrame(function(){fit(t)})})});
   function trig(e){return e.target&&e.target.closest?e.target.closest("[data-xp-toggle]"):null}
   document.addEventListener("pointerup",function(e){if(e.pointerType==="mouse"||e.button>0)return;var b=trig(e);
     if(!b){last={el:null,t:0};var ot=e.target.closest&&e.target.closest(".xp-tip.open");if(ot){ot.classList.remove("open");last={el:ot,t:Date.now()}}else closeAll();return}

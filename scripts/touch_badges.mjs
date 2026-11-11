@@ -28,6 +28,8 @@ async function tapEl(page, loc) {
   await page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2); await page.waitForTimeout(350);
 }
 const tipOpen = (loc) => loc.evaluate((t) => t.classList.contains("open") && t.getBoundingClientRect().height > 8 && getComputedStyle(t).clip !== "rect(0px, 0px, 0px, 0px)");
+// An open explanation must sit inside the 375 viewport and must not widen the page (no horizontal scroll / zoom-out).
+const tipInView = (loc) => loc.evaluate((t) => { const r = t.getBoundingClientRect(), vw = document.documentElement.clientWidth; return r.left >= 0 && r.right <= vw && document.documentElement.scrollWidth <= vw; });
 
 for (const l of LOCALES) {
   const c = await ctx(); const page = await c.newPage();
@@ -41,6 +43,7 @@ for (const l of LOCALES) {
     await tapEl(page, badge);
     ok(page.url() === listUrl, `${l} card ${k}: tap navigated to ${page.url()}`);
     ok(await tipOpen(card.locator(`.xp-tip[data-xp="${k}"]`)), `${l} card ${k}: explanation not open after tap`);
+    ok(await tipInView(card.locator(`.xp-tip[data-xp="${k}"]`)), `${l} card ${k}: explanation outside the viewport`);
     await tapEl(page, page.locator("h1").first());
     ok(!(await card.locator(`.xp-tip[data-xp="${k}"]`).evaluate((t) => t.classList.contains("open"))), `${l} card ${k}: tap outside did not close`);
   }
@@ -63,6 +66,7 @@ for (const l of LOCALES) {
       ok(page.url() === url, `${l} ${slug} ${k}: navigated`);
       ok((await b.getAttribute("aria-expanded")) === "true", `${l} ${slug} ${k}: aria-expanded not true`);
       ok(await tipOpen(page.locator(`#${await b.getAttribute("aria-controls")}`)), `${l} ${slug} ${k}: explanation not open`);
+      ok(await tipInView(page.locator(`#${await b.getAttribute("aria-controls")}`)), `${l} ${slug} ${k}: explanation outside the viewport`);
     }
     await tapEl(page, page.locator("h1").first());
     ok((await page.locator(".xp-tip.open").count()) === 0, `${l} ${slug}: tap outside did not close`);
@@ -73,6 +77,7 @@ for (const l of LOCALES) {
       await tapEl(page, pill);
       ok(page.url() === url, `${l} ${slug} partner pill: navigated`);
       ok(await tipOpen(aside.locator('.xp-tip[data-xp="partner"]')), `${l} ${slug} partner pill: explanation not open`);
+      ok(await tipInView(aside.locator('.xp-tip[data-xp="partner"]')), `${l} ${slug} partner pill: explanation outside the viewport`);
       await tapEl(page, page.locator("h1").first());
       const pop = c.waitForEvent("page", { timeout: 5000 }).catch(() => null);
       await tapEl(page, aside.locator(".partner-body b, .partner-body h2").first());
