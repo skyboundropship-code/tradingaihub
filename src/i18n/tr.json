@@ -643,5 +643,26 @@
   "label": "Güvenli değil, açıklama bekleniyor",
   "short": "Güvenli değil (beklemede)",
   "text": "Neden: Aracın kodu, cüzdan adresinizi ve imzalı swap emirlerini şifrelenmemiş HTTP üzerinden, yalnızca IP adresiyle belirtilen ve belgelenmemiş bir sunucuya gönderiyor; bakiyelerinizi ve işlem geçmişinizi de aynı yolla alıyor. Konuyu geliştiriciyle (degentic-tools) netleştiriyoruz."
+ },
+ "xp": {
+  "type_mcp": "MCP sunucusu: Claude veya Cursor gibi yapay zekâ istemcilerini Model Context Protocol ile bu hizmete bağlar.",
+  "type_skill": "Ajan becerisi: bir yapay zekâ ajanının belirli bir görevi yapmak için yüklediği talimatlar ve betikler.",
+  "type_api": "API: kendi anahtarınızla çağırdığınız bir web API'si; koddan veya bir MCP sarmalayıcısıyla kullanılır.",
+  "official": "Resmî: üçüncü bir taraf değil, bağlandığı ürünün sağlayıcısı tarafından yayımlandı.",
+  "verified": "Doğrulandı: {checked} kontrolünde erişilebilir ve bağlantılar çalışıyordu; son commit {commit}, 180 günlük sınırın içinde.",
+  "verifiedNoRepo": "Doğrulandı: {checked} kontrolünde erişilebilir ve bağlantılar çalışıyordu.",
+  "aging": "Eskiyor: son commit {days} gün önceydi ({commit}). 181 ile 365 gün arası commit olmaması eskiyor sayılır. Kontrol {checked}.",
+  "stale": "Bakımsız: son commit {days} gün önceydi ({commit}). 365 günden uzun süre commit olmaması bakımsız sayılır; güvenmeden önce test edin. Kontrol {checked}.",
+  "archived": "Arşivlendi: sahibi depoyu arşivledi, artık güncelleme almıyor. Kontrol {checked}.",
+  "warning": "Bağlantıları kontrol edin: {checked} kontrolünde ana sayfa, doküman veya uç nokta bağlantısı başarısız oldu.",
+  "unconfirmed": "Bağlantı kontrolü bekliyor: erişilebilir, ancak {checked} tarihinde bir bağlantı denetleyicimizi reddetti (oturum açma, bot engeli veya hız sınırı), bu yüzden doğrulanmış sayılmıyor.",
+  "unreachable": "Erişilemiyor: {checked} kontrolünde depoya veya ana sayfaya ulaşılamadı.",
+  "manual": "{date} tarihinde elle kontrol edildi.",
+  "checked": "Son kontrol: aracın deposunun ve bağlantılarının en son otomatik kontrol tarihi. Tüm kayıtlar her hafta yeniden kontrol edilir.",
+  "scan": "Güvenlik taraması: {date} tarihinde sorun bulunmadı (kod ve bağımlılıkların statik kontrolü, tarayıcı {commit}, kurallar {rules}). Bu bir garanti değildir.",
+  "pricing": "Sağlayıcı sayfasındaki fiyat: ücretsiz katman {free}; ücretli {paid} başlangıçlı. Kontrol {date}.",
+  "pricingNoDate": "Sağlayıcının belirttiği fiyat: ücretsiz katman {free}; ücretli {paid} başlangıçlı.",
+  "pricingUnknown": "Bu aracın fiyatını bir sağlayıcı sayfasında doğrulayamadık.",
+  "stars": "GitHub yıldızları: {checked} tarihinde {stars}."
  }
 }

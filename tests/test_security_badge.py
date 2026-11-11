@@ -166,12 +166,17 @@ class SecurityBadgeDist(unittest.TestCase):
         index = (self.dist / "tools" / "index.html")
         if index.is_file():
             html = index.read_text()
-            # Each card is an <a class="card" href="/tools/{id}/"> ... </a>
+            # Each listing is a div.card whose title link points at /tools/{id}/.
+            cards = {}
+            for part in re.split(r'<div class="card\b', html)[1:]:
+                hm = re.search(r'href="(?:/[a-z]{2})?/tools/([a-z0-9-]+)/"', part)
+                if hm:
+                    cards[hm.group(1)] = part
             for tid in self.tools:
-                m = re.search(rf'<a class="card" href="/tools/{re.escape(tid)}/"[^>]*>(.*?)</a>', html, re.S)
-                if not m:
+                chunk = cards.get(tid)
+                if not chunk:
                     continue
-                has = CARD_MARK in m.group(1)
+                has = CARD_MARK in chunk
                 if tid in self.badged:
                     self.assertTrue(has, f"tools index card for clean {tid} has no shield")
                 else:

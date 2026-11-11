@@ -62,7 +62,7 @@ const at = useA11yT(lang);
   for(var i=0;i<ls.length;i++){var c=String(ls[i]).toLowerCase().split("-")[0];if(c==="iw")c="he";if(codes.indexOf(c)>=0){if(c!=="en")location.replace("/"+c+"/"+location.search+location.hash);return}}
 }catch(e){}})();
 </script>}
-</head><body>
+</head><body data-xp-partner={t("partner.disclosure")}>
 <a class="skip-link" href="#content">{at("w.skip")}</a>
 <header class="site"><div class="wrap">
   <a class="logo" href={p("/")} dir="ltr" aria-label={SITE.name}><BrandLogo decorative height={36} /></a>
@@ -107,11 +107,62 @@ document.querySelectorAll(".themetoggle").forEach(function(b){var d=document.doc
 document.addEventListener("click",function(e){document.querySelectorAll("details.langs[open],details.nav-mobile[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});
 </script>
 <script is:inline>
-// Security note toggle (src/components/SecurityNote.astro): tap/click shows or hides the explanation.
-// On a card the badge sits inside the card link, so the tap toggles the note instead of navigating.
-document.addEventListener("click",function(e){var b=e.target&&e.target.closest?e.target.closest("[data-secnote-toggle]"):null;if(!b)return;
-  var card=b.closest(".card"),tip=card?card.querySelector(".secnote-card-tip"):document.getElementById(b.getAttribute("aria-controls"));if(!tip)return;
-  e.preventDefault();e.stopPropagation();var open=!tip.classList.contains("open");tip.classList.toggle("open",open);tip.hidden=!open;if(b.hasAttribute("aria-expanded"))b.setAttribute("aria-expanded",open?"true":"false");},true);
+// Badge explanations (src/components/XpTip.astro). A tap (pointerup, touch/pen) or a click on a [data-xp-toggle] badge
+// toggles its explanation (class .open, never the hidden attribute); one tap is deduped so pointerup + click don't toggle twice.
+// Badges inside a card never navigate (preventDefault + stopPropagation); the card title's stretched link still does.
+// Tap/click outside, a tap on the open explanation, or Esc closes. Partner pills (.partner-tag) get the same treatment at runtime, text from body[data-xp-partner].
+(function(){
+  var last={el:null,t:0};
+  function scopeOf(b){return b.closest(".card,.xp-scope")}
+  function unfit(t){t.style.left=t.style.right=t.style.width=""}
+  function closeAll(except){document.querySelectorAll(".xp-tip.open,.xp-tip[style]").forEach(function(x){if(x!==except){x.classList.remove("open");unfit(x)}});
+    document.querySelectorAll('[data-xp-toggle][aria-expanded="true"]').forEach(function(x){if(!except||x.getAttribute("aria-controls")!==except.id)x.setAttribute("aria-expanded","false")})}
+  function toggle(b){var sc=scopeOf(b),k=b.getAttribute("data-xp"),tip=sc?sc.querySelector('.xp-tip[data-xp="'+k+'"]'):null;if(!tip)return;
+    sc.classList.remove("xp-x");var open=!tip.classList.contains("open");closeAll();
+    if(open){tip.classList.add("open");fit(tip);if(b.hasAttribute("aria-expanded"))b.setAttribute("aria-expanded","true")}}
+  // Keep an open explanation inside the viewport (its static position can start near an edge, e.g. RTL or a right-hand badge).
+  // Placed with an explicit left/width (a layout position, so the page never gets wider; works the same in RTL).
+  function fit(tip){if(!tip)return;var st=tip.style;st.left=st.right=st.width="";var r=tip.getBoundingClientRect();if(r.width<4)return;
+    var vw=document.documentElement.clientWidth,w=Math.min(Math.ceil(r.width),vw-24),i;st.width=w+"px";st.right="auto";st.left=tip.offsetLeft+"px";
+    for(i=0;i<2;i++){r=tip.getBoundingClientRect();var x=Math.max(12,Math.min(r.left,vw-12-w));if(Math.abs(x-r.left)<0.5)break;st.left=(parseFloat(st.left)+x-r.left)+"px"}}
+  function tipFor(b){var sc=scopeOf(b);return sc?sc.querySelector('.xp-tip[data-xp="'+b.getAttribute("data-xp")+'"]'):null}
+  function fitSoon(b){requestAnimationFrame(function(){fit(tipFor(b))})}
+  document.addEventListener("mouseover",function(e){var b=trig(e);if(b)fitSoon(b)});
+  document.addEventListener("mouseout",function(e){var b=trig(e),t=b&&tipFor(b);if(t&&!t.classList.contains("open"))unfit(t)});
+  document.addEventListener("focusin",function(e){var b=trig(e);if(b)fitSoon(b)});
+  document.addEventListener("focusout",function(e){var b=trig(e),x=b&&tipFor(b);if(x&&!x.classList.contains("open"))unfit(x)});
+  function trig(e){return e.target&&e.target.closest?e.target.closest("[data-xp-toggle]"):null}
+  document.addEventListener("pointerup",function(e){if(e.pointerType==="mouse"||e.button>0)return;var b=trig(e);
+    if(!b){last={el:null,t:0};var ot=e.target.closest&&e.target.closest(".xp-tip.open");if(ot){ot.classList.remove("open");unfit(ot);last={el:ot,t:Date.now()}}else closeAll();return}
+    last={el:b,t:Date.now()};toggle(b)},true);
+  document.addEventListener("click",function(e){var b=trig(e);
+    // The click that follows a handled tap can land on the just-opened tip (layout moved): swallow it, never navigate.
+    if(last.el&&Date.now()-last.t<800){e.preventDefault();e.stopPropagation();last={el:null,t:0};return}
+    if(!b){var tip=e.target.closest&&e.target.closest(".xp-tip.open");if(tip&&tip.closest("a")){e.preventDefault();e.stopPropagation();tip.classList.remove("open");unfit(tip);return}
+      if(!tip)closeAll();return}
+    e.preventDefault();e.stopPropagation();toggle(b)},true);
+  document.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){var b=trig(e);if(b&&b.tagName!=="BUTTON"&&b.tagName!=="A"){e.preventDefault();toggle(b)}return}
+    if(e.key!=="Escape")return;closeAll();
+    document.querySelectorAll(".card,.xp-scope").forEach(function(sc){if(sc.matches(":hover")||sc.contains(document.activeElement))sc.classList.add("xp-x")})});
+  document.addEventListener("mouseleave",function(e){var t=e.target;if(t&&t.classList&&t.classList.contains("xp-x"))t.classList.remove("xp-x")},true);
+  document.addEventListener("focusout",function(e){var sc=e.target&&e.target.closest?e.target.closest(".xp-x"):null;if(sc&&!sc.contains(e.relatedTarget))sc.classList.remove("xp-x")},true);
+  // Partner pills: explained like the other badges (no markup change in PartnerCTA/AffTag, no new links).
+  var ptxt=document.body.getAttribute("data-xp-partner")||"",n=0;
+  if(ptxt)document.querySelectorAll(".partner-tag").forEach(function(tag){var sc=tag.closest("aside.partner")||tag.parentElement;if(!sc)return;
+    var id="xp-partner-"+(++n),tip=document.createElement("span");tip.className="xp-tip sr-only";tip.setAttribute("data-xp","partner");tip.setAttribute("role","note");tip.id=id;tip.textContent=ptxt;
+    sc.classList.add("xp-scope");tag.setAttribute("data-xp-toggle","");tag.setAttribute("data-xp","partner");tag.setAttribute("role","button");tag.setAttribute("tabindex","0");
+    tag.setAttribute("aria-expanded","false");tag.setAttribute("aria-controls",id);tag.setAttribute("aria-describedby",id);
+    (tag.closest(".partner-body")||tag.parentNode).appendChild(tip)});
+  // Partner banner body: a tap/click anywhere outside its links, pill and explanation activates the banner's own
+  // a.partner-btn (same href, rel and target; no new link). The CSS ::after stretched link covers mouse use too.
+  document.addEventListener("click",function(e){var as=e.target&&e.target.closest?e.target.closest("aside.partner"):null;if(!as||e.defaultPrevented)return;
+    if(e.target.closest("a,button,[data-xp-toggle],.xp-tip"))return;var btn=as.querySelector("a.partner-btn");if(btn){e.preventDefault();btn.click()}});
+  // a11y button: when it would cover a partner button (375), lift it just above that button.
+  var fab=null,raf=0;function lift(){raf=0;fab=fab||document.querySelector(".a11y-fab");if(!fab)return;fab.style.transform="";var f=fab.getBoundingClientRect(),up=0;
+    document.querySelectorAll(".partner-btn").forEach(function(b){var r=b.getBoundingClientRect();if(r.bottom>f.top&&r.top<f.bottom&&r.right>f.left&&r.left<f.right)up=Math.max(up,f.bottom-r.top+8)});
+    if(up)fab.style.transform="translateY(-"+Math.round(up)+"px)"}
+  addEventListener("scroll",function(){if(!raf)raf=requestAnimationFrame(lift)},{passive:true});addEventListener("resize",function(){if(!raf)raf=requestAnimationFrame(lift)});addEventListener("load",lift);
+})();
 </script>
 <script is:inline>
 // Anonymous outbound-click counts (functions/api/click.js). Links are never rewritten; nothing is stored in the browser,

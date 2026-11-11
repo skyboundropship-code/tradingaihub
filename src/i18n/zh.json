@@ -643,5 +643,26 @@
   "label": "不安全，待澄清",
   "short": "不安全，待澄清",
   "text": "原因：该工具的代码通过未加密的 HTTP，将您的钱包地址和已签名的兑换（swap）订单发送到一个仅以 IP 地址标识、未公开说明的服务器，并以同样方式接收您的余额和交易记录。我们正在向开发者（degentic-tools）核实。"
+ },
+ "xp": {
+  "type_mcp": "MCP 服务器：通过 Model Context Protocol 将 Claude、Cursor 等 AI 客户端连接到此服务。",
+  "type_skill": "智能体技能：AI 智能体为完成特定任务而加载的指令和脚本。",
+  "type_api": "API：使用您自己的密钥调用的 Web API，可在代码中调用，或通过 MCP 封装使用。",
+  "official": "官方：由其所连接产品的供应商发布，而非第三方。",
+  "verified": "已验证：在 {checked} 的检查中可访问且链接正常；最后一次提交于 {commit}，在 180 天限制以内。",
+  "verifiedNoRepo": "已验证：在 {checked} 的检查中可访问且链接正常。",
+  "aging": "趋于陈旧：最后一次提交在 {days} 天前（{commit}）。181 至 365 天无提交即视为趋于陈旧。检查日期 {checked}。",
+  "stale": "已停止维护：最后一次提交在 {days} 天前（{commit}）。超过 365 天无提交即视为已停止维护，使用前请先测试。检查日期 {checked}。",
+  "archived": "已归档：所有者已将仓库归档，不会再有更新。检查日期 {checked}。",
+  "warning": "请检查链接：在 {checked} 的检查中，主页、文档或端点链接失败。",
+  "unconfirmed": "链接检查待定：可访问，但在 {checked} 有链接拒绝了我们的检查程序（需登录、拦截机器人或限流），因此不计为已验证。",
+  "unreachable": "无法访问：在 {checked} 的检查中无法访问仓库或主页。",
+  "manual": "已于 {date} 人工核查。",
+  "checked": "最近检查：对该工具的仓库和链接进行最近一次自动检查的日期。所有条目每周重新检查。",
+  "scan": "安全扫描：{date} 未发现问题（代码与依赖的静态检查，扫描器 {commit}，规则 {rules}）。这不是保证。",
+  "pricing": "按供应商页面所列价格：免费档 {free}；付费起价 {paid}。检查日期 {date}。",
+  "pricingNoDate": "按供应商所列价格：免费档 {free}；付费起价 {paid}。",
+  "pricingUnknown": "我们无法在供应商页面上确认该工具的价格。",
+  "stars": "GitHub 星标：截至 {checked} 为 {stars}。"
  }
 }

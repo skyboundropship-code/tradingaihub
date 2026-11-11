@@ -19,8 +19,12 @@ h1{overflow-wrap:normal}
 .search{max-width:640px;margin:0 auto 22px;display:flex}.search input{flex:1;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:16px}
 h2.sec{font-size:24px;margin:44px 0 16px;letter-spacing:-.01em}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
-.card{box-shadow:var(--shadow);background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:8px;color:var(--text)}
-a.card:hover{border-color:var(--brand2);text-decoration:none;transform:translateY(-1px)}
+.card{position:relative;box-shadow:var(--shadow);background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:8px;color:var(--text)}
+a.card:hover,.card:hover{border-color:var(--brand2);text-decoration:none;transform:translateY(-1px)}
+.card .card-link{color:inherit;text-decoration:none}.card .card-link:hover{color:inherit;text-decoration:none}
+.card .card-link::after{content:"";position:absolute;inset:0;z-index:1}
+.card [data-xp-toggle]{position:relative;z-index:2}
+.meta>button:not(.badge){font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer}
 .card h3,.card .card-t{margin:0;font-size:16px}.nl-h{font-size:1.17em;margin-bottom:1em}.card p{margin:0;color:var(--muted);font-size:14px}
 .meta{display:flex;gap:8px;flex-wrap:nowrap;align-items:stretch;font-size:12px;color:var(--muted);overflow-x:auto;min-width:0}
 .badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:600;border:1px solid var(--line);white-space:nowrap}
@@ -88,19 +92,34 @@ pre,code{direction:ltr;text-align:left;unicode-bidi:isolate}
 .sec-badge{display:inline-flex;align-items:center;gap:6px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:600;line-height:24px;color:var(--t-fg);border:1px solid var(--t-bd);background:var(--t-bg);text-decoration:none;white-space:nowrap;flex:0 0 auto}
 .sec-badge:hover{text-decoration:underline;text-underline-offset:2px}
 .sec-vt{font-size:12px;font-weight:600}
-.sec-card{display:inline-flex;align-items:center;justify-content:center;color:var(--t-fg);line-height:1;flex:0 0 auto}
+.sec-card{display:inline-flex;align-items:center;justify-content:center;color:var(--t-fg);line-height:1;flex:0 0 auto}button.sec-card{border:0;background:transparent;padding:0;margin:0;font:inherit;cursor:pointer}
 .sec-shield{display:block;flex:0 0 auto}
 /* Security note (data.security_note): solid red pill, white text = 6.5:1 in both themes (WCAG AA). One line, never wraps. */
 .badge.secnote{color:#fff;background:#b91c1c;border-color:#b91c1c;white-space:nowrap;flex:0 0 auto;font:inherit;font-size:12px;font-weight:700;line-height:inherit;cursor:pointer}
 button.badge.secnote{padding:0 10px;line-height:24px;margin:0}
 .badge.secnote:focus-visible{outline:2px solid var(--text);outline-offset:2px}
 .secnote-wrap{margin:0 0 12px}.secnote-row{display:flex;flex-wrap:nowrap;align-items:center;gap:8px;margin:0;overflow-x:auto;min-width:0}
-.secnote-tip{margin:8px 0 0;padding:10px 12px;border:1px solid var(--b-bd);background:var(--b-bg);color:var(--text);border-radius:10px;font-size:13.5px;line-height:1.55;max-width:60ch;overflow-wrap:anywhere}
-.secnote-tip[hidden]{display:none}
-.secnote-wrap:has(.secnote:hover) .secnote-tip,.secnote-wrap:has(.secnote:focus-visible) .secnote-tip,.secnote-tip.open,
-.card:has(.secnote:hover) .secnote-card-tip,.card:focus-visible .secnote-card-tip{display:block}
-.secnote-card-tip{font-size:12.5px;margin:6px 0 0}
 .secnote-line{margin-top:6px}
+/* Badge explanations (XpTip.astro + the [data-xp-toggle] script in Base.astro). Closed = .sr-only pattern (never display:none);
+   open = an absolutely positioned overlay at the tip's own place (no layout shift; a11y.css forces .sr-only absolute), open on tap (.open), keyboard focus, and hover only on real hover devices. Esc adds .xp-x until pointer/focus leaves. */
+button.badge,button.pill{font-family:inherit;line-height:inherit;background-color:transparent;margin:0}
+button.badge{font-size:12px;font-weight:600}button.pill{border:0;padding:0;color:var(--muted)}
+button.badge:focus-visible,button.pill:focus-visible,[data-xp-toggle]:focus-visible{outline:2px solid var(--brand2);outline-offset:2px}
+[data-xp-toggle]{cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.xp-tip{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+.xp-tip.open,.xp-scope:has([data-xp=type]:focus-visible) .xp-tip[data-xp=type],.xp-scope:has([data-xp=official]:focus-visible) .xp-tip[data-xp=official],.xp-scope:has([data-xp=status]:focus-visible) .xp-tip[data-xp=status],.xp-scope:has([data-xp=checked]:focus-visible) .xp-tip[data-xp=checked],.xp-scope:has([data-xp=scan]:focus-visible) .xp-tip[data-xp=scan],.xp-scope:has([data-xp=secnote]:focus-visible) .xp-tip[data-xp=secnote],.xp-scope:has([data-xp=pricing]:focus-visible) .xp-tip[data-xp=pricing],.xp-scope:has([data-xp=stars]:focus-visible) .xp-tip[data-xp=stars],.xp-scope:has([data-xp=partner]:focus-visible) .xp-tip[data-xp=partner]{position:absolute;z-index:60;width:max-content;max-width:min(60ch,calc(100vw - 24px));height:auto;margin:4px 0 0;padding:8px 10px;box-shadow:0 6px 24px rgba(0,0,0,.18);overflow:visible;clip:auto;clip-path:none;white-space:normal;display:block;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;font-size:12.5px;font-weight:400;line-height:1.5;overflow-wrap:anywhere;text-align:start;text-transform:none;letter-spacing:normal}
+@media (hover:hover) and (pointer:fine){.card:has([data-xp=type]:hover) .xp-tip[data-xp=type],.xp-scope:has([data-xp=type]:hover) .xp-tip[data-xp=type],.card:has([data-xp=official]:hover) .xp-tip[data-xp=official],.xp-scope:has([data-xp=official]:hover) .xp-tip[data-xp=official],.card:has([data-xp=status]:hover) .xp-tip[data-xp=status],.xp-scope:has([data-xp=status]:hover) .xp-tip[data-xp=status],.card:has([data-xp=checked]:hover) .xp-tip[data-xp=checked],.xp-scope:has([data-xp=checked]:hover) .xp-tip[data-xp=checked],.card:has([data-xp=scan]:hover) .xp-tip[data-xp=scan],.xp-scope:has([data-xp=scan]:hover) .xp-tip[data-xp=scan],.card:has([data-xp=secnote]:hover) .xp-tip[data-xp=secnote],.xp-scope:has([data-xp=secnote]:hover) .xp-tip[data-xp=secnote],.card:has([data-xp=pricing]:hover) .xp-tip[data-xp=pricing],.xp-scope:has([data-xp=pricing]:hover) .xp-tip[data-xp=pricing],.card:has([data-xp=stars]:hover) .xp-tip[data-xp=stars],.xp-scope:has([data-xp=stars]:hover) .xp-tip[data-xp=stars],.card:has([data-xp=partner]:hover) .xp-tip[data-xp=partner],.xp-scope:has([data-xp=partner]:hover) .xp-tip[data-xp=partner]{position:absolute;z-index:60;width:max-content;max-width:min(60ch,calc(100vw - 24px));height:auto;margin:4px 0 0;padding:8px 10px;box-shadow:0 6px 24px rgba(0,0,0,.18);overflow:visible;clip:auto;clip-path:none;white-space:normal;display:block;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:10px;font-size:12.5px;font-weight:400;line-height:1.5;overflow-wrap:anywhere;text-align:start;text-transform:none;letter-spacing:normal}}
+.xp-tip[data-xp=secnote],.xp-tip.open[data-xp=secnote],.xp-scope:has([data-xp=secnote]:focus-visible) .xp-tip[data-xp=secnote],.xp-scope:has([data-xp=secnote]:hover) .xp-tip[data-xp=secnote],.card:has([data-xp=secnote]:focus-visible) .xp-tip[data-xp=secnote],.card:has([data-xp=secnote]:hover) .xp-tip[data-xp=secnote]{border-color:var(--b-bd);background:var(--b-bg)}
+.xp-x .xp-tip{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;clip-path:inset(50%)!important;white-space:nowrap!important;border:0!important}
+.xp-tips{display:contents}
+/* Rows that hold tappable badges are not scroll containers (iOS Safari can swallow the first tap in overflow:auto boxes).
+   Keep overflow-x:clip (never auto). Chips wrap to a second line when they don't fit, including long locales at 375. */
+.card .meta,.tool-head-meta .meta,.secnote-row,.meta.secnote-line{overflow-x:hidden;overflow-x:clip;flex-wrap:wrap}
+/* Partner banner: the whole banner activates its existing a.partner-btn (stretched link, no extra href); the
+   Partner pill and its explanation sit above it. */
+aside.partner{position:relative}
+aside.partner .partner-btn::after{content:"";position:absolute;inset:0;z-index:1;border-radius:inherit}
+aside.partner .partner-tag{position:relative;z-index:2}
 
 .date-ltr{white-space:nowrap;unicode-bidi:isolate;direction:ltr}
 .pill{white-space:nowrap;flex:0 0 auto}

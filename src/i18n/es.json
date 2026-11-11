@@ -643,5 +643,26 @@
   "label": "No seguro, pendiente de aclaración",
   "short": "No seguro (pendiente)",
   "text": "Motivo: el código de la herramienta envía la dirección de tu billetera y órdenes de intercambio firmadas por HTTP sin cifrar a un servidor no documentado en una dirección IP directa, y recibe tus saldos e historial de transacciones de la misma forma. Lo estamos consultando con el desarrollador (degentic-tools)."
+ },
+ "xp": {
+  "type_mcp": "Servidor MCP: conecta clientes de IA como Claude o Cursor con este servicio mediante el Model Context Protocol.",
+  "type_skill": "Skill de agente: instrucciones y scripts que un agente de IA carga para hacer una tarea concreta.",
+  "type_api": "API: una API web que llamas con tu propia clave, desde código o mediante un envoltorio MCP.",
+  "official": "Oficial: publicado por el proveedor del producto al que se conecta, no por un tercero.",
+  "verified": "Verificado: accesible y con enlaces funcionando en la comprobación del {checked}; último commit {commit}, dentro del límite de 180 días.",
+  "verifiedNoRepo": "Verificado: accesible y con enlaces funcionando en la comprobación del {checked}.",
+  "aging": "Envejeciendo: el último commit fue hace {days} días ({commit}). De 181 a 365 días sin commits cuenta como envejeciendo. Comprobado el {checked}.",
+  "stale": "Sin mantenimiento: el último commit fue hace {days} días ({commit}). Más de 365 días sin commits cuenta como sin mantenimiento; pruébalo antes de confiar en él. Comprobado el {checked}.",
+  "archived": "Archivado: el propietario archivó el repositorio, así que ya no recibe actualizaciones. Comprobado el {checked}.",
+  "warning": "Revisar enlaces: un enlace de la página principal, la documentación o un endpoint falló en la comprobación del {checked}.",
+  "unconfirmed": "Comprobación pendiente: accesible, pero un enlace rechazó nuestro verificador (inicio de sesión, bloqueo de bots o límite de peticiones) el {checked}, así que no cuenta como verificado.",
+  "unreachable": "Inaccesible: no se pudo acceder al repositorio o a la página principal en la comprobación del {checked}.",
+  "manual": "Comprobado manualmente el {date}.",
+  "checked": "Última comprobación: fecha de la última comprobación automática del repositorio y los enlaces de la herramienta. Todo el directorio se vuelve a comprobar cada semana.",
+  "scan": "Análisis de seguridad: sin problemas el {date} (revisión estática de código y dependencias, escáner {commit}, reglas {rules}). No es una garantía.",
+  "pricing": "Precio según la página del proveedor: plan gratuito {free}; de pago desde {paid}. Comprobado el {date}.",
+  "pricingNoDate": "Precio según el proveedor: plan gratuito {free}; de pago desde {paid}.",
+  "pricingUnknown": "No pudimos confirmar el precio de esta herramienta en una página del proveedor.",
+  "stars": "Estrellas en GitHub: {stars} el {checked}."
  }
 }

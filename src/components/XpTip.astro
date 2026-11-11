@@ -1,0 +1,9 @@
+---
+// One badge explanation (src/lib/explain.ts). Visually hidden until its badge is hovered, focused or tapped (CSS + the
+// [data-xp-toggle] script in Base.astro). Closed state = the site's .sr-only pattern (never display:none).
+// On the tool page the tip is the button's aria-describedby target and is not aria-hidden.
+// On cards, dup=true (aria-hidden) so the tip is not inside the card link's accessible name; the badge button exposes
+// the same text via aria-describedby (or, for the scan shield, via its own aria-label / sr-only label).
+const { k, html, id, dup = false } = Astro.props;
+---
+{html && <span class="xp-tip sr-only" data-xp={k} id={id} role={dup ? undefined : "note"} aria-hidden={dup ? "true" : undefined} set:html={html} />}
