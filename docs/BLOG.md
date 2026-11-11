@@ -14,6 +14,10 @@ Step-by-step authoring (frontmatter, links, partner links, drafts, PRs) is in [C
 
 Why articles aren't translated: each article is checked line by line against primary sources. Machine translations would need the same checking in 12 more languages. If we translate one later, it gets its own file and hreflang pair; until then readers in other languages get the localized index and English articles.
 
+## Navigation
+
+"Blog" is in the mobile menu (≤900px) and the footer's Directory column in every language. It is not in the desktop top bar: with it, the German bar overflows at 1280px and cuts off "So prüfen wir" (the bar already fills its space exactly).
+
 ## SEO built in (nothing to do per post)
 
 - rel=canonical = the post's own URL, unless frontmatter `canonical` says the article first appeared elsewhere.

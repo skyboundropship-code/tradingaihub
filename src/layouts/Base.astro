@@ -69,7 +69,7 @@ const at = useA11yT(lang);
 <a class="skip-link" href="#content">{at("w.skip")}</a>
 <header class="site"><div class="wrap">
   <a class="logo" href={p("/")} dir="ltr" aria-label={SITE.name}><BrandLogo decorative height={36} /></a>
-  <nav class="main" aria-label={at("w.navMain")}><a href={p("/tools/")}>{t("nav.tools")}</a><a href={p("/categories/")}>{t("nav.categories")}</a><a href={p("/compare/")}>{t("nav.compare")}</a><a href={p("/weekly/")}>{t("nav.weekly")}</a><a href={p("/blog/")}>{t("nav.blog")}</a><a href={p("/badges/")}>{t("nav.badges")}</a><a href={p("/about/")}>{t("nav.verify")}</a></nav>
+  <nav class="main" aria-label={at("w.navMain")}><a href={p("/tools/")}>{t("nav.tools")}</a><a href={p("/categories/")}>{t("nav.categories")}</a><a href={p("/compare/")}>{t("nav.compare")}</a><a href={p("/weekly/")}>{t("nav.weekly")}</a><a href={p("/badges/")}>{t("nav.badges")}</a><a href={p("/about/")}>{t("nav.verify")}</a></nav>
   <div class="hdr-tools">
     <details class="langs"><summary title={t("nav.language")}><span aria-hidden="true">🌐 </span><span class="sr-only">{t("nav.language")}: </span><span>{lang.toUpperCase()}</span></summary>
       <div class="langmenu">{LOCALES.map((l) => <a href={pathFor(l.code, avail.includes(l.code) ? base : langFallback)} hreflang={l.code} lang={l.code} dir={l.dir} data-lang={l.code} class={l.code === lang ? "on" : ""}>{l.name}</a>)}</div>
