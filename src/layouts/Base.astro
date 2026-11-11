@@ -24,7 +24,15 @@ const fullTitle = title === SITE.name ? `${SITE.name} — ${tagline}` : `${title
 const org = { "@context": "https://schema.org", "@graph": [
   { "@type": "Organization", "@id": `${SITE.url}/#organization`, name: SITE.name, url: `${SITE.url}/`, email: SITE.contactEmail,
     logo: { "@type": "ImageObject", "@id": `${SITE.url}/#logo`, url: `${SITE.url}/logo-512.png`, contentUrl: `${SITE.url}/logo-512.png`, width: 512, height: 512, caption: SITE.name },
-    image: { "@id": `${SITE.url}/#logo` }, sameAs: [SITE.githubAwesomeRepo] },
+    image: { "@id": `${SITE.url}/#logo` }, sameAs: [
+      "https://github.com/tradingaihub",
+      "https://github.com/tradingaihub/tradingaihub",
+      "https://github.com/tradingaihub/awesome-finance-ai-tools",
+      "https://tradingaihub.hashnode.dev",
+      "https://hashnode.com/@tradingaihub",
+      "https://x.com/TradingAIHub",
+      "https://bsky.app/profile/tradingaihub.bsky.social",
+    ] },
   { "@type": "WebSite", "@id": `${SITE.url}/#website`, name: SITE.name, url: `${SITE.url}/`, description: SITE.description, inLanguage: CODES,
     publisher: { "@id": `${SITE.url}/#organization` } },
 ] };
