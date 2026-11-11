@@ -281,6 +281,7 @@
   "pricesChange": "Fiyatlar değişir — satın almadan önce her zaman sağlayıcının sayfasından teyit edin.",
   "verification": "Doğrulama",
   "autoCheck": "{date} tarihli otomatik kontrol.",
+  "manualCheck": "{date} tarihli manuel kontrol.",
   "repository": "Depo",
   "homepage": "Ana sayfa",
   "docs": "Dokümanlar",

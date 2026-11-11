@@ -1,4 +1,4 @@
-# Verification report — 2026-11-11 12:38 UTC
+# Verification report — 2026-11-11 12:51 UTC
 
 Total entries: 106
 
@@ -6,6 +6,9 @@ Total entries: 106
 - stale: 12
 - aging: 4
 - archived: 3
+
+Manual checks:
+- openbb: Manually checked on 2026-11-11
 
 Entries with a published npm/PyPI package: 28
 
@@ -70,7 +73,7 @@ Entries with a published npm/PyPI package: 28
 | actual-budget-mcp | verified | 20 | 2026-11-04 | MIT | actual-budget-mcp@0.12.0 |  |
 | optionsahoy-mcp | verified | 6 | 2026-11-08 | MIT | optionsahoy-mcp@1.11.1 |  |
 | sec-edgar-mcp | verified | 386 | 2026-11-01 | AGPL-3.0 | sec-edgar-mcp@1.1.0 |  |
-| openbb | verified | 75327 | 2026-11-11 | Apache-2.0 |  | Repository redirects to another owner (https://github.com/openbq-org/OpenBB); stored link not updated |
+| openbb | verified | 75327 | 2026-11-11 | Apache-2.0 |  | Repository redirects to another owner (https://github.com/openbq-org/OpenBB); stored link not updated; Manually checked on 2026-11-11 |
 | equibles | verified | 7 | 2026-10-19 | MIT |  |  |
 | alphasmo | verified | 2 | 2026-08-12 | MIT | alphasmo@0.2.1 |  |
 | edgrapi-skills | verified | 1 | 2026-10-16 | MIT-0 |  |  |

@@ -3237,7 +3237,7 @@
       "manual_check": {
         "method": "manual",
         "date": "2026-11-11",
-        "note": "links checked with browser headers: firefly-iii.org 200, api-docs.firefly-iii.org 200, repo 200; docs.mercury.com 200, mcp.mercury.com/mcp 401; OpenBB GitHub 200"
+        "note": "GitHub 200, a legitimate redirect to openbq-org, same repo id 323048702"
       },
       "manual_override": true
     },

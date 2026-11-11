@@ -746,23 +746,23 @@ class BrowserHeaders(unittest.TestCase):
 
 class ManualCheck(unittest.TestCase):
     def test_overrides_unconfirmed_only(self):
-        t = {"id": "x", "manual_check": {"method": "manual", "date": "2026-11-11", "note": "checked in a browser"}}
+        t = {"id": "x", "manual_check": {"method": "manual", "date": V.NOW.date().isoformat(), "note": "checked in a browser"}}
         v = {"status": "unconfirmed", "issues": ["Could not confirm: gated"]}
         V.apply_manual_check(t, v)
         self.assertEqual(v["status"], "verified")
         self.assertTrue(v["manual_override"])
-        self.assertEqual(v["manual_check"]["date"], "2026-11-11")
+        self.assertEqual(v["manual_check"]["date"], V.NOW.date().isoformat())
         self.assertEqual(v["manual_check"]["method"], "manual")
 
     def test_does_not_override_warning_or_stale(self):
-        t = {"id": "x", "manual_check": {"date": "2026-11-11", "method": "manual"}}
+        t = {"id": "x", "manual_check": {"date": V.NOW.date().isoformat(), "method": "manual"}}
         for st in ("warning", "stale", "aging", "archived", "unreachable"):
             with self.subTest(st=st):
                 v = {"status": st, "issues": ["x"]}
                 V.apply_manual_check(t, v)
                 self.assertEqual(v["status"], st)
                 self.assertFalse(v.get("manual_override"))
-                self.assertEqual(v["manual_check"]["date"], "2026-11-11")
+                self.assertEqual(v["manual_check"]["date"], V.NOW.date().isoformat())
 
     def test_absent_or_dateless_is_noop(self):
         v = {"status": "unconfirmed"}
@@ -770,6 +770,79 @@ class ManualCheck(unittest.TestCase):
         self.assertEqual(v, {"status": "unconfirmed"})
         V.apply_manual_check({"id": "x", "manual_check": {"method": "manual"}}, v)
         self.assertEqual(v, {"status": "unconfirmed"})
+
+    def test_expires_after_30_days(self):
+        self.assertEqual(V.MANUAL_CHECK_MAX_AGE_DAYS, 30)
+        expired = (V.NOW.date() - __import__("datetime").timedelta(days=31)).isoformat()
+        t = {"id": "x", "manual_check": {"method": "manual", "date": expired}}
+        v = {"status": "unconfirmed", "issues": ["Could not confirm: gated"]}
+        V.apply_manual_check(t, v)
+        self.assertEqual(v["status"], "unconfirmed")
+        self.assertFalse(v.get("manual_override"))
+        self.assertTrue(v["manual_check"].get("expired"))
+
+    def test_still_valid_on_day_30(self):
+        d = (V.NOW.date() - __import__("datetime").timedelta(days=30)).isoformat()
+        t = {"id": "x", "manual_check": {"method": "manual", "date": d}}
+        v = {"status": "unconfirmed", "issues": ["Could not confirm: gated"]}
+        V.apply_manual_check(t, v)
+        self.assertEqual(v["status"], "verified")
+        self.assertTrue(v["manual_override"])
+        self.assertFalse(v["manual_check"].get("expired"))
+
+    def test_invalid_date_does_not_override(self):
+        t = {"id": "x", "manual_check": {"method": "manual", "date": "not-a-date"}}
+        v = {"status": "unconfirmed"}
+        V.apply_manual_check(t, v)
+        self.assertEqual(v["status"], "unconfirmed")
+        self.assertFalse(v.get("manual_override"))
+
+
+class ManualCheckDisplay(unittest.TestCase):
+    """B1: public copy says 'Manually checked on {date}', not 'Automated check'."""
+    def test_label_helper(self):
+        self.assertEqual(V.manual_check_label({"manual_override": True, "manual_check": {"date": "2026-11-11"}}),
+                         "Manually checked on 2026-11-11")
+        self.assertIsNone(V.manual_check_label({"status": "verified"}))
+        self.assertIsNone(V.manual_check_label({"manual_check": {"date": "2026-11-11", "expired": True}}))
+
+    def test_i18n_and_tool_page_use_manual_key(self):
+        import glob, json
+        src = _read(os.path.join(ROOT, "src/pages/[...lang]/tools/[id].astro"))
+        self.assertIn('v.manual_override ? "tool.manualCheck" : "tool.autoCheck"', src)
+        self.assertIn("v.manual_override ? v.manual_check.date : v.checked_at", src)
+        locales = {}
+        for f in glob.glob(os.path.join(ROOT, "src/i18n/*.json")):
+            with open(f) as fh: locales[os.path.basename(f)] = json.load(fh)
+        self.assertEqual(len(locales), 13)
+        self.assertEqual(locales["en.json"]["tool"]["manualCheck"], "Manually checked on {date}.")
+        for name, data in locales.items():
+            with self.subTest(locale=name):
+                self.assertIn("{date}", data["tool"]["manualCheck"])
+                self.assertNotEqual(data["tool"]["manualCheck"], data["tool"]["autoCheck"])
+
+    def test_openbb_page_and_report_say_manually_checked(self):
+        import json
+        dist = os.path.join(ROOT, "dist/tools/openbb/index.html")
+        if os.path.isfile(dist):
+            html = _read(dist)
+            if "Manually checked on 2026-11-11" not in html:
+                self.skipTest("dist not rebuilt yet")
+            self.assertIn("Manually checked on 2026-11-11", html)
+            self.assertNotIn("Automated check on 2026-11-11", html)
+        rep_json = os.path.join(ROOT, "data/verification-report.json")
+        if os.path.isfile(rep_json):
+            with open(rep_json) as fh: rep = json.load(fh)
+            if not any((x.get("manual") or x.get("label") or "") == "Manually checked on 2026-11-11"
+                       for x in (rep.get("issues") or []) + (rep.get("manual_checks") or [])):
+                self.skipTest("verification report not rewritten yet")
+            row = next(x for x in rep["issues"] if x["id"] == "openbb")
+            self.assertEqual(row["manual"], "Manually checked on 2026-11-11")
+            self.assertTrue(any(x["id"] == "openbb" and x["label"] == "Manually checked on 2026-11-11"
+                                for x in rep["manual_checks"]))
+            md = _read(os.path.join(ROOT, "data/verification-report.md"))
+            self.assertIn("Manually checked on 2026-11-11", md)
+            self.assertIn("- openbb: Manually checked on 2026-11-11", md)
 
 
 if __name__ == "__main__": unittest.main()

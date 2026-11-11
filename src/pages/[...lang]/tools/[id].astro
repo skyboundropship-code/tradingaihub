@@ -72,7 +72,7 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
         <p><Status status={v.status} lang={lang} /> <span class="note">{stHelp}</span></p>
         <table><tbody>{v.checks.map((c: any) => <tr><td style="width:36px">{c.ok ? "✅" : "⚠️"}</td><td>{t(`checks.${c.check}`) === `checks.${c.check}` ? c.check : t(`checks.${c.check}`)}{c.note && <span class="note"> — <bdi>{c.note}</bdi></span>}</td></tr>)}</tbody></table>
         {v.issues.length > 0 && <ul>{v.issues.map((i: string) => <li class="note"><bdi>{i}</bdi></li>)}</ul>}
-        <p class="note">{t("tool.autoCheck", { date: v.checked_at })} <a href={`${p("/about/")}#how-we-verify`}>{t("nav.verify")}</a>.</p>
+        <p class="note">{t(v.manual_override ? "tool.manualCheck" : "tool.autoCheck", { date: v.manual_override ? v.manual_check.date : v.checked_at })} <a href={`${p("/about/")}#how-we-verify`}>{t("nav.verify")}</a>.</p>
       </div>
     </div>
     <aside>

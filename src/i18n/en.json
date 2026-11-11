@@ -282,6 +282,7 @@
   "pricesChange": "Prices change — always confirm on the vendor's page before buying.",
   "verification": "Verification",
   "autoCheck": "Automated check on {date}.",
+  "manualCheck": "Manually checked on {date}.",
   "repository": "Repository",
   "homepage": "Homepage",
   "docs": "Docs",

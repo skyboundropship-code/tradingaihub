@@ -281,6 +281,7 @@
   "pricesChange": "الأسعار تتغير — تحقق دائمًا من صفحة المزوّد قبل الشراء.",
   "verification": "التحقق",
   "autoCheck": "فحص آلي بتاريخ {date}.",
+  "manualCheck": "فحص يدوي بتاريخ {date}.",
   "repository": "المستودع",
   "homepage": "الموقع",
   "docs": "التوثيق",

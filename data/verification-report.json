@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-11T12:38:28.260167+00:00",
+  "checked_at": "2026-11-11T12:51:48.507634+00:00",
   "total": 106,
   "by_status": {
     "verified": 87,
@@ -8,6 +8,13 @@
     "archived": 3
   },
   "with_package": 28,
+  "manual_checks": [
+    {
+      "id": "openbb",
+      "date": "2026-11-11",
+      "label": "Manually checked on 2026-11-11"
+    }
+  ],
   "issues": [
     {
       "id": "finnhub-mcp-community",
@@ -132,7 +139,8 @@
       "status": "verified",
       "issues": [
         "Repository redirects to another owner (https://github.com/openbq-org/OpenBB); stored link not updated"
-      ]
+      ],
+      "manual": "Manually checked on 2026-11-11"
     },
     {
       "id": "finbrain-mcp",

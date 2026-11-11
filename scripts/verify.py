@@ -512,19 +512,45 @@ def verify(t):
     apply_manual_check(t, v)
     return v
 
+MANUAL_CHECK_MAX_AGE_DAYS = 30
+
+def _manual_age_days(date_str):
+    """Days since YYYY-MM-DD (or None if the date is missing or invalid)."""
+    try:
+        d = dt.date.fromisoformat(str(date_str)[:10])
+    except ValueError:
+        return None
+    return (NOW.date() - d).days
+
 def apply_manual_check(t, v):
     """A recorded manual check can keep a tool verified when the automated checker only
     reached 'unconfirmed' (gated link or a known cross-org redirect). Real failures
-    (dead/warning/stale/archived/unreachable) are never overridden."""
+    (dead/warning/stale/archived/unreachable) are never overridden. The record expires
+    after MANUAL_CHECK_MAX_AGE_DAYS (the tool then stays unconfirmed)."""
     mc = t.get("manual_check")
     if not isinstance(mc, dict) or not mc.get("date"):
         return
     rec = {"method": mc.get("method") or "manual", "date": mc["date"]}
     if mc.get("note"): rec["note"] = mc["note"]
+    age = _manual_age_days(mc["date"])
+    if age is None or age < 0:
+        v["manual_check"] = rec
+        return
+    if age > MANUAL_CHECK_MAX_AGE_DAYS:
+        rec["expired"] = True
+        v["manual_check"] = rec
+        return
     v["manual_check"] = rec
     if v["status"] == "unconfirmed":
         v["status"] = "verified"
         v["manual_override"] = True
+
+def manual_check_label(v):
+    """Public label for a current manual override, else None."""
+    if not v.get("manual_override"):
+        return None
+    date = (v.get("manual_check") or {}).get("date")
+    return f"Manually checked on {date}" if date else None
 
 def recheck_demotions(todo, fresh, current, fn=None):
     """One retry before a tool drops from verified (e.g. to Needs review): a transient network error must not
@@ -643,16 +669,30 @@ def main():
         dry_report(tools, current); return
     json.dump(tools, open(tp, "w"), indent=2)
     c = Counter(t["verification"]["status"] for t in tools)
+    def issue_row(t):
+        v = t["verification"]
+        row = {"id": t["id"], "status": v["status"], "issues": v["issues"]}
+        label = manual_check_label(v)
+        if label: row["manual"] = label
+        return row
     rep = {"checked_at": NOW.isoformat(), "total": len(tools), "by_status": dict(c),
            "with_package": sum(1 for t in tools if t["verification"].get("npm") or t["verification"].get("pypi")),
-           "issues": [{"id": t["id"], "status": t["verification"]["status"], "issues": t["verification"]["issues"]} for t in tools if t["verification"]["issues"]]}
+           "manual_checks": [{"id": t["id"], "date": t["verification"]["manual_check"]["date"],
+                              "label": manual_check_label(t["verification"])}
+                             for t in tools if t["verification"].get("manual_override")],
+           "issues": [issue_row(t) for t in tools if t["verification"]["issues"] or t["verification"].get("manual_override")]}
     json.dump(rep, open(os.path.join(ROOT, "data/verification-report.json"), "w"), indent=2)
     lines = [f"# Verification report — {NOW:%Y-%m-%d %H:%M} UTC", "", f"Total entries: {len(tools)}", ""]
     lines += [f"- {k}: {n}" for k, n in c.most_common()]
+    if rep["manual_checks"]:
+        lines += ["", "Manual checks:"] + [f"- {x['id']}: {x['label']}" for x in rep["manual_checks"]]
     lines += ["", f"Entries with a published npm/PyPI package: {rep['with_package']}", "", "| id | status | stars | last commit | license | package | issues |", "|---|---|---|---|---|---|---|"]
     for t in tools:
         v = t["verification"]; g = v.get("github") or {}; p = v.get("npm") or v.get("pypi")
-        lines.append(f"| {t['id']} | {v['status']} | {g.get('stars','')} | {(g.get('last_commit') or '')[:10]} | {t['license']} | {(p['name']+'@'+p['version']) if p else ''} | {'; '.join(v['issues'])} |")
+        issues = list(v["issues"])
+        label = manual_check_label(v)
+        if label: issues.append(label)
+        lines.append(f"| {t['id']} | {v['status']} | {g.get('stars','')} | {(g.get('last_commit') or '')[:10]} | {t['license']} | {(p['name']+'@'+p['version']) if p else ''} | {'; '.join(issues)} |")
     open(os.path.join(ROOT, "data/verification-report.md"), "w").write("\n".join(lines) + "\n")
     write_history(tools)
     print(json.dumps({k: rep[k] for k in ("total", "by_status", "with_package")}))
