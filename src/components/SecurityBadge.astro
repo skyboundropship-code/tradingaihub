@@ -3,7 +3,7 @@ import { securityOf, vtUrl } from "../lib/data";
 import { useT } from "../i18n";
 import XpTip from "./XpTip.astro";
 import { explain } from "../lib/explain";
-const { tool, lang = "en", variant = "page" } = Astro.props;
+const { tool, lang = "en", variant = "page", id = "xp-scan" } = Astro.props;
 const scan = securityOf(tool);
 const { t, p } = useT(lang);
 const vt = scan ? vtUrl(scan.vt) : null;
@@ -15,14 +15,14 @@ const xpHtml = scan ? explain(tool, "scan", lang) : null;
 {scan && variant === "page" && (
   <div class="xp-scope">
   <p class="sec-badge-row">
-    <a class="sec-badge" href={p("/security/")} title={title} aria-label={title} data-xp="scan">{t("sec.badgeShort")}</a>
+    <a class="sec-badge" href={p("/security/")} title={title} aria-label={title} data-xp="scan" aria-describedby={id}>{t("sec.badgeShort")}</a>
     {vt && <a class="sec-vt" href={vt} rel="noopener" target="_blank">{t("sec.vt")}</a>}
   </p>
-  <XpTip k="scan" html={xpHtml} dup />
+  <XpTip k="scan" id={id} html={xpHtml} dup />
   </div>
 )}
 {scan && variant === "card" && (
-  <button type="button" class="sec-card" data-xp-toggle data-xp="scan" aria-label={cardLabel}>
+  <button type="button" class="sec-card" data-xp-toggle data-xp="scan" aria-label={cardLabel} aria-expanded="false" aria-controls={id} aria-describedby={id}>
     <svg class="sec-shield" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false">
       <path fill="currentColor" d="M8 1.15 13.25 3.1v4.15c0 3.22-2.16 6.12-5.25 6.9-3.09-.78-5.25-3.68-5.25-6.9V3.1L8 1.15z"/>
     </svg>
