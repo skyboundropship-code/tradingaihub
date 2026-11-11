@@ -32,10 +32,12 @@ Why articles aren't translated: each article is checked line by line against pri
 - Privacy: the article page loads **nothing** from GitHub or giscus until the reader clicks **Load comments**. Commenting needs a GitHub sign-in. The privacy policy (13 locales) describes this; its paragraph only appears when comments are on.
 - The comment box follows the site's light/dark theme and switches with it.
 - Every article also has a plain **Discuss on GitHub** link, and the index has a Community box linking to the Discussions.
-- Config: `src/lib/giscus.ts` (repo id, category id, on/off switch). **Comments are off until the giscus GitHub App is installed on tradingaihub/community** (https://github.com/apps/giscus/installations/new, "Only select repositories" → community). After that, set `ENABLED: true` in a PR. Preview builds can test it with `GISCUS=1`.
+- Config: `src/lib/giscus.ts` (repo id, category id, on/off switch). The wired category id is the repo's default *Announcements* category; giscus matches threads by category **name**, so it must be renamed to **Articles** before comments are turned on (the id survives the rename). **Comments are off until the giscus GitHub App is installed on tradingaihub/community** (https://github.com/apps/giscus/installations/new, "Only select repositories" → community). After that, set `ENABLED: true` in a PR. Preview builds can test it with `GISCUS=1`.
 - CSP: the site sends no Content-Security-Policy today, so giscus needs no header change. If a CSP is added later it needs `script-src https://giscus.app` and `frame-src https://giscus.app`.
 
 ## Community categories and moderation
+
+**Status (Nov 11, 2026):** the repo exists with Discussions on, but GitHub has no API to create or rename categories, so it still has the defaults (Announcements, General, Ideas, Polls, Q&A, Show and tell). One-time setup in Settings → Discussions: rename Announcements → **Articles**, General → **Tools & Platforms**, Ideas → **Ideas & Requests**; optionally delete Polls and Show and tell. Q&A already uses the answer format. The table below is the target.
 
 | Category | Format | Use |
 | --- | --- | --- |

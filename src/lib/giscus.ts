@@ -5,7 +5,9 @@
 // ENABLED stays false until the giscus GitHub App is installed on tradingaihub/community
 // (https://github.com/apps/giscus/installations/new). Until then no comment UI and no privacy text about it is rendered.
 // A preview build can show it with GISCUS=1 (never set it for production before the app is installed).
-// Category ids survive a rename in the GitHub UI, so renaming "Announcements" to "Articles" doesn't need a code change.
+// The category id below is the repo's default "Announcements" category (announcement format). giscus looks threads up by
+// category NAME (GitHub search), so rename it to "Articles" in the GitHub UI (Settings → Discussions; the id survives the
+// rename) BEFORE turning ENABLED on. Until it is renamed, "Articles" here doesn't match and existing threads wouldn't be found.
 export const GISCUS = {
   ENABLED: false || /^(1|true|yes)$/i.test(String(process.env.GISCUS ?? "")),
   repo: "tradingaihub/community",
