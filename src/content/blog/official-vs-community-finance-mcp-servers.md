@@ -1,6 +1,6 @@
 ---
 title: "Official vs Community MCP Servers for Finance: How to Tell Them Apart"
-description: "61 of our 104 finance tools are official, 43 community. How each kind fails, plus six checks to tell them apart before you connect an account."
+description: "As of our Nov 2, 2026 check, 61 of 104 finance tools were official, 43 community. How each kind fails, plus six checks to tell them apart before you connect an account."
 date: 2026-10-29
 updated: 2026-11-04
 tags: [mcp, verification, security]
@@ -11,11 +11,11 @@ tools: [tradingview-mcp, tradingview-official-mcp, binance-mcp, square-mcp, fmp-
 
 If you search "TradingView MCP", "Binance MCP" or "FMP MCP", you get a mix of servers published by the vendor and servers written by someone who uses the vendor's API. Both kinds can be good. But they fail in different ways, and when the server can read your brokerage account or place orders, you should know which kind you're installing.
 
-Below is what we learned from labelling 104 finance tools (73 MCP servers, 16 APIs, 15 agent skills) as **official** or **community** and re-checking all of them every week.
+Below is what we learned from labelling 104 finance tools (73 MCP servers, 16 APIs, 15 agent skills) as **official** or **community**, as of the 2 November 2026 check, and from re-checking all of them every week.
 
 ## The split, and what it says about reliability
 
-Of the 104 listings, **61 are official** (published by the company whose product or data they expose) and **43 are community** projects. All figures here come from our public [tools.json](/tools.json).
+As of the 2 November 2026 check, **61 of our 104 listings were official** (published by the company whose product or data they expose) and **43 were community** projects. All figures here come from our public [tools.json](/tools.json). The directory now lists 106 tools (62 official, 44 community).
 
 As of the 2 November 2026 verification run, a listing counted as "passing" if its repo was reachable, its links worked, and (for repos) it had a commit in the last 180 days. Here's how the two groups did:
 
@@ -108,6 +108,6 @@ Before you connect an MCP server to a brokerage, exchange or bank account:
 3. Look up the npm or PyPI name and confirm it links back to that exact repo.
 4. Prefer the vendor's documented install command or hosted endpoint.
 5. Use read-only or paper-trading keys first, with the smallest permissions that work.
-6. Re-check it later. On the latest run, 16 of 43 community listings and 7 of 61 official listings weren't passing.
+6. Re-check it later. On the 2 November 2026 run, 16 of 43 community listings and 7 of 61 official listings weren't passing.
 
 The full per-tool results, including the failures, are public on the [verification page](/verification/). If you maintain one of these servers and something there is wrong, please let us know.
