@@ -1,0 +1,120 @@
+---
+import BestCompare from "../../components/BestCompare.astro";
+import {
+  OPTIONS, OPTIONS_FETCH, OPTIONS_PAPER, OPTIONS_DATA_IDS, OPTIONS_BROKER_IDS, OPTIONS_SKILL_IDS,
+  requireTools, paidFrom, capNoteKey, prettyDate, RUN_DATE, RUN_TOTAL, RUN_VERIFIED, PRICING_CHECKED,
+} from "../../lib/bestPages";
+import { useT } from "../../i18n";
+const { t } = useT("en");
+const list = requireTools(OPTIONS.toolIds);
+const byId = Object.fromEntries(list.map((x) => [x.id, x]));
+const dataRows = OPTIONS_DATA_IDS.map((id) => byId[id]);
+const brokerRows = OPTIONS_BROKER_IDS.map((id) => byId[id]);
+const skills = OPTIONS_SKILL_IDS.map((id) => byId[id]);
+const run = prettyDate(RUN_DATE);
+const priced = prettyDate(PRICING_CHECKED);
+const typeLabel: Record<string, string> = { mcp: "MCP", api: "API", skill: "Skill" };
+---
+<BestCompare page={OPTIONS} list={list}>
+  <p>Options are where a general-purpose assistant is weakest. A chain, an implied-volatility figure, or a set of Greeks is not something the model already knows; a tool has to fetch it. Placing an order is a separate, higher-risk step. This page splits <b>data-only tools</b> from <b>broker-connected tools</b>, and it puts the broker tools second, with a stronger warning.</p>
+  <p>We used only tools marked <b>Verified</b> in our {run} check from the directory of {RUN_TOTAL} listings ({RUN_VERIFIED} verified), and only those whose listings actually cover listed options — chains, options market data, Greeks, or options order placement. Full results are on the <a href="/verification/">verification page</a>. This is not a ranking of “best options strategy,” and it is not a broker recommendation.</p>
+  <blockquote>
+    <p><b>Not financial advice.</b> Options can lose value quickly, including the entire premium you pay. These tools fetch data you ask for, or — in the broker section — can place orders you approve or configure. None of them predicts markets, and nothing here is a recommendation to buy, sell, or open any options position. An assistant can mis-build a leg or misread a chain. Data can be delayed or wrong. Review every order, check figures against the source, and paper trade first.</p>
+  </blockquote>
+
+  <h2 class="sec" id="quick-picks">Quick picks</h2>
+  <ul>
+    <li><b>Options data without a broker login:</b> <a href="/tools/massive-mcp/">Massive MCP</a> or <a href="/tools/eodhd-mcp/">EODHD MCP Server (official)</a>, plus the <a href="/tools/massive-api/">Massive API</a> for REST, WebSockets and flat files</li>
+    <li><b>US equities and options market data (official API):</b> <a href="/tools/alpaca-market-data-api/">Alpaca Market Data API</a></li>
+    <li><b>Official broker MCP that can place options orders:</b> <a href="/tools/alpaca-mcp/">Alpaca MCP Server</a> — review every order and paper trade first</li>
+    <li><b>Existing Schwab account, read-only by default:</b> <a href="/tools/schwab-mcp/">Schwab MCP (community)</a></li>
+    <li><b>Existing tastytrade account:</b> <a href="/tools/tasty-agent/">tasty-agent (tastytrade)</a></li>
+    <li><b>Workflows (not signals we endorse):</b> <a href="/tools/options-trading-skills/">Trading Skills for options traders (community)</a></li>
+  </ul>
+
+  <h2 class="sec" id="data-tools">Comparison table: data tools</h2>
+  <p>Every row was <b>Verified</b> on {run}. Free-tier and paid-from figures are the vendor wording in our directory, re-checked on each vendor’s pricing page on <b>{priced}</b>. Confirm those pages before you pay. “—” means the listing has no paid starting price.</p>
+  <p><a href="/tools/schwab-mcp/">Schwab MCP (community)</a> sits in this table because its default mode is read-only (accounts, quotes and options chains). Trades need Discord or Signal approval, which we also note below.</p>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Tool</th><th>Official?</th><th>Type</th><th>What it fetches</th>
+          <th>Free tier (vendor wording)</th><th>Paid from</th><th>License</th>
+        </tr>
+      </thead>
+      <tbody>
+        {dataRows.map((x) => (
+          <tr>
+            <td><a href={`/tools/${x.id}/`}>{x.name}</a>{capNoteKey(x) && <p class="note">{t(capNoteKey(x)!)}</p>}</td>
+            <td>{x.official ? "Official" : "Community"}</td>
+            <td>{typeLabel[x.type] ?? x.type}</td>
+            <td>{OPTIONS_FETCH[x.id]}</td>
+            <td><bdi>{x.pricing.free_tier}</bdi></td>
+            <td><bdi>{paidFrom(x)}</bdi></td>
+            <td dir="ltr">{x.license}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="sec" id="broker-tools">Comparison table: broker-connected tools</h2>
+  <p>These listings can place or route orders, or they sit on top of a brokerage account. <b>Paper trade first.</b> Review every order. We do not recommend a broker. A “free” or self-hosted server is not a waiver of brokerage fees or account terms.</p>
+  <p>The <b>Paper / sandbox / default</b> column uses only what our directory already records. If a listing does not record a paper, sandbox, or read-only default, we say so — we do not invent one. Confirm the vendor’s current settings before you connect a funded account.</p>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Tool</th><th>Official?</th><th>Type</th><th>What it does</th>
+          <th>Paper / sandbox / default</th>
+          <th>Free tier (vendor wording)</th><th>Paid from</th><th>License</th>
+        </tr>
+      </thead>
+      <tbody>
+        {brokerRows.map((x) => (
+          <tr>
+            <td><a href={`/tools/${x.id}/`}>{x.name}</a>{capNoteKey(x) && <p class="note">{t(capNoteKey(x)!)}</p>}</td>
+            <td>{x.official ? "Official" : "Community"}</td>
+            <td>{typeLabel[x.type] ?? x.type}</td>
+            <td>{OPTIONS_FETCH[x.id]}</td>
+            <td>{OPTIONS_PAPER[x.id]}</td>
+            <td><bdi>{x.pricing.free_tier}</bdi></td>
+            <td><bdi>{paidFrom(x)}</bdi></td>
+            <td dir="ltr">{x.license}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="sec" id="data-without-orders">Data without placing an order</h2>
+  <p><b><a href="/tools/massive-mcp/">Massive MCP</a></b> is official (formerly Polygon.io). The free Basic plan is end-of-day only. Paid plans start at $29/mo for individual, non-professional use (Starter $29, Developer $79, Advanced $199/mo for real-time, per the vendor wording we stored). The <b><a href="/tools/massive-api/">Massive API</a></b> is the official REST, WebSockets and flat-file side, including tick-level US options, on the same plan wording.</p>
+  <p><b><a href="/tools/eodhd-mcp/">EODHD MCP Server (official)</a></b> offers 70+ read-only tools, including options and macro, with an API key or OAuth (<code>https://mcp.eodhd.com/v2/mcp</code>). There is no separate MCP fee; data access follows your EODHD plan, paid from $19.99/mo. See also <a href="/tools/eodhd-api/">EODHD APIs</a>.</p>
+  <p><b><a href="/tools/alpaca-market-data-api/">Alpaca Market Data API</a></b> is official market data only. The paid starting price in our directory is $99/mo (Algo Trader Plus: all US exchanges real-time, OPRA options). This row does not place trades.</p>
+  <p><b><a href="/tools/schwab-mcp/">Schwab MCP (community)</a></b> is a verified, unofficial MIT server for the Charles Schwab Trader API. It is free to self-host and is read-only by default. It requires a Schwab brokerage account and a Schwab Developer Portal app key. Do not treat the default setup as an execution bot.</p>
+
+  <h2 class="sec" id="broker-connected">Broker-connected tools</h2>
+  <p>Connecting a broker MCP or official hosted trading server can move real money. Prefer any documented sandbox, paper account, or read-only default the vendor actually offers. Review every order. An assistant can mis-build a leg.</p>
+  <p><b><a href="/tools/alpaca-mcp/">Alpaca MCP Server</a></b> is official (MIT). It can trade stocks, ETFs, options and crypto, and it can query positions and market data. Our directory records the same data-plan wording as the Alpaca Market Data API. It does not record a paper or sandbox flag, so confirm Alpaca’s current account modes before you connect a funded account.</p>
+  <p><b><a href="/tools/tasty-agent/">tasty-agent (tastytrade)</a></b> is a verified community server (MIT) for portfolio, market data, options Greeks and order execution. It is free to self-host and requires a tastytrade account. Our listing does not record a paper or sandbox mode.</p>
+  <p><b><a href="/tools/robinhood-trading-mcp/">Robinhood Trading MCP (official)</a></b> is a hosted official server at <code>https://agent.robinhood.com/mcp/trading</code> (OAuth with PKCE). It can read accounts and trade stocks, options and crypto in a <b>dedicated agent account</b>. Our directory records no separate MCP fee, trade approvals off by default, market/limit/stop orders, <b>no multi-leg</b>, and commission-free trading per Robinhood (other fees may apply). It requires a Robinhood individual investing account. The “no multi-leg” limit matters for many options structures — do not assume a spread can be sent as one order.</p>
+  <p><b><a href="/tools/webull-openapi-mcp/">Webull OpenAPI MCP</a></b> is official (Apache-2.0) for multi-region market data and orders in stocks, options, futures and crypto, and the listing includes a <b>UAT sandbox</b>. It requires a Webull account with OpenAPI access. Our directory records no separate MCP fee; brokerage fees follow Webull.</p>
+  <p><b><a href="/tools/schwab-mcp/">Schwab MCP (community)</a></b>, already in the data table, can also send trades, but only with Discord or Signal approval. Leave it read-only unless you have a deliberate reason to turn that on.</p>
+
+  <h2 class="sec" id="skills">Skills and workflows</h2>
+  {skills.map((x) => (
+    <p>
+      <b><a href={`/tools/${x.id}/`}>{x.name}</a></b> is a verified, free, self-hosted skill pack (MIT) in <a href="/category/quant-backtesting/">quant &amp; backtesting</a>. The listing covers scanners, Greeks, spreads, PMCC screens, correlations and IBKR portfolio reports. These are workflows you run yourself. They are not signals we endorse, and they are not a strategy recommendation. You supply any upstream API keys.
+      {capNoteKey(x) && <><br/><span class="note">{t(capNoteKey(x)!)}</span></>}
+    </p>
+  ))}
+  <p>We left <b>OptionsAhoy MCP</b> off this page even though it was verified on {run}: its listing is an equity-compensation tax optimizer (ISO, NSO, RSU, QSBS), not listed-options trading.</p>
+
+  <h2 class="sec" id="what-they-do-not-do">What these tools do not do</h2>
+  <p>They do not predict implied volatility, pick a contract, or tell you to buy or sell a spread. A verified listing means the tool was reachable in our {run} check, not that its quotes are complete, timely, or suitable for an order. Official and community servers can still return delayed data, hit a free-tier cap, or refuse a multi-leg order. A self-hosted “free” tool does not include the vendor’s data plan or the broker’s commissions. Nothing here is a rating of a broker, an options strategy, or an underlying security.</p>
+
+  <h2 class="sec" id="how-we-verify">How we verify</h2>
+  <p>Every week we re-check the directory automatically. <b>Verified</b> means the listing was reachable, its homepage, docs and hosted endpoints were alive, and — for tools with a public repository — there was a commit in the last 180 days. This page uses only that status from the {run} run. Pricing is copied from each vendor’s page with the check date; unknown values stay “unknown,” and a missing paper/sandbox flag stays missing. Status is not for sale. See the <a href="/verification/">verification page</a> and install snippets on each tool page or the <a href="/developers/">developers page</a>.</p>
+  <p>Related pages: <a href="/compare/best-ai-tools-for-stock-analysis/">best AI tools for stock analysis and research</a>, <a href="/category/trading-brokers/">trading brokers</a>, and <a href="/category/market-data/">market data</a>.</p>
+</BestCompare>

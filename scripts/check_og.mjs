@@ -7,7 +7,8 @@ const lib = fs.readFileSync("src/lib/data.ts", "utf8");
 const cats = [...lib.matchAll(/slug: "([^"]+)", name: "([^"]+)", short: "[^"]+", icon: "([^"]+)"/g)].map((m) => m[1]);
 const comps = [...lib.matchAll(/slug: "([^"]+)", title: "([^"]+)"/g)].map((m) => m[1]);
 if (!cats.length || !comps.length) { console.error(`check_og: could not parse categories (${cats.length}) or comparisons (${comps.length}) from src/lib/data.ts`); process.exit(1); }
-const names = ["home", "weekly", ...cats.map((c) => `category-${c}`), ...comps.map((c) => `compare-${c}`), ...tools.map((t) => `tool-${t.id}`)];
+const editorial = ["best-ai-tools-for-stock-analysis", "best-ai-tools-for-options-trading"];
+const names = ["home", "weekly", ...cats.map((c) => `category-${c}`), ...comps.map((c) => `compare-${c}`), ...editorial.map((s) => `compare-${s}`), ...tools.map((t) => `tool-${t.id}`)];
 const ok = (p) => fs.existsSync(p) && fs.statSync(p).size > 0;
 const missing = names.filter((n) => !ok(`public/og/${n}.png`));
 const notInDist = fs.existsSync("dist/og") ? names.filter((n) => !ok(`dist/og/${n}.png`)) : [];
