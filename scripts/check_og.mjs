@@ -7,9 +7,9 @@ const lib = fs.readFileSync("src/lib/data.ts", "utf8");
 const cats = [...lib.matchAll(/slug: "([^"]+)", name: "([^"]+)", short: "[^"]+", icon: "([^"]+)"/g)].map((m) => m[1]);
 const comps = [...lib.matchAll(/slug: "([^"]+)", title: "([^"]+)"/g)].map((m) => m[1]);
 if (!cats.length || !comps.length) { console.error(`check_og: could not parse categories (${cats.length}) or comparisons (${comps.length}) from src/lib/data.ts`); process.exit(1); }
-const guides = fs.existsSync("src/content/guides") ? fs.readdirSync("src/content/guides").filter((f) => /^[a-z0-9-]+\.md$/.test(f)).map((f) => f.slice(0, -3)) : [];
+const editorial = ["best-ai-tools-for-stock-analysis", "best-ai-tools-for-options-trading"];
 const blogPosts = fs.existsSync("src/content/blog") ? fs.readdirSync("src/content/blog").filter((f) => /^[a-z0-9-]+\.md$/.test(f)).map((f) => f.slice(0, -3)) : [];
-const names = ["home", "weekly", "blog", ...cats.map((c) => `category-${c}`), ...comps.map((c) => `compare-${c}`), ...guides.map((g) => `guide-${g}`), ...blogPosts.map((b) => `blog-${b}`), ...tools.map((t) => `tool-${t.id}`)];
+const names = ["home", "weekly", "blog", ...cats.map((c) => `category-${c}`), ...comps.map((c) => `compare-${c}`), ...editorial.map((s) => `compare-${s}`), ...blogPosts.map((b) => `blog-${b}`), ...tools.map((t) => `tool-${t.id}`)];
 const ok = (p) => fs.existsSync(p) && fs.statSync(p).size > 0;
 const missing = names.filter((n) => !ok(`public/og/${n}.png`));
 const notInDist = fs.existsSync("dist/og") ? names.filter((n) => !ok(`dist/og/${n}.png`)) : [];
@@ -18,4 +18,4 @@ if (missing.length || notInDist.length) {
   if (notInDist.length) console.error(`OG images missing in dist/og (${notInDist.length}): ${notInDist.join(", ")}`);
   process.exit(1);
 }
-console.log(`OG images: ${tools.length}/${tools.length} tools ok; all ${names.length} cards ok (home, weekly, ${cats.length} categories, ${comps.length} comparisons, ${guides.length} guides, blog + ${blogPosts.length} posts, ${tools.length} tools)`);
+console.log(`OG images: ${tools.length}/${tools.length} tools ok; all ${names.length} cards ok (home, weekly, ${cats.length} categories, ${comps.length} comparisons, blog + ${blogPosts.length} posts, ${guides.length} guides, blog + ${blogPosts.length} posts, ${tools.length} tools)`);

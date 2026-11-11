@@ -50,18 +50,21 @@ test("TradingView subdomains are still tagged and rel is sponsored", () => {
   assert.equal(relFor(u), "sponsored noopener"); assert.equal(relFor("https://github.com/x/y"), "noopener");
 });
 test("PromoteKit allowlist: only tracked paths are tagged", () => {
-  for (const u of ["https://eodhd.com/", "https://eodhd.com/pricing", "https://www.eodhd.com/lp/eodhd-mcp-server"]) {
+  for (const u of ["https://eodhd.com/", "https://eodhd.com/pricing", "https://www.eodhd.com/lp/eodhd-mcp-server", "https://eodhd.com/financial-apis/", "https://eodhd.com/financial-apis/mcp-server-for-financial-data-by-eodhd", "//eodhd.com/financial-apis/"]) {
     assert.deepEqual(via(affUrl(u)), ["tradingaihub"]); assert.equal(isAff(u), true); assert.equal(relFor(affUrl(u)), "sponsored noopener");
   }
+  // already-tagged docs URL keeps exactly one via=tradingaihub (no duplicate query)
+  const s = affUrl("https://eodhd.com/financial-apis/?via=tradingaihub");
+  assert.deepEqual(via(s), ["tradingaihub"]); assert.equal(isAff(s), true);
 });
-test("untracked EODHD paths stay plain (docs, /financial-apis/)", () => {
-  for (const u of ["https://eodhd.com/financial-apis/", "https://eodhd.com/financial-apis/mcp-server-for-financial-data-by-eodhd", "https://eodhd.com/pricing/extra", "//eodhd.com/financial-apis/"]) {
+test("untracked EODHD paths stay plain", () => {
+  for (const u of ["https://eodhd.com/pricing/extra", "https://eodhd.com/blog"]) {
     assert.equal(affUrl(u), u); assert.equal(isAff(u), false); assert.equal(relFor(u), "noopener");
   }
   // a stray via on an untracked path is stripped, and the result is not an affiliate link
-  const s = affUrl("https://eodhd.com/financial-apis/?via=tradingaihub");
-  assert.equal(s, "https://eodhd.com/financial-apis/"); assert.equal(isAff(s), false);
-  assert.equal(isAff("https://eodhd.com/financial-apis/?via=tradingaihub"), false);
+  const s = affUrl("https://eodhd.com/pricing/extra?via=tradingaihub");
+  assert.equal(s, "https://eodhd.com/pricing/extra"); assert.equal(isAff(s), false);
+  assert.equal(isAff("https://eodhd.com/blog/?via=tradingaihub"), false);
 });
 test("untagUrl handles protocol-relative URLs and keeps the // form", () => {
   assert.equal(untagUrl("//eodhd.com/pricing?via=tradingaihub", "eodhd"), "//eodhd.com/pricing");

@@ -1,10 +1,29 @@
 import { useT } from "../i18n";
 import raw from "../../data/tools.json";
 import report from "../../data/verification-report.json";
+import scanRaw from "../../data/security-scan.json";
 import { affUrl, untagUrl } from "./aff";
 // Every outbound URL in the data goes through affUrl, so any TradingView link automatically carries the affiliate ID.
 export const tools: any[] = (raw as any[]).map((t) => ({ ...t, homepage: affUrl(t.homepage), docs: affUrl(t.docs), source_url: affUrl(t.source_url), pricing: t.pricing ? { ...t.pricing, source: affUrl(t.pricing.source) } : t.pricing }));
 export const verificationReport: any = report;
+// Public security-scan data: clean tools only (no findings, no non-clean statuses).
+export const securityScan: any = scanRaw;
+export type SecurityScan = { status: "clean"; date: string; scanner_commit: string; rules_version: string; vt?: string };
+const securityById: Record<string, SecurityScan> = (scanRaw as any).tools ?? {};
+/** Latest scan date among clean tools, for the methodology page example. */
+export const securityScanDate: string | null = Object.values(securityById).map((s) => s.date).sort().at(-1) ?? null;
+export const securityScanCommit: string | null = (scanRaw as any).scanner_commit ?? null;
+export const securityScanRules: string | null = (scanRaw as any).rules_version != null ? String((scanRaw as any).rules_version) : null;
+export const securityScanCommitShort: string | null = securityScanCommit ? securityScanCommit.slice(0, 7) : null;
+/** Scan record for a tool, or null when it has no public badge (not clean / not scanned). */
+export const securityOf = (t: { id: string } | string): SecurityScan | null => {
+  const id = typeof t === "string" ? t : t.id;
+  const s = securityById[id];
+  return s && s.status === "clean" ? s : null;
+};
+/** VirusTotal GUI URL only for a real SHA-256. Never invent a link. */
+export const vtUrl = (sha?: string | null): string | null =>
+  (typeof sha === "string" && /^[a-fA-F0-9]{64}$/.test(sha) ? `https://www.virustotal.com/gui/file/${sha.toLowerCase()}` : null);
 
 export const CATEGORIES = [
   { slug: "market-data", name: "Market data APIs & MCPs", short: "Market data", icon: "📈", blurb: "Real-time and historical prices, fundamentals and indicators for stocks, ETFs, forex and more." },
@@ -26,10 +45,10 @@ export const STATUS: Record<string, { label: string; tone: string; help: string 
   stale: { label: "Stale", tone: "bad", help: "Reachable, but no commits in over a year. Test before relying on it." },
   archived: { label: "Archived", tone: "bad", help: "The repository is archived by its owner." },
   warning: { label: "Check links", tone: "warn", help: "A homepage, docs or endpoint link failed in the last check." },
-  unconfirmed: { label: "Needs review", tone: "warn", help: "Reachable, but a homepage, docs or endpoint link refused our checker (sign-in required, bot block or rate limit), so it could not be fully confirmed. Not counted as verified." },
+  unconfirmed: { label: "Link check pending", tone: "warn", help: "Reachable, but a homepage, docs or endpoint link refused our checker (sign-in required, bot block or rate limit), so it could not be fully confirmed. Not counted as verified." },
   unreachable: { label: "Unreachable", tone: "bad", help: "The repository or homepage could not be reached." },
 };
-export const pkgOf = (t: any) => t.verification?.npm || t.verification?.pypi || null;
+export const pkgOf = (t: any) => t.install_from_source ? null : (t.verification?.npm || t.verification?.pypi || null);
 // Stars of a shared list / monorepo (repo_is_collection) belong to the whole collection, not to one entry,
 // so such entries show no stars and are left out of every star ranking.
 export const isCollection = (t: any) => !!(t.repo_is_collection || t.verification?.github?.collection);
@@ -46,7 +65,7 @@ export function snippets(t: any, tr: (k: string, v?: any) => string = useT("en")
   const name = slugName(t);
   const v = t.verification || {};
   const out: { client: string; lang: string; code: string; note?: string }[] = [];
-  const pkg = v.npm ? { cmd: "npx", args: ["-y", v.npm.name] } : v.pypi ? { cmd: "uvx", args: [v.pypi.name] } : null;
+  const pkg = t.install_from_source ? null : (v.npm ? { cmd: "npx", args: ["-y", v.npm.name] } : v.pypi ? { cmd: "uvx", args: [v.pypi.name] } : null);
   const remote = t.remote_mcp_url;
   const keyNote = tr("snip.keyNote");
   if (t.type === "mcp" && pkg) {
@@ -65,7 +84,7 @@ export function snippets(t: any, tr: (k: string, v?: any) => string = useT("en")
     out.push({ client: "Gemini CLI", lang: "json", code: JSON.stringify({ mcpServers: { [name]: { httpUrl: remote } } }, null, 2) });
   }
   if (t.type === "mcp" && !pkg && !remote && t.repo) {
-    out.push({ client: tr("snip.allClients"), lang: "text", code: cloneOf(t), note: tr("snip.fromSource") });
+    out.push({ client: tr("snip.allClients"), lang: "text", code: cloneOf(t), note: t.install_from_source ? tr("snip.npmUnmaintained") : tr("snip.fromSource") });
   }
   if (t.type === "mcp" && !pkg && !remote && !t.repo) {
     out.push({ client: tr("snip.allClients"), lang: "text", code: untagUrl(t.docs || t.homepage, "eodhd"), note: tr("snip.accountUrl") });

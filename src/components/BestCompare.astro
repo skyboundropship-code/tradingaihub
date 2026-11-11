@@ -1,0 +1,39 @@
+---
+import Base from "../layouts/Base.astro";
+import Share from "./Share.astro";
+import Newsletter from "./Newsletter.astro";
+import Faq from "./Faq.astro";
+import { SITE } from "../config";
+import { articleLd } from "../lib/jsonld";
+import { faqLd } from "../lib/faq";
+import type { BestPageMeta } from "../lib/bestPages";
+
+interface Props { page: BestPageMeta; list: { id: string; name: string }[]; affiliateDisclosure?: boolean }
+const { page: p, list, affiliateDisclosure = false } = Astro.props;
+const pageUrl = `${SITE.url}/compare/${p.slug}/`;
+const ld = [
+  articleLd({ url: pageUrl, headline: p.h1, description: p.description, lang: "en", datePublished: p.datePublished, dateModified: p.dateModified, toolIds: list.map((x) => x.id), image: `${SITE.url}/og/compare-${p.slug}.png` }),
+  { "@context": "https://schema.org", "@type": "ItemList", name: p.h1, url: pageUrl, numberOfItems: list.length, itemListElement: list.map((x, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE.url}/tools/${x.id}/`, name: x.name })) },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE.url}/` },
+    { "@type": "ListItem", position: 2, name: "Comparisons", item: `${SITE.url}/compare/` },
+    { "@type": "ListItem", position: 3, name: p.h1, item: pageUrl },
+  ] },
+  faqLd(p.faq, "en"),
+];
+---
+<Base title={p.title} description={p.description} jsonld={ld} og={`compare-${p.slug}`} lang="en" langs={["en"]} article={{ published: p.datePublished, modified: p.dateModified }}>
+<div class="wrap page">
+  <div class="crumbs"><a href="/">Home</a> / <a href="/compare/">Comparisons</a></div>
+  <h1 class="page-title">{p.h1}</h1>
+  <p class="byline">TradingAIHub Editorial</p>
+  <Share path={`/compare/${p.slug}/`} text={p.h1} lang="en" />
+  <div class="prose">
+    <slot />
+  </div>
+  <Faq items={p.faq} lang="en" />
+  {affiliateDisclosure && <p class="note" id="partner-disclosure">The TradingView link marked <b>Partner</b> is an affiliate link. TradingAIHub may earn a commission at no extra cost to you, and it does not affect rankings, verification status or which tools appear on this page. See <a href="/about/#how-we-verify">how we verify</a> and the <a href="/disclaimer/">disclaimer</a>.</p>}
+  <p class="note"><b>Not financial advice.</b> Paper trade first. See the <a href="/disclaimer/">disclaimer</a>.</p>
+  <Newsletter lang="en" level={2} />
+</div>
+</Base>

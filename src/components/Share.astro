@@ -4,7 +4,7 @@ import { useT } from "../i18n";
 const { path, text, lang = "en" } = Astro.props; const { t: tr } = useT(lang);
 const url = encodeURIComponent(SITE.url + path); const t = encodeURIComponent(text);
 ---
-<div class="share"><span class="pill" style="align-self:center">{tr("common.share")}</span>
+<div class="share"><span class="pill">{tr("common.share")}</span>
 <a href={`https://x.com/intent/post?text=${t}&url=${url}`} target="_blank" rel="noopener">𝕏 Post</a>
 <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${url}`} target="_blank" rel="noopener">LinkedIn</a>
 <a href={`https://www.reddit.com/submit?url=${url}&title=${t}`} target="_blank" rel="noopener">Reddit</a>

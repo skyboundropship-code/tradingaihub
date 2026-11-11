@@ -1,0 +1,143 @@
+---
+// /developers/: docs for the free public API (/api/v1/*) and the remote MCP server (/mcp). English-only (like /guides/):
+// hreflang en + x-default, listed once in sitemap-en.xml. /api redirects here (functions/api/index.js).
+// No affiliate links on this page: examples use non-partner tools. The API/MCP output labels affiliate links (affiliate, disclosure).
+import Base from "../layouts/Base.astro";
+import { SITE } from "../config";
+import { publicTools, publicCategories, FILTERS, RATE_LIMITS, MCP_URL } from "../lib/publicApi";
+import { TOOLS as MCP_TOOLS, SUPPORTED as MCP_VERSIONS } from "../../functions/_lib/mcp.js";
+const url = `${SITE.url}/developers/`;
+const title = "Free API & MCP server";
+const desc = `Free, read-only JSON API and remote MCP server for the TradingAIHub directory of ${publicTools.length} AI tools for finance and trading. No sign-in, no key, CORS enabled.`;
+const ld = [
+  { "@context": "https://schema.org", "@type": "WebAPI", name: "TradingAIHub public API", description: desc, url, documentation: url,
+    termsOfService: `${SITE.url}/terms/`, provider: { "@id": `${SITE.url}/#organization` }, isAccessibleForFree: true },
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE.url}/` },
+    { "@type": "ListItem", position: 2, name: title, item: url } ] },
+];
+const ex = publicTools.find((t) => t.slug === "alpha-vantage-mcp") ?? publicTools[0];
+const sample = JSON.stringify({ tool: { slug: ex.slug, name: ex.name, type: ex.type, category: ex.category, description: ex.description, url: ex.url, website_url: ex.website_url, vendor_url: ex.vendor_url, affiliate: ex.affiliate, disclosure: ex.disclosure, homepage: ex.homepage, remote_mcp_url: ex.remote_mcp_url, license: ex.license, pricing: ex.pricing ? { model: ex.pricing.model, free_tier: ex.pricing.free_tier } : null, languages: ex.languages, status: ex.status, verified: ex.verified, checked_at: ex.checked_at, security: ex.security, "…": "…" } }, null, 2);
+const B = SITE.url;
+const curl = `# Every verified market-data MCP server
+curl -s "${B}/api/v1/tools?category=market-data&type=mcp&verified=true"
+
+# One tool
+curl -s "${B}/api/v1/tools/${ex.slug}"
+
+# Search
+curl -s "${B}/api/v1/search?q=options+data&limit=5"
+
+# Categories, and the full dump
+curl -s "${B}/api/v1/categories"
+curl -sO "${B}/api/v1/tools.json"`;
+const js = `const res = await fetch("${B}/api/v1/search?q=" + encodeURIComponent("crypto exchange"));
+if (!res.ok) throw new Error((await res.json()).error.message);
+const { tools } = await res.json();
+for (const t of tools) console.log(t.name, t.status, t.url);`;
+const py = `import requests
+
+r = requests.get("${B}/api/v1/tools",
+                 params={"category": "trading-brokers", "verified": "true", "limit": 20},
+                 timeout=10)
+r.raise_for_status()
+for t in r.json()["tools"]:
+    print(t["name"], "-", t["remote_mcp_url"] or t["homepage"])`;
+const prompt = `You can look up AI tools for finance and trading in the free TradingAIHub API (no key).
+- Search: GET ${B}/api/v1/search?q=<keywords>
+- Details: GET ${B}/api/v1/tools/<slug>
+- Filters: GET ${B}/api/v1/tools?category=<slug>&type=mcp|skill|api&verified=true
+- Spec: ${B}/api/openapi.json
+Prefer tools with "verified": true, cite each tool's "url", and say that this is not investment advice.`;
+const claudeDesktop = JSON.stringify({ mcpServers: { tradingaihub: { command: "npx", args: ["-y", "mcp-remote", MCP_URL] } } }, null, 2);
+const cursor = JSON.stringify({ mcpServers: { tradingaihub: { url: MCP_URL } } }, null, 2);
+const vscode = JSON.stringify({ servers: { tradingaihub: { type: "http", url: MCP_URL } } }, null, 2);
+const rpc = `curl -s ${MCP_URL} \\
+  -H "content-type: application/json" -H "accept: application/json, text/event-stream" \\
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"search_tools","arguments":{"query":"stock prices","limit":3}}}'`;
+const endpoints = [
+  ["/api/v1/tools", "List tools. Filters: category, type, language, status, verified, official; limit (1–100, default 50), offset. Sorted by name, with total and a next link."],
+  ["/api/v1/tools/{slug}", "One tool. Unknown slug → 404 JSON."],
+  ["/api/v1/search?q=", "Search name, description, category and package names. Tools matching every word rank first, then partial matches. Optional category, type, limit (1–50, default 10)."],
+  ["/api/v1/categories", `All ${publicCategories.length} categories with tool counts.`],
+  ["/api/v1/tools.json", "Full dump of every tool (same objects as /api/v1/tools)."],
+  ["/api/v1/categories.json", "Same as /api/v1/categories, as a file."],
+  ["/api/openapi.json", "OpenAPI 3.1 description of all of the above."],
+];
+---
+<Base title={title} description={desc} jsonld={ld} lang="en" langs={["en"]}>
+<div class="wrap page prose">
+  <div class="crumbs"><a href="/">Home</a> / {title}</div>
+  <h1>{title}</h1>
+  <p>{desc} The data is the same as on the site: every MCP server, agent skill and API we list, with pricing, license, published packages and the result of our weekly verification. <code dir="ltr">security</code> is <code dir="ltr">{'{ status: "clean", date }'}</code> only when our static security scan found no issues; otherwise it is <code dir="ltr">null</code> (we do not publish other scan outcomes). These docs are in English.</p>
+  <p class="callout">Information only, not investment advice. Affiliate disclosure: for partner tools (currently TradingView and EODHD), <code dir="ltr">website_url</code> is the same affiliate link the site uses, marked <code dir="ltr">affiliate: true</code> with a <code dir="ltr">disclosure</code>; <code dir="ltr">vendor_url</code> is always the plain link. TradingAIHub may earn a commission, and listings never depend on payment. See the <a href="/disclaimer/">disclaimer</a>, <a href="/terms/">terms</a> and <a href="/about/">how we verify</a>.</p>
+
+  <h2 id="rest">REST API</h2>
+  <p>Base URL <code dir="ltr">{B}</code>. Only <code dir="ltr">GET</code> (and <code dir="ltr">HEAD</code>, <code dir="ltr">OPTIONS</code>); anything else returns 405. Every response is JSON with <code dir="ltr">Access-Control-Allow-Origin: *</code>, so you can call it from a browser. Successful responses are cacheable (<code dir="ltr">Cache-Control: public, max-age=300, s-maxage=3600</code>). The full spec is at <a href="/api/openapi.json">/api/openapi.json</a>.</p>
+  <div class="tablewrap"><table><thead><tr><th>Endpoint</th><th>What it returns</th></tr></thead><tbody>
+    {endpoints.map(([p, d]) => <tr><td><code dir="ltr">{p}</code></td><td>{d}</td></tr>)}
+  </tbody></table></div>
+  <h3>Filter values</h3>
+  <ul>
+    <li><code dir="ltr">category</code>: {FILTERS.category.map((c, i) => <>{i ? ", " : ""}<code dir="ltr">{c}</code></>)}</li>
+    <li><code dir="ltr">type</code>: <code dir="ltr">mcp</code>, <code dir="ltr">skill</code>, <code dir="ltr">api</code></li>
+    <li><code dir="ltr">status</code>: the weekly check result: {FILTERS.status.map((c, i) => <>{i ? ", " : ""}<code dir="ltr">{c}</code></>)}. <code dir="ltr">verified=true</code> is a shortcut for <code dir="ltr">status=verified</code>.</li>
+    <li><code dir="ltr">language</code>: <code dir="ltr">javascript</code> (published on npm) or <code dir="ltr">python</code> (published on PyPI). Tools without a package (hosted APIs, skills, source-only servers) have no language.</li>
+  </ul>
+  <h3>Example response</h3>
+  <pre class="ltr" dir="ltr"><code dir="ltr">{sample}</code></pre>
+  <h3>Errors</h3>
+  <p>Errors use the HTTP status and a JSON body: <code dir="ltr">{`{"error": {"status": 404, "code": "not_found", "message": "…"}}`}</code>. Codes: <code dir="ltr">invalid_parameter</code> (400, with the allowed values), <code dir="ltr">not_found</code> (404), <code dir="ltr">method_not_allowed</code> (405), <code dir="ltr">rate_limited</code> (429).</p>
+  <h3 id="limits">Rate limits</h3>
+  <p>No key and no sign-up. Fair use is about {RATE_LIMITS.api} requests per minute per IP for the REST API and {RATE_LIMITS.mcp} per minute for the MCP server. Limits are counted per Cloudflare edge instance, so treat them as a ceiling, not a quota. Every response has <code dir="ltr">RateLimit-Limit</code>, <code dir="ltr">RateLimit-Remaining</code> and <code dir="ltr">RateLimit-Reset</code> headers. Over the limit you get <code dir="ltr">429</code> with <code dir="ltr">Retry-After</code> (seconds). If you need everything, download <code dir="ltr">/api/v1/tools.json</code> once and cache it: the data changes about once a week.</p>
+
+  <h2 id="examples">Examples</h2>
+  <h3>curl</h3>
+  <pre class="ltr" dir="ltr"><code dir="ltr">{curl}</code></pre>
+  <h3>JavaScript (fetch)</h3>
+  <pre class="ltr" dir="ltr"><code dir="ltr">{js}</code></pre>
+  <h3>Python (requests)</h3>
+  <pre class="ltr" dir="ltr"><code dir="ltr">{py}</code></pre>
+  <h3>Prompt for an LLM agent with web access</h3>
+  <pre class="ltr" dir="ltr"><code dir="ltr">{prompt}</code></pre>
+
+  <h2 id="mcp">Remote MCP server</h2>
+  <p>The same data as an MCP server for Claude, ChatGPT, Cursor and other AI clients. URL: <code dir="ltr">{MCP_URL}</code>. Transport: Streamable HTTP (JSON responses, stateless, no sign-in). Protocol versions: {MCP_VERSIONS.map((v, i) => <>{i ? ", " : ""}<code dir="ltr">{v}</code></>)}.</p>
+  <div class="tablewrap"><table><thead><tr><th>Tool</th><th>What it does</th></tr></thead><tbody>
+    {MCP_TOOLS.map((t) => <tr><td><code dir="ltr">{t.name}({Object.keys(t.inputSchema.properties).map((k) => (t.inputSchema.required ?? []).includes(k) ? k : `${k}?`).join(", ")})</code></td><td>{t.description}</td></tr>)}
+  </tbody></table></div>
+  <p>All three tools are read-only. The same rate limit, CORS and data rules apply as for the REST API.</p>
+  <h3>Claude (desktop or web): custom connector</h3>
+  <p>Claude → Settings → Connectors → Add custom connector, name it TradingAIHub and paste <code dir="ltr">{MCP_URL}</code>. No authentication is needed.</p>
+  <h3>Claude Desktop: config file (mcp-remote)</h3>
+  <p>If custom connectors aren't available on your plan, add this to <code dir="ltr">claude_desktop_config.json</code> (needs Node.js) and restart Claude:</p>
+  <pre class="ltr" dir="ltr"><code dir="ltr">{claudeDesktop}</code></pre>
+  <h3>Claude Code</h3>
+  <pre class="ltr" dir="ltr"><code dir="ltr">{`claude mcp add --transport http tradingaihub ${MCP_URL}`}</code></pre>
+  <h3>Cursor</h3>
+  <p>Add to <code dir="ltr">.cursor/mcp.json</code> (project) or <code dir="ltr">~/.cursor/mcp.json</code> (global):</p>
+  <pre class="ltr" dir="ltr"><code dir="ltr">{cursor}</code></pre>
+  <h3>VS Code (GitHub Copilot)</h3>
+  <p>Add to <code dir="ltr">.vscode/mcp.json</code>:</p>
+  <pre class="ltr" dir="ltr"><code dir="ltr">{vscode}</code></pre>
+  <h3>ChatGPT</h3>
+  <p>ChatGPT → Settings → Apps &amp; Connectors → Advanced settings → turn on developer mode, then Create: name TradingAIHub, MCP server URL <code dir="ltr">{MCP_URL}</code>, authentication: none.</p>
+  <h3>Raw JSON-RPC</h3>
+  <pre class="ltr" dir="ltr"><code dir="ltr">{rpc}</code></pre>
+
+  <h2 id="licence">Licence</h2>
+  <ul>
+    <li><b>Data</b> (API responses, MCP results and the JSON dumps): <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a>. You may copy, adapt and use it, including commercially, if you credit <b>“TradingAIHub, https://tradingaihub.com”</b> (a link back is enough) and indicate changes. Every response carries <code dir="ltr">license</code>, <code dir="ltr">license_url</code> and <code dir="ltr">attribution</code>.</li>
+    <li><b>Code</b>: MIT (API and MCP server code). The scope and exact files are listed in <a href="https://github.com/tradingaihub/tradingaihub/blob/main/LICENSE-CODE" rel="license noopener"><code dir="ltr">LICENSE-CODE</code></a>; the rest of the site's code and content is not licensed for reuse. The API index returns this as <code dir="ltr">code_license</code>.</li>
+    <li>Tool names and trademarks belong to their owners.</li>
+  </ul>
+
+  <h2 id="discovery">Discovery</h2>
+  <ul>
+    <li><a href="/api/openapi.json">/api/openapi.json</a>: OpenAPI 3.1 spec of the REST API.</li>
+    <li><code dir="ltr">/mcp/server-card</code>: MCP Server Card (name, endpoint, protocol versions), and <code dir="ltr">/.well-known/ai-catalog.json</code>, which points to it.</li>
+    <li><a href="/llms.txt">/llms.txt</a> and <a href="/llms-full.txt">/llms-full.txt</a>: the directory as plain text for LLMs.</li>
+  </ul>
+  <p>Questions or a bug? Email <a href={`mailto:${SITE.contactEmail}?subject=API`}>{SITE.contactEmail}</a>.</p>
+</div>
+</Base>

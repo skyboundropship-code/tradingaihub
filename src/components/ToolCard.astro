@@ -1,13 +1,20 @@
 ---
 import Status from "./Status.astro";
+import SecurityBadge from "./SecurityBadge.astro";
+import SecurityNote from "./SecurityNote.astro";
 import { starsOf, fmtStars } from "../lib/data";
 import { useT } from "../i18n";
+import TitleText from "./TitleText.astro";
 const { t: tool, lang = "en", level = 3 } = Astro.props; const H = level === 2 ? "h2" : "h3"; const s = starsOf(tool); const { t, p, desc } = useT(lang);
 const d = desc(tool);
+// Unique per rendered card (a tool can appear in several lists on one page).
+const noteId = tool.security_note ? `secnote-${tool.id}-${Math.random().toString(36).slice(2, 8)}` : undefined;
 ---
-<a class="card" href={p(`/tools/${tool.id}/`)} data-search={`${tool.name} ${tool.description} ${d} ${tool.category} ${tool.type}`.toLowerCase()} data-cat={tool.category} data-type={tool.type}>
-  <div class="meta"><span class="badge type">{t(`type.${tool.type}`)}</span>{tool.official && <span class="badge off">{t("common.official")}</span>}<Status status={tool.verification.status} lang={lang} /></div>
-  <H class:list={[level === 2 && "card-t"]} dir="auto">{tool.name}</H>
+<a class="card" href={p(`/tools/${tool.id}/`)} data-search={`${tool.name} ${tool.description} ${d} ${tool.category} ${tool.type}`.toLowerCase()} data-cat={tool.category} data-type={tool.type} aria-describedby={noteId}>
+  <div class="meta"><span class="badge type">{t(`type.${tool.type}`)}</span>{tool.official && <span class="badge off">{t("common.official")}</span>}<Status status={tool.verification.status} lang={lang} /><SecurityBadge tool={tool} lang={lang} variant="card" /></div>
+  {noteId && <div class="meta secnote-line"><SecurityNote tool={tool} lang={lang} variant="card" /></div>}
+  {noteId && <p class="secnote-tip secnote-card-tip" id={noteId} role="note" hidden><strong>{t("secnote.label")}.</strong> <span set:html={t("secnote.text")} /></p>}
+  <H class:list={[level === 2 && "card-t"]} title={tool.name}><TitleText text={tool.name} bdi /></H>
   <p>{d}</p>
   <div class="meta"><span>💲 {tool.pricing.free_tier === "unknown" ? t("common.pricingUnknown") : <bdi>{tool.pricing.free_tier}</bdi>}</span>{s != null && <span>★ {fmtStars(s)}</span>}</div>
 </a>

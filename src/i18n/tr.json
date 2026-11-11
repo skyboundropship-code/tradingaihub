@@ -13,13 +13,15 @@
   "verify": "Nasıl doğruluyoruz",
   "submit": "Ücretsiz araç ekle",
   "language": "Dil",
-  "theme": "Açık/koyu temayı değiştir"
+  "theme": "Açık/koyu temayı değiştir",
+    "menu": "Menü"
  },
  "footer": {
   "rechecked": "Her hafta yeniden kontrol edilir.",
   "directory": "Dizin",
   "comparisons": "Karşılaştırmalar",
   "latestRun": "Son doğrulama",
+  "security": "Güvenlik taraması",
   "makers": "Geliştiriciler için",
   "submitFree": "Araç ekle (ücretsiz)",
   "getBadge": "Doğrulama rozeti al",
@@ -30,6 +32,8 @@
   "terms": "Koşullar",
   "about": "Hakkında",
   "advertise": "Reklam ver",
+  "api": "API ve MCP",
+  "apiDocs": "Ücretsiz API ve MCP sunucusu (İngilizce)",
   "disclaimer": "<b>Yatırım tavsiyesi değildir.</b> {site}, yazılım araçlarına ilişkin bilgilendirme amaçlı bir dizindir. Bu sitedeki hiçbir içerik yatırım, trading, vergi veya hukuki tavsiye ya da herhangi bir menkul kıymet veya varlığı alma veya satma önerisi değildir ve biz lisanslı yatırım danışmanı veya portföy yöneticisi değiliz. Trading kayıp riski içerir. <b>Ortaklık bildirimi:</b> Bazı bağlantılar (şu anda TradingView) ortaklık bağlantılarıdır. Bunlar üzerinden kaydolursanız, size ek maliyet olmadan komisyon kazanabiliriz. Bu bağlantılar işaretlidir ve listelemeleri, sıralamaları veya doğrulama durumunu asla etkilemez.",
   "fullDisclaimer": "Tam sorumluluk reddi",
   "short": "Yatırım tavsiyesi değildir. Bazı bağlantılar iş ortağı bağlantılarıdır ve bize komisyon kazandırabilir."
@@ -80,7 +84,7 @@
    "Bağlantı kontrol edilmeli",
    "Son kontrolde web sitesi, doküman veya uç nokta bağlantısı başarısız oldu."
   ],
-  "unconfirmed": ["İnceleme gerekli", "Erişilebilir, ancak bir ana sayfa, doküman veya uç nokta bağlantısı denetleyicimizi reddetti (giriş gerekli, bot engeli veya hız sınırı), bu yüzden tam olarak doğrulanamadı. Doğrulanmış sayılmaz."],
+  "unconfirmed": ["Bağlantı kontrolü bekleniyor", "Erişilebilir, ancak bir ana sayfa, doküman veya uç nokta bağlantısı denetleyicimizi reddetti (giriş gerekli, bot engeli veya hız sınırı), bu yüzden tam olarak doğrulanamadı. Doğrulanmış sayılmaz."],
   "unreachable": [
    "Erişilemiyor",
    "Depoya veya web sitesine ulaşılamadı."
@@ -279,6 +283,7 @@
   "pricesChange": "Fiyatlar değişir — satın almadan önce her zaman sağlayıcının sayfasından teyit edin.",
   "verification": "Doğrulama",
   "autoCheck": "{date} tarihli otomatik kontrol.",
+  "manualCheck": "{date} tarihli manuel kontrol.",
   "repository": "Depo",
   "homepage": "Ana sayfa",
   "docs": "Dokümanlar",
@@ -293,6 +298,10 @@
   "sendCorrection": "Düzeltme gönder",
   "free": "Ücretsiz",
   "notEndorse": "Listelenmek onay veya yatırım tavsiyesi anlamına gelmez. Her trading aracını önce paper modunda test edin.",
+  "liveFundsNote": "Canlı işlem açabilir / fon taşıyabilir — kâğıt modunu veya kapsamı sınırlı anahtarları kullanın.",
+  "liveTradingNote": "Canlı işlem açabilir — kâğıt modunu veya kapsamı sınırlı anahtarları kullanın.",
+  "movesFundsNote": "Fon taşıyabilir — sanal alan modunu veya kapsamı sınırlı anahtarları kullanın.",
+  "deprecatedNote": "Sağlayıcı tarafından kullanımdan kaldırıldı. Yerine geçen belgelere bakın.",
   "more": "{cat} kategorisinde diğer araçlar",
   "pricingDataNote": "Fiyat ayrıntıları sağlayıcı sayfasından İngilizce olarak alıntılanmıştır."
  },
@@ -317,6 +326,7 @@
   "chatgpt": "ChatGPT → Settings → Apps & Connectors (geliştirici modu) → Create, ardından bu URL'yi yapıştırın.",
   "grok": "Uzak MCP araçlarını xAI API isteklerinde kullanın; kimlik doğrulama başlıkları için docs.x.ai'ye bakın.",
   "fromSource": "Denetleyicimiz yayımlanmış bir npm/PyPI paketi veya barındırılan uç nokta tespit etmedi. README'ye göre yerel olarak çalıştırın, ardından başlatma komutunu istemcinize stdio MCP sunucusu olarak kaydedin.",
+  "npmUnmaintained": "npm paketi şu anda bakımsız ve npm tarafından tutuluyor, bu yüzden npm'den yüklemeyin. Depoyu klonlayın, yerel olarak çalıştırmak için README'yi izleyin, ardından başlatma komutunu istemcinize stdio MCP sunucusu olarak kaydedin.",
   "needsRemote": "Uzak MCP URL'si (HTTPS) gerekir",
   "stdioOnly": "Bu sunucu stdio üzerinden yerel olarak çalışır. ChatGPT bağlayıcıları ve Grok API, bu projenin sağlamadığı barındırılan bir HTTPS uç noktası gerektirir.",
   "marketplace": "Ardından eklentilerine/becerilerine göz atıp kurmak için /plugin çalıştırın.",
@@ -367,7 +377,7 @@
   "title": "Araç ekle",
   "desc": "Finans ve trading için bir MCP sunucusu, ajan becerisi veya API ekleyin. Ücretsiz listeleme, otomatik doğrulama.",
   "lead": "<b>Her zaman ücretsiz.</b> Ücretli katman yok, gizli şart yok. Ayrıca otomatik güncellenen ücretsiz bir doğrulama rozeti alırsınız. Gönderimden sonra denetleyicimiz depoyu veya siteyi, son commit'leri, paket kayıtlarını ve dokümanları kontrol eder. Geçen araçlar bir hafta içinde yayına girer.",
-  "preview": "Gönderdiğinizde yeni sekmede önceden doldurulmuş bir GitHub issue açılır. Listelemeden önce her başvuruyu inceliyoruz.",
+  "preview": "Gönderim, yeni bir sekmede önceden doldurulmuş bir GitHub issue’u açar. Issue’lar herkese açıktır — API anahtarları veya özel veriler yapıştırmayın. Yayımlamadan önce her gönderiyi inceleriz.",
   "noGithub": "GitHub hesabınız yok mu? Aynı bilgileri {email} adresine e-postayla gönderin.",
   "name": "Araç adı",
   "url": "Depo veya web sitesi URL'si",
@@ -379,7 +389,25 @@
   "confirm": "Bu aracın getiri vaat etmediğini ve bir yatırım danışmanlığı hizmeti olmadığını onaylıyorum.",
   "button": "İncelemeye gönder",
   "thanks": "Neredeyse bitti: Yeni sekmedeki önceden doldurulmuş GitHub issue'yu kontrol edip “Create”e tıklayın. Hiçbir şey açılmadı mı? Açılır pencerelere izin verip tekrar deneyin.",
-  "blank": "Lütfen bu alanı doldurun (yalnızca boşluk geçerli değildir)."
+  "blank": "Lütfen bu alanı doldurun (yalnızca boşluk geçerli değildir).",
+  "license": "Lisans veya koşullar",
+  "licenseHelp": "Örneğin MIT, Apache-2.0, tescilli lisans veya sağlayıcının koşullarına bir bağlantı.",
+  "pricing": "Fiyatlandırma",
+  "pricingHelp": "Ücretsiz, freemium veya ücretli; ücretliyse fiyat sayfası bağlantısı da ekleyin.",
+  "official": "Resmi mi, topluluk mu?",
+  "officialHelp": "Resmi = bağlandığı ürünün veya verinin sahibi şirket tarafından yapılmış veya bakımı yapılıyor.",
+  "officialVendor": "Resmi (sağlayıcı tarafından)",
+  "officialCommunity": "Topluluk",
+  "officialUnsure": "Emin değilim",
+  "brokerAccess": "Bu araç bir aracı kurum veya borsa hesabına bağlanıyor veya o hesap üzerinden işlem yapıyor mu?",
+  "brokerHelp": "Pozisyon okuyabiliyor, emir gönderebiliyor veya bir aracı / borsa hesabının kimlik bilgilerini kullanabiliyorsa Evet’i seçin.",
+  "brokerNo": "Hayır — yalnızca salt okunur piyasa verisi veya araştırma",
+  "brokerRead": "Evet — bir hesaba salt okunur erişim (pozisyonlar, bakiyeler)",
+  "brokerPaper": "Evet — kâğıt / deneme ortamında emir gönderebilir",
+  "brokerLive": "Evet — gerçek emir gönderebilir",
+  "brokerUnsure": "Emin değilim",
+  "brokerScope": "Aracı kurum veya borsa erişimi — kapsamı nedir? (evet ise)",
+  "brokerScopeHelp": "Aracı kurumu veya borsayı ve aracın neler yapabildiğini yazın. Bir hesaba erişmiyorsa boş bırakın."
  },
  "badges": {
   "title": "Geliştiriciler için ücretsiz doğrulama rozetleri",
@@ -428,7 +456,8 @@
   "rightsP": "Verilerinize erişmek veya silinmesini istemek için {email} ile iletişime geçin.",
   "c3": "Bülten: Abone olursanız e-posta adresinizi, dilinizi, kayıt zamanınızı ve onay kaydınızı yalnızca bülteni yürütmek için saklarız. Bu kayıt, posta listesinin yedek kopyası olarak Cloudflare Workers KV depomuzda, silinmesini talep edene kadar tutulur (aboneliğinizi hiç onaylamasanız da). Kötüye kullanımı sınırlamak için her kayıt denemesi, IP adresinizin tek yönlü hash'inden geçici bir hız sınırı anahtarı da oluşturur (IP adresinin kendisi asla saklanmaz); bu anahtar 1 saat sonra otomatik olarak silinir.",
   "c4": "E-posta gönderimi: Bülten, verileri bizim adımıza işleyen e-posta hizmet sağlayıcımız MailerLite üzerinden gönderilir. MailerLite ile yalnızca e-posta adresinizi paylaşırız. Hesabımız için hizmeti MailerLite, Inc. (ABD) sağlar; MailerLite verileri AB'deki Google veri merkezlerinde saklar ve e-posta adresiniz, MailerLite'ın güvenceleri kapsamında ABD'ye aktarılır; bunlar arasında AB-ABD Veri Gizliliği Çerçevesi (Birleşik Krallık uzantısıyla birlikte), İsviçre-ABD Veri Gizliliği Çerçevesi ve standart sözleşme maddeleri yer alır.",
-  "c5": "Çift onay (double opt-in): Kaydolduktan sonra MailerLite size bir onay e-postası gönderir ve aboneliğiniz ancak içindeki bağlantıya tıkladığınızda başlar. Her bülten e-postasında abonelikten çıkma bağlantısı bulunur. Verilerinizi hem MailerLite'tan hem de KV depomuzdan sildirmek için {email} adresine yazın."
+  "c5": "Çift onay (double opt-in): Kaydolduktan sonra MailerLite size bir onay e-postası gönderir ve aboneliğiniz ancak içindeki bağlantıya tıkladığınızda başlar. Her bülten e-postasında abonelikten çıkma bağlantısı bulunur. Verilerinizi hem MailerLite'tan hem de KV depomuzdan sildirmek için {email} adresine yazın.",
+  "c6": "Anonim tıklama sayımı: Başka bir siteye giden bir bağlantıya tıkladığınızda, Cloudflare Workers Analytics Engine ile tek bir anonim sayım kaydederiz. Yalnızca araç, ortaklık programı (varsa), hedef site, bağlantı türü, sayfa, dil, sizi yönlendiren sitenin alan adı, otomatik trafik işareti (botlar ve kendi testlerimiz) ve tıklama kaynağı (insan, bot veya test) saklanır. Çerez kullanılmaz; IP adresinizi, tarayıcı bilgilerinizi veya başka herhangi bir kişisel veriyi saklamayız."
  },
  "terms": {
   "title": "Kullanım koşulları",
@@ -438,6 +467,7 @@
    "Sponsorlu alanlar yalnızca görünürlük satın alır, işaretlenir, reddedilebilir veya kaldırılabilir (orantılı iade ile) ve merchant of record'umuz tarafından faturalandırılır.",
    "Gönderenler aracı listeleme hakkına sahip olduklarını ve aracın garantili getiri vaat etmediğini onaylar.",
    "Sorumluluğumuz, son 12 ayda bize ödediğiniz tutarla sınırlıdır.",
+   "Ücretsiz <a href=\"/developers/\" hreflang=\"en\">API ve MCP sunucumuzdaki</a> dizin verileri <a href=\"https://creativecommons.org/licenses/by/4.0/\" rel=\"license noopener\">CC BY 4.0</a> lisansı altındadır: “TradingAIHub, https://tradingaihub.com” kaynak gösterildiği sürece, ticari amaçlar dahil yeniden kullanabilirsiniz. API ve MCP sunucusunun kodu MIT lisanslıdır.",
    "Çeviri ile İngilizce sürüm arasında çelişki olması halinde İngilizce sürüm geçerlidir."
   ],
   "contact": "İletişim:"
@@ -556,7 +586,9 @@
   "alpaca-skills": "Trading ve Broker API'leri için resmi Alpaca ajan becerileri: geriye dönük testler, emirler, hesap açılışı, para hareketleri ve olaylar.",
   "longbridge-skills": "Resmi Longbridge ajan becerileri: HK, ABD, A-hisse ve Singapur piyasalarında fiyatlar, teknik analiz, türevler, temel veriler, portföy ve izleme listesi.",
   "coinbase-agentic-wallet-skills": "Ajan cüzdanları için resmi Coinbase becerileri: bakiyeler, USDC gönderme, token takası, para yatırma ve Base, Polygon ve Solana'da x402 API ödemeleri.",
-  "options-trading-skills": "Opsiyon yatırımcıları için topluluk Claude becerileri: tarayıcılar, Yunanlar, spreadler, PMCC taramaları, korelasyonlar ve IBKR portföy raporları."
+  "options-trading-skills": "Opsiyon yatırımcıları için topluluk Claude becerileri: tarayıcılar, Yunanlar, spreadler, PMCC taramaları, korelasyonlar ve IBKR portföy raporları.",
+  "sure": "Kendi sunucunuzda barındırılan kişisel finans uygulaması (we-promise tarafından yürütülen, Maybe Finance'in topluluk çatalı): hesaplar, işlemler, bütçeler ve net değer; birinci taraf MCP sunucusu ve REST API ile.",
+  "coinboss-api": "Toplu kripto türev ve piyasa verileri için resmi REST API: likidasyonlar, açık pozisyon, fonlama oranları, long/short oranları ve ETF akışları. Yalnızca piyasa verisi; şu anda ücretsiz."
  },
  "faq": {
   "title": "Sıkça sorulan sorular",
@@ -576,5 +608,41 @@
   "ca2": "GitHub yıldızlarına göre bu kategorideki en popüler doğrulanmış araçlar: {list}.",
   "cq3": "“{name}” kategorisindeki araçlar resmî mi?",
   "ca3": "Sağlayıcının kendisi tarafından yayımlanan resmî araçlar: {n} araçtan {o} tanesi. Topluluk projeleri: {c}. Resmî araçlarda “{badge}” rozeti bulunur."
+ },
+ "sec": {
+  "title": "Güvenlik taraması",
+  "desc": "TradingAIHub’ın listelenen araçları nasıl taradığı: kurulum kancaları, bağımlılıklar ve yaygın zararlı yazılım kalıplarına yönelik statik bir kontrol. Bu bir güvence veya tavsiye değildir.",
+  "h1": "Listelenen araçları nasıl tarıyoruz",
+  "intro": "Bu dizindeki bazı araçlarda kısa bir “güvenlik taraması” notu bulunur. Bu not, statik tarayıcımızın son çalıştırmasında aşağıdaki kontrollerde sorun bulmadığı anlamına gelir. Belirli bir andaki bir rapordur; bir güvence, belgelendirme veya aracın tavsiye edilmesi değildir.",
+  "whatH": "Tarama neleri kontrol eder",
+  "whatIntro": "Tarayıcı yayımlanmış paketi ve, bir depo varsa, kaynağını inceler. Şunları arar:",
+  "c1": "Kurulum kancaları (örneğin npm preinstall, install ve postinstall betikleri) ve çalıştırdıkları komutlar.",
+  "c2": "Bir kabuğa borulanan indirmeler (curl veya wget çıktısının sh veya bash’e aktarılması) ve bu kalıbı gizlemenin diğer yolları.",
+  "c3": "Sızdırma kalıpları — yerel dosyaları, ortam değişkenlerini veya sırları beklenmeyen bir hedefe gönderen kod.",
+  "c4": "Paket adları etrafındaki typosquat ve ad karışıklığı riskleri.",
+  "c5": "Çözümlenmiş kilit dosyasındaki, OSV veritabanından bilinen güvenlik açıkları ve zararlı yazılım uyarıları; MAL (zararlı paket) kayıtları dahil.",
+  "c6": "Giriş noktaları: bir paketin kurulurken veya başlatılırken gerçekten çalıştırdığı dosyalar.",
+  "staticH": "Bu statik bir kontroldür",
+  "staticP": "Üçüncü taraf kodu çalıştırılmaz. Tarayıcı paket üst verilerini, kilit dosyalarını ve kaynak metnini okur. Aracı kurmaz, kurulum kancalarını yürütmez ve onu bir çalışma ortamına yüklemez.",
+  "notH": "Güvence veya tavsiye değildir",
+  "notP": "“Sorun bulunamadı” notu bir güvenlik belgelendirmesi, garanti veya aracı kurup kullanmaya yönelik bir tavsiye değildir. Statik analiz bazı şeyleri kaçırabilir ve bir proje tarama tarihinden sonra değişebilir. Çalıştırmadan önce, özellikle işlem yapabilen veya para taşıyabilen bir araçsa, aracı kendiniz de gözden geçirmelisiniz.",
+  "updateH": "Tarama ne zaman güncellenir",
+  "updateP": "Tarama, dizini yeniden doğruladığımızda güncellenir. Sonraki bir tarama incelenmesi gereken konular bulursa not, o aracın sayfasından ve kartlarından kaldırılır. Temiz olmayan veya taranmayan araçlar için bir uyarı etiketi yayımlamayız.",
+  "badgeH": "Not ne yazar",
+  "badgeP": "Bir araç sayfasındaki not şöyledir: “Güvenlik taraması: sorun bulunamadı · statik kod ve bağımlılık kontrolü · {date}”. Buraya bağlanır. Dizin kartlarında aynı anlama gelen küçük bir kalkan simgesi gösterilir.",
+  "stamp": "Son tarama: {date}. Tarayıcı commit {commit}, kural sürümü {rules}.",
+  "vtP": "Yayımlanmış bir dosya için VirusTotal raporu varsa, araç sayfası buna da bağlanır. Asla uydurma bir VirusTotal bağlantısı koymayız.",
+  "reportH": "Bir sorunu bildirin",
+  "reportP": "Bir tarama sonucunun yanlış olduğunu düşünüyorsanız veya listelenen bir araç hakkında güvenlik kaygınız varsa {email} adresine e-posta gönderin.",
+  "badge": "Güvenlik taraması: sorun bulunamadı · statik kod ve bağımlılık kontrolü · {date}",
+    "badgeShort": "Tarandı: sorun yok",
+  "badgeAria": "Güvenlik taraması: {date} tarihinde sorun bulunamadı. Statik kod ve bağımlılık kontrolü. Tarayıcı {commit}, kurallar {rules}. Yöntem sayfasını açar.",
+  "cardAria": "Güvenlik taraması: {date} tarihinde sorun bulunamadı. Tarayıcı {commit}, kurallar {rules}.",
+  "vt": "VirusTotal raporu"
+ },
+ "secnote": {
+  "label": "Güvenli değil, açıklama bekleniyor",
+  "short": "Güvenli değil (beklemede)",
+  "text": "Neden: Aracın kodu, cüzdan adresinizi ve imzalı swap emirlerini şifrelenmemiş HTTP üzerinden, yalnızca IP adresiyle belirtilen ve belgelenmemiş bir sunucuya gönderiyor; bakiyelerinizi ve işlem geçmişinizi de aynı yolla alıyor. Konuyu geliştiriciyle (degentic-tools) netleştiriyoruz."
  }
 }
