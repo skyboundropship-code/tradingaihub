@@ -41,7 +41,7 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
 <Base title={`${tool.name} — ${t("tool.titleFor", { type: t(`type.${tool.type}`), cat: lang === "en" ? cshort.toLowerCase() : cshort })}`} description={metaDesc.slice(0, 300)} jsonld={ld} og={`tool-${tool.id}`} lang={lang}>
 <div class="wrap page">
   <div class="crumbs"><a href={p("/")}>{t("common.home")}</a> / <a href={p(`/category/${cat.slug}/`)}>{cname}</a> / <bdi>{tool.name}</bdi></div>
-  <div class="meta" style="margin-bottom:8px"><span class="badge type">{t(`type.${tool.type}`)}</span>{tool.official && <span class="badge off">{t("common.officialVendor")}</span>}<Status status={v.status} lang={lang} /><span class="pill"><DateInText text={t("tool.lastChecked", { date: v.checked_at })} date={v.checked_at} /></span></div>
+  <div class="tool-head-meta"><div class="meta"><span class="badge type">{t(`type.${tool.type}`)}</span>{tool.official && <span class="badge off">{t("common.officialVendor")}</span>}<Status status={v.status} lang={lang} /></div><span class="pill tool-checked"><DateInText text={t("tool.lastChecked", { date: v.checked_at })} date={v.checked_at} /></span></div>
   <h1 class="tool-title" style="margin:6px 0 6px" title={tool.name}><TitleText text={tool.name} bdi /></h1>
   <p style="color:var(--muted);font-size:1.125rem;margin-top:0">{desc}</p>
   <SecurityBadge tool={tool} lang={lang} variant="page" />
