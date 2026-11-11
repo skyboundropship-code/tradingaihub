@@ -145,6 +145,8 @@ button.badge.secnote{padding:0 10px;line-height:24px;margin:0}
 /* Blog (src/content/blog) */
 .blog-lede{color:var(--muted)}.blog-empty{color:var(--muted);margin:20px 0}
 .blog-list{list-style:none;padding:0;margin:18px 0;display:grid;gap:14px}.blog-card .card-t{font-size:19px;line-height:1.35}
+/* Post titles are never clamped (the 2-line clamp on .card .card-t is for tool cards). */
+.blog-card .card-t{display:block;-webkit-line-clamp:unset;overflow:visible;overflow-wrap:break-word}
 .blog-tags{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.blog-card .meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:13px;color:var(--muted)}
 .draft-tag{color:var(--w-fg);background:var(--w-bg);border:1px solid var(--w-bd);border-radius:6px;padding:1px 8px;font-size:13px;font-weight:600}
 .post{max-width:740px}.post h1{line-height:1.2}.post-meta{font-size:13.5px;color:var(--muted);margin:0 0 10px}

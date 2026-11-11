@@ -2,14 +2,12 @@
 // One thread per post in the "Articles" category, matched by the post slug (mapping "specific" + strict), so a thread
 // survives URL or locale changes. Nothing loads from giscus.app or GitHub until the reader clicks "Load comments".
 //
-// ENABLED stays false until the giscus GitHub App is installed on tradingaihub/community
-// (https://github.com/apps/giscus/installations/new). Until then no comment UI and no privacy text about it is rendered.
-// A preview build can show it with GISCUS=1 (never set it for production before the app is installed).
-// The category id below is the repo's default "Announcements" category (announcement format). giscus looks threads up by
-// category NAME (GitHub search), so rename it to "Articles" in the GitHub UI (Settings → Discussions; the id survives the
-// rename) BEFORE turning ENABLED on. Until it is renamed, "Articles" here doesn't match and existing threads wouldn't be found.
+// ENABLED: the giscus GitHub App is installed on tradingaihub/community only (confirmed Nov 11, 2026 via
+// https://giscus.app/api/discussions/categories). Set it to false to hide every comment box and the privacy paragraph.
+// The category is "Articles" (announcement format: only maintainers and giscus start threads, anyone can reply).
+// giscus looks threads up by category NAME, so if the category is ever renamed, change `category` here too (the id survives).
 export const GISCUS = {
-  ENABLED: false || /^(1|true|yes)$/i.test(String(process.env.GISCUS ?? "")),
+  ENABLED: true,
   repo: "tradingaihub/community",
   repoId: "R_kgDOVrGWCA",
   category: "Articles",

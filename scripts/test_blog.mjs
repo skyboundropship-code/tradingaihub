@@ -36,6 +36,13 @@ try {
 if (fs.existsSync("dist/index.html")) {
   ok(!fs.existsSync(`dist/blog/${SLUG}`), "production dist: draft page not built");
   for (const f of ["blog/index.html", "blog/rss.xml", "sitemap-0.xml", "sitemap-en.xml", "llms.txt", "llms-full.txt"]) ok(!read("dist", f).includes(SLUG), `production dist: draft not in ${f}`);
+  // Comments (src/lib/giscus.ts): click-to-load box on every published post, matched per article (data-term = slug);
+  // no giscus script or iframe in the static HTML, so nothing loads from giscus.app/GitHub before the click.
+  const post = fs.readdirSync("dist/blog").find((d) => fs.existsSync(`dist/blog/${d}/index.html`) && d !== "tag" && d !== "page");
+  const ph = post ? read("dist", `blog/${post}/index.html`) : "";
+  ok(/class="giscus" data-repo="tradingaihub\/community" data-repo-id="R_kgDOVrGWCA" data-category="Articles" data-category-id="DIC_kwDOVrGWCM4DK6jB"/.test(ph) && ph.includes(`data-term="${post}"`), `comments box wired on /blog/${post}/ (repo, category, per-article term)`);
+  ok(/class="btn ghost giscus-load"/.test(ph) && !/<script[^>]+src="https:\/\/giscus\.app/.test(ph) && !/<iframe/.test(ph), "comments are click-to-load (no giscus script/iframe in the HTML)");
+  ok(read("dist", "privacy/index.html").includes("giscus") && read("dist", "he/privacy/index.html").includes("giscus"), "privacy policy describes comments (en, he)");
 }
 console.log(`test:blog ${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);
