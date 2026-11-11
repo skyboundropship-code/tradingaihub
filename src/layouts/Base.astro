@@ -109,7 +109,7 @@ document.addEventListener("click",function(e){document.querySelectorAll("details
 <script is:inline>
 // Badge explanations (src/components/XpTip.astro). A tap (pointerup, touch/pen) or a click on a [data-xp-toggle] badge
 // toggles its explanation (class .open, never the hidden attribute); one tap is deduped so pointerup + click don't toggle twice.
-// Inside a card link the badge never navigates (preventDefault + stopPropagation); the rest of the card still does.
+// Badges inside a card never navigate (preventDefault + stopPropagation); the card title's stretched link still does.
 // Tap/click outside, a tap on the open explanation, or Esc closes. Partner pills (.partner-tag) get the same treatment at runtime, text from body[data-xp-partner].
 (function(){
   var last={el:null,t:0};
@@ -129,8 +129,8 @@ document.addEventListener("click",function(e){document.querySelectorAll("details
   function fitSoon(b){requestAnimationFrame(function(){fit(tipFor(b))})}
   document.addEventListener("mouseover",function(e){var b=trig(e);if(b)fitSoon(b)});
   document.addEventListener("mouseout",function(e){var b=trig(e),t=b&&tipFor(b);if(t&&!t.classList.contains("open"))unfit(t)});
-  document.addEventListener("focusin",function(e){var b=trig(e);if(b)fitSoon(b);else if(e.target&&e.target.matches&&e.target.matches(".card"))e.target.querySelectorAll(".xp-tip").forEach(function(t){requestAnimationFrame(function(){fit(t)})})});
-  document.addEventListener("focusout",function(e){var t=e.target;if(!t||!t.matches)return;(t.matches(".card")?t.querySelectorAll(".xp-tip"):(trig(e)?[tipFor(trig(e))]:[])).forEach(function(x){if(x&&!x.classList.contains("open"))unfit(x)})});
+  document.addEventListener("focusin",function(e){var b=trig(e);if(b)fitSoon(b)});
+  document.addEventListener("focusout",function(e){var b=trig(e),x=b&&tipFor(b);if(x&&!x.classList.contains("open"))unfit(x)});
   function trig(e){return e.target&&e.target.closest?e.target.closest("[data-xp-toggle]"):null}
   document.addEventListener("pointerup",function(e){if(e.pointerType==="mouse"||e.button>0)return;var b=trig(e);
     if(!b){last={el:null,t:0};var ot=e.target.closest&&e.target.closest(".xp-tip.open");if(ot){ot.classList.remove("open");unfit(ot);last={el:ot,t:Date.now()}}else closeAll();return}

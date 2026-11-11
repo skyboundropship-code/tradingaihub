@@ -22,10 +22,9 @@ const xpHtml = scan ? explain(tool, "scan", lang) : null;
   </div>
 )}
 {scan && variant === "card" && (
-  <span class="sec-card" title={cardLabel} data-xp-toggle data-xp="scan">
+  <button type="button" class="sec-card" data-xp-toggle data-xp="scan" aria-label={cardLabel}>
     <svg class="sec-shield" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false">
       <path fill="currentColor" d="M8 1.15 13.25 3.1v4.15c0 3.22-2.16 6.12-5.25 6.9-3.09-.78-5.25-3.68-5.25-6.9V3.1L8 1.15z"/>
     </svg>
-    <span class="sr-only">{cardLabel}</span>
-  </span>
+  </button>
 )}

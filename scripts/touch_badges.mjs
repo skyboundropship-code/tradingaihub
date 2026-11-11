@@ -1,16 +1,19 @@
 #!/usr/bin/env node
 // Touch test for badge explanations (src/components/XpTip.astro + the [data-xp-toggle] script in src/layouts/Base.astro).
 // BASE=https://<preview>.tradingaihub.pages.dev node scripts/touch_badges.mjs   (npm run test:touch)
-// Playwright (playwright-core + system Chrome), 375x667, hasTouch + isMobile, real touchscreen.tap, locales en/he/ar.
+// Playwright (playwright-core + system Chrome), 375x667, hasTouch + isMobile, real touchscreen.tap, all 13 locales.
 // Checks: every badge type on cards opens its explanation without navigating; a tap on the card body still navigates;
 // every explained badge on tool pages opens (aria-expanded=true); a tap outside closes; the Partner pill in the
 // TradingView banner opens its explanation, and a tap on the banner body opens the partner link (stretched link).
+// Also asserts that every visible badge's bounding box sits fully inside its row and the viewport, and the page is
+// not horizontally overflowed (scrollWidth <= clientWidth).
 // Network: /api/click and tradingview.com are aborted (no beacons, no partner hits). Exit code 1 on any failure.
 const PW = process.env.PW_CORE || "/workspace/qa/visual-2026-11-11/node_modules/playwright-core/index.mjs";
 const { chromium } = await import(PW);
 const BASE = (process.env.BASE || "https://tradingaihub.com").replace(/\/$/, "");
-const LOCALES = (process.env.LOCALES || "en,he,ar").split(",");
+const LOCALES = (process.env.LOCALES || "en,he,es,pt,de,fr,ja,ko,zh,hi,tr,ar,ru").split(",");
 const CARD_KEYS = ["type", "official", "status", "scan", "secnote", "pricing", "stars"];
+const TOOL_PAGES = ["claude-code-trading-terminal", "alpha-vantage-api", "alpaca-skills"];
 const fails = []; let passes = 0;
 const ok = (cond, msg) => { if (cond) passes++; else { fails.push(msg); console.log("FAIL", msg); } };
 const pre = (l) => (l === "en" ? "" : "/" + l);
@@ -32,13 +35,36 @@ const tipOpen = (loc) => loc.evaluate((t) => t.classList.contains("open") && t.g
 const tipInView = async (loc) => { const v = await loc.evaluate((t) => { const r = t.getBoundingClientRect(), vw = document.documentElement.clientWidth; return { l: Math.round(r.left), r: Math.round(r.right), vw, sw: document.documentElement.scrollWidth }; });
   const good = v.l >= 0 && v.r <= v.vw && v.sw <= v.vw; if (!good) console.log("  tip box", JSON.stringify(v)); return good; };
 
+// Every visible badge must sit fully inside its row and the viewport; the page must not be horizontally overflowed.
+async function assertBadgesFit(page, label) {
+  const problems = await page.evaluate(() => {
+    const vw = document.documentElement.clientWidth, sw = document.documentElement.scrollWidth, out = [];
+    if (sw > vw + 1) out.push({ k: "page", issue: "overflow", sw, vw });
+    for (const el of document.querySelectorAll("[data-xp-toggle]")) {
+      const r = el.getBoundingClientRect();
+      if (r.width < 1 || r.height < 1) continue;
+      const row = el.closest(".meta, .secnote-row, .sec-badge-row, .tool-head-meta, aside.partner, .partner-body, .secnote-wrap");
+      const pr = row ? row.getBoundingClientRect() : null;
+      const k = el.getAttribute("data-xp") || el.className;
+      const text = (el.textContent || "").trim().slice(0, 48);
+      if (r.left < -1 || r.right > vw + 1) out.push({ k, text, issue: "viewport", l: +r.left.toFixed(1), r: +r.right.toFixed(1), vw });
+      if (pr && (r.left < pr.left - 1 || r.right > pr.right + 1 || r.top < pr.top - 1 || r.bottom > pr.bottom + 1))
+        out.push({ k, text, issue: "row", l: +r.left.toFixed(1), r: +r.right.toFixed(1), t: +r.top.toFixed(1), b: +r.bottom.toFixed(1), pl: +pr.left.toFixed(1), pr: +pr.right.toFixed(1), pt: +pr.top.toFixed(1), pb: +pr.bottom.toFixed(1) });
+    }
+    return out;
+  });
+  ok(!problems.length, `${label}: badges not fully in row/viewport ${JSON.stringify(problems.slice(0, 6))}${problems.length > 6 ? ` (+${problems.length - 6})` : ""}`);
+}
+
 for (const l of LOCALES) {
   const c = await ctx(); const page = await c.newPage();
   // Cards: /tools/ lists every tool.
   const listUrl = `${BASE}${pre(l)}/tools/`;
+  await page.goto(listUrl, { waitUntil: "domcontentloaded" });
+  await assertBadgesFit(page, `${l} /tools/`);
   for (const k of CARD_KEYS) {
     await page.goto(listUrl, { waitUntil: "domcontentloaded" });
-    const card = page.locator(`a.card:has([data-xp-toggle][data-xp="${k}"])`).first();
+    const card = page.locator(`.card:has([data-xp-toggle][data-xp="${k}"])`).first();
     if (!(await card.count())) { ok(false, `${l} card: no ${k} badge found`); continue; }
     const badge = card.locator(`[data-xp-toggle][data-xp="${k}"]`).first();
     await tapEl(page, badge);
@@ -48,18 +74,20 @@ for (const l of LOCALES) {
     await tapEl(page, page.locator("h1").first());
     ok(!(await card.locator(`.xp-tip[data-xp="${k}"]`).evaluate((t) => t.classList.contains("open"))), `${l} card ${k}: tap outside did not close`);
   }
-  // Card body still navigates.
+  // Card body still navigates (stretched title link).
   await page.goto(listUrl, { waitUntil: "domcontentloaded" });
-  const card = page.locator("a.card:has([data-xp=secnote])").first();
-  const href = await card.getAttribute("href");
+  const card = page.locator(".card:has([data-xp=secnote])").first();
+  const href = await card.locator("a.card-link").getAttribute("href");
   await Promise.all([page.waitForURL((u) => u.pathname === href, { timeout: 8000 }).catch(() => {}), tapEl(page, card.locator("h3, .card-t").first())]);
   ok(new URL(page.url()).pathname === href, `${l} card body tap did not navigate (at ${page.url()}, want ${href})`);
 
-  // Tool pages: CCTT (stale, secnote) and an official clean tool.
-  for (const slug of ["claude-code-trading-terminal", "alpha-vantage-api"]) {
+  // Tool pages: CCTT (stale, secnote), an official clean API, and an official+verified+scan head (alpaca-skills).
+  for (const slug of TOOL_PAGES) {
     const url = `${BASE}${pre(l)}/tools/${slug}/`;
     await page.goto(url, { waitUntil: "domcontentloaded" });
-    const btns = page.locator(".xp-scope button[data-xp-toggle]");
+    await assertBadgesFit(page, `${l} /tools/${slug}/`);
+    // Related-tool cards on the same page are covered on /tools/; only the tool-head / secnote buttons here.
+    const btns = page.locator(".xp-scope:not(.card) button[data-xp-toggle]");
     const n = await btns.count(); ok(n >= 3, `${l} ${slug}: only ${n} explained buttons`);
     for (let i = 0; i < n; i++) {
       const b = btns.nth(i); const k = await b.getAttribute("data-xp");

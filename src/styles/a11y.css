@@ -62,8 +62,8 @@ html.a11y-contrast[data-theme=dark]{--bg:#000000;--panel:#000000;--panel2:#00000
 html.a11y-contrast .card,html.a11y-contrast .btn,html.a11y-contrast input,html.a11y-contrast select,html.a11y-contrast textarea{border:2px solid var(--line)!important}
 html.a11y-contrast header.site{backdrop-filter:none}
 html.a11y-links a:not(.btn):not(.skip-link){text-decoration:underline!important;text-decoration-thickness:2px!important;text-underline-offset:3px}
-html.a11y-links main a:not(.btn):not(.card):not(.chip),html.a11y-links footer a{background:#fff3a3;color:#000!important}
-html.a11y-links a.card,html.a11y-links a.chip,html.a11y-links a.btn{outline:3px dashed #b45309;outline-offset:2px}
+html.a11y-links main a:not(.btn):not(.card):not(.card-link):not(.chip),html.a11y-links footer a{background:#fff3a3;color:#000!important}
+html.a11y-links a.card,html.a11y-links a.card-link,html.a11y-links a.chip,html.a11y-links a.btn{outline:3px dashed #b45309;outline-offset:2px}
 html.a11y-font body,html.a11y-font input,html.a11y-font select,html.a11y-font textarea,html.a11y-font button{font-family:Arial,Helvetica,"Noto Sans Hebrew","Noto Sans Arabic","Noto Sans Devanagari","Noto Sans CJK SC",system-ui,sans-serif!important;letter-spacing:.04em;word-spacing:.12em}
 html.a11y-font body{line-height:1.7}
 html.a11y-font:lang(ar) body,html.a11y-font:lang(hi) body,html.a11y-font:lang(ja) body,html.a11y-font:lang(zh) body,html.a11y-font:lang(ko) body{letter-spacing:0}

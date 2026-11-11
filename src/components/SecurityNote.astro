@@ -1,21 +1,23 @@
 ---
-// Red "not safe, pending clarification" note for a tool with data.security_note (data/seed.json -> data/tools.json).
+// Red "not safe, pending clarification" note for a tool with data.security_note (data/tools.json).
 // Data-driven and removable: delete the tool's security_note field and the badge disappears everywhere (site + API).
 // Uses the generic badge explanation pattern (XpTip.astro + src/lib/explain.ts + the [data-xp-toggle] script in Base.astro).
 import { useT } from "../i18n";
 import XpTip from "./XpTip.astro";
+import { explain } from "../lib/explain";
 const { tool, lang = "en", variant = "page", id } = Astro.props;
 const note = tool && tool.security_note;
 const { t } = useT(lang);
+const tipId = id || "xp-secnote";
 ---
 {note && variant === "page" && (
   <div class="xp-scope secnote-wrap">
     <p class="secnote-row">
-      <button type="button" class="badge secnote" data-xp-toggle data-xp="secnote" aria-expanded="false" aria-controls="xp-secnote" aria-describedby="xp-secnote"><span aria-hidden="true">⚠</span> {t("secnote.label")}</button>
+      <button type="button" class="badge secnote" data-xp-toggle data-xp="secnote" aria-expanded="false" aria-controls={tipId} aria-describedby={tipId}><span aria-hidden="true">⚠</span> {t("secnote.label")}</button>
     </p>
-    <XpTip k="secnote" id="xp-secnote" html={t("secnote.text")} />
+    <XpTip k="secnote" id={tipId} html={explain(tool, "secnote", lang)} />
   </div>
 )}
 {note && variant === "card" && (
-  <span class="badge secnote" data-xp-toggle data-xp="secnote"><span aria-hidden="true">⚠</span> {t("secnote.short")}</span>
+  <button type="button" class="badge secnote" data-xp-toggle data-xp="secnote" aria-expanded="false" aria-controls={tipId} aria-describedby={tipId}><span aria-hidden="true">⚠</span> {t("secnote.short")}</button>
 )}
