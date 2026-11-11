@@ -111,11 +111,11 @@ document.addEventListener("click",function(e){document.querySelectorAll("details
 // and only {tool, target host, link kind, page path, locale, referrer host} is sent.
 (function(){
   if(!navigator.sendBeacon||navigator.webdriver)return;
-  var m=location.pathname.match(/^(?:\/[a-z]{2})?\/tools\/([a-z0-9-]+)\/?$/),tool=m?m[1]:"",lang=document.documentElement.lang||"en",last=0,ref="";
+  var m=location.pathname.match(/^(?:\/[a-z]{2})?\/tools\/([a-z0-9-]+)\/?$/),tool=m?m[1]:"",lang=document.documentElement.lang||"en",last=0,lastHref="",ref="";
   try{ref=document.referrer?new URL(document.referrer).hostname:""}catch(e){}
   function send(a){try{
     var u=new URL(a.href,location.href);if(!/^https?:$/.test(u.protocol)||u.hostname===location.hostname)return;
-    var now=Date.now();if(now-last<300)return;last=now;
+    var now=Date.now();if(u.href===lastHref&&now-last<300)return;last=now;lastHref=u.href;
     var rel=" "+(a.getAttribute("rel")||"").toLowerCase()+" ",k=a.closest(".partner")?"partner":rel.indexOf(" sponsored ")>=0?"affiliate":"plain";
     navigator.sendBeacon("/api/click",JSON.stringify({t:tool,h:u.hostname,k:k,p:location.pathname,l:lang,r:ref}));
   }catch(e){}}
