@@ -1,5 +1,5 @@
 ---
-title: "We Re-check 104 Finance MCP Servers, Skills and APIs Every Week: Here's What Breaks"
+title: "We Re-check 100+ Finance MCP Servers, Skills and APIs Every Week: Here's What Breaks"
 description: "A weekly GitHub Action verifies every tool in a finance AI directory. 84 of 104 passed on Oct 29, 2026. The rules, the code and the surprises."
 date: 2026-10-29
 tags: [verification, mcp, security]

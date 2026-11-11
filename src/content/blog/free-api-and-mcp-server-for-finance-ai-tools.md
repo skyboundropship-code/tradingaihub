@@ -1,6 +1,6 @@
 ---
 title: "A Free API and MCP Server for Finding Finance AI Tools"
-description: "Query 104 weekly-checked finance MCP servers, agent skills and APIs over REST or MCP: no key, no sign-up. Endpoints, client setup and limits."
+description: "Query 106 weekly-checked finance MCP servers, agent skills and APIs over REST or MCP: no key, no sign-up. Endpoints, client setup and limits."
 date: 2026-11-10
 tags: [api, mcp, developers]
 ---
@@ -10,7 +10,7 @@ tags: [api, mcp, developers]
 
 When you ask an AI assistant "is there an MCP server for options data?", it tends to answer from memory. That memory can be months old, and it can't tell you whether a repo was archived last week or whether a free tier has been cut back.
 
-TradingAIHub tracks 104 finance-related AI tools: 73 MCP servers, 16 APIs and 15 agent skills, in 9 categories. Each one is re-checked weekly. As of the 9 November 2026 check, 81 were marked verified. The same data is now available two ways:
+TradingAIHub tracks 106 finance-related AI tools: 74 MCP servers, 17 APIs and 15 agent skills, in 9 categories. Each one is re-checked weekly. As of the 9 November 2026 check, 81 were marked verified. The same data is now available two ways:
 
 - a **read-only REST API** (JSON, no key, CORS enabled)
 - a **remote MCP server** you can add to Claude, Cursor, VS Code or ChatGPT, so your assistant looks things up instead of guessing
@@ -216,7 +216,7 @@ Once it's connected, ask things like *"Find a verified MCP server for SEC filing
 
 - **Rate limits.** About 120 requests per minute for the REST API and 60 per minute for MCP, per IP. Limits are counted per Cloudflare edge instance, so treat them as a ceiling rather than a quota. Every response carries `RateLimit-Limit`, `RateLimit-Remaining` and `RateLimit-Reset` headers. If you go over, you get a `429` with `Retry-After`.
 - **Caching.** REST responses are cached for 5 minutes in the browser (`max-age=300`) and up to an hour at the edge (`s-maxage=3600`). The data itself changes about once a week, so polling every few seconds gains you nothing. If you want everything, take one copy of `/api/v1/tools.json`.
-- **Coverage.** 104 tools is a curated list, not the whole ecosystem. If a tool you use is missing, or a record is wrong, email [hello@tradingaihub.com](mailto:hello@tradingaihub.com) and we'll fix it.
+- **Coverage.** 106 tools is a curated list, not the whole ecosystem. If a tool you use is missing, or a record is wrong, email [hello@tradingaihub.com](mailto:hello@tradingaihub.com) and we'll fix it.
 - **Read-only.** There are no write endpoints and nothing to authenticate. That also means no user-specific data.
 
 ## Why we built it this way
