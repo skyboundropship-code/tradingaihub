@@ -1,0 +1,8 @@
+---
+// /blog/page/2/ … only exists once there are more than PER_PAGE (20) posts.
+import BlogIndex from "../../../components/BlogIndex.astro";
+import { pageCount } from "../../../lib/blog";
+export function getStaticPaths() { return Array.from({ length: Math.max(0, pageCount - 1) }, (_, i) => ({ params: { n: String(i + 2) } })); }
+const { n } = Astro.params;
+---
+<BlogIndex page={Number(n)} />

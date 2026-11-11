@@ -7,6 +7,8 @@ import { EDITORIAL_COMPARES } from "./bestPages";
 // Outbound vendor URLs (repo, homepage, pricing source, remote MCP) come from RAW data/tools.json: data.ts runs them through
 // affUrl(), and affiliate IDs must never reach LLM context files. Internal URLs come from the ids.
 import raw from "../../data/tools.json";
+// Blog: published posts only (never drafts). Post links are internal URLs, so no affiliate params can reach this file.
+import { PUBLISHED as BLOG_POSTS } from "./blog";
 const rawById: Record<string, any> = Object.fromEntries((raw as any[]).map((t) => [t.id, t]));
 const plainUrl = (x: any) => (typeof x === "string" && /^https?:\/\//.test(x) && !/aff_id=/i.test(x) ? x : null);
 const known = (x: any) => typeof x === "string" && x.trim() !== "" && !/^(unknown|none|n\/a)$/i.test(x.trim());
@@ -49,6 +51,11 @@ export function llmsTxt(): string {
     `- [Latest verification report](${u("/verification/")}): results of the most recent weekly check`,
     `- [Weekly leaderboard](${u("/weekly/")}): most-starred verified tools and weekly changes`,
     `- [Submit a tool](${u("/submit/")}): free listing via a pre-filled GitHub issue or email to ${SITE.contactEmail}`,
+    "",
+    "## Blog",
+    "",
+    `- [Blog](${u("/blog/")}): articles by ${SITE.name} Editorial on AI tools for finance and trading (RSS: ${u("/blog/rss.xml")})`,
+    ...BLOG_POSTS.map((p) => `- [${md(p.title)}](${u(`/blog/${p.slug}/`)}): ${md(p.description)}`),
     "",
     ...(GUIDES.length ? ["## Guides", "", ...GUIDES.map((g) => `- [${md(g.title)}](${u(`/guides/${g.slug}/`)}): ${md(g.summary)}`), ""] : []),
     "## Categories",

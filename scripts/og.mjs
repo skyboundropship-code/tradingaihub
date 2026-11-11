@@ -12,6 +12,13 @@ const cfg = fs.readFileSync("src/config.ts", "utf8"); const brand = cfg.match(/n
 const lib = fs.readFileSync("src/lib/data.ts", "utf8");
 const cats = [...lib.matchAll(/slug: "([^"]+)", name: "([^"]+)", short: "[^"]+", icon: "([^"]+)"/g)].map((m) => ({ slug: m[1], name: m[2], icon: m[3] }));
 const comps = [...lib.matchAll(/slug: "([^"]+)", title: "([^"]+)"/g)].map((m) => ({ slug: m[1], title: m[2] }));
+// Blog: the index card + one per src/content/blog/*.md (drafts too, so a BLOG_DRAFTS=1 preview has its image), titled from frontmatter.
+const blogPosts = fs.existsSync("src/content/blog") ? fs.readdirSync("src/content/blog").filter((f) => /^[a-z0-9-]+\.md$/.test(f)).map((f) => {
+  const fm = fs.readFileSync(`src/content/blog/${f}`, "utf8").match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? "";
+  const raw = fm.match(/^title:\s*(.+?)\s*$/m)?.[1] ?? "";
+  const title = /^".*"$/.test(raw) ? JSON.parse(raw) : /^'.*'$/.test(raw) ? raw.slice(1, -1).replace(/''/g, "'") : raw;
+  return { slug: f.slice(0, -3), title: title || f.slice(0, -3) };
+}) : [];
 // Friendly status names ("Link check pending", not "unconfirmed"), taken from the site's STATUS map in src/lib/data.ts.
 const STATUS_LABEL = Object.fromEntries([...lib.matchAll(/^\s+(\w+): \{ label: "([^"]+)"/gm)].map((m) => [m[1], m[2]]));
 const statusLabel = (s) => (s === "unconfirmed" ? "Link check pending" : STATUS_LABEL[s] || s);
@@ -61,6 +68,8 @@ const jobs = [["home", card("Free directory", "AI tools for finance & trading", 
   ["weekly", card("Weekly leaderboard", "State of finance AI tools", weeklySub)],
   ...cats.map((c) => [`category-${c.slug}`, card("Category", `${c.icon} ${c.name}`, `${tools.filter((t) => t.category === c.slug).length} tools · free${fresh ? " · verified weekly" : ""}`)]),
   ...comps.map((c) => [`compare-${c.slug}`, card("Comparison", c.title, "Pricing, status, stars & install — side by side")]),
+  ["blog", card("Blog", "AI tools for finance & trading, explained", "Articles by TradingAIHub Editorial")],
+  ...blogPosts.map((b) => [`blog-${b.slug}`, card("Blog", b.title, "TradingAIHub Editorial")]),
   ["compare-best-ai-tools-for-stock-analysis", card("Comparison", "Best AI tools for stock analysis and research (2026)", "Verified MCP servers, skills and APIs — official vendors first")],
   ["compare-best-ai-tools-for-options-trading", card("Comparison", "Best AI tools for options data and options trading (2026)", "Options data first, then broker-connected tools")],
   ...tools.map((t) => [`tool-${t.id}`, card(t.type === "mcp" ? "MCP server" : t.type === "skill" ? "Agent skill" : "API", t.name, `Status: ${statusLabel(t.verification.status)}${checkedAt(t) ? ` · checked ${checkedAt(t)}` : ""}`, toolBadge(t))])];

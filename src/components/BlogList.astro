@@ -1,0 +1,18 @@
+---
+// Post cards for /blog/ (all locales), /blog/page/<n>/ and /blog/tag/<tag>/. Posts are English: on a localized index the
+// title and summary carry lang="en" (dir="ltr" in RTL locales) and the date is formatted for the page's locale.
+import { fmtDate, type Post } from "../lib/blog";
+import { useT, localeOf } from "../i18n";
+interface Props { posts: Post[]; lang?: string }
+const { posts, lang = "en" } = Astro.props;
+const { t, p } = useT(lang);
+const en = lang === "en", rtl = localeOf(lang).dir === "rtl";
+const fmt = (d: string) => en ? fmtDate(d) : new Date(`${d}T00:00:00Z`).toLocaleDateString(lang === "zh" ? "zh-CN" : lang, { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" });
+const enAttrs = en ? {} : { lang: "en", dir: rtl ? "ltr" : undefined };
+---
+{posts.length === 0 ? <p class="blog-empty">{t("blog.empty")} <a href={p("/tools/")}>{t("nav.tools")}</a> · <a href={p("/compare/")}>{t("nav.compare")}</a></p> :
+<ol class="blog-list">{posts.map((x) => <li class="card blog-card">
+  <h2 class="card-t" {...enAttrs}><a href={`/blog/${x.slug}/`} hreflang={en ? undefined : "en"}>{x.title}</a>{x.draft && <span class="draft-tag"> Draft</span>}</h2>
+  <p {...enAttrs}>{x.description}</p>
+  <div class="meta"><time datetime={x.date} class="date-ltr">{fmt(x.date)}</time>{x.tags.length > 0 && <span class="blog-tags">{x.tags.map((g) => <a class="chip" href={`/blog/tag/${g}/`} dir="ltr">#{g}</a>)}</span>}</div>
+</li>)}</ol>}

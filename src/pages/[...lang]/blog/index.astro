@@ -1,0 +1,9 @@
+---
+// /blog/ and /<lang>/blog/: the blog index in all 13 locales. Articles are English-only (/blog/<slug>/); the localized index
+// lists them with localized page chrome, and marks each English title/summary with lang="en" (and dir="ltr" in RTL locales).
+import BlogIndex from "../../../components/BlogIndex.astro";
+import { langParams } from "../../../i18n";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en";
+---
+<BlogIndex page={1} lang={lang} />

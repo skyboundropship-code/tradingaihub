@@ -8,12 +8,13 @@
   "categories": "Categorías",
   "compare": "Comparar",
   "weekly": "Ranking semanal",
+  "blog": "Blog",
   "badges": "Insignias",
   "verify": "Cómo verificamos",
   "submit": "Enviar una herramienta — gratis",
   "language": "Idioma",
   "theme": "Cambiar tema claro/oscuro",
-    "menu": "Menú"
+  "menu": "Menú"
  },
  "footer": {
   "rechecked": "Revisado cada semana.",
@@ -83,7 +84,10 @@
    "Revisar enlaces",
    "Un enlace a la web, la documentación o el endpoint falló en la última revisión."
   ],
-  "unconfirmed": ["Comprobación de enlace pendiente", "Accesible, pero un enlace de la web, la documentación o el endpoint rechazó a nuestro verificador (requiere inicio de sesión, bloqueo de bots o límite de solicitudes), así que no se pudo confirmar del todo. No cuenta como verificado."],
+  "unconfirmed": [
+   "Comprobación de enlace pendiente",
+   "Accesible, pero un enlace de la web, la documentación o el endpoint rechazó a nuestro verificador (requiere inicio de sesión, bloqueo de bots o límite de solicitudes), así que no se pudo confirmar del todo. No cuenta como verificado."
+  ],
   "unreachable": [
    "Inaccesible",
    "No se pudo acceder al repositorio ni a la web."
@@ -456,7 +460,8 @@
   "c3": "Boletín: si te suscribes, guardamos tu correo electrónico, idioma, fecha de alta y un registro de tu consentimiento, solo para gestionar el boletín. Este registro se conserva en nuestro almacén Cloudflare Workers KV como copia de seguridad de la lista hasta que nos pidas borrarlo (también si nunca confirmas). Para limitar abusos, cada intento de alta crea además una clave temporal de límite de frecuencia a partir de un hash unidireccional de tu dirección IP (la IP nunca se guarda); se elimina automáticamente al cabo de 1 hora.",
   "c4": "Envío de correos: el boletín se envía a través de MailerLite, nuestro proveedor de email, que trata los datos por cuenta nuestra. Solo compartimos con MailerLite tu dirección de correo. Para nuestra cuenta, el servicio lo presta MailerLite, Inc. (Estados Unidos); MailerLite almacena los datos en centros de datos de Google en la UE y tu dirección de correo se transfiere a Estados Unidos conforme a las garantías de MailerLite, entre ellas el Marco de Privacidad de Datos UE-EE. UU. (con su extensión para el Reino Unido), el Marco de Privacidad de Datos Suiza-EE. UU. y las cláusulas contractuales tipo.",
   "c5": "Doble opt-in: tras suscribirte, MailerLite te envía un correo de confirmación y solo quedas suscrito cuando haces clic en el enlace. Cada correo del boletín incluye un enlace para darte de baja. Para borrar tus datos tanto de MailerLite como de nuestro almacén KV, escribe a {email}.",
-  "c6": "Recuento anónimo de clics: cuando haces clic en un enlace a otro sitio, registramos un recuento anónimo con Cloudflare Workers Analytics Engine. Solo guarda la herramienta, el programa de afiliados (si lo hay), el sitio de destino, el tipo de enlace, la página, el idioma, el dominio del sitio que te remitió, una marca de tráfico automatizado (bots y nuestras pruebas) y el origen del clic (persona, bot o prueba). No se usan cookies y no guardamos tu dirección IP, los datos de tu navegador ni ningún otro dato personal."
+  "c6": "Recuento anónimo de clics: cuando haces clic en un enlace a otro sitio, registramos un recuento anónimo con Cloudflare Workers Analytics Engine. Solo guarda la herramienta, el programa de afiliados (si lo hay), el sitio de destino, el tipo de enlace, la página, el idioma, el dominio del sitio que te remitió, una marca de tráfico automatizado (bots y nuestras pruebas) y el origen del clic (persona, bot o prueba). No se usan cookies y no guardamos tu dirección IP, los datos de tu navegador ni ningún otro dato personal.",
+  "c7": "Comentarios del blog: los comentarios de los artículos se guardan en GitHub Discussions (repositorio tradingaihub/community) y se muestran mediante giscus. No se carga nada de GitHub ni de giscus hasta que pulsas «Cargar comentarios». Para comentar inicias sesión con tu cuenta de GitHub, y lo que publicas es público en GitHub según la declaración de privacidad de GitHub. No recibimos tu contraseña ni tu correo de GitHub."
  },
  "terms": {
   "title": "Términos de uso",
@@ -634,7 +639,7 @@
   "reportH": "Informar de un problema",
   "reportP": "Si cree que un resultado del análisis es incorrecto, o tiene una inquietud de seguridad sobre una herramienta listada, escriba a {email}.",
   "badge": "Análisis de seguridad: no se han encontrado problemas · comprobación estática de código y dependencias · {date}",
-    "badgeShort": "Analizado: sin problemas",
+  "badgeShort": "Analizado: sin problemas",
   "badgeAria": "Análisis de seguridad: no se han encontrado problemas el {date}. Comprobación estática de código y dependencias. Analizador {commit}, reglas {rules}. Abre la página de metodología.",
   "cardAria": "Análisis de seguridad: no se han encontrado problemas el {date}. Analizador {commit}, reglas {rules}.",
   "vt": "Informe de VirusTotal"
@@ -643,6 +648,22 @@
   "label": "No seguro, pendiente de aclaración",
   "short": "No seguro (pendiente)",
   "text": "Motivo: el código de la herramienta envía la dirección de tu billetera y órdenes de intercambio firmadas por HTTP sin cifrar a un servidor no documentado en una dirección IP directa, y recibe tus saldos e historial de transacciones de la misma forma. Lo estamos consultando con el desarrollador (degentic-tools)."
+ },
+ "blog": {
+  "title": "Blog",
+  "desc": "Artículos de TradingAIHub Editorial sobre herramientas de IA para finanzas y trading: servidores MCP, skills para agentes, APIs de datos de mercado y cómo usarlos con seguridad.",
+  "inEnglish": "Los artículos están escritos en inglés.",
+  "nia": "No es asesoramiento de inversión.",
+  "rss": "Feed RSS",
+  "tags": "Etiquetas",
+  "empty": "Aún no hay artículos.",
+  "newer": "← Más recientes",
+  "older": "Más antiguos →",
+  "pageOf": "Página {n} de {total}",
+  "pages": "Páginas del blog",
+  "community": "Comunidad",
+  "communityP": "Las preguntas, las solicitudes de herramientas y los comentarios sobre los artículos están en nuestra comunidad de GitHub.",
+  "communityLink": "Únete a la conversación"
  },
  "xp": {
   "type_mcp": "Servidor MCP: conecta clientes de IA como Claude o Cursor con este servicio mediante el Model Context Protocol.",

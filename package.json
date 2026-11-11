@@ -16,6 +16,7 @@
     "test:functions": "node --test tests/*.test.mjs",
     "deploy": "npm run build && wrangler pages deploy dist --project-name=tradingaihub --branch=main --commit-dirty=true",
     "weekly:publish": "npm run weekly && npm run deploy && npm run indexnow",
+    "test:blog": "node scripts/test_blog.mjs",
     "test:aff": "node --test scripts/aff.test.mjs",
     "clicks": "node scripts/clicks.mjs",
     "security-scan": "python3 scripts/security_scan.py",

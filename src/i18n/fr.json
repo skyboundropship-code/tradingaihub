@@ -8,12 +8,13 @@
   "categories": "Catégories",
   "compare": "Comparer",
   "weekly": "Classement hebdo",
+  "blog": "Blog",
   "badges": "Badges",
   "verify": "Notre vérification",
   "submit": "Proposer un outil — gratuit",
   "language": "Langue",
   "theme": "Basculer thème clair/sombre",
-    "menu": "Menu"
+  "menu": "Menu"
  },
  "footer": {
   "rechecked": "Revérifié chaque semaine.",
@@ -83,7 +84,10 @@
    "Liens à vérifier",
    "Un lien vers le site, la documentation ou l'endpoint a échoué lors de la dernière vérification."
   ],
-  "unconfirmed": ["Vérification du lien en attente", "Accessible, mais un lien vers le site, la documentation ou l’endpoint a refusé notre vérificateur (connexion requise, blocage des robots ou limite de requêtes) : il n’a pas pu être entièrement confirmé. Non compté comme vérifié."],
+  "unconfirmed": [
+   "Vérification du lien en attente",
+   "Accessible, mais un lien vers le site, la documentation ou l’endpoint a refusé notre vérificateur (connexion requise, blocage des robots ou limite de requêtes) : il n’a pas pu être entièrement confirmé. Non compté comme vérifié."
+  ],
   "unreachable": [
    "Inaccessible",
    "Impossible d'accéder au dépôt ou au site."
@@ -456,7 +460,8 @@
   "c3": "Newsletter : si vous vous abonnez, nous conservons votre adresse e-mail, votre langue, la date d'inscription et une trace de votre consentement, uniquement pour faire fonctionner la newsletter. Cet enregistrement est conservé dans notre stockage Cloudflare Workers KV comme copie de sauvegarde de la liste jusqu'à ce que vous nous demandiez de le supprimer (y compris si vous ne confirmez jamais). Pour limiter les abus, chaque tentative d'inscription crée aussi une clé temporaire de limitation de débit à partir d'un hachage irréversible de votre adresse IP (l'IP elle-même n'est jamais stockée) ; elle est supprimée automatiquement au bout d'1 heure.",
   "c4": "Envoi des e-mails : la newsletter est envoyée via MailerLite, notre prestataire d'e-mailing, qui traite les données pour notre compte. Nous ne partageons avec MailerLite que votre adresse e-mail. Pour notre compte, le service est fourni par MailerLite, Inc. (États-Unis) ; MailerLite stocke les données dans des centres de données Google situés dans l'UE, et votre adresse e-mail est transférée aux États-Unis en vertu des garanties de MailerLite, notamment le Data Privacy Framework UE–États-Unis (avec son extension pour le Royaume-Uni), le Data Privacy Framework Suisse–États-Unis et des clauses contractuelles types.",
   "c5": "Double opt-in : après votre inscription, MailerLite vous envoie un e-mail de confirmation, et vous n'êtes abonné qu'après avoir cliqué sur le lien qu'il contient. Chaque e-mail de la newsletter contient un lien de désabonnement. Pour faire supprimer vos données à la fois chez MailerLite et dans notre stockage KV, écrivez à {email}.",
-  "c6": "Comptage anonyme des clics : lorsque vous cliquez sur un lien vers un autre site, nous enregistrons un comptage anonyme via Cloudflare Workers Analytics Engine. Seuls sont conservés l'outil, le programme d'affiliation (le cas échéant), le site de destination, le type de lien, la page, la langue, le domaine du site qui vous a dirigé vers nous, un indicateur de trafic automatisé (robots et nos propres tests) et la source du clic (humain, robot ou test). Aucun cookie n'est utilisé et nous ne conservons ni votre adresse IP, ni les informations de votre navigateur, ni aucune autre donnée personnelle."
+  "c6": "Comptage anonyme des clics : lorsque vous cliquez sur un lien vers un autre site, nous enregistrons un comptage anonyme via Cloudflare Workers Analytics Engine. Seuls sont conservés l'outil, le programme d'affiliation (le cas échéant), le site de destination, le type de lien, la page, la langue, le domaine du site qui vous a dirigé vers nous, un indicateur de trafic automatisé (robots et nos propres tests) et la source du clic (humain, robot ou test). Aucun cookie n'est utilisé et nous ne conservons ni votre adresse IP, ni les informations de votre navigateur, ni aucune autre donnée personnelle.",
+  "c7": "Commentaires du blog : les commentaires des articles sont stockés dans GitHub Discussions (dépôt tradingaihub/community) et affichés via giscus. Rien n'est chargé depuis GitHub ou giscus tant que vous n'avez pas cliqué sur « Charger les commentaires ». Pour commenter, vous vous connectez avec votre compte GitHub, et ce que vous publiez est public sur GitHub, selon la déclaration de confidentialité de GitHub. Nous ne recevons ni votre mot de passe ni votre adresse e-mail GitHub."
  },
  "terms": {
   "title": "Conditions d'utilisation",
@@ -634,7 +639,7 @@
   "reportH": "Signaler un problème",
   "reportP": "Si vous pensez qu’un résultat d’analyse est incorrect, ou si vous avez une préoccupation de sécurité concernant un outil listé, écrivez à {email}.",
   "badge": "Analyse de sécurité : aucun problème trouvé · contrôle statique du code et des dépendances · {date}",
-    "badgeShort": "Analysé : aucun problème",
+  "badgeShort": "Analysé : aucun problème",
   "badgeAria": "Analyse de sécurité : aucun problème trouvé le {date}. Contrôle statique du code et des dépendances. Analyseur {commit}, règles {rules}. Ouvre la page de méthodologie.",
   "cardAria": "Analyse de sécurité : aucun problème trouvé le {date}. Analyseur {commit}, règles {rules}.",
   "vt": "Rapport VirusTotal"
@@ -643,6 +648,22 @@
   "label": "Non sûr, en attente de clarification",
   "short": "Non sûr (en attente)",
   "text": "Pourquoi : le code de l'outil envoie l'adresse de votre portefeuille et des ordres de swap signés en HTTP non chiffré vers un serveur non documenté à une simple adresse IP, et reçoit vos soldes et votre historique de transactions par le même canal. Nous vérifions auprès du développeur (degentic-tools)."
+ },
+ "blog": {
+  "title": "Blog",
+  "desc": "Articles de TradingAIHub Editorial sur les outils d'IA pour la finance et le trading : serveurs MCP, skills d'agents, API de données de marché et comment les utiliser en sécurité.",
+  "inEnglish": "Les articles sont rédigés en anglais.",
+  "nia": "Ceci n'est pas un conseil en investissement.",
+  "rss": "Flux RSS",
+  "tags": "Tags",
+  "empty": "Aucun article pour l'instant.",
+  "newer": "← Plus récents",
+  "older": "Plus anciens →",
+  "pageOf": "Page {n} sur {total}",
+  "pages": "Pages du blog",
+  "community": "Communauté",
+  "communityP": "Les questions, les demandes d'outils et les commentaires sur les articles se trouvent dans notre communauté GitHub.",
+  "communityLink": "Rejoindre la discussion"
  },
  "xp": {
   "type_mcp": "Serveur MCP : connecte des clients d'IA comme Claude ou Cursor à ce service via le Model Context Protocol.",

@@ -3,10 +3,12 @@ import { existsSync, readFileSync, readdirSync, statSync, writeFileSync, unlinkS
 import { join } from "node:path";
 const SITE = "https://tradingaihub.com";
 const CODES = ["en", "he", "es", "pt", "de", "fr", "ja", "ko", "zh", "hi", "tr", "ar", "ru"];
-const dist = "dist";
+const dist = process.argv[2] || "dist";
 const walk = (d) => readdirSync(d).flatMap((f) => { const p = join(d, f); return statSync(p).isDirectory() ? walk(p) : [p]; });
 const pages = walk(dist).filter((f) => f.endsWith("/index.html")).map((f) => "/" + f.slice(dist.length + 1).replace(/index\.html$/, ""))
-  .filter((p) => !p.startsWith("/advertise/") && !/^\/[a-z]{2}\/advertise\//.test(p));
+  .filter((p) => !p.startsWith("/advertise/") && !/^\/[a-z]{2}\/advertise\//.test(p))
+  // noindex pages (blog drafts in a BLOG_DRAFTS=1 preview, tag pages with only drafts) are never listed.
+  .filter((p) => !/<meta name="robots" content="noindex/.test(readFileSync(join(dist, p.slice(1), "index.html"), "utf8")));
 const base = new Set(pages.filter((p) => { const m = p.match(/^\/([a-z]{2})\//); return !(m && CODES.includes(m[1])); }));
 const pathFor = (c, b) => (c === "en" ? b : `/${c}${b}`);
 // A URL (and an hreflang alternate) is listed only for the locales where the page was actually built, so English-only

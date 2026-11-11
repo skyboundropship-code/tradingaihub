@@ -8,12 +8,13 @@
   "categories": "Kategorien",
   "compare": "Vergleichen",
   "weekly": "Wochen-Ranking",
+  "blog": "Blog",
   "badges": "Badges",
   "verify": "So prüfen wir",
   "submit": "Tool einreichen – kostenlos",
   "language": "Sprache",
   "theme": "Hell/Dunkel umschalten",
-    "menu": "Menü"
+  "menu": "Menü"
  },
  "footer": {
   "rechecked": "Jede Woche neu geprüft.",
@@ -83,7 +84,10 @@
    "Links prüfen",
    "Ein Website-, Doku- oder Endpoint-Link ist bei der letzten Prüfung fehlgeschlagen."
   ],
-  "unconfirmed": ["Linkprüfung ausstehend", "Erreichbar, aber ein Link zu Website, Doku oder Endpunkt hat unseren Prüfer abgewiesen (Anmeldung nötig, Bot-Sperre oder Ratenlimit), daher nicht vollständig bestätigt. Zählt nicht als verifiziert."],
+  "unconfirmed": [
+   "Linkprüfung ausstehend",
+   "Erreichbar, aber ein Link zu Website, Doku oder Endpunkt hat unseren Prüfer abgewiesen (Anmeldung nötig, Bot-Sperre oder Ratenlimit), daher nicht vollständig bestätigt. Zählt nicht als verifiziert."
+  ],
   "unreachable": [
    "Nicht erreichbar",
    "Repository oder Website konnten nicht erreicht werden."
@@ -456,7 +460,8 @@
   "c3": "Newsletter: Wenn Sie sich anmelden, speichern wir Ihre E-Mail-Adresse, Sprache, den Anmeldezeitpunkt und einen Nachweis Ihrer Einwilligung, ausschließlich für den Betrieb des Newsletters. Dieser Eintrag liegt als Sicherungskopie der Empfängerliste in unserem Cloudflare-Workers-KV-Speicher, bis Sie uns um Löschung bitten (auch wenn Sie die Anmeldung nie bestätigen). Um Missbrauch zu begrenzen, erzeugt jeder Anmeldeversuch zusätzlich einen temporären Rate-Limit-Schlüssel aus einem Einweg-Hash Ihrer IP-Adresse (die IP selbst wird nie gespeichert); er wird nach 1 Stunde automatisch gelöscht.",
   "c4": "E-Mail-Versand: Der Newsletter wird über MailerLite versendet, unseren E-Mail-Dienstleister, der die Daten in unserem Auftrag verarbeitet. Wir geben an MailerLite nur Ihre E-Mail-Adresse weiter. Für unser Konto wird der Dienst von MailerLite, Inc. (USA) erbracht; MailerLite speichert die Daten in Google-Rechenzentren in der EU, und Ihre E-Mail-Adresse wird auf Grundlage der Garantien von MailerLite in die USA übermittelt, darunter das EU-U.S. Data Privacy Framework (mit seiner Erweiterung für das Vereinigte Königreich), das Swiss-U.S. Data Privacy Framework und Standardvertragsklauseln.",
   "c5": "Double-Opt-in: Nach der Anmeldung schickt Ihnen MailerLite eine Bestätigungs-E-Mail; angemeldet sind Sie erst, wenn Sie auf den Link darin klicken. Jede Newsletter-E-Mail enthält einen Abmeldelink. Um Ihre Daten sowohl bei MailerLite als auch in unserem KV-Speicher löschen zu lassen, schreiben Sie an {email}.",
-  "c6": "Anonyme Klickzählung: Wenn Sie auf einen Link zu einer anderen Website klicken, erfassen wir mit Cloudflare Workers Analytics Engine eine anonyme Zählung. Gespeichert werden nur Tool, Partnerprogramm (falls vorhanden), Zielseite, Linktyp, Seite, Sprache, die Domain der verweisenden Website, eine Markierung für automatisierten Traffic (Bots und unsere eigenen Tests) und die Klickquelle (Mensch, Bot oder Test). Es werden keine Cookies verwendet, und wir speichern weder Ihre IP-Adresse noch Browserdaten oder andere personenbezogene Daten."
+  "c6": "Anonyme Klickzählung: Wenn Sie auf einen Link zu einer anderen Website klicken, erfassen wir mit Cloudflare Workers Analytics Engine eine anonyme Zählung. Gespeichert werden nur Tool, Partnerprogramm (falls vorhanden), Zielseite, Linktyp, Seite, Sprache, die Domain der verweisenden Website, eine Markierung für automatisierten Traffic (Bots und unsere eigenen Tests) und die Klickquelle (Mensch, Bot oder Test). Es werden keine Cookies verwendet, und wir speichern weder Ihre IP-Adresse noch Browserdaten oder andere personenbezogene Daten.",
+  "c7": "Blog-Kommentare: Kommentare zu Blogartikeln werden in GitHub Discussions (Repository tradingaihub/community) gespeichert und über giscus angezeigt. Von GitHub oder giscus wird nichts geladen, bevor du auf „Kommentare laden“ klickst. Zum Kommentieren meldest du dich mit deinem GitHub-Konto an; was du schreibst, ist auf GitHub öffentlich und unterliegt der Datenschutzerklärung von GitHub. Wir erhalten weder dein GitHub-Passwort noch deine E-Mail-Adresse."
  },
  "terms": {
   "title": "Nutzungsbedingungen",
@@ -634,7 +639,7 @@
   "reportH": "Ein Problem melden",
   "reportP": "Wenn Sie denken, dass ein Prüfergebnis falsch ist, oder ein Sicherheitsbedenken zu einem gelisteten Tool haben, schreiben Sie an {email}.",
   "badge": "Sicherheitsprüfung: keine Auffälligkeiten gefunden · statische Code- und Abhängigkeitsprüfung · {date}",
-    "badgeShort": "Gescannt: keine Auffälligkeiten",
+  "badgeShort": "Gescannt: keine Auffälligkeiten",
   "badgeAria": "Sicherheitsprüfung: keine Auffälligkeiten gefunden am {date}. Statische Code- und Abhängigkeitsprüfung. Scanner {commit}, Regeln {rules}. Öffnet die Methodik-Seite.",
   "cardAria": "Sicherheitsprüfung: keine Auffälligkeiten gefunden am {date}. Scanner {commit}, Regeln {rules}.",
   "vt": "VirusTotal-Bericht"
@@ -643,6 +648,22 @@
   "label": "Nicht sicher, Klärung ausstehend",
   "short": "Nicht sicher (offen)",
   "text": "Grund: Der Code des Tools sendet Ihre Wallet-Adresse und signierte Swap-Aufträge über unverschlüsseltes HTTP an einen nicht dokumentierten Server unter einer nackten IP-Adresse und empfängt Ihre Guthaben und Ihren Transaktionsverlauf auf demselben Weg. Wir klären das mit dem Entwickler (degentic-tools)."
+ },
+ "blog": {
+  "title": "Blog",
+  "desc": "Artikel von TradingAIHub Editorial über KI-Tools für Finanzen und Trading: MCP-Server, Agent-Skills, Marktdaten-APIs und wie man sie sicher nutzt.",
+  "inEnglish": "Die Artikel sind auf Englisch.",
+  "nia": "Keine Anlageberatung.",
+  "rss": "RSS-Feed",
+  "tags": "Tags",
+  "empty": "Noch keine Beiträge.",
+  "newer": "← Neuere",
+  "older": "Ältere →",
+  "pageOf": "Seite {n} von {total}",
+  "pages": "Blogseiten",
+  "community": "Community",
+  "communityP": "Fragen, Tool-Wünsche und Kommentare zu Artikeln findest du in unserer GitHub-Community.",
+  "communityLink": "Mitdiskutieren"
  },
  "xp": {
   "type_mcp": "MCP-Server: verbindet KI-Clients wie Claude oder Cursor über das Model Context Protocol mit diesem Dienst.",
