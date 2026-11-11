@@ -1,5 +1,27 @@
 [
   {
+    "date": "2026-11-11",
+    "counts": {
+      "verified": 84,
+      "stale": 12,
+      "aging": 4,
+      "archived": 3,
+      "unconfirmed": 3
+    },
+    "changes": [
+      {
+        "kind": "new",
+        "id": "coinboss-api",
+        "text": "New: CoinBoss API added."
+      },
+      {
+        "kind": "new",
+        "id": "sure",
+        "text": "New: Sure added."
+      }
+    ]
+  },
+  {
     "date": "2026-11-10",
     "counts": {
       "verified": 82,

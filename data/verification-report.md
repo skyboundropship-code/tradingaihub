@@ -1,8 +1,8 @@
-# Verification report — 2026-11-10 18:12 UTC
+# Verification report — 2026-11-11 11:25 UTC
 
-Total entries: 104
+Total entries: 106
 
-- verified: 82
+- verified: 84
 - stale: 12
 - aging: 4
 - archived: 3
@@ -20,6 +20,7 @@ Entries with a published npm/PyPI package: 28
 | eodhd-api | verified |  |  | Proprietary / ToS |  |  |
 | alpaca-market-data-api | verified |  |  | Proprietary / ToS |  |  |
 | coingecko-api | verified |  |  | Proprietary / ToS |  |  |
+| coinboss-api | verified |  |  | Proprietary / ToS |  |  |
 | fred-api | verified |  |  | Proprietary / ToS |  |  |
 | sec-edgar-api | verified |  |  | Proprietary / ToS |  |  |
 | alpha-vantage-mcp | verified | 226 | 2026-10-03 | MIT |  |  |
@@ -104,6 +105,7 @@ Entries with a published npm/PyPI package: 28
 | ynab-api | verified |  |  | Proprietary / ToS |  |  |
 | ynab-mcp | verified | 164 | 2026-11-07 | MIT | ynab-mcp-server@0.8.0 |  |
 | firefly-iii-api | unconfirmed | 25179 | 2026-11-09 | AGPL-3.0 |  | Could not confirm: homepage 403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)]; docs 403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)] |
+| sure | verified | 12460 | 2026-11-11 | AGPL-3.0 |  | npm name 'sure' exists on the registry but does not link to this repo (not counted) |
 | bls-api | verified |  |  | Proprietary / ToS |  |  |
 | bea-api | verified |  |  | Proprietary / ToS |  |  |
 | world-bank-api | verified |  |  | Proprietary / ToS |  |  |
