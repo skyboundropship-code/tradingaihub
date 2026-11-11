@@ -100,6 +100,7 @@ button.badge.secnote{padding:0 10px;line-height:24px;margin:0}
 .secnote-wrap:has(.secnote:hover) .secnote-tip,.secnote-wrap:has(.secnote:focus-visible) .secnote-tip,.secnote-tip.open,
 .card:has(.secnote:hover) .secnote-card-tip,.card:focus-visible .secnote-card-tip{display:block}
 .secnote-card-tip{font-size:12.5px;margin:6px 0 0}
+.secnote-line{margin-top:6px}
 
 .date-ltr{white-space:nowrap;unicode-bidi:isolate;direction:ltr}
 .pill{white-space:nowrap;flex:0 0 auto}
