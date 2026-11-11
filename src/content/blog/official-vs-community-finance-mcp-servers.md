@@ -1,6 +1,6 @@
 ---
 title: "Official vs Community MCP Servers for Finance: How to Tell Them Apart"
-description: "As of our Nov 2, 2026 check, 61 of 104 finance tools were official, 43 community. How each kind fails, plus six checks to tell them apart before you connect an account."
+description: "On our Nov 2, 2026 check, 61 of 104 finance tools were official, 43 community. How each kind fails, plus six checks to tell them apart."
 date: 2026-10-29
 updated: 2026-11-04
 tags: [mcp, verification, security]
