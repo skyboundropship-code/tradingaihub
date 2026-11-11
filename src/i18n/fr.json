@@ -12,7 +12,8 @@
   "verify": "Notre vérification",
   "submit": "Proposer un outil — gratuit",
   "language": "Langue",
-  "theme": "Basculer thème clair/sombre"
+  "theme": "Basculer thème clair/sombre",
+    "menu": "Menu"
  },
  "footer": {
   "rechecked": "Revérifié chaque semaine.",
@@ -632,6 +633,7 @@
   "reportH": "Signaler un problème",
   "reportP": "Si vous pensez qu’un résultat d’analyse est incorrect, ou si vous avez une préoccupation de sécurité concernant un outil listé, écrivez à {email}.",
   "badge": "Analyse de sécurité : aucun problème trouvé · contrôle statique du code et des dépendances · {date}",
+    "badgeShort": "Analysé : aucun problème",
   "badgeAria": "Analyse de sécurité : aucun problème trouvé le {date}. Contrôle statique du code et des dépendances. Analyseur {commit}, règles {rules}. Ouvre la page de méthodologie.",
   "cardAria": "Analyse de sécurité : aucun problème trouvé le {date}. Analyseur {commit}, règles {rules}.",
   "vt": "Rapport VirusTotal"

@@ -72,7 +72,19 @@ const at = useA11yT(lang);
       <div class="langmenu">{LOCALES.map((l) => <a href={pathFor(l.code, avail.includes(l.code) ? base : "/")} hreflang={l.code} lang={l.code} dir={l.dir} data-lang={l.code} class={l.code === lang ? "on" : ""}>{l.name}</a>)}</div>
     </details>
     <button class="themetoggle" type="button" aria-pressed="false" aria-label={t("nav.theme")} title={t("nav.theme")}><span class="sun">☀️</span><span class="moon">🌙</span></button>
-    <a class="btn" href={p("/submit/")}>{t("nav.submit")}</a>
+    <a class="btn hdr-submit" href={p("/submit/")}>{t("nav.submit")}</a>
+    <details class="nav-mobile" data-qa="nav-mobile">
+      <summary class="nav-toggle" aria-label={t("nav.menu")} title={t("nav.menu")}><span class="nav-toggle-icon" aria-hidden="true"></span></summary>
+      <nav class="nav-drawer" aria-label={at("w.navMain")}>
+        <a href={p("/tools/")}>{t("nav.tools")}</a>
+        <a href={p("/categories/")}>{t("nav.categories")}</a>
+        <a href={p("/compare/")}>{t("nav.compare")}</a>
+        <a href={p("/weekly/")}>{t("nav.weekly")}</a>
+        <a href={p("/badges/")}>{t("nav.badges")}</a>
+        <a href={p("/about/")}>{t("nav.verify")}</a>
+        <a class="btn" href={p("/submit/")}>{t("nav.submit")}</a>
+      </nav>
+    </details>
   </div>
 </div></header>
 <main id="content" tabindex="-1"><Fragment set:html="<!--email_off-->" /><slot /><Fragment set:html="<!--/email_off-->" /></main>
@@ -92,7 +104,7 @@ const at = useA11yT(lang);
 document.querySelectorAll("pre").forEach(function(p){var b=document.createElement("button");b.className="copy";b.type="button";b.textContent=copyTxt;b.onclick=function(){var c=p.cloneNode(true);c.querySelectorAll("button.copy").forEach(function(x){x.remove()});navigator.clipboard.writeText(c.innerText.trim());b.textContent=copiedTxt;setTimeout(function(){b.textContent=copyTxt},1500)};p.appendChild(b)});
 document.querySelectorAll(".langmenu a").forEach(function(a){a.addEventListener("click",function(){try{localStorage.setItem("lang",a.dataset.lang)}catch(e){}})});
 document.querySelectorAll(".themetoggle").forEach(function(b){var d=document.documentElement;b.setAttribute("aria-pressed",d.dataset.theme==="dark"?"true":"false");b.addEventListener("click",function(){var n=d.dataset.theme==="dark"?"light":"dark";d.dataset.theme=n;b.setAttribute("aria-pressed",n==="dark"?"true":"false");try{localStorage.setItem("theme",n)}catch(e){}})});
-document.addEventListener("click",function(e){document.querySelectorAll("details.langs[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});
+document.addEventListener("click",function(e){document.querySelectorAll("details.langs[open],details.nav-mobile[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});
 </script>
     <!-- Cloudflare Web Analytics (cookieless) -->
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "cde00777b33549fd85679e7d4c050fc6"}'></script>

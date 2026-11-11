@@ -12,7 +12,8 @@
   "verify": "验证方式",
   "submit": "免费提交工具",
   "language": "语言",
-  "theme": "切换浅色/深色主题"
+  "theme": "切换浅色/深色主题",
+    "menu": "菜单"
  },
  "footer": {
   "rechecked": "每周重新检查。",
@@ -632,6 +633,7 @@
   "reportH": "报告问题",
   "reportP": "如果您认为扫描结果有误，或对已收录工具有安全方面的担忧，请发送邮件至 {email}。",
   "badge": "安全扫描：未发现问题 · 静态代码与依赖检查 · {date}",
+    "badgeShort": "已扫描：未发现问题",
   "badgeAria": "安全扫描：在 {date} 未发现问题。静态代码与依赖检查。扫描器 {commit}，规则 {rules}。打开方法说明页面。",
   "cardAria": "安全扫描：在 {date} 未发现问题。扫描器 {commit}，规则 {rules}。",
   "vt": "VirusTotal 报告"

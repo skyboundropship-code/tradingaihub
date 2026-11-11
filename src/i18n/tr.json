@@ -12,7 +12,8 @@
   "verify": "Nasıl doğruluyoruz",
   "submit": "Ücretsiz araç ekle",
   "language": "Dil",
-  "theme": "Açık/koyu temayı değiştir"
+  "theme": "Açık/koyu temayı değiştir",
+    "menu": "Menü"
  },
  "footer": {
   "rechecked": "Her hafta yeniden kontrol edilir.",
@@ -632,6 +633,7 @@
   "reportH": "Bir sorunu bildirin",
   "reportP": "Bir tarama sonucunun yanlış olduğunu düşünüyorsanız veya listelenen bir araç hakkında güvenlik kaygınız varsa {email} adresine e-posta gönderin.",
   "badge": "Güvenlik taraması: sorun bulunamadı · statik kod ve bağımlılık kontrolü · {date}",
+    "badgeShort": "Tarandı: sorun yok",
   "badgeAria": "Güvenlik taraması: {date} tarihinde sorun bulunamadı. Statik kod ve bağımlılık kontrolü. Tarayıcı {commit}, kurallar {rules}. Yöntem sayfasını açar.",
   "cardAria": "Güvenlik taraması: {date} tarihinde sorun bulunamadı. Tarayıcı {commit}, kurallar {rules}.",
   "vt": "VirusTotal raporu"

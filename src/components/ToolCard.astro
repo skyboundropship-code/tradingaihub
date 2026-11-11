@@ -8,7 +8,7 @@ const d = desc(tool);
 ---
 <a class="card" href={p(`/tools/${tool.id}/`)} data-search={`${tool.name} ${tool.description} ${d} ${tool.category} ${tool.type}`.toLowerCase()} data-cat={tool.category} data-type={tool.type}>
   <div class="meta"><span class="badge type">{t(`type.${tool.type}`)}</span>{tool.official && <span class="badge off">{t("common.official")}</span>}<Status status={tool.verification.status} lang={lang} /><SecurityBadge tool={tool} lang={lang} variant="card" /></div>
-  <H class:list={[level === 2 && "card-t"]} dir="auto">{tool.name}</H>
+  <H class:list={[level === 2 && "card-t"]} title={tool.name}><bdi>{tool.name}</bdi></H>
   <p>{d}</p>
   <div class="meta"><span>💲 {tool.pricing.free_tier === "unknown" ? t("common.pricingUnknown") : <bdi>{tool.pricing.free_tier}</bdi>}</span>{s != null && <span>★ {fmtStars(s)}</span>}</div>
 </a>
