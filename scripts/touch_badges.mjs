@@ -29,7 +29,8 @@ async function tapEl(page, loc) {
 }
 const tipOpen = (loc) => loc.evaluate((t) => t.classList.contains("open") && t.getBoundingClientRect().height > 8 && getComputedStyle(t).clip !== "rect(0px, 0px, 0px, 0px)");
 // An open explanation must sit inside the 375 viewport and must not widen the page (no horizontal scroll / zoom-out).
-const tipInView = (loc) => loc.evaluate((t) => { const r = t.getBoundingClientRect(), vw = document.documentElement.clientWidth; return r.left >= 0 && r.right <= vw && document.documentElement.scrollWidth <= vw; });
+const tipInView = async (loc) => { const v = await loc.evaluate((t) => { const r = t.getBoundingClientRect(), vw = document.documentElement.clientWidth; return { l: Math.round(r.left), r: Math.round(r.right), vw, sw: document.documentElement.scrollWidth }; });
+  const good = v.l >= 0 && v.r <= v.vw && v.sw <= v.vw; if (!good) console.log("  tip box", JSON.stringify(v)); return good; };
 
 for (const l of LOCALES) {
   const c = await ctx(); const page = await c.newPage();
