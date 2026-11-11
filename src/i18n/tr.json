@@ -582,7 +582,9 @@
   "alpaca-skills": "Trading ve Broker API'leri için resmi Alpaca ajan becerileri: geriye dönük testler, emirler, hesap açılışı, para hareketleri ve olaylar.",
   "longbridge-skills": "Resmi Longbridge ajan becerileri: HK, ABD, A-hisse ve Singapur piyasalarında fiyatlar, teknik analiz, türevler, temel veriler, portföy ve izleme listesi.",
   "coinbase-agentic-wallet-skills": "Ajan cüzdanları için resmi Coinbase becerileri: bakiyeler, USDC gönderme, token takası, para yatırma ve Base, Polygon ve Solana'da x402 API ödemeleri.",
-  "options-trading-skills": "Opsiyon yatırımcıları için topluluk Claude becerileri: tarayıcılar, Yunanlar, spreadler, PMCC taramaları, korelasyonlar ve IBKR portföy raporları."
+  "options-trading-skills": "Opsiyon yatırımcıları için topluluk Claude becerileri: tarayıcılar, Yunanlar, spreadler, PMCC taramaları, korelasyonlar ve IBKR portföy raporları.",
+  "sure": "Kendi sunucunuzda barındırılan kişisel finans uygulaması (we-promise tarafından yürütülen, Maybe Finance'in topluluk çatalı): hesaplar, işlemler, bütçeler ve net değer; birinci taraf MCP sunucusu ve REST API ile.",
+  "coinboss-api": "Toplu kripto türev ve piyasa verileri için resmi REST API: likidasyonlar, açık pozisyon, fonlama oranları, long/short oranları ve ETF akışları. Yalnızca piyasa verisi; şu anda ücretsiz."
  },
  "faq": {
   "title": "Sıkça sorulan sorular",

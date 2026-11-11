@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-11-10T18:12:15.095071+00:00",
-  "total": 104,
+  "checked_at": "2026-11-11T11:25:39.197373+00:00",
+  "total": 106,
   "by_status": {
-    "verified": 82,
+    "verified": 84,
     "stale": 12,
     "aging": 4,
     "archived": 3,
@@ -182,6 +182,13 @@
       "status": "unconfirmed",
       "issues": [
         "Could not confirm: homepage 403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)]; docs 403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)]"
+      ]
+    },
+    {
+      "id": "sure",
+      "status": "verified",
+      "issues": [
+        "npm name 'sure' exists on the registry but does not link to this repo (not counted)"
       ]
     },
     {

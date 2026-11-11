@@ -573,7 +573,9 @@
   "alpaca-skills": "Official Alpaca agent skills for the Trading and Broker APIs: backtests, orders, account onboarding, money movement and events.",
   "longbridge-skills": "Official Longbridge agent skills: quotes, technicals, derivatives, fundamentals, portfolio and watchlist across HK, US, A-share and SG markets.",
   "coinbase-agentic-wallet-skills": "Official Coinbase skills for agent wallets: balances, send USDC, swap tokens, onramp funds and pay x402 APIs on Base, Polygon and Solana.",
-  "options-trading-skills": "Community Claude skills for options traders: scanners, Greeks, spreads, PMCC screens, correlations and IBKR portfolio reports."
+  "options-trading-skills": "Community Claude skills for options traders: scanners, Greeks, spreads, PMCC screens, correlations and IBKR portfolio reports.",
+  "sure": "Self-hosted personal finance app (community-maintained fork of Maybe Finance by we-promise): accounts, transactions, budgets and net worth, with a first-party MCP server and REST API.",
+  "coinboss-api": "Official REST API for aggregated crypto derivatives and market data: liquidations, open interest, funding rates, long/short ratios and ETF flows. Market data only; currently free."
  },
  "partner": {
   "label": "Partner",

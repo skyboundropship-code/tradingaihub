@@ -582,7 +582,9 @@
   "alpaca-skills": "Trading 및 Broker API용 Alpaca 공식 에이전트 스킬: 백테스트, 주문, 계좌 개설, 자금 이동, 이벤트.",
   "longbridge-skills": "Longbridge 공식 에이전트 스킬: 홍콩, 미국, A주, 싱가포르 시장의 시세, 기술적 분석, 파생상품, 펀더멘털, 포트폴리오, 관심 목록.",
   "coinbase-agentic-wallet-skills": "에이전트 지갑용 Coinbase 공식 스킬: 잔액 조회, USDC 송금, 토큰 스왑, 자금 충전, x402 API 결제(Base, Polygon, Solana).",
-  "options-trading-skills": "옵션 트레이더를 위한 커뮤니티 Claude 스킬: 스캐너, 그릭스, 스프레드, PMCC 스크리닝, 상관관계, IBKR 포트폴리오 보고서."
+  "options-trading-skills": "옵션 트레이더를 위한 커뮤니티 Claude 스킬: 스캐너, 그릭스, 스프레드, PMCC 스크리닝, 상관관계, IBKR 포트폴리오 보고서.",
+  "sure": "자체 호스팅 개인 재무 앱(we-promise가 커뮤니티 차원에서 유지하는 Maybe Finance 포크): 계좌, 거래, 예산, 순자산, 자체 MCP 서버와 REST API 제공.",
+  "coinboss-api": "암호화폐 파생상품 및 시장 데이터 공식 REST API: 청산, 미결제약정, 펀딩 금리, 롱/숏 비율, ETF 자금 흐름. 시장 데이터만 제공하며 현재는 무료."
  },
  "faq": {
   "title": "자주 묻는 질문",
