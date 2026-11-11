@@ -1338,7 +1338,10 @@
       "last_commit_days": 4,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "ibkr-mcp",
@@ -1407,7 +1410,10 @@
       "last_commit_days": null,
       "status": "verified"
     },
-    "license": "Proprietary / ToS"
+    "license": "Proprietary / ToS",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "tasty-agent",
@@ -1461,7 +1467,10 @@
       "last_commit_days": 35,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "metatrader-mcp",
@@ -1517,7 +1526,10 @@
       "last_commit_days": 225,
       "status": "aging"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "paper-mcp",
@@ -1837,7 +1849,10 @@
       "last_commit_days": 571,
       "status": "stale"
     },
-    "license": "unknown"
+    "license": "unknown",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "coinbase-agentkit",
@@ -1884,7 +1899,11 @@
       "last_commit_days": 25,
       "status": "verified"
     },
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "bankless-onchain-mcp",
@@ -2044,7 +2063,10 @@
       "last_commit_days": 68,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "coincap-mcp",
@@ -2158,8 +2180,8 @@
     "category": "crypto",
     "description": "Onchain tools for the Base network.",
     "repo": "https://github.com/base/base-mcp-legacy",
-    "homepage": null,
-    "docs": null,
+    "homepage": "https://docs.base.org/ai-agents",
+    "docs": "https://docs.base.org/ai-agents",
     "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
     "official": true,
     "pricing": {
@@ -2198,7 +2220,8 @@
       },
       "status": "archived"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "deprecated": true
   },
   {
     "id": "solana-agent-kit",
@@ -2245,7 +2268,11 @@
       "last_commit_days": 178,
       "status": "verified"
     },
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "bitcoin-mcp",
@@ -2301,11 +2328,11 @@
   },
   {
     "id": "x402",
-    "name": "x402 (Coinbase)",
+    "name": "x402 (x402 Foundation)",
     "type": "mcp",
     "category": "payments-banking",
     "description": "Open protocol for HTTP-native stablecoin payments by agents.",
-    "repo": "https://github.com/coinbase/x402",
+    "repo": "https://github.com/x402-foundation/x402",
     "homepage": null,
     "docs": null,
     "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
@@ -2320,7 +2347,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-11-09",
+      "checked_at": "2026-11-10",
       "checks": [
         {
           "check": "repo reachable",
@@ -2335,16 +2362,19 @@
       "issues": [],
       "github": {
         "reachable": true,
-        "final_url": "https://github.com/coinbase/x402",
-        "stars": 182,
+        "final_url": "https://github.com/x402-foundation/x402",
+        "stars": 6795,
         "archived": false,
         "license": "Apache-2.0",
-        "last_commit": "2026-11-06T00:09:13Z"
+        "last_commit": "2026-11-10T17:05:53Z"
       },
-      "last_commit_days": 3,
+      "last_commit_days": 0,
       "status": "verified"
     },
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "quickbooks-mcp",
@@ -2720,7 +2750,10 @@
       "last_commit_days": 0,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "qonto-mcp",
@@ -2927,10 +2960,10 @@
     "type": "mcp",
     "category": "personal-finance",
     "description": "MCP server for the open-source Actual Budget app.",
-    "repo": "https://github.com/Jacob-Tate/actual-budget-mcp",
-    "homepage": null,
+    "repo": "https://github.com/henfrydls/actual-budget-mcp",
+    "homepage": "https://actual-mcp.henfrydls.com/",
     "docs": null,
-    "source_url": "https://github.com/Jacob-Tate/actual-budget-mcp",
+    "source_url": "https://github.com/henfrydls/actual-budget-mcp",
     "official": false,
     "pricing": {
       "model": "open-source",
@@ -2942,7 +2975,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-11-09",
+      "checked_at": "2026-11-10",
       "checks": [
         {
           "check": "repo reachable",
@@ -2950,26 +2983,42 @@
         },
         {
           "check": "package published",
-          "ok": false,
-          "note": "no npm/PyPI package detected at repo root"
+          "ok": true,
+          "note": null
+        },
+        {
+          "check": "homepage alive",
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
-      "issues": [
-        "npm name 'actual-budget-mcp' exists on the registry but does not link to this repo (not counted)",
-        "No commits for 230 days"
-      ],
+      "issues": [],
       "github": {
         "reachable": true,
-        "final_url": "https://github.com/Jacob-Tate/actual-budget-mcp",
-        "stars": 2,
+        "final_url": "https://github.com/henfrydls/actual-budget-mcp",
+        "stars": 20,
         "archived": false,
-        "license": null,
-        "last_commit": "2026-03-23T08:00:46Z"
+        "license": "MIT",
+        "last_commit": "2026-11-04T23:14:43Z"
       },
-      "last_commit_days": 230,
-      "status": "aging"
+      "homepage": {
+        "url": "https://actual-mcp.henfrydls.com/",
+        "ok": true,
+        "status": 200,
+        "result": "ok"
+      },
+      "npm": {
+        "name": "actual-budget-mcp",
+        "version": "0.12.0",
+        "published": "2026-11-04T11:49:35.332Z",
+        "url": "https://www.npmjs.com/package/actual-budget-mcp",
+        "links_back": true
+      },
+      "last_commit_days": 5,
+      "status": "verified"
     },
-    "license": "unknown"
+    "license": "MIT"
   },
   {
     "id": "optionsahoy-mcp",
@@ -3824,7 +3873,11 @@
       "last_commit_days": 60,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "claude-code-trading-terminal",
@@ -4067,7 +4120,10 @@
       "last_commit_days": null,
       "status": "verified"
     },
-    "license": "Proprietary / ToS"
+    "license": "Proprietary / ToS",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "fmp-mcp",
@@ -4381,7 +4437,10 @@
       "last_commit_days": 69,
       "status": "verified"
     },
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "square-mcp",
@@ -4469,7 +4528,10 @@
       "last_commit_days": 25,
       "status": "verified"
     },
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "adyen-mcp",
@@ -4528,7 +4590,10 @@
       "last_commit_days": 2,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "razorpay-mcp",
@@ -4602,7 +4667,10 @@
       "last_commit_days": 5,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "paddle-mcp",
@@ -4738,7 +4806,10 @@
       "last_commit_days": null,
       "status": "unconfirmed"
     },
-    "license": "Proprietary / ToS"
+    "license": "Proprietary / ToS",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "netsuite-ai-connector",
@@ -5465,7 +5536,10 @@
       "last_commit_days": 14,
       "status": "verified"
     },
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "kraken-cli",
@@ -5512,7 +5586,10 @@
       "last_commit_days": 10,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "schwab-mcp",
@@ -5559,7 +5636,10 @@
       "last_commit_days": 4,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "alpaca-skills",
@@ -5608,7 +5688,11 @@
       "last_commit_days": 2,
       "status": "verified"
     },
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "longbridge-skills",
@@ -5718,7 +5802,11 @@
       "last_commit_days": 96,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "options-trading-skills",
@@ -5769,6 +5857,9 @@
       "last_commit_days": 0,
       "status": "verified"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "capabilities": [
+      "live_trading"
+    ]
   }
 ]

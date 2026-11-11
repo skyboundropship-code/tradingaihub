@@ -294,6 +294,10 @@
   "sendCorrection": "Envoyer une correction",
   "free": "gratuit",
   "notEndorse": "Le référencement d'un outil n'est ni une approbation ni un conseil en investissement. Testez d'abord tout outil de trading en mode démo.",
+  "liveFundsNote": "Peut passer des ordres réels / déplacer des fonds — utilisez le mode papier ou des clés à périmètre limité",
+  "liveTradingNote": "Peut passer des ordres réels — utilisez le mode papier ou des clés à périmètre limité",
+  "movesFundsNote": "Peut déplacer des fonds — utilisez le mode bac à sable ou des clés à périmètre limité",
+  "deprecatedNote": "Déprécié par l’éditeur. Consultez la documentation de remplacement.",
   "more": "Plus dans {cat}",
   "pricingDataNote": "Les détails tarifaires sont cités en anglais depuis la page de l'éditeur."
  },

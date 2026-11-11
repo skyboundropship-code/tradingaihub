@@ -29,6 +29,10 @@ const ld = [
   { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
     { "@type": "ListItem", position: 1, name: t("common.home"), item: `${SITE.url}${p("/")}` }, { "@type": "ListItem", position: 2, name: cname, item: `${SITE.url}${p(`/category/${cat.slug}/`)}` }, { "@type": "ListItem", position: 3, name: tool.name, item: pageUrl } ] },
 ];
+const caps = Array.isArray(tool.capabilities) ? tool.capabilities : [];
+const hasLive = caps.includes("live_trading");
+const hasFunds = caps.includes("moves_funds");
+const capNote = hasLive && hasFunds ? "tool.liveFundsNote" : hasLive ? "tool.liveTradingNote" : hasFunds ? "tool.movesFundsNote" : null;
 const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
 ---
 <Base title={`${tool.name} — ${t("tool.titleFor", { type: t(`type.${tool.type}`), cat: lang === "en" ? cshort.toLowerCase() : cshort })}`} description={metaDesc.slice(0, 300)} jsonld={ld} og={`tool-${tool.id}`} lang={lang}>
@@ -37,6 +41,12 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
   <div class="meta" style="margin-bottom:8px"><span class="badge type">{t(`type.${tool.type}`)}</span>{tool.official && <span class="badge off">{t("common.officialVendor")}</span>}<Status status={v.status} lang={lang} /><span class="pill">{t("tool.lastChecked", { date: v.checked_at })}</span></div>
   <h1 style="margin:6px 0 6px" dir="auto">{tool.name}</h1>
   <p style="color:var(--muted);font-size:1.125rem;margin-top:0">{desc}</p>
+  {capNote && (
+    <p class="note" dir="auto">{t(capNote)}</p>
+  )}
+  {tool.deprecated && (
+    <p class="note" dir="auto">{t("tool.deprecatedNote")}{(tool.docs || tool.homepage) && <>{" "}<a href={tool.docs || tool.homepage} rel="noopener" target="_blank">{new URL(tool.docs || tool.homepage).host}</a></>}</p>
+  )}
   {partnerPath && <PartnerCTA variant="tool" lang={lang} path={partnerPath} />}
   {mentionsTV && <TradingView context="integration" lang={lang} />}
   <Share path={p(`/tools/${tool.id}/`)} text={`${tool.name} — ${v.status === "verified" ? t("tool.shareVerified") : t("tool.shareStatus")} ${t("tool.on")} ${SITE.name}`} lang={lang} />

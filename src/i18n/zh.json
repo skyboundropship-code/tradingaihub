@@ -294,6 +294,10 @@
   "sendCorrection": "提交更正",
   "free": "免费",
   "notEndorse": "收录不代表背书或投资建议。任何交易工具请先在模拟模式下测试。",
+  "liveFundsNote": "可以下达实盘交易或转移资金 — 请使用模拟盘或权限受限的密钥。",
+  "liveTradingNote": "可以下达实盘交易 — 请使用模拟盘或权限受限的密钥。",
+  "movesFundsNote": "可以转移资金 — 请使用沙盒或权限受限的密钥。",
+  "deprecatedNote": "供应商已将其标记为弃用。请参阅替代文档。",
   "more": "{cat}中的更多工具",
   "pricingDataNote": "价格详情以英文原文引自厂商页面。"
  },

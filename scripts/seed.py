@@ -2,7 +2,7 @@
 Fields left None are unknown and get filled (or stay 'unknown') by verify.py."""
 import json
 AFM="https://github.com/BlockRunAI/awesome-finance-mcp"
-def T(id,name,type,cat,desc,repo=None,homepage=None,source=AFM,official=False,pricing=None,remote=None,docs=None,install_from_source=False,install_note=None):
+def T(id,name,type,cat,desc,repo=None,homepage=None,source=AFM,official=False,pricing=None,remote=None,docs=None,install_from_source=False,install_note=None,capabilities=None,deprecated=None):
     d = dict(id=id,name=name,type=type,category=cat,description=desc,repo=repo,homepage=homepage,
                 docs=docs or homepage,source_url=source,official=official,
                 pricing=pricing or {"model":"unknown","free_tier":"unknown","paid_from":None,"details":"Not yet checked against a vendor pricing page.","source":None,"checked":None},
@@ -11,6 +11,10 @@ def T(id,name,type,cat,desc,repo=None,homepage=None,source=AFM,official=False,pr
         d["install_from_source"] = True
     if install_note:
         d["install_note"] = install_note
+    if capabilities:
+        d["capabilities"] = list(capabilities)
+    if deprecated:
+        d["deprecated"] = deprecated if not isinstance(deprecated, bool) else True
     return d
 def P(model,free,paid,details,src,checked="2026-10-29"):
     return {"model":model,"free_tier":free,"paid_from":paid,"details":details,"source":src,"checked":checked}
@@ -53,27 +57,27 @@ T("hk-finance-mcp","HK Finance MCP","mcp","market-data","Hong Kong finance and s
 T("fred-mcp","FRED MCP","mcp","macro","MCP server for Federal Reserve Economic Data (FRED) series search and retrieval.",repo="https://github.com/stefanoamorelli/fred-mcp-server",pricing=FREEGOV("https://fred.stlouisfed.org/docs/api/fred/","Server is open-source; FRED API key is free.")),
 T("fxmacrodata-mcp","FXMacroData MCP","mcp","macro","Macro indicators, FX, economic calendars, COT and commodities.",repo="https://github.com/fxmacrodata/mcp-server-fxmacrodata",pricing=P("freemium","unknown",None,"Listed as freemium; plan prices not yet verified.",AFM)),
 # ---------- Trading / brokers ----------
-T("alpaca-mcp","Alpaca MCP Server","mcp","trading-brokers","Official Alpaca MCP: trade stocks, ETFs, options and crypto; query positions and market data.",repo="https://github.com/alpacahq/alpaca-mcp-server",official=True,pricing=ALP),
-T("ibkr-mcp","Interactive Brokers MCP (hosted)","mcp","trading-brokers","IBKR hosted MCP endpoint for portfolio data, monitoring and authorized trade actions.",homepage="https://www.interactivebrokers.com/en/trading/ai-integrations.php",source="https://www.interactivebrokers.com/en/trading/ai-integrations.php",official=True,pricing=P("account required","Requires an IBKR account",None,"No separate MCP fee found; brokerage fees per IBKR.","https://www.interactivebrokers.com/en/trading/ai-integrations.php"),remote="https://api.ibkr.com/v1/api/mcp-public"),
-T("tasty-agent","tasty-agent (tastytrade)","mcp","trading-brokers","Community MCP server for tastytrade: portfolio, market data, options Greeks and order execution.",repo="https://github.com/ferdousbhai/tasty-agent",source="https://github.com/ferdousbhai/tasty-agent",pricing=OSS("Requires a tastytrade account.")),
-T("metatrader-mcp","MetaTrader 5 MCP","mcp","trading-brokers","Trade via the MetaTrader 5 terminal from AI agents.",repo="https://github.com/ariadng/metatrader-mcp-server",pricing=OSS("Requires MetaTrader 5.")),
+T("alpaca-mcp","Alpaca MCP Server","mcp","trading-brokers","Official Alpaca MCP: trade stocks, ETFs, options and crypto; query positions and market data.",repo="https://github.com/alpacahq/alpaca-mcp-server",official=True,pricing=ALP,capabilities=["live_trading"]),
+T("ibkr-mcp","Interactive Brokers MCP (hosted)","mcp","trading-brokers","IBKR hosted MCP endpoint for portfolio data, monitoring and authorized trade actions.",homepage="https://www.interactivebrokers.com/en/trading/ai-integrations.php",source="https://www.interactivebrokers.com/en/trading/ai-integrations.php",official=True,pricing=P("account required","Requires an IBKR account",None,"No separate MCP fee found; brokerage fees per IBKR.","https://www.interactivebrokers.com/en/trading/ai-integrations.php"),remote="https://api.ibkr.com/v1/api/mcp-public",capabilities=["live_trading"]),
+T("tasty-agent","tasty-agent (tastytrade)","mcp","trading-brokers","Community MCP server for tastytrade: portfolio, market data, options Greeks and order execution.",repo="https://github.com/ferdousbhai/tasty-agent",source="https://github.com/ferdousbhai/tasty-agent",pricing=OSS("Requires a tastytrade account."),capabilities=["live_trading"]),
+T("metatrader-mcp","MetaTrader 5 MCP","mcp","trading-brokers","Trade via the MetaTrader 5 terminal from AI agents.",repo="https://github.com/ariadng/metatrader-mcp-server",pricing=OSS("Requires MetaTrader 5."),capabilities=["live_trading"]),
 T("paper-mcp","Paper Invest MCP","mcp","trading-brokers","Paper trading MCP: practice strategies without real money.",repo="https://github.com/paperinvest/mcp-server",pricing=P("free","Free",None,"Listed as free.",AFM)),
 # ---------- Crypto ----------
 T("dexpaprika-mcp","DexPaprika MCP","mcp","crypto","DEX analytics across 20+ blockchains from CoinPaprika.",repo="https://github.com/coinpaprika/dexpaprika-mcp",official=True,pricing=P("free","Free",None,"Listed as free.",AFM)),
 T("ccxt-mcp","CCXT MCP","mcp","crypto","Market data from 20+ crypto exchanges via the CCXT library.",repo="https://github.com/Nayshins/mcp-server-ccxt",pricing=OSS()),
 T("crypto-indicators-mcp","Crypto Indicators MCP","mcp","crypto","Technical analysis indicators for crypto assets.",repo="https://github.com/kukapay/crypto-indicators-mcp",pricing=OSS()),
 T("tradingview-mcp","TradingView MCP (community)","mcp","crypto","Community multi-exchange market analysis/screening MCP (not affiliated with TradingView).",repo="https://github.com/atilaahmettaner/tradingview-mcp",pricing=OSS()),
-T("binance-mcp","Binance MCP (community)","mcp","crypto","Portfolio, trading and token conversion on Binance (requires API key).",repo="https://github.com/TermiX-official/binance-mcp",pricing=OSS("Requires Binance API key.")),
-T("coinbase-agentkit","Coinbase AgentKit","mcp","crypto","Coinbase toolkit for wallet operations and onchain actions by AI agents, with MCP support.",repo="https://github.com/coinbase/agentkit",official=True,pricing=OSS("Requires CDP credentials.")),
+T("binance-mcp","Binance MCP (community)","mcp","crypto","Portfolio, trading and token conversion on Binance (requires API key).",repo="https://github.com/TermiX-official/binance-mcp",pricing=OSS("Requires Binance API key."),capabilities=["live_trading"]),
+T("coinbase-agentkit","Coinbase AgentKit","mcp","crypto","Coinbase toolkit for wallet operations and onchain actions by AI agents, with MCP support.",repo="https://github.com/coinbase/agentkit",official=True,pricing=OSS("Requires CDP credentials."),capabilities=["live_trading","moves_funds"]),
 T("bankless-onchain-mcp","Bankless Onchain MCP","mcp","crypto","Query onchain data and ERC-20 token information.",repo="https://github.com/bankless/onchain-mcp",official=True,pricing=P("free","Free",None,"Listed as free; Bankless API key required.",AFM)),
 T("crypto-liquidations-mcp","Crypto Liquidations MCP","mcp","crypto","Streams real-time liquidation events.",repo="https://github.com/kukapay/crypto-liquidations-mcp",pricing=OSS()),
-T("bitget-agent-mcp","Bitget Agent MCP","mcp","crypto","Official Bitget spot and futures trading MCP (89 operations per listing).",repo="https://github.com/Bitget-AI/agent-mcp",official=True,pricing=OSS("Requires Bitget API key.")),
+T("bitget-agent-mcp","Bitget Agent MCP","mcp","crypto","Official Bitget spot and futures trading MCP (89 operations per listing).",repo="https://github.com/Bitget-AI/agent-mcp",official=True,pricing=OSS("Requires Bitget API key."),capabilities=["live_trading"]),
 T("coincap-mcp","CoinCap MCP","mcp","crypto","Crypto market data from the CoinCap API.",repo="https://github.com/QuantGeekDev/coincap-mcp",pricing=OSS()),
 T("dexscreener-trending-mcp","DexScreener Trending MCP","mcp","crypto","Trending tokens from DexScreener.",repo="https://github.com/kukapay/dexscreener-trending-mcp",pricing=OSS()),
-T("base-mcp","Base MCP","mcp","crypto","Onchain tools for the Base network.",repo="https://github.com/base/base-mcp",official=True,pricing=OSS()),
-T("solana-agent-kit","Solana Agent Kit","mcp","crypto","Toolkit connecting AI agents to Solana protocols, with MCP adapter.",repo="https://github.com/sendaifun/solana-agent-kit",pricing=OSS()),
+T("base-mcp","Base MCP","mcp","crypto","Onchain tools for the Base network.",repo="https://github.com/base/base-mcp-legacy",docs="https://docs.base.org/ai-agents",homepage="https://docs.base.org/ai-agents",official=True,pricing=OSS()),  # deprecated; npm and docs point here
+T("solana-agent-kit","Solana Agent Kit","mcp","crypto","Toolkit connecting AI agents to Solana protocols, with MCP adapter.",repo="https://github.com/sendaifun/solana-agent-kit",pricing=OSS(),capabilities=["live_trading","moves_funds"]),
 T("bitcoin-mcp","Bitcoin & Lightning MCP","mcp","crypto","Bitcoin and Lightning Network tools for agents.",repo="https://github.com/AbdelStark/bitcoin-mcp",pricing=OSS(),install_from_source=True,install_note="Package currently unmaintained on npm; install from source"),
-T("x402","x402 (Coinbase)","mcp","payments-banking","Open protocol for HTTP-native stablecoin payments by agents.",repo="https://github.com/coinbase/x402",official=True,pricing=OSS()),
+T("x402","x402 (x402 Foundation)","mcp","payments-banking","Open protocol for HTTP-native stablecoin payments by agents.",repo="https://github.com/x402-foundation/x402",official=True,pricing=OSS(),capabilities=["moves_funds"]),
 # ---------- Accounting / bookkeeping ----------
 T("quickbooks-mcp","QuickBooks Online MCP","mcp","accounting","Official Intuit MCP server exposing QuickBooks Online entities and reports.",repo="https://github.com/intuit/quickbooks-online-mcp-server",source="https://github.com/intuit/quickbooks-online-mcp-server",official=True,pricing=OSS("Requires a QuickBooks Online subscription.")),
 T("xero-mcp","Xero MCP Server","mcp","accounting","Official Xero MCP: contacts, chart of accounts, invoices and more.",repo="https://github.com/XeroAPI/xero-mcp-server",source="https://github.com/XeroAPI/xero-mcp-server/",official=True,pricing=OSS("Requires a Xero subscription.")),
@@ -82,13 +86,13 @@ T("ledgerskills","LedgerSkills","skill","accounting","Claude skills for audit, t
 T("anthropic-financial-services","Anthropic Financial Services Plugins","skill","accounting","Anthropic's finance plugins/skills: Excel model auditing, 3-statement models, DCF/LBO, GL reconciliation.",repo="https://github.com/anthropics/financial-services-plugins",source="https://www.anthropic.com/news/finance-agents",official=True,pricing=OSS()),
 T("invoice-organizer-skill","Invoice Organizer skill","skill","accounting","Claude skill that extracts, renames and sorts invoices and receipts for tax prep.",repo="https://github.com/ComposioHQ/awesome-claude-skills",homepage="https://github.com/ComposioHQ/awesome-claude-skills/tree/master/invoice-organizer",pricing=OSS()),
 # ---------- Payments & banking ----------
-T("stripe-ai","Stripe Agent Toolkit & MCP","mcp","payments-banking","Stripe's official agent toolkit and hosted MCP for payments, customers and billing.",repo="https://github.com/stripe/ai",docs="https://docs.stripe.com/mcp",official=True,pricing=P("usage","Free to use",None,"Toolkit is free; standard Stripe fees apply.","https://docs.stripe.com/mcp"),remote="https://mcp.stripe.com"),
+T("stripe-ai","Stripe Agent Toolkit & MCP","mcp","payments-banking","Stripe's official agent toolkit and hosted MCP for payments, customers and billing.",repo="https://github.com/stripe/ai",docs="https://docs.stripe.com/mcp",official=True,pricing=P("usage","Free to use",None,"Toolkit is free; standard Stripe fees apply.","https://docs.stripe.com/mcp"),remote="https://mcp.stripe.com",capabilities=["moves_funds"]),
 T("qonto-mcp","Qonto MCP","mcp","payments-banking","Official MCP server for Qonto business banking.",repo="https://github.com/qonto/qonto-mcp-server",official=True,pricing=OSS("Requires Qonto account.")),
 T("ramp-mcp","Ramp MCP","mcp","payments-banking","Official Ramp MCP for spend and expense data.",repo="https://github.com/ramp-public/ramp_mcp",official=True,pricing=OSS("Requires Ramp account.")),
 # ---------- Personal finance ----------
 T("lunchmoney-mcp","Lunch Money MCP","mcp","personal-finance","MCP server for Lunch Money budgeting data.",repo="https://github.com/akutishevsky/lunchmoney-mcp",pricing=OSS("Requires Lunch Money account.")),
 T("monarch-mcp","Monarch Money MCP","mcp","personal-finance","Community MCP server for Monarch Money accounts, transactions and budgets.",repo="https://github.com/carsol/monarch-mcp-server",pricing=OSS("Requires Monarch Money account.")),
-T("actual-budget-mcp","Actual Budget MCP","mcp","personal-finance","MCP server for the open-source Actual Budget app.",repo="https://github.com/Jacob-Tate/actual-budget-mcp",source="https://github.com/Jacob-Tate/actual-budget-mcp",pricing=OSS()),
+T("actual-budget-mcp","Actual Budget MCP","mcp","personal-finance","MCP server for the open-source Actual Budget app.",repo="https://github.com/henfrydls/actual-budget-mcp",homepage="https://actual-mcp.henfrydls.com/",source="https://github.com/henfrydls/actual-budget-mcp",pricing=OSS()),
 T("optionsahoy-mcp","OptionsAhoy MCP","mcp","personal-finance","Equity-compensation tax optimizer for ISO, NSO, RSU and QSBS scenarios.",repo="https://github.com/AlvisoOculus/optionsahoy-mcp",pricing=P("free","Free",None,"Listed as free.",AFM)),
 # ---------- Research / filings ----------
 T("sec-edgar-mcp","SEC EDGAR MCP","mcp","research-filings","Open-source MCP for SEC filings, XBRL financial statements and Form 3/4/5 insider data.",repo="https://github.com/stefanoamorelli/sec-edgar-mcp",source="https://github.com/stefanoamorelli/sec-edgar-mcp/",pricing=OSS()),
@@ -107,7 +111,7 @@ T("varrd","VARRD","mcp","quant-backtesting","Trading research: event studies, ba
 T("chart-library-mcp","Chart Library MCP","mcp","quant-backtesting","Historical chart-pattern search across a large pattern library.",repo="https://github.com/grahammccain/chart-library-mcp",pricing=P("freemium","unknown",None,"Listed as freemium; not verified.",AFM)),
 T("finlab-ai","FinLab AI","skill","quant-backtesting","Quant strategy generation and Taiwan stock market analysis with FinLab and Claude.",repo="https://github.com/koreal6803/finlab-ai",pricing=OSS()),
 T("claude-trading-skills","Claude Trading Skills","skill","quant-backtesting","Claude Code skills for trading analysis, e.g. IBD-style relative strength rating.",repo="https://github.com/tradermonty/claude-trading-skills",pricing=OSS()),
-T("superior-skills","Superior Trade skills","skill","quant-backtesting","Agent skills for strategy authoring, backtesting and deployment on Superior Trade.",repo="https://github.com/Superior-Trade/superior-skills",official=True,pricing=OSS()),
+T("superior-skills","Superior Trade skills","skill","quant-backtesting","Agent skills for strategy authoring, backtesting and deployment on Superior Trade.",repo="https://github.com/Superior-Trade/superior-skills",official=True,pricing=OSS(),capabilities=["live_trading","moves_funds"]),
 T("claude-code-trading-terminal","Claude Code Trading Terminal","skill","quant-backtesting","Agent-native trading terminal with sub-agents for trades, positions and risk.",repo="https://github.com/degentic-tools/claude-code-trading-terminal",pricing=OSS()),
 T("pineify-mcp","Pineify MCP","mcp","quant-backtesting","Trading-code (Pine Script) validation and market intelligence.",repo="https://github.com/pineifyapp/pineify-mcp",official=True,pricing=P("paid API key","unknown",None,"Listed as requiring a paid API key; price not verified.",AFM)),
 ]

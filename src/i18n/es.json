@@ -294,6 +294,10 @@
   "sendCorrection": "Envía una corrección",
   "free": "gratis",
   "notEndorse": "Listar una herramienta no es un respaldo ni asesoramiento de inversión. Prueba primero cualquier herramienta de trading en modo demo.",
+  "liveFundsNote": "Puede colocar operaciones en vivo / mover fondos — use el modo paper o claves con permisos limitados",
+  "liveTradingNote": "Puede colocar operaciones en vivo — use el modo paper o claves con permisos limitados",
+  "movesFundsNote": "Puede mover fondos — use el modo sandbox o claves con permisos limitados",
+  "deprecatedNote": "Obsoleto según el proveedor. Consulte la documentación de reemplazo.",
   "more": "Más en {cat}",
   "pricingDataNote": "Los detalles de precios se citan en inglés desde la página del proveedor."
  },
