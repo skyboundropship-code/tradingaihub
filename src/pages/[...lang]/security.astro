@@ -13,7 +13,7 @@ const stampVars = { date: securityScanDate ?? "—", commit: securityScanCommitS
 <div class="wrap page prose">
   <h1>{t("sec.h1")}</h1>
   <p>{t("sec.intro")}</p>
-  <p class="note"><span>{t("sec.stamp", stampVars)}</span>{securityScanCommit && <>{" "}<code dir="ltr">{securityScanCommit}</code></>}</p>
+  <p class="note"><span>{t("sec.stamp", stampVars)}</span>{securityScanCommit && <>{" "}<code class="ltr" dir="ltr">{securityScanCommit}</code></>}</p>
   <h2>{t("sec.whatH")}</h2>
   <p>{t("sec.whatIntro")}</p>
   <ul>{["c1","c2","c3","c4","c5","c6"].map((k) => <li>{t(`sec.${k}`)}</li>)}</ul>

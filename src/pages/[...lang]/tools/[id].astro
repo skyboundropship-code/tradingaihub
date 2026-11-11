@@ -49,7 +49,7 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
     <p class="note" dir="auto">{t(capNote)}</p>
   )}
   {tool.deprecated && (
-    <p class="note" dir="auto">{t("tool.deprecatedNote")}{(tool.docs || tool.homepage) && <>{" "}<a href={tool.docs || tool.homepage} rel="noopener" target="_blank">{new URL(tool.docs || tool.homepage).host}</a></>}</p>
+    <p class="note" dir="auto">{t("tool.deprecatedNote")}{(tool.docs || tool.homepage) && <>{" "}<a class="ltr" dir="ltr" href={tool.docs || tool.homepage} rel="noopener" target="_blank">{new URL(tool.docs || tool.homepage).host}</a></>}</p>
   )}
   {partnerPath && <PartnerCTA variant="tool" lang={lang} path={partnerPath} />}
   {mentionsTV && <TradingView context="integration" lang={lang} />}
@@ -59,15 +59,15 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
       <h2>{t("tool.install")}</h2>
       <div class="panel">
         <div class="tabs">{sn.map((s, i) => <button class={i === 0 ? "on" : ""} data-i={i}>{s.client}</button>)}</div>
-        {sn.map((s, i) => <div class={`snip ${i === 0 ? "on" : ""}`} data-i={i}><pre><code>{s.code}</code></pre>{s.note && <p class="note">{s.note}</p>}</div>)}
+        {sn.map((s, i) => <div class={`snip ${i === 0 ? "on" : ""}`} data-i={i}><pre class="ltr" dir="ltr"><code dir="ltr">{s.code}</code></pre>{s.note && <p class="note">{s.note}</p>}</div>)}
       </div>
       <h2>{t("tool.pricing")}</h2>
       <div class="panel"><dl class="kv">
-        <dt>{t("tool.model")}</dt><dd><bdi>{tool.pricing.model}</bdi></dd>
-        <dt>{t("th.freeTier")}</dt><dd><bdi>{tool.pricing.free_tier}</bdi></dd>
-        <dt>{t("th.paidFrom")}</dt><dd><bdi>{tool.pricing.paid_from ?? "—"}</bdi></dd>
-        <dt>{t("tool.details")}</dt><dd lang="en"><bdi>{tool.pricing.details}</bdi></dd>
-        <dt>{t("th.source")}</dt><dd>{tool.pricing.source ? <><a href={tool.pricing.source} rel={isAff(tool.pricing.source) ? "sponsored noopener" : "nofollow noopener"} target="_blank" aria-describedby={isAff(tool.pricing.source) ? "aff-note" : undefined}>{untagUrl(tool.pricing.source, "eodhd")}</a><AffTag url={tool.pricing.source} lang={lang} /></> : t("tool.notVerifiedPrice")}{tool.pricing.checked && ` (${t("tool.checked", { date: tool.pricing.checked })})`}</dd>
+        <dt>{t("tool.model")}</dt><dd class="ltr" dir="ltr"><bdi dir="ltr">{tool.pricing.model}</bdi></dd>
+        <dt>{t("th.freeTier")}</dt><dd class="ltr" dir="ltr"><bdi dir="ltr">{tool.pricing.free_tier}</bdi></dd>
+        <dt>{t("th.paidFrom")}</dt><dd class="ltr" dir="ltr"><bdi dir="ltr">{tool.pricing.paid_from ?? "—"}</bdi></dd>
+        <dt>{t("tool.details")}</dt><dd class="ltr" dir="ltr" lang="en"><bdi dir="ltr">{tool.pricing.details}</bdi></dd>
+        <dt>{t("th.source")}</dt><dd>{tool.pricing.source ? <span class="ltr" dir="ltr"><a href={tool.pricing.source} rel={isAff(tool.pricing.source) ? "sponsored noopener" : "nofollow noopener"} target="_blank" aria-describedby={isAff(tool.pricing.source) ? "aff-note" : undefined}>{untagUrl(tool.pricing.source, "eodhd")}</a><AffTag url={tool.pricing.source} lang={lang} /></span> : t("tool.notVerifiedPrice")}{tool.pricing.checked && ` (${t("tool.checked", { date: tool.pricing.checked })})`}</dd>
       </dl><p class="note">{t("tool.pricesChange")}{lang !== "en" && ` ${t("tool.pricingDataNote")}`}</p></div>
       <h2>{t("tool.verification")}</h2>
       <div class="panel">
@@ -79,20 +79,20 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
     </div>
     <aside>
       <div class="panel"><dl class="kv">
-        {tool.repo && <><dt>{t("tool.repository")}</dt><dd><a href={tool.repo} rel={relFor(tool.repo)} target="_blank">{tool.repo.replace("https://github.com/", "")}</a></dd></>}
-        {tool.homepage && <><dt>{t("tool.homepage")}</dt><dd><a href={tool.homepage} rel={relFor(tool.homepage)} target="_blank" aria-describedby={isAff(tool.homepage) ? "aff-note" : undefined}>{new URL(tool.homepage).host}</a><AffTag url={tool.homepage} lang={lang} /></dd></>}
-        {tool.docs && tool.docs !== tool.homepage && <><dt>{t("tool.docs")}</dt><dd><a href={tool.docs} rel={relFor(tool.docs)} target="_blank" aria-describedby={isAff(tool.docs) ? "aff-note" : undefined}>{new URL(tool.docs).host}</a><AffTag url={tool.docs} lang={lang} /></dd></>}
-        {tool.remote_mcp_url && <><dt>{t("tool.remote")}</dt><dd><code>{tool.remote_mcp_url}</code></dd></>}
+        {tool.repo && <><dt>{t("tool.repository")}</dt><dd class="ltr" dir="ltr"><a href={tool.repo} rel={relFor(tool.repo)} target="_blank">{tool.repo.replace("https://github.com/", "")}</a></dd></>}
+        {tool.homepage && <><dt>{t("tool.homepage")}</dt><dd class="ltr" dir="ltr"><a href={tool.homepage} rel={relFor(tool.homepage)} target="_blank" aria-describedby={isAff(tool.homepage) ? "aff-note" : undefined}>{new URL(tool.homepage).host}</a><AffTag url={tool.homepage} lang={lang} /></dd></>}
+        {tool.docs && tool.docs !== tool.homepage && <><dt>{t("tool.docs")}</dt><dd class="ltr" dir="ltr"><a href={tool.docs} rel={relFor(tool.docs)} target="_blank" aria-describedby={isAff(tool.docs) ? "aff-note" : undefined}>{new URL(tool.docs).host}</a><AffTag url={tool.docs} lang={lang} /></dd></>}
+        {tool.remote_mcp_url && <><dt>{t("tool.remote")}</dt><dd class="ltr" dir="ltr"><code dir="ltr">{tool.remote_mcp_url}</code></dd></>}
         <dt>{t("th.stars")}</dt><dd>{fmtStars(starsOf(tool))}</dd>
-        <dt>{t("th.lastCommit")}</dt><dd dir="ltr">{lastCommit(tool) ?? "—"}</dd>
-        <dt>{t("th.license")}</dt><dd dir="ltr">{tool.license}</dd>
-        <dt>{t("tool.package")}</dt><dd>{pkg ? <a href={pkg.url} rel="noopener" target="_blank">{pkg.name}@{pkg.version}</a> : t("tool.noPackage")}</dd>
+        <dt>{t("th.lastCommit")}</dt><dd class="ltr" dir="ltr">{lastCommit(tool) ?? "—"}</dd>
+        <dt>{t("th.license")}</dt><dd class="ltr" dir="ltr">{tool.license}</dd>
+        <dt>{t("tool.package")}</dt><dd class={pkg ? "ltr" : undefined} dir={pkg ? "ltr" : undefined}>{pkg ? <a href={pkg.url} rel="noopener" target="_blank">{pkg.name}@{pkg.version}</a> : t("tool.noPackage")}</dd>
         <dt>{t("th.category")}</dt><dd><a href={p(`/category/${cat.slug}/`)}>{cshort}</a></dd>
         <dt>{t("tool.listedVia")}</dt><dd><a href={tool.source_url} rel={relFor(tool.source_url)} target="_blank" aria-describedby={isAff(tool.source_url) ? "aff-note" : undefined}>{t("tool.source")}</a><AffTag url={tool.source_url} lang={lang} /></dd>
       </dl>{hasAff && <span id="aff-note" hidden>{t("common.affTitle")}</span>}</div>
       <div class="panel" style="margin-top:14px"><b>{t("tool.maintain")}</b><p class="note">{t("tool.badgeNote")}</p>
         <p><img src={`/badge/${tool.id}.svg`} alt={`${SITE.name} status`} /></p>
-        <pre><code>{`[![${SITE.name}](${SITE.url}/badge/${tool.id}.svg)](${SITE.url}/tools/${tool.id}/)`}</code></pre>
+        <pre class="ltr" dir="ltr"><code dir="ltr">{`[![${SITE.name}](${SITE.url}/badge/${tool.id}.svg)](${SITE.url}/tools/${tool.id}/)`}</code></pre>
         <p class="note">{t("tool.wrongInfo")} <a href={p("/submit/")}>{t("tool.sendCorrection")}</a> — {t("tool.free")}.</p></div>
       <p class="note" style="margin-top:14px">{t("tool.notEndorse")}</p>
     </aside>
