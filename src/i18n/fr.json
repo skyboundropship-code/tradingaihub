@@ -643,5 +643,26 @@
   "label": "Non sûr, en attente de clarification",
   "short": "Non sûr (en attente)",
   "text": "Pourquoi : le code de l'outil envoie l'adresse de votre portefeuille et des ordres de swap signés en HTTP non chiffré vers un serveur non documenté à une simple adresse IP, et reçoit vos soldes et votre historique de transactions par le même canal. Nous vérifions auprès du développeur (degentic-tools)."
+ },
+ "xp": {
+  "type_mcp": "Serveur MCP : connecte des clients d'IA comme Claude ou Cursor à ce service via le Model Context Protocol.",
+  "type_skill": "Skill d'agent : instructions et scripts qu'un agent d'IA charge pour accomplir une tâche précise.",
+  "type_api": "API : une API web que vous appelez avec votre propre clé, depuis du code ou via un wrapper MCP.",
+  "official": "Officiel : publié par l'éditeur du produit auquel il se connecte, pas par un tiers.",
+  "verified": "Vérifié : accessible et liens fonctionnels lors de la vérification du {checked} ; dernier commit {commit}, dans la limite de 180 jours.",
+  "verifiedNoRepo": "Vérifié : accessible et liens fonctionnels lors de la vérification du {checked}.",
+  "aging": "Vieillissant : le dernier commit date d'il y a {days} jours ({commit}). De 181 à 365 jours sans commit, l'outil est considéré comme vieillissant. Vérifié le {checked}.",
+  "stale": "Non maintenu : le dernier commit date d'il y a {days} jours ({commit}). Au-delà de 365 jours sans commit, l'outil est considéré comme non maintenu ; testez-le avant de vous y fier. Vérifié le {checked}.",
+  "archived": "Archivé : le propriétaire a archivé le dépôt, qui ne reçoit plus de mises à jour. Vérifié le {checked}.",
+  "warning": "Liens à vérifier : un lien vers la page d'accueil, la documentation ou un endpoint a échoué lors de la vérification du {checked}.",
+  "unconfirmed": "Vérification en attente : accessible, mais un lien a refusé notre vérificateur (connexion, blocage des robots ou limite de requêtes) le {checked}, il n'est donc pas compté comme vérifié.",
+  "unreachable": "Inaccessible : le dépôt ou la page d'accueil n'a pas pu être atteint lors de la vérification du {checked}.",
+  "manual": "Vérifié manuellement le {date}.",
+  "checked": "Dernière vérification : date de la dernière vérification automatique du dépôt et des liens de l'outil. Tout l'annuaire est revérifié chaque semaine.",
+  "scan": "Analyse de sécurité : aucun problème le {date} (analyse statique du code et des dépendances, scanner {commit}, règles {rules}). Ce n'est pas une garantie.",
+  "pricing": "Tarifs selon la page de l'éditeur : offre gratuite {free} ; payant à partir de {paid}. Vérifié le {date}.",
+  "pricingNoDate": "Tarifs selon l'éditeur : offre gratuite {free} ; payant à partir de {paid}.",
+  "pricingUnknown": "Nous n'avons pas pu confirmer les tarifs de cet outil sur une page de l'éditeur.",
+  "stars": "Étoiles GitHub : {stars} le {checked}."
  }
 }

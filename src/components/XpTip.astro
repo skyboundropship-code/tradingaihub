@@ -1,0 +1,8 @@
+---
+// One badge explanation (src/lib/explain.ts). Visually hidden until its badge is hovered, focused or tapped (CSS + the
+// [data-xp-toggle] script in Base.astro), but never display:none / hidden / aria-hidden, so screen readers always get it:
+// inside a card link it is part of the link's accessible name; on the tool page it is the button's aria-describedby target.
+// aria-hidden only when the same text is already exposed elsewhere (dup=true), e.g. the scan shield's own label.
+const { k, html, id, dup = false } = Astro.props;
+---
+{html && <span class="xp-tip" data-xp={k} id={id} role={dup ? undefined : "note"} aria-hidden={dup ? "true" : undefined} set:html={html} />}

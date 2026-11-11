@@ -107,11 +107,21 @@ document.querySelectorAll(".themetoggle").forEach(function(b){var d=document.doc
 document.addEventListener("click",function(e){document.querySelectorAll("details.langs[open],details.nav-mobile[open]").forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});
 </script>
 <script is:inline>
-// Security note toggle (src/components/SecurityNote.astro): tap/click shows or hides the explanation.
-// On a card the badge sits inside the card link, so the tap toggles the note instead of navigating.
-document.addEventListener("click",function(e){var b=e.target&&e.target.closest?e.target.closest("[data-secnote-toggle]"):null;if(!b)return;
-  var card=b.closest(".card"),tip=card?card.querySelector(".secnote-card-tip"):document.getElementById(b.getAttribute("aria-controls"));if(!tip)return;
-  e.preventDefault();e.stopPropagation();var open=!tip.classList.contains("open");tip.classList.toggle("open",open);tip.hidden=!open;if(b.hasAttribute("aria-expanded"))b.setAttribute("aria-expanded",open?"true":"false");},true);
+// Badge explanations (src/components/XpTip.astro): tap/click on a [data-xp-toggle] badge shows or hides its explanation.
+// Inside a card link the tap toggles the note instead of navigating. Esc closes every explanation (also hover/focus ones)
+// until the pointer or focus leaves that card/scope.
+(function(){function scopes(){return document.querySelectorAll(".card,.xp-scope")}
+document.addEventListener("click",function(e){var b=e.target&&e.target.closest?e.target.closest("[data-xp-toggle]"):null;if(!b)return;
+  var sc=b.closest(".card,.xp-scope"),k=b.getAttribute("data-xp"),tip=sc?sc.querySelector('.xp-tip[data-xp="'+k+'"]'):null;if(!tip)return;
+  e.preventDefault();e.stopPropagation();sc.classList.remove("xp-x");var open=!tip.classList.contains("open");
+  sc.querySelectorAll(".xp-tip.open").forEach(function(x){x.classList.remove("open")});sc.querySelectorAll('[data-xp-toggle][aria-expanded="true"]').forEach(function(x){x.setAttribute("aria-expanded","false")});
+  if(open){tip.classList.add("open");if(b.hasAttribute("aria-expanded"))b.setAttribute("aria-expanded","true")}},true);
+document.addEventListener("keydown",function(e){if(e.key!=="Escape")return;var any=false;
+  document.querySelectorAll(".xp-tip.open").forEach(function(x){x.classList.remove("open");any=true});
+  document.querySelectorAll('[data-xp-toggle][aria-expanded="true"]').forEach(function(x){x.setAttribute("aria-expanded","false")});
+  scopes().forEach(function(sc){if(sc.matches(":hover")||sc.contains(document.activeElement)||sc===document.activeElement){sc.classList.add("xp-x");any=true}});});
+document.addEventListener("mouseleave",function(e){var t=e.target;if(t&&t.classList&&t.classList.contains("xp-x"))t.classList.remove("xp-x")},true);
+document.addEventListener("focusout",function(e){var sc=e.target&&e.target.closest?e.target.closest(".xp-x"):null;if(sc&&!sc.contains(e.relatedTarget))sc.classList.remove("xp-x")},true);})();
 </script>
 <script is:inline>
 // Anonymous outbound-click counts (functions/api/click.js). Links are never rewritten; nothing is stored in the browser,

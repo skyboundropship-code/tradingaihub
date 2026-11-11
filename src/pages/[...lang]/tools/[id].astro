@@ -7,6 +7,8 @@ import Base from "../../../layouts/Base.astro";
 import Status from "../../../components/Status.astro";
 import SecurityBadge from "../../../components/SecurityBadge.astro";
 import SecurityNote from "../../../components/SecurityNote.astro";
+import XpTip from "../../../components/XpTip.astro";
+import { explain } from "../../../lib/explain";
 import ToolCard from "../../../components/ToolCard.astro";
 import Share from "../../../components/Share.astro";
 import DateInText from "../../../components/DateInText.astro";
@@ -42,7 +44,7 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
 <Base title={`${tool.name} — ${t("tool.titleFor", { type: t(`type.${tool.type}`), cat: lang === "en" ? cshort.toLowerCase() : cshort })}`} description={metaDesc.slice(0, 300)} jsonld={ld} og={`tool-${tool.id}`} lang={lang}>
 <div class="wrap page">
   <div class="crumbs"><a href={p("/")}>{t("common.home")}</a> / <a href={p(`/category/${cat.slug}/`)}>{cname}</a> / <bdi>{tool.name}</bdi></div>
-  <div class="tool-head-meta"><div class="meta"><span class="badge type">{t(`type.${tool.type}`)}</span>{tool.official && <span class="badge off">{t("common.officialVendor")}</span>}<Status status={v.status} lang={lang} /></div><span class="pill tool-checked"><DateInText text={t("tool.lastChecked", { date: v.checked_at })} date={v.checked_at} /></span></div>
+  <div class="xp-scope"><div class="tool-head-meta"><div class="meta"><button type="button" class="badge type" data-xp-toggle data-xp="type" aria-expanded="false" aria-controls="xp-type" aria-describedby="xp-type">{t(`type.${tool.type}`)}</button>{tool.official && <button type="button" class="badge off" data-xp-toggle data-xp="official" aria-expanded="false" aria-controls="xp-official" aria-describedby="xp-official">{t("common.officialVendor")}</button>}<Status status={v.status} lang={lang} xp="page" /></div><button type="button" class="pill tool-checked" data-xp-toggle data-xp="checked" aria-expanded="false" aria-controls="xp-checked" aria-describedby="xp-checked"><DateInText text={t("tool.lastChecked", { date: v.checked_at })} date={v.checked_at} /></button></div><span class="xp-tips">{(["type", "official", "status", "checked"] as const).map((k) => <XpTip k={k} id={`xp-${k}`} html={explain(tool, k, lang)} />)}</span></div>
   <h1 class="tool-title" style="margin:6px 0 6px" title={tool.name}><TitleText text={tool.name} bdi /></h1>
   <p style="color:var(--muted);font-size:1.125rem;margin-top:0">{desc}</p>
   <SecurityBadge tool={tool} lang={lang} variant="page" />

@@ -644,5 +644,26 @@
   "label": "Not safe, pending clarification",
   "short": "Not safe (pending)",
   "text": "Why: the tool's code sends your wallet address and signed swap orders over unencrypted HTTP to an undocumented server at a bare IP address, and receives your balances and transaction history the same way. We're checking with the developer (degentic-tools)."
+ },
+ "xp": {
+  "type_mcp": "MCP server: connects AI clients such as Claude or Cursor to this service through the Model Context Protocol.",
+  "type_skill": "Agent skill: instructions and scripts an AI agent loads to do a specific task.",
+  "type_api": "API: a web API you call with your own key, from code or through an MCP wrapper.",
+  "official": "Official: published by the vendor of the product it connects to, not by a third party.",
+  "verified": "Verified: reachable and links working in the check on {checked}; last commit {commit}, within the 180-day limit.",
+  "verifiedNoRepo": "Verified: reachable and links working in the check on {checked}.",
+  "aging": "Aging: the last commit was {days} days ago ({commit}). 181 to 365 days without a commit counts as aging. Checked {checked}.",
+  "stale": "Stale: the last commit was {days} days ago ({commit}). More than 365 days without a commit counts as stale, so test it before relying on it. Checked {checked}.",
+  "archived": "Archived: the owner has archived the repository, so it gets no more updates. Checked {checked}.",
+  "warning": "Check links: a homepage, docs or endpoint link failed in the check on {checked}.",
+  "unconfirmed": "Link check pending: reachable, but a link refused our checker (sign-in, bot block or rate limit) on {checked}, so it isn't counted as verified.",
+  "unreachable": "Unreachable: the repository or homepage couldn't be reached in the check on {checked}.",
+  "manual": "Manually checked on {date}.",
+  "checked": "Last checked: the date of the latest automated check of this tool's repository and links. Every listing is re-checked weekly.",
+  "scan": "Security scan: no issues found on {date} (static code and dependency check, scanner {commit}, rules {rules}). Not a guarantee.",
+  "pricing": "Pricing as listed on the vendor's page: free tier {free}; paid from {paid}. Checked {date}.",
+  "pricingNoDate": "Pricing as listed by the vendor: free tier {free}; paid from {paid}.",
+  "pricingUnknown": "We couldn't confirm this tool's pricing on a vendor page.",
+  "stars": "GitHub stars: {stars} on {checked}."
  }
 }
