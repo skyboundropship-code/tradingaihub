@@ -1,0 +1,78 @@
+---
+import BestCompare from "../../components/BestCompare.astro";
+import TradingView from "../../components/TradingView.astro";
+import { STOCK, STOCK_FETCH, requireTools, paidFrom, capNoteKey, prettyDate, RUN_DATE, RUN_TOTAL, RUN_VERIFIED, PRICING_CHECKED } from "../../lib/bestPages";
+import { useT } from "../../i18n";
+const { t } = useT("en");
+const list = requireTools(STOCK.toolIds);
+const run = prettyDate(RUN_DATE);
+const priced = prettyDate(PRICING_CHECKED);
+const typeLabel: Record<string, string> = { mcp: "MCP", api: "API", skill: "Skill" };
+---
+<BestCompare page={STOCK} list={list} affiliateDisclosure>
+  <p>A general-purpose assistant does not know today’s price or yesterday’s filing unless a tool fetches it. This page compares <b>verified market-data and research tools</b> from our {run} check — official vendors first, then community options. It is not a ranking of “best stock picker.”</p>
+  <p>We used only tools marked <b>Verified</b> in that run from our directory of {RUN_TOTAL} listings ({RUN_VERIFIED} verified). Full results are on the <a href="/verification/">verification page</a>.</p>
+  <blockquote>
+    <p><b>Not financial advice.</b> These tools fetch data you ask for. None of them predicts markets, and nothing here is a recommendation to buy or sell any security. Data can be delayed or wrong, and an assistant can misread a filing. Check numbers against the source, and paper trade first.</p>
+  </blockquote>
+
+  <h2 class="sec" id="quick-picks">Quick picks</h2>
+  <ul>
+    <li><b>Hosted start with a documented free tier:</b> <a href="/tools/alpha-vantage-mcp/">Alpha Vantage MCP</a></li>
+    <li><b>Financial statements:</b> <a href="/tools/fmp-mcp/">Financial Modeling Prep MCP (official)</a>, plus the <a href="/tools/fmp-api/">FMP API</a></li>
+    <li><b>Quotes and a large official tool set:</b> <a href="/tools/finnhub-mcp/">Finnhub MCP (official)</a>, plus the <a href="/tools/finnhub-api/">Finnhub API</a></li>
+    <li><b>Global end-of-day data, lower paid entry:</b> <a href="/tools/eodhd-mcp/">EODHD MCP Server (official)</a>, plus <a href="/tools/eodhd-api/">EODHD APIs</a> and <a href="/tools/eodhd-claude-skills/">EODHD Claude Skills</a></li>
+    <li><b>Tick-level US markets:</b> <a href="/tools/massive-mcp/">Massive MCP</a> and the <a href="/tools/massive-api/">Massive API</a> (formerly Polygon.io)</li>
+    <li><b>SEC filings at no charge:</b> <a href="/tools/sec-edgar-api/">SEC EDGAR APIs</a> and <a href="/tools/sec-edgar-mcp/">SEC EDGAR MCP</a></li>
+    <li><b>If you already pay for TradingView:</b> <a href="/tools/tradingview-official-mcp/">TradingView MCP (official)</a></li>
+    <li><b>Also official APIs:</b> <a href="/tools/twelve-data-api/">Twelve Data API</a> and <a href="/tools/alpaca-market-data-api/">Alpaca Market Data API</a></li>
+  </ul>
+
+  <h2 class="sec" id="comparison">Comparison table</h2>
+  <p>Every row was <b>Verified</b> on {run}. Free-tier and paid-from figures are the vendor wording in our directory, re-checked on each vendor’s pricing page on <b>{priced}</b>. Confirm those pages before you pay. “—” means the listing has no paid starting price.</p>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Tool</th><th>Official?</th><th>Type</th><th>What it fetches</th>
+          <th>Free tier (vendor wording)</th><th>Paid from</th><th>License</th>
+        </tr>
+      </thead>
+      <tbody>
+        {list.map((x) => (
+          <tr>
+            <td><a href={`/tools/${x.id}/`}>{x.name}</a>{capNoteKey(x) && <p class="note">{t(capNoteKey(x)!)}</p>}</td>
+            <td>{x.official ? "Official" : "Community"}</td>
+            <td>{typeLabel[x.type] ?? x.type}</td>
+            <td>{STOCK_FETCH[x.id]}</td>
+            <td class="ltr" dir="ltr"><bdi dir="ltr">{x.pricing.free_tier}</bdi></td>
+            <td class="ltr" dir="ltr"><bdi dir="ltr">{paidFrom(x)}</bdi></td>
+            <td class="ltr" dir="ltr">{x.license}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="sec" id="official-hosted">Official hosted MCP servers</h2>
+  <p><b><a href="/tools/alpha-vantage-mcp/">Alpha Vantage MCP</a></b> is the official hosted server at <code>https://mcp.alphavantage.co/mcp</code>. Premium plans are listed as $49.99–$249.99/mo. See also the <a href="/tools/alpha-vantage-api/">Alpha Vantage API</a>.</p>
+  <p><b><a href="/tools/fmp-mcp/">Financial Modeling Prep MCP (official)</a></b> counts MCP calls against your FMP plan (Starter $29/mo, or $19/mo billed annually). The <a href="/tools/fmp-api/">FMP API</a> is the REST side. The <a href="/tools/fmp-mcp-community/">community FMP MCP</a> wraps 250+ FMP tools locally with your own key.</p>
+  <p><b><a href="/tools/finnhub-mcp/">Finnhub MCP (official)</a></b> is hosted at <code>https://mcp.finnhub.io/mcp</code> with OAuth and no separate MCP fee. Fundamental-1 is listed at $50/mo per market; other plan prices are marked not verified in our directory. See the <a href="/tools/finnhub-api/">Finnhub API</a>.</p>
+  <p><b><a href="/tools/eodhd-mcp/">EODHD MCP Server (official)</a></b> offers 70+ read-only tools with an API key or OAuth (<code>https://mcp.eodhd.com/v2/mcp</code>). Paid plans start at $19.99/mo. Also official: <a href="/tools/eodhd-api/">EODHD APIs</a> and <a href="/tools/eodhd-claude-skills/">EODHD Claude Skills</a>.</p>
+  <p><b><a href="/tools/massive-mcp/">Massive MCP</a></b> is official (formerly Polygon.io). The free Basic plan is end-of-day only. Paid plans start at $29/mo for individual, non-professional use. The <a href="/tools/massive-api/">Massive API</a> adds REST, WebSockets and flat files.</p>
+  <p><b><a href="/tools/tradingview-official-mcp/">TradingView MCP (official)</a></b> is a public beta. It uses OAuth 2.1 with your TradingView login, is not in free or trial plans, and is listed at about 100 requests/min per user. Data is delayed in the beta. The server does not place orders or run Pine Script.</p>
+  <p>Want to look at the chart behind a number your assistant pulled?</p>
+  <TradingView context="charts" lang="en" />
+  <p><b><a href="/tools/twelve-data-api/">Twelve Data API</a></b> and <b><a href="/tools/alpaca-market-data-api/">Alpaca Market Data API</a></b> are official APIs with no separate official MCP on this page. Free tiers and paid-from prices are in the table.</p>
+
+  <h2 class="sec" id="sec-filings">SEC filings</h2>
+  <p><b><a href="/tools/sec-edgar-api/">SEC EDGAR APIs</a></b> are the SEC’s free JSON APIs for submissions and XBRL. Fair-access rules apply: send a declared User-Agent and respect the rate limits. <b><a href="/tools/sec-edgar-mcp/">SEC EDGAR MCP</a></b> is a verified community server (AGPL-3.0) you host yourself, for filings, XBRL and Form 3/4/5 insider data.</p>
+  <p>Also <b>Verified</b> on {run} in <a href="/category/research-filings/">research &amp; filings</a>, kept off the table to keep it short. Where the free tier is <b>unknown</b>, we leave it unknown: <a href="/tools/equibles/">Equibles</a>, <a href="/tools/alphasmo/">AlphaSMO</a>, <a href="/tools/edgrapi-skills/">Edgrapi skills</a>, official <a href="/tools/valyu-mcp/">Valyu MCP</a>, and <a href="/tools/finbrain-mcp/">FinBrain MCP</a> (API key required; prices not verified). <a href="/tools/claude-equity-research/">Claude Equity Research</a> is a free, self-hosted skill that drafts research reports — treat the output as a draft, not a conclusion. <a href="/tools/openbb/">OpenBB</a> was <b>not confirmed</b> on {run} (link check pending) and is not a pick here.</p>
+
+  <h2 class="sec" id="no-key">No key, experiment carefully</h2>
+  <p><b><a href="/tools/maverick-mcp/">Maverick MCP</a></b> and <b><a href="/tools/investor-agent/">investor-agent</a></b> are verified, free, self-hosted community servers. They need no vendor key to start, though you may still supply upstream keys. <b><a href="/tools/yahoo-finance-mcp/">Yahoo Finance MCP</a></b> uses unofficial Yahoo Finance endpoints — not a licensed feed, and they can change without notice. Useful for learning the workflow, not as a source of record.</p>
+
+  <h2 class="sec" id="how-we-verify">How we verify</h2>
+  <p>Every week we re-check the directory automatically. <b>Verified</b> means the listing was reachable, its homepage, docs and hosted endpoints were alive, and — for tools with a public repository — there was a commit in the last 180 days. This page uses only that status from the {run} run. Pricing is copied from each vendor’s page with the check date; unknown values stay “unknown.” Status is not for sale. See the <a href="/verification/">verification page</a> and install snippets on each tool page or the <a href="/developers/">developers page</a>.</p>
+  <p>Already live: <a href="/compare/best-stock-market-mcp-servers/">stock market MCP servers</a>, <a href="/compare/sec-filings-research-tools/">SEC filings and research tools</a>, <a href="/compare/market-data-api-pricing/">market data API pricing</a>, and <a href="/compare/best-ai-tools-for-options-trading/">AI tools for options data and options trading</a>. Browse <a href="/category/market-data/">market data</a> and <a href="/category/research-filings/">research &amp; filings</a> for the rest of the catalog.</p>
+</BestCompare>

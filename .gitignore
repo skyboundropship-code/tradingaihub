@@ -7,3 +7,7 @@ dist
 __pycache__/
 *.pyc
 .dev.vars*
+
+# Local scanner cache and per-tool security results (not published)
+.cache/
+data/security/*.json

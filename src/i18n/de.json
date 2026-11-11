@@ -12,13 +12,15 @@
   "verify": "So prüfen wir",
   "submit": "Tool einreichen – kostenlos",
   "language": "Sprache",
-  "theme": "Hell/Dunkel umschalten"
+  "theme": "Hell/Dunkel umschalten",
+    "menu": "Menü"
  },
  "footer": {
   "rechecked": "Jede Woche neu geprüft.",
   "directory": "Verzeichnis",
   "comparisons": "Vergleiche",
   "latestRun": "Letzte Prüfung",
+  "security": "Sicherheitsprüfung",
   "makers": "Für Entwickler",
   "submitFree": "Tool einreichen (kostenlos)",
   "getBadge": "Holen Sie sich Ihr Prüf-Badge",
@@ -29,6 +31,8 @@
   "terms": "Nutzungsbedingungen",
   "about": "Über uns",
   "advertise": "Werbung",
+  "api": "API & MCP",
+  "apiDocs": "Kostenlose API & MCP-Server (Englisch)",
   "disclaimer": "<b>Keine Anlageberatung.</b> {site} ist ein Informationsverzeichnis für Software-Tools. Nichts auf dieser Website stellt eine Anlage-, Trading-, Steuer- oder Rechtsberatung oder eine Empfehlung zum Kauf oder Verkauf eines Wertpapiers oder Vermögenswerts dar, und wir sind keine zugelassenen Anlageberater oder Vermögensverwalter. Trading birgt Verlustrisiken. <b>Affiliate-Hinweis:</b> Einige Links (derzeit TradingView) sind Affiliate-Links. Wenn Sie sich darüber anmelden, erhalten wir eventuell eine Provision – ohne Mehrkosten für Sie. Sie sind gekennzeichnet und beeinflussen nie Einträge, Rankings oder den Prüfstatus.",
   "fullDisclaimer": "Vollständiger Haftungsausschluss",
   "short": "Keine Anlageberatung. Einige Links sind Partnerlinks, für die wir eine Provision erhalten können."
@@ -79,7 +83,7 @@
    "Links prüfen",
    "Ein Website-, Doku- oder Endpoint-Link ist bei der letzten Prüfung fehlgeschlagen."
   ],
-  "unconfirmed": ["Prüfung nötig", "Erreichbar, aber ein Link zu Website, Doku oder Endpunkt hat unseren Prüfer abgewiesen (Anmeldung nötig, Bot-Sperre oder Ratenlimit), daher nicht vollständig bestätigt. Zählt nicht als verifiziert."],
+  "unconfirmed": ["Linkprüfung ausstehend", "Erreichbar, aber ein Link zu Website, Doku oder Endpunkt hat unseren Prüfer abgewiesen (Anmeldung nötig, Bot-Sperre oder Ratenlimit), daher nicht vollständig bestätigt. Zählt nicht als verifiziert."],
   "unreachable": [
    "Nicht erreichbar",
    "Repository oder Website konnten nicht erreicht werden."
@@ -278,6 +282,7 @@
   "pricesChange": "Preise ändern sich – vor dem Kauf immer auf der Seite des Anbieters bestätigen.",
   "verification": "Prüfung",
   "autoCheck": "Automatische Prüfung am {date}.",
+  "manualCheck": "Manuelle Prüfung am {date}.",
   "repository": "Repository",
   "homepage": "Website",
   "docs": "Dokumentation",
@@ -292,6 +297,10 @@
   "sendCorrection": "Korrektur senden",
   "free": "kostenlos",
   "notEndorse": "Ein Eintrag ist weder eine Empfehlung noch Anlageberatung. Testen Sie jedes Trading-Tool zuerst im Demomodus.",
+  "liveFundsNote": "Kann Live-Trades ausführen / Gelder bewegen — nutzen Sie den Paper-Modus oder Schlüssel mit eingeschränkten Rechten",
+  "liveTradingNote": "Kann Live-Trades ausführen — nutzen Sie den Paper-Modus oder Schlüssel mit eingeschränkten Rechten",
+  "movesFundsNote": "Kann Gelder bewegen — nutzen Sie den Sandbox-Modus oder Schlüssel mit eingeschränkten Rechten",
+  "deprecatedNote": "Vom Anbieter als veraltet gekennzeichnet. Siehe die Ersatzdokumentation.",
   "more": "Mehr in {cat}",
   "pricingDataNote": "Preisdetails werden auf Englisch von der Anbieterseite zitiert."
  },
@@ -316,6 +325,7 @@
   "chatgpt": "ChatGPT → Settings → Apps & Connectors (Entwicklermodus) → Create, dann diese URL einfügen.",
   "grok": "Remote-MCP-Tool in einer xAI-API-Anfrage; Authentifizierungs-Header siehe docs.x.ai.",
   "fromSource": "Unser Prüfer hat kein veröffentlichtes npm/PyPI-Paket und keinen gehosteten Endpoint gefunden. Folgen Sie der README, um es lokal auszuführen, und registrieren Sie den Startbefehl als stdio-MCP-Server in Ihrem Client.",
+  "npmUnmaintained": "Das npm-Paket wird derzeit nicht mehr gepflegt und von npm gehalten, daher nicht über npm installieren. Klonen Sie das Repository, folgen Sie der README, um es lokal auszuführen, und registrieren Sie den Startbefehl als stdio-MCP-Server in Ihrem Client.",
   "needsRemote": "Benötigt eine Remote-MCP-URL (HTTPS)",
   "stdioOnly": "Dieser Server läuft lokal über stdio. ChatGPT-Connectors und die Grok-API benötigen einen gehosteten HTTPS-Endpoint, den dieses Projekt nicht bereitstellt.",
   "marketplace": "Führen Sie dann /plugin aus, um seine Plugins/Skills zu durchsuchen und zu installieren.",
@@ -366,7 +376,7 @@
   "title": "Tool einreichen",
   "desc": "Reichen Sie einen MCP-Server, Agent-Skill oder eine API für Finanzen und Trading ein. Kostenloser, automatisch geprüfter Eintrag.",
   "lead": "<b>Für immer kostenlos.</b> Keine bezahlten Tarife, kein Haken. Sie erhalten außerdem ein kostenloses, sich selbst aktualisierendes Prüf-Badge. Nach dem Einreichen prüft unser Prüfer Repository oder Website, den letzten Commit, die Paketregistrierung und die Dokumentation. Bestandene Tools gehen innerhalb einer Woche online.",
-  "preview": "Beim Absenden öffnet sich in einem neuen Tab ein vorausgefülltes GitHub-Issue. Wir prüfen jede Einreichung, bevor sie gelistet wird.",
+  "preview": "Beim Absenden öffnet sich in einem neuen Tab ein vorausgefülltes GitHub-Issue. GitHub-Issues sind öffentlich — füge keine API-Schlüssel oder privaten Daten ein. Wir prüfen jede Einreichung vor der Veröffentlichung.",
   "noGithub": "Kein GitHub-Konto? Senden Sie dieselben Angaben per E-Mail an {email}.",
   "name": "Name des Tools",
   "url": "Repository- oder Website-URL",
@@ -378,7 +388,25 @@
   "confirm": "Ich bestätige, dass dieses Tool keine Renditen verspricht und kein Anlageberatungsdienst ist.",
   "button": "Zur Prüfung einreichen",
   "thanks": "Fast geschafft: Prüfen Sie das vorausgefüllte GitHub-Issue im neuen Tab und klicken Sie auf „Create“. Nichts geöffnet? Pop-ups erlauben und erneut versuchen.",
-  "blank": "Bitte füllen Sie dieses Feld aus (nur Leerzeichen zählen nicht)."
+  "blank": "Bitte füllen Sie dieses Feld aus (nur Leerzeichen zählen nicht).",
+  "license": "Lizenz oder Nutzungsbedingungen",
+  "licenseHelp": "Zum Beispiel MIT, Apache-2.0, proprietär oder ein Link zu den Bedingungen des Anbieters.",
+  "pricing": "Preise",
+  "pricingHelp": "Kostenlos, Freemium oder kostenpflichtig, plus ein Link zur Preisseite, falls kostenpflichtig.",
+  "official": "Offiziell oder Community?",
+  "officialHelp": "Offiziell = erstellt oder gepflegt von dem Unternehmen, dessen Produkt oder Daten verbunden werden.",
+  "officialVendor": "Offiziell (vom Anbieter)",
+  "officialCommunity": "Community",
+  "officialUnsure": "Nicht sicher",
+  "brokerAccess": "Stellt dieses Tool eine Verbindung zu einem Broker- oder Börsenkonto her oder handelt darüber?",
+  "brokerHelp": "Ja, wenn es Positionen lesen, Aufträge erteilen oder Anmeldedaten eines Broker- oder Börsenkontos verwenden kann.",
+  "brokerNo": "Nein — nur schreibgeschützte Marktdaten oder Research",
+  "brokerRead": "Ja — nur Lesezugriff auf ein Konto (Positionen, Salden)",
+  "brokerPaper": "Ja — kann Papier-/Testumgebungsaufträge erteilen",
+  "brokerLive": "Ja — kann echte Aufträge erteilen",
+  "brokerUnsure": "Nicht sicher",
+  "brokerScope": "Broker- oder Börsenzugriff — welcher Umfang? (falls ja)",
+  "brokerScopeHelp": "Nennen Sie den Broker oder die Börse und was das Tool tun kann. Leer lassen, wenn kein Kontozugriff besteht."
  },
  "badges": {
   "title": "Kostenlose Prüf-Badges für Entwickler",
@@ -438,6 +466,7 @@
    "Sponsorplätze kaufen nur Sichtbarkeit, sind gekennzeichnet, können abgelehnt oder entfernt werden (mit anteiliger Erstattung) und werden von unserem Merchant of Record abgerechnet.",
    "Wer ein Tool einreicht, bestätigt, dass er es listen darf und dass es keine garantierten Renditen verspricht.",
    "Unsere Haftung ist auf den Betrag begrenzt, den Sie uns in den letzten 12 Monaten gezahlt haben.",
+   "Die Verzeichnisdaten aus unserer kostenlosen <a href=\"/developers/\" hreflang=\"en\">API und unserem MCP-Server</a> stehen unter <a href=\"https://creativecommons.org/licenses/by/4.0/\" rel=\"license noopener\">CC BY 4.0</a>: Sie dürfen sie auch kommerziell weiterverwenden, wenn Sie “TradingAIHub, https://tradingaihub.com” als Quelle nennen. Der Code von API und MCP-Server steht unter der MIT-Lizenz.",
    "Weicht eine Übersetzung von der englischen Fassung ab, gilt die englische Fassung."
   ],
   "contact": "Kontakt:"
@@ -556,7 +585,9 @@
   "alpaca-skills": "Offizielle Alpaca-Agent-Skills für die Trading- und Broker-API: Backtests, Orders, Kontoeröffnung, Geldbewegungen und Events.",
   "longbridge-skills": "Offizielle Longbridge-Agent-Skills: Kurse, technische Analyse, Derivate, Fundamentaldaten, Portfolio und Watchlist für HK, USA, A-Aktien und Singapur.",
   "coinbase-agentic-wallet-skills": "Offizielle Coinbase-Skills für Agenten-Wallets: Salden, USDC senden, Token tauschen, Guthaben aufladen und x402-APIs bezahlen auf Base, Polygon und Solana.",
-  "options-trading-skills": "Community-Claude-Skills für Optionshändler: Scanner, Griechen, Spreads, PMCC-Screens, Korrelationen und IBKR-Portfolioberichte."
+  "options-trading-skills": "Community-Claude-Skills für Optionshändler: Scanner, Griechen, Spreads, PMCC-Screens, Korrelationen und IBKR-Portfolioberichte.",
+  "sure": "Selbst gehostete Finanz-App (von der Community gepflegter Fork von Maybe Finance durch we-promise): Konten, Transaktionen, Budgets und Vermögen, mit eigenem MCP-Server und REST-API.",
+  "coinboss-api": "Offizielle REST-API für aggregierte Krypto-Derivate- und Marktdaten: Liquidationen, Open Interest, Funding-Sätze, Long/Short-Verhältnisse und ETF-Zuflüsse. Nur Marktdaten; derzeit kostenlos."
  },
  "faq": {
   "title": "Häufige Fragen",
@@ -576,5 +607,36 @@
   "ca2": "Nach GitHub-Sternen sind die beliebtesten geprüften Tools dieser Kategorie {list}.",
   "cq3": "Sind die Tools in „{name}“ offiziell?",
   "ca3": "Offizielle Tools, vom Anbieter selbst veröffentlicht: {o} von {n}. Community-Projekte: {c}. Offizielle Tools tragen das Badge „{badge}“."
+ },
+ "sec": {
+  "title": "Sicherheitsprüfung",
+  "desc": "So prüft TradingAIHub gelistete Tools: eine statische Kontrolle von Installations-Hooks, Abhängigkeiten und gängigen Malware-Mustern. Das ist keine Garantie und keine Empfehlung.",
+  "h1": "So prüfen wir gelistete Tools",
+  "intro": "Einige Tools in diesem Verzeichnis tragen einen kurzen Hinweis „Sicherheitsprüfung“. Dieser Hinweis bedeutet, dass unser statischer Scanner beim letzten Lauf in den unten beschriebenen Prüfungen keine Auffälligkeiten gefunden hat. Es ist ein Bericht zu einem bestimmten Zeitpunkt, keine Garantie, keine Zertifizierung und keine Empfehlung des Tools.",
+  "whatH": "Was die Prüfung kontrolliert",
+  "whatIntro": "Der Scanner untersucht das veröffentlichte Paket und, sofern ein Repository vorhanden ist, dessen Quellcode. Er sucht nach:",
+  "c1": "Installations-Hooks (zum Beispiel npm-Scripts preinstall, install und postinstall) und den Befehlen, die sie ausführen.",
+  "c2": "Downloads, die an eine Shell weitergeleitet werden (curl oder wget nach sh oder bash), und andere Verschleierungen dieses Musters.",
+  "c3": "Exfiltrationsmuster — Code, der lokale Dateien, Umgebungsvariablen oder Geheimnisse an ein unerwartetes Ziel sendet.",
+  "c4": "Typosquat- und Namensverwechslungsrisiken rund um Paketnamen.",
+  "c5": "Bekannte Schwachstellen und Malware-Hinweise aus der OSV-Datenbank, einschließlich MAL-Einträgen (bösartiges Paket), in der aufgelösten Lockdatei.",
+  "c6": "Einstiegspunkte: die Dateien, die ein Paket beim Installieren oder Starten tatsächlich ausführt.",
+  "staticH": "Es ist eine statische Prüfung",
+  "staticP": "Es wird kein Code Dritter ausgeführt. Der Scanner liest Paketmetadaten, Lockdateien und Quelltext. Er installiert das Tool nicht, führt dessen Installations-Hooks nicht aus und lädt es nicht in eine Laufzeitumgebung.",
+  "notH": "Keine Garantie und keine Empfehlung",
+  "notP": "Ein Hinweis „keine Auffälligkeiten gefunden“ ist keine Sicherheitszertifizierung, keine Gewährleistung und keine Empfehlung, das Tool zu installieren oder zu nutzen. Statische Analysen können Dinge übersehen, und ein Projekt kann sich nach dem Prüfdatum ändern. Prüfen Sie ein Tool trotzdem selbst, bevor Sie es ausführen, besonders wenn es handeln oder Geld bewegen kann.",
+  "updateH": "Wann die Prüfung aktualisiert wird",
+  "updateP": "Die Prüfung wird aktualisiert, wenn wir das Verzeichnis erneut verifizieren. Findet eine spätere Prüfung Auffälligkeiten, wird der Hinweis von der Seite und den Karten dieses Tools entfernt. Wir veröffentlichen kein Warnlabel für Tools, die nicht unauffällig waren oder nicht geprüft wurden.",
+  "badgeH": "Was der Hinweis sagt",
+  "badgeP": "Auf einer Tool-Seite lautet der Hinweis: „Sicherheitsprüfung: keine Auffälligkeiten gefunden · statische Code- und Abhängigkeitsprüfung · {date}“. Er verweist hierher. Verzeichniskarten zeigen ein kleines Schild-Symbol mit derselben Bedeutung.",
+  "stamp": "Letzte Prüfung: {date}. Scanner-Commit {commit}, Regelversion {rules}.",
+  "vtP": "Wenn ein VirusTotal-Bericht zu einer veröffentlichten Datei vorliegt, verlinkt die Tool-Seite zusätzlich darauf. Wir erfinden niemals einen VirusTotal-Link.",
+  "reportH": "Ein Problem melden",
+  "reportP": "Wenn Sie denken, dass ein Prüfergebnis falsch ist, oder ein Sicherheitsbedenken zu einem gelisteten Tool haben, schreiben Sie an {email}.",
+  "badge": "Sicherheitsprüfung: keine Auffälligkeiten gefunden · statische Code- und Abhängigkeitsprüfung · {date}",
+    "badgeShort": "Gescannt: keine Auffälligkeiten",
+  "badgeAria": "Sicherheitsprüfung: keine Auffälligkeiten gefunden am {date}. Statische Code- und Abhängigkeitsprüfung. Scanner {commit}, Regeln {rules}. Öffnet die Methodik-Seite.",
+  "cardAria": "Sicherheitsprüfung: keine Auffälligkeiten gefunden am {date}. Scanner {commit}, Regeln {rules}.",
+  "vt": "VirusTotal-Bericht"
  }
 }

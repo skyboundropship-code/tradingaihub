@@ -5,8 +5,11 @@ import PartnerCTA from "../../../components/PartnerCTA.astro";
 import AffTag from "../../../components/AffTag.astro";
 import Base from "../../../layouts/Base.astro";
 import Status from "../../../components/Status.astro";
+import SecurityBadge from "../../../components/SecurityBadge.astro";
 import ToolCard from "../../../components/ToolCard.astro";
 import Share from "../../../components/Share.astro";
+import DateInText from "../../../components/DateInText.astro";
+import TitleText from "../../../components/TitleText.astro";
 import { SITE } from "../../../config";
 import { tools, catBySlug, snippets, pkgOf, starsOf, lastCommit, fmtStars } from "../../../lib/data";
 import { softwareLd } from "../../../lib/jsonld";
@@ -29,14 +32,25 @@ const ld = [
   { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
     { "@type": "ListItem", position: 1, name: t("common.home"), item: `${SITE.url}${p("/")}` }, { "@type": "ListItem", position: 2, name: cname, item: `${SITE.url}${p(`/category/${cat.slug}/`)}` }, { "@type": "ListItem", position: 3, name: tool.name, item: pageUrl } ] },
 ];
+const caps = Array.isArray(tool.capabilities) ? tool.capabilities : [];
+const hasLive = caps.includes("live_trading");
+const hasFunds = caps.includes("moves_funds");
+const capNote = hasLive && hasFunds ? "tool.liveFundsNote" : hasLive ? "tool.liveTradingNote" : hasFunds ? "tool.movesFundsNote" : null;
 const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
 ---
 <Base title={`${tool.name} — ${t("tool.titleFor", { type: t(`type.${tool.type}`), cat: lang === "en" ? cshort.toLowerCase() : cshort })}`} description={metaDesc.slice(0, 300)} jsonld={ld} og={`tool-${tool.id}`} lang={lang}>
 <div class="wrap page">
-  <div class="crumbs"><a href={p("/")}>{t("common.home")}</a> / <a href={p(`/category/${cat.slug}/`)}>{cname}</a> / {tool.name}</div>
-  <div class="meta" style="margin-bottom:8px"><span class="badge type">{t(`type.${tool.type}`)}</span>{tool.official && <span class="badge off">{t("common.officialVendor")}</span>}<Status status={v.status} lang={lang} /><span class="pill">{t("tool.lastChecked", { date: v.checked_at })}</span></div>
-  <h1 style="margin:6px 0 6px" dir="auto">{tool.name}</h1>
+  <div class="crumbs"><a href={p("/")}>{t("common.home")}</a> / <a href={p(`/category/${cat.slug}/`)}>{cname}</a> / <bdi>{tool.name}</bdi></div>
+  <div class="tool-head-meta"><div class="meta"><span class="badge type">{t(`type.${tool.type}`)}</span>{tool.official && <span class="badge off">{t("common.officialVendor")}</span>}<Status status={v.status} lang={lang} /></div><span class="pill tool-checked"><DateInText text={t("tool.lastChecked", { date: v.checked_at })} date={v.checked_at} /></span></div>
+  <h1 class="tool-title" style="margin:6px 0 6px" title={tool.name}><TitleText text={tool.name} bdi /></h1>
   <p style="color:var(--muted);font-size:1.125rem;margin-top:0">{desc}</p>
+  <SecurityBadge tool={tool} lang={lang} variant="page" />
+  {capNote && (
+    <p class="note" dir="auto">{t(capNote)}</p>
+  )}
+  {tool.deprecated && (
+    <p class="note" dir="auto">{t("tool.deprecatedNote")}{(tool.docs || tool.homepage) && <>{" "}<a class="ltr" dir="ltr" href={tool.docs || tool.homepage} rel="noopener" target="_blank">{new URL(tool.docs || tool.homepage).host}</a></>}</p>
+  )}
   {partnerPath && <PartnerCTA variant="tool" lang={lang} path={partnerPath} />}
   {mentionsTV && <TradingView context="integration" lang={lang} />}
   <Share path={p(`/tools/${tool.id}/`)} text={`${tool.name} — ${v.status === "verified" ? t("tool.shareVerified") : t("tool.shareStatus")} ${t("tool.on")} ${SITE.name}`} lang={lang} />
@@ -45,40 +59,40 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
       <h2>{t("tool.install")}</h2>
       <div class="panel">
         <div class="tabs">{sn.map((s, i) => <button class={i === 0 ? "on" : ""} data-i={i}>{s.client}</button>)}</div>
-        {sn.map((s, i) => <div class={`snip ${i === 0 ? "on" : ""}`} data-i={i}><pre><code>{s.code}</code></pre>{s.note && <p class="note">{s.note}</p>}</div>)}
+        {sn.map((s, i) => <div class={`snip ${i === 0 ? "on" : ""}`} data-i={i}><pre class="ltr" dir="ltr"><code dir="ltr">{s.code}</code></pre>{s.note && <p class="note">{s.note}</p>}</div>)}
       </div>
       <h2>{t("tool.pricing")}</h2>
       <div class="panel"><dl class="kv">
-        <dt>{t("tool.model")}</dt><dd><bdi>{tool.pricing.model}</bdi></dd>
-        <dt>{t("th.freeTier")}</dt><dd><bdi>{tool.pricing.free_tier}</bdi></dd>
-        <dt>{t("th.paidFrom")}</dt><dd><bdi>{tool.pricing.paid_from ?? "—"}</bdi></dd>
-        <dt>{t("tool.details")}</dt><dd lang="en"><bdi>{tool.pricing.details}</bdi></dd>
-        <dt>{t("th.source")}</dt><dd>{tool.pricing.source ? <><a href={tool.pricing.source} rel={isAff(tool.pricing.source) ? "sponsored noopener" : "nofollow noopener"} target="_blank" aria-describedby={isAff(tool.pricing.source) ? "aff-note" : undefined}>{untagUrl(tool.pricing.source, "eodhd")}</a><AffTag url={tool.pricing.source} lang={lang} /></> : t("tool.notVerifiedPrice")}{tool.pricing.checked && ` (${t("tool.checked", { date: tool.pricing.checked })})`}</dd>
+        <dt>{t("tool.model")}</dt><dd class="ltr" dir="ltr"><bdi dir="ltr">{tool.pricing.model}</bdi></dd>
+        <dt>{t("th.freeTier")}</dt><dd class="ltr" dir="ltr"><bdi dir="ltr">{tool.pricing.free_tier}</bdi></dd>
+        <dt>{t("th.paidFrom")}</dt><dd class="ltr" dir="ltr"><bdi dir="ltr">{tool.pricing.paid_from ?? "—"}</bdi></dd>
+        <dt>{t("tool.details")}</dt><dd class="ltr" dir="ltr" lang="en"><bdi dir="ltr">{tool.pricing.details}</bdi></dd>
+        <dt>{t("th.source")}</dt><dd class="price-src">{tool.pricing.source ? <><a class="ltr" dir="ltr" href={tool.pricing.source} rel={isAff(tool.pricing.source) ? "sponsored noopener" : "nofollow noopener"} target="_blank" aria-describedby={isAff(tool.pricing.source) ? "aff-note" : undefined}>{untagUrl(tool.pricing.source, "eodhd")}</a><AffTag url={tool.pricing.source} lang={lang} /></> : t("tool.notVerifiedPrice")}{tool.pricing.checked && <span class="price-checked"> (<DateInText text={t("tool.checked", { date: tool.pricing.checked })} date={tool.pricing.checked} />)</span>}</dd>
       </dl><p class="note">{t("tool.pricesChange")}{lang !== "en" && ` ${t("tool.pricingDataNote")}`}</p></div>
       <h2>{t("tool.verification")}</h2>
       <div class="panel">
         <p><Status status={v.status} lang={lang} /> <span class="note">{stHelp}</span></p>
         <table><tbody>{v.checks.map((c: any) => <tr><td style="width:36px">{c.ok ? "✅" : "⚠️"}</td><td>{t(`checks.${c.check}`) === `checks.${c.check}` ? c.check : t(`checks.${c.check}`)}{c.note && <span class="note"> — <bdi>{c.note}</bdi></span>}</td></tr>)}</tbody></table>
         {v.issues.length > 0 && <ul>{v.issues.map((i: string) => <li class="note"><bdi>{i}</bdi></li>)}</ul>}
-        <p class="note">{t("tool.autoCheck", { date: v.checked_at })} <a href={`${p("/about/")}#how-we-verify`}>{t("nav.verify")}</a>.</p>
+        <p class="note"><DateInText text={t(v.manual_override ? "tool.manualCheck" : "tool.autoCheck", { date: v.manual_override ? v.manual_check.date : v.checked_at })} date={v.manual_override ? v.manual_check.date : v.checked_at} /> <a href={`${p("/about/")}#how-we-verify`}>{t("nav.verify")}</a>.</p>
       </div>
     </div>
     <aside>
       <div class="panel"><dl class="kv">
-        {tool.repo && <><dt>{t("tool.repository")}</dt><dd><a href={tool.repo} rel={relFor(tool.repo)} target="_blank">{tool.repo.replace("https://github.com/", "")}</a></dd></>}
-        {tool.homepage && <><dt>{t("tool.homepage")}</dt><dd><a href={tool.homepage} rel={relFor(tool.homepage)} target="_blank" aria-describedby={isAff(tool.homepage) ? "aff-note" : undefined}>{new URL(tool.homepage).host}</a><AffTag url={tool.homepage} lang={lang} /></dd></>}
-        {tool.docs && tool.docs !== tool.homepage && <><dt>{t("tool.docs")}</dt><dd><a href={tool.docs} rel={relFor(tool.docs)} target="_blank" aria-describedby={isAff(tool.docs) ? "aff-note" : undefined}>{new URL(tool.docs).host}</a><AffTag url={tool.docs} lang={lang} /></dd></>}
-        {tool.remote_mcp_url && <><dt>{t("tool.remote")}</dt><dd><code>{tool.remote_mcp_url}</code></dd></>}
+        {tool.repo && <><dt>{t("tool.repository")}</dt><dd class="ltr" dir="ltr"><a href={tool.repo} rel={relFor(tool.repo)} target="_blank">{tool.repo.replace("https://github.com/", "")}</a></dd></>}
+        {tool.homepage && <><dt>{t("tool.homepage")}</dt><dd><a class="ltr" dir="ltr" href={tool.homepage} rel={relFor(tool.homepage)} target="_blank" aria-describedby={isAff(tool.homepage) ? "aff-note" : undefined}>{new URL(tool.homepage).host}</a><AffTag url={tool.homepage} lang={lang} /></dd></>}
+        {tool.docs && tool.docs !== tool.homepage && <><dt>{t("tool.docs")}</dt><dd><a class="ltr" dir="ltr" href={tool.docs} rel={relFor(tool.docs)} target="_blank" aria-describedby={isAff(tool.docs) ? "aff-note" : undefined}>{new URL(tool.docs).host}</a><AffTag url={tool.docs} lang={lang} /></dd></>}
+        {tool.remote_mcp_url && <><dt>{t("tool.remote")}</dt><dd class="ltr" dir="ltr"><code dir="ltr">{tool.remote_mcp_url}</code></dd></>}
         <dt>{t("th.stars")}</dt><dd>{fmtStars(starsOf(tool))}</dd>
-        <dt>{t("th.lastCommit")}</dt><dd dir="ltr">{lastCommit(tool) ?? "—"}</dd>
-        <dt>{t("th.license")}</dt><dd dir="ltr">{tool.license}</dd>
-        <dt>{t("tool.package")}</dt><dd>{pkg ? <a href={pkg.url} rel="noopener" target="_blank">{pkg.name}@{pkg.version}</a> : t("tool.noPackage")}</dd>
+        <dt>{t("th.lastCommit")}</dt><dd class="ltr" dir="ltr">{lastCommit(tool) ?? "—"}</dd>
+        <dt>{t("th.license")}</dt><dd class="ltr" dir="ltr">{tool.license}</dd>
+        <dt>{t("tool.package")}</dt><dd class={pkg ? "ltr" : undefined} dir={pkg ? "ltr" : undefined}>{pkg ? <a href={pkg.url} rel="noopener" target="_blank">{pkg.name}@{pkg.version}</a> : t("tool.noPackage")}</dd>
         <dt>{t("th.category")}</dt><dd><a href={p(`/category/${cat.slug}/`)}>{cshort}</a></dd>
         <dt>{t("tool.listedVia")}</dt><dd><a href={tool.source_url} rel={relFor(tool.source_url)} target="_blank" aria-describedby={isAff(tool.source_url) ? "aff-note" : undefined}>{t("tool.source")}</a><AffTag url={tool.source_url} lang={lang} /></dd>
       </dl>{hasAff && <span id="aff-note" hidden>{t("common.affTitle")}</span>}</div>
       <div class="panel" style="margin-top:14px"><b>{t("tool.maintain")}</b><p class="note">{t("tool.badgeNote")}</p>
         <p><img src={`/badge/${tool.id}.svg`} alt={`${SITE.name} status`} /></p>
-        <pre><code>{`[![${SITE.name}](${SITE.url}/badge/${tool.id}.svg)](${SITE.url}/tools/${tool.id}/)`}</code></pre>
+        <pre class="ltr" dir="ltr"><code dir="ltr">{`[![${SITE.name}](${SITE.url}/badge/${tool.id}.svg)](${SITE.url}/tools/${tool.id}/)`}</code></pre>
         <p class="note">{t("tool.wrongInfo")} <a href={p("/submit/")}>{t("tool.sendCorrection")}</a> — {t("tool.free")}.</p></div>
       <p class="note" style="margin-top:14px">{t("tool.notEndorse")}</p>
     </aside>

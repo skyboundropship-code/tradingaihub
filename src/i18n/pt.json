@@ -12,13 +12,15 @@
   "verify": "Como verificamos",
   "submit": "Enviar uma ferramenta — grátis",
   "language": "Idioma",
-  "theme": "Alternar tema claro/escuro"
+  "theme": "Alternar tema claro/escuro",
+    "menu": "Menu"
  },
  "footer": {
   "rechecked": "Verificado novamente toda semana.",
   "directory": "Diretório",
   "comparisons": "Comparativos",
   "latestRun": "Última verificação",
+  "security": "Análise de segurança",
   "makers": "Para criadores",
   "submitFree": "Enviar uma ferramenta (grátis)",
   "getBadge": "Obtenha seu selo verificado",
@@ -29,6 +31,8 @@
   "terms": "Termos",
   "about": "Sobre",
   "advertise": "Anuncie",
+  "api": "API e MCP",
+  "apiDocs": "API e servidor MCP grátis (em inglês)",
   "disclaimer": "<b>Não é recomendação de investimento.</b> {site} é um diretório informativo de ferramentas de software. Nada neste site constitui consultoria de investimento, trading, tributária ou jurídica, nem recomendação de compra ou venda de qualquer valor mobiliário ou ativo, e não somos consultores de investimento nem gestores de carteira autorizados. Operar envolve risco de perda. <b>Divulgação de afiliados:</b> alguns links (atualmente TradingView) são links de afiliado. Se você se cadastrar por meio deles, podemos receber uma comissão sem custo extra para você. Eles são identificados e nunca afetam listagens, rankings ou status de verificação.",
   "fullDisclaimer": "Aviso legal completo",
   "short": "Não é aconselhamento de investimento. Alguns links são de parceiros e podemos receber comissão."
@@ -79,7 +83,7 @@
    "Verificar links",
    "Um link do site, da documentação ou do endpoint falhou na última verificação."
   ],
-  "unconfirmed": ["Requer revisão", "Acessível, mas um link do site, da documentação ou do endpoint recusou nosso verificador (login obrigatório, bloqueio de bots ou limite de requisições), então não foi possível confirmá-lo totalmente. Não conta como verificado."],
+  "unconfirmed": ["Verificação de ligação pendente", "Acessível, mas um link do site, da documentação ou do endpoint recusou nosso verificador (login obrigatório, bloqueio de bots ou limite de requisições), então não foi possível confirmá-lo totalmente. Não conta como verificado."],
   "unreachable": [
    "Inacessível",
    "Não foi possível acessar o repositório ou o site."
@@ -278,6 +282,7 @@
   "pricesChange": "Preços mudam: confirme sempre na página do fornecedor antes de comprar.",
   "verification": "Verificação",
   "autoCheck": "Verificação automática em {date}.",
+  "manualCheck": "Verificação manual em {date}.",
   "repository": "Repositório",
   "homepage": "Site",
   "docs": "Documentação",
@@ -292,6 +297,10 @@
   "sendCorrection": "Envie uma correção",
   "free": "grátis",
   "notEndorse": "Listar uma ferramenta não é endosso nem recomendação de investimento. Teste qualquer ferramenta de trading primeiro em modo de simulação.",
+  "liveFundsNote": "Pode executar operações ao vivo / mover fundos — use o modo paper ou chaves com permissões limitadas",
+  "liveTradingNote": "Pode executar operações ao vivo — use o modo paper ou chaves com permissões limitadas",
+  "movesFundsNote": "Pode mover fundos — use o modo sandbox ou chaves com permissões limitadas",
+  "deprecatedNote": "Descontinuado pelo fornecedor. Consulte a documentação de substituição.",
   "more": "Mais em {cat}",
   "pricingDataNote": "Os detalhes de preços são citados em inglês a partir da página do fornecedor."
  },
@@ -316,6 +325,7 @@
   "chatgpt": "ChatGPT → Settings → Apps & Connectors (modo desenvolvedor) → Create, e cole esta URL.",
   "grok": "Ferramenta MCP remota em uma requisição à API da xAI; veja docs.x.ai para os cabeçalhos de autenticação.",
   "fromSource": "Nosso verificador não encontrou pacote npm/PyPI publicado nem endpoint hospedado. Siga o README para executar localmente e registre o comando de inicialização como servidor MCP stdio no seu cliente.",
+  "npmUnmaintained": "O pacote npm está atualmente sem manutenção e retido pela npm, portanto não o instale pelo npm. Clone o repositório, siga o README para executá-lo localmente e registre o comando de inicialização como servidor MCP stdio no seu cliente.",
   "needsRemote": "Requer uma URL MCP remota (HTTPS)",
   "stdioOnly": "Este servidor roda localmente via stdio. Os conectores do ChatGPT e a API do Grok exigem um endpoint HTTPS hospedado, que este projeto não publica.",
   "marketplace": "Depois execute /plugin para explorar e instalar seus plugins/skills.",
@@ -366,7 +376,7 @@
   "title": "Enviar uma ferramenta",
   "desc": "Envie um servidor MCP, uma skill de agente ou uma API para finanças e trading. Listagem gratuita e verificada automaticamente.",
   "lead": "<b>Grátis para sempre.</b> Sem planos pagos e sem pegadinhas. Você também ganha um selo verificado gratuito que se atualiza sozinho. Depois do envio, nosso verificador checa o repositório ou site, o último commit, o registro de pacotes e a documentação. Ferramentas aprovadas entram no ar em até uma semana.",
-  "preview": "Ao enviar, abre-se uma issue do GitHub pré-preenchida em uma nova aba. Avaliamos cada envio antes de publicá-lo.",
+  "preview": "O envio abre, numa nova aba, uma issue do GitHub pré-preenchida. As issues são públicas — não cole chaves de API nem dados privados. Analisamos cada envio antes de publicar.",
   "noGithub": "Não tem conta no GitHub? Envie os mesmos dados por e-mail para {email}.",
   "name": "Nome da ferramenta",
   "url": "URL do repositório ou do site",
@@ -378,7 +388,25 @@
   "confirm": "Confirmo que esta ferramenta não promete retornos e não é um serviço de consultoria de investimentos.",
   "button": "Enviar para análise",
   "thanks": "Quase lá: revise a issue pré-preenchida do GitHub na nova aba e clique em “Create”. Nada abriu? Permita pop-ups e tente novamente.",
-  "blank": "Preencha este campo (apenas espaços não contam)."
+  "blank": "Preencha este campo (apenas espaços não contam).",
+  "license": "Licença ou termos",
+  "licenseHelp": "Por exemplo MIT, Apache-2.0, proprietária, ou um link para os termos do fornecedor.",
+  "pricing": "Preços",
+  "pricingHelp": "Grátis, freemium ou pago, mais um link para a página de preços se for pago.",
+  "official": "Oficial ou da comunidade?",
+  "officialHelp": "Oficial = criada ou mantida pela empresa cujo produto ou dados ela conecta.",
+  "officialVendor": "Oficial (do fornecedor)",
+  "officialCommunity": "Comunidade",
+  "officialUnsure": "Não tenho certeza",
+  "brokerAccess": "Esta ferramenta se conecta a uma conta de corretora ou bolsa, ou negocia por meio dela?",
+  "brokerHelp": "Sim se puder ler posições, enviar ordens ou usar credenciais de uma conta de corretora ou bolsa.",
+  "brokerNo": "Não — apenas dados de mercado ou pesquisa somente leitura",
+  "brokerRead": "Sim — acesso somente leitura a uma conta (posições, saldos)",
+  "brokerPaper": "Sim — pode enviar ordens em papel / em ambiente de teste",
+  "brokerLive": "Sim — pode enviar ordens reais",
+  "brokerUnsure": "Não tenho certeza",
+  "brokerScope": "Acesso à corretora ou à bolsa — qual o alcance? (se sim)",
+  "brokerScopeHelp": "Indique a corretora ou a bolsa e o que a ferramenta pode fazer. Deixe em branco se não acessar uma conta."
  },
  "badges": {
   "title": "Selos verificados gratuitos para criadores",
@@ -438,6 +466,7 @@
    "Espaços patrocinados compram apenas visibilidade, são identificados, podem ser recusados ou removidos (com reembolso proporcional) e são cobrados pelo nosso merchant of record.",
    "Quem envia uma ferramenta confirma que tem o direito de listá-la e que ela não promete retornos garantidos.",
    "Nossa responsabilidade é limitada ao valor que você nos pagou nos últimos 12 meses.",
+   "Os dados do diretório da nossa <a href=\"/developers/\" hreflang=\"en\">API e servidor MCP gratuitos</a> são licenciados sob <a href=\"https://creativecommons.org/licenses/by/4.0/\" rel=\"license noopener\">CC BY 4.0</a>: você pode reutilizá-los, inclusive comercialmente, desde que dê o crédito a “TradingAIHub, https://tradingaihub.com”. O código da API e do servidor MCP é licenciado sob MIT.",
    "Se uma tradução divergir da versão em inglês, prevalece a versão em inglês."
   ],
   "contact": "Contato:"
@@ -556,7 +585,9 @@
   "alpaca-skills": "Skills oficiais da Alpaca para as Trading e Broker APIs: backtests, ordens, abertura de contas, movimentação de dinheiro e eventos.",
   "longbridge-skills": "Skills oficiais da Longbridge: cotações, análise técnica, derivativos, fundamentos, carteira e lista de observação nos mercados de HK, EUA, ações A e Singapura.",
   "coinbase-agentic-wallet-skills": "Skills oficiais da Coinbase para carteiras de agentes: saldos, envio de USDC, troca de tokens, depósitos e pagamento de APIs x402 em Base, Polygon e Solana.",
-  "options-trading-skills": "Skills comunitárias do Claude para traders de opções: scanners, gregas, spreads, filtros PMCC, correlações e relatórios de carteira da IBKR."
+  "options-trading-skills": "Skills comunitárias do Claude para traders de opções: scanners, gregas, spreads, filtros PMCC, correlações e relatórios de carteira da IBKR.",
+  "sure": "Aplicativo de finanças pessoais auto-hospedado (fork comunitário do Maybe Finance mantido por we-promise): contas, transações, orçamentos e patrimônio líquido, com servidor MCP próprio e API REST.",
+  "coinboss-api": "API REST oficial de dados agregados de derivativos cripto e de mercado: liquidações, open interest, taxas de funding, índices long/short e fluxos de ETF. Apenas dados de mercado; atualmente gratuita."
  },
  "faq": {
   "title": "Perguntas frequentes",
@@ -576,5 +607,36 @@
   "ca2": "Por estrelas no GitHub, as ferramentas verificadas mais populares desta categoria são {list}.",
   "cq3": "As ferramentas em “{name}” são oficiais?",
   "ca3": "Ferramentas oficiais, publicadas pelo próprio fornecedor: {o} de {n}. Projetos da comunidade: {c}. As ferramentas oficiais têm o selo “{badge}”."
+ },
+ "sec": {
+  "title": "Análise de segurança",
+  "desc": "Como o TradingAIHub analisa as ferramentas listadas: uma verificação estática de ganchos de instalação, dependências e padrões comuns de malware. Não é uma garantia nem um endosso.",
+  "h1": "Como analisamos as ferramentas listadas",
+  "intro": "Algumas ferramentas deste diretório trazem uma nota curta de “análise de segurança”. Essa nota significa que, na última execução, o nosso analisador estático não encontrou problemas nas verificações abaixo. É um relatório num momento específico, não uma garantia, uma certificação nem um endosso da ferramenta.",
+  "whatH": "O que a análise verifica",
+  "whatIntro": "O analisador inspeciona o pacote publicado e, quando há um repositório, o respectivo código-fonte. Procura:",
+  "c1": "Ganchos de instalação (por exemplo, scripts preinstall, install e postinstall do npm) e os comandos que eles executam.",
+  "c2": "Transferências encaminhadas para uma consola (curl ou wget encadeados com sh ou bash) e outras formas de disfarçar esse padrão.",
+  "c3": "Padrões de exfiltração — código que envia ficheiros locais, variáveis de ambiente ou segredos para um destino inesperado.",
+  "c4": "Riscos de typosquat e de confusão de nomes em torno dos nomes dos pacotes.",
+  "c5": "Vulnerabilidades conhecidas e avisos de malware da base de dados OSV, incluindo registos MAL (pacote malicioso), no lockfile resolvido.",
+  "c6": "Pontos de entrada: os ficheiros que um pacote realmente executa quando é instalado ou iniciado.",
+  "staticH": "É uma verificação estática",
+  "staticP": "Nenhum código de terceiros é executado. O analisador lê metadados do pacote, lockfiles e o texto do código-fonte. Não instala a ferramenta, não executa os respetivos ganchos de instalação nem a carrega num ambiente de execução.",
+  "notH": "Não é uma garantia nem um endosso",
+  "notP": "Uma nota de “não foram encontrados problemas” não é uma certificação de segurança, uma garantia nem uma recomendação para instalar ou usar a ferramenta. A análise estática pode falhar coisas, e um projeto pode mudar depois da data da análise. Continua a ser importante rever a ferramenta antes de a executar, sobretudo se puder negociar ou mover dinheiro.",
+  "updateH": "Quando a análise é atualizada",
+  "updateP": "A análise é atualizada quando voltamos a verificar o diretório. Se uma análise posterior encontrar indícios a rever, a nota é retirada da página e dos cartões dessa ferramenta. Não publicamos um rótulo de aviso para ferramentas que não ficaram limpas ou que não foram analisadas.",
+  "badgeH": "O que a nota diz",
+  "badgeP": "Na página de uma ferramenta, a nota diz: “Análise de segurança: não foram encontrados problemas · verificação estática de código e dependências · {date}”. Liga para aqui. Os cartões do diretório mostram um ícone pequeno de escudo com o mesmo significado.",
+  "stamp": "Última análise: {date}. Commit do analisador {commit}, versão das regras {rules}.",
+  "vtP": "Quando existe um relatório VirusTotal de um ficheiro publicado, a página da ferramenta também liga para ele. Nunca inventamos uma ligação VirusTotal.",
+  "reportH": "Comunicar um problema",
+  "reportP": "Se achar que um resultado da análise está errado, ou tiver uma preocupação de segurança sobre uma ferramenta listada, envie um e-mail para {email}.",
+  "badge": "Análise de segurança: não foram encontrados problemas · verificação estática de código e dependências · {date}",
+    "badgeShort": "Analisado: sem problemas",
+  "badgeAria": "Análise de segurança: não foram encontrados problemas em {date}. Verificação estática de código e dependências. Analisador {commit}, regras {rules}. Abre a página de metodologia.",
+  "cardAria": "Análise de segurança: não foram encontrados problemas em {date}. Analisador {commit}, regras {rules}.",
+  "vt": "Relatório VirusTotal"
  }
 }

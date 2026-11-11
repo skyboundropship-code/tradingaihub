@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Submit a tool (free)
+    url: https://tradingaihub.com/submit/
+    about: Suggest a finance or trading MCP server, agent skill or API. Opens a pre-filled issue on the awesome-list repo.
+  - name: Discussions
+    url: https://github.com/tradingaihub/tradingaihub/discussions
+    about: Questions, ideas and general conversation. Use this instead of an issue when you are not reporting a bug.
+  - name: Awesome list repository
+    url: https://github.com/tradingaihub/awesome-finance-ai-tools
+    about: The generated markdown list, tool-submission issues and listing PRs.
+  - name: No GitHub account? Email us
+    url: https://tradingaihub.com/about/
+    about: Email hello@tradingaihub.com.

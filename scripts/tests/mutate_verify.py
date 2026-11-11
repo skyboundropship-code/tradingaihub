@@ -14,7 +14,7 @@ M = {
     # --- QA round 1 survivors
     "metadata_follows_redirects": ('allow_redirects=False, headers={"Accept": "application/json"}', 'allow_redirects=True, headers={"Accept": "application/json"}'),
     "bearer_check_removed": ('if not wa.lower().startswith("bearer"): return False, "no Bearer challenge"', 'pass'),
-    "403_accepted": ('    if r.status_code == 401:\n        ok, info', '    if r.status_code in (401, 403):\n        ok, info'),
+    "mcp_auth_required_gated": ('return link(url, r.status_code, "ok", method="POST", **extra)', 'return link(url, r.status_code, "gated", method="POST", **extra)'),
     "cross_org_note_removed": ('if g and g.get("cross_org_redirect"):\n        v["issues"]', 'if False:\n        v["issues"]'),
     # --- QA round 2 survivors / gaps
     "b_no_retry": ('for attempt in (1, 2):', 'for attempt in (1,):'),

@@ -14,7 +14,7 @@
       "model": "freemium",
       "free_tier": "25 requests/day",
       "paid_from": "$49.99/mo",
-      "details": "Premium plans $49.99\u2013$249.99/mo (75\u20131,200 req/min).",
+      "details": "Premium plans $49.99–$249.99/mo (75–1,200 req/min).",
       "source": "https://www.alphavantage.co/premium/",
       "checked": "2026-10-29"
     },
@@ -98,7 +98,7 @@
       "model": "freemium",
       "free_tier": "8 credits/min, 800/day",
       "paid_from": "$29/mo",
-      "details": "Grow $29\u201379, Pro $99\u2013229, Ultra $329\u2013999 per month.",
+      "details": "Grow $29–79, Pro $99–229, Ultra $329–999 per month.",
       "source": "https://twelvedata.com/pricing",
       "checked": "2026-10-29"
     },
@@ -106,7 +106,7 @@
   },
   {
     "id": "eodhd-api",
-    "name": "EODHD API",
+    "name": "EODHD APIs",
     "type": "api",
     "category": "market-data",
     "description": "End-of-day, intraday, fundamentals and news for 70+ exchanges; ships an MCP server.",
@@ -168,6 +168,27 @@
     "remote_mcp_url": null
   },
   {
+    "id": "coinboss-api",
+    "name": "CoinBoss API",
+    "type": "api",
+    "category": "crypto",
+    "description": "Official REST API for aggregated crypto derivatives and market data: liquidations, open interest, funding rates, long/short ratios and ETF flows. Market data only; currently free.",
+    "repo": null,
+    "homepage": "https://www.coinboss.com",
+    "docs": "https://www.coinboss.com/api-docs",
+    "source_url": "https://www.coinboss.com/pricing",
+    "official": true,
+    "pricing": {
+      "model": "free",
+      "free_tier": "Currently free (1,200 req/min)",
+      "paid_from": null,
+      "details": "Currently free, including a Professional cap of 1,200 requests/min. Paid Hobbyist $19 / Startup $49 / Standard $199 / Professional $499 plans are listed as coming soon. Market data only.",
+      "source": "https://www.coinboss.com/pricing",
+      "checked": "2026-11-11"
+    },
+    "remote_mcp_url": null
+  },
+  {
     "id": "fred-api",
     "name": "FRED API (St. Louis Fed)",
     "type": "api",
@@ -224,7 +245,7 @@
       "model": "freemium",
       "free_tier": "25 requests/day",
       "paid_from": "$49.99/mo",
-      "details": "Premium plans $49.99\u2013$249.99/mo (75\u20131,200 req/min).",
+      "details": "Premium plans $49.99–$249.99/mo (75–1,200 req/min).",
       "source": "https://www.alphavantage.co/premium/",
       "checked": "2026-10-29"
     },
@@ -522,7 +543,10 @@
       "source": "https://docs.alpaca.markets/us/docs/about-market-data-api",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "ibkr-mcp",
@@ -543,7 +567,10 @@
       "source": "https://www.interactivebrokers.com/en/trading/ai-integrations.php",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": "https://api.ibkr.com/v1/api/mcp-public"
+    "remote_mcp_url": "https://api.ibkr.com/v1/api/mcp-public",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "tasty-agent",
@@ -564,7 +591,10 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "metatrader-mcp",
@@ -585,7 +615,10 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "paper-mcp",
@@ -711,7 +744,10 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "coinbase-agentkit",
@@ -732,7 +768,11 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "bankless-onchain-mcp",
@@ -795,7 +835,11 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "coincap-mcp",
@@ -846,8 +890,8 @@
     "category": "crypto",
     "description": "Onchain tools for the Base network.",
     "repo": "https://github.com/base/base-mcp-legacy",
-    "homepage": null,
-    "docs": null,
+    "homepage": "https://docs.base.org/ai-agents",
+    "docs": "https://docs.base.org/ai-agents",
     "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
     "official": true,
     "pricing": {
@@ -858,7 +902,8 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "deprecated": true
   },
   {
     "id": "solana-agent-kit",
@@ -879,7 +924,11 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "bitcoin-mcp",
@@ -900,15 +949,20 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "install_from_source": true,
+    "install_note": "Package currently unmaintained on npm; install from source",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "x402",
-    "name": "x402 (Coinbase)",
+    "name": "x402 (x402 Foundation)",
     "type": "mcp",
     "category": "payments-banking",
     "description": "Open protocol for HTTP-native stablecoin payments by agents.",
-    "repo": "https://github.com/coinbase/x402",
+    "repo": "https://github.com/x402-foundation/x402",
     "homepage": null,
     "docs": null,
     "source_url": "https://github.com/BlockRunAI/awesome-finance-mcp",
@@ -921,7 +975,10 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "quickbooks-mcp",
@@ -1069,7 +1126,10 @@
       "source": "https://docs.stripe.com/mcp",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": "https://mcp.stripe.com"
+    "remote_mcp_url": "https://mcp.stripe.com",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "qonto-mcp",
@@ -1161,10 +1221,10 @@
     "type": "mcp",
     "category": "personal-finance",
     "description": "MCP server for the open-source Actual Budget app.",
-    "repo": "https://github.com/Jacob-Tate/actual-budget-mcp",
-    "homepage": null,
+    "repo": "https://github.com/henfrydls/actual-budget-mcp",
+    "homepage": "https://actual-mcp.henfrydls.com/",
     "docs": null,
-    "source_url": "https://github.com/Jacob-Tate/actual-budget-mcp",
+    "source_url": "https://github.com/henfrydls/actual-budget-mcp",
     "official": false,
     "pricing": {
       "model": "open-source",
@@ -1238,7 +1298,12 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "manual_check": {
+      "method": "manual",
+      "date": "2026-11-11",
+      "note": "GitHub 200, a legitimate redirect to openbq-org, same repo id 323048702"
+    }
   },
   {
     "id": "equibles",
@@ -1532,7 +1597,11 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "claude-code-trading-terminal",
@@ -1616,7 +1685,10 @@
       "source": "https://robinhood.com/us/en/support/articles/trading-fees-on-robinhood/",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": "https://agent.robinhood.com/mcp/trading"
+    "remote_mcp_url": "https://agent.robinhood.com/mcp/trading",
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "fmp-mcp",
@@ -1701,7 +1773,10 @@
       "checked": "2026-10-29"
     },
     "remote_mcp_url": "https://mcp.paypal.com/mcp",
-    "remote_mcp_url_note": "PayPal's docs list https://mcp.paypal.com/http, which returns 404 (checked 2026-10-29); /mcp is the live endpoint (401 with valid OAuth metadata). /sse also works."
+    "remote_mcp_url_note": "PayPal's docs list https://mcp.paypal.com/http, which returns 404 (checked 2026-10-29); /mcp is the live endpoint (401 with valid OAuth metadata). /sse also works.",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "square-mcp",
@@ -1722,7 +1797,10 @@
       "source": "https://squareup.com/us/en/pricing",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": "https://mcp.squareup.com/mcp"
+    "remote_mcp_url": "https://mcp.squareup.com/mcp",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "adyen-mcp",
@@ -1743,7 +1821,10 @@
       "source": "https://www.adyen.com/pricing",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "razorpay-mcp",
@@ -1764,7 +1845,10 @@
       "source": "https://razorpay.com/pricing/",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": "https://mcp.razorpay.com/mcp"
+    "remote_mcp_url": "https://mcp.razorpay.com/mcp",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "paddle-mcp",
@@ -1780,12 +1864,15 @@
     "pricing": {
       "model": "usage-based",
       "free_tier": "No monthly fee",
-      "paid_from": "5% + 50\u00a2 per checkout transaction",
-      "details": "No separate MCP fee found; Paddle charges 5% + 50\u00a2 per checkout transaction (custom pricing available).",
+      "paid_from": "5% + 50¢ per checkout transaction",
+      "details": "No separate MCP fee found; Paddle charges 5% + 50¢ per checkout transaction (custom pricing available).",
       "source": "https://www.paddle.com/pricing",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "mercury-mcp",
@@ -1806,7 +1893,10 @@
       "source": "https://docs.mercury.com/docs/what-is-mercury-mcp",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": "https://mcp.mercury.com/mcp"
+    "remote_mcp_url": "https://mcp.mercury.com/mcp",
+    "capabilities": [
+      "moves_funds"
+    ]
   },
   {
     "id": "netsuite-ai-connector",
@@ -1935,6 +2025,27 @@
     "remote_mcp_url": null
   },
   {
+    "id": "sure",
+    "name": "Sure",
+    "type": "mcp",
+    "category": "personal-finance",
+    "description": "Self-hosted personal finance app (community-maintained fork of Maybe Finance by we-promise): accounts, transactions, budgets and net worth, with a first-party MCP server and REST API.",
+    "repo": "https://github.com/we-promise/sure",
+    "homepage": "https://sure.am",
+    "docs": "https://docs.sure.am/development/mcp",
+    "source_url": "https://github.com/we-promise/sure",
+    "official": false,
+    "pricing": {
+      "model": "open-source",
+      "free_tier": "Free (self-hosted)",
+      "paid_from": null,
+      "details": "AGPL-3.0; self-host on your own server.",
+      "source": null,
+      "checked": "2026-11-11"
+    },
+    "remote_mcp_url": null
+  },
+  {
     "id": "bls-api",
     "name": "BLS Public Data API",
     "type": "api",
@@ -2058,7 +2169,10 @@
       "source": "https://github.com/webull-inc/webull-openapi-mcp",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "kraken-cli",
@@ -2079,7 +2193,10 @@
       "source": "https://github.com/krakenfx/kraken-cli",
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "schwab-mcp",
@@ -2100,7 +2217,10 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading"
+    ]
   },
   {
     "id": "alpaca-skills",
@@ -2121,7 +2241,11 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "longbridge-skills",
@@ -2163,7 +2287,11 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading",
+      "moves_funds"
+    ]
   },
   {
     "id": "options-trading-skills",
@@ -2184,6 +2312,9 @@
       "source": null,
       "checked": "2026-10-29"
     },
-    "remote_mcp_url": null
+    "remote_mcp_url": null,
+    "capabilities": [
+      "live_trading"
+    ]
   }
 ]

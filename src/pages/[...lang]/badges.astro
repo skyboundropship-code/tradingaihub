@@ -13,9 +13,9 @@ const ex = tools.find((x) => x.id === "alpaca-mcp")!; const site = SITE.name;
   <p>{t("badges.p1")}</p>
   <p><img src={`/badge/${ex.id}.svg`} alt="example badge" /></p>
   <h2>Markdown (README)</h2>
-  <pre><code>{`[![${site}](${SITE.url}/badge/<your-tool-id>.svg)](${SITE.url}/tools/<your-tool-id>/)`}</code></pre>
+  <pre class="ltr" dir="ltr"><code dir="ltr">{`[![${site}](${SITE.url}/badge/<your-tool-id>.svg)](${SITE.url}/tools/<your-tool-id>/)`}</code></pre>
   <h2>HTML</h2>
-  <pre><code>{`<a href="${SITE.url}/tools/<your-tool-id>/"><img src="${SITE.url}/badge/<your-tool-id>.svg" alt="${site} verified"></a>`}</code></pre>
+  <pre class="ltr" dir="ltr"><code dir="ltr">{`<a href="${SITE.url}/tools/<your-tool-id>/"><img src="${SITE.url}/badge/<your-tool-id>.svg" alt="${site} verified"></a>`}</code></pre>
   <p>{t("badges.p2")} <a href={p("/submit/")}>{t("badges.submitFree")}</a>.</p>
   <h2>{t("badges.states")}</h2><p>{t("badges.statesP")}</p>
 </div>

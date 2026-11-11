@@ -1,6 +1,6 @@
 # Domain options (checked 2026-10-29 via authoritative RDAP; NOT purchased)
 
-> **Decision (2026-10-29):** Liran bought **tradingaihub.com** at Cloudflare Registrar. The tables below are the historical candidate checks; see also /workspace/names/round3.txt.
+> **Decision (2026-10-29):** The TradingAIHub team bought **tradingaihub.com** at Cloudflare Registrar. The tables below are the historical candidate checks.
 
 RDAP 404 = not registered. Premium/reserved pricing can't be seen via RDAP — confirm at checkout.
 Prices: Cloudflare Registrar = at-cost (no markup). Porkbun from its public pricing API (cross-check).

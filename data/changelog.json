@@ -1,5 +1,145 @@
 [
   {
+    "date": "2026-11-11",
+    "counts": {
+      "verified": 87,
+      "stale": 12,
+      "aging": 4,
+      "archived": 3
+    },
+    "changes": [
+      {
+        "kind": "new",
+        "id": "coinboss-api",
+        "text": "New: CoinBoss API added."
+      },
+      {
+        "kind": "status",
+        "id": "openbb",
+        "text": "OpenBB Platform (MCP): unconfirmed \u2192 verified"
+      },
+      {
+        "kind": "stars",
+        "id": "openbb",
+        "text": "OpenBB Platform (MCP) gained 75 stars"
+      },
+      {
+        "kind": "status",
+        "id": "mercury-mcp",
+        "text": "Mercury MCP (official): unconfirmed \u2192 verified"
+      },
+      {
+        "kind": "status",
+        "id": "firefly-iii-api",
+        "text": "Firefly III API: unconfirmed \u2192 verified"
+      },
+      {
+        "kind": "stars",
+        "id": "firefly-iii-api",
+        "text": "Firefly III API gained 29 stars"
+      },
+      {
+        "kind": "new",
+        "id": "sure",
+        "text": "New: Sure added."
+      }
+    ]
+  },
+  {
+    "date": "2026-11-10",
+    "counts": {
+      "verified": 82,
+      "stale": 12,
+      "aging": 4,
+      "archived": 3,
+      "unconfirmed": 3
+    },
+    "changes": [
+      {
+        "kind": "status",
+        "id": "actual-budget-mcp",
+        "text": "Actual Budget MCP: aging \u2192 verified"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-09",
+    "counts": {
+      "verified": 81,
+      "stale": 12,
+      "aging": 5,
+      "archived": 3,
+      "unconfirmed": 3
+    },
+    "changes": [
+      {
+        "kind": "release",
+        "id": "fmp-mcp-community",
+        "text": "Financial Modeling Prep MCP (community) released 2.9.0 (was 2.8.0)"
+      },
+      {
+        "kind": "release",
+        "id": "alpaca-mcp",
+        "text": "Alpaca MCP Server released 2.4.1 (was 2.4.0)"
+      },
+      {
+        "kind": "release",
+        "id": "dexpaprika-mcp",
+        "text": "DexPaprika MCP released 2.9.3 (was 2.9.2)"
+      },
+      {
+        "kind": "stars",
+        "id": "tradingview-mcp",
+        "text": "TradingView MCP (community, unofficial) gained 53 stars"
+      },
+      {
+        "kind": "status",
+        "id": "bankless-onchain-mcp",
+        "text": "Bankless Onchain MCP: verified \u2192 aging"
+      },
+      {
+        "kind": "stars",
+        "id": "anthropic-financial-services",
+        "text": "Anthropic Financial Services Plugins gained 184 stars"
+      },
+      {
+        "kind": "release",
+        "id": "lunchmoney-mcp",
+        "text": "Lunch Money MCP released 4.0.1 (was 3.0.0)"
+      },
+      {
+        "kind": "stars",
+        "id": "openbb",
+        "text": "OpenBB Platform (MCP) gained 242 stars"
+      },
+      {
+        "kind": "status",
+        "id": "valyu-mcp",
+        "text": "Valyu MCP: stale \u2192 verified"
+      },
+      {
+        "kind": "stars",
+        "id": "claude-trading-skills",
+        "text": "Claude Trading Skills gained 159 stars"
+      },
+      {
+        "kind": "release",
+        "id": "ynab-mcp",
+        "text": "YNAB MCP Server (community) released 0.8.0 (was 0.7.2)"
+      },
+      {
+        "kind": "stars",
+        "id": "firefly-iii-api",
+        "text": "Firefly III API gained 122 stars"
+      },
+      {
+        "kind": "stars",
+        "id": "frankfurter",
+        "text": "Frankfurter (FX rates API + MCP) gained 26 stars"
+      }
+    ]
+  },
+  {
     "date": "2026-11-02",
     "counts": {
       "verified": 81,

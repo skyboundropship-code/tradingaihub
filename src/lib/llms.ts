@@ -3,6 +3,7 @@
 import { SITE } from "../config";
 import { LOCALES, useT } from "../i18n";
 import { tools, CATEGORIES, COMPARISONS, STATUS, TYPE_LABEL, byStars, verificationReport } from "./data";
+import { EDITORIAL_COMPARES } from "./bestPages";
 // Outbound vendor URLs (repo, homepage, pricing source, remote MCP) come from RAW data/tools.json: data.ts runs them through
 // affUrl(), and affiliate IDs must never reach LLM context files. Internal URLs come from the ids.
 import raw from "../../data/tools.json";
@@ -57,11 +58,16 @@ export function llmsTxt(): string {
     "## Comparisons",
     "",
     ...COMPARISONS.map((c) => `- [${md(c.title)}](${u(`/compare/${c.slug}/`)}): ${md(c.intro)}`),
+    ...EDITORIAL_COMPARES.map((c) => `- [${md(c.h1)}](${u(`/compare/${c.slug}/`)}): ${md(c.description)}`),
     "",
     "## Machine-readable data",
     "",
     `- [llms-full.txt](${u("/llms-full.txt")}): every tool with its type, official/community, verification status, license, pricing (with the vendor source and check date), repository and homepage`,
     `- [tools.json](${u("/tools.json")}): the full tool list as JSON`,
+    `- [Developer API & MCP docs](${u("/developers/")}): free, read-only JSON API and remote MCP server, no sign-in or key; examples in curl, JavaScript, Python and for LLM agents (English)`,
+    `- [OpenAPI 3.1 spec](${u("/api/openapi.json")}): every endpoint of the public API (/api/v1/tools with filters, /api/v1/tools/{slug}, /api/v1/search?q=, /api/v1/categories)`,
+    `- [API full dump](${u("/api/v1/tools.json")}): every tool with links, pricing, license, packages and verification status as JSON`,
+    `- Remote MCP server (Streamable HTTP, no auth): \`${u("/mcp")}\` with the tools search_tools, get_tool and list_categories; server card at \`${u("/mcp/server-card")}\``,
     `- [RSS](${u("/rss.xml")}): weekly changes`,
     `- [Sitemap index](${u("/sitemap-index.xml")}): one sitemap per language, each with hreflang alternates for all ${LOCALES.length} languages`,
     "",
@@ -81,7 +87,7 @@ export function llmsFullTxt(): string {
   const L = [
     ...header(),
     "",
-    `Short index: ${u("/llms.txt")}. JSON: ${u("/tools.json")}.`,
+    `Short index: ${u("/llms.txt")}. JSON: ${u("/tools.json")}. Developer API & MCP docs: ${u("/developers/")}. Tools API: ${u("/api/v1/tools")}. Remote MCP: ${u("/mcp")}.`,
     "",
     "## Verification statuses",
     "",

@@ -1,0 +1,36 @@
+name: Feedback
+description: A typo, accessibility issue, copy suggestion or product idea.
+title: "[Feedback] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks. Questions and open-ended ideas may fit better in [Discussions](https://github.com/tradingaihub/tradingaihub/discussions).
+        GitHub is **public** — do not paste API keys or private data.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - Typo or wording
+        - Accessibility
+        - Translation
+        - Product suggestion
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Page URL (if it applies)
+      placeholder: https://tradingaihub.com/…
+    validations:
+      required: false
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What should change, and why.
+    validations:
+      required: true

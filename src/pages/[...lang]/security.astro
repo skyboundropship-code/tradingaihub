@@ -1,0 +1,32 @@
+---
+import Base from "../../layouts/Base.astro";
+import { SITE } from "../../config";
+import { securityScanDate, securityScanCommit, securityScanCommitShort, securityScanRules } from "../../lib/data";
+import { langParams, useT } from "../../i18n";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en"; const { t } = useT(lang);
+const email = SITE.contactEmail;
+const [reportBefore, reportAfter] = String(t("sec.reportP", { email: "\u0000" })).split("\u0000");
+const stampVars = { date: securityScanDate ?? "—", commit: securityScanCommitShort ?? "—", rules: securityScanRules ?? "—" };
+---
+<Base title={t("sec.title")} description={t("sec.desc")} lang={lang}>
+<div class="wrap page prose">
+  <h1>{t("sec.h1")}</h1>
+  <p>{t("sec.intro")}</p>
+  <p class="note"><span>{t("sec.stamp", stampVars)}</span>{securityScanCommit && <>{" "}<code class="ltr" dir="ltr">{securityScanCommit}</code></>}</p>
+  <h2>{t("sec.whatH")}</h2>
+  <p>{t("sec.whatIntro")}</p>
+  <ul>{["c1","c2","c3","c4","c5","c6"].map((k) => <li>{t(`sec.${k}`)}</li>)}</ul>
+  <h2>{t("sec.staticH")}</h2>
+  <p>{t("sec.staticP")}</p>
+  <h2>{t("sec.notH")}</h2>
+  <p>{t("sec.notP")}</p>
+  <h2>{t("sec.updateH")}</h2>
+  <p>{t("sec.updateP")}</p>
+  <h2>{t("sec.badgeH")}</h2>
+  <p>{t("sec.badgeP", { date: securityScanDate ?? "…" })}</p>
+  <p>{t("sec.vtP")}</p>
+  <h2>{t("sec.reportH")}</h2>
+  <p>{reportBefore}<a href={`mailto:${email}?subject=Security%20scan`} dir="ltr">{email}</a>{reportAfter}</p>
+</div>
+</Base>

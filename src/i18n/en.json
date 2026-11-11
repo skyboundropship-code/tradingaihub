@@ -12,13 +12,15 @@
   "verify": "How we verify",
   "submit": "Submit a tool — free",
   "language": "Language",
-  "theme": "Toggle light/dark theme"
+  "theme": "Toggle light/dark theme",
+    "menu": "Menu"
  },
  "footer": {
   "rechecked": "Re-checked every week.",
   "directory": "Directory",
   "comparisons": "Comparisons",
   "latestRun": "Latest verification run",
+  "security": "Security scan",
   "makers": "For makers",
   "submitFree": "Submit a tool (free)",
   "getBadge": "Get your verified badge",
@@ -29,6 +31,8 @@
   "terms": "Terms",
   "about": "About",
   "advertise": "Advertise",
+  "api": "API & MCP",
+  "apiDocs": "Free API & MCP server",
   "disclaimer": "<b>Not investment advice.</b> {site} is an information directory about software tools. Nothing on this site is investment, trading, tax or legal advice or a recommendation to buy or sell any security or asset, and we are not licensed investment advisers or portfolio managers. Trading involves risk of loss. <b>Affiliate disclosure:</b> some links (currently TradingView) are affiliate links. If you sign up through them we may earn a commission at no extra cost to you. They are labelled, and they never affect listings, rankings or verification status.",
   "fullDisclaimer": "Full disclaimer",
   "short": "Not investment advice. Some links are partner links and may earn us a commission."
@@ -80,7 +84,7 @@
    "Check links",
    "A homepage, docs or endpoint link failed in the last check."
   ],
-  "unconfirmed": ["Needs review", "Reachable, but a homepage, docs or endpoint link refused our checker (sign-in required, bot block or rate limit), so it could not be fully confirmed. Not counted as verified."],
+  "unconfirmed": ["Link check pending", "Reachable, but a homepage, docs or endpoint link refused our checker (sign-in required, bot block or rate limit), so it could not be fully confirmed. Not counted as verified."],
   "unreachable": [
    "Unreachable",
    "The repository or homepage could not be reached."
@@ -279,6 +283,7 @@
   "pricesChange": "Prices change — always confirm on the vendor's page before buying.",
   "verification": "Verification",
   "autoCheck": "Automated check on {date}.",
+  "manualCheck": "Manually checked on {date}.",
   "repository": "Repository",
   "homepage": "Homepage",
   "docs": "Docs",
@@ -293,6 +298,10 @@
   "sendCorrection": "Send a correction",
   "free": "free",
   "notEndorse": "Listing a tool is not an endorsement or investment advice. Test any trading tool in paper mode first.",
+  "liveFundsNote": "Can place live trades / move funds — use paper mode or scoped keys",
+  "liveTradingNote": "Can place live trades — use paper mode or scoped keys",
+  "movesFundsNote": "Can move funds — use sandbox mode or scoped keys",
+  "deprecatedNote": "Deprecated by the vendor. See the replacement docs.",
   "more": "More in {cat}",
   "pricingDataNote": "Pricing details are quoted in English from the vendor's page."
  },
@@ -317,6 +326,7 @@
   "chatgpt": "ChatGPT → Settings → Apps & Connectors (developer mode) → Create, paste this URL.",
   "grok": "Remote MCP tool in an xAI API request; see docs.x.ai for auth headers.",
   "fromSource": "No published npm/PyPI package or hosted endpoint was detected by our verifier. Follow the README to run it locally, then register the start command as a stdio MCP server in your client.",
+  "npmUnmaintained": "The npm package is currently unmaintained and held by npm, so don't install it from npm. Clone the repository, follow its README to run it locally, then register the start command as a stdio MCP server in your client.",
   "needsRemote": "Requires a remote (HTTPS) MCP URL",
   "stdioOnly": "This server runs locally over stdio. ChatGPT connectors and the Grok API need a hosted HTTPS endpoint, which this project does not publish.",
   "marketplace": "Then run /plugin to browse and install its plugins/skills.",
@@ -367,7 +377,7 @@
   "title": "Submit a tool",
   "desc": "Submit an MCP server, agent skill or API for finance and trading. Free listing, automatically verified.",
   "lead": "<b>Free forever.</b> No paid tiers, no catch. You also get a free auto-updating verified badge. After submission our verifier checks the repo/homepage, last commit, package registry and docs. Tools that pass are published within a week.",
-  "preview": "Submitting opens a pre-filled GitHub issue in a new tab. We vet every submission before it is listed.",
+  "preview": "Submitting opens a pre-filled GitHub issue in a new tab. GitHub issues are public — do not paste API keys or private data. We vet every submission before it is listed.",
   "noGithub": "No GitHub account? Email the same details to {email}.",
   "name": "Tool name",
   "url": "Repository or homepage URL",
@@ -379,7 +389,25 @@
   "confirm": "I confirm this tool does not promise returns and is not an investment-advice service.",
   "button": "Submit for review",
   "thanks": "Almost done: review the pre-filled GitHub issue in the new tab and click “Create”. Nothing opened? Allow pop-ups and try again.",
-  "blank": "Please fill in this field (spaces alone don't count)."
+  "blank": "Please fill in this field (spaces alone don't count).",
+  "license": "License or terms",
+  "licenseHelp": "For example MIT, Apache-2.0, proprietary, or a link to the vendor's terms.",
+  "pricing": "Pricing",
+  "pricingHelp": "Free, freemium or paid, plus a link to the pricing page if paid.",
+  "official": "Official or community?",
+  "officialHelp": "Official = built or maintained by the company whose product or data it connects to.",
+  "officialVendor": "Official (by the vendor)",
+  "officialCommunity": "Community",
+  "officialUnsure": "Not sure",
+  "brokerAccess": "Does this tool connect to or trade through a broker or exchange account?",
+  "brokerHelp": "Yes if it can read positions, place orders, or use brokerage or exchange credentials.",
+  "brokerNo": "No — read-only market data or research",
+  "brokerRead": "Yes — read-only access to an account (positions, balances)",
+  "brokerPaper": "Yes — can place paper/sandbox orders",
+  "brokerLive": "Yes — can place live orders",
+  "brokerUnsure": "Not sure",
+  "brokerScope": "Broker or exchange access — what scope? (if yes)",
+  "brokerScopeHelp": "Name the broker or exchange and what the tool can do. Leave blank if it does not access an account."
  },
  "badges": {
   "title": "Free verified badges for tool makers",
@@ -439,6 +467,7 @@
    "Sponsored placements buy visibility only, are labelled, may be declined or removed (pro-rata refund) and are billed by our merchant of record.",
    "Submitters confirm they have the right to list the tool and that it makes no guaranteed-return claims.",
    "Our liability is limited to the amount you paid us in the last 12 months.",
+   "The directory data in our free <a href=\"/developers/\" hreflang=\"en\">API and MCP server</a> is licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\" rel=\"license noopener\">CC BY 4.0</a>: you may reuse it, including commercially, if you credit “TradingAIHub, https://tradingaihub.com”. The API and MCP server code is MIT-licensed.",
    "If a translation differs from the English version, the English version applies."
   ],
   "contact": "Contact:"
@@ -547,7 +576,9 @@
   "alpaca-skills": "Official Alpaca agent skills for the Trading and Broker APIs: backtests, orders, account onboarding, money movement and events.",
   "longbridge-skills": "Official Longbridge agent skills: quotes, technicals, derivatives, fundamentals, portfolio and watchlist across HK, US, A-share and SG markets.",
   "coinbase-agentic-wallet-skills": "Official Coinbase skills for agent wallets: balances, send USDC, swap tokens, onramp funds and pay x402 APIs on Base, Polygon and Solana.",
-  "options-trading-skills": "Community Claude skills for options traders: scanners, Greeks, spreads, PMCC screens, correlations and IBKR portfolio reports."
+  "options-trading-skills": "Community Claude skills for options traders: scanners, Greeks, spreads, PMCC screens, correlations and IBKR portfolio reports.",
+  "sure": "Self-hosted personal finance app (community-maintained fork of Maybe Finance by we-promise): accounts, transactions, budgets and net worth, with a first-party MCP server and REST API.",
+  "coinboss-api": "Official REST API for aggregated crypto derivatives and market data: liquidations, open interest, funding rates, long/short ratios and ETF flows. Market data only; currently free."
  },
  "partner": {
   "label": "Partner",
@@ -577,5 +608,36 @@
   "ca2": "By GitHub stars, the most popular verified tools in this category are {list}.",
   "cq3": "Are the tools in “{name}” official?",
   "ca3": "Official tools, published by the vendor itself: {o} of {n}. Community projects: {c}. Official tools carry the “{badge}” badge."
+ },
+ "sec": {
+  "title": "Security scan",
+  "desc": "How TradingAIHub scans listed tools: a static check of install hooks, dependencies and common malware patterns. It is not a guarantee or an endorsement.",
+  "h1": "How we scan listed tools",
+  "intro": "Some tools in this directory carry a short “security scan” note. That note means our static scanner, on its latest run, found no issues in the checks below. It is a point-in-time report, not a guarantee, a certification, or an endorsement of the tool.",
+  "whatH": "What the scan checks",
+  "whatIntro": "The scanner inspects the published package and, when there is a repository, its source. It looks for:",
+  "c1": "Install hooks (for example npm preinstall, install and postinstall scripts) and the commands they run.",
+  "c2": "Downloads piped to a shell (curl or wget piped into sh or bash) and other disguises of that pattern.",
+  "c3": "Exfiltration patterns — code that sends local files, environment variables or secrets to an unexpected destination.",
+  "c4": "Typosquat and name-confusion risks around package names.",
+  "c5": "Known vulnerabilities and malware advisories from the OSV database, including MAL (malicious package) records, in the resolved lockfile.",
+  "c6": "Entry points: the files a package actually runs when it is installed or started.",
+  "staticH": "It is a static check",
+  "staticP": "No third-party code is run. The scanner reads package metadata, lockfiles and source text. It does not install the tool, execute its install hooks, or load it in a runtime.",
+  "notH": "Not a guarantee or an endorsement",
+  "notP": "A “no issues found” note is not a security certification, a warranty, or a recommendation to install or use the tool. Static analysis can miss things, and a project can change after the scan date. You should still review a tool yourself before you run it, especially one that can trade or move money.",
+  "updateH": "When the scan is updated",
+  "updateP": "The scan is updated when we re-verify the directory. If a later scan finds concerns, the note is removed from that tool’s page and cards. We do not publish a warning label for tools that were not clean or were not scanned.",
+  "badgeH": "What the note says",
+  "badgeP": "On a tool page the note reads: “Security scan: no issues found · static code & dependency check · {date}”. It links here. Directory cards show a small shield icon with the same meaning.",
+  "stamp": "Latest scan: {date}. Scanner commit {commit}, rules version {rules}.",
+  "vtP": "When a VirusTotal report is available for a published file, the tool page also links to it. We never invent a VirusTotal link.",
+  "reportH": "Report an issue",
+  "reportP": "If you think a scan result is wrong, or you have a security concern about a listed tool, email {email}.",
+  "badge": "Security scan: no issues found · static code & dependency check · {date}",
+    "badgeShort": "Scanned: no issues",
+  "badgeAria": "Security scan: no issues found on {date}. Static code and dependency check. Scanner {commit}, rules {rules}. Opens the methodology page.",
+  "cardAria": "Security scan: no issues found on {date}. Scanner {commit}, rules {rules}.",
+  "vt": "VirusTotal report"
  }
 }
