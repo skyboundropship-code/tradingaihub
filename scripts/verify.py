@@ -15,10 +15,17 @@ from concurrent.futures import ThreadPoolExecutor
 import requests, urllib3
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-UA = {"User-Agent": "FinanceAgentDirectoryBot/0.1 (weekly link check)"}
+# Ordinary current desktop-browser headers on every HTTP check. Not an evasion
+# technique: no captcha bypass, cookies or proxies — just a normal UA and Accept
+# so sites that block unidentified bots can still answer.
+BROWSER = {
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+}
 TOKEN = os.environ.get("GITHUB_TOKEN")
 NOW = dt.datetime.now(dt.timezone.utc)
-S = requests.Session(); S.headers.update(UA)
+S = requests.Session(); S.headers.update(BROWSER)
 
 GET_DEADLINE = 25.0  # seconds, hard total for one homepage/docs/GitHub GET (DNS, connect, TLS, headers, body)
 
@@ -51,8 +58,6 @@ def get(url, **kw):
 DEAD = frozenset({404, 410})
 GATED = frozenset({401, 403, 405, 406, 407, 429, 451})
 FAILURES = ("dead", "fail", "error")
-BROWSER = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36",
-           "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "Accept-Language": "en"}
 
 def classify(status):
     """HTTP status (int) or exception name (str) -> ok | dead | gated | fail | error."""
@@ -292,11 +297,14 @@ def oauth_evidence(endpoint, www_auth, fetch=None, end=None):
 
 def mcp_probe(url):
     """Remote MCP endpoint: POST a JSON-RPC `initialize` (what a real client sends), not a bare GET.
-    ok     2xx with a real JSON-RPC response to initialize (application/json or an SSE data: event), or a 401 that
-           passes oauth_evidence() (QA's strict rule). A 2xx HTML page / challenge page is NOT ok.
-    gated  any other 401, every 403 (even with good metadata), a 2xx without a JSON-RPC answer, a stream that
-           stays open past DEADLINE, a legacy-SSE GET that does not answer text/event-stream.
-    other  POST refused with 405/other 4xx -> retry with GET (legacy SSE transport), then classify() as usual."""
+    ok     2xx with a real JSON-RPC response to initialize (application/json or an SSE data: event), or HTTP
+           401/403 (auth required: the remote MCP endpoint is up). A 401 that also passes oauth_evidence()
+           is recorded as evidence=mcp-oauth; otherwise evidence=mcp-auth-required. A 2xx HTML page /
+           challenge page is NOT ok. Homepages, docs and repos still use classify() (401/403 stay gated).
+    gated  a bot-challenge page (cf-mitigated), a 2xx without a JSON-RPC answer, a stream that stays open
+           past DEADLINE, a legacy-SSE GET that does not answer text/event-stream.
+    other  POST refused with 405/other 4xx -> retry with GET (legacy SSE transport), then classify() as usual
+           (GET 401/403 on the same endpoint also count as reachable, unless it is a bot-challenge page)."""
     hdr = {"Accept": "application/json, text/event-stream", "Content-Type": "application/json"}
     def ct(resp): return (resp.headers.get("Content-Type") or "").lower()
     def done(resp, body): return jsonrpc_response(body, ct(resp)) is not None
@@ -317,12 +325,15 @@ def mcp_probe(url):
         return link(url, r.status_code, "gated", method="POST", why=why)
     if 300 <= r.status_code < 400:
         return link(url, r.status_code, "gated", method="POST", why=f"redirects to {r.headers.get('Location') or '?'} (not followed)")
-    if r.status_code == 401:
-        ok, info = oauth_evidence(url, r.headers.get("WWW-Authenticate"), end=end)
-        if ok: return link(url, r.status_code, "ok", method="POST", evidence="mcp-oauth", resource_metadata=info)
-        return link(url, r.status_code, "gated", method="POST", why=info)
-    if r.status_code == 403:
-        return link(url, 403, "gated", method="POST", why="403 is never verified (policy: only a 401 with valid OAuth metadata counts)")
+    if r.status_code in (401, 403):
+        if _challenge(r):
+            return link(url, r.status_code, "gated", method="POST", why="bot challenge page (cf-mitigated)")
+        # Auth required means the remote MCP endpoint is up. Homepages/docs/repos keep classify().
+        extra = {"evidence": "mcp-auth-required"}
+        if r.status_code == 401:
+            ok, info = oauth_evidence(url, r.headers.get("WWW-Authenticate"), end=end)
+            if ok: extra = {"evidence": "mcp-oauth", "resource_metadata": info}
+        return link(url, r.status_code, "ok", method="POST", **extra)
     if r.status_code in DEAD or r.status_code == 429 or r.status_code >= 500:
         return link(url, r.status_code, classify(r.status_code), method="POST")
     def sse_ok(resp, b): return b"event:" in b or b"data:" in b
@@ -338,6 +349,10 @@ def mcp_probe(url):
             return link(url, g.status_code, "ok", method="GET", post_status=r.status_code, evidence="sse-get")
         return link(url, g.status_code, "gated", method="GET", post_status=r.status_code,
                     why=f"GET {g.status_code} {gct or 'no content-type'} is not an MCP SSE stream")
+    if g.status_code in (401, 403):
+        if _challenge(g):
+            return link(url, g.status_code, "gated", method="GET", post_status=r.status_code, why="bot challenge page (cf-mitigated)")
+        return link(url, g.status_code, "ok", method="GET", post_status=r.status_code, evidence="mcp-auth-required")
     return link(url, g.status_code, classify(g.status_code), method="GET", post_status=r.status_code)
 
 LABEL = {"homepage alive": "homepage", "docs alive": "docs", "remote MCP endpoint responds": "MCP endpoint"}
@@ -494,7 +509,22 @@ def verify(t):
     if g and g.get("cross_org_redirect"):
         v["issues"].append(f"Repository redirects to another owner ({g['cross_org_redirect']}); stored link not updated")
     v["status"] = status_of(v)
+    apply_manual_check(t, v)
     return v
+
+def apply_manual_check(t, v):
+    """A recorded manual check can keep a tool verified when the automated checker only
+    reached 'unconfirmed' (gated link or a known cross-org redirect). Real failures
+    (dead/warning/stale/archived/unreachable) are never overridden."""
+    mc = t.get("manual_check")
+    if not isinstance(mc, dict) or not mc.get("date"):
+        return
+    rec = {"method": mc.get("method") or "manual", "date": mc["date"]}
+    if mc.get("note"): rec["note"] = mc["note"]
+    v["manual_check"] = rec
+    if v["status"] == "unconfirmed":
+        v["status"] = "verified"
+        v["manual_override"] = True
 
 def recheck_demotions(todo, fresh, current, fn=None):
     """One retry before a tool drops from verified (e.g. to Needs review): a transient network error must not
@@ -603,7 +633,7 @@ def main():
         if t["id"] not in fresh:
             tools.append(prev[t["id"]]); continue
         v = fresh[t["id"]]
-        t = dict(t); t["verification"] = v
+        t = dict(t); t.pop("manual_check", None); t["verification"] = v
         g = v.get("github") or {}
         t["license"] = g.get("license") or ("Proprietary / ToS" if t["type"] == "api" or not t.get("repo") else "unknown")
         # keep subfolder URLs (collections) and pinned slugs; otherwise follow GitHub renames

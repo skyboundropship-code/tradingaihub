@@ -2,17 +2,41 @@
   {
     "date": "2026-11-11",
     "counts": {
-      "verified": 84,
+      "verified": 87,
       "stale": 12,
       "aging": 4,
-      "archived": 3,
-      "unconfirmed": 3
+      "archived": 3
     },
     "changes": [
       {
         "kind": "new",
         "id": "coinboss-api",
         "text": "New: CoinBoss API added."
+      },
+      {
+        "kind": "status",
+        "id": "openbb",
+        "text": "OpenBB Platform (MCP): unconfirmed \u2192 verified"
+      },
+      {
+        "kind": "stars",
+        "id": "openbb",
+        "text": "OpenBB Platform (MCP) gained 75 stars"
+      },
+      {
+        "kind": "status",
+        "id": "mercury-mcp",
+        "text": "Mercury MCP (official): unconfirmed \u2192 verified"
+      },
+      {
+        "kind": "status",
+        "id": "firefly-iii-api",
+        "text": "Firefly III API: unconfirmed \u2192 verified"
+      },
+      {
+        "kind": "stars",
+        "id": "firefly-iii-api",
+        "text": "Firefly III API gained 29 stars"
       },
       {
         "kind": "new",

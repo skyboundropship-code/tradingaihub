@@ -355,8 +355,8 @@
  },
  "openbb": {
   "name": "OpenBB Platform (MCP)",
-  "status": "unconfirmed",
-  "stars": 75252,
+  "status": "verified",
+  "stars": 75327,
   "version": null
  },
  "equibles": {
@@ -517,7 +517,7 @@
  },
  "mercury-mcp": {
   "name": "Mercury MCP (official)",
-  "status": "unconfirmed",
+  "status": "verified",
   "stars": null,
   "version": null
  },
@@ -553,8 +553,8 @@
  },
  "firefly-iii-api": {
   "name": "Firefly III API",
-  "status": "unconfirmed",
-  "stars": 25179,
+  "status": "verified",
+  "stars": 25208,
   "version": null
  },
  "sure": {

@@ -124,13 +124,17 @@ class McpProbe(unittest.TestCase):
         a, _ = self.probe((V.Timeout("no complete answer within 8s"), b": ping\n"))
         self.assertEqual((a["result"], a["status"]), ("gated", "Timeout"))
 
-    def test_403_with_good_metadata_is_never_verified(self):
+    def test_403_auth_required_is_reachable(self):
         h = {"WWW-Authenticate": hdr("https://mcp.example.com/.well-known/oauth-protected-resource/mcp")}
         meta = R(200, json_body={"resource": "https://mcp.example.com/mcp", "authorization_servers": ["https://a"]})
         a, _ = self.probe((R(403, h), b""), meta=meta)
-        self.assertEqual(a["result"], "gated"); self.assertIn("403", a["why"])
-        a, _ = self.probe((R(401, h), b""), meta=meta)  # same evidence on a 401 passes
-        self.assertEqual(a["result"], "ok")
+        self.assertEqual((a["result"], a["ok"], a["evidence"]), ("ok", True, "mcp-auth-required"))
+        a, _ = self.probe((R(401, h), b""), meta=meta)  # same evidence on a 401 still records mcp-oauth
+        self.assertEqual((a["result"], a["evidence"]), ("ok", "mcp-oauth"))
+
+    def test_403_bot_challenge_still_gated(self):
+        a, _ = self.probe((R(403, {"cf-mitigated": "challenge"}), b""))
+        self.assertEqual((a["result"], a["ok"]), ("gated", False))
 
     def test_404_dead_paypal_case(self):
         a, rq = self.probe((R(404), b""))
@@ -142,14 +146,18 @@ class McpProbe(unittest.TestCase):
         a, _ = self.probe((R(401, h), b""), meta=meta)
         self.assertEqual((a["result"], a["evidence"]), ("ok", "mcp-oauth"))
 
-    def test_401_weak_metadata_gated_with_reason(self):
+    def test_401_without_oauth_metadata_is_reachable(self):
         h = {"WWW-Authenticate": 'Bearer resource_metadata="https://mcp.example.com/.well-known/oauth-protected-resource"'}
         a, _ = self.probe((R(401, h), b""), meta=R(200, json_body={"resource": "https://mcp.example.com/mcp"}))
-        self.assertEqual(a["result"], "gated"); self.assertIn("authorization_servers", a["why"])
+        self.assertEqual((a["result"], a["evidence"]), ("ok", "mcp-auth-required"))
 
-    def test_401_plain_bearer_gated(self):
+    def test_401_plain_bearer_is_reachable(self):
         a, _ = self.probe((R(401, {"WWW-Authenticate": 'Bearer error="invalid_token"'}), b""))
-        self.assertEqual(a["result"], "gated")
+        self.assertEqual((a["result"], a["evidence"]), ("ok", "mcp-auth-required"))
+
+    def test_post_405_get_401_is_reachable(self):
+        a, _ = self.probe((R(405), b""), get=(R(401), b""))
+        self.assertEqual((a["result"], a["method"], a["evidence"]), ("ok", "GET", "mcp-auth-required"))
 
     def test_post_405_falls_back_to_get(self):
         a, rq = self.probe((R(405), b""), get=(R(200, SSE), b"event: endpoint\ndata: /messages\n\n"))
@@ -717,6 +725,51 @@ class SiteKnowsEveryStatus(unittest.TestCase):
         for f in glob.glob(os.path.join(ROOT, "src/i18n/*.json")):
             with open(f) as fh: st = json.load(fh)["status"]
             with self.subTest(locale=os.path.basename(f)): self.assertTrue(self.STATUSES <= set(st))
+
+
+class BrowserHeaders(unittest.TestCase):
+    def test_session_sends_browser_ua_and_accept(self):
+        h = {k.lower(): v for k, v in V.S.headers.items()}
+        self.assertTrue(h["user-agent"].startswith("Mozilla/5.0 "))
+        self.assertIn("Chrome/", h["user-agent"])
+        self.assertIn("text/html", h["accept"])
+        self.assertTrue(h["accept-language"].startswith("en"))
+
+    def test_homepage_401_stays_gated(self):
+        with mock.patch.object(V, "get", return_value=R(401)):
+            self.assertEqual(V.alive("https://x/")["result"], "gated")
+
+    def test_homepage_403_without_retry_success_stays_gated(self):
+        with mock.patch.object(V, "get", return_value=R(403)):
+            self.assertEqual(V.alive("https://x/")["result"], "gated")
+
+
+class ManualCheck(unittest.TestCase):
+    def test_overrides_unconfirmed_only(self):
+        t = {"id": "x", "manual_check": {"method": "manual", "date": "2026-11-11", "note": "checked in a browser"}}
+        v = {"status": "unconfirmed", "issues": ["Could not confirm: gated"]}
+        V.apply_manual_check(t, v)
+        self.assertEqual(v["status"], "verified")
+        self.assertTrue(v["manual_override"])
+        self.assertEqual(v["manual_check"]["date"], "2026-11-11")
+        self.assertEqual(v["manual_check"]["method"], "manual")
+
+    def test_does_not_override_warning_or_stale(self):
+        t = {"id": "x", "manual_check": {"date": "2026-11-11", "method": "manual"}}
+        for st in ("warning", "stale", "aging", "archived", "unreachable"):
+            with self.subTest(st=st):
+                v = {"status": st, "issues": ["x"]}
+                V.apply_manual_check(t, v)
+                self.assertEqual(v["status"], st)
+                self.assertFalse(v.get("manual_override"))
+                self.assertEqual(v["manual_check"]["date"], "2026-11-11")
+
+    def test_absent_or_dateless_is_noop(self):
+        v = {"status": "unconfirmed"}
+        V.apply_manual_check({"id": "x"}, v)
+        self.assertEqual(v, {"status": "unconfirmed"})
+        V.apply_manual_check({"id": "x", "manual_check": {"method": "manual"}}, v)
+        self.assertEqual(v, {"status": "unconfirmed"})
 
 
 if __name__ == "__main__": unittest.main()

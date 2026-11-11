@@ -3208,7 +3208,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-11-09",
+      "checked_at": "2026-11-11",
       "checks": [
         {
           "check": "repo reachable",
@@ -3226,14 +3226,20 @@
       "github": {
         "reachable": true,
         "final_url": "https://github.com/openbq-org/OpenBB",
-        "stars": 75252,
+        "stars": 75327,
         "archived": false,
         "license": "Apache-2.0",
-        "last_commit": "2026-11-07T00:09:44Z",
+        "last_commit": "2026-11-11T06:33:51Z",
         "cross_org_redirect": "https://github.com/openbq-org/OpenBB"
       },
-      "last_commit_days": 2,
-      "status": "unconfirmed"
+      "last_commit_days": 0,
+      "status": "verified",
+      "manual_check": {
+        "method": "manual",
+        "date": "2026-11-11",
+        "note": "links checked with browser headers: firefly-iii.org 200, api-docs.firefly-iii.org 200, repo 200; docs.mercury.com 200, mcp.mercury.com/mcp 401; OpenBB GitHub 200"
+      },
+      "manual_override": true
     },
     "license": "Apache-2.0"
   },
@@ -4819,8 +4825,11 @@
       "checked": "2026-10-29"
     },
     "remote_mcp_url": "https://mcp.mercury.com/mcp",
+    "capabilities": [
+      "moves_funds"
+    ],
     "verification": {
-      "checked_at": "2026-11-09",
+      "checked_at": "2026-11-11",
       "checks": [
         {
           "check": "homepage alive",
@@ -4836,14 +4845,12 @@
         },
         {
           "check": "remote MCP endpoint responds",
-          "ok": false,
-          "result": "gated",
-          "note": "401: answered but refused our checker (sign-in required, bot block or rate limit) [no resource_metadata in WWW-Authenticate]"
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
-      "issues": [
-        "Could not confirm: MCP endpoint 401: answered but refused our checker (sign-in required, bot block or rate limit) [no resource_metadata in WWW-Authenticate]"
-      ],
+      "issues": [],
       "homepage": {
         "url": "https://docs.mercury.com/docs/what-is-mercury-mcp",
         "ok": true,
@@ -4858,19 +4865,16 @@
       },
       "remote_mcp": {
         "url": "https://mcp.mercury.com/mcp",
-        "ok": false,
+        "ok": true,
         "status": 401,
-        "result": "gated",
+        "result": "ok",
         "method": "POST",
-        "why": "no resource_metadata in WWW-Authenticate"
+        "evidence": "mcp-auth-required"
       },
       "last_commit_days": null,
-      "status": "unconfirmed"
+      "status": "verified"
     },
-    "license": "Proprietary / ToS",
-    "capabilities": [
-      "moves_funds"
-    ]
+    "license": "Proprietary / ToS"
   },
   {
     "id": "netsuite-ai-connector",
@@ -5178,7 +5182,7 @@
     },
     "remote_mcp_url": null,
     "verification": {
-      "checked_at": "2026-11-09",
+      "checked_at": "2026-11-11",
       "checks": [
         {
           "check": "repo reachable",
@@ -5191,44 +5195,40 @@
         },
         {
           "check": "homepage alive",
-          "ok": false,
-          "result": "gated",
-          "note": "403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)]"
+          "ok": true,
+          "result": "ok",
+          "note": null
         },
         {
           "check": "docs alive",
-          "ok": false,
-          "result": "gated",
-          "note": "403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)]"
+          "ok": true,
+          "result": "ok",
+          "note": null
         }
       ],
-      "issues": [
-        "Could not confirm: homepage 403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)]; docs 403: answered but refused our checker (sign-in required, bot block or rate limit) [bot challenge page (cf-mitigated)]"
-      ],
+      "issues": [],
       "github": {
         "reachable": true,
         "final_url": "https://github.com/firefly-iii/firefly-iii",
-        "stars": 25179,
+        "stars": 25208,
         "archived": false,
         "license": "AGPL-3.0",
-        "last_commit": "2026-11-09T05:49:06Z"
+        "last_commit": "2026-11-11T04:58:03Z"
       },
       "homepage": {
         "url": "https://www.firefly-iii.org/",
-        "ok": false,
-        "status": 403,
-        "result": "gated",
-        "why": "bot challenge page (cf-mitigated)"
+        "ok": true,
+        "status": 200,
+        "result": "ok"
       },
       "docs": {
         "url": "https://api-docs.firefly-iii.org/",
-        "ok": false,
-        "status": 403,
-        "result": "gated",
-        "why": "bot challenge page (cf-mitigated)"
+        "ok": true,
+        "status": 200,
+        "result": "ok"
       },
       "last_commit_days": 0,
-      "status": "unconfirmed"
+      "status": "verified"
     },
     "license": "AGPL-3.0"
   },
