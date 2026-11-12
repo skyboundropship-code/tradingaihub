@@ -845,4 +845,111 @@ class ManualCheckDisplay(unittest.TestCase):
             self.assertIn("- openbb: Manually checked on 2026-11-11", md)
 
 
+def _npm_res(repository=None, homepage=None, bugs=None, name="pkg", maintainers=("m1",)):
+    """Shape of V.npm() output, built offline."""
+    import json as _j
+    rep = repository; rep_url = rep.get("url") if isinstance(rep, dict) else rep
+    bug_url = bugs.get("url") if isinstance(bugs, dict) else bugs
+    return {"_lb": _j.dumps([repository, homepage, bugs]).lower(), "name": name, "version": "1.0.0",
+            "url": f"https://www.npmjs.com/package/{name}",
+            "_meta": {"primary": [rep_url], "other": [homepage, bug_url],
+                      "directory": rep.get("directory") if isinstance(rep, dict) else None, "maintainers": list(maintainers)}}
+
+def _pypi_res(project_urls=None, home_page=None, name="pkg"):
+    import json as _j
+    pu = project_urls or {}
+    prim = [u for k, u in pu.items() if V.re.search(r"source|repo|code|github", k, V.re.I)]
+    return {"_lb": _j.dumps([project_urls, home_page, None]).lower(), "name": name, "version": "0.1", "url": f"https://pypi.org/project/{name}/",
+            "_meta": {"primary": prim, "other": [u for u in pu.values() if u not in prim] + [home_page, None], "maintainers": []}}
+
+NORES = lambda full: full  # resolver that knows no redirects
+
+
+class RepoUrlForms(unittest.TestCase):
+    def test_forms(self):
+        cases = {"https://github.com/Owner/Repo": "owner/repo", "https://github.com/o/r.git": "o/r",
+                 "git+https://github.com/o/r.git": "o/r", "git+ssh://git@github.com/o/r.git": "o/r",
+                 "git@github.com:o/r.git": "o/r", "git://github.com/o/r.git": "o/r", "github:o/r": "o/r",
+                 "o/r": "o/r", "https://github.com/o/r/tree/main/packages/x": "o/r", "https://github.com/o/r#readme": "o/r",
+                 "https://github.com/o/r/issues": "o/r", "https://github.com/o/my.repo.js": "o/my.repo.js",
+                 "https://gitlab.com/o/r": None, "": None, None: None}
+        for u, want in cases.items():
+            with self.subTest(u=u): self.assertEqual(V.gh_repo_of(u), want)
+
+
+class Provenance(unittest.TestCase):
+    L = {"acme/acme-mcp"}
+
+    def st(self, res, kind="npm", cand="pkg", resolve=NORES):
+        return V.classify_provenance(self.L, kind, cand, res, resolve)
+
+    def test_verified_git_plus_https(self):
+        p = self.st(_npm_res({"type": "git", "url": "git+https://github.com/acme/acme-mcp.git"}))
+        self.assertEqual((p["state"], p["declared_repo"], p["registry"]), ("verified", "https://github.com/acme/acme-mcp", "npm"))
+
+    def test_verified_ssh_and_case(self):
+        self.assertEqual(self.st(_npm_res("git+ssh://git@github.com/ACME/Acme-MCP.git"))["state"], "verified")
+
+    def test_verified_monorepo_directory(self):
+        p = self.st(_npm_res({"type": "git", "url": "https://github.com/acme/acme-mcp.git", "directory": "packages/server"}))
+        self.assertEqual((p["state"], p["directory"]), ("verified", "packages/server"))
+
+    def test_verified_via_bugs_only(self):
+        self.assertEqual(self.st(_npm_res(None, None, {"url": "https://github.com/acme/acme-mcp/issues"}))["state"], "verified")
+
+    def test_listed_case_insensitive(self):
+        p = V.classify_provenance({"Acme/Acme-MCP"}, "npm", "pkg", _npm_res("https://github.com/acme/acme-mcp"), NORES)
+        self.assertEqual(p["state"], "verified")
+
+    def test_mismatch_other_repo(self):
+        p = self.st(_npm_res("https://github.com/someone/acme-mcp"))
+        self.assertEqual((p["state"], p["declared_repo"]), ("mismatch", "https://github.com/someone/acme-mcp"))
+
+    def test_mismatch_prefix_is_not_a_match(self):
+        # acme/acme-mcp-legacy contains "acme/acme-mcp" as a substring: must still be a mismatch
+        self.assertEqual(self.st(_npm_res("https://github.com/acme/acme-mcp-legacy"))["state"], "mismatch")
+
+    def test_redirected_repo_is_verified(self):
+        # package points at the old name; GitHub redirects it to the listed repo (rename)
+        res = _npm_res("https://github.com/acme/old-name")
+        self.assertEqual(self.st(res, resolve=lambda f: "acme/acme-mcp" if f == "acme/old-name" else f)["state"], "verified")
+
+    def test_owner_rename_is_verified(self):
+        res = _npm_res("https://github.com/OldOrg/acme-mcp")
+        self.assertEqual(self.st(res, resolve=lambda f: "acme/acme-mcp" if f == "oldorg/acme-mcp" else f)["state"], "verified")
+
+    def test_unlinked_no_repo_url(self):
+        p = self.st(_npm_res(None, "https://acme.example.com"))
+        self.assertEqual((p["state"], p["declared_repo"]), ("unlinked", None))
+
+    def test_pypi_project_urls(self):
+        self.assertEqual(self.st(_pypi_res({"Source": "https://github.com/acme/acme-mcp"}), "pypi")["state"], "verified")
+        self.assertEqual(self.st(_pypi_res({"Homepage": "https://github.com/x/y"}), "pypi")["state"], "mismatch")
+        self.assertEqual(self.st(_pypi_res({}), "pypi")["state"], "unlinked")
+
+    def test_missing_package_is_none(self):
+        self.assertEqual(self.st(None)["state"], "none")       # name not on the registry
+        self.assertEqual(self.st(None, None, None)["state"], "none")  # nothing declared
+
+    def test_provenance_of_prefers_verified_and_none_without_candidates(self):
+        t = {"repo": "https://github.com/acme/acme-mcp"}
+        pk = {"npm_candidate": "a", "pypi_candidate": "b"}
+        r = {"npm": _npm_res(None), "pypi": _pypi_res({"Source": "https://github.com/acme/acme-mcp"})}
+        self.assertEqual(V.provenance_of(t, "acme", "acme-mcp", pk, r, NORES)["registry"], "pypi")
+        self.assertEqual(V.provenance_of(t, "acme", "acme-mcp", {}, {}, NORES)["state"], "none")
+
+    def test_seed_url_counts_as_listed_when_final_differs(self):
+        t = {"repo": "https://github.com/acme/acme-mcp"}
+        r = {"npm": _npm_res("https://github.com/acme/acme-mcp")}
+        self.assertEqual(V.provenance_of(t, "newowner", "acme-mcp", {"npm_candidate": "x"}, r, NORES)["state"], "verified")
+
+    def test_provenance_never_changes_status(self):
+        base = {"checks": [], "issues": [], "github": {"reachable": True, "last_commit": V.NOW.isoformat()}}
+        a = dict(base, issues=[]); b = dict(base, issues=[], provenance={"state": "mismatch"})
+        self.assertEqual(V.status_of(a), V.status_of(b))
+
+    def test_counts(self):
+        tools = [{"verification": {"provenance": {"state": s}}} for s in ("verified", "mismatch", "unlinked", "verified")] + [{"verification": {}}]
+        self.assertEqual(V.provenance_counts(tools), {"verified": 2, "mismatch": 1, "unlinked": 1, "none": 1})
+
 if __name__ == "__main__": unittest.main()

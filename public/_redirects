@@ -6,8 +6,10 @@
 /en/guides /blog/ 301
 /en/guides/ /blog/ 301
 /en/guides/* /blog/ 301
-/en/package-provenance /verification/ 301
-/en/package-provenance/ /verification/ 301
+/en/package-provenance /audit/ 301
+/en/package-provenance/ /audit/ 301
+/en/audit /audit/ 301
+/en/audit/ /audit/ 301
 
 # /guides/ was never shipped on production. Individual guide slugs also go to the blog, not /blog/:slug (those posts do not exist).
 /guides /blog/ 301
@@ -17,8 +19,8 @@
 /:lang/guides/ /:lang/blog/ 301
 /:lang/guides/* /:lang/blog/ 301
 
-# Package provenance (PR #32) is not on production; send readers to the live verification results.
-/package-provenance /verification/ 301
-/package-provenance/ /verification/ 301
-/:lang/package-provenance /:lang/verification/ 301
-/:lang/package-provenance/ /:lang/verification/ 301
+# Former /package-provenance/ slug (PR #32) now lives at /audit/.
+/package-provenance /audit/ 301
+/package-provenance/ /audit/ 301
+/:lang/package-provenance /:lang/audit/ 301
+/:lang/package-provenance/ /:lang/audit/ 301

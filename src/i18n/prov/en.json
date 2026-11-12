@@ -1,0 +1,140 @@
+{
+ "label": {
+  "verified": "Package links back to repo",
+  "mismatch": "Package doesn't link back",
+  "unlinked": "Couldn't link package back",
+  "none": "No package"
+ },
+ "short": {
+  "verified": "Links back",
+  "mismatch": "No link-back",
+  "unlinked": "Unconfirmed",
+  "none": "No package"
+ },
+ "tip": {
+  "verified": "The {registry} package named in this repo's manifest links back to this repository. Checked {date}.",
+  "mismatch": "The package {name} on {registry} points to a different repository ({repo}). This can be a fork, rename or third-party wrapper. Check before installing.",
+  "unlinked": "A package named {name} exists on {registry} but its metadata has no repository link, so we couldn't link it back to this repo.",
+  "none": "No npm/PyPI package is declared at the repo root. Install from source per the README."
+ },
+ "obs": {
+  "verified": "The package metadata links back to the listed repo.",
+  "mismatch": "The package metadata points to {declared}, not the listed repo {listed}.",
+  "unlinked": "A package with this name exists on {registry}. Its metadata has no repository link.",
+  "none": "No npm or PyPI package is declared at the repo root.",
+  "norepo": "Hosted API with no public repository."
+ },
+ "row": "Package link-back",
+ "learn": "What this means",
+ "nav": "Package audit",
+ "verPara": "Separately from the status, we check whether each tool's npm or PyPI package links back to the listed repository.",
+ "title": "Package audit: does the npm/PyPI package link back to the repo?",
+ "desc": "We check whether each AI finance tool's npm or PyPI package links back to the repository we list. Live table, methodology and how to check yourself.",
+ "h1": "Package audit",
+ "intro1": "Many MCP servers and agent skills are installed with one line, like <code>npx some-package</code> or <code>pip install some-package</code>. That line pulls whatever is published under that name on npm or PyPI. That isn't always the code in the GitHub repository you just read.",
+ "intro2": "Each week we check every tool in our directory: does the package named in the repo actually point back to that repo? This page shows the results.",
+ "latest": "<strong>Latest check: {date}.</strong> Of {total} tools, {verified} have a package that links back to the listed repo. For {mm}, these are packages we couldn't link back to the listed repo. {none} have no npm or PyPI package. {norepo} are hosted APIs with no public repository.",
+ "note": "A mismatch is not an accusation. Common harmless causes include a fork published under the original name, a repository that was renamed or moved, a separate wrapper package, or a package whose metadata simply leaves out the repository field. We report what we observed, not why it happened.",
+ "stat": {
+  "verified": "Package links back to repo",
+  "mismatch": "Package doesn't link back",
+  "unlinked": "Couldn't link back",
+  "none": "No package",
+  "total": "Tools checked"
+ },
+ "badgesH": "What the badges mean",
+ "b": {
+  "verified": "The package named in the repo's <code>package.json</code> or <code>pyproject.toml</code> exists on npm or PyPI, and its metadata links back to the same GitHub repository.",
+  "mismatch": "A package with that name exists, but its metadata points to a different repository.",
+  "unlinked": "A package with that name exists, but its metadata has no repository link, so we couldn't link it back to this repo.",
+  "none": "The repo doesn't declare a published npm or PyPI package at its root. Install from source as the README describes."
+ },
+ "sep": "These badges are separate from a tool's verification status (Verified, Aging, Stale…). A mismatch never changes that status.",
+ "methodH": "Methodology",
+ "m": [
+  "For each listed repository, we read <code>package.json</code> at the repo root (skipping packages marked private) and <code>pyproject.toml</code>, and take the declared package name.",
+  "We look that name up on the public npm registry (<code>registry.npmjs.org</code>) or PyPI (<code>pypi.org/pypi/&lt;name&gt;/json</code>).",
+  "We check whether the package's metadata (npm: <code>repository</code>, <code>homepage</code>, <code>bugs</code>; PyPI: <code>project_urls</code>, <code>home_page</code>, <code>download_url</code>) contains the listed <code>owner/repo</code>. GitHub URLs are compared case-insensitively, after following GitHub's redirects for renamed or moved repositories.",
+  "We record the package name, latest version, its publish date and any repository the metadata declares."
+ ],
+ "notCheck": "What we don't check: who controls the registry account, the contents of the published files, or install scripts. A \"verified\" badge means the links match. It doesn't mean the code was audited.",
+ "runs": "The check runs weekly with the rest of our {verification}. Changes appear in the {weekly}. The data is available in {json} under CC BY 4.0 with attribution to TradingAIHub.",
+ "runsVer": "verification",
+ "runsWeekly": "weekly changelog",
+ "lastRun": "Last run: {date}.",
+ "tableH": "Live table",
+ "th": {
+  "tool": "Tool",
+  "type": "Type",
+  "registry": "Registry",
+  "package": "Package",
+  "badge": "Badge",
+  "declared": "Declared repo",
+  "observed": "What we observed",
+  "checked": "Checked"
+ },
+ "filter": {
+  "label": "Filter by badge",
+  "all": "All",
+  "verified": "Verified",
+  "mismatch": "Mismatch",
+  "unlinked": "Unconfirmed",
+  "none": "No package",
+  "search": "Search tools or packages",
+  "shown": "{n} of {total} tools shown"
+ },
+ "howH": "How to check a package yourself",
+ "npm": [
+  "Open <code>https://www.npmjs.com/package/&lt;name&gt;</code> and look at the \"Repository\" link in the sidebar. Does it match the repo you read?",
+  "Or run <code>npm view &lt;name&gt; repository homepage maintainers</code>.",
+  "Compare the latest version and publish date with the repo's releases or tags.",
+  "Before running <code>npx</code>, check for <code>preinstall</code>/<code>postinstall</code> scripts: <code>npm view &lt;name&gt; scripts</code>."
+ ],
+ "pypi": [
+  "Open <code>https://pypi.org/project/&lt;name&gt;/</code> and check \"Project links\" and \"Meta\".",
+  "Or fetch <code>https://pypi.org/pypi/&lt;name&gt;/json</code> and read <code>info.project_urls</code>.",
+  "Compare the release history with the repo's tags."
+ ],
+ "eitherH": "Either",
+ "either": [
+  "If the metadata has no repository link, install from the repo's README instructions (for example <code>npx github:owner/repo</code>, <code>pip install git+https://github.com/owner/repo</code>, or a local clone).",
+  "Pin versions and prefer packages whose links match."
+ ],
+ "faq": [
+  [
+   "Does \"mismatch\" mean a package is malicious?",
+   "No. It means the package's metadata doesn't link to the repository we list. Forks, renames, separate wrappers and missing metadata are the usual reasons."
+  ],
+  [
+   "Does \"Package links back to repo\" mean the code is safe?",
+   "No. It means the package and the repo link to each other. We don't audit code or install scripts."
+  ],
+  [
+   "Why do some tools show \"No package\"?",
+   "Many MCP servers are run from source or a container, and hosted APIs have no package. That's normal."
+  ],
+  [
+   "How often is this updated?",
+   "Weekly, together with our repository and endpoint checks. Changes appear in the weekly changelog."
+  ],
+  [
+   "I maintain one of these tools. How do I get the verified badge?",
+   "Add your repository URL to the package metadata (repository in package.json, or project_urls in pyproject.toml) and publish a new version. The next weekly run picks it up. You can also submit a correction."
+  ],
+  [
+   "Can I reuse this data?",
+   "Yes. It's in /tools.json under CC BY 4.0 with attribution to TradingAIHub."
+  ]
+ ],
+ "linksH": "Related",
+ "links": {
+  "verification": "Latest verification run",
+  "weekly": "Weekly changelog",
+  "json": "tools.json (CC BY 4.0)",
+  "submit": "Submit a correction",
+  "about": "How we verify"
+ },
+ "nia": "Information only. Nothing on this page is investment advice.",
+ "dsName": "TradingAIHub package audit",
+ "dsDesc": "For each tool in the TradingAIHub directory: whether its npm or PyPI package links back to the listed source repository (verified, mismatch, unlinked or none), with the registry, package name and declared repository."
+}

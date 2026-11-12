@@ -2,6 +2,7 @@
 import Status from "./Status.astro";
 import SecurityBadge from "./SecurityBadge.astro";
 import SecurityNote from "./SecurityNote.astro";
+import Provenance from "./Provenance.astro";
 import XpTip from "./XpTip.astro";
 import { explain } from "../lib/explain";
 import { starsOf, fmtStars } from "../lib/data";
@@ -14,9 +15,9 @@ const xpId = (k: string) => `xp-${tool.id}-${k}`;
 const href = p(`/tools/${tool.id}/`);
 ---
 <div class="card xp-scope" data-search={`${tool.name} ${tool.description} ${d} ${tool.category} ${tool.type}`.toLowerCase()} data-cat={tool.category} data-type={tool.type}>
-  <div class="meta"><button type="button" class="badge type" data-xp-toggle data-xp="type" aria-expanded="false" aria-controls={xpId("type")} aria-describedby={xpId("type")}>{t(`type.${tool.type}`)}</button>{tool.official && <button type="button" class="badge off" data-xp-toggle data-xp="official" aria-expanded="false" aria-controls={xpId("official")} aria-describedby={xpId("official")}>{t("common.official")}</button>}<Status status={tool.verification.status} lang={lang} xp="card" id={xpId("status")} /><SecurityBadge tool={tool} lang={lang} variant="card" id={xpId("scan")} /></div>
+  <div class="meta"><button type="button" class="badge type" data-xp-toggle data-xp="type" aria-expanded="false" aria-controls={xpId("type")} aria-describedby={xpId("type")}>{t(`type.${tool.type}`)}</button>{tool.official && <button type="button" class="badge off" data-xp-toggle data-xp="official" aria-expanded="false" aria-controls={xpId("official")} aria-describedby={xpId("official")}>{t("common.official")}</button>}<Status status={tool.verification.status} lang={lang} xp="card" id={xpId("status")} /><SecurityBadge tool={tool} lang={lang} variant="card" id={xpId("scan")} />{tool.repo && tool.verification.provenance && tool.verification.provenance.state !== "none" && <Provenance id={tool.id} lang={lang} small xp xpId={xpId("prov")} />}</div>
   {tool.security_note && <div class="meta secnote-line"><SecurityNote tool={tool} lang={lang} variant="card" id={xpId("secnote")} /></div>}
-  <span class="xp-tips">{(["type", "official", "status", "scan", "secnote"] as const).map((k) => <XpTip k={k} id={xpId(k)} html={xp(k)} dup />)}</span>
+  <span class="xp-tips">{(["type", "official", "status", "scan", "secnote", "prov"] as const).map((k) => <XpTip k={k} id={xpId(k)} html={xp(k)} dup />)}</span>
   <H class:list={[level === 2 && "card-t"]} title={tool.name}><a class="card-link" href={href}><TitleText text={tool.name} bdi /></a></H>
   <p>{d}</p>
   <div class="meta">{xp("pricing") && <button type="button" data-xp-toggle data-xp="pricing" aria-expanded="false" aria-controls={xpId("pricing")} aria-describedby={xpId("pricing")}>💲 {tool.pricing.free_tier === "unknown" ? t("common.pricingUnknown") : <bdi>{tool.pricing.free_tier}</bdi>}</button>}{s != null && <button type="button" data-xp-toggle data-xp="stars" aria-expanded="false" aria-controls={xpId("stars")} aria-describedby={xpId("stars")}>★ {fmtStars(s)}</button>}</div>

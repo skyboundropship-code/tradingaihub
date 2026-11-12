@@ -183,7 +183,7 @@ test("built dump: no internals, affiliate contract", { skip: !existsSync(DIST) &
   for (const k of ["checks", "issues", "repo_keep", "source_url", "_note", "verification", "partner", "aff_id", "param"]) assert.ok(!text.includes(`"${k}"`), k);
   const dump = JSON.parse(text);
   assert.ok(dump.tools.length >= 100);
-  const keys = ["slug", "name", "type", "type_label", "category", "category_name", "description", "official", "url", "website_url", "vendor_url", "affiliate", "disclosure", "homepage", "docs", "repo", "remote_mcp_url", "license", "pricing", "languages", "packages", "install", "capabilities", "deprecated", "status", "status_label", "verified", "checked_at", "github", "security", "security_note"];
+  const keys = ["slug", "name", "type", "type_label", "category", "category_name", "description", "official", "url", "website_url", "vendor_url", "affiliate", "disclosure", "homepage", "docs", "repo", "remote_mcp_url", "license", "pricing", "languages", "packages", "install", "capabilities", "deprecated", "status", "status_label", "verified", "checked_at", "github", "security", "security_note", "provenance"];
   let nAff = 0;
   for (const t of dump.tools) {
     assert.deepEqual(Object.keys(t), keys, t.slug);
@@ -208,6 +208,9 @@ test("built dump: no internals, affiliate contract", { skip: !existsSync(DIST) &
       assert.equal(t.security.status, "clean", t.slug);
       assert.match(t.security.date, /^\d{4}-\d{2}-\d{2}$/, t.slug);
     }
+    assert.ok(t.provenance && ["verified", "mismatch", "unlinked", "none"].includes(t.provenance.state), t.slug);
+    assert.deepEqual(Object.keys(t.provenance).sort(), ["declared_repo", "package", "package_url", "registry", "state"], t.slug);
+    assert.ok(!("maintainers" in t.provenance), t.slug);
   }
   assert.ok(nAff >= 1, "at least one affiliate tool (TradingView / EODHD)");
   const cats = JSON.parse(readFileSync(new URL("../dist/api/v1/categories.json", import.meta.url), "utf8"));

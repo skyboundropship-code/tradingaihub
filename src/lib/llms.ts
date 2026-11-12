@@ -7,6 +7,7 @@ import { EDITORIAL_COMPARES } from "./bestPages";
 // Outbound vendor URLs (repo, homepage, pricing source, remote MCP) come from RAW data/tools.json: data.ts runs them through
 // affUrl(), and affiliate IDs must never reach LLM context files. Internal URLs come from the ids.
 import raw from "../../data/tools.json";
+import { provCounts, provOf, REGISTRY_LABEL, shortRepo } from "./provenance";
 // Blog: published posts only (never drafts). Post links are internal URLs, so no affiliate params can reach this file.
 import { PUBLISHED as BLOG_POSTS } from "./blog";
 const rawById: Record<string, any> = Object.fromEntries((raw as any[]).map((t) => [t.id, t]));
@@ -22,6 +23,12 @@ const order: Record<string, number> = { verified: 0, aging: 1, warning: 2, stale
 export const toolsIn = (slug: string) => tools.filter((x) => x.category === slug).sort((a, b) => (order[a.verification.status] ?? 9) - (order[b.verification.status] ?? 9) || byStars(a, b));
 const checked = () => String(verificationReport.checked_at || "").slice(0, 10);
 const langs = () => LOCALES.map((l) => `${l.name} (${l.code === "en" ? "/" : `/${l.code}/`})`).join(", ");
+
+function provSection(): string[] {
+  const c = provCounts();
+  return ["## Package audit", "",
+    `For each listed repository we check whether its npm or PyPI package's metadata links back to that GitHub repository (redirects and repository renames resolved via the GitHub API). States: verified (links back), mismatch (links to a different repository), unlinked (a package with that name exists but declares no repository), none (no package declared). For packages we couldn't link back to the listed repo, this is a data observation, not a finding about the tool. Latest counts: ${c.verified} verified, ${c.mismatch} mismatch, ${c.unlinked} unlinked, ${c.none} none. Details: ${u("/audit/")}. Data: ${u("/tools.json")} (field \`provenance\`), CC BY 4.0, attribution TradingAIHub.`, ""];
+}
 
 function header(): string[] {
   const verified = tools.filter((x) => x.verification.status === "verified").length;
@@ -49,6 +56,7 @@ export function llmsTxt(): string {
     `- [Comparisons](${u("/compare/")}): side-by-side comparison tables`,
     `- [About & how we verify](${u("/about/")}): methodology, status badges and how the site makes money`,
     `- [Latest verification report](${u("/verification/")}): results of the most recent weekly check`,
+    `- [Package audit](${u("/audit/")}): whether each tool's npm or PyPI package links back to the listed GitHub repository`,
     `- [Weekly leaderboard](${u("/weekly/")}): most-starred verified tools and weekly changes`,
     `- [Submit a tool](${u("/submit/")}): free listing via a pre-filled GitHub issue or email to ${SITE.contactEmail}`,
     "",
@@ -67,6 +75,7 @@ export function llmsTxt(): string {
     ...COMPARISONS.map((c) => `- [${md(c.title)}](${u(`/compare/${c.slug}/`)}): ${md(c.intro)}`),
     ...EDITORIAL_COMPARES.map((c) => `- [${md(c.h1)}](${u(`/compare/${c.slug}/`)}): ${md(c.description)}`),
     "",
+    ...provSection(),
     "## Machine-readable data",
     "",
     `- [llms-full.txt](${u("/llms-full.txt")}): every tool with its type, official/community, verification status, license, pricing (with the vendor source and check date), repository and homepage`,
@@ -100,6 +109,7 @@ export function llmsFullTxt(): string {
     "",
     ...statusLine,
     "",
+    ...provSection(),
     "Official = published by the vendor of the product itself; Community = built by someone other than the vendor.",
     "",
     `## Tools by category (${tools.length} tools)`,
@@ -116,6 +126,8 @@ export function llmsFullTxt(): string {
       if (price) L.push(`  - Pricing: ${price}${plainUrl(pr.source) ? ` (source: ${pr.source}${pr.checked ? `, checked ${pr.checked}` : ""})` : ""}`);
       const links = [plainUrl(r.repo) && `Repo: ${r.repo}`, plainUrl(r.homepage) && `Homepage: ${r.homepage}`, plainUrl(r.remote_mcp_url) && `Remote MCP URL: ${r.remote_mcp_url}`].filter(Boolean);
       if (links.length) L.push(`  - ${links.join(" · ")}`);
+      const pv = provOf(x.id);
+      if (x.repo) L.push(`  - Package provenance: ${pv.state}${pv.package ? ` (${REGISTRY_LABEL[pv.registry ?? ""] ?? pv.registry} ${md(pv.package)}${pv.state === "mismatch" ? `, metadata points to ${shortRepo(pv.declared_repo)}` : ""})` : ""}`);
     }
   }
   return L.join("\n") + "\n";

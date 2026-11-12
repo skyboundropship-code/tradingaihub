@@ -11,6 +11,7 @@ import raw from "../../data/tools.json";
 import { AFFILIATES, SITE } from "../config";
 import { affUrl, isAff, untagUrl } from "./aff";
 import { tools as siteTools, CATEGORIES, STATUS, TYPE_LABEL, starsOf, lastCommit, isCollection, pkgOf, securityOf } from "./data";
+import { provExport } from "./provenance";
 
 export const API_VERSION = "1.0.0";
 export const MCP_URL = `${SITE.url}/mcp`;
@@ -73,6 +74,8 @@ export function publicTool(t: any) {
     security: (() => { const s = securityOf(t); return s ? { status: s.status, date: s.date } : null; })(),
     // Data-driven security note (data.security_note), null for every other tool. Removable by deleting the field.
     security_note: t.security_note ? { status: t.security_note.status, label_en: t.security_note.label_en, text_en: t.security_note.text_en, since: t.security_note.since } : null,
+    // Package link-back (verification.provenance): public shape only, no maintainer names. Backward-compatible additive field.
+    provenance: provExport(t.id),
   };
 }
 

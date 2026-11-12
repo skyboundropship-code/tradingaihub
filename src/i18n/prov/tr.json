@@ -1,0 +1,140 @@
+{
+ "label": {
+  "verified": "Paket depoya geri bağlanıyor",
+  "mismatch": "Paket depoya geri bağlanmıyor",
+  "unlinked": "Paket depoya bağlanamadı",
+  "none": "Paket yok"
+ },
+ "short": {
+  "verified": "Geri bağlanıyor",
+  "mismatch": "Geri bağlantı yok",
+  "unlinked": "Doğrulanmadı",
+  "none": "Paket yok"
+ },
+ "tip": {
+  "verified": "Bu deponun manifestinde adı geçen {registry} paketi bu depoya geri bağlantı veriyor. Kontrol tarihi: {date}.",
+  "mismatch": "{registry} üzerindeki {name} paketi farklı bir depoya ({repo}) işaret ediyor. Bu bir fork, yeniden adlandırma veya üçüncü taraf sarmalayıcı olabilir. Kurmadan önce kontrol edin.",
+  "unlinked": "{registry} üzerinde {name} adlı bir paket var, ancak meta verisinde depo bağlantısı yok; bu yüzden onu bu depoya geri bağlayamadık.",
+  "none": "Depo kökünde bir npm/PyPI paketi tanımlı değil. README'ye göre kaynaktan kurun."
+ },
+ "obs": {
+  "verified": "Paket meta verisi listelenen depoya geri bağlantı veriyor.",
+  "mismatch": "Paket meta verisi listelenen {listed} deposuna değil, {declared} deposuna işaret ediyor.",
+  "unlinked": "{registry} üzerinde bu adla bir paket var. Meta verisinde depo bağlantısı yok.",
+  "none": "Depo kökünde npm veya PyPI paketi tanımlı değil.",
+  "norepo": "Herkese açık deposu olmayan barındırılan API."
+ },
+ "row": "Paketin depoya bağlantısı",
+ "learn": "Bu ne anlama geliyor",
+ "nav": "Paket denetimi",
+ "verPara": "Durumdan ayrı olarak, her aracın npm veya PyPI paketinin listelenen depoya geri bağlantı verip vermediğini kontrol ediyoruz.",
+ "title": "Paket denetimi: npm/PyPI paketi depoya geri bağlanıyor mu?",
+ "desc": "Her AI finans aracının npm veya PyPI paketinin listede gösterdiğimiz depoya geri bağlanıp bağlanmadığını kontrol ederiz. Canlı tablo, yöntem ve kendiniz nasıl kontrol edeceğiniz.",
+ "h1": "Paket denetimi",
+ "intro1": "Birçok MCP sunucusu ve ajan becerisi <code>npx some-package</code> veya <code>pip install some-package</code> gibi tek satırla kurulur. Bu satır, npm veya PyPI'da o adla yayımlanmış her şeyi indirir. Bu her zaman az önce okuduğunuz GitHub deposundaki kod değildir.",
+ "intro2": "Her hafta dizindeki her aracı kontrol ediyoruz: depoda adı geçen paket gerçekten o depoya geri işaret ediyor mu? Bu sayfa sonuçları gösterir.",
+ "latest": "<strong>Son kontrol: {date}.</strong> {total} aracın {verified} tanesinde listelenen depoya geri bağlanan bir paket var. {mm} araçta paketi listelenen depoya geri bağlayamadık. {none} aracın npm veya PyPI paketi yok. {norepo} tanesi kamuya açık deposu olmayan barındırılan API'lerdir.",
+ "note": "Uyuşmazlık bir suçlama değildir. Yaygın zararsız nedenler: orijinal adla yayımlanmış bir fork, yeniden adlandırılmış veya taşınmış bir depo, ayrı bir sarmalayıcı paket ya da meta verisinde depo alanı basitçe bulunmayan bir paket. Neden olduğunu değil, ne gözlemlediğimizi bildiriyoruz.",
+ "stat": {
+  "verified": "Paket depoya geri bağlanıyor",
+  "mismatch": "Paket depoya geri bağlanmıyor",
+  "unlinked": "Bağlanamadı",
+  "none": "Paket yok",
+  "total": "Kontrol edilen araçlar"
+ },
+ "badgesH": "Rozetlerin anlamı",
+ "b": {
+  "verified": "Deponun <code>package.json</code> veya <code>pyproject.toml</code> dosyasında adı geçen paket npm veya PyPI'da var ve meta verisi aynı GitHub deposuna geri bağlantı veriyor.",
+  "mismatch": "Bu adla bir paket var, ancak meta verisi farklı bir depoya işaret ediyor.",
+  "unlinked": "Bu adla bir paket var, ancak meta verisinde depo bağlantısı yok; bu yüzden onu bu depoya geri bağlayamadık.",
+  "none": "Depo, kökünde yayımlanmış bir npm veya PyPI paketi tanımlamıyor. README'de anlatıldığı gibi kaynaktan kurun."
+ },
+ "sep": "Bu rozetler aracın doğrulama durumundan (Doğrulandı, Eskiyor, Güncel değil…) ayrıdır. Uyuşmazlık bu durumu asla değiştirmez.",
+ "methodH": "Yöntem",
+ "m": [
+  "Listelenen her depo için kökteki <code>package.json</code> dosyasını (private olarak işaretlenen paketleri atlayarak) ve <code>pyproject.toml</code> dosyasını okur, tanımlanan paket adını alırız.",
+  "Bu adı herkese açık npm kayıt defterinde (<code>registry.npmjs.org</code>) veya PyPI'da (<code>pypi.org/pypi/&lt;name&gt;/json</code>) ararız.",
+  "Paket meta verisinin (npm: <code>repository</code>, <code>homepage</code>, <code>bugs</code>; PyPI: <code>project_urls</code>, <code>home_page</code>, <code>download_url</code>) listelenen <code>owner/repo</code> değerini içerip içermediğini kontrol ederiz. GitHub URL'leri, yeniden adlandırılan veya taşınan depolar için GitHub yönlendirmeleri izlendikten sonra büyük/küçük harf duyarsız karşılaştırılır.",
+  "Paket adını, en son sürümü, yayımlanma tarihini ve meta verinin tanımladığı depoyu kaydederiz."
+ ],
+ "notCheck": "Kontrol etmediklerimiz: kayıt defteri hesabını kimin yönettiği, yayımlanan dosyaların içeriği veya kurulum betikleri. \"Doğrulandı\" rozeti bağlantıların eşleştiği anlamına gelir. Kodun denetlendiği anlamına gelmez.",
+ "runs": "Kontrol, diğer {verification} işlemlerimizle birlikte haftalık çalışır. Değişiklikler {weekly} içinde görünür. Veriler {json} içinde CC BY 4.0 lisansıyla, TradingAIHub'a atıfla kullanılabilir.",
+ "runsVer": "doğrulama",
+ "runsWeekly": "haftalık değişiklik günlüğü",
+ "lastRun": "Son çalışma: {date}.",
+ "tableH": "Canlı tablo",
+ "th": {
+  "tool": "Araç",
+  "type": "Tür",
+  "registry": "Kayıt defteri",
+  "package": "Paket",
+  "badge": "Rozet",
+  "declared": "Tanımlanan depo",
+  "observed": "Gözlemimiz",
+  "checked": "Kontrol"
+ },
+ "filter": {
+  "label": "Rozete göre filtrele",
+  "all": "Tümü",
+  "verified": "Doğrulandı",
+  "mismatch": "Uyuşmuyor",
+  "unlinked": "Doğrulanamadı",
+  "none": "Paket yok",
+  "search": "Araç veya paket ara",
+  "shown": "{total} araçtan {n} tanesi gösteriliyor"
+ },
+ "howH": "Bir paketi kendiniz nasıl kontrol edersiniz",
+ "npm": [
+  "<code>https://www.npmjs.com/package/&lt;name&gt;</code> adresini açın ve kenar çubuğundaki \"Repository\" bağlantısına bakın. Okuduğunuz depoyla eşleşiyor mu?",
+  "Ya da <code>npm view &lt;name&gt; repository homepage maintainers</code> komutunu çalıştırın.",
+  "En son sürümü ve yayımlanma tarihini deponun sürümleri veya etiketleriyle karşılaştırın.",
+  "<code>npx</code> çalıştırmadan önce <code>preinstall</code>/<code>postinstall</code> betiklerini kontrol edin: <code>npm view &lt;name&gt; scripts</code>."
+ ],
+ "pypi": [
+  "<code>https://pypi.org/project/&lt;name&gt;/</code> adresini açın ve \"Project links\" ile \"Meta\" bölümlerine bakın.",
+  "Ya da <code>https://pypi.org/pypi/&lt;name&gt;/json</code> adresini alıp <code>info.project_urls</code> değerini okuyun.",
+  "Sürüm geçmişini deponun etiketleriyle karşılaştırın."
+ ],
+ "eitherH": "Her iki durumda",
+ "either": [
+  "Meta veride depo bağlantısı yoksa deponun README talimatlarına göre kurun (örneğin <code>npx github:owner/repo</code>, <code>pip install git+https://github.com/owner/repo</code> veya yerel bir klon).",
+  "Sürümleri sabitleyin ve bağlantıları eşleşen paketleri tercih edin."
+ ],
+ "faq": [
+  [
+   "\"Uyuşmuyor\" bir paketin kötü amaçlı olduğu anlamına mı gelir?",
+   "Hayır. Paket meta verisinin listelediğimiz depoya bağlantı vermediği anlamına gelir. Fork'lar, yeniden adlandırmalar, ayrı sarmalayıcılar ve eksik meta veri olağan nedenlerdir."
+  ],
+  [
+   "\"Paket depoya geri bağlanıyor\" kodun güvenli olduğu anlamına mı gelir?",
+   "Hayır. Paket ile deponun birbirine bağlantı verdiği anlamına gelir. Kodu veya kurulum betiklerini denetlemiyoruz."
+  ],
+  [
+   "Neden bazı araçlarda \"Paket yok\" görünüyor?",
+   "Birçok MCP sunucusu kaynaktan veya bir konteynerden çalıştırılır; barındırılan API'lerin paketi yoktur. Bu normaldir."
+  ],
+  [
+   "Ne sıklıkla güncelleniyor?",
+   "Haftalık, depo ve uç nokta kontrollerimizle birlikte. Değişiklikler haftalık değişiklik günlüğünde görünür."
+  ],
+  [
+   "Bu araçlardan birinin bakımını yapıyorum. Doğrulandı rozetini nasıl alırım?",
+   "Depo URL'nizi paket meta verisine ekleyin (package.json içinde repository veya pyproject.toml içinde project_urls) ve yeni bir sürüm yayımlayın. Bir sonraki haftalık çalışma bunu algılar. Ayrıca düzeltme de gönderebilirsiniz."
+  ],
+  [
+   "Bu verileri yeniden kullanabilir miyim?",
+   "Evet. /tools.json içinde CC BY 4.0 lisansıyla, TradingAIHub'a atıfla sunuluyor."
+  ]
+ ],
+ "linksH": "İlgili",
+ "links": {
+  "verification": "Son doğrulama çalışması",
+  "weekly": "Haftalık değişiklik günlüğü",
+  "json": "tools.json (CC BY 4.0)",
+  "submit": "Düzeltme gönder",
+  "about": "Nasıl doğruluyoruz"
+ },
+ "nia": "Yalnızca bilgi amaçlıdır. Bu sayfadaki hiçbir şey yatırım tavsiyesi değildir.",
+ "dsName": "TradingAIHub paket denetimi",
+ "dsDesc": "TradingAIHub dizinindeki her araç için: npm veya PyPI paketinin listelenen kaynak depoya geri bağlanıp bağlanmadığı (verified, mismatch, unlinked veya none), kayıt, paket adı ve beyan edilen depo ile birlikte."
+}

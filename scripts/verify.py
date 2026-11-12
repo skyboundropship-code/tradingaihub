@@ -457,14 +457,95 @@ def npm(name):
     if isinstance(r, Exception) or r.status_code != 200: return None
     j = r.json(); v = j.get("dist-tags", {}).get("latest")
     lb = json.dumps([j.get("repository"), j.get("homepage"), j.get("bugs")]).lower()
-    return {"_raw_links_back": None, "_lb": lb, "name": name, "version": v, "published": j.get("time", {}).get(v), "url": f"https://www.npmjs.com/package/{name}"}
+    rep = j.get("repository"); rep_url = rep.get("url") if isinstance(rep, dict) else rep
+    bugs = j.get("bugs"); bugs_url = bugs.get("url") if isinstance(bugs, dict) else bugs
+    return {"_raw_links_back": None, "_lb": lb, "name": name, "version": v, "published": j.get("time", {}).get(v), "url": f"https://www.npmjs.com/package/{name}",
+            "_meta": {"primary": [rep_url], "other": [j.get("homepage"), bugs_url],
+                      "directory": rep.get("directory") if isinstance(rep, dict) else None,
+                      "maintainers": [m.get("name") for m in (j.get("maintainers") or []) if isinstance(m, dict) and m.get("name")]}}
 
 def pypi(name):
     r = get(f"https://pypi.org/pypi/{name}/json")
     if isinstance(r, Exception) or r.status_code != 200: return None
     j = r.json(); v = j["info"]["version"]; files = j.get("releases", {}).get(v) or [{}]
-    lb = json.dumps([j["info"].get("project_urls"), j["info"].get("home_page"), j["info"].get("download_url")]).lower()
-    return {"_raw_links_back": None, "_lb": lb, "name": j["info"]["name"], "version": v, "published": files[0].get("upload_time_iso_8601"), "url": f"https://pypi.org/project/{j['info']['name']}/"}
+    info = j["info"]; pu = info.get("project_urls") or {}
+    lb = json.dumps([info.get("project_urls"), info.get("home_page"), info.get("download_url")]).lower()
+    prim = [u for k, u in pu.items() if re.search(r"source|repo|code|github", k, re.I)]
+    return {"_raw_links_back": None, "_lb": lb, "name": info["name"], "version": v, "published": files[0].get("upload_time_iso_8601"), "url": f"https://pypi.org/project/{info['name']}/",
+            "_meta": {"primary": prim, "other": [u for u in pu.values() if u not in prim] + [info.get("home_page"), info.get("download_url")],
+                      "maintainers": [x for x in (info.get("maintainer"), info.get("author")) if x]}}
+
+# --- Package provenance (structured, see /audit/) -------------------------------------------------
+# verified  the registry entry links back to the listed repo (a parsed GitHub URL equal to it, case-insensitive and
+#           after resolving GitHub redirects/renames; or, with no GitHub URL at all, the legacy owner/repo substring).
+# mismatch  the metadata names a github.com/<o>/<r> that is a DIFFERENT repo, even after redirect resolution.
+# unlinked  the registry entry exists but its metadata has no repository link we can compare.
+# none      no package declared at the repo root, the name is not on the registry, or the tool has no repo.
+# Purely informational: provenance never feeds status_of().
+_GH = re.compile(r"(?:github\.com[/:]|^github:)([A-Za-z0-9-]+)/([A-Za-z0-9._-]+?)(?:\.git)?(?=$|[/#?\s\"'])", re.I)
+_SHORT = re.compile(r"^([A-Za-z0-9-]+)/([A-Za-z0-9._-]+)$")
+
+def gh_repo_of(u):
+    """Any repository URL form -> 'owner/repo' (lower-case) or None. Handles https, git+https, git+ssh, git@host:,
+    git://, github: and bare npm 'owner/repo' shorthand; strips .git, /tree/..., #ref."""
+    if not isinstance(u, str) or not u.strip(): return None
+    u = u.strip()
+    m = _SHORT.match(u)
+    if m: return f"{m.group(1)}/{m.group(2)}".lower()
+    m = _GH.search(u)
+    if not m: return None
+    o, r = m.group(1), re.sub(r"\.git$", "", m.group(2), flags=re.I)
+    return f"{o}/{r}".lower() if r else None
+
+def _gh_resolve(full):
+    """GitHub redirect/rename resolution: 'o/r' -> canonical 'o/r' (lower) or the input when unknown."""
+    j = api(f"repos/{full}")
+    return (j.get("full_name") or full).lower() if isinstance(j, dict) else full
+
+def classify_provenance(listed, kind, cand, res, resolve=None):
+    """listed: set of acceptable 'owner/repo' (lower) for the tool (seed URL + GitHub final URL).
+    kind: 'npm'|'pypi'|None, cand: declared package name, res: npm()/pypi() result or None (not on the registry)."""
+    resolve = resolve or _gh_resolve
+    base = {"registry": kind, "package": cand, "package_url": None, "version": None, "declared_repo": None, "maintainers": []}
+    if not kind or not cand or not res: return {"state": "none", **base}
+    meta = res.get("_meta") or {}
+    out = {**base, "package": res.get("name") or cand, "package_url": res.get("url"), "version": res.get("version"),
+           "maintainers": meta.get("maintainers") or []}
+    if meta.get("directory"): out["directory"] = meta["directory"]
+    urls = [u for u in (meta.get("primary") or []) + (meta.get("other") or []) if isinstance(u, str) and u.strip()]
+    found = []
+    for u in urls:
+        g = gh_repo_of(u) if (u in (meta.get("primary") or []) or "github" in u.lower()) else None
+        if g and g not in found: found.append(g)
+    listed = {x.lower() for x in listed if x}
+    if found:
+        hit = next((g for g in found if g in listed), None)
+        if hit is None:
+            for g in found:
+                if resolve(g) in listed: hit = g; break
+        out["declared_repo"] = f"https://github.com/{hit or found[0]}"
+        out["state"] = "verified" if hit else "mismatch"
+        return out
+    # No GitHub URL: fall back to the legacy substring test (e.g. a homepage on another forge naming owner/repo).
+    lb = res.get("_lb") or ""
+    if any(x in lb for x in listed):
+        out["state"] = "verified"; out["declared_repo"] = next((u for u in urls if any(x in u.lower() for x in listed)), None)
+    else:
+        out["state"] = "unlinked"
+    return out
+
+def provenance_of(t, owner, name, pk, results, resolve=None):
+    """Pick the tool's provenance: verified npm/PyPI first, then mismatch, unlinked, none (npm before PyPI)."""
+    listed = {f"{owner}/{name}".lower()}
+    if t.get("repo"):
+        o, n, _, _ = parse_repo(t["repo"]); listed.add(f"{o}/{n}".lower())
+    cands = [classify_provenance(listed, kind, pk.get(f"{kind}_candidate"), results.get(kind), resolve)
+             for kind in ("npm", "pypi") if pk.get(f"{kind}_candidate")]
+    if not cands: return classify_provenance(listed, None, None, None)
+    rank = {"verified": 0, "mismatch": 1, "unlinked": 2, "none": 3}
+    return sorted(cands, key=lambda c: rank[c["state"]])[0]
+
+PROV_NONE = {"state": "none", "registry": None, "package": None, "package_url": None, "version": None, "declared_repo": None, "maintainers": []}
 
 def age_days(ts):
     if not ts: return None
@@ -481,21 +562,27 @@ def verify(t):
             if t["type"] == "skill":
                 v["claude_marketplace"] = raw(owner, name, ".claude-plugin/marketplace.json") is not None
                 v["root_skill_md"] = raw(owner, name, (g["subpath"] + "/" if g.get("subpath") else "") + "SKILL.md") is not None
+            results = {}
             for kind, fn in (("npm", npm), ("pypi", pypi)):
                 cand = pk.get(f"{kind}_candidate")
                 if not cand: continue
-                res = fn(cand)
+                res = fn(cand); results[kind] = res
                 if res:
-                    res.pop("_raw_links_back"); res["links_back"] = f"{owner}/{name}".lower() in res.pop("_lb")
-                if res and res["links_back"] and not t.get("install_from_source"):
-                    v[kind] = res
-                elif res and t.get("install_from_source"):
+                    stored = {k: x for k, x in res.items() if k != "_meta"}
+                    stored.pop("_raw_links_back"); stored["links_back"] = f"{owner}/{name}".lower() in stored.pop("_lb")
+                else:
+                    stored = res
+                if stored and stored["links_back"] and not t.get("install_from_source"):
+                    v[kind] = stored
+                elif stored and t.get("install_from_source"):
                     if "install from source" not in " ".join(v["issues"]).lower():
                         v["issues"].append(t.get("install_note") or "Package currently unmaintained on the registry; install from source")
-                elif res:
+                elif stored:
                     v["issues"].append(f"{kind} name '{cand}' exists on the registry but does not link to this repo (not counted)")
+            v["provenance"] = {**provenance_of(t, owner, name, pk, results), "checked_at": v["checked_at"]}
             v["checks"].append({"check": "package published", "ok": bool(v.get("npm") or v.get("pypi")),
                                 "note": "no npm/PyPI package detected at repo root" if not (v.get("npm") or v.get("pypi")) else None})
+    v.setdefault("provenance", {**PROV_NONE, "checked_at": v["checked_at"]})
     for key in ("homepage", "docs"):
         if t.get(key) and t.get(key) != t.get("repo"):
             a = alive(t[key]); v[key] = a
@@ -638,8 +725,34 @@ def parse_only(args, known_ids):
     return only
 
 
+def provenance_counts(tools):
+    from collections import Counter
+    c = Counter((t["verification"].get("provenance") or PROV_NONE)["state"] for t in tools)
+    return {s: c.get(s, 0) for s in ("verified", "mismatch", "unlinked", "none")}
+
+def provenance_backfill():
+    """--provenance-only: add/refresh verification.provenance in data/tools.json (registry lookups only) without
+    re-running the rest of the checks, so statuses and every other field stay exactly as the last weekly run left them."""
+    tp = os.path.join(ROOT, "data/tools.json"); tools = json.load(open(tp))
+    def one(t):
+        v = t["verification"]; g = v.get("github") or {}
+        if not t.get("repo") or not g.get("reachable"): return {**PROV_NONE, "checked_at": NOW.strftime("%Y-%m-%d")}
+        o, n, _, _ = parse_repo(g.get("final_url") or t["repo"])
+        pk = detect_packages(o, n)
+        results = {k: (npm if k == "npm" else pypi)(pk[f"{k}_candidate"]) for k in ("npm", "pypi") if pk.get(f"{k}_candidate")}
+        return {**provenance_of(t, o, n, pk, results), "checked_at": NOW.strftime("%Y-%m-%d")}
+    with ThreadPoolExecutor(8) as ex: provs = list(ex.map(one, tools))
+    for t, pv in zip(tools, provs): t["verification"]["provenance"] = pv
+    json.dump(tools, open(tp, "w"), indent=2)
+    rp = os.path.join(ROOT, "data/verification-report.json"); rep = json.load(open(rp))
+    rep["provenance_counts"] = provenance_counts(tools); rep["provenance_checked_at"] = NOW.isoformat()
+    json.dump(rep, open(rp, "w"), indent=2)
+    print(json.dumps(rep["provenance_counts"]))
+
 def main():
+    if sys.argv[1:] == ["--provenance-only"]: return provenance_backfill()
     seed = json.load(open(os.path.join(ROOT, "data/seed.json")))
+
     # A repo shared by several entries is a collection/monorepo: none of them gets its stars.
     from collections import Counter
     shared = Counter(repo_key(t) for t in seed if t.get("repo"))
@@ -677,6 +790,7 @@ def main():
         return row
     rep = {"checked_at": NOW.isoformat(), "total": len(tools), "by_status": dict(c),
            "with_package": sum(1 for t in tools if t["verification"].get("npm") or t["verification"].get("pypi")),
+           "provenance_counts": provenance_counts(tools),
            "manual_checks": [{"id": t["id"], "date": t["verification"]["manual_check"]["date"],
                               "label": manual_check_label(t["verification"])}
                              for t in tools if t["verification"].get("manual_override")],
@@ -732,7 +846,8 @@ def write_history(tools):
     hd = os.path.join(ROOT, "data/history"); os.makedirs(hd, exist_ok=True)
     today = NOW.strftime("%Y-%m-%d")
     snap = {t["id"]: {"name": t["name"], "status": t["verification"]["status"], "stars": None if t.get("repo_is_collection") else (t["verification"].get("github") or {}).get("stars"),
-                      "version": ((t["verification"].get("npm") or t["verification"].get("pypi")) or {}).get("version")} for t in tools}
+                      "version": ((t["verification"].get("npm") or t["verification"].get("pypi")) or {}).get("version"),
+                      "provenance": (t["verification"].get("provenance") or {}).get("state")} for t in tools}
     prev_files = sorted(f for f in os.listdir(hd) if f.endswith(".json") and f[:-5] < today)
     prev = json.load(open(os.path.join(hd, prev_files[-1]))) if prev_files else None
     json.dump(snap, open(os.path.join(hd, f"{today}.json"), "w"), indent=1)
@@ -744,6 +859,7 @@ def write_history(tools):
             p = prev.get(i)
             if not p: ch.append({"kind": "new", "id": i, "text": f"New: {s['name']} added."}); continue
             if p["status"] != s["status"]: ch.append({"kind": "status", "id": i, "text": f"{s['name']}: {p['status']} → {s['status']}"})
+            if p.get("provenance") and s.get("provenance") and p["provenance"] != s["provenance"]: ch.append({"kind": "provenance", "id": i, "text": f"{s['name']}: package provenance {p['provenance']} → {s['provenance']}"})
             if p.get("version") and s.get("version") and p["version"] != s["version"]: ch.append({"kind": "release", "id": i, "text": f"{s['name']} released {s['version']} (was {p['version']})"})
             if p.get("stars") and s.get("stars") and s["stars"] - p["stars"] >= 25: ch.append({"kind": "stars", "id": i, "text": f"{s['name']} gained {s['stars'] - p['stars']} stars"})
         for i in set(prev) - set(snap): ch.append({"kind": "removed", "id": i, "text": f"Removed: {prev[i]['name']}"})

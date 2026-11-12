@@ -191,5 +191,12 @@
         "pypi name 'trading-skills' exists on the registry but does not link to this repo (not counted)"
       ]
     }
-  ]
+  ],
+  "provenance_counts": {
+    "verified": 29,
+    "mismatch": 1,
+    "unlinked": 8,
+    "none": 68
+  },
+  "provenance_checked_at": "2026-11-12T08:08:39.217397+00:00"
 }

@@ -1,0 +1,140 @@
+{
+ "label": {
+  "verified": "Paket verweist auf das Repo",
+  "mismatch": "Paket verweist nicht zurück",
+  "unlinked": "Paket nicht rückverweisbar",
+  "none": "Kein Paket"
+ },
+ "short": {
+  "verified": "Verweist zurück",
+  "mismatch": "Kein Rückverweis",
+  "unlinked": "Unbestätigt",
+  "none": "Kein Paket"
+ },
+ "tip": {
+  "verified": "Das im Manifest dieses Repos genannte {registry}-Paket verweist zurück auf dieses Repository. Geprüft am {date}.",
+  "mismatch": "Das Paket {name} auf {registry} verweist auf ein anderes Repository ({repo}). Das kann ein Fork, eine Umbenennung oder ein Wrapper eines Dritten sein. Vor der Installation prüfen.",
+  "unlinked": "Auf {registry} gibt es ein Paket namens {name}, aber seine Metadaten enthalten keinen Repository-Link. Wir konnten es daher nicht auf dieses Repo zurückführen.",
+  "none": "Im Repo-Stammverzeichnis ist kein npm-/PyPI-Paket deklariert. Laut README aus dem Quellcode installieren."
+ },
+ "obs": {
+  "verified": "Die Paketmetadaten verweisen zurück auf das gelistete Repo.",
+  "mismatch": "Die Paketmetadaten verweisen auf {declared}, nicht auf das gelistete Repo {listed}.",
+  "unlinked": "Auf {registry} gibt es ein Paket mit diesem Namen. Seine Metadaten enthalten keinen Repository-Link.",
+  "none": "Im Repo-Stammverzeichnis ist kein npm- oder PyPI-Paket deklariert.",
+  "norepo": "Gehostete API ohne öffentliches Repository."
+ },
+ "row": "Paket-Rückverweis",
+ "learn": "Was das bedeutet",
+ "nav": "Paketprüfung",
+ "verPara": "Unabhängig vom Status prüfen wir, ob das npm- oder PyPI-Paket jedes Tools auf das gelistete Repository zurückverweist.",
+ "title": "Paketprüfung: Verweist das npm-/PyPI-Paket auf das Repo zurück?",
+ "desc": "Wir prüfen, ob das npm- oder PyPI-Paket jedes KI-Finanz-Tools auf das von uns gelistete Repository zurückverweist. Live-Tabelle, Methodik und Anleitung zur eigenen Prüfung.",
+ "h1": "Paketprüfung",
+ "intro1": "Viele MCP-Server und Agent-Skills werden mit einer Zeile installiert, etwa <code>npx some-package</code> oder <code>pip install some-package</code>. Diese Zeile lädt, was unter diesem Namen auf npm oder PyPI veröffentlicht ist. Das ist nicht immer der Code aus dem GitHub-Repository, das Sie gerade gelesen haben.",
+ "intro2": "Jede Woche prüfen wir jedes Tool im Verzeichnis: Verweist das im Repo genannte Paket tatsächlich auf dieses Repo zurück? Diese Seite zeigt die Ergebnisse.",
+ "latest": "<strong>Letzte Prüfung: {date}.</strong> Von {total} Tools haben {verified} ein Paket, das auf das gelistete Repo zurückverweist. Bei {mm} konnten wir das Paket nicht auf das gelistete Repo zurückführen. {none} haben kein npm- oder PyPI-Paket. {norepo} sind gehostete APIs ohne öffentliches Repository.",
+ "note": "Eine Abweichung ist kein Vorwurf. Häufige harmlose Ursachen sind ein Fork, der unter dem ursprünglichen Namen veröffentlicht wurde, ein umbenanntes oder verschobenes Repository, ein separates Wrapper-Paket oder ein Paket, in dessen Metadaten das Repository-Feld einfach fehlt. Wir berichten, was wir beobachtet haben, nicht warum.",
+ "stat": {
+  "verified": "Paket verweist auf das Repo",
+  "mismatch": "Paket verweist nicht zurück",
+  "unlinked": "Nicht rückverweisbar",
+  "none": "Kein Paket",
+  "total": "Geprüfte Tools"
+ },
+ "badgesH": "Was die Badges bedeuten",
+ "b": {
+  "verified": "Das in <code>package.json</code> oder <code>pyproject.toml</code> des Repos genannte Paket existiert auf npm oder PyPI, und seine Metadaten verweisen auf dasselbe GitHub-Repository.",
+  "mismatch": "Ein Paket mit diesem Namen existiert, aber seine Metadaten verweisen auf ein anderes Repository.",
+  "unlinked": "Ein Paket mit diesem Namen existiert, aber seine Metadaten enthalten keinen Repository-Link. Wir konnten es daher nicht auf dieses Repo zurückführen.",
+  "none": "Das Repo deklariert im Stammverzeichnis kein veröffentlichtes npm- oder PyPI-Paket. Wie im README beschrieben aus dem Quellcode installieren."
+ },
+ "sep": "Diese Badges sind unabhängig vom Verifizierungsstatus eines Tools (Verifiziert, Alternd, Veraltet…). Eine Abweichung ändert diesen Status nie.",
+ "methodH": "Methodik",
+ "m": [
+  "Für jedes gelistete Repository lesen wir <code>package.json</code> im Stammverzeichnis (als privat markierte Pakete überspringen wir) und <code>pyproject.toml</code> und übernehmen den deklarierten Paketnamen.",
+  "Wir schlagen diesen Namen in der öffentlichen npm-Registry (<code>registry.npmjs.org</code>) oder auf PyPI (<code>pypi.org/pypi/&lt;name&gt;/json</code>) nach.",
+  "Wir prüfen, ob die Paketmetadaten (npm: <code>repository</code>, <code>homepage</code>, <code>bugs</code>; PyPI: <code>project_urls</code>, <code>home_page</code>, <code>download_url</code>) das gelistete <code>owner/repo</code> enthalten. GitHub-URLs werden ohne Beachtung der Groß-/Kleinschreibung verglichen, nachdem GitHubs Weiterleitungen für umbenannte oder verschobene Repositories verfolgt wurden.",
+  "Wir erfassen Paketname, neueste Version, deren Veröffentlichungsdatum und jedes in den Metadaten deklarierte Repository."
+ ],
+ "notCheck": "Was wir nicht prüfen: wer das Registry-Konto kontrolliert, den Inhalt der veröffentlichten Dateien oder Installationsskripte. Ein \"bestätigt\"-Badge heißt, dass die Links übereinstimmen. Es heißt nicht, dass der Code auditiert wurde.",
+ "runs": "Die Prüfung läuft wöchentlich zusammen mit unserer übrigen {verification}. Änderungen erscheinen im {weekly}. Die Daten stehen in {json} unter CC BY 4.0 mit Namensnennung von TradingAIHub bereit.",
+ "runsVer": "Verifizierung",
+ "runsWeekly": "wöchentlichen Changelog",
+ "lastRun": "Letzter Lauf: {date}.",
+ "tableH": "Live-Tabelle",
+ "th": {
+  "tool": "Tool",
+  "type": "Typ",
+  "registry": "Registry",
+  "package": "Paket",
+  "badge": "Badge",
+  "declared": "Deklariertes Repo",
+  "observed": "Unsere Beobachtung",
+  "checked": "Geprüft"
+ },
+ "filter": {
+  "label": "Nach Badge filtern",
+  "all": "Alle",
+  "verified": "Bestätigt",
+  "mismatch": "Abweichung",
+  "unlinked": "Unbestätigt",
+  "none": "Kein Paket",
+  "search": "Tools oder Pakete suchen",
+  "shown": "{n} von {total} Tools angezeigt"
+ },
+ "howH": "So prüfen Sie ein Paket selbst",
+ "npm": [
+  "Öffnen Sie <code>https://www.npmjs.com/package/&lt;name&gt;</code> und sehen Sie sich den Link \"Repository\" in der Seitenleiste an. Passt er zum Repo, das Sie gelesen haben?",
+  "Oder führen Sie <code>npm view &lt;name&gt; repository homepage maintainers</code> aus.",
+  "Vergleichen Sie die neueste Version und das Veröffentlichungsdatum mit den Releases oder Tags des Repos.",
+  "Prüfen Sie vor <code>npx</code> auf <code>preinstall</code>-/<code>postinstall</code>-Skripte: <code>npm view &lt;name&gt; scripts</code>."
+ ],
+ "pypi": [
+  "Öffnen Sie <code>https://pypi.org/project/&lt;name&gt;/</code> und prüfen Sie \"Project links\" und \"Meta\".",
+  "Oder rufen Sie <code>https://pypi.org/pypi/&lt;name&gt;/json</code> ab und lesen Sie <code>info.project_urls</code>.",
+  "Vergleichen Sie den Release-Verlauf mit den Tags des Repos."
+ ],
+ "eitherH": "In beiden Fällen",
+ "either": [
+  "Fehlt in den Metadaten ein Repository-Link, installieren Sie nach der README des Repos (zum Beispiel <code>npx github:owner/repo</code>, <code>pip install git+https://github.com/owner/repo</code> oder ein lokaler Klon).",
+  "Pinnen Sie Versionen und bevorzugen Sie Pakete, deren Links übereinstimmen."
+ ],
+ "faq": [
+  [
+   "Bedeutet \"Abweichung\", dass ein Paket bösartig ist?",
+   "Nein. Es bedeutet, dass die Paketmetadaten nicht auf das von uns gelistete Repository verweisen. Forks, Umbenennungen, separate Wrapper und fehlende Metadaten sind die üblichen Gründe."
+  ],
+  [
+   "Bedeutet „Paket verweist auf das Repo“, dass der Code sicher ist?",
+   "Nein. Es bedeutet, dass Paket und Repo aufeinander verweisen. Wir auditieren weder Code noch Installationsskripte."
+  ],
+  [
+   "Warum zeigen manche Tools \"Kein Paket\"?",
+   "Viele MCP-Server werden aus dem Quellcode oder einem Container gestartet, und gehostete APIs haben kein Paket. Das ist normal."
+  ],
+  [
+   "Wie oft wird das aktualisiert?",
+   "Wöchentlich, zusammen mit unseren Repository- und Endpunkt-Prüfungen. Änderungen erscheinen im wöchentlichen Changelog."
+  ],
+  [
+   "Ich betreue eines dieser Tools. Wie bekomme ich das Bestätigt-Badge?",
+   "Tragen Sie Ihre Repository-URL in die Paketmetadaten ein (repository in package.json oder project_urls in pyproject.toml) und veröffentlichen Sie eine neue Version. Der nächste wöchentliche Lauf übernimmt das. Sie können auch eine Korrektur einreichen."
+  ],
+  [
+   "Darf ich diese Daten weiterverwenden?",
+   "Ja. Sie stehen in /tools.json unter CC BY 4.0 mit Namensnennung von TradingAIHub."
+  ]
+ ],
+ "linksH": "Verwandt",
+ "links": {
+  "verification": "Letzter Verifizierungslauf",
+  "weekly": "Wöchentlicher Changelog",
+  "json": "tools.json (CC BY 4.0)",
+  "submit": "Korrektur einreichen",
+  "about": "Wie wir verifizieren"
+ },
+ "nia": "Nur zur Information. Nichts auf dieser Seite ist eine Anlageberatung.",
+ "dsName": "TradingAIHub-Paketprüfung",
+ "dsDesc": "Für jedes Tool im TradingAIHub-Verzeichnis: ob sein npm- oder PyPI-Paket auf das gelistete Quellrepository zurückverweist (verified, mismatch, unlinked oder none), mit Registry, Paketname und deklariertem Repository."
+}
