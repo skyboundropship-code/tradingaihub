@@ -6,6 +6,8 @@ import AffTag from "../../../components/AffTag.astro";
 import Base from "../../../layouts/Base.astro";
 import Status from "../../../components/Status.astro";
 import SecurityBadge from "../../../components/SecurityBadge.astro";
+import Provenance from "../../../components/Provenance.astro";
+import { useProvT } from "../../../i18n/prov";
 import SecurityNote from "../../../components/SecurityNote.astro";
 import XpTip from "../../../components/XpTip.astro";
 import { explain } from "../../../lib/explain";
@@ -22,7 +24,7 @@ const lang = Astro.params.lang ?? "en"; const { t, p, desc: dsc } = useT(lang);
 const { tool } = Astro.props; const v = tool.verification; const cat = catBySlug[tool.category];
 const [cname, cshort] = t(`cat.${cat.slug}`);
 const pkg = pkgOf(tool); const sn = snippets(tool, t); const stHelp = t(`status.${v.status}`)[1];
-const desc = dsc(tool);
+const desc = dsc(tool); const pt = useProvT(lang);
 const hasAff = [tool.homepage, tool.docs, tool.source_url, tool.pricing.source].some((u) => isAff(u));
 const related = tools.filter((x) => x.category === tool.category && x.id !== tool.id).slice(0, 3);
 // Partner CTA on tool pages related to charting, stocks, market data, crypto, quant/backtesting.
@@ -44,7 +46,7 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
 <Base title={`${tool.name} — ${t("tool.titleFor", { type: t(`type.${tool.type}`), cat: lang === "en" ? cshort.toLowerCase() : cshort })}`} description={metaDesc.slice(0, 300)} jsonld={ld} og={`tool-${tool.id}`} lang={lang}>
 <div class="wrap page">
   <div class="crumbs"><a href={p("/")}>{t("common.home")}</a> / <a href={p(`/category/${cat.slug}/`)}>{cname}</a> / <bdi>{tool.name}</bdi></div>
-  <div class="xp-scope"><div class="tool-head-meta"><div class="meta"><button type="button" class="badge type" data-xp-toggle data-xp="type" aria-expanded="false" aria-controls="xp-type" aria-describedby="xp-type">{t(`type.${tool.type}`)}</button>{tool.official && <button type="button" class="badge off" data-xp-toggle data-xp="official" aria-expanded="false" aria-controls="xp-official" aria-describedby="xp-official">{t("common.officialVendor")}</button>}<Status status={v.status} lang={lang} xp="page" /></div><button type="button" class="pill tool-checked" data-xp-toggle data-xp="checked" aria-expanded="false" aria-controls="xp-checked" aria-describedby="xp-checked"><DateInText text={t("tool.lastChecked", { date: v.checked_at })} date={v.checked_at} /></button></div><span class="xp-tips">{(["type", "official", "status", "checked"] as const).map((k) => <XpTip k={k} id={`xp-${k}`} html={explain(tool, k, lang)} />)}</span></div>
+  <div class="xp-scope"><div class="tool-head-meta"><div class="meta"><button type="button" class="badge type" data-xp-toggle data-xp="type" aria-expanded="false" aria-controls="xp-type" aria-describedby="xp-type">{t(`type.${tool.type}`)}</button>{tool.official && <button type="button" class="badge off" data-xp-toggle data-xp="official" aria-expanded="false" aria-controls="xp-official" aria-describedby="xp-official">{t("common.officialVendor")}</button>}<Status status={v.status} lang={lang} xp="page" />{tool.repo && <Provenance id={tool.id} lang={lang} xp xpId="xp-prov" />}</div><button type="button" class="pill tool-checked" data-xp-toggle data-xp="checked" aria-expanded="false" aria-controls="xp-checked" aria-describedby="xp-checked"><DateInText text={t("tool.lastChecked", { date: v.checked_at })} date={v.checked_at} /></button></div><span class="xp-tips">{(["type", "official", "status", "prov", "checked"] as const).map((k) => <XpTip k={k} id={`xp-${k}`} html={explain(tool, k, lang)} />)}</span></div>
   <h1 class="tool-title" style="margin:6px 0 6px" title={tool.name}><TitleText text={tool.name} bdi /></h1>
   <p style="color:var(--muted);font-size:1.125rem;margin-top:0">{desc}</p>
   <SecurityBadge tool={tool} lang={lang} variant="page" />
@@ -76,7 +78,7 @@ const metaDesc = `${tool.name}: ${desc} ${t("tool.descSuffix")}`;
       <h2>{t("tool.verification")}</h2>
       <div class="panel">
         <p><Status status={v.status} lang={lang} /> <span class="note">{stHelp}</span></p>
-        <table><tbody>{v.checks.map((c: any) => <tr><td style="width:36px">{c.ok ? "✅" : "⚠️"}</td><td>{t(`checks.${c.check}`) === `checks.${c.check}` ? c.check : t(`checks.${c.check}`)}{c.note && <span class="note"> — <bdi>{c.note}</bdi></span>}</td></tr>)}</tbody></table>
+        <table><tbody>{v.checks.map((c: any) => <tr><td style="width:36px">{c.ok ? "✅" : "⚠️"}</td><td>{t(`checks.${c.check}`) === `checks.${c.check}` ? c.check : t(`checks.${c.check}`)}{c.note && <span class="note"> — <bdi>{c.note}</bdi></span>}</td></tr>)}{tool.repo && <tr><td style="width:36px" aria-hidden="true">{v.provenance?.state === "verified" ? "✅" : v.provenance?.state === "none" ? "➖" : "⚠️"}</td><td>{pt("row")}: <Provenance id={tool.id} lang={lang} link={false} /> <a href={`${p("/audit/")}#${tool.id}`}>{pt("learn")}</a></td></tr>}</tbody></table>
         {v.issues.length > 0 && <ul>{v.issues.map((i: string) => <li class="note"><bdi>{i}</bdi></li>)}</ul>}
         <p class="note"><DateInText text={t(v.manual_override ? "tool.manualCheck" : "tool.autoCheck", { date: v.manual_override ? v.manual_check.date : v.checked_at })} date={v.manual_override ? v.manual_check.date : v.checked_at} /> <a href={`${p("/about/")}#how-we-verify`}>{t("nav.verify")}</a>.</p>
       </div>

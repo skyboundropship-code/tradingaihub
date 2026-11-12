@@ -87,3 +87,18 @@ export function datasetLd(page: { url: string; lang: string }) {
     ],
   };
 }
+
+// Dataset for /audit/ (data licence: CC BY 4.0, attribution "TradingAIHub, https://tradingaihub.com").
+// Separate from datasetLd() on /verification/ and /weekly/, which describes the weekly verification run.
+export function auditDatasetLd(d: { name: string; description: string; url: string; lang: string; dateModified: string }) {
+  return {
+    "@context": "https://schema.org", "@type": "Dataset", name: d.name, description: d.description, url: d.url, inLanguage: d.lang,
+    license: "https://creativecommons.org/licenses/by/4.0/", creator: { "@id": ORG_ID }, publisher: { "@id": ORG_ID },
+    isAccessibleForFree: true, dateModified: d.dateModified, isPartOf: { "@id": WEBSITE_ID },
+    variableMeasured: ["state", "registry", "package", "declared_repo"].map((n) => ({ "@type": "PropertyValue", name: n })),
+    distribution: [
+      { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: `${SITE.url}/tools.json` },
+      { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: `${SITE.url}/api/v1/tools.json` },
+    ],
+  };
+}

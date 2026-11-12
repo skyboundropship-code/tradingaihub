@@ -1,0 +1,140 @@
+{
+ "label": {
+  "verified": "O pacote liga ao repositório",
+  "mismatch": "O pacote não liga de volta",
+  "unlinked": "Não foi possível ligar o pacote",
+  "none": "Sem pacote"
+ },
+ "short": {
+  "verified": "Liga de volta",
+  "mismatch": "Sem ligação de volta",
+  "unlinked": "Não confirmado",
+  "none": "Sem pacote"
+ },
+ "tip": {
+  "verified": "O pacote do {registry} indicado no manifesto deste repositório aponta de volta para este repositório. Verificado em {date}.",
+  "mismatch": "O pacote {name} no {registry} aponta para outro repositório ({repo}). Pode ser um fork, uma renomeação ou um wrapper de terceiros. Confira antes de instalar.",
+  "unlinked": "Existe um pacote chamado {name} em {registry}, mas os metadados não têm ligação para o repositório, por isso não conseguimos ligá-lo de volta a este repositório.",
+  "none": "Nenhum pacote npm/PyPI é declarado na raiz do repositório. Instale a partir do código-fonte conforme o README."
+ },
+ "obs": {
+  "verified": "Os metadados do pacote apontam para o repositório listado.",
+  "mismatch": "Os metadados do pacote apontam para {declared}, não para o repositório listado {listed}.",
+  "unlinked": "Existe um pacote com este nome no {registry}. Os metadados dele não têm link para repositório.",
+  "none": "Nenhum pacote npm ou PyPI é declarado na raiz do repositório.",
+  "norepo": "API hospedada sem repositório público."
+ },
+ "row": "Ligação do pacote ao repositório",
+ "learn": "O que isso significa",
+ "nav": "Auditoria de pacotes",
+ "verPara": "Além do status, verificamos se o pacote npm ou PyPI de cada ferramenta aponta de volta para o repositório listado.",
+ "title": "Auditoria de pacotes: o pacote npm/PyPI liga de volta ao repositório?",
+ "desc": "Verificamos se o pacote npm ou PyPI de cada ferramenta de IA financeira liga de volta ao repositório que listamos. Tabela ao vivo, metodologia e como verificar você mesmo.",
+ "h1": "Auditoria de pacotes",
+ "intro1": "Muitos servidores MCP e skills de agentes são instalados com uma linha, como <code>npx some-package</code> ou <code>pip install some-package</code>. Essa linha baixa o que estiver publicado com esse nome no npm ou no PyPI, que nem sempre é o código do repositório do GitHub que você acabou de ler.",
+ "intro2": "Toda semana verificamos cada ferramenta do diretório: o pacote indicado no repositório realmente aponta de volta para ele? Esta página mostra os resultados.",
+ "latest": "<strong>Última verificação: {date}.</strong> De {total} ferramentas, {verified} têm um pacote que liga de volta ao repositório listado. Em {mm}, não conseguimos ligar o pacote de volta ao repositório listado. {none} não têm pacote npm ou PyPI. {norepo} são APIs hospedadas sem repositório público.",
+ "note": "Uma divergência não é uma acusação. Causas inofensivas comuns: um fork publicado com o nome original, um repositório renomeado ou movido, um pacote wrapper separado ou um pacote cujos metadados simplesmente omitem o campo de repositório. Relatamos o que observamos, não o motivo.",
+ "stat": {
+  "verified": "O pacote liga ao repositório",
+  "mismatch": "O pacote não liga de volta",
+  "unlinked": "Não foi possível ligar de volta",
+  "none": "Sem pacote",
+  "total": "Ferramentas verificadas"
+ },
+ "badgesH": "O que os selos significam",
+ "b": {
+  "verified": "O pacote indicado no <code>package.json</code> ou <code>pyproject.toml</code> do repositório existe no npm ou no PyPI, e os metadados dele apontam para o mesmo repositório do GitHub.",
+  "mismatch": "Existe um pacote com esse nome, mas os metadados dele apontam para outro repositório.",
+  "unlinked": "Existe um pacote com esse nome, mas os metadados não têm ligação para o repositório, por isso não conseguimos ligá-lo de volta a este repositório.",
+  "none": "O repositório não declara na raiz um pacote publicado no npm ou no PyPI. Instale a partir do código-fonte como o README descreve."
+ },
+ "sep": "Estes selos são separados do status de verificação da ferramenta (Verificado, Envelhecendo, Desatualizado…). Uma divergência nunca altera esse status.",
+ "methodH": "Metodologia",
+ "m": [
+  "Para cada repositório listado, lemos o <code>package.json</code> na raiz (ignorando pacotes marcados como privados) e o <code>pyproject.toml</code>, e pegamos o nome de pacote declarado.",
+  "Procuramos esse nome no registro público do npm (<code>registry.npmjs.org</code>) ou no PyPI (<code>pypi.org/pypi/&lt;name&gt;/json</code>).",
+  "Verificamos se os metadados do pacote (npm: <code>repository</code>, <code>homepage</code>, <code>bugs</code>; PyPI: <code>project_urls</code>, <code>home_page</code>, <code>download_url</code>) contêm o <code>owner/repo</code> listado. URLs do GitHub são comparadas sem diferenciar maiúsculas, depois de seguir os redirecionamentos do GitHub para repositórios renomeados ou movidos.",
+  "Registramos o nome do pacote, a versão mais recente, a data de publicação e qualquer repositório declarado nos metadados."
+ ],
+ "notCheck": "O que não verificamos: quem controla a conta no registro, o conteúdo dos arquivos publicados ou scripts de instalação. Um selo \"verificado\" significa que os links conferem. Não significa que o código foi auditado.",
+ "runs": "A verificação roda semanalmente junto com o restante da nossa {verification}. As mudanças aparecem no {weekly}. Os dados estão disponíveis em {json} sob CC BY 4.0 com atribuição à TradingAIHub.",
+ "runsVer": "verificação",
+ "runsWeekly": "changelog semanal",
+ "lastRun": "Última execução: {date}.",
+ "tableH": "Tabela ao vivo",
+ "th": {
+  "tool": "Ferramenta",
+  "type": "Tipo",
+  "registry": "Registro",
+  "package": "Pacote",
+  "badge": "Selo",
+  "declared": "Repositório declarado",
+  "observed": "O que observamos",
+  "checked": "Verificado em"
+ },
+ "filter": {
+  "label": "Filtrar por selo",
+  "all": "Todos",
+  "verified": "Verificado",
+  "mismatch": "Não confere",
+  "unlinked": "Não confirmado",
+  "none": "Sem pacote",
+  "search": "Buscar ferramentas ou pacotes",
+  "shown": "{n} de {total} ferramentas exibidas"
+ },
+ "howH": "Como verificar um pacote você mesmo",
+ "npm": [
+  "Abra <code>https://www.npmjs.com/package/&lt;name&gt;</code> e veja o link \"Repository\" na barra lateral. Ele corresponde ao repositório que você leu?",
+  "Ou rode <code>npm view &lt;name&gt; repository homepage maintainers</code>.",
+  "Compare a versão mais recente e a data de publicação com as releases ou tags do repositório.",
+  "Antes de rodar <code>npx</code>, procure scripts <code>preinstall</code>/<code>postinstall</code>: <code>npm view &lt;name&gt; scripts</code>."
+ ],
+ "pypi": [
+  "Abra <code>https://pypi.org/project/&lt;name&gt;/</code> e confira \"Project links\" e \"Meta\".",
+  "Ou baixe <code>https://pypi.org/pypi/&lt;name&gt;/json</code> e leia <code>info.project_urls</code>.",
+  "Compare o histórico de versões com as tags do repositório."
+ ],
+ "eitherH": "Em ambos os casos",
+ "either": [
+  "Se os metadados não tiverem link para repositório, instale seguindo o README do repositório (por exemplo <code>npx github:owner/repo</code>, <code>pip install git+https://github.com/owner/repo</code> ou um clone local).",
+  "Fixe versões e prefira pacotes cujos links conferem."
+ ],
+ "faq": [
+  [
+   "\"Não confere\" significa que um pacote é malicioso?",
+   "Não. Significa que os metadados do pacote não apontam para o repositório que listamos. Forks, renomeações, wrappers separados e metadados ausentes são os motivos habituais."
+  ],
+  [
+   "\"O pacote liga ao repositório\" significa que o código é seguro?",
+   "Não. Significa que o pacote e o repositório apontam um para o outro. Não auditamos código nem scripts de instalação."
+  ],
+  [
+   "Por que algumas ferramentas mostram \"Sem pacote\"?",
+   "Muitos servidores MCP rodam a partir do código-fonte ou de um contêiner, e APIs hospedadas não têm pacote. Isso é normal."
+  ],
+  [
+   "Com que frequência isso é atualizado?",
+   "Semanalmente, junto com nossas verificações de repositórios e endpoints. As mudanças aparecem no changelog semanal."
+  ],
+  [
+   "Mantenho uma dessas ferramentas. Como consigo o selo de verificado?",
+   "Adicione a URL do seu repositório aos metadados do pacote (repository no package.json ou project_urls no pyproject.toml) e publique uma nova versão. A próxima execução semanal vai detectar. Você também pode enviar uma correção."
+  ],
+  [
+   "Posso reutilizar estes dados?",
+   "Sim. Estão em /tools.json sob CC BY 4.0 com atribuição à TradingAIHub."
+  ]
+ ],
+ "linksH": "Relacionado",
+ "links": {
+  "verification": "Última verificação",
+  "weekly": "Changelog semanal",
+  "json": "tools.json (CC BY 4.0)",
+  "submit": "Enviar uma correção",
+  "about": "Como verificamos"
+ },
+ "nia": "Apenas informativo. Nada nesta página é recomendação de investimento.",
+ "dsName": "Auditoria de pacotes da TradingAIHub",
+ "dsDesc": "Para cada ferramenta no diretório da TradingAIHub: se o pacote npm ou PyPI liga de volta ao repositório de origem listado (verified, mismatch, unlinked ou none), com o registro, o nome do pacote e o repositório declarado."
+}

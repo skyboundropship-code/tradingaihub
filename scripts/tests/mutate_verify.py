@@ -60,6 +60,11 @@ M = {
     "safe_verify_uncapped": ('done, v = _bounded(lambda: verify(t), TOOL_DEADLINE)', 'done, v = _bounded(lambda: verify(t), 10**6)'),
     "no_recheck": ('if again:\n        with', 'if False:\n        with'),
     "jsonrpc_id_ignored": ('j.get("id") == 1 and', ''),
+    # --- package provenance
+    "prov_substring_match": ('hit = next((g for g in found if g in listed), None)', 'hit = next((g for g in found if any(x in g for x in listed)), None)'),
+    "prov_no_redirect_resolution": ('                if resolve(g) in listed: hit = g; break', '                pass'),
+    "prov_mismatch_as_unlinked": ('out["state"] = "verified" if hit else "mismatch"', 'out["state"] = "verified" if hit else "unlinked"'),
+    "prov_case_sensitive": ('    listed = {x.lower() for x in listed if x}', '    listed = {x for x in listed if x}'),
 }
 # Mutations no test can kill because another guard already enforces the same behaviour (documented, not counted).
 EQUIVALENT = {
