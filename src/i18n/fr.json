@@ -356,7 +356,7 @@
   "latest": "Dernière vérification : {date} UTC —",
   "fullReport": "voir le rapport complet",
   "money": "Comment nous gagnons de l'argent",
-  "moneyP": "Le référencement est gratuit. Actuellement, nous gagnons de l'argent uniquement grâce à des liens d'affiliation (partenaires) déclarés vers TradingView et EODHD. Les emplacements sponsorisés ne sont pas encore proposés ; s'ils le deviennent, ils seront signalés « Sponsorisé ». Aucun n'influence le statut de vérification.",
+  "moneyP": "Le référencement est gratuit. Actuellement, nous gagnons de l'argent uniquement grâce à des liens d'affiliation (partenaires) déclarés vers TradingView et EODHD. Les emplacements sponsorisés ne sont pas proposés. Les liens d'affiliation n'influencent jamais le statut de vérification.",
   "contact": "Contact"
  },
  "disc": {
@@ -442,9 +442,9 @@
  },
  "adv": {
   "title": "Publicité",
-  "desc": "Faire de la publicité sur {site}.",
-  "lead": "{site} référence plus de {n} serveurs MCP, skills et API pour la finance et le trading, revérifiés chaque semaine. Tous les référencements sont gratuits ; les emplacements payants n'achètent que de la visibilité, jamais un meilleur statut de vérification. Ils sont toujours signalés « Sponsorisé ».",
-  "free": "Les fiches, badges et propositions sont et resteront <b>gratuits</b>. Les sponsorings ne sont pas encore ouverts. Intéressé plus tard ? Écrivez à {email}."
+  "desc": "Référencement gratuit et demandes de partenariat sur {site}.",
+  "lead": "{site} référence plus de {n} serveurs MCP, skills et API pour la finance et le trading, revérifiés chaque semaine. Tous les référencements sont gratuits. Les emplacements payants et les sponsorings payants ne sont pas proposés.",
+  "free": "Les fiches, badges et propositions sont et resteront <b>gratuits</b>. Pour référencer un outil, utilisez le <a href=\"{submit}\">formulaire d'envoi gratuit</a>. Pour une question de partenariat ou toute autre demande, écrivez à {email}."
  },
  "privacy": {
   "title": "Politique de confidentialité",
@@ -452,9 +452,9 @@
   "p1": "{site} est un site statique. Nous n'exigeons pas de compte et n'utilisons pas de cookies publicitaires. Vos préférences de langue et de thème sont enregistrées uniquement dans votre navigateur (localStorage).",
   "collect": "Ce que nous collectons",
   "c1": "Des statistiques agrégées, respectueuses de la vie privée et sans cookies (pages vues, référents, pays).",
-  "c2": "Les informations que vous nous envoyez en proposant un outil ou en achetant un emplacement (nom, e-mail, détails de l'outil). Les paiements sont traités par notre merchant of record ; nous ne voyons jamais les numéros de carte.",
+  "c2": "Les informations que vous nous envoyez en proposant un outil ou en nous contactant (par exemple votre nom, votre e-mail et les détails de l'outil).",
   "use": "Comment nous les utilisons",
-  "useP": "Pour examiner les propositions, diffuser les emplacements publicitaires et vous contacter au sujet de votre fiche. Nous ne vendons pas de données personnelles.",
+  "useP": "Pour examiner les propositions et vous contacter au sujet de votre fiche. Nous ne vendons pas de données personnelles.",
   "aff": "Liens affiliés",
   "affP": "Lorsque vous cliquez sur un lien affilié, le site de destination peut déposer ses propres cookies selon sa propre politique.",
   "rights": "Vos droits",
@@ -471,7 +471,7 @@
   "items": [
    "Le site est fourni « en l'état », à titre informatif uniquement. Voir l'<a href=\"{disc}\">avertissement</a> : rien ici n'est un conseil en investissement.",
    "Les noms d'outils et les marques appartiennent à leurs propriétaires. Les fiches sont des descriptions factuelles ; les propriétaires peuvent demander des corrections ou un retrait.",
-   "Les emplacements sponsorisés n'achètent que de la visibilité, sont signalés, peuvent être refusés ou retirés (avec remboursement au prorata) et sont facturés par notre merchant of record.",
+   "Les sponsorings payants et les emplacements payants ne sont pas proposés.",
    "Toute personne proposant un outil confirme avoir le droit de le référencer et qu'il ne promet aucun rendement garanti.",
    "Notre responsabilité est limitée au montant que vous nous avez payé au cours des 12 derniers mois.",
    "Les données de l’annuaire fournies par notre <a href=\"/developers/\" hreflang=\"en\">API et serveur MCP gratuits</a> sont sous licence <a href=\"https://creativecommons.org/licenses/by/4.0/\" rel=\"license noopener\">CC BY 4.0</a> : vous pouvez les réutiliser, y compris à des fins commerciales, à condition de créditer “TradingAIHub, https://tradingaihub.com”. Le code de l’API et du serveur MCP est sous licence MIT.",
