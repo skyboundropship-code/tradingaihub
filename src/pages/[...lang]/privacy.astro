@@ -5,6 +5,7 @@ import { langParams, useT } from "../../i18n";
 import { GISCUS } from "../../lib/giscus";
 export function getStaticPaths() { return langParams().map((params) => ({ params })); }
 const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
+const [ckBefore, ckAfter] = String(t("privacy.cookiesP")).split("{link}");
 ---
 <Base title={t("privacy.title")} lang={lang}>
 <div class="wrap page prose">
@@ -14,5 +15,6 @@ const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
   <h2>{t("privacy.use")}</h2><p>{t("privacy.useP")}</p>
   <h2>{t("privacy.aff")}</h2><p>{t("privacy.affP")}</p>
   <h2>{t("privacy.rights")}</h2><p>{t("privacy.rightsP", { email: SITE.contactEmail })}</p>
+  <p>{ckBefore}<a href={p("/cookies/")}>{t("cookies.title")}</a>{ckAfter}</p>
 </div>
 </Base>

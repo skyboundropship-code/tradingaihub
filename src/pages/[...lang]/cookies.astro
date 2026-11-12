@@ -1,0 +1,69 @@
+---
+import Base from "../../layouts/Base.astro";
+import { SITE } from "../../config";
+import { langParams, useT } from "../../i18n";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en"; const { t, p } = useT(lang);
+const POLICY_DATE = "2026-11-12";
+const dt = new Date(`${POLICY_DATE}T00:00:00Z`);
+const dateStr = new Intl.DateTimeFormat(lang === "ar" ? "ar-u-nu-latn" : lang, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(dt);
+const [uBefore, uAfter] = String(t("cookies.updated")).split("{date}");
+const email = SITE.contactEmail;
+const [cBefore, cAfter] = String(t("cookies.contactP")).split("{email}");
+const [pBefore, pAfter] = String(t("cookies.seePrivacy")).split("{link}");
+const rows = [
+  { name: "theme", purpose: "rTheme" },
+  { name: "lang", purpose: "rLang" },
+  { name: "langAuto", purpose: "rLangAuto" },
+  { name: "a11y", purpose: "rA11y" },
+] as const;
+const sum = t("cookies.sum") as string[];
+---
+<Base title={t("cookies.title")} description={t("cookies.metaDesc")} lang={lang}>
+<div class="wrap page prose">
+  <h1>{t("cookies.title")}</h1>
+  <p class="note">{uBefore}<time datetime={POLICY_DATE}>{dateStr}</time>{uAfter}</p>
+  <p>{t("cookies.intro", { site: SITE.name })}</p>
+  <p>{pBefore}<a href={p("/privacy/")}>{t("cookies.privacyLink")}</a>{pAfter}</p>
+  <h2>{t("cookies.sumH")}</h2>
+  <ul>{sum.map((x) => <li>{x}</li>)}</ul>
+  <h2>{t("cookies.tableH")}</h2>
+  <p>{t("cookies.tableIntro")}</p>
+  <div class="tablewrap" tabindex="0" role="region" aria-label={t("cookies.tableH")}>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">{t("cookies.thName")}</th>
+          <th scope="col">{t("cookies.thWhere")}</th>
+          <th scope="col">{t("cookies.thPurpose")}</th>
+          <th scope="col">{t("cookies.thKeep")}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((r) => (
+          <tr>
+            <th scope="row"><code dir="ltr">{r.name}</code></th>
+            <td><code dir="ltr">{t("cookies.localStorage")}</code></td>
+            <td>{t(`cookies.${r.purpose}`)}</td>
+            <td>{t("cookies.untilCleared")}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <h2>{t("cookies.analyticsH")}</h2>
+  <p>{t("cookies.analyticsP")}</p>
+  <h2>{t("cookies.clickH")}</h2>
+  <p>{t("cookies.clickP")}</p>
+  <h2>{t("cookies.newsH")}</h2>
+  <p>{t("cookies.newsP")}</p>
+  <h2>{t("cookies.commentsH")}</h2>
+  <p>{t("cookies.commentsP")}</p>
+  <h2>{t("cookies.affH")}</h2>
+  <p>{t("cookies.affP")}</p>
+  <h2>{t("cookies.manageH")}</h2>
+  <p>{t("cookies.manageP")}</p>
+  <h2>{t("cookies.contactH")}</h2>
+  <p>{cBefore}<a href={`mailto:${email}?subject=${encodeURIComponent(String(t("cookies.title")))}`} dir="ltr">{email}</a>{cAfter}</p>
+</div>
+</Base>

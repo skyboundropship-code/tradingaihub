@@ -36,7 +36,9 @@
   "apiDocs": "免费 API 与 MCP 服务器（英文）",
   "disclaimer": "<b>非投资建议。</b>{site} 是一个关于软件工具的信息目录。本网站的任何内容均不构成投资、交易、税务或法律建议，也不构成买卖任何证券或资产的推荐，我们不是持牌投资顾问或投资组合经理。交易存在亏损风险。<b>联盟链接披露：</b>部分链接（目前为 TradingView）是联盟链接。如果您通过这些链接注册，我们可能会获得佣金，您无需支付额外费用。这些链接均有标注，绝不影响收录、排名或验证状态。",
   "fullDisclaimer": "完整免责声明",
-  "short": "不构成投资建议。部分链接为合作伙伴链接，我们可能因此获得佣金。"
+  "short": "不构成投资建议。部分链接为合作伙伴链接，我们可能因此获得佣金。",
+  "cookies": "Cookie",
+  "getFeatured": "展示您的工具"
  },
  "common": {
   "copy": "复制",
@@ -461,7 +463,8 @@
   "c4": "邮件发送：新闻通讯通过我们的邮件服务提供商 MailerLite 发送，MailerLite 代表我们处理数据。我们仅与 MailerLite 共享您的电子邮箱地址。就我们的账户而言，服务由 MailerLite, Inc.（美国）提供；MailerLite 将数据存储在位于欧盟的 Google 数据中心，您的电子邮箱地址会依据 MailerLite 的保障措施传输至美国，其中包括欧盟-美国数据隐私框架（含其英国扩展）、瑞士-美国数据隐私框架以及标准合同条款。",
   "c5": "双重确认（double opt-in）：订阅后，MailerLite 会向您发送确认邮件，只有点击其中的链接后订阅才会生效。每封新闻通讯邮件都包含退订链接。如需同时从 MailerLite 和我们的 KV 存储中删除您的数据，请发送邮件至 {email}。",
   "c6": "匿名点击统计：当您点击指向其他网站的链接时，我们会通过 Cloudflare Workers Analytics Engine 记录一次匿名计数，仅保存工具、联盟计划（如有）、目标网站、链接类型、页面、语言、引荐网站的域名、自动化流量标记（机器人和我们自己的测试）以及点击来源（人、机器人或测试）。我们不使用 Cookie，也不存储您的 IP 地址、浏览器信息或任何其他个人数据。",
-  "c7": "博客评论：文章评论存储在 GitHub Discussions（仓库 tradingaihub/community）中，并通过 giscus 显示。在你点击“加载评论”之前，不会从 GitHub 或 giscus 加载任何内容。发表评论需要使用 GitHub 账号登录，你发布的内容会在 GitHub 上公开，并受 GitHub 隐私声明约束。我们不会获得你的 GitHub 密码或电子邮件地址。"
+  "c7": "博客评论：文章评论存储在 GitHub Discussions（仓库 tradingaihub/community）中，并通过 giscus 显示。在你点击“加载评论”之前，不会从 GitHub 或 giscus 加载任何内容。发表评论需要使用 GitHub 账号登录，你发布的内容会在 GitHub 上公开，并受 GitHub 隐私声明约束。我们不会获得你的 GitHub 密码或电子邮件地址。",
+  "cookiesP": "我们在您浏览器中存储的内容见{link}页面。"
  },
  "terms": {
   "title": "使用条款",
@@ -685,5 +688,59 @@
   "pricingNoDate": "按供应商所列价格：免费档 {free}；付费起价 {paid}。",
   "pricingUnknown": "我们无法在供应商页面上确认该工具的价格。",
   "stars": "GitHub 星标：截至 {checked} 为 {stars}。"
+ },
+ "cookies": {
+  "title": "Cookie 与浏览器存储说明",
+  "metaDesc": "TradingAIHub 在您的浏览器中存储的内容，以及本站使用的第三方服务。",
+  "updated": "最后更新：{date}",
+  "intro": "{site} 是一个静态网站。我们的页面不设置 cookie，也不使用广告 cookie、跟踪 cookie 或社交媒体像素。本页说明网站实际在您的浏览器中存储的内容，以及它向第三方发出的请求。",
+  "sumH": "简要说明",
+  "sum": [
+   "本站页面不设置 cookie。",
+   "您的主题、语言和无障碍选项仅保存在本浏览器的 localStorage 中（不是 cookie），不会发送到我们的服务器。",
+   "每个页面都会加载 Cloudflare Web Analytics，Cloudflare 将该产品说明为不使用 cookie。它以汇总方式记录页面浏览、来源和国家/地区。",
+   "当您点击指向其他网站的链接时，我们会记录一次匿名计数。不使用 cookie，我们也不存储您的 IP 地址或浏览器详情。",
+   "电子报和博客评论仅在您选择使用时才会运行，详见下文。",
+   "当您打开指向其他网站的链接（包括带标识的合作伙伴（联盟）链接）时，该网站可能按其自己的政策设置自己的 cookie。"
+  ],
+  "tableH": "我们在您浏览器中存储的内容",
+  "tableIntro": "这些值存储在您设备上的 localStorage 中。它们不是 cookie，我们的服务器也不会读取它们。",
+  "thName": "名称",
+  "thWhere": "存储方式",
+  "thPurpose": "用途",
+  "thKeep": "保留时间",
+  "localStorage": "localStorage",
+  "rTheme": "浅色或深色主题的选择。",
+  "rLang": "您在语言菜单中最后选择的语言。",
+  "rLangAuto": "在英文首页上设置一次的标记：当网站可能将您重定向到与浏览器匹配的语言时使用，以免重复此操作。",
+  "rA11y": "您的无障碍设置：文字大小、高对比度、突出链接、易读字体和减少动态效果。",
+  "untilCleared": "直到您在浏览器中清除本站数据，或更改该设置。",
+  "analyticsH": "Cloudflare Web Analytics",
+  "analyticsP": "每个页面都会加载 Cloudflare Web Analytics（来自 static.cloudflareinsights.com 的脚本）。Cloudflare 将该产品说明为不使用 cookie。如隐私政策所述，它以汇总方式记录页面浏览、来源和国家/地区。它在每个页面上加载；我们不会将其放在同意横幅之后。",
+  "clickH": "匿名点击计数",
+  "clickP": "当您点击指向其他网站的链接时，我们的页面会通过 Cloudflare Workers Analytics Engine，向我们自己的接口（/api/click）发送一次匿名计数。该计数仅保存工具、联盟计划（如有）、目标网站、链接类型、页面、语言、来源网站域名、自动流量标记（机器人和我们自己的测试）以及点击来源（人、机器人或测试）。不使用 cookie，我们也不存储您的 IP 地址、浏览器详情或任何其他个人数据。链接本身不会被改写。",
+  "newsH": "电子报",
+  "newsP": "本站的电子报表单是我们自己的表单。它将您的电子邮箱发送到我们自己的接口（/api/subscribe）。我们不会在页面上加载 MailerLite 的脚本或表单。如果您订阅，我们只会按隐私政策所述，将您的电子邮箱分享给邮件服务提供商 MailerLite，并由 MailerLite 向您发送确认邮件。只有在您点击该邮件中的链接后，订阅才会生效。MailerLite 自己的页面和邮件遵循 MailerLite 的政策。",
+  "commentsH": "博客评论",
+  "commentsP": "博客文章的评论存储在 GitHub Discussions（仓库 tradingaihub/community）中，并通过 giscus 显示。在您点击 “Load comments” 之前，不会向 GitHub 或 giscus 发出任何请求。点击之后，giscus 和 GitHub 可能按其自己的政策设置自己的 cookie。评论需使用 GitHub 账号登录，您发布的内容在 GitHub 上是公开的。我们不会收到您的 GitHub 密码或电子邮箱。",
+  "affH": "联盟链接及其他外部网站",
+  "affP": "当您点击指向其他网站的链接（包括带标识的合作伙伴（联盟）链接）时，目标网站可能按其自己的政策设置自己的 cookie。我们的页面在点击时不会设置 cookie。",
+  "manageH": "如何更改或清除",
+  "manageP": "您可以用每个页面上的控件更改主题、语言和无障碍设置。要删除已保存的值，请在浏览器设置中清除本站数据。仅在浏览器中阻止或删除 cookie，并不会自动清除 localStorage。",
+  "contactH": "联系我们",
+  "contactP": "关于本说明的问题：{email}。",
+  "seePrivacy": "完整隐私政策见{link}。",
+  "privacyLink": "隐私政策"
+ },
+ "getFeatured": {
+  "title": "展示您的工具",
+  "metaDesc": "在{site}免费刊登金融 AI 工具的方式。我们不提供付费赞助。",
+  "lead": "{site}上的收录是免费的。要将您的工具加入目录，请使用免费提交表单或发邮件给我们。没有付费位置，也没有结账。",
+  "noPaid": "我们不提供付费赞助，也不提供首页或分类中的付费位置。",
+  "submitH": "免费提交工具",
+  "submitP": "请使用免费提交表单。它会打开一份已填好的 GitHub issue。我们会审核每份提交；通过检查的工具通常会在一周内发布。您还会获得一枚自动更新的免费验证徽章。",
+  "submitBtn": "提交工具（免费）",
+  "contactH": "联系我们",
+  "contactP": "如有疑问，或没有 GitHub 账号，请发送邮件至 {email}。"
  }
 }

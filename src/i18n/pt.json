@@ -36,7 +36,9 @@
   "apiDocs": "API e servidor MCP grátis (em inglês)",
   "disclaimer": "<b>Não é recomendação de investimento.</b> {site} é um diretório informativo de ferramentas de software. Nada neste site constitui consultoria de investimento, trading, tributária ou jurídica, nem recomendação de compra ou venda de qualquer valor mobiliário ou ativo, e não somos consultores de investimento nem gestores de carteira autorizados. Operar envolve risco de perda. <b>Divulgação de afiliados:</b> alguns links (atualmente TradingView) são links de afiliado. Se você se cadastrar por meio deles, podemos receber uma comissão sem custo extra para você. Eles são identificados e nunca afetam listagens, rankings ou status de verificação.",
   "fullDisclaimer": "Aviso legal completo",
-  "short": "Não é aconselhamento de investimento. Alguns links são de parceiros e podemos receber comissão."
+  "short": "Não é aconselhamento de investimento. Alguns links são de parceiros e podemos receber comissão.",
+  "cookies": "Cookies",
+  "getFeatured": "Destaque sua ferramenta"
  },
  "common": {
   "copy": "Copiar",
@@ -461,7 +463,8 @@
   "c4": "Envio de e-mails: a newsletter é enviada pelo MailerLite, nosso provedor de e-mail, que trata os dados em nosso nome. Compartilhamos com o MailerLite apenas o seu endereço de e-mail. Para a nossa conta, o serviço é prestado pela MailerLite, Inc. (Estados Unidos); o MailerLite armazena os dados em data centers do Google na UE, e seu e-mail é transferido para os Estados Unidos com base nas salvaguardas do MailerLite, entre elas o EU-U.S. Data Privacy Framework (com sua extensão para o Reino Unido), o Swiss-U.S. Data Privacy Framework e cláusulas contratuais padrão.",
   "c5": "Confirmação dupla (double opt-in): depois da inscrição, o MailerLite envia um e-mail de confirmação, e você só passa a ser assinante depois de clicar no link. Todo e-mail da newsletter tem um link para cancelar a inscrição. Para excluir seus dados do MailerLite e do nosso armazenamento KV, escreva para {email}.",
   "c6": "Contagem anônima de cliques: quando você clica em um link para outro site, registramos uma contagem anônima com o Cloudflare Workers Analytics Engine. Ela guarda apenas a ferramenta, o programa de afiliados (se houver), o site de destino, o tipo de link, a página, o idioma, o domínio do site que o indicou, uma marcação de tráfego automatizado (bots e nossos testes) e a origem do clique (pessoa, bot ou teste). Não usamos cookies e não armazenamos seu endereço IP, dados do navegador nem qualquer outro dado pessoal.",
-  "c7": "Comentários do blog: os comentários dos artigos ficam armazenados no GitHub Discussions (repositório tradingaihub/community) e são exibidos via giscus. Nada é carregado do GitHub ou do giscus até você clicar em “Carregar comentários”. Para comentar, você entra com sua conta do GitHub, e o que publicar fica público no GitHub, sob a declaração de privacidade do GitHub. Não recebemos sua senha nem seu e-mail do GitHub."
+  "c7": "Comentários do blog: os comentários dos artigos ficam armazenados no GitHub Discussions (repositório tradingaihub/community) e são exibidos via giscus. Nada é carregado do GitHub ou do giscus até você clicar em “Carregar comentários”. Para comentar, você entra com sua conta do GitHub, e o que publicar fica público no GitHub, sob a declaração de privacidade do GitHub. Não recebemos sua senha nem seu e-mail do GitHub.",
+  "cookiesP": "O que armazenamos no seu navegador está descrito na página {link}."
  },
  "terms": {
   "title": "Termos de uso",
@@ -685,5 +688,59 @@
   "pricingNoDate": "Preço conforme o fornecedor: plano gratuito {free}; pago a partir de {paid}.",
   "pricingUnknown": "Não conseguimos confirmar o preço desta ferramenta em uma página do fornecedor.",
   "stars": "Estrelas no GitHub: {stars} em {checked}."
+ },
+ "cookies": {
+  "title": "Aviso de cookies e armazenamento no navegador",
+  "metaDesc": "O que o TradingAIHub armazena no seu navegador e quais serviços de terceiros o site usa.",
+  "updated": "Última atualização: {date}",
+  "intro": "{site} é um site estático. Nossas páginas não definem cookies, e não usamos cookies de publicidade, cookies de rastreamento nem pixels de redes sociais. Esta página descreve o que o site realmente armazena no seu navegador e quais pedidos a terceiros ele faz.",
+  "sumH": "Em resumo",
+  "sum": [
+   "As páginas deste site não definem cookies.",
+   "Suas escolhas de tema, idioma e acessibilidade ficam salvas apenas neste navegador, no localStorage (não como cookies), e não são enviadas aos nossos servidores.",
+   "Cada página carrega o Cloudflare Web Analytics, que a Cloudflare documenta como um serviço sem cookies. Ele registra visualizações, origens de tráfego e país de forma agregada.",
+   "Quando você clica em um link para outro site, registramos uma contagem anônima. Não usamos cookies e não armazenamos seu endereço IP nem os dados do navegador.",
+   "A newsletter e os comentários do blog funcionam só se você escolher usá-los, como descrito abaixo.",
+   "Ao seguir um link para outro site, inclusive um link de parceiro (afiliado) identificado, esse site pode definir os próprios cookies segundo a própria política."
+  ],
+  "tableH": "O que armazenamos no seu navegador",
+  "tableIntro": "Esses valores são armazenados no localStorage no seu dispositivo. Não são cookies, e nossos servidores não os leem.",
+  "thName": "Nome",
+  "thWhere": "Armazenado como",
+  "thPurpose": "Finalidade",
+  "thKeep": "Retenção",
+  "localStorage": "localStorage",
+  "rTheme": "Sua escolha de tema claro ou escuro.",
+  "rLang": "O idioma que você escolheu por último no menu de idiomas.",
+  "rLangAuto": "Uma marca definida uma vez na página inicial em inglês, quando o site pode redirecioná-lo a um idioma que corresponda ao navegador, para que isso não se repita.",
+  "rA11y": "Seus ajustes de acessibilidade: tamanho do texto, alto contraste, links destacados, fonte legível e menos movimento.",
+  "untilCleared": "Até você limpar os dados deste site no navegador ou alterar o ajuste.",
+  "analyticsH": "Cloudflare Web Analytics",
+  "analyticsP": "Cada página carrega o Cloudflare Web Analytics (um script de static.cloudflareinsights.com). A Cloudflare documenta este produto como um serviço sem cookies. Como descrito na nossa política de privacidade, ele registra visualizações, origens de tráfego e país de forma agregada. É carregado em todas as páginas; não o condicionamos a um banner de consentimento.",
+  "clickH": "Contagem anônima de cliques",
+  "clickP": "Quando você clica em um link para outro site, nossas páginas enviam uma contagem anônima ao nosso próprio endpoint (/api/click) com o Cloudflare Workers Analytics Engine. A contagem guarda apenas a ferramenta, o programa de afiliados (se houver), o site de destino, o tipo de link, a página, o idioma, o domínio do site que o indicou, uma marcação de tráfego automatizado (bots e nossos testes) e a origem do clique (pessoa, bot ou teste). Não usamos cookies e não armazenamos seu endereço IP, os dados do navegador nem qualquer outro dado pessoal. O próprio link não é reescrito.",
+  "newsH": "Newsletter",
+  "newsP": "O formulário da newsletter neste site é nosso. Ele envia seu endereço de e-mail ao nosso próprio endpoint (/api/subscribe). Não carregamos scripts nem formulários da MailerLite na página. Se você assinar, compartilhamos apenas seu e-mail com a MailerLite, nosso provedor de e-mail, como descrito na política de privacidade, e a MailerLite envia um e-mail de confirmação. Você só é inscrito depois de clicar no link desse e-mail. As páginas e os e-mails da MailerLite seguem a política da MailerLite.",
+  "commentsH": "Comentários do blog",
+  "commentsP": "Os comentários dos artigos do blog são armazenados no GitHub Discussions (repositório tradingaihub/community) e exibidos pelo giscus. Nada é solicitado ao GitHub ou ao giscus até você clicar em “Load comments”. Depois do clique, o giscus e o GitHub podem definir os próprios cookies segundo as próprias políticas. Para comentar, você entra com sua conta do GitHub, e o que publicar é público no GitHub. Não recebemos sua senha nem seu e-mail do GitHub.",
+  "affH": "Links de afiliados e outros sites externos",
+  "affP": "Quando você clica em um link para outro site, inclusive um link de parceiro (afiliado) identificado, o site de destino pode definir os próprios cookies segundo a própria política. Nossas páginas não definem um cookie no clique.",
+  "manageH": "Como alterar ou apagar isso",
+  "manageP": "Você pode alterar o tema, o idioma e a acessibilidade pelos controles em todas as páginas. Para apagar os valores salvos, limpe os dados deste site nas configurações do navegador. Bloquear ou excluir cookies no navegador não apaga por si só o localStorage.",
+  "contactH": "Contato",
+  "contactP": "Dúvidas sobre este aviso: {email}.",
+  "seePrivacy": "Para a política de privacidade completa, consulte {link}.",
+  "privacyLink": "Política de privacidade"
+ },
+ "getFeatured": {
+  "title": "Destaque sua ferramenta",
+  "metaDesc": "Formas gratuitas de incluir sua ferramenta de IA financeira no {site}. Não oferecemos patrocínios pagos.",
+  "lead": "Os listamentos no {site} são gratuitos. Para incluir sua ferramenta no diretório, use o formulário de envio gratuito ou escreva para nós. Não há espaço pago nem checkout.",
+  "noPaid": "Não oferecemos patrocínios pagos nem espaços pagos na página inicial ou nas categorias.",
+  "submitH": "Envie uma ferramenta de graça",
+  "submitP": "Use o formulário de envio gratuito. Ele abre um issue do GitHub pré-preenchido. Analisamos cada envio; as ferramentas que passam nas verificações são publicadas, em geral em até uma semana. Você também recebe um selo verificado gratuito que se atualiza sozinho.",
+  "submitBtn": "Enviar uma ferramenta (grátis)",
+  "contactH": "Contato",
+  "contactP": "Dúvidas, ou não tem conta no GitHub? Escreva para {email}."
  }
 }
