@@ -36,7 +36,9 @@
   "apiDocs": "Ücretsiz API ve MCP sunucusu (İngilizce)",
   "disclaimer": "<b>Yatırım tavsiyesi değildir.</b> {site}, yazılım araçlarına ilişkin bilgilendirme amaçlı bir dizindir. Bu sitedeki hiçbir içerik yatırım, trading, vergi veya hukuki tavsiye ya da herhangi bir menkul kıymet veya varlığı alma veya satma önerisi değildir ve biz lisanslı yatırım danışmanı veya portföy yöneticisi değiliz. Trading kayıp riski içerir. <b>Ortaklık bildirimi:</b> Bazı bağlantılar (şu anda TradingView) ortaklık bağlantılarıdır. Bunlar üzerinden kaydolursanız, size ek maliyet olmadan komisyon kazanabiliriz. Bu bağlantılar işaretlidir ve listelemeleri, sıralamaları veya doğrulama durumunu asla etkilemez.",
   "fullDisclaimer": "Tam sorumluluk reddi",
-  "short": "Yatırım tavsiyesi değildir. Bazı bağlantılar iş ortağı bağlantılarıdır ve bize komisyon kazandırabilir."
+  "short": "Yatırım tavsiyesi değildir. Bazı bağlantılar iş ortağı bağlantılarıdır ve bize komisyon kazandırabilir.",
+  "cookies": "Çerezler",
+  "getFeatured": "Aracınızı öne çıkarın"
  },
  "common": {
   "copy": "Kopyala",
@@ -461,7 +463,8 @@
   "c4": "E-posta gönderimi: Bülten, verileri bizim adımıza işleyen e-posta hizmet sağlayıcımız MailerLite üzerinden gönderilir. MailerLite ile yalnızca e-posta adresinizi paylaşırız. Hesabımız için hizmeti MailerLite, Inc. (ABD) sağlar; MailerLite verileri AB'deki Google veri merkezlerinde saklar ve e-posta adresiniz, MailerLite'ın güvenceleri kapsamında ABD'ye aktarılır; bunlar arasında AB-ABD Veri Gizliliği Çerçevesi (Birleşik Krallık uzantısıyla birlikte), İsviçre-ABD Veri Gizliliği Çerçevesi ve standart sözleşme maddeleri yer alır.",
   "c5": "Çift onay (double opt-in): Kaydolduktan sonra MailerLite size bir onay e-postası gönderir ve aboneliğiniz ancak içindeki bağlantıya tıkladığınızda başlar. Her bülten e-postasında abonelikten çıkma bağlantısı bulunur. Verilerinizi hem MailerLite'tan hem de KV depomuzdan sildirmek için {email} adresine yazın.",
   "c6": "Anonim tıklama sayımı: Başka bir siteye giden bir bağlantıya tıkladığınızda, Cloudflare Workers Analytics Engine ile tek bir anonim sayım kaydederiz. Yalnızca araç, ortaklık programı (varsa), hedef site, bağlantı türü, sayfa, dil, sizi yönlendiren sitenin alan adı, otomatik trafik işareti (botlar ve kendi testlerimiz) ve tıklama kaynağı (insan, bot veya test) saklanır. Çerez kullanılmaz; IP adresinizi, tarayıcı bilgilerinizi veya başka herhangi bir kişisel veriyi saklamayız.",
-  "c7": "Blog yorumları: Yazılara yapılan yorumlar GitHub Discussions'ta (tradingaihub/community deposu) saklanır ve giscus ile gösterilir. “Yorumları yükle”ye tıklayana kadar GitHub'dan veya giscus'tan hiçbir şey yüklenmez. Yorum yapmak için GitHub hesabınızla oturum açarsınız; paylaştıklarınız GitHub gizlilik bildirimi kapsamında GitHub'da herkese açıktır. GitHub parolanızı veya e-posta adresinizi almayız."
+  "c7": "Blog yorumları: Yazılara yapılan yorumlar GitHub Discussions'ta (tradingaihub/community deposu) saklanır ve giscus ile gösterilir. “Yorumları yükle”ye tıklayana kadar GitHub'dan veya giscus'tan hiçbir şey yüklenmez. Yorum yapmak için GitHub hesabınızla oturum açarsınız; paylaştıklarınız GitHub gizlilik bildirimi kapsamında GitHub'da herkese açıktır. GitHub parolanızı veya e-posta adresinizi almayız.",
+  "cookiesP": "Tarayıcınızda sakladıklarımız {link} sayfasında açıklanır."
  },
  "terms": {
   "title": "Kullanım koşulları",
@@ -685,5 +688,59 @@
   "pricingNoDate": "Sağlayıcının belirttiği fiyat: ücretsiz katman {free}; ücretli {paid} başlangıçlı.",
   "pricingUnknown": "Bu aracın fiyatını bir sağlayıcı sayfasında doğrulayamadık.",
   "stars": "GitHub yıldızları: {checked} tarihinde {stars}."
+ },
+ "cookies": {
+  "title": "Çerez ve tarayıcı depolama bildirimi",
+  "metaDesc": "TradingAIHub'ın tarayıcınızda sakladıkları ve sitenin kullandığı üçüncü taraf hizmetler.",
+  "updated": "Son güncelleme: {date}",
+  "intro": "{site} statik bir web sitesidir. Sayfalarımız çerez ayarlamaz; reklam çerezleri, izleme çerezleri veya sosyal medya pikselleri kullanmayız. Bu sayfa, sitenin tarayıcınızda gerçekten ne sakladığını ve üçüncü taraflara hangi istekleri gönderdiğini açıklar.",
+  "sumH": "Kısaca",
+  "sum": [
+   "Bu sitenin sayfaları çerez ayarlamaz.",
+   "Tema, dil ve erişilebilirlik tercihleriniz yalnızca bu tarayıcıda, localStorage içinde (çerez olarak değil) saklanır ve sunucularımıza gönderilmez.",
+   "Her sayfa, Cloudflare'in çerezsiz olarak belgelediği Cloudflare Web Analytics'i yükler. Toplu sayfa görüntülemelerini, yönlendirenleri ve ülkeyi kaydeder.",
+   "Başka bir siteye giden bir bağlantıya tıkladığınızda bir anonim sayım kaydederiz. Çerez kullanılmaz; IP adresiniz veya tarayıcı ayrıntılarınız saklanmaz.",
+   "Bülten ve blog yorumları, aşağıda açıklandığı gibi, bunları kullanmayı seçtiğinizde çalışır.",
+   "Başka bir siteye, işaretli bir ortak (ortaklık) bağlantısı dahil, gittiğinizde o site kendi politikasına göre kendi çerezlerini ayarlayabilir."
+  ],
+  "tableH": "Tarayıcınızda sakladıklarımız",
+  "tableIntro": "Bu değerler cihazınızdaki localStorage'da saklanır. Çerez değildir ve sunucularımız bunları okumaz.",
+  "thName": "Ad",
+  "thWhere": "Saklama biçimi",
+  "thPurpose": "Amaç",
+  "thKeep": "Süre",
+  "localStorage": "localStorage",
+  "rTheme": "Açık veya koyu tema seçiminiz.",
+  "rLang": "Dil menüsünde en son seçtiğiniz dil.",
+  "rLangAuto": "İngilizce ana sayfada, site sizi tarayıcınızla eşleşen bir dile yönlendirebileceğinde bir kez ayarlanan ve bunun tekrarlanmasını önleyen bir işaret.",
+  "rA11y": "Erişilebilirlik ayarlarınız: metin boyutu, yüksek karşıtlık, vurgulanmış bağlantılar, okunaklı yazı tipi ve azaltılmış hareket.",
+  "untilCleared": "Tarayıcınızda bu sitenin verilerini temizleyene veya ayarı değiştirene kadar.",
+  "analyticsH": "Cloudflare Web Analytics",
+  "analyticsP": "Her sayfa Cloudflare Web Analytics'i (static.cloudflareinsights.com adresinden bir betik) yükler. Cloudflare bu ürünü çerezsiz olarak belgeler. Gizlilik politikamızda açıklandığı gibi toplu sayfa görüntülemelerini, yönlendirenleri ve ülkeyi kaydeder. Her sayfada yüklenir; bunu bir onay pankartının arkasına koymayız.",
+  "clickH": "Anonim tıklama sayımı",
+  "clickP": "Başka bir siteye giden bir bağlantıya tıkladığınızda sayfalarımız Cloudflare Workers Analytics Engine ile kendi uç noktamıza (/api/click) bir anonim sayım gönderir. Sayımda yalnızca araç, ortaklık programı (varsa), hedef site, bağlantı türü, sayfa, dil, sizi yönlendiren sitenin etki alanı, otomatik trafik (botlar ve kendi testlerimiz) işareti ve tıklama kaynağı (insan, bot veya test) saklanır. Çerez kullanılmaz; IP adresiniz, tarayıcı ayrıntılarınız veya başka kişisel veri saklanmaz. Bağlantının kendisi değiştirilmez.",
+  "newsH": "Bülten",
+  "newsP": "Bu sitedeki bülten formu bizim formumuzdur. E-posta adresinizi kendi uç noktamıza (/api/subscribe) gönderir. Sayfada MailerLite'ın betiklerini veya formlarını yüklemeyiz. Abone olursanız, gizlilik politikasında açıklandığı gibi yalnızca e-posta adresinizi e-posta sağlayıcımız MailerLite ile paylaşırız ve MailerLite size bir onay e-postası gönderir. Yalnızca o e-postadaki bağlantıya tıkladıktan sonra abone olursunuz. MailerLite'ın kendi sayfaları ve e-postaları MailerLite politikasına tabidir.",
+  "commentsH": "Blog yorumları",
+  "commentsP": "Blog yazılarındaki yorumlar GitHub Discussions'ta (tradingaihub/community deposu) saklanır ve giscus ile gösterilir. “Load comments” öğesine tıklayana kadar GitHub veya giscus'a istek gönderilmez. Tıkladıktan sonra giscus ve GitHub kendi politikalarına göre kendi çerezlerini ayarlayabilir. Yorum yapmak için GitHub hesabınızla oturum açarsınız ve yayınladığınız içerik GitHub'da herkese açıktır. GitHub parolanızı veya e-posta adresinizi almayız.",
+  "affH": "Ortaklık bağlantıları ve diğer dış siteler",
+  "affP": "Başka bir siteye, işaretli bir ortak (ortaklık) bağlantısı dahil, tıkladığınızda hedef site kendi politikasına göre kendi çerezlerini ayarlayabilir. Sayfalarımız tıklamada çerez ayarlamaz.",
+  "manageH": "Bunu değiştirme veya silme",
+  "manageP": "Tema, dil ve erişilebilirliği her sayfadaki denetimlerle değiştirebilirsiniz. Saklanan değerleri silmek için tarayıcı ayarlarında bu sitenin verilerini temizleyin. Tarayıcıda çerezleri engellemek veya silmek tek başına localStorage'ı temizlemez.",
+  "contactH": "İletişim",
+  "contactP": "Bu bildirim hakkında sorular: {email}.",
+  "seePrivacy": "Tam gizlilik politikası için {link} sayfasına bakın.",
+  "privacyLink": "Gizlilik politikası"
+ },
+ "getFeatured": {
+  "title": "Aracınızı öne çıkarın",
+  "metaDesc": "Finans yapay zekâ aracınızı {site} üzerinde ücretsiz listelemenin yolları. Ücretli sponsorluk sunulmaz.",
+  "lead": "{site} üzerindeki kayıtlar ücretsizdir. Aracınızı dizine eklemek için ücretsiz gönderim formunu kullanın veya bize e-posta gönderin. Ücretli yerleştirme ve ödeme adımı yoktur.",
+  "noPaid": "Ücretli sponsorluk ve ana sayfada veya kategorilerde ücretli yerleştirme sunulmaz.",
+  "submitH": "Bir aracı ücretsiz gönderin",
+  "submitP": "Ücretsiz gönderim formunu kullanın. Önceden doldurulmuş bir GitHub issue açılır. Her gönderiyi inceleriz; kontrollerimizden geçen araçlar genellikle bir hafta içinde yayımlanır. Ayrıca otomatik güncellenen ücretsiz bir doğrulanmış rozet alırsınız.",
+  "submitBtn": "Araç gönder (ücretsiz)",
+  "contactH": "İletişim",
+  "contactP": "Sorularınız mı var veya GitHub hesabınız yok mu? {email} adresine yazın."
  }
 }

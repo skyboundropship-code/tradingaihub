@@ -36,7 +36,9 @@
   "apiDocs": "API et serveur MCP gratuits (en anglais)",
   "disclaimer": "<b>Pas un conseil en investissement.</b> {site} est un annuaire informatif d'outils logiciels. Rien sur ce site ne constitue un conseil en investissement, en trading, fiscal ou juridique, ni une recommandation d'acheter ou de vendre un titre ou un actif, et nous ne sommes ni conseillers en investissement ni gérants de portefeuille agréés. Le trading comporte un risque de perte. <b>Liens affiliés :</b> certains liens (actuellement TradingView) sont des liens affiliés. Si vous vous inscrivez par leur biais, nous pouvons percevoir une commission sans surcoût pour vous. Ils sont signalés et n'influencent jamais les fiches, le classement ni le statut de vérification.",
   "fullDisclaimer": "Avertissement complet",
-  "short": "Ceci n'est pas un conseil en investissement. Certains liens sont des liens partenaires et peuvent nous rapporter une commission."
+  "short": "Ceci n'est pas un conseil en investissement. Certains liens sont des liens partenaires et peuvent nous rapporter une commission.",
+  "cookies": "Cookies",
+  "getFeatured": "Mettre votre outil en avant"
  },
  "common": {
   "copy": "Copier",
@@ -461,7 +463,8 @@
   "c4": "Envoi des e-mails : la newsletter est envoyée via MailerLite, notre prestataire d'e-mailing, qui traite les données pour notre compte. Nous ne partageons avec MailerLite que votre adresse e-mail. Pour notre compte, le service est fourni par MailerLite, Inc. (États-Unis) ; MailerLite stocke les données dans des centres de données Google situés dans l'UE, et votre adresse e-mail est transférée aux États-Unis en vertu des garanties de MailerLite, notamment le Data Privacy Framework UE–États-Unis (avec son extension pour le Royaume-Uni), le Data Privacy Framework Suisse–États-Unis et des clauses contractuelles types.",
   "c5": "Double opt-in : après votre inscription, MailerLite vous envoie un e-mail de confirmation, et vous n'êtes abonné qu'après avoir cliqué sur le lien qu'il contient. Chaque e-mail de la newsletter contient un lien de désabonnement. Pour faire supprimer vos données à la fois chez MailerLite et dans notre stockage KV, écrivez à {email}.",
   "c6": "Comptage anonyme des clics : lorsque vous cliquez sur un lien vers un autre site, nous enregistrons un comptage anonyme via Cloudflare Workers Analytics Engine. Seuls sont conservés l'outil, le programme d'affiliation (le cas échéant), le site de destination, le type de lien, la page, la langue, le domaine du site qui vous a dirigé vers nous, un indicateur de trafic automatisé (robots et nos propres tests) et la source du clic (humain, robot ou test). Aucun cookie n'est utilisé et nous ne conservons ni votre adresse IP, ni les informations de votre navigateur, ni aucune autre donnée personnelle.",
-  "c7": "Commentaires du blog : les commentaires des articles sont stockés dans GitHub Discussions (dépôt tradingaihub/community) et affichés via giscus. Rien n'est chargé depuis GitHub ou giscus tant que vous n'avez pas cliqué sur « Charger les commentaires ». Pour commenter, vous vous connectez avec votre compte GitHub, et ce que vous publiez est public sur GitHub, selon la déclaration de confidentialité de GitHub. Nous ne recevons ni votre mot de passe ni votre adresse e-mail GitHub."
+  "c7": "Commentaires du blog : les commentaires des articles sont stockés dans GitHub Discussions (dépôt tradingaihub/community) et affichés via giscus. Rien n'est chargé depuis GitHub ou giscus tant que vous n'avez pas cliqué sur « Charger les commentaires ». Pour commenter, vous vous connectez avec votre compte GitHub, et ce que vous publiez est public sur GitHub, selon la déclaration de confidentialité de GitHub. Nous ne recevons ni votre mot de passe ni votre adresse e-mail GitHub.",
+  "cookiesP": "Ce que nous stockons dans votre navigateur est décrit sur la page {link}."
  },
  "terms": {
   "title": "Conditions d'utilisation",
@@ -685,5 +688,59 @@
   "pricingNoDate": "Tarifs selon l'éditeur : offre gratuite {free} ; payant à partir de {paid}.",
   "pricingUnknown": "Nous n'avons pas pu confirmer les tarifs de cet outil sur une page de l'éditeur.",
   "stars": "Étoiles GitHub : {stars} le {checked}."
+ },
+ "cookies": {
+  "title": "Mention relative aux cookies et au stockage dans le navigateur",
+  "metaDesc": "Ce que TradingAIHub stocke dans votre navigateur et quels services tiers le site utilise.",
+  "updated": "Dernière mise à jour : {date}",
+  "intro": "{site} est un site statique. Nos pages ne déposent pas de cookies, et nous n'utilisons ni cookies publicitaires, ni cookies de suivi, ni pixels de réseaux sociaux. Cette page décrit ce que le site stocke réellement dans votre navigateur et quelles requêtes vers des tiers il effectue.",
+  "sumH": "En bref",
+  "sum": [
+   "Les pages de ce site ne déposent pas de cookies.",
+   "Vos choix de thème, de langue et d'accessibilité sont enregistrés uniquement dans ce navigateur, dans localStorage (pas sous forme de cookies), et ne sont pas envoyés à nos serveurs.",
+   "Chaque page charge Cloudflare Web Analytics, que Cloudflare documente comme un service sans cookies. Il enregistre les pages vues, les provenances et le pays de façon agrégée.",
+   "Lorsque vous cliquez sur un lien vers un autre site, nous enregistrons un compteur anonyme. Aucun cookie n'est utilisé, et nous ne stockons ni votre adresse IP ni les données de votre navigateur.",
+   "La lettre d'information et les commentaires du blog ne fonctionnent que si vous choisissez de les utiliser, comme décrit ci-dessous.",
+   "Lorsque vous suivez un lien vers un autre site, y compris un lien partenaire (affiliation) identifié, ce site peut déposer ses propres cookies selon sa propre politique."
+  ],
+  "tableH": "Ce que nous stockons dans votre navigateur",
+  "tableIntro": "Ces valeurs sont stockées dans localStorage sur votre appareil. Ce ne sont pas des cookies, et nos serveurs ne les lisent pas.",
+  "thName": "Nom",
+  "thWhere": "Stocké comme",
+  "thPurpose": "Finalité",
+  "thKeep": "Conservation",
+  "localStorage": "localStorage",
+  "rTheme": "Votre choix de thème clair ou sombre.",
+  "rLang": "La langue que vous avez choisie en dernier dans le menu des langues.",
+  "rLangAuto": "Un indicateur défini une fois sur la page d'accueil en anglais, lorsque le site peut vous rediriger vers une langue correspondant à votre navigateur, afin de ne pas répéter cette opération.",
+  "rA11y": "Vos paramètres d'accessibilité : taille du texte, contraste élevé, liens mis en évidence, police lisible et réduction des mouvements.",
+  "untilCleared": "Jusqu'à ce que vous effaciez les données de ce site dans votre navigateur, ou que vous changiez le paramètre.",
+  "analyticsH": "Cloudflare Web Analytics",
+  "analyticsP": "Chaque page charge Cloudflare Web Analytics (un script provenant de static.cloudflareinsights.com). Cloudflare documente ce produit comme un service sans cookies. Comme indiqué dans notre politique de confidentialité, il enregistre les pages vues, les provenances et le pays de façon agrégée. Il est chargé sur chaque page ; nous ne le soumettons pas à une bannière de consentement.",
+  "clickH": "Comptage anonyme des clics",
+  "clickP": "Lorsque vous cliquez sur un lien vers un autre site, nos pages envoient un compteur anonyme à notre propre endpoint (/api/click) avec Cloudflare Workers Analytics Engine. Le compteur ne conserve que l'outil, le programme d'affiliation (le cas échéant), le site de destination, le type de lien, la page, la langue, le domaine du site qui vous a renvoyé, un indicateur de trafic automatisé (bots et nos propres tests) et la source du clic (personne, bot ou test). Aucun cookie n'est utilisé, et nous ne stockons ni votre adresse IP, ni les données du navigateur, ni aucune autre donnée personnelle. Le lien lui-même n'est pas réécrit.",
+  "newsH": "Lettre d'information",
+  "newsP": "Le formulaire d'inscription de ce site est le nôtre. Il envoie votre adresse e-mail à notre propre endpoint (/api/subscribe). Nous ne chargeons ni scripts ni formulaires de MailerLite sur la page. Si vous vous inscrivez, nous ne partageons que votre adresse e-mail avec MailerLite, notre prestataire d'e-mail, comme décrit dans la politique de confidentialité, et MailerLite vous envoie un e-mail de confirmation. Vous n'êtes inscrit qu'après avoir cliqué sur le lien de cet e-mail. Les pages et e-mails de MailerLite relèvent de la politique de MailerLite.",
+  "commentsH": "Commentaires du blog",
+  "commentsP": "Les commentaires des articles du blog sont stockés dans GitHub Discussions (dépôt tradingaihub/community) et affichés via giscus. Aucune requête n'est envoyée à GitHub ou à giscus tant que vous n'avez pas cliqué sur « Load comments ». Après le clic, giscus et GitHub peuvent déposer leurs propres cookies selon leurs propres politiques. Pour commenter, vous vous connectez avec votre compte GitHub, et ce que vous publiez est public sur GitHub. Nous ne recevons ni votre mot de passe GitHub ni votre adresse e-mail.",
+  "affH": "Liens d'affiliation et autres sites externes",
+  "affP": "Lorsque vous cliquez sur un lien vers un autre site, y compris un lien partenaire (affiliation) identifié, le site de destination peut déposer ses propres cookies selon sa propre politique. Nos pages ne déposent pas de cookie lors du clic.",
+  "manageH": "Comment modifier ou effacer ces données",
+  "manageP": "Vous pouvez modifier le thème, la langue et l'accessibilité avec les commandes présentes sur chaque page. Pour supprimer les valeurs enregistrées, effacez les données de ce site dans les paramètres de votre navigateur. Bloquer ou supprimer les cookies dans le navigateur n'efface pas à lui seul localStorage.",
+  "contactH": "Contact",
+  "contactP": "Questions sur cette mention : {email}.",
+  "seePrivacy": "Pour la politique de confidentialité complète, voir {link}.",
+  "privacyLink": "Politique de confidentialité"
+ },
+ "getFeatured": {
+  "title": "Mettre votre outil en avant",
+  "metaDesc": "Des moyens gratuits de faire référencer votre outil d'IA financière sur {site}. Les sponsorings payants ne sont pas proposés.",
+  "lead": "Les fiches sur {site} sont gratuites. Pour ajouter votre outil au répertoire, utilisez le formulaire d'envoi gratuit ou écrivez-nous. Il n'y a pas d'emplacement payant ni de paiement.",
+  "noPaid": "Les sponsorings payants et les emplacements payants sur la page d'accueil ou dans les catégories ne sont pas proposés.",
+  "submitH": "Proposer un outil gratuitement",
+  "submitP": "Utilisez le formulaire d'envoi gratuit. Il ouvre une issue GitHub préremplie. Nous examinons chaque proposition ; les outils qui passent nos contrôles sont publiés, en général sous une semaine. Vous recevez aussi un badge vérifié gratuit, mis à jour automatiquement.",
+  "submitBtn": "Proposer un outil (gratuit)",
+  "contactH": "Contact",
+  "contactP": "Une question, ou pas de compte GitHub ? Écrivez à {email}."
  }
 }

@@ -1,0 +1,23 @@
+---
+import Base from "../../layouts/Base.astro";
+import { SITE } from "../../config";
+import { langParams, useT } from "../../i18n";
+export function getStaticPaths() { return langParams().map((params) => ({ params })); }
+const lang = Astro.params.lang ?? "en"; const { t, p } = useT(lang);
+const email = SITE.contactEmail;
+const [cBefore, cAfter] = String(t("getFeatured.contactP")).split("{email}");
+---
+<Base title={t("getFeatured.title")} description={t("getFeatured.metaDesc", { site: SITE.name })} lang={lang}>
+<div class="wrap page">
+  <h1>{t("getFeatured.title")}</h1>
+  <p style="color:var(--muted);max-width:760px">{t("getFeatured.lead", { site: SITE.name })}</p>
+  <p class="callout" style="max-width:760px">{t("getFeatured.noPaid")}</p>
+  <div class="panel" style="max-width:760px">
+    <h2 style="margin-top:0">{t("getFeatured.submitH")}</h2>
+    <p>{t("getFeatured.submitP")}</p>
+    <p><a class="btn" href={p("/submit/")}>{t("getFeatured.submitBtn")}</a></p>
+  </div>
+  <h2>{t("getFeatured.contactH")}</h2>
+  <p>{cBefore}<a href={`mailto:${email}?subject=${encodeURIComponent(String(t("getFeatured.title")))}`} dir="ltr">{email}</a>{cAfter}</p>
+</div>
+</Base>

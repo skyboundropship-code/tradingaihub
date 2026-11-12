@@ -36,7 +36,9 @@
   "apiDocs": "Free API & MCP server",
   "disclaimer": "<b>Not investment advice.</b> {site} is an information directory about software tools. Nothing on this site is investment, trading, tax or legal advice or a recommendation to buy or sell any security or asset, and we are not licensed investment advisers or portfolio managers. Trading involves risk of loss. <b>Affiliate disclosure:</b> some links (currently TradingView) are affiliate links. If you sign up through them we may earn a commission at no extra cost to you. They are labelled, and they never affect listings, rankings or verification status.",
   "fullDisclaimer": "Full disclaimer",
-  "short": "Not investment advice. Some links are partner links and may earn us a commission."
+  "short": "Not investment advice. Some links are partner links and may earn us a commission.",
+  "cookies": "Cookies",
+  "getFeatured": "Get featured"
  },
  "common": {
   "copy": "Copy",
@@ -462,7 +464,8 @@
   "c4": "Email delivery: the newsletter is sent through MailerLite, our email service provider, which processes data on our behalf. We share only your email address with MailerLite. For our account the service is provided by MailerLite, Inc. (United States); MailerLite stores data in Google data centers in the EU, and your email address is transferred to the United States under MailerLite's safeguards, including the EU-U.S. Data Privacy Framework (with its UK Extension), the Swiss-U.S. Data Privacy Framework and Standard Contractual Clauses.",
   "c5": "Double opt-in: after you sign up, MailerLite sends you a confirmation email, and you are subscribed only after you click the link in it. Every newsletter email contains an unsubscribe link. To have your data deleted from both MailerLite and our KV store, email {email}.",
   "c6": "Anonymous click counts: when you click a link to another site, we record one anonymous count with Cloudflare Workers Analytics Engine. It stores only the tool, the affiliate program (if any), the destination site, the link type, the page, the language, the domain of the site that referred you, a flag for automated traffic (bots and our own tests) and the click source (human, bot or test). No cookies are used, and we do not store your IP address, browser details or any other personal data.",
-  "c7": "Blog comments: comments on blog articles are stored in GitHub Discussions (repository tradingaihub/community) and shown through giscus. Nothing is loaded from GitHub or giscus until you click “Load comments”. To comment you sign in with your GitHub account, and what you post is public on GitHub under GitHub's privacy statement. We don't receive your GitHub password or email address."
+  "c7": "Blog comments: comments on blog articles are stored in GitHub Discussions (repository tradingaihub/community) and shown through giscus. Nothing is loaded from GitHub or giscus until you click “Load comments”. To comment you sign in with your GitHub account, and what you post is public on GitHub under GitHub's privacy statement. We don't receive your GitHub password or email address.",
+  "cookiesP": "What we store in your browser is described on the {link} page."
  },
  "terms": {
   "title": "Terms of use",
@@ -686,5 +689,59 @@
   "pricingNoDate": "Pricing as listed by the vendor: free tier {free}; paid from {paid}.",
   "pricingUnknown": "We couldn't confirm this tool's pricing on a vendor page.",
   "stars": "GitHub stars: {stars} on {checked}."
+ },
+ "cookies": {
+  "title": "Cookie and browser-storage notice",
+  "metaDesc": "What TradingAIHub stores in your browser, and which third-party services the site uses.",
+  "updated": "Last updated: {date}",
+  "intro": "{site} is a static website. Our pages do not set cookies, and we do not use advertising cookies, tracking cookies or social-media pixels. This page describes what the site actually stores in your browser and which third-party requests it makes.",
+  "sumH": "In short",
+  "sum": [
+   "This site's pages do not set cookies.",
+   "Your theme, language and accessibility choices are stored only in this browser, in localStorage (not as cookies), and are not sent to our servers.",
+   "Every page loads Cloudflare Web Analytics, which Cloudflare documents as cookie-less. It records aggregate page views, referrers and country.",
+   "When you click a link to another site, we record one anonymous count. No cookies are used, and we do not store your IP address or browser details.",
+   "The newsletter and blog comments run only if you choose to use them, as described below.",
+   "When you follow a link to another site, including a labelled partner (affiliate) link, that site may set its own cookies under its own policy."
+  ],
+  "tableH": "What we store in your browser",
+  "tableIntro": "These values are stored in localStorage on your device. They are not cookies, and our servers do not read them.",
+  "thName": "Name",
+  "thWhere": "Stored as",
+  "thPurpose": "Purpose",
+  "thKeep": "Kept",
+  "localStorage": "localStorage",
+  "rTheme": "Your light or dark theme choice.",
+  "rLang": "The language you last chose in the language menu.",
+  "rLangAuto": "A flag set once on the English home page when the site may redirect you to a language that matches your browser, so this is not repeated.",
+  "rA11y": "Your accessibility settings: text size, high contrast, highlighted links, readable font and reduced motion.",
+  "untilCleared": "Until you clear this site's data in your browser, or change the setting.",
+  "analyticsH": "Cloudflare Web Analytics",
+  "analyticsP": "Every page loads Cloudflare Web Analytics (a script from static.cloudflareinsights.com). Cloudflare documents this product as cookie-less. As described in our privacy policy, it records aggregate page views, referrers and country. It is loaded on every page; we do not gate it behind a consent banner.",
+  "clickH": "Anonymous click counts",
+  "clickP": "When you click a link to another site, our pages send one anonymous count to our own endpoint (/api/click) with Cloudflare Workers Analytics Engine. The count stores only the tool, the affiliate program (if any), the destination site, the link type, the page, the language, the domain of the site that referred you, a flag for automated traffic (bots and our own tests) and the click source (human, bot or test). No cookies are used, and we do not store your IP address, browser details or any other personal data. The link itself is not rewritten.",
+  "newsH": "Newsletter",
+  "newsP": "The newsletter form on this site is our own form. It sends your email address to our own endpoint (/api/subscribe). We do not load MailerLite's scripts or forms on the page. If you subscribe, we share only your email address with MailerLite, our email provider, as described in the privacy policy, and MailerLite sends you a confirmation email. You are subscribed only after you click the link in that email. MailerLite's own pages and emails follow MailerLite's policy.",
+  "commentsH": "Blog comments",
+  "commentsP": "Comments on blog articles are stored in GitHub Discussions (repository tradingaihub/community) and shown through giscus. Nothing is requested from GitHub or giscus until you click “Load comments”. After you click, giscus and GitHub may set their own cookies under their own policies. To comment you sign in with your GitHub account, and what you post is public on GitHub. We do not receive your GitHub password or email address.",
+  "affH": "Affiliate and other external sites",
+  "affP": "When you click a link to another site, including a labelled partner (affiliate) link, the destination site may set its own cookies under its own policy. Our pages do not set a cookie when you click.",
+  "manageH": "How to change or clear this",
+  "manageP": "You can change the theme, language and accessibility settings with the controls on every page. To delete the stored values, clear this site's data in your browser settings. Blocking or deleting cookies in your browser does not by itself clear localStorage.",
+  "contactH": "Contact",
+  "contactP": "Questions about this notice: {email}.",
+  "seePrivacy": "For the full privacy policy, see {link}.",
+  "privacyLink": "Privacy policy"
+ },
+ "getFeatured": {
+  "title": "Get featured",
+  "metaDesc": "Free ways to get your finance AI tool listed on {site}. Paid sponsorships are not offered.",
+  "lead": "Listings on {site} are free. To get your tool on the directory, use the free submission form or email us. There is no paid placement and no checkout.",
+  "noPaid": "Paid sponsorships and paid homepage or category placements are not offered.",
+  "submitH": "Submit a tool for free",
+  "submitP": "Use the free submission form. It opens a pre-filled GitHub issue. We review every submission; tools that pass our checks are published, usually within a week. You also get a free auto-updating verified badge.",
+  "submitBtn": "Submit a tool (free)",
+  "contactH": "Contact",
+  "contactP": "Questions, or no GitHub account? Email {email}."
  }
 }
