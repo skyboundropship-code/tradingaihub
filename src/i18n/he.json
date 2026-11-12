@@ -351,7 +351,9 @@
   "fullReport": "לדו\"ח המלא",
   "money": "איך אנחנו מרוויחים",
   "moneyP": "הרישום חינמי. כרגע ההכנסה שלנו מגיעה רק מקישורי שותפים (affiliate) ל-TradingView ול-EODHD, ואנחנו מציינים זאת בגלוי. מיקומים ממומנים עדיין לא מוצעים; אם יוצעו, הם יסומנו \"ממומן\". אף אחד מהם לא משפיע על סטטוס האימות.",
-  "contact": "יצירת קשר"
+  "contact": "יצירת קשר",
+  "discussions": "יש לכם שאלה או רעיון? הצטרפו אלינו ב־<a href=\"https://github.com/tradingaihub/tradingaihub/discussions\">GitHub Discussions</a>."
+  
  },
  "disc": {
   "title": "הצהרה — אינו ייעוץ השקעות",

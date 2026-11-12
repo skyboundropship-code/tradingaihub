@@ -351,7 +351,8 @@
   "fullReport": "完全なレポートを見る",
   "money": "収益について",
   "moneyP": "掲載は無料です。現在の収益は、TradingViewとEODHDへの開示済みアフィリエイト（パートナー）リンクのみです。スポンサー枠はまだ提供していません。提供する場合は「スポンサー」と明示します。いずれも検証ステータスには影響しません。",
-  "contact": "お問い合わせ"
+  "contact": "お問い合わせ",
+  "discussions": "質問やアイデアがありますか？ぜひ<a href=\"https://github.com/tradingaihub/tradingaihub/discussions\">GitHub Discussions</a>にご参加ください。"
  },
  "disc": {
   "title": "免責事項：投資助言ではありません",

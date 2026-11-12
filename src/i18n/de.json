@@ -351,7 +351,8 @@
   "fullReport": "vollständigen Bericht ansehen",
   "money": "Wie wir Geld verdienen",
   "moneyP": "Einträge sind kostenlos. Derzeit verdienen wir ausschließlich an offengelegten Affiliate-(Partner-)Links zu TradingView und EODHD. Gesponserte Platzierungen bieten wir noch nicht an; falls doch, werden sie als „Gesponsert“ gekennzeichnet. Keines davon beeinflusst den Prüfstatus.",
-  "contact": "Kontakt"
+  "contact": "Kontakt",
+  "discussions": "Hast du eine Frage oder eine Idee? Mach bei <a href=\"https://github.com/tradingaihub/tradingaihub/discussions\">GitHub Discussions</a> mit."
  },
  "disc": {
   "title": "Haftungsausschluss: keine Anlageberatung",

@@ -351,7 +351,8 @@
   "fullReport": "tam raporu gör",
   "money": "Nasıl para kazanıyoruz",
   "moneyP": "Listeleme ücretsizdir. Şu anda yalnızca TradingView'e ve EODHD'ye verilen, açıklanmış satış ortaklığı (partner) bağlantılarından gelir elde ediyoruz. Sponsorlu alanlar henüz sunulmuyor; sunulursa “Sponsorlu” olarak işaretlenecek. Hiçbiri doğrulama durumunu etkilemez.",
-  "contact": "İletişim"
+  "contact": "İletişim",
+  "discussions": "Bir sorunuz veya fikriniz mi var? <a href=\"https://github.com/tradingaihub/tradingaihub/discussions\">GitHub Discussions</a>'ta bize katılın."
  },
  "disc": {
   "title": "Sorumluluk reddi: yatırım tavsiyesi değildir",

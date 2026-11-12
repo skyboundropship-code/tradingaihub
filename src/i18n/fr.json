@@ -351,7 +351,8 @@
   "fullReport": "voir le rapport complet",
   "money": "Comment nous gagnons de l'argent",
   "moneyP": "Le référencement est gratuit. Actuellement, nous gagnons de l'argent uniquement grâce à des liens d'affiliation (partenaires) déclarés vers TradingView et EODHD. Les emplacements sponsorisés ne sont pas encore proposés ; s'ils le deviennent, ils seront signalés « Sponsorisé ». Aucun n'influence le statut de vérification.",
-  "contact": "Contact"
+  "contact": "Contact",
+  "discussions": "Une question ou une idée ? Rejoignez-nous sur <a href=\"https://github.com/tradingaihub/tradingaihub/discussions\">GitHub Discussions</a>."
  },
  "disc": {
   "title": "Avertissement : pas un conseil en investissement",

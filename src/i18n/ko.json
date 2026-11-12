@@ -351,7 +351,8 @@
   "fullReport": "전체 리포트 보기",
   "money": "수익 구조",
   "moneyP": "등재는 무료입니다. 현재는 TradingView 및 EODHD로 연결되는, 공개된 제휴(파트너) 링크로만 수익을 얻습니다. 스폰서 자리는 아직 제공하지 않으며, 제공하게 되면 “스폰서”로 표시합니다. 어느 것도 검증 상태에 영향을 주지 않습니다.",
-  "contact": "문의"
+  "contact": "문의",
+  "discussions": "질문이나 아이디어가 있으신가요? <a href=\"https://github.com/tradingaihub/tradingaihub/discussions\">GitHub Discussions</a>에 참여해 보세요."
  },
  "disc": {
   "title": "면책 조항: 투자 조언이 아닙니다",
