@@ -354,7 +354,7 @@
   "latest": "Letzte Prüfung: {date} UTC —",
   "fullReport": "vollständigen Bericht ansehen",
   "money": "Wie wir Geld verdienen",
-  "moneyP": "Einträge sind kostenlos. Derzeit verdienen wir ausschließlich an offengelegten Affiliate-(Partner-)Links zu TradingView und EODHD. Gesponserte Platzierungen bieten wir noch nicht an; falls doch, werden sie als „Gesponsert“ gekennzeichnet. Keines davon beeinflusst den Prüfstatus.",
+  "moneyP": "Einträge sind kostenlos. Derzeit verdienen wir ausschließlich an offengelegten Affiliate-(Partner-)Links zu TradingView und EODHD. Gesponserte Platzierungen werden nicht angeboten. Affiliate-Links beeinflussen den Prüfstatus nie.",
   "contact": "Kontakt"
  },
  "disc": {
@@ -440,9 +440,9 @@
  },
  "adv": {
   "title": "Werbung",
-  "desc": "Werbung auf {site}.",
-  "lead": "{site} listet über {n} MCP-Server, Skills und APIs für Finanzen und Trading, jede Woche neu geprüft. Alle Einträge sind kostenlos; bezahlte Plätze kaufen nur Sichtbarkeit, nie einen besseren Prüfstatus. Bezahlte Plätze sind immer als „Gesponsert“ gekennzeichnet.",
-  "free": "Einträge, Badges und Einreichungen sind und bleiben <b>kostenlos</b>. Sponsoring ist noch nicht verfügbar. Später interessiert? Schreiben Sie an {email}."
+  "desc": "Kostenlose Einträge und Partnerschaftsanfragen auf {site}.",
+  "lead": "{site} listet über {n} MCP-Server, Skills und APIs für Finanzen und Trading, jede Woche neu geprüft. Alle Einträge sind kostenlos. Bezahlte Plätze und bezahltes Sponsoring werden nicht angeboten.",
+  "free": "Einträge, Badges und Einreichungen sind und bleiben <b>kostenlos</b>. Um ein Tool listen zu lassen, nutzen Sie das <a href=\"{submit}\">kostenlose Einreicheformular</a>. Bei Partnerschaftsfragen oder anderen Anliegen schreiben Sie an {email}."
  },
  "privacy": {
   "title": "Datenschutzerklärung",
@@ -450,9 +450,9 @@
   "p1": "{site} ist eine statische Website. Wir verlangen keine Konten und verwenden keine Werbe-Cookies. Ihre Sprach- und Theme-Einstellungen werden nur in Ihrem Browser (localStorage) gespeichert.",
   "collect": "Was wir erheben",
   "c1": "Aggregierte, datenschutzfreundliche Analysen ohne Cookies (Seitenaufrufe, Referrer, Land).",
-  "c2": "Angaben, die Sie uns beim Einreichen eines Tools oder beim Kauf eines Platzes senden (Name, E-Mail, Tool-Details). Zahlungen wickelt unser Merchant of Record ab; Kartennummern sehen wir nie.",
+  "c2": "Angaben, die Sie uns beim Einreichen eines Tools oder bei einer Kontaktaufnahme senden (zum Beispiel Name, E-Mail und Tool-Details).",
   "use": "Wie wir sie nutzen",
-  "useP": "Um Einreichungen zu prüfen, Werbeplätze auszuliefern und Sie zu Ihrem Eintrag zu kontaktieren. Wir verkaufen keine personenbezogenen Daten.",
+  "useP": "Um Einreichungen zu prüfen und Sie zu Ihrem Eintrag zu kontaktieren. Wir verkaufen keine personenbezogenen Daten.",
   "aff": "Affiliate-Links",
   "affP": "Wenn Sie auf einen Affiliate-Link klicken, kann die Zielseite nach ihrer eigenen Richtlinie eigene Cookies setzen.",
   "rights": "Ihre Rechte",
@@ -468,7 +468,7 @@
   "items": [
    "Die Website wird „wie besehen“ und nur zu Informationszwecken bereitgestellt. Siehe den <a href=\"{disc}\">Haftungsausschluss</a> – nichts hier ist Anlageberatung.",
    "Tool-Namen und Marken gehören ihren Inhabern. Einträge sind sachliche Beschreibungen; Inhaber können Korrekturen oder Entfernung verlangen.",
-   "Sponsorplätze kaufen nur Sichtbarkeit, sind gekennzeichnet, können abgelehnt oder entfernt werden (mit anteiliger Erstattung) und werden von unserem Merchant of Record abgerechnet.",
+   "Bezahltes Sponsoring und bezahlte Plätze werden nicht angeboten.",
    "Wer ein Tool einreicht, bestätigt, dass er es listen darf und dass es keine garantierten Renditen verspricht.",
    "Unsere Haftung ist auf den Betrag begrenzt, den Sie uns in den letzten 12 Monaten gezahlt haben.",
    "Die Verzeichnisdaten aus unserer kostenlosen <a href=\"/developers/\" hreflang=\"en\">API und unserem MCP-Server</a> stehen unter <a href=\"https://creativecommons.org/licenses/by/4.0/\" rel=\"license noopener\">CC BY 4.0</a>: Sie dürfen sie auch kommerziell weiterverwenden, wenn Sie “TradingAIHub, https://tradingaihub.com” als Quelle nennen. Der Code von API und MCP-Server steht unter der MIT-Lizenz.",

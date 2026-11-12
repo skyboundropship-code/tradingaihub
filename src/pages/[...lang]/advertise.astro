@@ -10,6 +10,6 @@ const lang = Astro.params.lang ?? "en"; const { t, p, desc } = useT(lang);
 <div class="wrap page">
   <h1>{t("adv.title")}</h1>
   <p style="color:var(--muted);max-width:760px">{t("adv.lead", { site: SITE.name, n: tools.length })}</p>
-  <div class="panel"><p set:html={t("adv.free", { email: SITE.contactEmail })} /></div>
+  <div class="panel"><p set:html={t("adv.free", { email: SITE.contactEmail, submit: p("/submit/") })} /></div>
 </div>
 </Base>

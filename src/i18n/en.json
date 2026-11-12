@@ -355,7 +355,7 @@
   "latest": "Latest run: {date} UTC —",
   "fullReport": "see the full report",
   "money": "How we make money",
-  "moneyP": "Listings are free. We currently earn only from disclosed affiliate (partner) links to TradingView and EODHD. Sponsored placements aren't offered yet; if they are, they'll be labelled “Sponsored”. Neither affects verification status.",
+  "moneyP": "Listings are free. We currently earn only from disclosed affiliate (partner) links to TradingView and EODHD. Sponsored placements are not offered. Affiliate links never affect verification status.",
   "contact": "Contact"
  },
  "disc": {
@@ -441,9 +441,9 @@
  },
  "adv": {
   "title": "Advertise",
-  "desc": "Advertising on {site}.",
-  "lead": "{site} lists {n}+ MCP servers, skills and APIs for finance and trading, re-verified weekly. Every listing is free; paid placements buy visibility only — never a better verification status. Paid placements are always labelled “Sponsored”.",
-  "free": "Listings, badges and submissions are and will stay <b>free</b>. Sponsorships aren't open yet. Interested for later? Email {email}."
+  "desc": "Free listings and partnership enquiries on {site}.",
+  "lead": "{site} lists {n}+ MCP servers, skills and APIs for finance and trading, re-verified weekly. Every listing is free. Paid placements and paid sponsorships are not offered.",
+  "free": "Listings, badges and submissions are and will stay <b>free</b>. To list a tool, use the <a href=\"{submit}\">free submission form</a>. For partnership questions or other enquiries, email {email}."
  },
  "privacy": {
   "title": "Privacy policy",
@@ -451,9 +451,9 @@
   "p1": "{site} is a static website. We do not require accounts and do not set advertising cookies. Your language and theme choices are stored only in your browser (localStorage).",
   "collect": "What we collect",
   "c1": "Privacy-friendly, cookie-less aggregate analytics (page views, referrers, country).",
-  "c2": "Information you send us when you submit a tool or buy a placement (name, email, tool details). Payments are processed by our merchant of record; we never see card numbers.",
+  "c2": "Information you send us when you submit a tool or contact us (for example your name, email and tool details).",
   "use": "How we use it",
-  "useP": "To review submissions, deliver placements, and contact you about your listing. We don't sell personal data.",
+  "useP": "To review submissions and contact you about your listing. We don't sell personal data.",
   "aff": "Affiliate links",
   "affP": "When you click an affiliate link, the destination site may set its own cookies under its own policy.",
   "rights": "Your rights",
@@ -469,7 +469,7 @@
   "items": [
    "The site is provided “as is” for information only. See the <a href=\"{disc}\">disclaimer</a> — nothing here is investment advice.",
    "Tool names and trademarks belong to their owners. Listings are factual descriptions; owners may request corrections or removal.",
-   "Sponsored placements buy visibility only, are labelled, may be declined or removed (pro-rata refund) and are billed by our merchant of record.",
+   "Paid sponsorships and paid placements are not offered.",
    "Submitters confirm they have the right to list the tool and that it makes no guaranteed-return claims.",
    "Our liability is limited to the amount you paid us in the last 12 months.",
    "The directory data in our free <a href=\"/developers/\" hreflang=\"en\">API and MCP server</a> is licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\" rel=\"license noopener\">CC BY 4.0</a>: you may reuse it, including commercially, if you credit “TradingAIHub, https://tradingaihub.com”. The API and MCP server code is MIT-licensed.",
